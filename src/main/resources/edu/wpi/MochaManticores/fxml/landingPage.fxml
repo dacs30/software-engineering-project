@@ -9,23 +9,23 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: lightslategrey;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.landingPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: lightblue;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.landingPageController">
   <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0c5294" height="62.0" layoutX="28.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" width="544.0" />
-    <Label alignment="CENTER" layoutX="42.0" layoutY="14.0" prefHeight="85.0" prefWidth="517.0" text="Brigham and Women's Hospital" textFill="WHITE">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2d75b3" height="47.0" layoutX="37.0" layoutY="3.0" stroke="#3a2f2f" strokeType="INSIDE" strokeWidth="2.0" width="528.0" />
+    <Label alignment="CENTER" layoutX="42.0" prefHeight="47.0" prefWidth="517.0" text="Brigham and Women's Hospital" textFill="WHITE">
       <font>
         <Font size="36.0" />
       </font>
     </Label>
-      <Label alignment="CENTER" layoutX="159.0" layoutY="99.0" prefHeight="47.0" prefWidth="282.0" style="-fx-background-color: DimGrey; -fx-border-color: Black;" text="Avaliable Services" textAlignment="CENTER" textFill="WHITE">
+      <Label alignment="CENTER" layoutX="159.0" layoutY="59.0" prefHeight="47.0" prefWidth="282.0" style="-fx-background-color: DimGrey; -fx-border-color: Black;" text="Avaliable Services" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <GridPane alignment="CENTER" layoutX="103.0" layoutY="146.0" prefHeight="224.0" prefWidth="394.0">
+      <GridPane alignment="CENTER" layoutX="101.0" layoutY="121.0" prefHeight="258.0" prefWidth="398.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="225.0" minWidth="10.0" prefWidth="213.66668701171875" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="233.6666259765625" minWidth="10.0" prefWidth="212.33331298828125" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -33,12 +33,12 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-          <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceScene" prefHeight="47.0" prefWidth="118.0" text="SERVICE_1_NAME" GridPane.halignment="CENTER" />
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceScene" prefHeight="47.0" prefWidth="118.0" text="SERVICE_2_NAME" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceScene" prefHeight="47.0" prefWidth="118.0" text="SERVICE_4_NAME" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceScene" prefHeight="47.0" prefWidth="118.0" text="SERVICE_6_NAME" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceScene" prefHeight="47.0" prefWidth="118.0" text="SERVICE_3_NAME" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceScene" prefHeight="47.0" prefWidth="118.0" text="SERVICE_5_NAME" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+          <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceScene" prefHeight="47.0" prefWidth="146.0" style="-fx-background-color: green;" text="Internal Transportation" textFill="WHITE" GridPane.halignment="CENTER" />
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceScene" prefHeight="47.0" prefWidth="146.0" style="-fx-background-color: green;" text="External Transportation" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceScene" prefHeight="47.0" prefWidth="146.0" style="-fx-background-color: teal;" text="Food Delivery" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceScene" prefHeight="47.0" prefWidth="146.0" style="-fx-background-color: red;" text="Emergency Button" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceScene" prefHeight="47.0" prefWidth="146.0" style="-fx-background-color: teal;" text="Floral Delivery" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceScene" prefHeight="47.0" prefWidth="146.0" style="-fx-background-color: orange;" text="Sanitation Services" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
          </children>
       </GridPane>
   </children>
