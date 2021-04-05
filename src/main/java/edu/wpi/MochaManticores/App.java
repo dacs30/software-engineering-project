@@ -1,4 +1,4 @@
-package edu.wpi.teamname;
+package edu.wpi.MochaManticores;
 
 import java.io.IOException;
 import javafx.application.Application;
@@ -22,7 +22,7 @@ public class App extends Application {
   public void start(Stage primaryStage) {
     App.primaryStage = primaryStage;
     try {
-      Parent root = FXMLLoader.load(getClass().getResource("fxml/Scene1.fxml"));
+      Parent root = FXMLLoader.load(getClass().getResource("fxml/landingPage.fxml"));
       Scene scene = new Scene(root);
       primaryStage.setScene(scene);
       primaryStage.show();
