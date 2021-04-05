@@ -6,16 +6,18 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.landingPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: lightslategrey;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.landingPageController">
   <children>
-    <Label alignment="CENTER" layoutX="42.0" layoutY="14.0" prefHeight="85.0" prefWidth="517.0" text="Brigham and Women's Hospital">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0c5294" height="62.0" layoutX="28.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" width="544.0" />
+    <Label alignment="CENTER" layoutX="42.0" layoutY="14.0" prefHeight="85.0" prefWidth="517.0" text="Brigham and Women's Hospital" textFill="WHITE">
       <font>
         <Font size="36.0" />
       </font>
     </Label>
-      <Label alignment="CENTER" layoutX="159.0" layoutY="99.0" prefHeight="47.0" prefWidth="282.0" text="Avaliable Services" textAlignment="CENTER">
+      <Label alignment="CENTER" layoutX="159.0" layoutY="99.0" prefHeight="47.0" prefWidth="282.0" style="-fx-background-color: DimGrey; -fx-border-color: Black;" text="Avaliable Services" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>
