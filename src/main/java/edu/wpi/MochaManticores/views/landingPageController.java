@@ -6,13 +6,44 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.layout.AnchorPane;
 
 public class landingPageController {
+
+
+  @FXML private AnchorPane confirmEmergencyDialog;
 
   @FXML
   private void advanceScene(ActionEvent e) {
     try {
       Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/MochaManticores/fxml/Scene2.fxml"));
+      App.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+  }
+
+  @FXML
+  private void returnToMain(ActionEvent e){
+    confirmEmergencyDialog.setVisible(false);
+  }
+  @FXML
+  private void confirmEmergency(ActionEvent e){
+    confirmEmergencyDialog.setVisible(true);
+
+    //    try{
+//      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/MochaManticores/fxml/EmergencyConfirm.fxml"));
+//      App.getPrimaryStage().getScene().setRoot(root);
+//    } catch (IOException ex){
+//      ex.printStackTrace();
+//    }
+
+
+  }
+  @FXML
+  private void emergencyForm(ActionEvent e){
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/MochaManticores/fxml/EmergencyForm.fxml"));
       App.getPrimaryStage().getScene().setRoot(root);
     } catch (IOException ex) {
       ex.printStackTrace();
