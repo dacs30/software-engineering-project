@@ -21,7 +21,7 @@ public class demo {
         Connection connection = null;
 
         try {
-            connection = DriverManager.getConnection("jdbc:derby:~/Mdatabase;create=true");
+            connection = DriverManager.getConnection("jdbc:derby:Mdatabase;create=true");
         } catch (SQLException e) {
             System.out.println("Connection failed. Check output console.");
             e.printStackTrace();
