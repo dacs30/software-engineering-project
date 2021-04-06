@@ -52,7 +52,7 @@ public class demo {
                         " floor VARCHAR(3), " +
                         " building VARCHAR(50), " +
                         " nodeType CHAR(4), " +
-                        " longName VARCHAR(255) UNIQUE," +
+                        " longName VARCHAR(255)," +
                         " shortName VARCHAR(255), " +
                         " PRIMARY KEY (nodeID))";
                 stmt.executeUpdate(sql);
