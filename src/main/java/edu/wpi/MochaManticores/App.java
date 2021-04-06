@@ -1,17 +1,19 @@
 package edu.wpi.MochaManticores;
 
 import java.io.IOException;
+import java.util.Stack;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
 public class App extends Application {
 
   private static Stage primaryStage;
-
-
+  public static Stack<Scene> scenes;
 
   @Override
   public void init() {
