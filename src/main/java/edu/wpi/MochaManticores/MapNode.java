@@ -10,32 +10,11 @@ import java.util.Stack;
  */
 public class MapNode {
     //Declare instance variables
-    private int cost;           //cost to visit the node
     public int ID;              //Node ID (for hashmap)
     private Stack neighborID;   //Neighbors' Node IDs
     private int clearance;      //Determines accessibility of node
 
-    public MapNode(int ID, Stack neighborID, int cost, int clearance) {
-    }
-
-    public int getCost() {
-        /**
-         * function: getCost()
-         * usage: function to retrieve the private cost of the node
-         * inputs: none
-         * returns: int cost (cost to visit the node)
-         */
-        return cost;
-    }
-
-    public void setCost(int newCost) {
-        /**
-         * function: setCost()
-         * usage: edits the cost to visit an existing node
-         * inputs: int newCost (desired new cost)
-         * returns: void
-         */
-        this.cost = newCost;
+    public MapNode(int ID, Stack neighborID, int clearance) {
     }
 
     public Stack getNeighbors() {

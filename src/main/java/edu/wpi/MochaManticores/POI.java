@@ -1,7 +1,5 @@
 package edu.wpi.MochaManticores;
 
-import edu.wpi.MochaManticores.MapNode;
-
 import java.util.Stack;
 
 /**
@@ -14,8 +12,8 @@ public class POI extends MapNode {
 
     String name;    //name of the location
 
-    public POI(int ID, Stack neighborID, int cost, int clearance, String name) {
-        super(ID, neighborID, cost, clearance);
+    public POI(int ID, Stack neighborID, int clearance, String name) {
+        super(ID, neighborID, clearance);
     }
 
     public String getName() {

@@ -11,8 +11,8 @@ public class ParkingSpace extends POI {
 
     private boolean isOccupied;     //records whether or not the space is occupied
 
-    public ParkingSpace(int ID, Stack neighborID, int cost, int clearance, String name, boolean isOccupied) {
-        super(ID, neighborID, cost, clearance, name);
+    public ParkingSpace(int ID, Stack neighborID, int clearance, String name, boolean isOccupied) {
+        super(ID, neighborID, clearance, name);
     }
 
     public boolean checkOccupied() {
