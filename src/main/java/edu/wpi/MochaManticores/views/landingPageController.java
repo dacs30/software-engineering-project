@@ -49,4 +49,11 @@ public class landingPageController {
       ex.printStackTrace();
     }
   }
+
+  @FXML
+  private void exitMethod(ActionEvent e){
+    System.exit(0);
+  }
+
+
 }

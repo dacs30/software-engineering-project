@@ -38,6 +38,7 @@ public class emergencyForm extends form {
         }catch(Exception ex){
             ex.printStackTrace();
         }
+        //System.exit(0);
         returnToMain(e);
     }
 }
