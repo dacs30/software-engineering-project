@@ -1,5 +1,5 @@
 NODEID,XCOORD,YCOORD,FLOOR,BUILDING,NODETYPE,LONGNAME,SHORTNAME,
-ACONF00103,1648,2968,3,BTM,CONF,BTM Conference Center,BTM Conference,
+ACONF00103,0,0,3,BTM,CONF,TeamMHeadquarters,BTM Conference,
 ADEPT00101,1401,2628,1,BTM,DEPT,Neuroscience Waiting Room,Neuro Waiting Room,
 ADEPT00102,1395,2674,2,BTM,DEPT,Orthopedics and Rhemutalogy,Orthopedics and Rhemutalogy,
 ADEPT00201,1720,2847,1,BTM,DEPT,MS Waiting,MS Waiting,

@@ -1,8 +1,8 @@
 package edu.wpi.MochaManticores.database;
 
-import org.apache.derby.impl.jdbc.EmbedResultSet;
 
-import javax.print.attribute.ResolutionSyntax;
+
+
 import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.Scanner;
@@ -30,7 +30,7 @@ public class demo {
             return;
         }
 
-        System.out.println("Apache Derby driver registered!");
+        System.out.println("Apache Derby driver registered!\n");
         Connection connection = null;
 
         try {
@@ -84,18 +84,14 @@ public class demo {
 
         //Menu
         if(args.length != 1) {
-            System.out.print("1 - Node Information\n" +
-                    "2 - Update Node Coordinates\n" +
-                    "3 - Update Node Location Long Name\n" +
-                    "4 - Edge Information\n" +
-                    "5 - Exit Program\n");
+            showMenu();
         }
         else {
             Scanner scanner = new Scanner(System.in);
             int inputVal = Integer.parseInt(args[0]);
             switch(inputVal) {
                 case 1:
-                    System.out.println(nodeCSV.save_node_csv(connection));
+                    NodeManager.showNodeInformation(nodeCSV.save_node_csv(connection));
                     break;
                 case 2:
                     System.out.print("Enter NodeID of the Node's Coordinates to be Changed: \n");
@@ -119,11 +115,20 @@ public class demo {
                     EdgeManager.showEdgeInformation(edgeCSV.save_edges_csv(connection));
                     break;
                 case 5:
+                    System.out.println("Exiting Program!");
                     return;
                 default:
                     System.out.println("Something seems to have gone wrong!");
 
             }
         }
+    }
+
+    public static void showMenu() {
+        System.out.print("1 - Node Information\n" +
+                "2 - Update Node Coordinates\n" +
+                "3 - Update Node Location Long Name\n" +
+                "4 - Edge Information\n" +
+                "5 - Exit Program\n");
     }
 }
