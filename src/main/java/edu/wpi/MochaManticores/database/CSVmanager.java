@@ -2,6 +2,7 @@ package edu.wpi.MochaManticores.database;
 
 import java.io.*;
 import java.sql.*;
+import java.util.Arrays;
 
 public class CSVmanager {
 
@@ -24,7 +25,6 @@ public class CSVmanager {
             String sql = "INSERT INTO NODES (nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = connect.prepareStatement(sql);
-
             while ((line = reader.readLine()) != null){
                 String[] row = line.split(this.CSVdelim);
 
@@ -54,7 +54,7 @@ public class CSVmanager {
             String line = reader.readLine();
 
             String sql = "INSERT INTO EDGES (edgeID, startNode, endNode) " +
-                    "VALUES (?, ?, ?)";;
+                    "VALUES (?, ?, ?)";
             PreparedStatement pstmt = connect.prepareStatement(sql);
 
             while ((line = reader.readLine())  != null){
@@ -75,11 +75,57 @@ public class CSVmanager {
         }
     }
     //save NODE CSV
-    void save_node_csv(Connection connect){
+    String save_node_csv(Connection connect) throws SQLException, FileNotFoundException {
+        PrintWriter pw = new PrintWriter(new File(this.CSVpath));
+        StringBuilder sb = new StringBuilder();
 
+        String sql = "SELECT * FROM NODES";
+        Statement stmt = connect.createStatement();
+        ResultSet results = stmt.executeQuery(sql);
+        ResultSetMetaData rsmd = results.getMetaData();
+
+        for(int i = 1; i <= rsmd.getColumnCount(); i++) {
+            sb.append(rsmd.getColumnName(i));
+            sb.append(",");
+        }
+        sb.append("\n");
+        while (results.next()) {
+            for(int i = 1; i <= rsmd.getColumnCount(); i++) {
+                sb.append(results.getString(i));
+                sb.append(",");
+            }
+            sb.append("\n");
+        }
+        results.close();
+        pw.write(sb.toString());
+        pw.close();
+        return sb.toString();
     }
     //save EDGES CSV
-    void save_edges_csv(Connection connect){
+     String save_edges_csv(Connection connect) throws FileNotFoundException, SQLException {
+        PrintWriter pw = new PrintWriter(new File(this.CSVpath));
+        StringBuilder sb = new StringBuilder();
 
+        String sql = "SELECT * FROM EDGES";
+        Statement stmt = connect.createStatement();
+        ResultSet results = stmt.executeQuery(sql);
+        ResultSetMetaData rsmd = results.getMetaData();
+
+        for(int i = 1; i <= rsmd.getColumnCount(); i++) {
+            sb.append(rsmd.getColumnName(i));
+            sb.append(",");
+        }
+        sb.append("\n");
+        while (results.next()) {
+            for(int i = 1; i <= rsmd.getColumnCount(); i++) {
+                sb.append(results.getString(i));
+                sb.append(",");
+            }
+            sb.append("\n");
+        }
+        results.close();
+        pw.write(sb.toString());
+        pw.close();
+        return sb.toString();
     }
 }
