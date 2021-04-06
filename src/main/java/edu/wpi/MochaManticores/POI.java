@@ -9,11 +9,11 @@ import java.util.Stack;
  * @author aksil
  */
 public class POI extends MapNode {
-
+    //Declare instance variables
     String name;    //name of the location
 
-    public POI(int ID, Stack neighborID, int clearance, String name) {
-        super(ID, neighborID, clearance);
+    public POI(int ID, ConnectedNodes neighbors, int clearance, String name) {
+        super(ID, neighbors, clearance);
     }
 
     public String getName() {

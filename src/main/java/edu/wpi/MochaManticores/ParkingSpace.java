@@ -8,11 +8,11 @@ import java.util.Stack;
  * @author aksil
  */
 public class ParkingSpace extends POI {
-
+    //Declare instance variables
     private boolean isOccupied;     //records whether or not the space is occupied
 
-    public ParkingSpace(int ID, Stack neighborID, int clearance, String name, boolean isOccupied) {
-        super(ID, neighborID, clearance, name);
+    public ParkingSpace(int ID, ConnectedNodes neighbors, int clearance, String name, boolean isOccupied) {
+        super(ID, neighbors, clearance, name);
     }
 
     public boolean checkOccupied() {

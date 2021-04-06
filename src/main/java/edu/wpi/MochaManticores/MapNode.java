@@ -1,6 +1,6 @@
 package edu.wpi.MochaManticores;
 
-import java.util.Stack;
+import java.util.Set;
 
 /**
  * This is a node class to contain information
@@ -11,30 +11,31 @@ import java.util.Stack;
 public class MapNode {
     //Declare instance variables
     public int ID;              //Node ID (for hashmap)
-    private Stack neighborID;   //Neighbors' Node IDs
+    private ConnectedNodes neighbors;   //Neighbors' Node IDs and costs
     private int clearance;      //Determines accessibility of node
 
-    public MapNode(int ID, Stack neighborID, int clearance) {
+    public MapNode(int ID, ConnectedNodes neighbors, int clearance) {
     }
 
-    public Stack getNeighbors() {
+    public Set getNeighbors() {
         /**
          * function: getNeighbors()
          * usage: function to retrieve the private neighbors of the node
          * inputs: none
          * returns: Stack neighbors (IDs of all adjacent nodes)
          */
-        return neighborID;
+        return neighbors.getKeyIDs();
     }
 
-    public void addNeighbor(int newID) {
+    public void addNeighbor(int newID, int newCost) {
         /**
          * function: addNeighbor()
          * usage: adds a new neighborID to the stack
          * inputs: int newID (ID of neighbor to be added)
+         *         int newCost (cost to move to the new node)
          * returns: void
          */
-        this.neighborID.add(newID);
+        this.neighbors.newNeighbor(newID, newCost);
     }
 
     public void delNeighbor(int delID) {
@@ -44,7 +45,7 @@ public class MapNode {
          * inputs: int delID (ID of neighbor to be removed)
          * returns: void
          */
-        this.neighborID.remove(delID);
+        this.neighbors.removeNeighbor(delID);
     }
 
     public int getClearance() {
