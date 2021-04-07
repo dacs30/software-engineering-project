@@ -11,6 +11,9 @@ public class App extends Application {
 
   private static Stage primaryStage;
 
+  public static void setPrimaryStage(Stage primaryStage) {
+
+  }
 
 
   @Override

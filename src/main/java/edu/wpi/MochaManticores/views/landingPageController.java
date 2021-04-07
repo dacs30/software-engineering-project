@@ -18,4 +18,12 @@ public class landingPageController {
       ex.printStackTrace();
     }
   }
+  private void grabScene(ActionEvent e) {
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/MochaManticores/fxml/sanitationService.fxml"));
+      App.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+  }
 }
