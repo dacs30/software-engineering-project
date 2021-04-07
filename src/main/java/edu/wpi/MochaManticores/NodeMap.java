@@ -17,6 +17,16 @@ public class NodeMap {
     public NodeMap(HashMap<Integer, MapNode> myMap) {
     }
 
+    public MapNode getNode(Integer ID) {
+        /**
+         * function: getNode()
+         * usage: returns the node corresponding to the input ID
+         * inputs: Integer ID (the node ID of the desired node)
+         * returns: MapNode (unnamed) (the specified MapNode)
+         */
+        return this.myMap.get(ID);
+    }
+
     public void addNode(MapNode newNode) {
         /**
          * function: addNode()
