@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class ConfirmationFoodDelivery {
+public class ConfirmationFoodDelivery extends form{
 //    Trying to add a time function to go back to the menu
 //    ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
 //    Runnable task = forceGoBack();

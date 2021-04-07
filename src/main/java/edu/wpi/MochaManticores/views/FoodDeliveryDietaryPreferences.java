@@ -3,10 +3,12 @@ package edu.wpi.MochaManticores.views;
 import edu.wpi.MochaManticores.App;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
@@ -24,13 +26,17 @@ public class FoodDeliveryDietaryPreferences {
     public ComboBox<String> dietaryOptions = new ComboBox<>();
 
     @FXML
+    public TextField allergies;
+
+
+    @FXML
     private void initialize(){
         dietaryOptions.setItems(dropdownOptions);
         menuChoiceBox.setItems(menuOptions);
     }
 
 
-    public void foodDeliveryGoBackOnClickedEvent(MouseEvent mouseEvent) {
+    public void foodDeliveryGoBackOnClickedEvent(ActionEvent e) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/MochaManticores/fxml/foodDelivery.fxml"));
             App.getPrimaryStage().getScene().setRoot(root);
@@ -39,7 +45,10 @@ public class FoodDeliveryDietaryPreferences {
         }
     }
 
-    public void foodDeliverySubmitOnClickEvent(MouseEvent mouseEvent) {
+    public void foodDeliverySubmitOnClickEvent(ActionEvent e) {
+        System.out.println(dietaryOptions.getSelectionModel().getSelectedItem());
+        System.out.println(allergies.getText());
+        System.out.println(menuChoiceBox.getSelectionModel().getSelectedItem());
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/MochaManticores/fxml/confirmationFoodDelivery.fxml"));
             App.getPrimaryStage().getScene().setRoot(root);

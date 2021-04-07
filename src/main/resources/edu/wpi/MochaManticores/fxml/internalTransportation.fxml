@@ -11,40 +11,40 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.internalTransportationController">
-   <children>
-      <Text fontSmoothingType="LCD" layoutX="31.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham and Women's Hospital" textAlignment="CENTER" wrappingWidth="538.3375854492188">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Text>
-      <Text layoutX="209.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Internal Transportation" textAlignment="CENTER">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Text>
-      <GridPane alignment="CENTER" layoutX="50.0" layoutY="103.0" prefHeight="205.0" prefWidth="500.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="245.0" minWidth="10.0" prefWidth="144.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="356.0" minWidth="10.0" prefWidth="356.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="124.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="107.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="88.0" minHeight="10.0" prefHeight="51.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="88.0" minHeight="10.0" prefHeight="61.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <TextField GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Method Of Transportation" textAlignment="CENTER" wrappingWidth="127.00424194335938" GridPane.rowIndex="3" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Destination" textAlignment="CENTER" wrappingWidth="127.00424194335938" GridPane.rowIndex="2" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Number of Staff Needed" textAlignment="CENTER" wrappingWidth="127.00424194335938" GridPane.rowIndex="1" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient ID" textAlignment="CENTER" wrappingWidth="127.00424194335938" />
-            <ComboBox fx:id="transportComboBox" onMouseClicked="#initialize" prefHeight="31.0" prefWidth="372.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-         </children>
-      </GridPane>
-      <Button fx:id="submitButton" alignment="CENTER" layoutX="377.0" layoutY="309.0" mnemonicParsing="false" onAction="#advanceSuccessScene" prefHeight="77.0" prefWidth="166.0" text="Submit" />
-      <Button fx:id="cancelButton" alignment="CENTER" layoutX="61.0" layoutY="309.0" mnemonicParsing="false" onAction="#cancelScene" prefHeight="77.0" prefWidth="166.0" text="Cancel" />
-   </children>
+    <children>
+        <Text fontSmoothingType="LCD" layoutX="31.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham and Women's Hospital" textAlignment="CENTER" wrappingWidth="538.3375854492188">
+            <font>
+                <Font size="36.0" />
+            </font>
+        </Text>
+        <Text layoutX="209.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Internal Transportation" textAlignment="CENTER">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Text>
+        <GridPane alignment="CENTER" layoutX="50.0" layoutY="103.0" prefHeight="205.0" prefWidth="500.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="245.0" minWidth="10.0" prefWidth="144.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="356.0" minWidth="10.0" prefWidth="356.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="124.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="107.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="88.0" minHeight="10.0" prefHeight="51.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="88.0" minHeight="10.0" prefHeight="61.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <TextField fx:id="patientID" GridPane.columnIndex="1" />
+                <TextField fx:id="numberOfStaff" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <TextField fx:id="destination" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Method Of Transportation" textAlignment="CENTER" wrappingWidth="127.00424194335938" GridPane.rowIndex="3" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Destination" textAlignment="CENTER" wrappingWidth="127.00424194335938" GridPane.rowIndex="2" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Number of Staff Needed" textAlignment="CENTER" wrappingWidth="127.00424194335938" GridPane.rowIndex="1" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient ID" textAlignment="CENTER" wrappingWidth="127.00424194335938" />
+                <ComboBox fx:id="transportComboBox" onMouseClicked="#initialize" prefHeight="31.0" prefWidth="372.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            </children>
+        </GridPane>
+        <Button fx:id="submitButton" alignment="CENTER" layoutX="377.0" layoutY="309.0" mnemonicParsing="false" onAction="#advanceSuccessScene" prefHeight="77.0" prefWidth="166.0" text="Submit" />
+        <Button fx:id="cancelButton" alignment="CENTER" layoutX="61.0" layoutY="309.0" mnemonicParsing="false" onAction="#cancelScene" prefHeight="77.0" prefWidth="166.0" text="Cancel" />
+    </children>
 </AnchorPane>

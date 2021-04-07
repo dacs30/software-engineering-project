@@ -10,8 +10,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Button;
-
+import javafx.scene.control.TextField;
 public class internalTransportationController {
+
 
     ObservableList<String> typeOfTransportList = FXCollections
             .observableArrayList("Wheelchair","Walker","Medical Bed");
@@ -23,8 +24,6 @@ public class internalTransportationController {
         private TextField numberOfStaff;
     @FXML
         private TextField destination;
-    @FXML
-        private TextField methodOfTransport;
     @FXML
         private ComboBox transportComboBox;
 
@@ -49,6 +48,10 @@ public class internalTransportationController {
     }
     @FXML
         private void advanceSuccessScene(ActionEvent e) {
+        System.out.println(patientID.getText());
+        System.out.println(numberOfStaff.getText());
+        System.out.println(destination.getText());
+        System.out.println(transportComboBox.getSelectionModel().getSelectedItem());
             try {
                 Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/MochaManticores/fxml/successPage.fxml"));
                 App.getPrimaryStage().getScene().setRoot(root);

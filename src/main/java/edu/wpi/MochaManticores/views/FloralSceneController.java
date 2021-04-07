@@ -14,7 +14,7 @@ import javafx.scene.shape.Rectangle;
 import javax.xml.soap.Text;
 import java.io.IOException;
 
-public class FloralSceneController {
+public class FloralSceneController extends form{
 
   @FXML
   private TextField rmNum;
@@ -40,21 +40,17 @@ public class FloralSceneController {
 
   @FXML
   private void goBack(ActionEvent e) {
-    try {
-      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/MochaManticores/fxml/landingPage.fxml"));
-      App.getPrimaryStage().getScene().setRoot(root);
-    } catch (IOException ex) {
-      ex.printStackTrace();
-    }
+returnToMain(e);
   }
   @FXML
   private void submitForm(ActionEvent e) {
-    try {
-      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/MochaManticores/fxml/landingPage.fxml"));
-      App.getPrimaryStage().getScene().setRoot(root);
-    } catch (IOException ex) {
-      ex.printStackTrace();
-    }
+    System.out.println(rmNum.getText());
+    System.out.println(delivDate.getText());
+    System.out.printf("Tulip: %s\nRose: %s\nLillie: %s\n",tulip.isSelected(),rose.isSelected(),lilie.isSelected());
+    System.out.printf("Blue: %s\nYellow: %s\nOrange: %s\n",blue.isSelected(),yellow.isSelected(),orange.isSelected());
+    System.out.println(personalNote.getText());
+
+    returnToMain(e);
   }
 
   @FXML
