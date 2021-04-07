@@ -15,7 +15,7 @@
 ##Food Delivery
 * Wow! This is wonderful, and you've left space to add on functionality
     * The only suggestion I have is change the confirmation page to a popup/dialog  
-    becuase we want to keep the fxml and controller files manageable
+    because we want to keep the fxml and controller files manageable
       
 ##Sanitation Services
 * Looks good

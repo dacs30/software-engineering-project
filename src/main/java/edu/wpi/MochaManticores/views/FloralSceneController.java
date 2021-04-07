@@ -3,18 +3,12 @@ package edu.wpi.MochaManticores.views;
 import edu.wpi.MochaManticores.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.shape.Rectangle;
 
-import javax.xml.soap.Text;
-import java.io.IOException;
-
-public class FloralSceneController extends form{
+public class FloralSceneController extends SceneController {
 
   @FXML
   private TextField rmNum;
