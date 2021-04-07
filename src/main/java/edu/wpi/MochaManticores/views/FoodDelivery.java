@@ -22,4 +22,13 @@ public class FoodDelivery {
             ex.printStackTrace();
         }
     }
+
+    public void makeAnOrderOnClickEvent(MouseEvent mouseEvent) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/MochaManticores/fxml/FoodDeliveryDietaryPreferences.fxml"));
+            App.getPrimaryStage().getScene().setRoot(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 }
