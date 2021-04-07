@@ -11,10 +11,11 @@ import java.util.Set;
  */
 public class NodeMap {
     //Declare instance variables
+    public String name;
     private HashMap<Integer, MapNode> myMap;    //map of MapNodes organized by nodeID
 
     //Constructor
-    public NodeMap(HashMap<Integer, MapNode> myMap) {
+    public NodeMap(HashMap<Integer, MapNode> myMap, String name) {
     }
 
     public MapNode getNode(Integer ID) {
