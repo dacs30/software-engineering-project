@@ -28,7 +28,7 @@ public class ConnectedNodes {
         return this.neighbors.keySet();
     }
 
-   public Integer getCost(Integer key) {
+    public Integer getCost(Integer key) {
        /**
         * function: getCost()
         * usage: retrieves the cost of moving to the target node
