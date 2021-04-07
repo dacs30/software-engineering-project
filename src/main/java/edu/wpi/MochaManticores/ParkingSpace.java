@@ -11,6 +11,7 @@ public class ParkingSpace extends POI {
     //Declare instance variables
     private boolean isOccupied;     //records whether or not the space is occupied
 
+    //Constructor
     public ParkingSpace(int ID, ConnectedNodes neighbors, int clearance, String name, boolean isOccupied) {
         super(ID, neighbors, clearance, name);
     }
@@ -23,6 +24,6 @@ public class ParkingSpace extends POI {
          * inputs: none
          * returns: boolean isOccupied
          */
-        return isOccupied;
+        return this.isOccupied;
     }
 }

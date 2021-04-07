@@ -13,10 +13,11 @@ public class ConnectedNodes {
     //Declare instance variables
     private HashMap<Integer, Integer> neighbors; //contains the nodeID (key) and cost (value)
 
+    //Constructor
     public ConnectedNodes(HashMap<Integer, Integer> neighbors) {
     }
 
-    public Set getKeyIDs() {
+    public Set<Integer> getKeyIDs() {
         /**
          * function: getKeyIDs()
          * usage: retrieves a Set containing all of the Integer
@@ -24,7 +25,7 @@ public class ConnectedNodes {
          * inputs: none
          * returns: Set (no name) (a Set containing neighboring node IDs)
          */
-        return neighbors.keySet();
+        return this.neighbors.keySet();
     }
 
    public Integer getCost(Integer key) {
@@ -34,7 +35,7 @@ public class ConnectedNodes {
         * inputs: Integer key (node ID of the desired neighbor)
         * returns: Integer cost (cost to cross the vertex)
         */
-        return neighbors.get(key);
+        return this.neighbors.get(key);
     }
 
     public void setCost(Integer key, Integer cost) {
@@ -45,7 +46,7 @@ public class ConnectedNodes {
          *         Integer cost (new cost)
          * returns: void
          */
-        neighbors.replace(key, cost);
+        this.neighbors.replace(key, cost);
     }
 
     public void newNeighbor(Integer neighborID, Integer pathCost) {
@@ -56,7 +57,7 @@ public class ConnectedNodes {
          *         Integer pathCost (path cost to travel to the new node)
          * returns: void
          */
-        neighbors.put(neighborID, pathCost);
+        this.neighbors.put(neighborID, pathCost);
     }
 
     public void removeNeighbor(Integer key) {
@@ -66,6 +67,6 @@ public class ConnectedNodes {
          * inputs: Integer key (node ID of the node to be deleted)
          * returns: void
          */
-        neighbors.remove(key);
+        this.neighbors.remove(key);
     }
 }

@@ -4,27 +4,28 @@ import java.util.Set;
 
 /**
  * This is a node class to contain information
- * for the occupancy grid of the hospital used by
+ * for the NodeMap of the hospital used by
  * the navigation algorithms.
  * @author aksil
  */
 public class MapNode {
     //Declare instance variables
-    public int ID;              //Node ID (for hashmap)
+    public int ID;                      //Node ID (for hashmap)
     private ConnectedNodes neighbors;   //Neighbors' Node IDs and costs
-    private int clearance;      //Determines accessibility of node
+    private int clearance;              //Determines accessibility of node
 
+    //Constructor
     public MapNode(int ID, ConnectedNodes neighbors, int clearance) {
     }
 
-    public Set getNeighbors() {
+    public Set<Integer> getNeighbors() {
         /**
          * function: getNeighbors()
          * usage: function to retrieve the private neighbors of the node
          * inputs: none
          * returns: Stack neighbors (IDs of all adjacent nodes)
          */
-        return neighbors.getKeyIDs();
+        return this.neighbors.getKeyIDs();
     }
 
     public void addNeighbor(int newID, int newCost) {
@@ -48,6 +49,27 @@ public class MapNode {
         this.neighbors.removeNeighbor(delID);
     }
 
+    public void editCost(Integer ID, Integer newCost) {
+        /**
+         * function: editCost()
+         * usage: function to edit the cost to travel to a neighboring node
+         * inputs: Integer ID (ID of neighbor)
+         *         Integer newCost (new cost)
+         * returns: void
+         */
+        this.neighbors.setCost(ID, newCost);
+    }
+
+    public int getCost(Integer ID) {
+        /**
+         * function: getCost()
+         * usage: returns cost to travel to a neighboring node
+         * inputs: Integer ID (ID of neighbor)
+         * returns: Integer cost (the cost to travel to the node)
+         */
+        return this.neighbors.getCost(ID);
+    }
+
     public int getClearance() {
         /**
          * function: getClearance()
@@ -55,6 +77,6 @@ public class MapNode {
          * inputs: none
          * returns: int clearance (determines who can travel through this node)
          */
-        return clearance;
+        return this.clearance;
     }
 }

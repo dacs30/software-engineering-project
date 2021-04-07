@@ -12,6 +12,7 @@ public class POI extends MapNode {
     //Declare instance variables
     String name;    //name of the location
 
+    //Constructor
     public POI(int ID, ConnectedNodes neighbors, int clearance, String name) {
         super(ID, neighbors, clearance);
     }
@@ -23,6 +24,6 @@ public class POI extends MapNode {
          * inputs: none
          * returns: String name (name of the POI)
          */
-        return name;
+        return this.name;
     }
 }
