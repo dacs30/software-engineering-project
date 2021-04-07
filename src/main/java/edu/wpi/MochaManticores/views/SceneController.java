@@ -12,7 +12,7 @@ import java.util.EmptyStackException;
 import java.util.Stack;
 
 public class SceneController {
-    protected static Stack<String> scenes;
+    protected static Stack<String> scenes = new Stack<String>();
 
     @FXML
     protected void returnToMain(ActionEvent e){
