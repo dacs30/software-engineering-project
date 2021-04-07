@@ -48,7 +48,7 @@ public class internalTransportationController {
         }
     }
     @FXML
-        private void advanceScene(ActionEvent e) {
+        private void advanceSuccessScene(ActionEvent e) {
             try {
                 Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/MochaManticores/fxml/successPage.fxml"));
                 App.getPrimaryStage().getScene().setRoot(root);
