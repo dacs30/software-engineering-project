@@ -95,7 +95,8 @@ public class landingPageController {
     }
 
   }
-  private void grabScene(ActionEvent e) {
+  @FXML
+  private void grabSanitation(ActionEvent e) {
     try {
       Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/MochaManticores/fxml/sanitationService.fxml"));
       App.getPrimaryStage().getScene().setRoot(root);
