@@ -74,4 +74,14 @@ public class landingPageController {
       ex.printStackTrace();
     }
   }
+
+  @FXML
+  private void advanceToExtTransportation(ActionEvent e) {
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/MochaManticores/fxml/extTransportation.fxml"));
+      App.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+  }
 }
