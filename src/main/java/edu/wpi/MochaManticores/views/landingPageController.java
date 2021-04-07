@@ -56,4 +56,13 @@ public class landingPageController {
   }
 
 
+
+  public void advanceFoodService(ActionEvent actionEvent) {
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/MochaManticores/fxml/foodDelivery.fxml"));
+      App.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex){
+      ex.printStackTrace();
+    }
+  }
 }

@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: lightblue;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.landingPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: lightblue;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.landingPageController">
   <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2d75b3" height="47.0" layoutX="37.0" layoutY="3.0" stroke="#3a2f2f" strokeType="INSIDE" strokeWidth="2.0" width="528.0" />
     <Label alignment="CENTER" layoutX="42.0" prefHeight="47.0" prefWidth="517.0" text="Brigham and Women's Hospital" textFill="WHITE">
@@ -40,6 +40,8 @@
             <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceScene" prefHeight="47.0" prefWidth="146.0" style="-fx-background-color: green;" text="External Transportation" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
             <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceScene" prefHeight="47.0" prefWidth="146.0" style="-fx-background-color: teal;" text="Food Delivery" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#confirmEmergency" prefHeight="47.0" prefWidth="146.0" style="-fx-background-color: red;" text="Emergency Button" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceFoodService" prefHeight="47.0" prefWidth="146.0" style="-fx-background-color: teal;" text="Food Delivery" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceScene" prefHeight="47.0" prefWidth="146.0" style="-fx-background-color: red;" text="Emergency Button" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
             <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceScene" prefHeight="47.0" prefWidth="146.0" style="-fx-background-color: teal;" text="Floral Delivery" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceScene" prefHeight="47.0" prefWidth="146.0" style="-fx-background-color: orange;" text="Sanitation Services" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
          </children>
