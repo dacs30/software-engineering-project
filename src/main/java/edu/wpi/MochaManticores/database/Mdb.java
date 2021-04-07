@@ -10,8 +10,6 @@ public class Mdb {
     private static DatabaseMetaData meta;
     private static Connection connection;
     public static String JDBC_URL = "jdbc:derby:Mdatabase;create=true";
-    public static final String SQL_STATEMENT_EDGES = "select * from EDGES";
-    public static final String SQL_STATEMENT_NODES = "select * from NODES";
     private static final String Edge_csv_path = "data/edges.csv";
     private static final String Node_csv_path = "data/nodes.csv";
 
