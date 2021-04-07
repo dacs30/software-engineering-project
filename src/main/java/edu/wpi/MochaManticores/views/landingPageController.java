@@ -16,6 +16,15 @@ public class landingPageController {
   @FXML
   private void advanceScene(ActionEvent e) {
     try {
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/MochaManticores/fxml/Scene2.fxml"));
+      App.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+  }
+  @FXML
+  private void advanceInternalTransportScene(ActionEvent e) {
+    try {
       Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/MochaManticores/fxml/internalTransportation.fxml"));
       App.getPrimaryStage().getScene().setRoot(root);
     } catch (IOException ex) {

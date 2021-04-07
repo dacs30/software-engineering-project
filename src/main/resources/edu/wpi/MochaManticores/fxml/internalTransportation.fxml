@@ -44,7 +44,7 @@
             <ComboBox fx:id="transportComboBox" onMouseClicked="#initialize" prefHeight="31.0" prefWidth="372.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
-      <Button fx:id="submitButton" alignment="CENTER" layoutX="377.0" layoutY="309.0" mnemonicParsing="false" onAction="#advanceScene" prefHeight="77.0" prefWidth="166.0" text="Submit" />
+      <Button fx:id="submitButton" alignment="CENTER" layoutX="377.0" layoutY="309.0" mnemonicParsing="false" onAction="#advanceSuccessScene" prefHeight="77.0" prefWidth="166.0" text="Submit" />
       <Button fx:id="cancelButton" alignment="CENTER" layoutX="61.0" layoutY="309.0" mnemonicParsing="false" onAction="#cancelScene" prefHeight="77.0" prefWidth="166.0" text="Cancel" />
    </children>
 </AnchorPane>
