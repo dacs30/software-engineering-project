@@ -56,7 +56,7 @@ test {
 // with the Main method you want run!
 jar {
     manifest {
-        attributes 'Main-Class': 'edu.wpi.teamname.Main'
+        attributes 'Main-Class': 'edu.wpi.MochaManticores.Main'
     }
 }
 
