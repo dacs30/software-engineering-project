@@ -1,15 +1,10 @@
 package edu.wpi.MochaManticores.views;
 
-import edu.wpi.MochaManticores.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 
-import java.io.IOException;
-
-public class emergencyForm extends form {
+public class emergencyForm extends SceneController {
 
     @FXML
     private TextField room;

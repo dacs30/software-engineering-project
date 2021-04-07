@@ -1,13 +1,12 @@
 package edu.wpi.MochaManticores.views;
 
-import edu.wpi.MochaManticores.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-public class sanitationServiceController extends form {
+public class sanitationServiceController extends SceneController {
 
     @FXML
     private TextField loc;

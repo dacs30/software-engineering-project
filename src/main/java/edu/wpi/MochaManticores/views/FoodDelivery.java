@@ -4,11 +4,10 @@ import edu.wpi.MochaManticores.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 
-public class FoodDelivery extends form{
+public class FoodDelivery extends SceneController {
 
     // Go back trigger makes the user to go back
     /*

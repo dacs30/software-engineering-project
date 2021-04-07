@@ -53,7 +53,7 @@
                   <Font size="28.0" />
                </font>
             </Text>
-            <Button layoutX="216.0" layoutY="249.0" mnemonicParsing="false" onAction="#returnToMain" style="-fx-background-color: #FF0000;" text="Cancel" />
+            <Button layoutX="216.0" layoutY="249.0" mnemonicParsing="false" onAction="#dismissEmergencyDialog" style="-fx-background-color: #FF0000;" text="Cancel" />
             <Button layoutX="328.0" layoutY="249.0" mnemonicParsing="false" onAction="#emergencyForm" style="-fx-background-color: #00FF00;" text="Continue" />
          </children>
       </AnchorPane>
