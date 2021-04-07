@@ -19,6 +19,11 @@ public class App extends Application {
   private static Stage primaryStage;
   public static Stack<Scene> scenes;
 
+  public static void setPrimaryStage(Stage primaryStage) {
+
+  }
+
+
   @Override
   public void init() {
     System.out.println("Starting Up");

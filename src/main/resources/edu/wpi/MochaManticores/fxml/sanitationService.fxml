@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="414.0" prefWidth="575.0" style="-fx-background-color: teal;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.sanitationServiceController">
+    <children>
+        <Label layoutX="130.0" layoutY="14.0" prefHeight="30.0" prefWidth="327.0" style="-fx-border-color: dimgrey; -fx-background-color: blue;" text=" Sanitation Service Request Form" textFill="WHITE" wrapText="true">
+            <font>
+                <Font name="Serif Regular" size="24.0" />
+            </font>
+        </Label>
+        <Button fx:id="submitButton" layoutX="339.0" layoutY="333.0" mnemonicParsing="false" onAction="#submit" prefHeight="47.0" prefWidth="118.0" style="-fx-background-color: green; -fx-border-color: black;" text="Submit" textFill="WHITE">
+            <font>
+                <Font name="Serif Regular" size="12.0" />
+            </font></Button>
+        <Button fx:id="cancelButton" layoutX="171.0" layoutY="333.0" mnemonicParsing="false" onAction="#back" prefHeight="47.0" prefWidth="118.0" style="-fx-background-color: red; -fx-border-color: black;" text="Cancel" textFill="WHITE">
+            <font>
+                <Font name="Serif Regular" size="12.0" />
+            </font>
+        </Button>
+        <Label layoutX="112.0" layoutY="83.0" prefHeight="20.0" prefWidth="57.0" text="Location:" textFill="WHITE">
+            <font>
+                <Font name="Serif Regular" size="14.0" />
+            </font>
+        </Label>
+        <TextField fx:id="loc" layoutX="170.0" layoutY="80.0" prefHeight="25.0" prefWidth="288.0" promptText="Room number, Hallway, Waiting Area, etc." />
+        <TextArea fx:id="description" layoutX="170.0" layoutY="222.0" prefHeight="91.0" prefWidth="288.0" promptText="Detailed description of the incident" />
+        <Label layoutX="75.0" layoutY="116.0" prefHeight="20.0" prefWidth="91.0" text="Safety Hazards:" textFill="WHITE">
+            <font>
+                <Font name="Serif Regular" size="14.0" />
+            </font>
+        </Label>
+        <TextField fx:id="safetyHaz" layoutX="170.0" layoutY="114.0" prefHeight="25.0" prefWidth="288.0" promptText="Biohazard, Lots of foot traffic, etc." />
+        <TextField fx:id="type" layoutX="170.0" layoutY="146.0" prefHeight="25.0" prefWidth="288.0" promptText="Spill, room cleaning, etc." />
+        <TextField fx:id="equipment" layoutX="170.0" layoutY="183.0" prefHeight="25.0" prefWidth="288.0" promptText="Mop, gloves, mask" />
+        <Label layoutX="72.0" layoutY="149.0" prefHeight="20.0" prefWidth="97.0" text="Sanitation Type:" textFill="WHITE">
+            <font>
+                <Font name="Serif Regular" size="14.0" />
+            </font>
+        </Label>
+        <Label layoutX="53.0" layoutY="185.0" prefHeight="20.0" prefWidth="118.0" text="Equipment Needed:" textFill="WHITE">
+            <font>
+                <Font name="Serif Regular" size="14.0" />
+            </font>
+        </Label>
+        <Label layoutX="93.0" layoutY="222.0" prefHeight="20.0" prefWidth="73.0" text="Description:" textFill="WHITE">
+            <font>
+                <Font name="Serif Regular" size="14.0" />
+            </font>
+        </Label>
+    </children>
+</AnchorPane>
