@@ -3,6 +3,7 @@ package edu.wpi.MochaManticores;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Map;
 
 /**
  * This is a basic Dijkstra search algorithm
@@ -16,8 +17,8 @@ public class Dijkstra {
     private HashMap<Integer, DijkstraNode> openSet;
     private HashMap<Integer, DijkstraNode> closedSet = new HashMap<>();
 
-    public Dijkstra(){
-        this.nodes     = new HashMap<>();
+    public Dijkstra(HashMap<Integer, MapNode> nodes){
+        this.nodes     = nodes;
         this.openSet   = new HashMap<>();
     }
 
@@ -65,7 +66,6 @@ public class Dijkstra {
             return path;
         }
         DijkstraNode end = new DijkstraNode(dest.ID, null, 0);
-        //openSet   = ; add function for reset
         closedSet = new HashMap<>();
         openSet.remove(end.getId());
         closedSet.put(end.getId(), end);
@@ -124,4 +124,57 @@ public class Dijkstra {
             dijkstraNode = dijkstraNode.getPrev();
         }
     }
+
+    public LinkedList<Integer> depthFirstSearch(MapNode source, MapNode dest){
+        /**
+         * function: depthFirstSearch()
+         * usage: finds a path from the source to the destination exploring each branch fully before
+         *        trying the next
+         * input: two MapNodes, one for the start point and one for the end point
+         * returns:a LinkedList containing the IDs of the nodes along the resulting path
+         */
+        LinkedList<Integer> path = new LinkedList<>();
+        if (source.ID == dest.ID){
+            path.add(source.ID);
+            return path;
+        }
+        DijkstraNode end = new DijkstraNode(dest.ID, null, 0);
+        closedSet = new HashMap<>();
+        openSet.remove(end.getId());
+        closedSet.put(end.getId(), end);
+        DijkstraNode target = openSet.get(source.ID);
+
+        this.DFSFan(end, target);
+        if (closedSet.containsKey(target.getId())){
+            tracePath(path, target);
+            path.add(end.getId());
+        }
+        return path;
+    }
+
+    public boolean DFSFan(DijkstraNode currentNode, DijkstraNode target){
+        /**
+         * function: DFSFan()
+         * usage: checks if a node is the target then moves to one of it's neighbors
+         * input: two DijkstraNodes representing the target and current node
+         * returns: true if target found false otherwise
+         */
+        for (Object o : this.getNodes().get(currentNode.getId()).getNeighbors()){
+            int i = (Integer) o;
+            if (openSet.containsKey(i)) {
+                DijkstraNode nextNode = openSet.get(i);
+                openSet.remove(i);
+                nextNode.setDist(currentNode.getDist() + 1);
+                nextNode.setPrev(currentNode);
+                closedSet.put(i, nextNode);
+                if (nextNode.getId() == target.getId()) {
+                    return true;
+                }
+                DFSFan(nextNode, target);
+            }
+        }
+        return false;
+    }
+
+
 }
