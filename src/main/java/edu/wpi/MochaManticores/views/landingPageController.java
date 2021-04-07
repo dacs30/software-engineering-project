@@ -18,4 +18,15 @@ public class landingPageController {
       ex.printStackTrace();
     }
   }
+
+  @FXML
+  private void advanceToFloralScene(ActionEvent e) {
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/MochaManticores/fxml/floralScene.fxml"));
+      App.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+
+  }
 }
