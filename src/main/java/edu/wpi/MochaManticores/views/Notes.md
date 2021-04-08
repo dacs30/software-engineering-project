@@ -3,14 +3,23 @@
 * Good job
     * I had to change a few things in order to connect the fx:id to the elements  
     nothing major
+* Nice job
+    * I liked the layout of the content, however, I think that the btns are too big
+      when comparing to other objects in the screen.
       
 ##External Transportation Services
 * Nice work
     * Didn't change anything except extending the form class
+* Nice
+    * I would change the logout btn placement, besides that everything
+    is perfect
     
 ##Floral Delivery
 * Nice
     * I didn't change anything
+* Perfect
+    * Of course we could rearrange the content, but everything is
+    looking great
     
 ##Food Delivery
 * Wow! This is wonderful, and you've left space to add on functionality
