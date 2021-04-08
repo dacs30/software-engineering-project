@@ -1,7 +1,5 @@
 package edu.wpi.MochaManticores;
 
-import java.util.Stack;
-
 /**
  * This is a POI subclass containing information
  * occupancy information for parking spaces
@@ -14,6 +12,7 @@ public class ParkingSpace extends POI {
     //Constructor
     public ParkingSpace(int ID, ConnectedNodes neighbors, int clearance, String name, boolean isOccupied) {
         super(ID, neighbors, clearance, name);
+        this.isOccupied = isOccupied;
     }
 
     public boolean checkOccupied() {

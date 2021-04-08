@@ -16,6 +16,8 @@ public class NodeMap {
 
     //Constructor
     public NodeMap(HashMap<Integer, MapNode> myMap, String name) {
+        this.myMap = myMap;
+        this.name = name;
     }
 
     public MapNode getNode(Integer ID) {

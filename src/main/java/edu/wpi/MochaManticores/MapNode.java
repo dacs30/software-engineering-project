@@ -16,6 +16,9 @@ public class MapNode {
 
     //Constructor
     public MapNode(int ID, ConnectedNodes neighbors, int clearance) {
+        this.ID = ID;
+        this.neighbors = neighbors;
+        this.clearance = clearance;
     }
 
     public Set<Integer> getNeighbors() {

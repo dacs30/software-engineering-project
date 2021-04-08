@@ -15,6 +15,7 @@ public class ConnectedNodes {
 
     //Constructor
     public ConnectedNodes(HashMap<Integer, Integer> neighbors) {
+        this.neighbors = neighbors;
     }
 
     public Set<Integer> getKeyIDs() {

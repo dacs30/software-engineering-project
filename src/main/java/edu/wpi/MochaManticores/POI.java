@@ -1,7 +1,5 @@
 package edu.wpi.MochaManticores;
 
-import java.util.Stack;
-
 /**
  * This is a point of interest class intended
  * to contain additional information about
@@ -15,6 +13,7 @@ public class POI extends MapNode {
     //Constructor
     public POI(int ID, ConnectedNodes neighbors, int clearance, String name) {
         super(ID, neighbors, clearance);
+        this.name = name;
     }
 
     public String getName() {
