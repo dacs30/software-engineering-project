@@ -10,8 +10,8 @@ public class ParkingSpace extends POI {
     private boolean isOccupied;     //records whether or not the space is occupied
 
     //Constructor
-    public ParkingSpace(int ID, ConnectedNodes neighbors, int clearance, String name, boolean isOccupied) {
-        super(ID, neighbors, clearance, name);
+    public ParkingSpace(int ID, ConnectedNodes neighbors, int clearance, String name, boolean isOccupied, int xCoord, int yCoord, int floor) {
+        super(ID, neighbors, clearance, name, xCoord, yCoord, floor);
         this.isOccupied = isOccupied;
     }
 

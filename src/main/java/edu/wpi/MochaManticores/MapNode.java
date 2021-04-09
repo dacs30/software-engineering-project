@@ -13,12 +13,18 @@ public class MapNode {
     public int ID;                      //Node ID (for hashmap)
     private ConnectedNodes neighbors;   //Neighbors' Node IDs and costs
     private int clearance;              //Determines accessibility of node
+    private int xCoord;                 //X axis coordinate of the node
+    private int yCoord;                 //Y axis coordinate of the node
+    private int floor;                  //Floor which the node is on
 
     //Constructor
-    public MapNode(int ID, ConnectedNodes neighbors, int clearance) {
+    public MapNode(int ID, ConnectedNodes neighbors, int clearance, int xCoord, int yCoord, int floor) {
         this.ID = ID;
         this.neighbors = neighbors;
         this.clearance = clearance;
+        this.xCoord = xCoord;
+        this.yCoord = yCoord;
+        this.floor = floor;
     }
 
     public Set<Integer> getNeighbors() {
@@ -81,5 +87,57 @@ public class MapNode {
          * returns: int clearance (determines who can travel through this node)
          */
         return this.clearance;
+    }
+
+    public int getXCoord() {
+        /**
+         * function: getXCoord()
+         * usage: returns the X coordinate of the MapNode
+         * inputs: none
+         * returns: int xCoord (X axis coordinate of this node)
+         */
+        return this.xCoord;
+    }
+
+    public int getYCoord() {
+        /**
+         * function: getYCoord()
+         * usage: returns the Y coordinate of the MapNode
+         * inputs: none
+         * returns: int yCoord (Y axis coordinate of this node)
+         */
+        return this.yCoord;
+    }
+
+    public void setCoords(int xCoord, int yCoord) {
+        /**
+         * function: setCoords()
+         * usage: sets the X and Y coordinates of an existing MapNode
+         * inputs: int xCoord (new X coordinate)
+         *         int yCoord (new Y coordinate)
+         * returns: void
+         */
+        this.xCoord = xCoord;
+        this.yCoord = yCoord;
+    }
+
+    public int getFloor() {
+        /**
+         * function: getFloor()
+         * usage: returns the floor number of the MapNode
+         * inputs: none
+         * returns: int floor (floor of this node)
+         */
+        return this.floor;
+    }
+
+    public void setFloor(int newFloor) {
+        /**
+         * function: setFloor()
+         * usage: replaces the floor number of the MapNode
+         * inputs: int newFloor (the new floor of the node)
+         * returns: void
+         */
+        this.floor = newFloor;
     }
 }

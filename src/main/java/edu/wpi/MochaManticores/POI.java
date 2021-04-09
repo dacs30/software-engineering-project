@@ -11,8 +11,8 @@ public class POI extends MapNode {
     String name;    //name of the location
 
     //Constructor
-    public POI(int ID, ConnectedNodes neighbors, int clearance, String name) {
-        super(ID, neighbors, clearance);
+    public POI(int ID, ConnectedNodes neighbors, int clearance, String name, int xCoord, int yCoord, int floor) {
+        super(ID, neighbors, clearance, xCoord, yCoord, floor);
         this.name = name;
     }
 
