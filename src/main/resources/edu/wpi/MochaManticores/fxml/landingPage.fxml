@@ -2,14 +2,17 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: lightblue;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.landingPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: lightblue;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.landingPageController">
   <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2d75b3" height="47.0" layoutX="37.0" layoutY="3.0" stroke="#3a2f2f" strokeType="INSIDE" strokeWidth="2.0" width="528.0" />
     <Label alignment="CENTER" layoutX="42.0" prefHeight="47.0" prefWidth="517.0" text="Brigham and Women's Hospital" textFill="WHITE">
@@ -33,13 +36,26 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-          <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceScene" prefHeight="47.0" prefWidth="146.0" style="-fx-background-color: green;" text="Internal Transportation" textFill="WHITE" GridPane.halignment="CENTER" />
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceScene" prefHeight="47.0" prefWidth="146.0" style="-fx-background-color: green;" text="External Transportation" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceScene" prefHeight="47.0" prefWidth="146.0" style="-fx-background-color: teal;" text="Food Delivery" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceScene" prefHeight="47.0" prefWidth="146.0" style="-fx-background-color: red;" text="Emergency Button" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceScene" prefHeight="47.0" prefWidth="146.0" style="-fx-background-color: teal;" text="Floral Delivery" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceScene" prefHeight="47.0" prefWidth="146.0" style="-fx-background-color: orange;" text="Sanitation Services" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+          <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceInternalTransportScene" prefHeight="47.0" prefWidth="146.0" style="-fx-background-color: green;" text="Internal Transportation" textFill="WHITE" GridPane.halignment="CENTER" />
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceToExtTransportation" prefHeight="47.0" prefWidth="146.0" style="-fx-background-color: green;" text="External Transportation" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#confirmEmergency" prefHeight="47.0" prefWidth="146.0" style="-fx-background-color: red;" text="Emergency Button" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceFoodService" prefHeight="47.0" prefWidth="146.0" style="-fx-background-color: teal;" text="Food Delivery" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceToFloralScene" prefHeight="47.0" prefWidth="146.0" style="-fx-background-color: teal;" text="Floral Delivery" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#grabSanitation" prefHeight="47.0" prefWidth="146.0" style="-fx-background-color: orange;" text="Sanitation Services" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
          </children>
       </GridPane>
+      <AnchorPane fx:id="confirmEmergencyDialog" layoutX="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" visible="false">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000093" height="414.0" layoutX="-7.0" layoutY="-7.0" opacity="0.95" stroke="BLACK" strokeType="INSIDE" width="616.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="180.0" layoutX="140.0" layoutY="110.0" stroke="BLACK" strokeType="INSIDE" width="320.0" />
+            <Text layoutX="216.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Are you sure?">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Text>
+            <Button layoutX="216.0" layoutY="249.0" mnemonicParsing="false" onAction="#dismissEmergencyDialog" style="-fx-background-color: #FF0000;" text="Cancel" />
+            <Button layoutX="328.0" layoutY="249.0" mnemonicParsing="false" onAction="#emergencyForm" style="-fx-background-color: #00FF00;" text="Continue" />
+         </children>
+      </AnchorPane>
   </children>
 </AnchorPane>
