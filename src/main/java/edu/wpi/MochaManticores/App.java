@@ -1,8 +1,17 @@
 package edu.wpi.MochaManticores;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Stack;
 
+import edu.wpi.MochaManticores.Nodes.MapSuper;
+import edu.wpi.MochaManticores.Nodes.NodeSuper;
+import edu.wpi.MochaManticores.database.CSVmanager;
+import edu.wpi.MochaManticores.database.Mdb;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -25,8 +34,10 @@ public class App extends Application {
 
 
   @Override
-  public void init() {
+  public void init() throws FileNotFoundException, SQLException {
     System.out.println("Starting Up");
+    System.out.println("Starting Database");
+    Mdb.databaseStartup();
   }
 
   @Override

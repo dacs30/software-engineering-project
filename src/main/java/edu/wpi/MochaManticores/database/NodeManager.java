@@ -18,7 +18,7 @@ public class NodeManager {
         pstmt.setString(3, id);
         pstmt.executeUpdate();
         CSVmanager nodeCSV = new CSVmanager(Node_csv_path);
-        nodeCSV.printNodes(connection);
+        nodeCSV.makeNodes(connection);
         NodeSuper tempNode = MapSuper.getMap().get(id);
         tempNode.setCoords(xcoord, ycoord);
         MapSuper.getMap().put(id, tempNode);
