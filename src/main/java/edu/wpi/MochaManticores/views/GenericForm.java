@@ -44,4 +44,8 @@ public class GenericForm extends SceneController{
         System.out.println("Form cancelled");
         returnToMain(e);
     }
+
+    public void back(ActionEvent e){
+        super.back(e);
+    }
 }

@@ -36,7 +36,7 @@ public class SceneController {
         try{
             scene = scenes.pop();
         } catch (EmptyStackException ex){
-            ex.printStackTrace();
+            ;
         }
         changeSceneTo(e, scene);
     }
