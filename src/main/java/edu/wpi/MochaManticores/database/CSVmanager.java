@@ -1,8 +1,13 @@
 package edu.wpi.MochaManticores.database;
 
+import edu.wpi.MochaManticores.Nodes.MapSuper;
+import edu.wpi.MochaManticores.Nodes.NodeSuper;
+import edu.wpi.MochaManticores.Nodes.VertexList;
+
 import java.io.*;
 import java.sql.*;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class CSVmanager {
 
@@ -38,6 +43,9 @@ public class CSVmanager {
                 pstmt.setString(7, row[6]);
                 pstmt.setString(8, row[7]);
                 pstmt.executeUpdate();
+                NodeSuper tempNode = new NodeSuper(Integer.parseInt(row[1]), Integer.parseInt(row[2]), Integer.parseInt(row[3]),
+                        row[4], row[6], row[7], row[0], row[5], new VertexList(new HashMap<>()));
+                MapSuper.getMap().put(tempNode.getID(), tempNode);
             }
         } catch (FileNotFoundException | SQLException e){
             e.printStackTrace();
@@ -57,7 +65,7 @@ public class CSVmanager {
                     "VALUES (?, ?, ?)";
             PreparedStatement pstmt = connect.prepareStatement(sql);
 
-            while ((line = reader.readLine())  != null){
+            while (line != null){
                 String[] row = line.split(this.CSVdelim);
 
                 //enter data

@@ -12,12 +12,11 @@ import java.util.Set;
 public class MapSuper {
     //Declare instance variables
     public String name;
-    private HashMap<String, NodeSuper> myMap;    //map of MapNodes organized by nodeID
+    private static final HashMap<String, NodeSuper> myMap = new HashMap<>();    //map of MapNodes organized by nodeID
 
     //Constructor
-    public MapSuper(String name, HashMap<String, NodeSuper> myMap) {
+    public MapSuper(String name) {
         this.name = name;
-        this.myMap = myMap;
     }
 
     /**
@@ -27,7 +26,7 @@ public class MapSuper {
      * returns: NodeSuper (unnamed) (the specified MapNode)
      */
     public NodeSuper getNode(String ID) {
-        return this.myMap.get(ID);
+        return myMap.get(ID);
     }
 
     /**
@@ -38,12 +37,12 @@ public class MapSuper {
      */
     public void addNode(NodeSuper newNode) {
         String newKey = newNode.getID();
-        this.myMap.put(newKey, newNode);
+        myMap.put(newKey, newNode);
 
         Set<String> myNeighbors = newNode.getNeighbors();
         for(String ID : myNeighbors) {
             Integer thisCost = newNode.getCost(ID);
-            this.myMap.get(ID).addNeighbor(newKey, thisCost);
+            myMap.get(ID).addNeighbor(newKey, thisCost);
         }
     }
 
@@ -54,11 +53,11 @@ public class MapSuper {
      * returns: void
      */
     public void delNode(String targetID) {
-        Set<String> myNeighbors = this.myMap.get(targetID).getNeighbors();
+        Set<String> myNeighbors = myMap.get(targetID).getNeighbors();
         for(String ID : myNeighbors) {
-            this.myMap.get(ID).delNeighbor(targetID);
+            myMap.get(ID).delNeighbor(targetID);
         }
-        this.myMap.remove(targetID);
+        myMap.remove(targetID);
     }
 
     /**
@@ -69,8 +68,8 @@ public class MapSuper {
      * returns: void
      */
     public void editVertexCost(String ID1, String ID2, Integer newCost) {
-        this.myMap.get(ID1).editCost(ID2, newCost);
-        this.myMap.get(ID2).editCost(ID1, newCost);
+        myMap.get(ID1).editCost(ID2, newCost);
+        myMap.get(ID2).editCost(ID1, newCost);
     }
 
     /**
@@ -81,8 +80,8 @@ public class MapSuper {
      * returns: void
      */
     public void removeVertex(String ID1, String ID2) {
-        this.myMap.get(ID1).delNeighbor(ID2);
-        this.myMap.get(ID2).delNeighbor(ID1);
+        myMap.get(ID1).delNeighbor(ID2);
+        myMap.get(ID2).delNeighbor(ID1);
     }
 
     /**
@@ -93,7 +92,17 @@ public class MapSuper {
      * returns: void
      */
     public void addVertex(String ID1, String ID2, Integer cost) {
-        this.myMap.get(ID1).addNeighbor(ID2, cost);
-        this.myMap.get(ID2).addNeighbor(ID1, cost);
+        myMap.get(ID1).addNeighbor(ID2, cost);
+        myMap.get(ID2).addNeighbor(ID1, cost);
     }
+
+    /**
+     * function: getMap()
+     * usage: returns the map of nodes
+     * @return HashMap<String, NodeSuper>
+     */
+    public static HashMap<String, NodeSuper> getMap() {
+        return myMap;
+    }
+
 }
