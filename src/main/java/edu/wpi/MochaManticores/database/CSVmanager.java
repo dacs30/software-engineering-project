@@ -58,8 +58,6 @@ public class CSVmanager {
             PreparedStatement pstmt = connect.prepareStatement(sql);
 
             while ((line = reader.readLine())  != null){
-                line = reader.readLine();
-
                 String[] row = line.split(this.CSVdelim);
 
                 //enter data
