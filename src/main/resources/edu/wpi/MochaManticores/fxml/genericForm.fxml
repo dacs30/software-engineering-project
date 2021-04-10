@@ -41,7 +41,7 @@
             </Text>
             <VBox prefHeight="660.0" prefWidth="931.0" spacing="40.0">
                <children>
-                  <JFXTextField fx:id="fieldOne" focusColor="WHITE" labelFloat="true" prefHeight="25.0" prefWidth="439.0" promptText="Field 1" style="-fx-background-color: white;" unFocusColor="WHITE">
+                  <JFXTextField fx:id="fieldOne" focusColor="WHITE" labelFloat="true" prefHeight="25.0" prefWidth="439.0" promptText="Field 1" style="-fx-background-color: white;" stylesheets="@../stylesheets.css" unFocusColor="WHITE">
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -52,7 +52,7 @@
                      <VBox.margin>
                         <Insets left="20.0" right="20.0" />
                      </VBox.margin></JFXComboBox>
-                  <JFXTextArea fx:id="fieldThree" focusColor="WHITE" labelFloat="true" prefHeight="203.0" prefWidth="931.0" promptText="Field 3" style="-fx-background-color: white;" unFocusColor="WHITE">
+                  <JFXTextArea fx:id="fieldThree" focusColor="WHITE" labelFloat="true" prefHeight="203.0" prefWidth="931.0" promptText="Field 3" style="-fx-background-color: white;" stylesheets="@../stylesheets.css" unFocusColor="WHITE">
                      <font>
                         <Font size="25.0" />
                      </font>
