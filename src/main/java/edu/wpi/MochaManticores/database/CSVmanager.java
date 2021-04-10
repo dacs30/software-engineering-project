@@ -25,7 +25,8 @@ public class CSVmanager {
             String sql = "INSERT INTO NODES (nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = connect.prepareStatement(sql);
-            while ((line = reader.readLine()) != null){
+            while (line  != null){
+                line = reader.readLine();
                 String[] row = line.split(this.CSVdelim);
 
                 //enter data
@@ -57,7 +58,7 @@ public class CSVmanager {
                     "VALUES (?, ?, ?)";
             PreparedStatement pstmt = connect.prepareStatement(sql);
 
-            while ((line = reader.readLine())  != null){
+            while (line != null){
                 line = reader.readLine();
 
                 String[] row = line.split(this.CSVdelim);
