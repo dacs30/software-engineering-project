@@ -1,4 +1,4 @@
-package edu.wpi.MochaManticores;
+package edu.wpi.MochaManticores.Algorithms;
 
 /**
  * This is a specialized node used only

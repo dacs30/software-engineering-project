@@ -1,9 +1,7 @@
-package edu.wpi.MochaManticores;
+package edu.wpi.MochaManticores.Algorithms;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Map;
 
 /**
  * This is a basic Dijkstra search algorithm
