@@ -1,7 +1,12 @@
 package edu.wpi.MochaManticores.database;
 
+import edu.wpi.MochaManticores.Nodes.MapSuper;
+import edu.wpi.MochaManticores.Nodes.NodeSuper;
+import edu.wpi.MochaManticores.Nodes.VertexList;
+
 import java.io.FileNotFoundException;
 import java.sql.*;
+import java.util.HashMap;
 
 public class NodeManager {
     private static final String Node_csv_path = "data/nodes.csv";
@@ -13,7 +18,10 @@ public class NodeManager {
         pstmt.setString(3, id);
         pstmt.executeUpdate();
         CSVmanager nodeCSV = new CSVmanager(Node_csv_path);
-        nodeCSV.save_node_csv(connection);
+        nodeCSV.printNodes(connection);
+        NodeSuper tempNode = MapSuper.getMap().get(id);
+        tempNode.setCoords(xcoord, ycoord);
+        MapSuper.getMap().put(id, tempNode);
     }
 
     public static void updateNodeName(Connection connection, String id, String newName) throws SQLException, FileNotFoundException {
@@ -22,7 +30,9 @@ public class NodeManager {
         pstmt.setString(2, id);
         pstmt.executeUpdate();
         CSVmanager nodeCSV = new CSVmanager(Node_csv_path);
-        nodeCSV.save_node_csv(connection);
+        NodeSuper tempNode = MapSuper.getMap().get(id);
+        tempNode.setLongName(newName);
+        MapSuper.getMap().put(id, tempNode);
     }
 
     public static void createNode(Connection connection,String nodeID, int xcoord, int ycoord, String floor, String building, String nodeType, String longName, String shortName) throws SQLException, FileNotFoundException{
@@ -41,7 +51,8 @@ public class NodeManager {
         pstmt.executeUpdate();
 
         CSVmanager nodeCSV = new CSVmanager(Node_csv_path);
-        nodeCSV.save_node_csv(connection);
+        NodeSuper newNode = new NodeSuper(xcoord, ycoord, floor, building, longName, shortName, nodeID, nodeType, new VertexList(new HashMap<>()));
+        MapSuper.getMap().put(nodeID, newNode);
 
     }
 

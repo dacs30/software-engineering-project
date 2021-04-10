@@ -60,7 +60,7 @@ public class Mdb {
                 stmt.executeUpdate(sql);
                 nodeCSV.load_node_csv(connection);
             }
-            nodeCSV.save_node_csv(connection);
+            nodeCSV.printNodes(connection);
             rs = meta.getTables(null, "APP", "EDGES", null);
             if(!rs.next()) {
                 String sql;
@@ -73,7 +73,7 @@ public class Mdb {
                 stmt.executeUpdate(sql);
                 edgeCSV.load_edges_csv(connection);
             }
-            edgeCSV.save_edges_csv(connection);
+            edgeCSV.printEdges(connection);
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -88,7 +88,7 @@ public class Mdb {
             int inputVal = Integer.parseInt(args[0]);
             switch(inputVal) {
                 case 1:
-                    NodeManager.showNodeInformation(nodeCSV.save_node_csv(connection));
+                    NodeManager.showNodeInformation(nodeCSV.printNodes(connection));
                     break;
                 case 2:
                     System.out.print("Enter NodeID of the Node's Coordinates to be Changed: \n");
@@ -109,7 +109,7 @@ public class Mdb {
                     System.out.printf("Node with id %s has been updated with a new name\n", idForName);
                     break;
                 case 4:
-                    EdgeManager.showEdgeInformation(edgeCSV.save_edges_csv(connection));
+                    EdgeManager.showEdgeInformation(edgeCSV.printEdges(connection));
                     break;
                 case 5:
                     System.out.println("Exiting Program!");

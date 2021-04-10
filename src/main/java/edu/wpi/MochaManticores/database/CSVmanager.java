@@ -43,7 +43,7 @@ public class CSVmanager {
                 pstmt.setString(7, row[6]);
                 pstmt.setString(8, row[7]);
                 pstmt.executeUpdate();
-                NodeSuper tempNode = new NodeSuper(Integer.parseInt(row[1]), Integer.parseInt(row[2]), Integer.parseInt(row[3]),
+                NodeSuper tempNode = new NodeSuper(Integer.parseInt(row[1]), Integer.parseInt(row[2]),row[3],
                         row[4], row[6], row[7], row[0], row[5], new VertexList(new HashMap<>()));
                 MapSuper.getMap().put(tempNode.getID(), tempNode);
             }
@@ -83,7 +83,7 @@ public class CSVmanager {
         }
     }
     //save NODE CSV
-    String save_node_csv(Connection connect) throws SQLException, FileNotFoundException {
+    String printNodes(Connection connect) throws SQLException, FileNotFoundException {
         PrintWriter pw = new PrintWriter(new File(this.CSVpath));
         StringBuilder sb = new StringBuilder();
 
@@ -110,7 +110,7 @@ public class CSVmanager {
         return sb.toString();
     }
     //save EDGES CSV
-     String save_edges_csv(Connection connect) throws FileNotFoundException, SQLException {
+     String printEdges(Connection connect) throws FileNotFoundException, SQLException {
         PrintWriter pw = new PrintWriter(new File(this.CSVpath));
         StringBuilder sb = new StringBuilder();
 

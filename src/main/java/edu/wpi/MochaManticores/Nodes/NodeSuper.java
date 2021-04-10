@@ -12,7 +12,7 @@ public class NodeSuper {
     //Declare instance variables
     private int xcoord;                         //X coordinate of the node
     private int ycoord;                         //Y coordinate of the node
-    private int floor;                          //Floor number of the node
+    private String floor;                          //Floor number of the node
     private String building;                    //Building the node is in
     private String longName;                    //Name of the node
     private String shortName;                   //Abbreviated node name
@@ -22,7 +22,7 @@ public class NodeSuper {
     private VertexList neighbors;               //A list of connected nodes with vertex costs
 
     //Constructor
-    public NodeSuper(int xcoord, int ycoord, int floor, String building, String longName, String shortName, String nodeID, String nodeType, VertexList neighbors) {
+    public NodeSuper(int xcoord, int ycoord, String floor, String building, String longName, String shortName, String nodeID, String nodeType, VertexList neighbors) {
         this.xcoord = xcoord;
         this.ycoord = ycoord;
         this.floor = floor;
@@ -122,9 +122,9 @@ public class NodeSuper {
      * function: getFloor()
      * usage: returns the floor number of the MapNode
      * inputs: none
-     * returns: int floor (floor of this node)
+     * returns: String floor (floor of this node)
      */
-    public int getFloor() {
+    public String getFloor() {
         return this.floor;
     }
 
@@ -134,7 +134,7 @@ public class NodeSuper {
      * inputs: int newFloor (the new floor of the node)
      * returns: void
      */
-    public void setFloor(int newFloor) {
+    public void setFloor(String newFloor) {
         this.floor = newFloor;
     }
 

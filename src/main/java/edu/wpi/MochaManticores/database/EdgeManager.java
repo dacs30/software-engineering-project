@@ -19,7 +19,7 @@ public class EdgeManager {
         pstmt.executeUpdate();
 
         CSVmanager nodeCSV = new CSVmanager(Edge_csv_path);
-        nodeCSV.save_node_csv(connection);
+        nodeCSV.printNodes(connection);
     }
 
     public static void showEdgeInformation(String edgeInfo) {
