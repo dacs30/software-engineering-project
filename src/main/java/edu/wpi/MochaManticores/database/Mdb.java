@@ -59,7 +59,7 @@ public class Mdb {
                 stmt.executeUpdate(sql);
                 nodeCSV.load_node_csv(connection);
             }
-            nodeCSV.makeNodes(connection);
+            nodeCSV.putNodesInMap(connection);
             rs = meta.getTables(null, "APP", "EDGES", null);
             if(!rs.next()) {
                 String sql;
@@ -72,7 +72,7 @@ public class Mdb {
                 stmt.executeUpdate(sql);
                 edgeCSV.load_edges_csv(connection);
             }
-            edgeCSV.printEdges(connection);
+            edgeCSV.updateEdgesInMap(connection);
         }catch(SQLException e){
             e.printStackTrace();
         }

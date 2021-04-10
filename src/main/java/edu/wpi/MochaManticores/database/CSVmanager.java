@@ -73,7 +73,6 @@ public class CSVmanager {
                 pstmt.setString(2, row[1]);
                 pstmt.setString(3, row[2]);
                 pstmt.executeUpdate();
-                MapSuper.getMap().get(row[1]).addNeighbor(row[2], 0);
             }
         } catch (FileNotFoundException | SQLException e){
             e.printStackTrace();
@@ -82,7 +81,7 @@ public class CSVmanager {
         }
     }
     //save NODE CSV
-    String makeNodes(Connection connect) throws SQLException, FileNotFoundException {
+    String putNodesInMap(Connection connect) throws SQLException, FileNotFoundException {
         PrintWriter pw = new PrintWriter(new File(this.CSVpath));
         StringBuilder sb = new StringBuilder();
 
@@ -114,7 +113,7 @@ public class CSVmanager {
         return sb.toString();
     }
     //save EDGES CSV
-     String printEdges(Connection connect) throws FileNotFoundException, SQLException {
+     String updateEdgesInMap(Connection connect) throws FileNotFoundException, SQLException {
         PrintWriter pw = new PrintWriter(new File(this.CSVpath));
         StringBuilder sb = new StringBuilder();
 
@@ -129,6 +128,7 @@ public class CSVmanager {
         }
         sb.append("\n");
         while (results.next()) {
+            MapSuper.getMap().get(results.getString(2)).addNeighbor(results.getString(3), 0);
             for(int i = 1; i <= rsmd.getColumnCount(); i++) {
                 sb.append(results.getString(i));
                 sb.append(",");

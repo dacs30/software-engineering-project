@@ -38,6 +38,8 @@ public class App extends Application {
     System.out.println("Starting Up");
     System.out.println("Starting Database");
     Mdb.databaseStartup();
+    NodeSuper testNode = MapSuper.getMap().get("ACONF00103");
+    System.out.println(testNode.getLongName());
   }
 
   @Override
