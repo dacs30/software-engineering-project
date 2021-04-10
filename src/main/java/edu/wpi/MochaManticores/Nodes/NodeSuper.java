@@ -17,11 +17,12 @@ public class NodeSuper {
     private String longName;                    //Name of the node
     private String shortName;                   //Abbreviated node name
     private String nodeID;                      //Unique node identifier
+    private String nodeType;                    //Type of node (elevator, door, etc.)
     private final String teamAssigned = "m";    //Node created by D21 team M
     private VertexList neighbors;               //A list of connected nodes with vertex costs
 
     //Constructor
-    public NodeSuper(int xcoord, int ycoord, int floor, String building, String longName, String shortName, String nodeID, VertexList neighbors) {
+    public NodeSuper(int xcoord, int ycoord, int floor, String building, String longName, String shortName, String nodeID, String nodeType, VertexList neighbors) {
         this.xcoord = xcoord;
         this.ycoord = ycoord;
         this.floor = floor;
@@ -29,6 +30,7 @@ public class NodeSuper {
         this.longName = longName;
         this.shortName = shortName;
         this.nodeID = nodeID;
+        this.nodeType = nodeType;
         this.neighbors = neighbors;
     }
 
@@ -214,5 +216,25 @@ public class NodeSuper {
      */
     public void setID(String newID) {
         this.nodeID = newID;
+    }
+
+    /**
+     * function: getType()
+     * usage: returns the type of the MapNode
+     * inputs: none
+     * returns: String nodeType (type of node)
+     */
+    public String getType() {
+        return this.nodeType;
+    }
+
+    /**
+     * function: setType()
+     * usage: replaces the type of the MapNode
+     * inputs: String newType (the new type of the MapNode)
+     * returns: void
+     */
+    public void setType(String newType) {
+        this.nodeID = newType;
     }
 }

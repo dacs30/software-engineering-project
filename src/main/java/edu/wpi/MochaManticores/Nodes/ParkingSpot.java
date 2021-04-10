@@ -11,8 +11,8 @@ public class ParkingSpot extends NodeSuper{
     private boolean isHandicap;     //Boolean to track parking spot accessibility
 
     //Constructor
-    public ParkingSpot(int xcoord, int ycoord, int floor, String building, String longName, String shortName, String nodeID, VertexList neighbors, boolean isOccupied, boolean isHandicap) {
-        super(xcoord, ycoord, floor, building, longName, shortName, nodeID, neighbors);
+    public ParkingSpot(int xcoord, int ycoord, int floor, String building, String longName, String shortName, String nodeID, String nodeType, VertexList neighbors, boolean isOccupied, boolean isHandicap) {
+        super(xcoord, ycoord, floor, building, longName, shortName, nodeID, nodeType, neighbors);
         this.isOccupied = isOccupied;
         this.isHandicap = isHandicap;
     }
