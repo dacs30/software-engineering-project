@@ -48,7 +48,7 @@ public class App extends Application {
 
     App.primaryStage = primaryStage;
     try {
-      Parent root = FXMLLoader.load(getClass().getResource("fxml/genericForm.fxml"));
+      Parent root = FXMLLoader.load(getClass().getResource("fxml/mapPage.fxml"));
       Scene scene = new Scene(root);
       primaryStage.setScene(scene);
       primaryStage.show();
