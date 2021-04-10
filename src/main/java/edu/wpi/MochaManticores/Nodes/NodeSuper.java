@@ -32,187 +32,187 @@ public class NodeSuper {
         this.neighbors = neighbors;
     }
 
+    /**
+     * function: getNeighbors()
+     * usage: function to retrieve the private neighbors of the node
+     * inputs: none
+     * returns: Stack neighbors (IDs of all adjacent nodes)
+     */
     public Set<String> getNeighbors() {
-        /**
-         * function: getNeighbors()
-         * usage: function to retrieve the private neighbors of the node
-         * inputs: none
-         * returns: Stack neighbors (IDs of all adjacent nodes)
-         */
         return this.neighbors.getKeyIDs();
     }
 
+    /**
+     * function: addNeighbor()
+     * usage: adds a new neighborID to the stack
+     * inputs: String newID (ID of neighbor to be added)
+     *         int newCost (cost to move to the new node)
+     * returns: void
+     */
     public void addNeighbor(String newID, int newCost) {
-        /**
-         * function: addNeighbor()
-         * usage: adds a new neighborID to the stack
-         * inputs: String newID (ID of neighbor to be added)
-         *         int newCost (cost to move to the new node)
-         * returns: void
-         */
         this.neighbors.newNeighbor(newID, newCost);
     }
 
+    /**
+     * function: delNeighbor()
+     * usage: removes a neighborID from the stack
+     * inputs: String delID (ID of neighbor to be removed)
+     * returns: void
+     */
     public void delNeighbor(String delID) {
-        /**
-         * function: delNeighbor()
-         * usage: removes a neighborID from the stack
-         * inputs: String delID (ID of neighbor to be removed)
-         * returns: void
-         */
         this.neighbors.removeNeighbor(delID);
     }
 
+    /**
+     * function: editCost()
+     * usage: function to edit the cost to travel to a neighboring node
+     * inputs: String ID (ID of neighbor)
+     *         Integer newCost (new cost)
+     * returns: void
+     */
     public void editCost(String ID, Integer newCost) {
-        /**
-         * function: editCost()
-         * usage: function to edit the cost to travel to a neighboring node
-         * inputs: String ID (ID of neighbor)
-         *         Integer newCost (new cost)
-         * returns: void
-         */
         this.neighbors.setCost(ID, newCost);
     }
 
+    /**
+     * function: getCost()
+     * usage: returns cost to travel to a neighboring node
+     * inputs: String ID (ID of neighbor)
+     * returns: Integer cost (the cost to travel to the node)
+     */
     public int getCost(String ID) {
-        /**
-         * function: getCost()
-         * usage: returns cost to travel to a neighboring node
-         * inputs: String ID (ID of neighbor)
-         * returns: Integer cost (the cost to travel to the node)
-         */
         return this.neighbors.getCost(ID);
     }
 
+    /**
+     * function: getXcoord()
+     * usage: returns the X coordinate of the MapNode
+     * inputs: none
+     * returns: int xcoord (X axis coordinate of this node)
+     */
     public int getXcoord() {
-        /**
-         * function: getXcoord()
-         * usage: returns the X coordinate of the MapNode
-         * inputs: none
-         * returns: int xcoord (X axis coordinate of this node)
-         */
         return this.xcoord;
     }
 
+    /**
+     * function: getYcoord()
+     * usage: returns the Y coordinate of the MapNode
+     * inputs: none
+     * returns: int ycoord (Y axis coordinate of this node)
+     */
     public int getYcoord() {
-        /**
-         * function: getYcoord()
-         * usage: returns the Y coordinate of the MapNode
-         * inputs: none
-         * returns: int ycoord (Y axis coordinate of this node)
-         */
         return this.ycoord;
     }
 
+    /**
+     * function: setCoords()
+     * usage: sets the X and Y coordinates of an existing MapNode
+     * inputs: int xcoord (new X coordinate)
+     *         int ycoord (new Y coordinate)
+     * returns: void
+     */
     public void setCoords(int xcoord, int ycoord) {
-        /**
-         * function: setCoords()
-         * usage: sets the X and Y coordinates of an existing MapNode
-         * inputs: int xcoord (new X coordinate)
-         *         int ycoord (new Y coordinate)
-         * returns: void
-         */
         this.xcoord = xcoord;
         this.ycoord = ycoord;
     }
 
+    /**
+     * function: getFloor()
+     * usage: returns the floor number of the MapNode
+     * inputs: none
+     * returns: int floor (floor of this node)
+     */
     public int getFloor() {
-        /**
-         * function: getFloor()
-         * usage: returns the floor number of the MapNode
-         * inputs: none
-         * returns: int floor (floor of this node)
-         */
         return this.floor;
     }
 
+    /**
+     * function: setFloor()
+     * usage: replaces the floor number of the MapNode
+     * inputs: int newFloor (the new floor of the node)
+     * returns: void
+     */
     public void setFloor(int newFloor) {
-        /**
-         * function: setFloor()
-         * usage: replaces the floor number of the MapNode
-         * inputs: int newFloor (the new floor of the node)
-         * returns: void
-         */
         this.floor = newFloor;
     }
 
+    /**
+     * function: getBuilding()
+     * usage: returns the building of the MapNode
+     * inputs: none
+     * returns: String building (building of this node)
+     */
     public String getBuilding() {
-        /**
-         * function: getBuilding()
-         * usage: returns the building of the MapNode
-         * inputs: none
-         * returns: String building (building of this node)
-         */
         return this.building;
     }
 
+    /**
+     * function: setBuilding()
+     * usage: replaces the building of the MapNode
+     * inputs: String newBuilding (the new building of the node)
+     * returns: void
+     */
     public void setBuilding(String newBuilding) {
-        /**
-         * function: setBuilding()
-         * usage: replaces the building of the MapNode
-         * inputs: String newBuilding (the new building of the node)
-         * returns: void
-         */
         this.building = newBuilding;
     }
 
+    /**
+     * function: getLongName()
+     * usage: returns the name of the MapNode
+     * inputs: none
+     * returns: String longName (name of this node)
+     */
     public String getLongName() {
-        /**
-         * function: getLongName()
-         * usage: returns the name of the MapNode
-         * inputs: none
-         * returns: String longName (name of this node)
-         */
         return this.longName;
     }
 
+    /**
+     * function: setLongName()
+     * usage: replaces the long name of the MapNode
+     * inputs: String newLong (the new name of the node)
+     * returns: void
+     */
     public void setLongName(String newLong) {
-        /**
-         * function: setLongName()
-         * usage: replaces the long name of the MapNode
-         * inputs: String newLong (the new name of the node)
-         * returns: void
-         */
         this.longName = newLong;
     }
 
+    /**
+     * function: getShortName()
+     * usage: returns the short name of the MapNode
+     * inputs: none
+     * returns: String shortName (name of this node)
+     */
     public String getShortName() {
-        /**
-         * function: getShortName()
-         * usage: returns the short name of the MapNode
-         * inputs: none
-         * returns: String shortName (name of this node)
-         */
         return this.shortName;
     }
 
+    /**
+     * function: setShortName()
+     * usage: replaces the short name of the MapNode
+     * inputs: String newShort (the new name of the node)
+     * returns: void
+     */
     public void setShortName(String newShort) {
-        /**
-         * function: setShortName()
-         * usage: replaces the short name of the MapNode
-         * inputs: String newShort (the new name of the node)
-         * returns: void
-         */
         this.shortName = newShort;
     }
 
+    /**
+     * function: getID()
+     * usage: returns the ID of the MapNode
+     * inputs: none
+     * returns: String nodeID (MapNode ID)
+     */
     public String getID() {
-        /**
-         * function: getID()
-         * usage: returns the ID of the MapNode
-         * inputs: none
-         * returns: String nodeID (MapNode ID)
-         */
         return this.nodeID;
     }
 
+    /**
+     * function: setID()
+     * usage: replaces the ID of the MapNode
+     * inputs: String newID (the new ID of the MapNode)
+     * returns: void
+     */
     public void setID(String newID) {
-        /**
-         * function: setID()
-         * usage: replaces the ID of the MapNode
-         * inputs: String newID (the new ID of the MapNode)
-         * returns: void
-         */
         this.nodeID = newID;
     }
 }

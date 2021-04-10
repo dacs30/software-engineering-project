@@ -17,45 +17,45 @@ public class ParkingSpot extends NodeSuper{
         this.isHandicap = isHandicap;
     }
 
+    /**
+     * function: checkOccupied()
+     * usage: function to check whether or not a ParkingSpace
+     *        is occupied
+     * inputs: none
+     * returns: boolean isOccupied
+     */
     public boolean checkOccupied() {
-        /**
-         * function: checkOccupied()
-         * usage: function to check whether or not a ParkingSpace
-         *        is occupied
-         * inputs: none
-         * returns: boolean isOccupied
-         */
         return this.isOccupied;
     }
 
+    /**
+     * function: setOccupied()
+     * usage: function set the occupancy of a spot
+     * inputs: boolean isOccupied (whether or not the space is full)
+     * returns: void
+     */
     public void setOccupied(boolean isOccupied) {
-        /**
-         * function: setOccupied()
-         * usage: function set the occupancy of a spot
-         * inputs: boolean isOccupied (whether or not the space is full)
-         * returns: void
-         */
         this.isOccupied = isOccupied;
     }
 
+    /**
+     * function: checkHandicap()
+     * usage: function to check whether or not a ParkingSpace
+     *        is handicap accessible
+     * inputs: none
+     * returns: boolean isHandicap
+     */
     public boolean checkHandicap() {
-        /**
-         * function: checkHandicap()
-         * usage: function to check whether or not a ParkingSpace
-         *        is handicap accessible
-         * inputs: none
-         * returns: boolean isHandicap
-         */
         return this.isHandicap;
     }
 
+    /**
+     * function: setHandicap()
+     * usage: function set the accessibility of a spot
+     * inputs: boolean isHandicap (whether or not the space is handicap accessible)
+     * returns: void
+     */
     public void setHandicap(boolean isHandicap) {
-        /**
-         * function: setHandicap()
-         * usage: function set the accessibility of a spot
-         * inputs: boolean isHandicap (whether or not the space is handicap accessible)
-         * returns: void
-         */
         this.isHandicap = isHandicap;
     }
 }
