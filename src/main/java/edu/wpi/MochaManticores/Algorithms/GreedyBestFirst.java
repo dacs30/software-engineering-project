@@ -7,10 +7,10 @@ import edu.wpi.MochaManticores.Nodes.NodeSuper;
  * to the greedy best first search algorithm.
  * @author aksil
  */
-public interface GreedyBestFirst {
+public class GreedyBestFirst {
     //Declare static variables
-    int buildingOffset = 100;   //determines how much the algorithm prefers nodes in the same building as the target node
-    int floorOffset = 50;       //determines how much the algorithm prefers nodes on the same floor as the target node
+    private int buildingOffset = 100;   //determines how much the algorithm prefers nodes in the same building as the target node
+    private int floorOffset = 50;       //determines how much the algorithm prefers nodes on the same floor as the target node
 
     /**
      * function: calcHeuristic()
@@ -20,7 +20,7 @@ public interface GreedyBestFirst {
      *         NodeSuper secondNode (the other node)
      * returns: int heuristic (the estimated cost to travel from 1 node to the other)
      */
-    static int calcHeuristic(NodeSuper firstNode, NodeSuper secondNode) {
+    public int calcHeuristic(NodeSuper firstNode, NodeSuper secondNode) {
 
         //calculate euclidean distance between nodes
         int heuristic = (int) Math.sqrt(Math.pow(firstNode.getXcoord()-secondNode.getXcoord(), 2) + Math.pow(firstNode.getYcoord()-secondNode.getYcoord(), 2));
