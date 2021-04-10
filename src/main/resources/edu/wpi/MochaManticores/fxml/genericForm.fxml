@@ -66,15 +66,15 @@
                   </Label>
                   <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                      <children>
-                        <JFXRadioButton fx:id="rbOne" prefWidth="136.0" style="-jfx-selected-color: black; -jfx-unselected-color: white;" text="button1" textFill="WHITE">
+                        <JFXRadioButton fx:id="rbOne" onAction="#setSingleRadio" prefWidth="136.0" style="-jfx-selected-color: black; -jfx-unselected-color: white;" text="button1" textFill="WHITE">
                            <font>
                               <Font size="25.0" />
                            </font></JFXRadioButton>
-                        <JFXRadioButton fx:id="rbTwo" style="-jfx-selected-color: black; -jfx-unselected-color: white;" text="button2" textFill="WHITE">
+                        <JFXRadioButton fx:id="rbTwo" onAction="#setSingleRadio" style="-jfx-selected-color: black; -jfx-unselected-color: white;" text="button2" textFill="WHITE">
                            <font>
                               <Font size="25.0" />
                            </font></JFXRadioButton>
-                        <JFXRadioButton fx:id="rbThree" style="-jfx-selected-color: black; -jfx-unselected-color: white;" text="button3" textFill="WHITE">
+                        <JFXRadioButton fx:id="rbThree" onAction="#setSingleRadio" style="-jfx-selected-color: black; -jfx-unselected-color: white;" text="button3" textFill="WHITE">
                            <font>
                               <Font size="25.0" />
                            </font></JFXRadioButton>
