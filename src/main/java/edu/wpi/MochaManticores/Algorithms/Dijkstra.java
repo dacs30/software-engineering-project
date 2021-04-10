@@ -1,5 +1,7 @@
 package edu.wpi.MochaManticores.Algorithms;
 
+import edu.wpi.MochaManticores.Nodes.NodeSuper;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -11,16 +13,16 @@ import java.util.LinkedList;
  */
 
 public class Dijkstra {
-    private HashMap<Integer, MapNode> nodes;
-    private HashMap<Integer, DijkstraNode> openSet;
-    private HashMap<Integer, DijkstraNode> closedSet = new HashMap<>();
+    private HashMap<String, NodeSuper> nodes;
+    private HashMap<String, DijkstraNode> openSet;
+    private HashMap<String, DijkstraNode> closedSet = new HashMap<>();
 
-    public Dijkstra(HashMap<Integer, MapNode> nodes){
+    public Dijkstra(HashMap<String, NodeSuper> nodes){
         this.nodes     = nodes;
         this.openSet   = new HashMap<>();
     }
 
-    public HashMap<Integer, MapNode> getNodes(){
+    public HashMap<String, NodeSuper> getNodes(){
         /**
          * function: getNodes()
          * usage: function to access the map of nodes being pathed
@@ -30,7 +32,7 @@ public class Dijkstra {
         return this.nodes;
     }
 
-    public HashMap<Integer, DijkstraNode> getOpenSet(){
+    public HashMap<String, DijkstraNode> getOpenSet(){
         /**
          * function: getOpenSet()
          * usage: function to access the nodes not yet visited
@@ -40,7 +42,7 @@ public class Dijkstra {
         return this.openSet;
     }
 
-    public HashMap<Integer, DijkstraNode> getClosedSet(){
+    public HashMap<String, DijkstraNode> getClosedSet(){
         /**
          * function getClosedSet()
          * usage: function to access the visited nodes
@@ -50,7 +52,7 @@ public class Dijkstra {
         return this.closedSet;
     }
 
-    public LinkedList<Integer> shortestPath(MapNode source, MapNode dest){
+    public LinkedList<String> shortestPath(NodeSuper source, NodeSuper dest){
         /**
          * function: shortestPath()
          * usage: finds the shortest path from the source to the destination
@@ -58,16 +60,16 @@ public class Dijkstra {
          * returns: a LinkedList of the node IDs along the found path
          */
 
-        LinkedList<Integer> path = new LinkedList<>();
-        if (source.ID == dest.ID){
-            path.add(source.ID);
+        LinkedList<String> path = new LinkedList<>();
+        if (source.getID().equals(dest.getID())){
+            path.add(source.getID());
             return path;
         }
-        DijkstraNode end = new DijkstraNode(dest.ID, null, 0);
+        DijkstraNode end = new DijkstraNode(dest.getID(), null, 0);
         closedSet = new HashMap<>();
         openSet.remove(end.getId());
         closedSet.put(end.getId(), end);
-        DijkstraNode target = openSet.get(source.ID);
+        DijkstraNode target = openSet.get(source.getID());
         LinkedList<DijkstraNode> queue = new LinkedList<>();
         queue.add(end);
 
@@ -91,8 +93,8 @@ public class Dijkstra {
          * input: the current node dnode, the target node target and the queue of nodes to be checked
          * returns: true if the target is found and false otherwise
          */
-        for (Object o : this.getNodes().get(dnode.getId()).getNeighbors()) {
-            int i = (Integer) o;
+        for (Object o : this.getNodes().get(dnode.getId()).getNeighbors()) {//need to redo neighbor iteration
+            String  i = (String) o;
             if (openSet.containsKey(i)) {
                 DijkstraNode node = openSet.get(i);
                 openSet.remove(i);
@@ -100,7 +102,7 @@ public class Dijkstra {
                 node.setPrev(dnode);
                 closedSet.put(i, node);
                 queue.add(node);
-                if (node.getId() == target.getId()) {
+                if (node.getId().equals(target.getId())) {
                     return true;
                 }
             }
@@ -108,7 +110,7 @@ public class Dijkstra {
         return false;
     }
 
-    public void tracePath(LinkedList<Integer> path, DijkstraNode target){
+    public void tracePath(LinkedList<String > path, DijkstraNode target){
         /**
          * function: tracePath()
          * usage: takes the target node and follows the previous nodes to the end node
@@ -123,7 +125,7 @@ public class Dijkstra {
         }
     }
 
-    public LinkedList<Integer> depthFirstSearch(MapNode source, MapNode dest){
+    public LinkedList<String> depthFirstSearch(NodeSuper source, NodeSuper dest){
         /**
          * function: depthFirstSearch()
          * usage: finds a path from the source to the destination exploring each branch fully before
@@ -131,16 +133,16 @@ public class Dijkstra {
          * input: two MapNodes, one for the start point and one for the end point
          * returns:a LinkedList containing the IDs of the nodes along the resulting path
          */
-        LinkedList<Integer> path = new LinkedList<>();
-        if (source.ID == dest.ID){
-            path.add(source.ID);
+        LinkedList<String> path = new LinkedList<>();
+        if (source.getID().equals(dest.getID())){
+            path.add(source.getID());
             return path;
         }
-        DijkstraNode end = new DijkstraNode(dest.ID, null, 0);
+        DijkstraNode end = new DijkstraNode(dest.getID(), null, 0);
         closedSet = new HashMap<>();
         openSet.remove(end.getId());
         closedSet.put(end.getId(), end);
-        DijkstraNode target = openSet.get(source.ID);
+        DijkstraNode target = openSet.get(source.getID());
 
         this.DFSFan(end, target);
         if (closedSet.containsKey(target.getId())){
@@ -158,14 +160,14 @@ public class Dijkstra {
          * returns: true if target found false otherwise
          */
         for (Object o : this.getNodes().get(currentNode.getId()).getNeighbors()){
-            int i = (Integer) o;
+            String i = (String) o;
             if (openSet.containsKey(i)) {
                 DijkstraNode nextNode = openSet.get(i);
                 openSet.remove(i);
                 nextNode.setDist(currentNode.getDist() + 1);
                 nextNode.setPrev(currentNode);
                 closedSet.put(i, nextNode);
-                if (nextNode.getId() == target.getId()) {
+                if (nextNode.getId().equals(target.getId())) {
                     return true;
                 }
                 DFSFan(nextNode, target);

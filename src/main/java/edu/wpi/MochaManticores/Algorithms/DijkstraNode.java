@@ -7,17 +7,17 @@ package edu.wpi.MochaManticores.Algorithms;
  */
 
 public class DijkstraNode {
-    private int id;
+    private String id;
     private DijkstraNode prev;
     private int dist;
 
-    public DijkstraNode(int id, DijkstraNode prev, int dist){
+    public DijkstraNode(String id, DijkstraNode prev, int dist){
         this.id = id;
         this.prev = prev;
         this.dist = dist;
     }
 
-    public int getId(){
+    public String getId(){
         /**
          * function: getId()
          * usage: function to retrieve the private id of the node
@@ -47,7 +47,7 @@ public class DijkstraNode {
         return this.dist;
     }
 
-    public void setId(int id){
+    public void setId(String id){
         /**
          * function: setId()
          * usage: function to set the ID of this node
