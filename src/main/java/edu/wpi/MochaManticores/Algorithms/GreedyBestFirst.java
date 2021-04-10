@@ -3,7 +3,7 @@ package edu.wpi.MochaManticores.Algorithms;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 
 /**
- * This class is intended to contain functions related
+ * This interface is intended to contain functions related
  * to the greedy best first search algorithm.
  * @author aksil
  */
@@ -26,7 +26,7 @@ public interface GreedyBestFirst {
         int heuristic = (int) Math.sqrt(Math.pow(firstNode.getXcoord()-secondNode.getXcoord(), 2) + Math.pow(firstNode.getYcoord()-secondNode.getYcoord(), 2));
 
         //add offset cost for being outside of the target building
-        if(firstNode.getBuilding() != secondNode.getBuilding()) {
+        if(firstNode.getBuilding().equals(secondNode.getBuilding())) {
             heuristic += buildingOffset;
             //if inside the target building, add offset for being on a different floor
             } else if(firstNode.getFloor() != secondNode.getFloor()) {
