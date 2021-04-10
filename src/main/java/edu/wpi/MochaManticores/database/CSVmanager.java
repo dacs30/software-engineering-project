@@ -66,6 +66,7 @@ public class CSVmanager {
             PreparedStatement pstmt = connect.prepareStatement(sql);
 
             while (line != null){
+                line = reader.readLine();
                 String[] row = line.split(this.CSVdelim);
 
                 //enter data
@@ -73,6 +74,7 @@ public class CSVmanager {
                 pstmt.setString(2, row[1]);
                 pstmt.setString(3, row[2]);
                 pstmt.executeUpdate();
+                MapSuper.getMap().get(row[1]).addNeighbor(row[2], 0);
             }
         } catch (FileNotFoundException | SQLException e){
             e.printStackTrace();
