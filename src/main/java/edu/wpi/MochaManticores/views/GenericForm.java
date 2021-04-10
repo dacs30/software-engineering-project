@@ -6,7 +6,14 @@ import javafx.scene.paint.Paint;
 
 import javafx.event.ActionEvent;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 public class GenericForm extends SceneController{
+
+    public JFXButton backButton;
 
     @FXML
     private JFXTextField fieldOne;
@@ -26,9 +33,13 @@ public class GenericForm extends SceneController{
     @FXML
     private JFXRadioButton rbThree;
 
+    private List<JFXRadioButton> buttons;
+
     public void initialize() {
         box.getItems().clear();
         box.getItems().addAll("1", "2", "3");
+        buttons = Arrays.asList(new JFXRadioButton[]{rbOne, rbTwo, rbThree});
+
     }
 
     public void submit(ActionEvent e){
@@ -36,7 +47,8 @@ public class GenericForm extends SceneController{
         System.out.println(box.getSelectionModel().getSelectedItem());
         System.out.println(fieldThree.getText());
         System.out.println(rbOne.isSelected());
-
+        System.out.println(rbTwo.isSelected());
+        System.out.println(rbThree.isSelected());
         returnToMain(e);
     }
 
@@ -47,5 +59,16 @@ public class GenericForm extends SceneController{
 
     public void back(ActionEvent e){
         super.back(e);
+    }
+
+    public void setSingleRadio(ActionEvent e){
+        JFXRadioButton source = (JFXRadioButton) e.getSource();
+        String pressed = source.getId();
+        for (JFXRadioButton button : buttons) {
+            if (!button.getId().equals(pressed)) {
+                button.setSelected(false);
+            }
+        }
+
     }
 }
