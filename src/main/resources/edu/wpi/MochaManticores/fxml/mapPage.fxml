@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDialog?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -9,13 +10,17 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.mapPage">
+<AnchorPane fx:id="pane" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.mapPage">
    <children>
       <ImageView fitHeight="800.0" fitWidth="1207.0" layoutX="-6.0" opacity="0.35" pickOnBounds="true">
          <image>
@@ -27,10 +32,15 @@
             <Image url="@../images/logo-small.png" />
          </image>
       </ImageView>
-      <Rectangle arcHeight="39.0" arcWidth="39.0" fill="#0f4b91" height="779.0" layoutX="178.0" layoutY="11.0" stroke="#0f4b91" strokeType="INSIDE" width="1008.0" />
-      <VBox layoutX="178.0" layoutY="15.0" prefHeight="790.0" prefWidth="999.0" spacing="30.0">
+      <Rectangle arcHeight="39.0" arcWidth="39.0" fill="#0f4b91" height="779.0" layoutX="174.0" layoutY="11.0" stroke="#0f4b91" strokeType="INSIDE" width="1008.0" />
+      <JFXButton fx:id="backButton" layoutX="29.0" layoutY="698.0" onAction="#back" prefHeight="65.0" prefWidth="103.0" style="-fx-background-radius: 100; -fx-background-color: #0f4b91;" text="Back" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </JFXButton>
+      <VBox fx:id="selectionPage" layoutX="178.0" layoutY="15.0" prefHeight="790.0" prefWidth="999.0" spacing="30.0">
          <children>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="List Nodes">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Node Selector">
                <font>
                   <Font size="60.0" />
                </font>
@@ -40,7 +50,7 @@
             </Text>
             <HBox alignment="CENTER_RIGHT" prefHeight="201.0" prefWidth="979.0" spacing="20.0">
                <children>
-                  <Label alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="87.0" prefWidth="275.0" text="Enter Map Name" textFill="WHITE">
+                  <Label alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="70.0" prefWidth="212.0" text="Search for a location" textAlignment="RIGHT" textFill="WHITE" wrapText="true">
                      <font>
                         <Font name="Amiri Quran" size="30.0" />
                      </font>
@@ -48,17 +58,20 @@
                         <Insets top="-20.0" />
                      </padding>
                   </Label>
-                  <Separator orientation="VERTICAL" prefHeight="100.0" prefWidth="35.0" style="-fx-background-color: white; -fx-background-radius: 20;">
+                  <Separator orientation="VERTICAL" prefHeight="201.0" prefWidth="0.0" style="-fx-background-color: white;">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
                   </Separator>
-                  <JFXTextField fx:id="mapName" focusColor="WHITE" onKeyTyped="#searchTyped" prefHeight="47.0" prefWidth="535.0" style="-fx-background-color: white;" unFocusColor="WHITE">
+                  <JFXTextField fx:id="mapName" focusColor="WHITE" labelFloat="true" onKeyTyped="#searchTyped" prefHeight="51.0" prefWidth="512.0" promptText="Enter Search Term" style="-fx-background-color: white;" unFocusColor="WHITE">
                      <HBox.margin>
                         <Insets right="20.0" />
                      </HBox.margin>
+                     <font>
+                        <Font size="24.0" />
+                     </font>
                   </JFXTextField>
-                  <JFXButton fx:id="searchButton" buttonType="RAISED" contentDisplay="RIGHT" onAction="#searchPressed" prefHeight="86.0" prefWidth="146.0" ripplerFill="BLACK" style="-fx-background-color: #30DD27; -fx-background-radius: 100;" text="Search" textFill="WHITE">
+                  <JFXButton fx:id="searchButton" buttonType="RAISED" contentDisplay="RIGHT" onAction="#searchPressed" prefHeight="86.0" prefWidth="185.0" ripplerFill="BLACK" style="-fx-background-color: #30DD27; -fx-background-radius: 100;" text="Search" textFill="WHITE">
                      <font>
                         <Font size="28.0" />
                      </font>
@@ -68,7 +81,7 @@
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
             </HBox>
-            <TableView fx:id="dispTable" prefHeight="200.0" prefWidth="200.0">
+            <TableView fx:id="dispTable" editable="true" prefHeight="200.0" prefWidth="200.0">
                <VBox.margin>
                   <Insets left="20.0" right="20.0" />
                </VBox.margin>
@@ -80,7 +93,7 @@
                         <Font size="40.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" contentDisplay="RIGHT" onAction="#submit" prefHeight="86.0" prefWidth="190.0" ripplerFill="BLACK" style="-fx-background-color: #30DD27; -fx-background-radius: 100;" text="Display" textFill="WHITE">
+                  <JFXButton buttonType="RAISED" contentDisplay="RIGHT" onAction="#submit" prefHeight="86.0" prefWidth="190.0" ripplerFill="BLACK" style="-fx-background-color: #30DD27; -fx-background-radius: 100;" text="Edit" textFill="WHITE">
                      <font>
                         <Font size="40.0" />
                      </font>
@@ -89,10 +102,95 @@
             </HBox>
          </children>
       </VBox>
-      <JFXButton fx:id="backButton" layoutX="29.0" layoutY="698.0" onAction="#back" prefHeight="65.0" prefWidth="103.0" style="-fx-background-radius: 100; -fx-background-color: #0f4b91;" text="Back" textFill="WHITE">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </JFXButton>
+      <VBox fx:id="editPage" layoutX="183.0" layoutY="23.0" prefHeight="741.0" prefWidth="989.0" visible="false">
+         <children>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Node">
+               <font>
+                  <Font size="60.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="15.0" />
+               </VBox.margin>
+            </Text>
+            <GridPane prefHeight="367.0" prefWidth="734.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="515.0" minWidth="10.0" prefWidth="514.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="704.0" minWidth="10.0" prefWidth="475.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Y Coordinate:" textAlignment="RIGHT" wrappingWidth="483.01025390625" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Short Name:" textAlignment="RIGHT" wrappingWidth="475.01025390625" GridPane.rowIndex="5">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Long Name:" textAlignment="RIGHT" wrappingWidth="476.01025390625" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Building:" textAlignment="RIGHT" wrappingWidth="479.01025390625" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Floor:" textAlignment="RIGHT" wrappingWidth="481.01025390625" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="NodeID:" textAlignment="RIGHT" wrappingWidth="476.01025390625" GridPane.rowIndex="6">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Text>
+                  <JFXTextField focusColor="WHITE" prefHeight="66.0" prefWidth="481.0" unFocusColor="WHITE" GridPane.columnIndex="1" />
+                  <JFXTextField focusColor="WHITE" prefHeight="66.0" prefWidth="481.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <JFXTextField focusColor="WHITE" prefHeight="66.0" prefWidth="481.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <JFXTextField focusColor="WHITE" prefHeight="66.0" prefWidth="481.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <JFXTextField focusColor="WHITE" prefHeight="66.0" prefWidth="481.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <JFXTextField focusColor="WHITE" prefHeight="66.0" prefWidth="481.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <JFXTextField focusColor="WHITE" prefHeight="66.0" prefWidth="481.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="X Coordinate:" textAlignment="RIGHT" wrappingWidth="486.01025390625">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Text>
+               </children>
+            </GridPane>
+            <HBox alignment="CENTER" prefHeight="217.0" prefWidth="989.0" spacing="75.0">
+               <children>
+                  <JFXButton buttonType="RAISED" cancelButton="true" onAction="#cancelEdit" prefHeight="86.0" prefWidth="190.0" ripplerFill="BLACK" style="-fx-background-color: #E74C3c; -fx-background-radius: 100;" text="Cancel" textFill="WHITE">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton buttonType="RAISED" contentDisplay="RIGHT" onAction="#submitEdit" prefHeight="86.0" prefWidth="190.0" ripplerFill="BLACK" style="-fx-background-color: #30DD27; -fx-background-radius: 100;" text="Submit" textFill="WHITE">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <StackPane fx:id="dialogPane" disable="true" prefHeight="805.0" prefWidth="1201.0">
+         <children>
+            <JFXDialog />
+         </children>
+      </StackPane>
    </children>
 </AnchorPane>
