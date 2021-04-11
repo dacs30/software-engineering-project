@@ -38,7 +38,7 @@ public class GenericForm extends SceneController{
     public void initialize() {
         box.getItems().clear();
         box.getItems().addAll("1", "2", "3");
-        buttons = Arrays.asList(new JFXRadioButton[]{rbOne, rbTwo, rbThree});
+        buttons = Arrays.asList(rbOne, rbTwo, rbThree);
 
     }
 

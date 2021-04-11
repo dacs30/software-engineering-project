@@ -38,9 +38,9 @@
                   <Insets left="20.0" />
                </VBox.margin>
             </Text>
-            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+            <HBox alignment="CENTER_RIGHT" prefHeight="201.0" prefWidth="979.0" spacing="20.0">
                <children>
-                  <Label alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="87.0" prefWidth="499.0" text="Enter Map Name" textFill="WHITE">
+                  <Label alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="87.0" prefWidth="275.0" text="Enter Map Name" textFill="WHITE">
                      <font>
                         <Font name="Amiri Quran" size="30.0" />
                      </font>
@@ -53,11 +53,16 @@
                         <Insets />
                      </HBox.margin>
                   </Separator>
-                  <JFXTextField fx:id="mapName" focusColor="WHITE" prefHeight="47.0" prefWidth="919.0" style="-fx-background-color: white;" unFocusColor="WHITE">
+                  <JFXTextField fx:id="mapName" focusColor="WHITE" onKeyTyped="#searchTyped" prefHeight="47.0" prefWidth="535.0" style="-fx-background-color: white;" unFocusColor="WHITE">
                      <HBox.margin>
                         <Insets right="20.0" />
                      </HBox.margin>
                   </JFXTextField>
+                  <JFXButton fx:id="searchButton" buttonType="RAISED" contentDisplay="RIGHT" onAction="#searchPressed" prefHeight="86.0" prefWidth="146.0" ripplerFill="BLACK" style="-fx-background-color: #30DD27; -fx-background-radius: 100;" text="Search" textFill="WHITE">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                  </JFXButton>
                </children>
                <VBox.margin>
                   <Insets left="10.0" right="10.0" />
