@@ -1,5 +1,5 @@
 package edu.wpi.MochaManticores.views;
-
+//TODO:comment :(
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
@@ -39,6 +39,8 @@ public class mapPage extends SceneController{
     public TableColumn shortName;
     public TableColumn nodeID;
 
+
+
     @FXML
     public VBox selectionPage;
 
@@ -47,6 +49,13 @@ public class mapPage extends SceneController{
 
     @FXML
     public StackPane dialogPane;
+    public JFXTextField nodeIDField;
+    public JFXTextField shortNameField;
+    public JFXTextField logNameField;
+    public JFXTextField buildingField;
+    public JFXTextField floorField;
+    public JFXTextField ycoordField;
+    public JFXTextField xcoordField;
 
     public class Node extends RecursiveTreeObject<Node>{
         public StringProperty xcoord;
@@ -263,9 +272,18 @@ public class mapPage extends SceneController{
     public void loadEditPage(Node node){
         selectionPage.setVisible(false);
         editPage.setVisible(true);
+        xcoordField.setText(node.getXcoord());
+        ycoordField.setText(node.getYcoord());
+        floorField.setText(node.getFloor());
+        buildingField.setText(node.getBuilding());
+        logNameField.setText(node.getLongName());
+        shortNameField.setText(node.getShortName());
+        nodeIDField.setText(node.getNodeID());
+
     }
 
     public void submitEdit(ActionEvent e){
+        //TODO:Talk to CSV Manager
         ;
     }
 

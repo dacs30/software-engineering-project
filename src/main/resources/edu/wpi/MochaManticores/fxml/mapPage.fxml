@@ -22,6 +22,11 @@
 
 <AnchorPane fx:id="pane" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.mapPage">
    <children>
+      <StackPane fx:id="dialogPane" disable="true" prefHeight="805.0" prefWidth="1201.0">
+         <children>
+            <JFXDialog />
+         </children>
+      </StackPane>
       <ImageView fitHeight="800.0" fitWidth="1207.0" layoutX="-6.0" opacity="0.35" pickOnBounds="true">
          <image>
             <Image url="@../images/100909_00_BrighamWomens_BTM_N8_966x668.jpg" />
@@ -102,7 +107,7 @@
             </HBox>
          </children>
       </VBox>
-      <VBox fx:id="editPage" layoutX="183.0" layoutY="23.0" prefHeight="741.0" prefWidth="989.0" visible="false">
+      <VBox fx:id="editPage" layoutX="184.0" layoutY="15.0" prefHeight="741.0" prefWidth="989.0" visible="false">
          <children>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Node">
                <font>
@@ -157,13 +162,41 @@
                         <Font size="36.0" />
                      </font>
                   </Text>
-                  <JFXTextField focusColor="WHITE" prefHeight="66.0" prefWidth="481.0" unFocusColor="WHITE" GridPane.columnIndex="1" />
-                  <JFXTextField focusColor="WHITE" prefHeight="66.0" prefWidth="481.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                  <JFXTextField focusColor="WHITE" prefHeight="66.0" prefWidth="481.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <JFXTextField focusColor="WHITE" prefHeight="66.0" prefWidth="481.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <JFXTextField focusColor="WHITE" prefHeight="66.0" prefWidth="481.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <JFXTextField focusColor="WHITE" prefHeight="66.0" prefWidth="481.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <JFXTextField focusColor="WHITE" prefHeight="66.0" prefWidth="481.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <JFXTextField focusColor="WHITE" prefHeight="66.0" prefWidth="481.0" style="-fx-text-fill: white;" unFocusColor="WHITE" GridPane.columnIndex="1" fx:id="xcoordField">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXTextField fx:id="nodeIDField" focusColor="WHITE" prefHeight="66.0" prefWidth="481.0" style="-fx-text-fill: white;" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXTextField fx:id="shortNameField" focusColor="WHITE" prefHeight="66.0" prefWidth="481.0" style="-fx-text-fill: white;" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXTextField fx:id="logNameField" focusColor="WHITE" prefHeight="66.0" prefWidth="481.0" style="-fx-text-fill: white;" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXTextField fx:id="buildingField" focusColor="WHITE" prefHeight="66.0" prefWidth="481.0" style="-fx-text-fill: white;" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXTextField fx:id="floorField" focusColor="WHITE" prefHeight="66.0" prefWidth="481.0" style="-fx-text-fill: #FFFFFF;" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXTextField fx:id="ycoordField" focusColor="WHITE" prefHeight="66.0" prefWidth="481.0" style="-fx-text-fill: white;" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </JFXTextField>
                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="X Coordinate:" textAlignment="RIGHT" wrappingWidth="486.01025390625">
                      <font>
                         <Font size="36.0" />
@@ -187,10 +220,5 @@
             </HBox>
          </children>
       </VBox>
-      <StackPane fx:id="dialogPane" disable="true" prefHeight="805.0" prefWidth="1201.0">
-         <children>
-            <JFXDialog />
-         </children>
-      </StackPane>
    </children>
 </AnchorPane>
