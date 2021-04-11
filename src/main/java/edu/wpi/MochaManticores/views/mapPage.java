@@ -3,6 +3,7 @@ package edu.wpi.MochaManticores.views;
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import com.jfoenix.controls.events.JFXDialogEvent;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import javafx.beans.binding.Bindings;
@@ -10,10 +11,16 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.scene.input.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -31,6 +38,15 @@ public class mapPage extends SceneController{
     public TableColumn longName;
     public TableColumn shortName;
     public TableColumn nodeID;
+
+    @FXML
+    public VBox selectionPage;
+
+    @FXML
+    public VBox editPage;
+
+    @FXML
+    public StackPane dialogPane;
 
     public class Node extends RecursiveTreeObject<Node>{
         public StringProperty xcoord;
@@ -155,11 +171,6 @@ public class mapPage extends SceneController{
                 new PropertyValueFactory<Node, String>("nodeID"));
 
         buildTable("");
-
-
-
-
-
     }
     public void displayTable() {
 
@@ -215,8 +226,53 @@ public class mapPage extends SceneController{
     }
 
     public void submit(ActionEvent e){
-        dispTable.getFocusModel().focus(0);
-        //returnToMain(e);
+        Node n = (Node) dispTable.getSelectionModel().getSelectedItem();
+        if (n == null){
+            loadErrorDialog();
+        }else{
+            System.out.println(n.toString());
+            loadEditPage(n);
+        }
+
+    }
+
+    public void loadErrorDialog(){
+        dialogPane.setDisable(false);
+        JFXDialogLayout message = new JFXDialogLayout();
+        message.setHeading(new Text("Oops!"));
+        message.setBody(new Text("Please select a table entry before editing."));
+        JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
+        JFXButton exit = new JFXButton("DONE");
+        exit.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                dialog.close();
+                dialogPane.setDisable(true);
+            }
+        });
+        dialog.setOnDialogClosed(new EventHandler<JFXDialogEvent>() {
+            @Override
+            public void handle(JFXDialogEvent event) {
+                dialogPane.setDisable(true);
+            }
+        });
+        message.setActions(exit);
+        dialog.show();
+    }
+
+    public void loadEditPage(Node node){
+        selectionPage.setVisible(false);
+        editPage.setVisible(true);
+    }
+
+    public void submitEdit(ActionEvent e){
+        ;
+    }
+
+    public void cancelEdit(ActionEvent e){
+        editPage.setVisible(false);
+        selectionPage.setVisible(true);
+
     }
 
     public void back(ActionEvent e){
