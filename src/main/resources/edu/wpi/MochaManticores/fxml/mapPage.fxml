@@ -43,7 +43,7 @@
             <Font size="24.0" />
          </font>
       </JFXButton>
-      <VBox fx:id="selectionPage" layoutX="178.0" layoutY="15.0" prefHeight="790.0" prefWidth="999.0" spacing="30.0">
+      <VBox fx:id="selectionPage" layoutX="178.0" layoutY="15.0" prefHeight="790.0" prefWidth="999.0" spacing="30.0" visible="false">
          <children>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Node Selector">
                <font>
@@ -107,7 +107,7 @@
             </HBox>
          </children>
       </VBox>
-      <VBox fx:id="editPage" layoutX="184.0" layoutY="15.0" prefHeight="741.0" prefWidth="989.0" visible="false">
+      <VBox fx:id="editPage" layoutX="184.0" layoutY="15.0" prefHeight="741.0" prefWidth="989.0">
          <children>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Node">
                <font>
