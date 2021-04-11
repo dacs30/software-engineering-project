@@ -10,3 +10,27 @@
     -jfx-focus-color: GREY;
     -jfx-unfocus-color: WHITE;
 }
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('Roboto-Medium.ttf');
+}
+
+#getStartedText {
+    -fx-font-family: "Roboto";
+    -fx-font-size: 60;
+    -fx-font-weight: bold;
+}
+
+#loginInformationText {
+    -fx-font-family: "Roboto";
+    -fx-font-size: 15;
+    -fx-font-weight: bold;
+}
+
+#inputPatientId {
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-text-fill : #ffffff;
+    -jfx-unfocus-color : #ffffff;
+}
