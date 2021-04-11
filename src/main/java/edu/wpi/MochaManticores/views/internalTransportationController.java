@@ -1,4 +1,7 @@
 package edu.wpi.MochaManticores.views;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextField;
 import edu.wpi.MochaManticores.App;
 import java.awt.*;
 import java.io.IOException;
@@ -19,19 +22,19 @@ public class internalTransportationController {
 
     // Information of Patient/One Being Transported
     @FXML
-        private TextField patientID;
+        private JFXTextField patientID;
     @FXML
-        private TextField numberOfStaff;
+        private JFXTextField numberOfStaff;
     @FXML
-        private TextField destination;
+        private JFXTextField destination;
     @FXML
-        private ComboBox transportComboBox;
+        private JFXComboBox transportComboBox;
 
     // Buttons for Form
     @FXML
-        private Button cancelButton;
+        private JFXButton cancelButton;
     @FXML
-        private Button submitButton;
+        private JFXButton submitButton;
     @FXML
         private void initialize() {
         transportComboBox.setItems(typeOfTransportList);

@@ -1,5 +1,8 @@
 package edu.wpi.MochaManticores.views;
 
+import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import edu.wpi.MochaManticores.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,25 +14,25 @@ import javafx.scene.control.TextField;
 public class FloralSceneController extends SceneController {
 
   @FXML
-  private TextField rmNum;
+  private JFXTextField rmNum;
   @FXML
-  private TextField delivDate;
+  private JFXTextField delivDate;
   @FXML
-  private TextArea personalNote;
+  private JFXTextArea personalNote;
 
   @FXML
-  private CheckBox tulip;
+  private JFXCheckBox tulip;
   @FXML
-  private CheckBox rose;
+  private JFXCheckBox rose;
   @FXML
-  private CheckBox lilie;
+  private JFXCheckBox lilie;
 
   @FXML
-  private CheckBox blue;
+  private JFXCheckBox blue;
   @FXML
-  private CheckBox yellow;
+  private JFXCheckBox yellow;
   @FXML
-  private CheckBox orange;
+  private JFXCheckBox orange;
 
 
   @FXML

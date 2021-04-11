@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -15,62 +18,67 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: lightblue;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.FloralSceneController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.FloralSceneController">
   <children>
+      <ImageView fitHeight="431.0" fitWidth="588.0" layoutX="4.0" layoutY="2.0" opacity="0.35" pickOnBounds="true">
+         <image>
+            <Image url="@../images/100909_00_BrighamWomens_BTM_N8_966x668.jpg" />
+         </image>
+      </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2d75b3" height="47.0" layoutX="37.0" layoutY="3.0" stroke="#3a2f2f" strokeType="INSIDE" strokeWidth="2.0" width="528.0" />
     <Label alignment="CENTER" layoutX="42.0" prefHeight="47.0" prefWidth="517.0" text="Floral Delivery Services" textFill="WHITE">
       <font>
         <Font size="36.0" />
       </font>
     </Label>
-      <Button layoutX="16.0" layoutY="53.0" mnemonicParsing="false" onAction="#helpButton" text="Help" />
+      <JFXButton buttonType="RAISED" onAction="#helpButton" style="-fx-background-color: lightgrey; -fx-border-color: dimgrey;" text="Help" translateX="15.0" translateY="55.0" />
       <VBox layoutX="37.0" layoutY="98.0" prefHeight="285.0" prefWidth="278.0" style="-fx-border-color: White;">
          <children>
             <HBox prefHeight="29.0" prefWidth="234.0">
                <children>
-                  <Label prefHeight="17.0" prefWidth="93.0" text="Room Number" />
+                  <Label prefHeight="17.0" prefWidth="140.0" text="Room Number:" textFill="WHITE" />
                   <Separator orientation="VERTICAL" prefHeight="36.0" prefWidth="23.0" />
-                  <TextField fx:id="rmNum" promptText="Ex. 104B" />
+                  <JFXTextField fx:id="rmNum" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="180.0" promptText="Ex. 104B" style="-fx-background-color: white;" />
                </children>
             </HBox>
             <Separator prefWidth="200.0" />
             <HBox prefHeight="36.0" prefWidth="234.0">
                <children>
-                  <Label prefHeight="17.0" prefWidth="93.0" text="Delivery Date" />
+                  <Label prefHeight="17.0" prefWidth="137.0" text="Delivery Date:" textFill="WHITE" />
                   <Separator orientation="VERTICAL" prefHeight="36.0" prefWidth="23.0" />
-                  <TextField fx:id="delivDate" promptText="MM/DD" />
+                  <JFXTextField fx:id="delivDate" prefHeight="25.0" prefWidth="180.0" promptText="MM/DD" style="-fx-background-color: white;" />
                </children>
             </HBox>
             <Separator prefWidth="200.0" />
             <VBox prefHeight="75.0" prefWidth="293.0">
                <children>
-                  <Label text="Flower Choice" />
-                  <CheckBox fx:id="tulip" mnemonicParsing="false" text="Tulip (Orange) $15" />
-                  <CheckBox fx:id="rose" mnemonicParsing="false" text="Roses $25" />
-                  <CheckBox fx:id="lilie" mnemonicParsing="false" text="Lilies $18" />
+                  <Label text="Flower Choice" textFill="WHITE" />
+                  <JFXCheckBox fx:id="tulip" text="Tulip(Orange) $15" textFill="WHITE" unCheckedColor="WHITE" />
+                  <JFXCheckBox fx:id="rose" text="Roses $25" textFill="WHITE" unCheckedColor="WHITE" />
+                  <JFXCheckBox fx:id="lilie" text="Lilies $18" textFill="WHITE" unCheckedColor="WHITE" />
                </children>
             </VBox>
             <Separator prefWidth="200.0" />
             <VBox prefHeight="69.0" prefWidth="321.0">
                <children>
-                  <Label text="Vase Options" />
-                  <CheckBox fx:id="blue" mnemonicParsing="false" text="Blue" />
-                  <CheckBox fx:id="yellow" mnemonicParsing="false" text="Yellow" />
-                  <CheckBox fx:id="orange" mnemonicParsing="false" text="Orange" />
+                  <Label text="Vase Options" textFill="WHITE" />
+                  <JFXCheckBox fx:id="blue" text="Blue" textFill="WHITE" unCheckedColor="WHITE" />
+                  <JFXCheckBox fx:id="yellow" text="Yellow" textFill="WHITE" unCheckedColor="WHITE" />
+                  <JFXCheckBox fx:id="orange" text="Orange" textFill="WHITE" unCheckedColor="WHITE" />
                </children>
             </VBox>
             <Separator prefWidth="200.0" />
             <VBox prefHeight="85.0" prefWidth="309.0">
                <children>
-                  <Label text="Personalized Note (Optional)" />
-                  <TextArea fx:id="personalNote" prefHeight="53.0" prefWidth="281.0" promptText="Your Text Here" />
+                  <Label text="Personalized Note (Optional)" textFill="WHITE" />
+                  <JFXTextArea fx:id="personalNote" prefHeight="52.0" prefWidth="276.0" promptText="Your text here" style="-fx-background-color: white;" translateY="3.0" />
                </children>
             </VBox>
          </children>
       </VBox>
-      <Button layoutX="334.0" layoutY="323.0" mnemonicParsing="false" onAction="#submitForm" prefHeight="38.0" prefWidth="104.0" text="Submit" />
-      <Button layoutX="455.0" layoutY="323.0" mnemonicParsing="false" onAction="#goBack" prefHeight="38.0" prefWidth="104.0" text="Cancel" />
-      <Pane fx:id="helpPopup" visible="false" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <JFXButton buttonType="RAISED" layoutX="145.0" layoutY="-11.0" onAction="#submitForm" prefHeight="47.0" prefWidth="104.0" style="-fx-background-color: lightgrey; -fx-border-color: dimgrey;" text="Submit" translateX="310.0" translateY="340.0" />
+      <JFXButton buttonType="RAISED" layoutX="-100.0" layoutY="-1.0" onAction="#goBack" prefHeight="47.0" prefWidth="104.0" style="-fx-background-color: lightgrey; -fx-border-color: dimgrey;" text="Cancel" translateX="430.0" translateY="330.0" />
+      <Pane fx:id="helpPopup" prefHeight="400.0" prefWidth="600.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#979797" height="408.0" opacity="0.81" stroke="BLACK" strokeType="INSIDE" width="600.0" />
             <Rectangle arcHeight="50.0" arcWidth="50.0" fill="WHITE" height="300.0" layoutX="111.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" width="378.0" />
