@@ -27,7 +27,7 @@ public class mainMenuController extends SceneController{
     }
 
     public void gotoMap(ActionEvent e){
-        super.changeSceneTo(e, "mapPage");
+        super.changeSceneTo(e, "mapPageTEMP");
     }
 
     public void back(ActionEvent e){
