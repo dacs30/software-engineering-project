@@ -98,7 +98,7 @@
                         <Font size="40.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" contentDisplay="RIGHT" onAction="#submit" prefHeight="86.0" prefWidth="190.0" ripplerFill="BLACK" style="-fx-background-color: #30DD27; -fx-background-radius: 100;" text="Edit" textFill="WHITE">
+                  <JFXButton buttonType="RAISED" contentDisplay="RIGHT" onAction="#editButton" prefHeight="86.0" prefWidth="190.0" ripplerFill="BLACK" style="-fx-background-color: #30DD27; -fx-background-radius: 100;" text="Edit" textFill="WHITE">
                      <font>
                         <Font size="40.0" />
                      </font>

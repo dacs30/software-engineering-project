@@ -87,3 +87,12 @@
     -fx-font-size: 15;
     -fx-font-weight: bold;
 }
+
+#innerContainer {
+    margin:auto;
+}
+
+#loginPage {
+    hight: 100%;
+    width: 100%;
+}

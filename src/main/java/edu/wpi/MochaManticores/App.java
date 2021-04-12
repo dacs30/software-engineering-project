@@ -6,8 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.Objects;
 import java.util.Stack;
 
 import edu.wpi.MochaManticores.Nodes.MapSuper;
@@ -51,10 +50,15 @@ public class App extends Application {
 
     App.primaryStage = primaryStage;
     try {
-      Parent root = FXMLLoader.load(getClass().getResource("fxml/loginPage.fxml"));
+      Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("fxml/loadingPage.fxml")));
       Scene scene = new Scene(root);
+      primaryStage.setMaximized(true);
+      primaryStage.setFullScreen(true);
       primaryStage.setScene(scene);
       primaryStage.show();
+      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("fxml/loginPage.fxml")));
+      App.getPrimaryStage().getScene().setRoot(root);
+
     } catch (IOException e) {
       e.printStackTrace();
       Platform.exit();
