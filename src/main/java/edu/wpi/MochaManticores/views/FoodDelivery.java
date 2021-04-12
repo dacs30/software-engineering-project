@@ -19,11 +19,12 @@ public class FoodDelivery extends SceneController {
     }
 
     public void makeAnOrderOnClickEvent(ActionEvent e) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/MochaManticores/fxml/FoodDeliveryDietaryPreferences.fxml"));
-            App.getPrimaryStage().getScene().setRoot(root);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        changeSceneTo(e, "FoodDeliveryDietaryPreferences");
+//        try {
+//            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/MochaManticores/fxml/FoodDeliveryDietaryPreferences.fxml"));
+//            App.getPrimaryStage().getScene().setRoot(root);
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//        }
     }
 }

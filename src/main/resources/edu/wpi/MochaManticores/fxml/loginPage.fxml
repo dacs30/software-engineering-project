@@ -35,7 +35,7 @@
                <effect>
                   <DropShadow height="76.35" radius="28.119999999999997" width="38.13" />
                </effect></Rectangle>
-            <GridPane maxHeight="700.0" maxWidth="550.0" prefHeight="700.0" prefWidth="550.0" style="-fx-background-color: #0F4B91;" GridPane.columnIndex="1">
+            <GridPane maxHeight="700.0" maxWidth="550.0" prefHeight="700.0" prefWidth="550.0" style="-fx-background-color: #0F4B91; -fx-background-radius: 20;" GridPane.columnIndex="1">
               <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
@@ -63,7 +63,7 @@
                         </JFXTextField>
                      </children>
                   </VBox>
-                  <JFXButton onAction="#onMouseClickedContinue" prefHeight="99.0" prefWidth="276.0" ripplerFill="BLACK" style="-fx-background-color: white; -fx-background-radius: 100;" stylesheets="@../stylesheets.css" text="Continue" GridPane.rowIndex="2">
+                  <JFXButton onAction="#onMouseClickedContinue" prefHeight="80.0" prefWidth="183.0" ripplerFill="BLACK" style="-fx-background-color: white; -fx-background-radius: 100;" stylesheets="@../stylesheets.css" text="Continue" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
@@ -71,7 +71,7 @@
                         <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                      </padding>
                      <font>
-                        <Font name="System Bold" size="28.0" />
+                        <Font name="System Bold" size="24.0" />
                      </font>
                   </JFXButton>
                </children>

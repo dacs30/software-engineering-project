@@ -5,7 +5,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 
 import java.io.IOException;
 import java.util.EmptyStackException;
@@ -13,7 +12,7 @@ import java.util.Objects;
 import java.util.Stack;
 
 public class SceneController {
-    protected static Stack<String> scenes = new Stack<String>();
+    protected static Stack<String> scenes = new Stack<>();
 
     @FXML
     protected void returnToMain(ActionEvent e){
@@ -25,7 +24,7 @@ public class SceneController {
         scenes.push(scene);
         String path = "/edu/wpi/MochaManticores/fxml/" + scene + ".fxml";
         try {
-            Parent root = FXMLLoader.load(getClass().getResource(path));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(path)));
             App.getPrimaryStage().getScene().setRoot(root);
         } catch (IOException ex) {
             ex.printStackTrace();
