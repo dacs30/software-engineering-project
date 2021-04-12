@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Stack;
 
+import edu.wpi.MochaManticores.Nodes.EdgeMapSuper;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.database.CSVmanager;
@@ -41,7 +42,6 @@ public class App extends Application {
     System.out.println("Starting Up");
     System.out.println("Starting Database");
     Mdb.databaseStartup();
-
   }
 
 

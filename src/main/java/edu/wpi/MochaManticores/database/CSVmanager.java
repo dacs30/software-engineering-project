@@ -1,9 +1,7 @@
 package edu.wpi.MochaManticores.database;
 
 import edu.wpi.MochaManticores.Algorithms.GreedyBestFirst;
-import edu.wpi.MochaManticores.Nodes.MapSuper;
-import edu.wpi.MochaManticores.Nodes.NodeSuper;
-import edu.wpi.MochaManticores.Nodes.VertexList;
+import edu.wpi.MochaManticores.Nodes.*;
 
 import java.io.*;
 import java.sql.*;
@@ -128,9 +126,14 @@ public class CSVmanager {
         }
         sb.append("\n");
         while (results.next()) {
+            //updating neighbors in Nodes
             NodeSuper startNode = MapSuper.getMap().get(results.getString(2));
             NodeSuper endNode = MapSuper.getMap().get(results.getString(3));
             startNode.addNeighbor(results.getString(3), GreedyBestFirst.calcHeuristic(startNode, endNode));
+
+            //creating edgeSuper to put in EdgeMap
+            EdgeSuper tempEdgeNode = new EdgeSuper(results.getString(1), results.getString(2), results.getString(3));
+            EdgeMapSuper.getMap().put(results.getString(1), tempEdgeNode);
             for(int i = 1; i <= rsmd.getColumnCount(); i++) {
                 sb.append(results.getString(i));
                 sb.append(",");
