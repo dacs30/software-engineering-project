@@ -44,6 +44,9 @@ public class NodeSuper {
         return this.neighbors.getKeyIDs();
     }
 
+    public VertexList getVertextList(){
+        return this.neighbors;
+    }
     /**
      * function: addNeighbor()
      * usage: adds a new neighborID to the stack

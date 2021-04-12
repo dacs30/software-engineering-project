@@ -16,209 +16,262 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="pane" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.mapPage">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.mapPage">
    <children>
-      <StackPane fx:id="dialogPane" disable="true" prefHeight="805.0" prefWidth="1201.0">
-         <children>
-            <JFXDialog />
-         </children>
-      </StackPane>
-      <ImageView fitHeight="800.0" fitWidth="1207.0" layoutX="-6.0" opacity="0.35" pickOnBounds="true">
+      <ImageView fx:id="backgroundIMG" fitHeight="800.0" fitWidth="1207.0" layoutX="-6.0" opacity="0.35" pickOnBounds="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="-6.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@../images/100909_00_BrighamWomens_BTM_N8_966x668.jpg" />
          </image>
       </ImageView>
-      <ImageView fitHeight="115.0" fitWidth="94.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/logo-small.png" />
-         </image>
-      </ImageView>
-      <Rectangle arcHeight="39.0" arcWidth="39.0" fill="#0f4b91" height="779.0" layoutX="174.0" layoutY="11.0" stroke="#0f4b91" strokeType="INSIDE" width="1008.0" />
-      <JFXButton fx:id="backButton" layoutX="29.0" layoutY="698.0" onAction="#back" prefHeight="65.0" prefWidth="103.0" style="-fx-background-radius: 100; -fx-background-color: #0f4b91;" text="Back" textFill="WHITE">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </JFXButton>
-      <VBox fx:id="selectionPage" layoutX="178.0" layoutY="15.0" prefHeight="790.0" prefWidth="999.0" spacing="30.0" visible="false">
+      <StackPane fx:id="dialogPane" disable="true" prefHeight="805.0" prefWidth="1201.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Node Selector">
-               <font>
-                  <Font size="60.0" />
-               </font>
-               <VBox.margin>
-                  <Insets left="20.0" />
-               </VBox.margin>
-            </Text>
-            <HBox alignment="CENTER_RIGHT" prefHeight="201.0" prefWidth="979.0" spacing="20.0">
-               <children>
-                  <Label alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="70.0" prefWidth="212.0" text="Search for a location" textAlignment="RIGHT" textFill="WHITE" wrapText="true">
-                     <font>
-                        <Font name="Amiri Quran" size="30.0" />
-                     </font>
-                     <padding>
-                        <Insets top="-20.0" />
-                     </padding>
-                  </Label>
-                  <Separator orientation="VERTICAL" prefHeight="201.0" prefWidth="0.0" style="-fx-background-color: white;">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Separator>
-                  <JFXTextField fx:id="mapName" focusColor="WHITE" labelFloat="true" onKeyTyped="#searchTyped" prefHeight="51.0" prefWidth="512.0" promptText="Enter Search Term" style="-fx-background-color: white;" unFocusColor="WHITE">
-                     <HBox.margin>
-                        <Insets right="20.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXButton fx:id="searchButton" buttonType="RAISED" contentDisplay="RIGHT" onAction="#searchPressed" prefHeight="86.0" prefWidth="185.0" ripplerFill="BLACK" style="-fx-background-color: #30DD27; -fx-background-radius: 100;" text="Search" textFill="WHITE">
-                     <font>
-                        <Font size="28.0" />
-                     </font>
-                  </JFXButton>
-               </children>
-               <VBox.margin>
-                  <Insets left="10.0" right="10.0" />
-               </VBox.margin>
-            </HBox>
-            <TableView fx:id="dispTable" editable="true" prefHeight="200.0" prefWidth="200.0">
-               <VBox.margin>
-                  <Insets left="20.0" right="20.0" />
-               </VBox.margin>
-            </TableView>
-            <HBox alignment="CENTER" prefHeight="46.0" prefWidth="883.0" spacing="75.0">
-               <children>
-                  <JFXButton buttonType="RAISED" cancelButton="true" onAction="#cancel" prefHeight="86.0" prefWidth="190.0" ripplerFill="BLACK" style="-fx-background-color: #E74C3c; -fx-background-radius: 100;" text="Clear" textFill="WHITE">
-                     <font>
-                        <Font size="40.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton buttonType="RAISED" contentDisplay="RIGHT" onAction="#editButton" prefHeight="86.0" prefWidth="190.0" ripplerFill="BLACK" style="-fx-background-color: #30DD27; -fx-background-radius: 100;" text="Edit" textFill="WHITE">
-                     <font>
-                        <Font size="40.0" />
-                     </font>
-                  </JFXButton>
-               </children>
-            </HBox>
+            <JFXDialog />
          </children>
-      </VBox>
-      <VBox fx:id="editPage" layoutX="184.0" layoutY="15.0" prefHeight="741.0" prefWidth="989.0">
+      </StackPane>
+      <GridPane fx:id="contentPane" prefHeight="800.0" prefWidth="1192.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="596.0" minWidth="10.0" percentWidth="31.0" prefWidth="169.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1046.0" minWidth="10.0" percentWidth="84.0" prefWidth="800.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Node">
-               <font>
-                  <Font size="60.0" />
-               </font>
-               <VBox.margin>
-                  <Insets left="15.0" />
-               </VBox.margin>
-            </Text>
-            <GridPane prefHeight="367.0" prefWidth="734.0">
+            <GridPane fx:id="selectionPage" prefHeight="800.0" prefWidth="750.0" style="-fx-background-color: #0f4b91;" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowSpan="2147483647">
+               <columnConstraints>
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="855.0" minWidth="0.0" prefWidth="550.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="262.0" minHeight="10.0" percentHeight="35.0" prefHeight="105.0" valignment="CENTER" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="679.0" minHeight="0.0" percentHeight="165.0" prefHeight="665.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <VBox prefHeight="667.0" prefWidth="750.0" spacing="30.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="201.0" prefWidth="750.0" spacing="20.0" VBox.vgrow="NEVER">
+                           <children>
+                              <Label alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="70.0" text="Search for a location" textAlignment="RIGHT" textFill="WHITE" wrapText="true" HBox.hgrow="NEVER">
+                                 <font>
+                                    <Font name="Amiri Quran" size="30.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets top="-20.0" />
+                                 </padding>
+                              </Label>
+                              <Separator orientation="VERTICAL" prefHeight="201.0" prefWidth="0.0" style="-fx-background-color: white;" HBox.hgrow="NEVER">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Separator>
+                              <JFXTextField fx:id="mapName" focusColor="WHITE" labelFloat="true" onKeyTyped="#searchTyped" prefHeight="51.0" promptText="Enter Search Term" style="-fx-background-color: white;" unFocusColor="WHITE" HBox.hgrow="NEVER">
+                                 <HBox.margin>
+                                    <Insets right="20.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </JFXTextField>
+                              <JFXButton fx:id="searchButton" buttonType="RAISED" contentDisplay="RIGHT" onAction="#searchPressed" prefHeight="86.0" ripplerFill="BLACK" style="-fx-background-color: #30DD27; -fx-background-radius: 100;" text="Search" textFill="WHITE" HBox.hgrow="NEVER">
+                                 <font>
+                                    <Font size="28.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="50.0" />
+                                 </HBox.margin>
+                              </JFXButton>
+                           </children>
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <TableView fx:id="dispTable" editable="true" prefHeight="258.0" prefWidth="750.0">
+                           <VBox.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </VBox.margin>
+                        </TableView>
+                        <HBox alignment="CENTER" prefHeight="86.0" prefWidth="823.0" spacing="75.0" VBox.vgrow="NEVER">
+                           <children>
+                              <JFXButton buttonType="RAISED" cancelButton="true" onAction="#cancel" prefHeight="86.0" prefWidth="150.0" ripplerFill="BLACK" style="-fx-background-color: #E74C3c; -fx-background-radius: 100;" text="Clear" textFill="WHITE">
+                                 <font>
+                                    <Font size="40.0" />
+                                 </font>
+                              </JFXButton>
+                              <JFXButton buttonType="RAISED" contentDisplay="RIGHT" onAction="#editButton" prefHeight="86.0" ripplerFill="BLACK" style="-fx-background-color: #30DD27; -fx-background-radius: 100;" text="Edit" textFill="WHITE">
+                                 <font>
+                                    <Font size="40.0" />
+                                 </font>
+                              </JFXButton>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Node Selector" wrappingWidth="357.40625">
+                     <font>
+                        <Font size="48.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="35.0" />
+                     </GridPane.margin>
+                  </Text>
+               </children>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </GridPane>
+            <GridPane fx:id="editPage" prefHeight="770.0" prefWidth="859.0" style="-fx-background-color: #0f4b91;" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="515.0" minWidth="10.0" prefWidth="514.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="704.0" minWidth="10.0" prefWidth="475.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="501.0" minWidth="0.0" prefWidth="276.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="996.0" minWidth="10.0" prefWidth="588.0" />
               </columnConstraints>
               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="262.0" minHeight="0.0" prefHeight="81.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="777.0" minHeight="10.0" prefHeight="719.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Y Coordinate:" textAlignment="RIGHT" wrappingWidth="483.01025390625" GridPane.rowIndex="1">
+                  <VBox alignment="CENTER" prefHeight="800.0" prefWidth="887.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <children>
+                        <GridPane prefHeight="367.0" prefWidth="918.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="525.0" minWidth="10.0" percentWidth="40.0" prefWidth="235.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="704.0" minWidth="10.0" prefWidth="447.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Y Coordinate:" textAlignment="RIGHT" wrappingWidth="217.01025390625" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Short Name:" textAlignment="RIGHT" wrappingWidth="219.01025390625" GridPane.rowIndex="5">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Long Name:" textAlignment="RIGHT" wrappingWidth="217.01025390625" GridPane.rowIndex="4">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Building:" textAlignment="RIGHT" wrappingWidth="217.01025390625" GridPane.rowIndex="3">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Floor:" textAlignment="RIGHT" wrappingWidth="217.01025390625" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="NodeID:" textAlignment="RIGHT" wrappingWidth="218.01025390625" GridPane.rowIndex="6">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Text>
+                              <JFXTextField focusColor="WHITE" prefHeight="17.0" prefWidth="445.0" style="-fx-text-fill: white;" unFocusColor="WHITE" GridPane.columnIndex="1" fx:id="xcoordField">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </JFXTextField>
+                              <JFXTextField fx:id="nodeIDField" focusColor="WHITE" prefHeight="66.0" prefWidth="481.0" style="-fx-text-fill: white;" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </JFXTextField>
+                              <JFXTextField fx:id="shortNameField" focusColor="WHITE" prefHeight="66.0" prefWidth="481.0" style="-fx-text-fill: white;" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </JFXTextField>
+                              <JFXTextField fx:id="logNameField" focusColor="WHITE" prefHeight="66.0" prefWidth="481.0" style="-fx-text-fill: white;" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </JFXTextField>
+                              <JFXTextField fx:id="buildingField" focusColor="WHITE" prefHeight="66.0" prefWidth="481.0" style="-fx-text-fill: white;" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </JFXTextField>
+                              <JFXTextField fx:id="floorField" focusColor="WHITE" prefHeight="53.0" prefWidth="205.0" style="-fx-text-fill: #FFFFFF;" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </JFXTextField>
+                              <JFXTextField fx:id="ycoordField" focusColor="WHITE" prefHeight="53.0" prefWidth="234.0" style="-fx-text-fill: white;" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </JFXTextField>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="X Coordinate:" textAlignment="RIGHT" wrappingWidth="217.01025390625">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                           <padding>
+                              <Insets right="45.0" />
+                           </padding>
+                        </GridPane>
+                        <HBox alignment="CENTER" prefHeight="217.0" prefWidth="989.0" spacing="75.0">
+                           <children>
+                              <JFXButton buttonType="RAISED" cancelButton="true" onAction="#cancelEdit" prefHeight="86.0" prefWidth="190.0" ripplerFill="BLACK" style="-fx-background-color: #E74C3c; -fx-background-radius: 100;" text="Cancel" textFill="WHITE">
+                                 <font>
+                                    <Font size="40.0" />
+                                 </font>
+                              </JFXButton>
+                              <JFXButton buttonType="RAISED" contentDisplay="RIGHT" onAction="#submitEdit" prefHeight="86.0" prefWidth="190.0" ripplerFill="BLACK" style="-fx-background-color: #30DD27; -fx-background-radius: 100;" text="Submit" textFill="WHITE">
+                                 <font>
+                                    <Font size="40.0" />
+                                 </font>
+                              </JFXButton>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Node" wrappingWidth="283.73046875">
                      <font>
-                        <Font size="36.0" />
+                        <Font size="60.0" />
                      </font>
-                  </Text>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Short Name:" textAlignment="RIGHT" wrappingWidth="475.01025390625" GridPane.rowIndex="5">
-                     <font>
-                        <Font size="36.0" />
-                     </font>
-                  </Text>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Long Name:" textAlignment="RIGHT" wrappingWidth="476.01025390625" GridPane.rowIndex="4">
-                     <font>
-                        <Font size="36.0" />
-                     </font>
-                  </Text>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Building:" textAlignment="RIGHT" wrappingWidth="479.01025390625" GridPane.rowIndex="3">
-                     <font>
-                        <Font size="36.0" />
-                     </font>
-                  </Text>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Floor:" textAlignment="RIGHT" wrappingWidth="481.01025390625" GridPane.rowIndex="2">
-                     <font>
-                        <Font size="36.0" />
-                     </font>
-                  </Text>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="NodeID:" textAlignment="RIGHT" wrappingWidth="476.01025390625" GridPane.rowIndex="6">
-                     <font>
-                        <Font size="36.0" />
-                     </font>
-                  </Text>
-                  <JFXTextField focusColor="WHITE" prefHeight="66.0" prefWidth="481.0" style="-fx-text-fill: white;" unFocusColor="WHITE" GridPane.columnIndex="1" fx:id="xcoordField">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="nodeIDField" focusColor="WHITE" prefHeight="66.0" prefWidth="481.0" style="-fx-text-fill: white;" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="6">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="shortNameField" focusColor="WHITE" prefHeight="66.0" prefWidth="481.0" style="-fx-text-fill: white;" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="logNameField" focusColor="WHITE" prefHeight="66.0" prefWidth="481.0" style="-fx-text-fill: white;" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="buildingField" focusColor="WHITE" prefHeight="66.0" prefWidth="481.0" style="-fx-text-fill: white;" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="floorField" focusColor="WHITE" prefHeight="66.0" prefWidth="481.0" style="-fx-text-fill: #FFFFFF;" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="ycoordField" focusColor="WHITE" prefHeight="66.0" prefWidth="481.0" style="-fx-text-fill: white;" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </JFXTextField>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="X Coordinate:" textAlignment="RIGHT" wrappingWidth="486.01025390625">
-                     <font>
-                        <Font size="36.0" />
-                     </font>
+                     <GridPane.margin>
+                        <Insets left="15.0" />
+                     </GridPane.margin>
                   </Text>
                </children>
+               <GridPane.margin>
+                  <Insets bottom="15.0" right="15.0" top="15.0" />
+               </GridPane.margin>
             </GridPane>
-            <HBox alignment="CENTER" prefHeight="217.0" prefWidth="989.0" spacing="75.0">
-               <children>
-                  <JFXButton buttonType="RAISED" cancelButton="true" onAction="#cancelEdit" prefHeight="86.0" prefWidth="190.0" ripplerFill="BLACK" style="-fx-background-color: #E74C3c; -fx-background-radius: 100;" text="Cancel" textFill="WHITE">
-                     <font>
-                        <Font size="40.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton buttonType="RAISED" contentDisplay="RIGHT" onAction="#submitEdit" prefHeight="86.0" prefWidth="190.0" ripplerFill="BLACK" style="-fx-background-color: #30DD27; -fx-background-radius: 100;" text="Submit" textFill="WHITE">
-                     <font>
-                        <Font size="40.0" />
-                     </font>
-                  </JFXButton>
-               </children>
-            </HBox>
+            <JFXButton fx:id="backButton" onAction="#back" prefHeight="65.0" prefWidth="220.0" style="-fx-background-radius: 100; -fx-background-color: #0f4b91;" text="Back" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="25.0" />
+               </GridPane.margin>
+            </JFXButton>
+            <ImageView fitHeight="115.0" fitWidth="94.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+               <image>
+                  <Image url="@../images/logo-small.png" />
+               </image>
+               <GridPane.margin>
+                  <Insets top="25.0" />
+               </GridPane.margin>
+            </ImageView>
          </children>
-      </VBox>
+      </GridPane>
    </children>
 </AnchorPane>

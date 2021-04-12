@@ -1,31 +1,33 @@
 package edu.wpi.MochaManticores.views;
 //TODO:comment :(
-import com.jfoenix.controls.*;
+
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import com.jfoenix.controls.events.JFXDialogEvent;
-import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
+import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.scene.control.*;
 import javafx.event.ActionEvent;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.*;
+import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 import java.util.Iterator;
 import java.util.Set;
 
-public class mapPage extends SceneController{
+public class mapPageTEMP extends SceneController{
     public JFXTextField mapName;
     public JFXButton backButton;
     public TableView<Node> dispTable;
@@ -255,6 +257,7 @@ public class mapPage extends SceneController{
         backgroundIMG.setFitHeight(height);
         backgroundIMG.setFitWidth(width);
         contentPane.setPrefSize(width,height);
+        dialogPane.setPrefSize(width,height);
     }
 
     public void displayTable() {
@@ -309,7 +312,8 @@ public class mapPage extends SceneController{
     }
 
     public void cancel(ActionEvent e){
-        returnToMain(e);
+        buildTable("");
+        mapName.setText("");
     }
 
     public void editButton(ActionEvent e){
