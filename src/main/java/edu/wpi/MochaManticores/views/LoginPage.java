@@ -17,8 +17,8 @@ public class LoginPage extends SceneController{
     private GridPane contentPane;
 
     public void initialize(){
-        double height = App.getPrimaryStage().getScene().getHeight();
-        double width = App.getPrimaryStage().getScene().getWidth();
+        double height = super.getHeight();
+        double width = super.getWidth();
         backgroundIMG.setFitHeight(height);
         backgroundIMG.setFitWidth(width);
         contentPane.setPrefSize(width,height);

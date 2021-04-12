@@ -14,6 +14,8 @@ import java.util.Stack;
 
 public class SceneController {
     protected static Stack<String> scenes = new Stack<>();
+    double height = App.getPrimaryStage().getScene().getHeight();
+    double width = App.getPrimaryStage().getScene().getWidth();
 
     @FXML
     protected void returnToMain(ActionEvent e){
@@ -42,6 +44,16 @@ public class SceneController {
 //        }
 //    }
 //}
+
+    public double getHeight() {
+        return height;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+
     protected void back(ActionEvent e){
         String scene = "loginPage";
         scenes.pop();

@@ -1,22 +1,27 @@
 package edu.wpi.MochaManticores.views;
 //TODO:comment :(
-import com.jfoenix.controls.*;
+
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import com.jfoenix.controls.events.JFXDialogEvent;
-import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
+import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.scene.control.*;
 import javafx.event.ActionEvent;
-import javafx.scene.input.*;
+import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 import java.util.Iterator;
@@ -35,13 +40,18 @@ public class mapPage extends SceneController{
     public TableColumn<Node, String> nodeID;
     public ObservableList<Node> listOfNodes = FXCollections.observableArrayList();
 
+    @FXML
+    private ImageView backgroundIMG;
+
+    @FXML
+    private GridPane contentPane;
 
 
     @FXML
-    public VBox selectionPage;
+    public GridPane selectionPage;
 
     @FXML
-    public VBox editPage;
+    public GridPane editPage;
 
     @FXML
     public StackPane dialogPane;
@@ -239,6 +249,15 @@ public class mapPage extends SceneController{
         listOfNodes = buildTable("");
         editPage.setVisible(false);
         selectionPage.setVisible(true);
+
+
+
+        double height = super.getHeight();
+        double width = super.getWidth();
+        backgroundIMG.setFitHeight(height);
+        backgroundIMG.setFitWidth(width);
+        contentPane.setPrefSize(width,height);
+        dialogPane.setPrefSize(width,height);
     }
 
     public void displayTable() {
@@ -293,7 +312,8 @@ public class mapPage extends SceneController{
     }
 
     public void cancel(ActionEvent e){
-        returnToMain(e);
+        buildTable("");
+        mapName.setText("");
     }
 
     public void editButton(ActionEvent e){
