@@ -11,6 +11,10 @@
     -jfx-unfocus-color: WHITE;
 }
 
+.label {
+    -fx-font-family: Roboto;
+}
+
 @font-face {
     font-family: 'Roboto';
     src: url('Roboto-Medium.ttf');
@@ -23,7 +27,7 @@
 }
 
 #loginInformationText {
-    -fx-font-family: "Roboto";
+    -fx-font-family: Roboto;
     -fx-font-size: 15;
     -fx-font-weight: bold;
 }
@@ -33,4 +37,53 @@
     -fx-font-weight: bold;
     -fx-text-fill : #ffffff;
     -jfx-unfocus-color : #ffffff;
+}
+
+#continueBtnLogin {
+    -fx-background-color: white;
+    -fx-font-family: Roboto;
+    -fx-font-size: 15;
+    -fx-font-weight: bold;
+}
+
+#emergencyBtn {
+    -fx-background-color: #E74C3C;
+    -fx-font-family: Roboto;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+}
+
+#staffMemberBtn {
+    -fx-background-color: white;
+    -fx-font-family: Roboto;
+    -fx-font-size: 15;
+    -fx-font-weight: bold;
+}
+
+#emergencyPopUp {
+/*    hey */
+    -fx-opacity: 0;
+}
+
+#emergencyPopUpLabel {
+    -fx-font-family: Roboto;
+    -fx-font-weight: bold;
+    -fx-font-size: 20;
+}
+#areYouSureAboutThatEmergencyLabel {
+    -fx-font-size: 20;
+}
+
+#yesEmergencyPopUpBtn {
+    -fx-background-color: #0F4B91;
+    -fx-font-family: Roboto;
+    -fx-font-size: 15;
+    -fx-font-weight: bold;
+}
+
+#noEmergencyPopUpBtn {
+    -fx-background-color: grey;
+    -fx-font-family: Roboto;
+    -fx-font-size: 15;
+    -fx-font-weight: bold;
 }

@@ -41,7 +41,7 @@
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <effect>
@@ -62,7 +62,7 @@
                         </JFXTextField>
                      </children>
                   </VBox>
-                  <JFXButton onAction="#onMouseClickedContinue" ripplerFill="BLACK" style="-fx-background-color: white;" stylesheets="@../stylesheets.css" text="Continue" GridPane.rowIndex="2">
+                  <JFXButton id="continueBtnLogin" onAction="#onMouseClickedContinue" ripplerFill="BLACK" style="-fx-background-color: white;" stylesheets="@../stylesheets.css" text="CONTINUE" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
@@ -70,6 +70,23 @@
                         <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                      </padding>
                   </JFXButton>
+                  <GridPane GridPane.rowIndex="3">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <JFXButton id="emergencyBtn" onAction="#emergencyBtnClicked" text="EMERGENCY" textFill="WHITE">
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </JFXButton>
+                        <JFXButton id="staffMemberBtn" stylesheets="@../stylesheets.css" text="STAFF MEMBER?" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
                </children>
             </GridPane>
             <GridPane>
@@ -94,5 +111,40 @@
             </GridPane>
          </children>
       </GridPane>
+      <AnchorPane id="emergencyPopUp" fx:id="emergencyPopUp" prefHeight="800.0" prefWidth="1207.0" style="-fx-background-color: white;" stylesheets="@../stylesheets.css" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="304.0" AnchorPane.rightAnchor="304.0" AnchorPane.topAnchor="150.0">
+         <effect>
+            <DropShadow />
+         </effect>
+         <children>
+            <GridPane layoutX="-7.0" layoutY="-3.0" prefHeight="500.0" prefWidth="607.0">
+              <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="427.111083984375" minHeight="10.0" prefHeight="136.9259033203125" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="419.4074249267578" minHeight="10.0" prefHeight="130.11111450195312" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="271.8888854980469" minHeight="10.0" prefHeight="233.88888549804688" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label id="emergencyPopUpLabel" stylesheets="@../stylesheets.css" text="EMERGENCY" />
+                  <Label id="areYouSureAboutThatEmergencyLabel" stylesheets="@../stylesheets.css" text="Are you sure about that?" GridPane.rowIndex="1" />
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-spacing: 50;" GridPane.rowIndex="2">
+                     <children>
+                        <JFXButton id="yesEmergencyPopUpBtn" onAction="#goToEmergencyForm" stylesheets="@../stylesheets.css" text="YES" textFill="WHITE">
+                           <padding>
+                              <Insets bottom="20.0" left="40.0" right="40.0" top="20.0" />
+                           </padding>
+                        </JFXButton>
+                        <JFXButton id="noEmergencyPopUpBtn" onAction="#closePopUp" text="NO" textFill="WHITE">
+                           <padding>
+                              <Insets bottom="20.0" left="40.0" right="40.0" top="20.0" />
+                           </padding>
+                        </JFXButton>
+                     </children>
+                  </VBox>
+               </children>
+            </GridPane>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
