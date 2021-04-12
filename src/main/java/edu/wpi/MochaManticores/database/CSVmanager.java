@@ -22,29 +22,14 @@ public class CSVmanager {
 
     //load NODE CSV
     public void load_node_csv(Connection connect){
-        System.out.println("code is getting here");
-        String CSVpath = this.CSVpath;
         try{
-            BufferedReader reader = new BufferedReader(new FileReader(CSVpath));
+            BufferedReader reader = new BufferedReader(new FileReader(this.CSVpath));
             String line = reader.readLine();
 
-            String sql = "INSERT INTO NODES (nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement pstmt = connect.prepareStatement(sql);
             while (line != null){
                 line = reader.readLine();
                 String[] row = line.split(this.CSVdelim);
-
-                //enter data
-                pstmt.setString(1, row[0]);
-                pstmt.setInt(2, Integer.parseInt(row[1]));
-                pstmt.setInt(3, Integer.parseInt(row[2]));
-                pstmt.setString(4, row[3]);
-                pstmt.setString(5, row[4]);
-                pstmt.setString(6, row[5]);
-                pstmt.setString(7, row[6]);
-                pstmt.setString(8, row[7]);
-                pstmt.executeUpdate();
+                NodeManager.createNode(connect,row[0],Integer.parseInt(row[1]),Integer.parseInt(row[2]),row[3],row[4],row[5],row[6],row[7]);
             }
         } catch (FileNotFoundException | SQLException e){
             e.printStackTrace();
@@ -60,19 +45,10 @@ public class CSVmanager {
             BufferedReader reader = new BufferedReader(new FileReader(CSVpath));
             String line = reader.readLine();
 
-            String sql = "INSERT INTO EDGES (edgeID, startNode, endNode) " +
-                    "VALUES (?, ?, ?)";
-            PreparedStatement pstmt = connect.prepareStatement(sql);
-
             while (line != null){
                 line = reader.readLine();
                 String[] row = line.split(this.CSVdelim);
-
-                //enter data
-                pstmt.setString(1, row[0]);
-                pstmt.setString(2, row[1]);
-                pstmt.setString(3, row[2]);
-                pstmt.executeUpdate();
+                EdgeManager.createEdge(connect,row[1],row[2]);
             }
         } catch (FileNotFoundException | SQLException e){
             e.printStackTrace();
@@ -80,10 +56,28 @@ public class CSVmanager {
             e.printStackTrace();
         }
     }
+    // add nodes to map
+    void addNodesToMap(Connection connect)throws SQLException{
+        try{
+            String sql = "SELECT * FROM NODES";
+            Statement stmt = connect.createStatement();
+            ResultSet results = stmt.executeQuery(sql);
+
+            while(results.next()){
+                NodeManager.addNodeToMap_result(results);
+            }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+    }
+
     //save NODE CSV
-    String putNodesInMap(Connection connect) throws SQLException, FileNotFoundException {
+    void saveNodesinCSV(Connection connect) throws SQLException, FileNotFoundException {
         PrintWriter pw = new PrintWriter(new File(this.CSVpath));
         StringBuilder sb = new StringBuilder();
+
 
         String sql = "SELECT * FROM NODES";
         Statement stmt = connect.createStatement();
@@ -96,11 +90,6 @@ public class CSVmanager {
         }
         sb.append("\n");
         while (results.next()) {
-            NodeSuper tempNode = new NodeSuper(Integer.parseInt(results.getString(2)), Integer.parseInt(results.getString(3)),
-                    results.getString(4), results.getString(5), results.getString(7), results.getString(8),
-                    results.getString(1), results.getString(6), new VertexList(new HashMap<>()));
-            MapSuper.getMap().put(tempNode.getID(), tempNode);
-
             for(int i = 1; i <= rsmd.getColumnCount(); i++) {
                 sb.append(results.getString(i));
                 sb.append(",");
@@ -110,10 +99,25 @@ public class CSVmanager {
         results.close();
         pw.write(sb.toString());
         pw.close();
-        return sb.toString();
     }
+
+    void addEdgesToMap(Connection connection) throws SQLException{
+        try{
+            String sql = "SELECT * FROM EDGES";
+            Statement stmt = connection.createStatement();
+            ResultSet results = stmt.executeQuery(sql);
+
+            while(results.next()){
+                EdgeManager.addEdgeToMap_results(results);
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
     //save EDGES CSV
-     String updateEdgesInMap(Connection connect) throws FileNotFoundException, SQLException {
+     void saveEdgesInCSV(Connection connect) throws FileNotFoundException, SQLException {
         PrintWriter pw = new PrintWriter(new File(this.CSVpath));
         StringBuilder sb = new StringBuilder();
 
@@ -128,7 +132,6 @@ public class CSVmanager {
         }
         sb.append("\n");
         while (results.next()) {
-            MapSuper.getMap().get(results.getString(2)).addNeighbor(results.getString(3), 0);
             for(int i = 1; i <= rsmd.getColumnCount(); i++) {
                 sb.append(results.getString(i));
                 sb.append(",");
@@ -138,6 +141,5 @@ public class CSVmanager {
         results.close();
         pw.write(sb.toString());
         pw.close();
-        return sb.toString();
     }
 }

@@ -1,9 +1,13 @@
 package edu.wpi.MochaManticores.database;
 
+import edu.wpi.MochaManticores.Nodes.MapSuper;
+
 import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
 
 public class EdgeManager {
     private static final String Edge_csv_path = "data/MapMEdges.csv";
@@ -18,6 +22,20 @@ public class EdgeManager {
         pstmt.setString(3, Node2);
         pstmt.executeUpdate();
 
+    }
+
+    public static void addEdgeToMap(String node1ID, String node2ID){
+        MapSuper.getMap().get(node1ID).addNeighbor(node2ID, 0);
+        MapSuper.getMap().get(node2ID).addNeighbor(node1ID, 0);
+    }
+
+    public static void addEdgeToMap_results(ResultSet results) throws SQLException{
+        try{
+            MapSuper.getMap().get(results.getString(2)).addNeighbor(results.getString(3), 0);
+            MapSuper.getMap().get(results.getString(3)).addNeighbor(results.getString(2), 0);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
     }
 
     public static void showEdgeInformation(String edgeInfo) {

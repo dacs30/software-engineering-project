@@ -10,6 +10,7 @@ public class Mdb {
     public static String JDBC_URL = "jdbc:derby:Mdatabase;create=true";
     private static final String Edge_csv_path = "data/MapMEdges.csv";
     private static final String Node_csv_path = "data/MapMNodes.csv";
+    private static Connection connection = null;
 
 
     public static void databaseStartup() throws SQLException, FileNotFoundException {
@@ -28,7 +29,6 @@ public class Mdb {
         }
 
         System.out.println("Apache Derby driver registered!\n");
-        Connection connection = null;
 
         try {
             connection = DriverManager.getConnection(JDBC_URL);
@@ -59,7 +59,9 @@ public class Mdb {
                 stmt.executeUpdate(sql);
                 nodeCSV.load_node_csv(connection);
             }
-            nodeCSV.putNodesInMap(connection);
+
+            nodeCSV.addNodesToMap(connection);
+
             rs = meta.getTables(null, "APP", "EDGES", null);
             if(!rs.next()) {
                 String sql;
@@ -72,61 +74,30 @@ public class Mdb {
                 stmt.executeUpdate(sql);
                 edgeCSV.load_edges_csv(connection);
             }
-            edgeCSV.updateEdgesInMap(connection);
+            edgeCSV.addEdgesToMap(connection);
+
         }catch(SQLException e){
             e.printStackTrace();
         }
-
-
-//        //Menu
-//        if(args.length != 1) {
-//            showMenu();
-//        }
-//        else {
-//            Scanner scanner = new Scanner(System.in);
-//            int inputVal = Integer.parseInt(args[0]);
-//            switch(inputVal) {
-//                case 1:
-//                    NodeManager.showNodeInformation(nodeCSV.printNodes(connection));
-//                    break;
-//                case 2:
-//                    System.out.print("Enter NodeID of the Node's Coordinates to be Changed: \n");
-//                    String idForCoordinates = scanner.nextLine();
-//                    System.out.print("Enter a new X Coordinate: \n");
-//                    int xcoord = scanner.nextInt();
-//                    System.out.print("Enter a new Y Coordinate: \n");
-//                    int ycoord = scanner.nextInt();
-//                    NodeManager.updateNode(connection, idForCoordinates, xcoord, ycoord);
-//                    System.out.printf("Node with id %s has been updated!\n", idForCoordinates);
-//                    break;
-//                case 3:
-//                    System.out.print("Enter NodeID of the Node who's Long Name You'd Like to Change:\n");
-//                    String idForName = scanner.nextLine();
-//                    System.out.print("Enter New Name:\n");
-//                    String newName = scanner.nextLine();
-//                    NodeManager.updateNodeName(connection, idForName, newName);
-//                    System.out.printf("Node with id %s has been updated with a new name\n", idForName);
-//                    break;
-//                case 4:
-//                    EdgeManager.showEdgeInformation(edgeCSV.printEdges(connection));
-//                    break;
-//                case 5:
-//                    System.out.println("Exiting Program!");
-//                    return;
-//                default:
-//                    System.out.println("Something seems to have gone wrong!");
-//
-//            }
-//        }
     }
 
-    public static void showMenu() {
-        System.out.print("1 - Node Information\n" +
-                "2 - Update Node Coordinates\n" +
-                "3 - Update Node Location Long Name\n" +
-                "4 - Edge Information\n" +
-                "5 - Exit Program\n");
+    public static void databaseShutdown()throws SQLException, FileNotFoundException{
+        System.out.println(" shutting down database ");
+        try {
+            // save into csv
+            CSVmanager nodeCSV = new CSVmanager(Node_csv_path);
+            CSVmanager edgeCSV = new CSVmanager(Edge_csv_path);
+
+            nodeCSV.saveNodesinCSV(connection);
+            edgeCSV.saveEdgesInCSV(connection);
+            // clean shutdown database
+            connection.close();
+        }catch(SQLException | FileNotFoundException e){
+            e.printStackTrace();
+        }
     }
+
+    public static Connection get_connection(){return connection;}
 
     public static String getEdge_csv_path() {
         return Edge_csv_path;
