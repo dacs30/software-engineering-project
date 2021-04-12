@@ -10,7 +10,7 @@ public class LoginPage extends SceneController{
     AnchorPane emergencyPopUp;
 
     public void onMouseClickedContinue(ActionEvent e) {
-        changeSceneTo(e, "landingPage");
+        changeSceneTo(e, "mainMenu");
     };
 
     public void emergencyBtnClicked(ActionEvent e) {

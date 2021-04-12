@@ -5,7 +5,6 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.jfoenix.controls.events.JFXDialogEvent;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
-import edu.wpi.MochaManticores.Nodes.VertexList;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -316,20 +315,14 @@ public class mapPage extends SceneController{
         message.setBody(new Text("Please select a table entry before editing."));
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
         JFXButton exit = new JFXButton("DONE");
-        exit.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                dialog.close();
-                dialogPane.setDisable(true);
-                dialogPane.toBack();
-            }
+        exit.setOnAction(event -> {
+            dialog.close();
+            dialogPane.setDisable(true);
+            dialogPane.toBack();
         });
-        dialog.setOnDialogClosed(new EventHandler<JFXDialogEvent>() {
-            @Override
-            public void handle(JFXDialogEvent event) {
-                dialogPane.setDisable(true);
-                dialogPane.toBack();
-            }
+        dialog.setOnDialogClosed(event -> {
+            dialogPane.setDisable(true);
+            dialogPane.toBack();
         });
         message.setActions(exit);
         dialog.show();
@@ -355,7 +348,6 @@ public class mapPage extends SceneController{
             }
             }
         //TODO:Talk to CSV Manager
-        ;
         cancelEdit(e);
     }
 
@@ -382,6 +374,11 @@ public class mapPage extends SceneController{
     }
 
     public void back(ActionEvent e){
-        super.back(e);
+        if(editPage.isVisible()){
+            cancelEdit(e);
+        }else{
+            super.back(e);
+        }
+
     }
 }
