@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Stack;
 
 import edu.wpi.MochaManticores.Nodes.MapSuper;
@@ -35,13 +37,13 @@ public class App extends Application {
 
 
   @Override
-  public void init() throws FileNotFoundException, SQLException {
+  public void init() throws InterruptedException, FileNotFoundException, SQLException {
     System.out.println("Starting Up");
     System.out.println("Starting Database");
     Mdb.databaseStartup();
-    NodeSuper testNode = MapSuper.getMap().get("ACONF00103");
-    System.out.println(testNode.getLongName());
+
   }
+
 
   @Override
   public void start(Stage primaryStage) {

@@ -9,8 +9,8 @@ import edu.wpi.MochaManticores.Nodes.NodeSuper;
  */
 public class GreedyBestFirst {
     //Declare static variables
-    private int buildingOffset = 100;   //determines how much the algorithm prefers nodes in the same building as the target node
-    private int floorOffset = 50;       //determines how much the algorithm prefers nodes on the same floor as the target node
+    private static int buildingOffset = 100;   //determines how much the algorithm prefers nodes in the same building as the target node
+    private static int floorOffset = 50;       //determines how much the algorithm prefers nodes on the same floor as the target node
 
     /**
      * function: calcHeuristic()
@@ -20,7 +20,7 @@ public class GreedyBestFirst {
      *         NodeSuper secondNode (the other node)
      * returns: int heuristic (the estimated cost to travel from 1 node to the other)
      */
-    public int calcHeuristic(NodeSuper firstNode, NodeSuper secondNode) {
+    public static int calcHeuristic(NodeSuper firstNode, NodeSuper secondNode) {
 
         //calculate euclidean distance between nodes
         int heuristic = (int) Math.sqrt(Math.pow(firstNode.getXcoord()-secondNode.getXcoord(), 2) + Math.pow(firstNode.getYcoord()-secondNode.getYcoord(), 2));
@@ -29,7 +29,7 @@ public class GreedyBestFirst {
         if(firstNode.getBuilding().equals(secondNode.getBuilding())) {
             heuristic += buildingOffset;
             //if inside the target building, add offset for being on a different floor
-            } else if(firstNode.getFloor() != secondNode.getFloor()) {
+            } else if(!firstNode.getFloor().equals(secondNode.getFloor())) {
             heuristic += floorOffset;
         }
         return heuristic;

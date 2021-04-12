@@ -1,5 +1,6 @@
 package edu.wpi.MochaManticores.database;
 
+import edu.wpi.MochaManticores.Algorithms.GreedyBestFirst;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.Nodes.VertexList;
@@ -22,7 +23,6 @@ public class CSVmanager {
 
     //load NODE CSV
     public void load_node_csv(Connection connect){
-        System.out.println("code is getting here");
         String CSVpath = this.CSVpath;
         try{
             BufferedReader reader = new BufferedReader(new FileReader(CSVpath));
@@ -33,6 +33,7 @@ public class CSVmanager {
             PreparedStatement pstmt = connect.prepareStatement(sql);
             while (line != null){
                 line = reader.readLine();
+                if(line == null) break;
                 String[] row = line.split(this.CSVdelim);
 
                 //enter data
@@ -46,9 +47,7 @@ public class CSVmanager {
                 pstmt.setString(8, row[7]);
                 pstmt.executeUpdate();
             }
-        } catch (FileNotFoundException | SQLException e){
-            e.printStackTrace();
-        } catch (IOException e){
+        } catch (SQLException | IOException e){
             e.printStackTrace();
         }
     }
@@ -66,6 +65,7 @@ public class CSVmanager {
 
             while (line != null){
                 line = reader.readLine();
+                if(line == null) break;
                 String[] row = line.split(this.CSVdelim);
 
                 //enter data
@@ -128,7 +128,9 @@ public class CSVmanager {
         }
         sb.append("\n");
         while (results.next()) {
-            MapSuper.getMap().get(results.getString(2)).addNeighbor(results.getString(3), 0);
+            NodeSuper startNode = MapSuper.getMap().get(results.getString(2));
+            NodeSuper endNode = MapSuper.getMap().get(results.getString(3));
+            startNode.addNeighbor(results.getString(3), GreedyBestFirst.calcHeuristic(startNode, endNode));
             for(int i = 1; i <= rsmd.getColumnCount(); i++) {
                 sb.append(results.getString(i));
                 sb.append(",");
