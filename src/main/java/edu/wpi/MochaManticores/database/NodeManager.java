@@ -10,7 +10,7 @@ import java.sql.*;
 import java.util.HashMap;
 
 public class NodeManager {
-    private static final String Node_csv_path = "data/nodes.csv";
+    private static final String Node_csv_path = "data/MapMNodes.csv";
 
     public static void updateNode(Connection connection, String id,  int xcoord, int ycoord) throws SQLException, FileNotFoundException {
         PreparedStatement pstmt = connection.prepareStatement("UPDATE NODES SET xcoord=?, ycoord=? WHERE nodeID=?");

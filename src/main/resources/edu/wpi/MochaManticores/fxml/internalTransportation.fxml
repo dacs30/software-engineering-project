@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.TextField?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -12,7 +14,17 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.internalTransportationController">
     <children>
-        <Text fontSmoothingType="LCD" layoutX="31.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham and Women's Hospital" textAlignment="CENTER" wrappingWidth="538.3375854492188">
+      <ImageView fitHeight="431.0" fitWidth="600.0" layoutY="-15.0" opacity="0.35" pickOnBounds="true">
+         <image>
+            <Image url="@../images/100909_00_BrighamWomens_BTM_N8_966x668.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="91.0" fitWidth="73.0" layoutX="14.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/logo-small.png" />
+         </image>
+      </ImageView>
+        <Text fontSmoothingType="LCD" layoutX="61.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham and Women's Hospital" textAlignment="CENTER" wrappingWidth="538.3375854492188">
             <font>
                 <Font size="36.0" />
             </font>
@@ -34,17 +46,17 @@
                 <RowConstraints maxHeight="88.0" minHeight="10.0" prefHeight="61.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <TextField fx:id="patientID" GridPane.columnIndex="1" />
-                <TextField fx:id="numberOfStaff" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <TextField fx:id="destination" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <JFXTextField fx:id="patientID" style="-fx-background-color: white;" GridPane.columnIndex="1" />
+            <JFXTextField fx:id="numberOfStaff" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <JFXTextField fx:id="destination" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Method Of Transportation" textAlignment="CENTER" wrappingWidth="127.00424194335938" GridPane.rowIndex="3" />
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Destination" textAlignment="CENTER" wrappingWidth="127.00424194335938" GridPane.rowIndex="2" />
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Number of Staff Needed" textAlignment="CENTER" wrappingWidth="127.00424194335938" GridPane.rowIndex="1" />
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient ID" textAlignment="CENTER" wrappingWidth="127.00424194335938" />
-                <ComboBox fx:id="transportComboBox" onMouseClicked="#initialize" prefHeight="31.0" prefWidth="372.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <JFXComboBox fx:id="transportComboBox" prefHeight="25.0" prefWidth="356.0" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             </children>
         </GridPane>
-        <Button fx:id="submitButton" alignment="CENTER" layoutX="377.0" layoutY="309.0" mnemonicParsing="false" onAction="#advanceSuccessScene" prefHeight="77.0" prefWidth="166.0" text="Submit" />
-        <Button fx:id="cancelButton" alignment="CENTER" layoutX="61.0" layoutY="309.0" mnemonicParsing="false" onAction="#cancelScene" prefHeight="77.0" prefWidth="166.0" text="Cancel" />
+      <JFXButton fx:id="submitButton" buttonType="RAISED" onAction="#advanceSuccessScene" prefHeight="77.0" prefWidth="166.0" style="-fx-background-color: lightgrey; -fx-border-color: dimgrey;" text="Submit" translateX="380.0" translateY="310.0" />
+      <JFXButton fx:id="cancelButton" onAction="#cancelScene" prefHeight="77.0" prefWidth="166.0" style="-fx-background-color: lightgrey; -fx-border-color: dimgrey;" text="Cancel" translateX="80.0" translateY="310.0" />
     </children>
 </AnchorPane>

@@ -1,5 +1,8 @@
 package edu.wpi.MochaManticores.views;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,25 +12,25 @@ import javafx.scene.control.TextField;
 public class sanitationServiceController extends SceneController {
 
     @FXML
-    private TextField loc;
+    private JFXTextField loc;
 
     @FXML
-    private TextField safetyHaz;
+    private JFXTextField safetyHaz;
 
     @FXML
-    private TextField type;
+    private JFXTextField type;
 
     @FXML
-    private TextField equipment;
+    private JFXTextField equipment;
 
     @FXML
-    private TextArea description;
+    private JFXTextArea description;
 
     @FXML
-    private Button submitButton;
+    private JFXButton submitButton;
 
     @FXML
-    private Button cancelButton;
+    private JFXButton cancelButton;
 
     @FXML
     private void submit(ActionEvent e) {

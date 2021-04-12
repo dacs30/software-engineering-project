@@ -1,57 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="414.0" prefWidth="575.0" style="-fx-background-color: teal;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.sanitationServiceController">
     <children>
-        <Label layoutX="130.0" layoutY="14.0" prefHeight="30.0" prefWidth="327.0" style="-fx-border-color: dimgrey; -fx-background-color: blue;" text=" Sanitation Service Request Form" textFill="WHITE" wrapText="true">
-            <font>
-                <Font name="Serif Regular" size="24.0" />
-            </font>
-        </Label>
-        <Button fx:id="submitButton" layoutX="339.0" layoutY="333.0" mnemonicParsing="false" onAction="#submit" prefHeight="47.0" prefWidth="118.0" style="-fx-background-color: green; -fx-border-color: black;" text="Submit" textFill="WHITE">
-            <font>
-                <Font name="Serif Regular" size="12.0" />
-            </font></Button>
-        <Button fx:id="cancelButton" layoutX="171.0" layoutY="333.0" mnemonicParsing="false" onAction="#back" prefHeight="47.0" prefWidth="118.0" style="-fx-background-color: red; -fx-border-color: black;" text="Cancel" textFill="WHITE">
-            <font>
-                <Font name="Serif Regular" size="12.0" />
-            </font>
-        </Button>
-        <Label layoutX="112.0" layoutY="83.0" prefHeight="20.0" prefWidth="57.0" text="Location:" textFill="WHITE">
-            <font>
-                <Font name="Serif Regular" size="14.0" />
-            </font>
-        </Label>
-        <TextField fx:id="loc" layoutX="170.0" layoutY="80.0" prefHeight="25.0" prefWidth="288.0" promptText="Room number, Hallway, Waiting Area, etc." />
-        <TextArea fx:id="description" layoutX="170.0" layoutY="222.0" prefHeight="91.0" prefWidth="288.0" promptText="Detailed description of the incident" />
-        <Label layoutX="75.0" layoutY="116.0" prefHeight="20.0" prefWidth="91.0" text="Safety Hazards:" textFill="WHITE">
-            <font>
-                <Font name="Serif Regular" size="14.0" />
-            </font>
-        </Label>
-        <TextField fx:id="safetyHaz" layoutX="170.0" layoutY="114.0" prefHeight="25.0" prefWidth="288.0" promptText="Biohazard, Lots of foot traffic, etc." />
-        <TextField fx:id="type" layoutX="170.0" layoutY="146.0" prefHeight="25.0" prefWidth="288.0" promptText="Spill, room cleaning, etc." />
-        <TextField fx:id="equipment" layoutX="170.0" layoutY="183.0" prefHeight="25.0" prefWidth="288.0" promptText="Mop, gloves, mask" />
-        <Label layoutX="72.0" layoutY="149.0" prefHeight="20.0" prefWidth="97.0" text="Sanitation Type:" textFill="WHITE">
-            <font>
-                <Font name="Serif Regular" size="14.0" />
-            </font>
-        </Label>
-        <Label layoutX="53.0" layoutY="185.0" prefHeight="20.0" prefWidth="118.0" text="Equipment Needed:" textFill="WHITE">
-            <font>
-                <Font name="Serif Regular" size="14.0" />
-            </font>
-        </Label>
-        <Label layoutX="93.0" layoutY="222.0" prefHeight="20.0" prefWidth="73.0" text="Description:" textFill="WHITE">
-            <font>
-                <Font name="Serif Regular" size="14.0" />
-            </font>
-        </Label>
+      <ImageView fitHeight="431.0" fitWidth="588.0" layoutX="-6.0" layoutY="-8.0" opacity="0.35" pickOnBounds="true">
+         <image>
+            <Image url="@../images/100909_00_BrighamWomens_BTM_N8_966x668.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="91.0" fitWidth="73.0" layoutX="17.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/logo-small.png" />
+         </image>
+      </ImageView>
+      <VBox prefHeight="414.0" prefWidth="575.0">
+         <children>
+              <Label prefHeight="30.0" prefWidth="330.0" style="-fx-border-color: dimgrey; -fx-background-color: blue;" text=" Sanitation Service Request Form" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                  <font>
+                      <Font name="Serif Regular" size="24.0" />
+                  </font>
+               <VBox.margin>
+                  <Insets left="150.0" top="10.0" />
+               </VBox.margin>
+              </Label>
+         </children>
+      </VBox>
+      <VBox layoutX="86.0" layoutY="86.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="314.0" prefWidth="374.0">
+         <children>
+            <Label text="Location:" textFill="WHITE" translateY="-5.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets left="35.0" top="10.0" />
+               </VBox.margin>
+            </Label>
+            <JFXButton fx:id="cancelButton" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#back" prefHeight="42.0" prefWidth="114.0" style="-fx-background-color: lightgrey; -fx-border-color: dimgrey;" text="Cancel" translateX="85.0" translateY="41.0">
+               <VBox.margin>
+                  <Insets top="170.0" />
+               </VBox.margin>
+            </JFXButton>
+            <JFXButton fx:id="submitButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#submit" prefHeight="42.0" prefWidth="114.0" style="-fx-background-color: lightgrey; -fx-border-color: dimgrey;" text="Submit">
+               <VBox.margin>
+                  <Insets left="260.0" />
+               </VBox.margin>
+            </JFXButton>
+            <JFXTextField fx:id="loc" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="288.0" promptText="Room number, Hallway, Waiting Area, etc." style="-fx-background-color: white;" translateX="85.0" translateY="-280.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </JFXTextField>
+            <JFXTextField fx:id="safetyHaz" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="288.0" promptText="Biohazard, Lots of foot traffic, etc." style="-fx-background-color: white;" translateX="85.0" translateY="-270.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </JFXTextField>
+            <JFXTextField fx:id="type" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="288.0" promptText="Spill, room cleaning, etc." style="-fx-background-color: white;" translateX="85.0" translateY="-260.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </JFXTextField>
+            <JFXTextField fx:id="equipment" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="288.0" promptText="Mop, gloves, mask" style="-fx-background-color: white;" translateX="85.0" translateY="-250.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </JFXTextField>
+            <Label maxHeight="-Infinity" maxWidth="-Infinity" text="Safety Hazards:" textFill="WHITE" translateX="3.0" translateY="-340.0" />
+            <Label text="Sanitation Type:" textFill="WHITE" translateY="-325.0" />
+            <Label text="Equipment Needed:" textFill="WHITE" translateX="-20.0" translateY="-305.0" />
+            <Label text="Description:" textFill="WHITE" translateX="20.0" translateY="-290.0" />
+            <JFXTextArea fx:id="description" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="90.0" prefWidth="288.0" promptText="Detailed description of the incident" style="-fx-background-color: white;" translateX="85.0" translateY="-310.0" unFocusColor="#615858">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </JFXTextArea>
+         </children>
+      </VBox>
     </children>
 </AnchorPane>

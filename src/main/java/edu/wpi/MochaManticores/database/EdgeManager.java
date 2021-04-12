@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class EdgeManager {
-    private static final String Edge_csv_path = "data/edges.csv";
+    private static final String Edge_csv_path = "data/MapMEdges.csv";
 
     public static void createEdge(Connection connection, String Node1, String Node2) throws SQLException, FileNotFoundException {
         String edgeId = Node1 + "_" + Node2;
