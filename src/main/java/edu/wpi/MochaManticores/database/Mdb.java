@@ -1,6 +1,8 @@
 package edu.wpi.MochaManticores.database;
 
 
+import com.sun.javafx.geom.Edge;
+
 import java.io.FileNotFoundException;
 import java.sql.*;
 
@@ -39,8 +41,6 @@ public class Mdb {
             return;
         }
         Statement stmt = connection.createStatement();
-        CSVmanager nodeCSV = new CSVmanager(Node_csv_path);
-        CSVmanager edgeCSV = new CSVmanager(Edge_csv_path);
         //create data tables
         try {
             ResultSet rs = meta.getTables(null, "APP", "NODES", null);
@@ -57,10 +57,9 @@ public class Mdb {
                         " shortName VARCHAR(255), " +
                         " PRIMARY KEY (nodeID))";
                 stmt.executeUpdate(sql);
-                nodeCSV.load_node_csv(connection);
+                NodeManager.load_node_csv(connection);
             }
-
-            nodeCSV.addNodesToMap(connection);
+            NodeManager.addNodesToMap(connection);
 
             rs = meta.getTables(null, "APP", "EDGES", null);
             if(!rs.next()) {
@@ -72,9 +71,9 @@ public class Mdb {
                         " endNode CHAR(10), " +
                         " PRIMARY KEY (edgeID))";
                 stmt.executeUpdate(sql);
-                edgeCSV.load_edges_csv(connection);
+                EdgeManager.load_edges_csv(connection);
             }
-            edgeCSV.addEdgesToMap(connection);
+            EdgeManager.addEdgesToMap(connection);
 
         }catch(SQLException e){
             e.printStackTrace();
@@ -85,11 +84,9 @@ public class Mdb {
         System.out.println(" shutting down database ");
         try {
             // save into csv
-            CSVmanager nodeCSV = new CSVmanager(Node_csv_path);
-            CSVmanager edgeCSV = new CSVmanager(Edge_csv_path);
+            NodeManager.saveNodesinCSV(connection);
+            EdgeManager.saveEdgesInCSV(connection);
 
-            nodeCSV.saveNodesinCSV(connection);
-            edgeCSV.saveEdgesInCSV(connection);
             // clean shutdown database
             connection.close();
         }catch(SQLException | FileNotFoundException e){
