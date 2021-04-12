@@ -1,10 +1,29 @@
 package edu.wpi.MochaManticores.views;
 
+import edu.wpi.MochaManticores.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 
 public class LoginPage extends SceneController{
+
+    @FXML
+    private ImageView backgroundIMG;
+
+    @FXML
+    GridPane contentPane;
+
+    public void initialize(){
+        System.out.println("Init");
+        double height = App.getPrimaryStage().getScene().getHeight();
+        double width = App.getPrimaryStage().getScene().getWidth();
+        backgroundIMG.setFitHeight(height);
+        backgroundIMG.setFitWidth(width);
+        contentPane.setPrefSize(width,height);
+    }
 
     @FXML
     AnchorPane emergencyPopUp;
