@@ -26,13 +26,11 @@ public class EdgeManager {
 
     public static void addEdgeToMap(String node1ID, String node2ID){
         MapSuper.getMap().get(node1ID).addNeighbor(node2ID, 0);
-        MapSuper.getMap().get(node2ID).addNeighbor(node1ID, 0);
     }
 
     public static void addEdgeToMap_results(ResultSet results) throws SQLException{
         try{
             MapSuper.getMap().get(results.getString(2)).addNeighbor(results.getString(3), 0);
-            MapSuper.getMap().get(results.getString(3)).addNeighbor(results.getString(2), 0);
         }catch(SQLException e){
             e.printStackTrace();
         }
