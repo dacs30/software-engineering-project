@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 
 import java.io.IOException;
 import java.util.EmptyStackException;
+import java.util.Objects;
 import java.util.Stack;
 
 public class SceneController {
@@ -31,13 +32,22 @@ public class SceneController {
         }
     }
 
+//    @FXML
+//    private void advanceScene(ActionEvent e) {
+//        try {
+//            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/teamname/fxml/Scene2.fxml"));
+//            App.getPrimaryStage().getScene().setRoot(root);
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//        }
+//    }
+//}
     protected void back(ActionEvent e){
-        String scene = "landingPage";
+        String scene = "loginPage";
+        scenes.pop();
         try{
             scene = scenes.pop();
-        } catch (EmptyStackException ex){
-            ;
-        }
+        } catch (EmptyStackException ignored){}
         changeSceneTo(e, scene);
     }
 
