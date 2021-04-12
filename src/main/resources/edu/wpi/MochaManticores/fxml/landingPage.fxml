@@ -1,34 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="outerContianer" fx:id="outerContainer" onMouseDragged="#scaleScene" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../stylesheets.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.landingPageController">
+<AnchorPane id="outerContianer" fx:id="outerContainer" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../stylesheets.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.landingPageController">
    <children>
-      <AnchorPane fx:id="innerContainer" layoutX="286.0" layoutY="172.0" prefHeight="457.0" prefWidth="629.0" AnchorPane.bottomAnchor="171.0" AnchorPane.leftAnchor="286.0" AnchorPane.rightAnchor="285.0" AnchorPane.topAnchor="172.0">
+      <GridPane fx:id="contentPane" alignment="CENTER" layoutX="-8.0" layoutY="-6.0" AnchorPane.bottomAnchor="-6.0" AnchorPane.leftAnchor="-8.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="-6.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="148.0" minHeight="10.0" prefHeight="92.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="325.0" minHeight="10.0" prefHeight="77.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="705.0" minHeight="10.0" prefHeight="642.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <Rectangle fx:id="titleBG" arcHeight="5.0" arcWidth="5.0" fill="#2d75b3" height="47.0" layoutX="41.0" layoutY="16.0" stroke="#3a2f2f" strokeType="INSIDE" strokeWidth="2.0" width="528.0" />
-            <Label alignment="CENTER" layoutX="54.0" layoutY="13.0" prefHeight="47.0" prefWidth="517.0" text="Brigham and Women's Hospital" textFill="WHITE">
+            <Label alignment="CENTER" prefHeight="55.0" prefWidth="521.0" style="-fx-background-color: #2d75b3; -fx-border-color: #000000;" text="Brigham and Women's Hospital" textFill="WHITE" GridPane.halignment="CENTER">
                <font>
                   <Font size="36.0" />
                </font>
+               <effect>
+                  <DropShadow />
+               </effect>
             </Label>
-            <Label alignment="CENTER" layoutX="171.0" layoutY="67.0" prefHeight="47.0" prefWidth="282.0" style="-fx-background-color: DimGrey; -fx-border-color: Black;" text="Avaliable Services" textAlignment="CENTER" textFill="WHITE">
+            <Label alignment="CENTER" prefHeight="53.0" prefWidth="253.0" style="-fx-background-color: DimGrey; -fx-border-color: Black;" text="Avaliable Services" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <font>
                   <Font size="24.0" />
                </font>
+               <effect>
+                  <DropShadow />
+               </effect>
             </Label>
-            <GridPane alignment="CENTER" layoutX="106.0" layoutY="138.0" prefHeight="258.0" prefWidth="398.0">
+            <GridPane alignment="CENTER" prefHeight="258.0" prefWidth="398.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="225.0" minWidth="10.0" prefWidth="213.66668701171875" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="233.6666259765625" minWidth="10.0" prefWidth="212.33331298828125" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="618.0" minWidth="10.0" percentWidth="33.0" prefWidth="85.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="631.0" minWidth="0.0" percentWidth="33.0" prefWidth="507.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="693.0" minWidth="0.0" percentWidth="33.0" prefWidth="621.0" />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -36,28 +51,78 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceInternalTransportScene" prefHeight="47.0" prefWidth="146.0" style="-fx-background-color: green;" text="Internal Transportation" textFill="WHITE" GridPane.halignment="CENTER" />
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceToExtTransportation" prefHeight="47.0" prefWidth="146.0" style="-fx-background-color: green;" text="External Transportation" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#confirmEmergency" prefHeight="47.0" prefWidth="146.0" style="-fx-background-color: red;" text="Emergency Button" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceFoodService" prefHeight="47.0" prefWidth="146.0" style="-fx-background-color: teal;" text="Food Delivery" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceToFloralScene" prefHeight="47.0" prefWidth="146.0" style="-fx-background-color: teal;" text="Floral Delivery" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#grabSanitation" prefHeight="47.0" prefWidth="146.0" style="-fx-background-color: orange;" text="Sanitation Services" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-               </children>
-            </GridPane>
-            <AnchorPane fx:id="confirmEmergencyDialog" layoutX="23.0" layoutY="39.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" visible="false">
-               <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000093" height="414.0" layoutX="-7.0" layoutY="-7.0" opacity="0.95" stroke="BLACK" strokeType="INSIDE" width="616.0" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="180.0" layoutX="140.0" layoutY="110.0" stroke="BLACK" strokeType="INSIDE" width="320.0" />
-                  <Text layoutX="216.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Are you sure?">
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceInternalTransportScene" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: green;" text="Internal Transportation" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                      <font>
-                        <Font size="28.0" />
+                        <Font size="24.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Button>
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceToExtTransportation" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: green;" text="External Transportation" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Button>
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#confirmEmergency" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: red;" text="Emergency Button" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Button>
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceFoodService" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: teal;" text="Food Delivery" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Button>
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#advanceToFloralScene" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: teal;" text="Floral Delivery" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Button>
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#grabSanitation" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: orange;" text="Sanitation Services" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Button>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Please select a service" textAlignment="CENTER" wrappingWidth="397.13671875" GridPane.halignment="CENTER">
+                     <font>
+                        <Font size="36.0" />
                      </font>
                   </Text>
-                  <Button layoutX="216.0" layoutY="249.0" mnemonicParsing="false" onAction="#dismissEmergencyDialog" style="-fx-background-color: #FF0000;" text="Cancel" />
-                  <Button layoutX="328.0" layoutY="249.0" mnemonicParsing="false" onAction="#emergencyForm" style="-fx-background-color: #00FF00;" text="Continue" />
+                  <JFXButton fx:id="backButton" onAction="#back" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #0f4b91;" text="Back" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </JFXButton>
+                  <JFXButton onAction="#exitApp" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #E74C3C;" text="Exit" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </JFXButton>
                </children>
-            </AnchorPane>
+            </GridPane>
          </children>
-      </AnchorPane>
+      </GridPane>
    </children>
 </AnchorPane>
