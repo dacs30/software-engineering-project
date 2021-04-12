@@ -281,6 +281,7 @@ public class mapPage extends SceneController{
             for (int j = 0; j < nodeToAdd.getFields().length; j++) {
                 if(nodeToAdd.getFields()[j].get().toLowerCase().contains(searchTerm.toLowerCase()) || searchTerm.equals("")){
                     nodes.add(nodeToAdd);
+                    break;
                 }
             }
 
@@ -295,16 +296,15 @@ public class mapPage extends SceneController{
         returnToMain(e);
     }
 
-    public void submit(ActionEvent e){
+    public void editButton(ActionEvent e){
         Node n = dispTable.getSelectionModel().getSelectedItem();
         if (n == null){
             loadErrorDialog();
         }else{
-            selectedNode = new Node(n.getFields(),n.getNeighbors()); //TODO: selectedNode should not be a reference to n
+            selectedNode = new Node(n.getFields(),n.getNeighbors());
             System.out.println("Node Info:\n"+n);
             loadEditPage(n);
         }
-
     }
 
     public void loadErrorDialog(){
