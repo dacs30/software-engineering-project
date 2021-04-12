@@ -23,6 +23,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 import edu.wpi.MochaManticores.database.CSVmanager;
 
@@ -55,6 +56,9 @@ public class App extends Application {
       primaryStage.setMaximized(true);
       primaryStage.setFullScreen(true);
       primaryStage.setScene(scene);
+      primaryStage.setMinHeight(primaryStage.getScene().getHeight());
+      primaryStage.setMinWidth(primaryStage.getScene().getWidth());
+      primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
       primaryStage.show();
       root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("fxml/loginPage.fxml")));
       App.getPrimaryStage().getScene().setRoot(root);

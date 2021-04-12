@@ -14,10 +14,9 @@ public class LoginPage extends SceneController{
     private ImageView backgroundIMG;
 
     @FXML
-    GridPane contentPane;
+    private GridPane contentPane;
 
     public void initialize(){
-        System.out.println("Init");
         double height = App.getPrimaryStage().getScene().getHeight();
         double width = App.getPrimaryStage().getScene().getWidth();
         backgroundIMG.setFitHeight(height);
@@ -42,5 +41,9 @@ public class LoginPage extends SceneController{
 
     public void goToEmergencyForm(ActionEvent e) {
         changeSceneTo(e, "genericForm");
+    }
+
+    public void exitApp(ActionEvent e){
+super.exitApp(e);
     }
 }

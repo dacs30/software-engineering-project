@@ -1,6 +1,7 @@
 package edu.wpi.MochaManticores.views;
 
 import edu.wpi.MochaManticores.App;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -51,4 +52,7 @@ public class SceneController {
     }
 
 
+    public void exitApp(ActionEvent e){
+        Platform.exit();
+    }
 }
