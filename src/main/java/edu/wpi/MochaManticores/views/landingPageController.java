@@ -2,13 +2,20 @@ package edu.wpi.MochaManticores.views;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
 public class landingPageController extends SceneController {
 
 
+  @FXML
+  public ImageView backgroundIMG;
 
-  @FXML private GridPane contentPane;
+  @FXML
+  public ImageView badgeIMG;
+
+  @FXML
+  public GridPane contentPane;
 
 
   @FXML private void initialize(){
