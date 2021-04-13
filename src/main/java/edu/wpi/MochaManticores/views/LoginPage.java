@@ -16,8 +16,8 @@ public class LoginPage extends SceneController{
     private GridPane contentPane;
 
     public void initialize(){
-        double height = App.getPrimaryStage().getScene().getHeight();
-        double width = App.getPrimaryStage().getScene().getWidth();
+        double height = super.getHeight();
+        double width = super.getWidth();
         backgroundIMG.setFitHeight(height);
         backgroundIMG.setFitWidth(width);
         contentPane.setPrefSize(width,height);
@@ -27,19 +27,24 @@ public class LoginPage extends SceneController{
     AnchorPane emergencyPopUp;
 
     public void onMouseClickedContinue(ActionEvent e) {
-        changeSceneTo(e, "mainMenu");
-    };
-
-    public void emergencyBtnClicked(ActionEvent e) {
-        emergencyPopUp.setOpacity(1);
+        App.setClearenceLevel(0);
+        changeSceneTo("mainMenu");
     }
 
+    public void emergencyBtnClicked(ActionEvent e) {
+
+    }
+
+    public void staffMenu(ActionEvent e) {
+        App.setClearenceLevel(2);
+        super.changeSceneTo("staffMainMenu");
+    }
     public void closePopUp(ActionEvent e) {
         emergencyPopUp.setOpacity(0);
     }
 
     public void goToEmergencyForm(ActionEvent e) {
-        changeSceneTo(e, "genericForm");
+        changeSceneTo("genericForm");
     }
 
     public void exitApp(ActionEvent e){

@@ -33,4 +33,13 @@ public class EdgeMapSuper {
     public static void insertEdgeNode(String edgeId, EdgeSuper edgeNode) {
         edgeMap.put(edgeId, edgeNode);
     }
+
+    /**
+     * function: delEdgeNode(String)
+     * deleted an edgeNode in the hashmap that has the given key
+     * @param edgeId a String that is the edgeID of the desired edgeNode to remove from the map
+     */
+    public static void delEdgeNode(String edgeId) {
+        edgeMap.remove(edgeId);
+    }
 }

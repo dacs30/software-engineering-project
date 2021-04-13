@@ -30,12 +30,20 @@ import edu.wpi.MochaManticores.database.CSVmanager;
 public class App extends Application {
 
   private static Stage primaryStage;
+  private static int clearenceLevel;
 
 
   public static void setPrimaryStage(Stage primaryStage) {
 
   }
 
+  public static int getClearenceLevel() {
+    return clearenceLevel;
+  }
+
+  public static void setClearenceLevel(int clearenceLevel) {
+    App.clearenceLevel = clearenceLevel;
+  }
 
   @Override
   public void init() throws InterruptedException, FileNotFoundException, SQLException {

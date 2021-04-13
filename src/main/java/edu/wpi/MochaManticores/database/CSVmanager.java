@@ -7,6 +7,7 @@ import java.io.*;
 import java.sql.*;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class CSVmanager {
 
@@ -80,7 +81,7 @@ public class CSVmanager {
     }
     //save NODE CSV
     String putNodesInMap(Connection connect) throws SQLException, FileNotFoundException {
-        PrintWriter pw = new PrintWriter(new File(this.CSVpath));
+        //PrintWriter pw = new PrintWriter(new File(this.CSVpath));
         StringBuilder sb = new StringBuilder();
 
         String sql = "SELECT * FROM NODES";
@@ -106,13 +107,13 @@ public class CSVmanager {
             sb.append("\n");
         }
         results.close();
-        pw.write(sb.toString());
-        pw.close();
-        return sb.toString();
+//        pw.write(sb.toString());
+//        pw.close();
+        return "sb.toString()";
     }
     //save EDGES CSV
      String updateEdgesInMap(Connection connect) throws FileNotFoundException, SQLException {
-        PrintWriter pw = new PrintWriter(new File(this.CSVpath));
+        //PrintWriter pw = new PrintWriter(new File(this.CSVpath));
         StringBuilder sb = new StringBuilder();
 
         String sql = "SELECT * FROM EDGES";
@@ -125,7 +126,11 @@ public class CSVmanager {
             sb.append(",");
         }
         sb.append("\n");
+        int j = 1;
         while (results.next()) {
+            System.out.printf("On Edge %d, EdgeID: %s, StartNode: %s, EndNode: %s\n", j, results.getString(1),
+            results.getString(2), results.getString(3));
+            j++;
             //updating neighbors in Nodes
             NodeSuper startNode = MapSuper.getMap().get(results.getString(2));
             NodeSuper endNode = MapSuper.getMap().get(results.getString(3));
@@ -141,8 +146,8 @@ public class CSVmanager {
             sb.append("\n");
         }
         results.close();
-        pw.write(sb.toString());
-        pw.close();
-        return sb.toString();
+//        pw.write(sb.toString());
+//        pw.close();
+        return "sb.toString()";
     }
 }

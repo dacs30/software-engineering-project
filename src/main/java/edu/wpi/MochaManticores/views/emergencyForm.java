@@ -34,6 +34,6 @@ public class emergencyForm extends SceneController {
             ex.printStackTrace();
         }
         //System.exit(0);
-        returnToMain(e);
+        returnToMain();
     }
 }

@@ -151,7 +151,7 @@ public class Mdb extends Thread{
                     int xcoord = scanner.nextInt();
                     System.out.print("Enter a new Y Coordinate: \n");
                     int ycoord = scanner.nextInt();
-                    NodeManager.updateNode(connection, idForCoordinates, xcoord, ycoord);
+                    NodeManager.updateNodeCoords(connection, idForCoordinates, xcoord, ycoord);
                     System.out.printf("Node with id %s has been updated!\n", idForCoordinates);
                     break;
                 case 3:

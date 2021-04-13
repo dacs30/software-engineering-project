@@ -14,14 +14,16 @@ import java.util.Stack;
 
 public class SceneController {
     protected static Stack<String> scenes = new Stack<>();
+    double height = App.getPrimaryStage().getScene().getHeight();
+    double width = App.getPrimaryStage().getScene().getWidth();
 
     @FXML
-    protected void returnToMain(ActionEvent e){
-        changeSceneTo(e,"landingPage");
+    protected void returnToMain(){
+        changeSceneTo("landingPage");
     }
 
     @FXML
-    protected void changeSceneTo(ActionEvent e, String scene){
+    protected void changeSceneTo(String scene){
         scenes.push(scene);
         String path = "/edu/wpi/MochaManticores/fxml/" + scene + ".fxml";
         try {
@@ -42,13 +44,23 @@ public class SceneController {
 //        }
 //    }
 //}
-    protected void back(ActionEvent e){
+
+    public double getHeight() {
+        return height;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+
+    protected void back(){
         String scene = "loginPage";
         scenes.pop();
         try{
             scene = scenes.pop();
         } catch (EmptyStackException ignored){}
-        changeSceneTo(e, scene);
+        changeSceneTo(scene);
     }
 
 
