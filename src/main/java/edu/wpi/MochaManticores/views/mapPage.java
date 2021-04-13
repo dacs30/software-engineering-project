@@ -21,8 +21,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -44,6 +47,7 @@ public class mapPage extends SceneController{
 
     @FXML
     private GridPane contentPane;
+
 
     @FXML
     public GridPane selectionPage;
@@ -70,11 +74,25 @@ public class mapPage extends SceneController{
         public StringProperty longName;
         public StringProperty shortName;
         public StringProperty nodeID;
+
+        public String getNodeType() {
+            return nodeType.get();
+        }
+
+        public StringProperty nodeTypeProperty() {
+            return nodeType;
+        }
+
+        public void setNodeType(String nodeType) {
+            this.nodeType.set(nodeType);
+        }
+
+        public StringProperty nodeType;
         public Set<String> neighbors;
 
-        public StringProperty[] fields;
+        public ArrayList<StringProperty> fields;
 
-        public Node(String xcoord, String ycoord, String floor, String building, String longName, String shortName, String nodeID, Set<String> neighbors) {
+        public Node(String xcoord, String ycoord, String floor, String building, String longName, String shortName, String nodeID, String nodeType, Set<String> neighbors) {
             this.xcoord = new SimpleStringProperty(xcoord);
             this.ycoord = new SimpleStringProperty(ycoord);
             this.floor = new SimpleStringProperty(floor);
@@ -82,20 +100,22 @@ public class mapPage extends SceneController{
             this.longName = new SimpleStringProperty(longName);
             this.shortName = new SimpleStringProperty(shortName);
             this.nodeID = new SimpleStringProperty(nodeID);
+            this.nodeType = new SimpleStringProperty(nodeType);
             this.neighbors = neighbors;
-            fields = new StringProperty[]{this.xcoord, this.ycoord,this.floor,this.building,this.longName,this.shortName,this.nodeID};
+            fields = new ArrayList<StringProperty>(Arrays.asList(this.xcoord, this.ycoord,this.floor,this.building,this.longName,this.shortName,this.nodeID));
         }
-        public Node(StringProperty[] fields, Set<String> neighbors){
-            this.xcoord = fields[0];
-            this.ycoord = fields[1];
-            this.floor = fields[2];
-            this.building = fields[3];
-            this.longName = fields[4];
-            this.shortName = fields[5];
-            this.nodeID = fields[6];
+        public Node(ArrayList<StringProperty> fields, Set<String> neighbors){
+            this.xcoord = fields.get(0);
+            this.ycoord = fields.get(1);
+            this.floor = fields.get(2);
+            this.building = fields.get(3);
+            this.longName = fields.get(4);
+            this.shortName = fields.get(5);
+            this.nodeID = fields.get(6);
+            this.nodeType = fields.get(7);
+            this.fields = fields;
             this.neighbors = neighbors;
         }
-
 
         public Set<String> getNeighbors() {
             return neighbors;
@@ -106,7 +126,7 @@ public class mapPage extends SceneController{
         }
 
         public void setFields() {
-            fields = new StringProperty[]{xcoord, ycoord,floor,building,longName,shortName,nodeID};
+            fields = new ArrayList<StringProperty>(Arrays.asList(xcoord, ycoord,floor,building,longName,shortName,nodeID));
         }
 
         public void setXcoord(String xcoord) {
@@ -150,7 +170,7 @@ public class mapPage extends SceneController{
             return s;
         }
 
-        public StringProperty[] getFields() {
+        public ArrayList<StringProperty> getFields() {
             return fields;
         }
 
@@ -208,6 +228,10 @@ public class mapPage extends SceneController{
 
         public StringProperty nodeIDProperty() {
             return nodeID;
+        }
+
+        public NodeSuper toNodeSuper() {
+            return new NodeSuper(this.xcoord.get(), this.ycoord.get(), this.floor.get(), this.building.get(), this.longName.get(), this.shortName.get(), this.nodeID.get(), this.nodeType.get(), this.neighbors);
         }
     }
 
@@ -295,9 +319,10 @@ public class mapPage extends SceneController{
                     n.getLongName(),
                     n.getShortName(),
                     n.getID(),
+                    n.getType(),
                     n.getNeighbors());
-            for (int j = 0; j < nodeToAdd.getFields().length; j++) {
-                if(nodeToAdd.getFields()[j].get().toLowerCase().contains(searchTerm.toLowerCase()) || searchTerm.equals("")){
+            for (int j = 0; j < nodeToAdd.getFields().size(); j++) {
+                if(nodeToAdd.getFields().get(j).get().toLowerCase().contains(searchTerm.toLowerCase()) || searchTerm.equals("")){
                     nodes.add(nodeToAdd);
                     break;
                 }
@@ -425,6 +450,8 @@ public class mapPage extends SceneController{
         n.setFields();
         System.out.println(n);
         System.out.println(selectedNode);
+
+
 
         System.out.println("printed");
         return n;
