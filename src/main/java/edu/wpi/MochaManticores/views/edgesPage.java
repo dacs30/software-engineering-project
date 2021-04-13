@@ -337,6 +337,7 @@ public class edgesPage extends SceneController{
         }
 
     }
+
     public void loadEmptyDialog(){
         dialogPane.toFront();
         dialogPane.setDisable(false);
