@@ -6,7 +6,10 @@ import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import edu.wpi.MochaManticores.Nodes.*;
+import edu.wpi.MochaManticores.Nodes.MapSuper;
+import edu.wpi.MochaManticores.Nodes.NodeSuper;
+import edu.wpi.MochaManticores.database.Mdb;
+import edu.wpi.MochaManticores.database.NodeManager;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -20,10 +23,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -73,24 +78,13 @@ public class mapPage extends SceneController{
         public StringProperty shortName;
         public StringProperty nodeID;
 
-        public String getNodeType() {
-            return nodeType.get();
-        }
 
-        public StringProperty nodeTypeProperty() {
-            return nodeType;
-        }
 
-        public void setNodeType(String nodeType) {
-            this.nodeType.set(nodeType);
-        }
+        public Set<String> neighbors;
 
-        public StringProperty nodeType;
-        public VertexList neighbors;
+        public StringProperty[] fields;
 
-        public ArrayList<StringProperty> fields;
-
-        public Node(String xcoord, String ycoord, String floor, String building, String longName, String shortName, String nodeID, String nodeType, VertexList neighbors) {
+        public Node(String xcoord, String ycoord, String floor, String building, String longName, String shortName, String nodeID, Set<String> neighbors) {
             this.xcoord = new SimpleStringProperty(xcoord);
             this.ycoord = new SimpleStringProperty(ycoord);
             this.floor = new SimpleStringProperty(floor);
@@ -98,33 +92,30 @@ public class mapPage extends SceneController{
             this.longName = new SimpleStringProperty(longName);
             this.shortName = new SimpleStringProperty(shortName);
             this.nodeID = new SimpleStringProperty(nodeID);
-            this.nodeType = new SimpleStringProperty(nodeType);
             this.neighbors = neighbors;
-            fields = new ArrayList<StringProperty>(Arrays.asList(this.xcoord, this.ycoord,this.floor,this.building,this.longName,this.shortName,this.nodeID,this.nodeType));
+            fields = new StringProperty[]{this.xcoord, this.ycoord,this.floor,this.building,this.longName,this.shortName,this.nodeID};
         }
-        public Node(ArrayList<StringProperty> fields, VertexList neighbors){
-            this.xcoord = fields.get(0);
-            this.ycoord = fields.get(1);
-            this.floor = fields.get(2);
-            this.building = fields.get(3);
-            this.longName = fields.get(4);
-            this.shortName = fields.get(5);
-            this.nodeID = fields.get(6);
-            this.nodeType = fields.get(7);
-            this.fields = fields;
+        public Node(StringProperty[] fields, Set<String> neighbors){
+            this.xcoord = fields[0];
+            this.ycoord = fields[1];
+            this.floor = fields[2];
+            this.building = fields[3];
+            this.longName = fields[4];
+            this.shortName = fields[5];
+            this.nodeID = fields[6];
             this.neighbors = neighbors;
         }
 
-        public VertexList getNeighbors() {
+        public Set<String> getNeighbors() {
             return neighbors;
         }
 
-        public void setNeighbors(VertexList neighbors) {
+        public void setNeighbors(Set<String> neighbors) {
             this.neighbors = neighbors;
         }
 
         public void setFields() {
-            fields = new ArrayList<StringProperty>(Arrays.asList(xcoord, ycoord,floor,building,longName,shortName,nodeID));
+            fields = new StringProperty[]{xcoord, ycoord,floor,building,longName,shortName,nodeID};
         }
 
         public void setXcoord(String xcoord) {
@@ -168,7 +159,7 @@ public class mapPage extends SceneController{
             return s;
         }
 
-        public ArrayList<StringProperty> getFields() {
+        public StringProperty[] getFields() {
             return fields;
         }
 
@@ -226,10 +217,6 @@ public class mapPage extends SceneController{
 
         public StringProperty nodeIDProperty() {
             return nodeID;
-        }
-
-        public NodeSuper toNodeSuper() {
-            return new NodeSuper(Integer.parseInt(this.xcoord.get()), Integer.parseInt(this.ycoord.get()), this.floor.get(), this.building.get(), this.longName.get(), this.shortName.get(), this.nodeID.get(), this.nodeType.get(), this.neighbors);
         }
     }
 
@@ -317,10 +304,9 @@ public class mapPage extends SceneController{
                     n.getLongName(),
                     n.getShortName(),
                     n.getID(),
-                    n.getType(),
-                    n.getVertextList());
-            for (int j = 0; j < nodeToAdd.getFields().size(); j++) {
-                if(nodeToAdd.getFields().get(j).get().toLowerCase().contains(searchTerm.toLowerCase()) || searchTerm.equals("")){
+                    n.getNeighbors());
+            for (int j = 0; j < nodeToAdd.getFields().length; j++) {
+                if(nodeToAdd.getFields()[j].get().toLowerCase().contains(searchTerm.toLowerCase()) || searchTerm.equals("")){
                     nodes.add(nodeToAdd);
                     break;
                 }
@@ -377,17 +363,13 @@ public class mapPage extends SceneController{
     public void loadEditPage(Node node){
         selectionPage.setVisible(false);
         editPage.setVisible(true);
-        dispTable.getSelectionModel().clearSelection();
-        cleanEditPage();
-        if(node!=null){
-            xcoordField.setText(node.getXcoord());
-            ycoordField.setText(node.getYcoord());
-            floorField.setText(node.getFloor());
-            buildingField.setText(node.getBuilding());
-            logNameField.setText(node.getLongName());
-            shortNameField.setText(node.getShortName());
-            nodeIDField.setText(node.getNodeID());
-        }
+        xcoordField.setText(node.getXcoord());
+        ycoordField.setText(node.getYcoord());
+        floorField.setText(node.getFloor());
+        buildingField.setText(node.getBuilding());
+        logNameField.setText(node.getLongName());
+        shortNameField.setText(node.getShortName());
+        nodeIDField.setText(node.getNodeID());
     }
     public void cleanEditPage(){
         xcoordField.setText("");
@@ -399,22 +381,38 @@ public class mapPage extends SceneController{
         nodeIDField.setText("");
     }
 
-    public void submitEdit(ActionEvent e){
-        if(!checkInput()){
+    public void submitEdit(ActionEvent e) throws SQLException {
+        if (!checkInput()) {
             loadEmptyDialog();
-        }else{
-            //updateNode(x,y,floor,building,longName,shortName,newNodeID, nodeID);
+        } else {
+            NodeSuper nodeSuper = MapSuper.getMap().get(selectedNode.getNodeID());
+            Node n = null;
             for (Node node : listOfNodes) {
                 if (node.getNodeID().equals(selectedNode.getNodeID())) {
-                    Node n = updateNode(node);
+                    n = updateNode(node);
                     break;
                 }
             }
+            if (n == null) {
+                System.out.println("Cannot Find Node in List of Nodes");
+                return;
+            }
+
+            Connection connection = null;
+            try {
+                connection = DriverManager.getConnection(Mdb.JDBC_URL);
+            } catch (SQLException sqlException) {
+                System.out.println("Connection failed. Check output console.");
+                sqlException.printStackTrace();
+                return;
+            }
+            NodeManager.updateNode(connection, n.nodeID.get(), nodeSuper.getID(), Integer.parseInt(n.getXcoord()),
+                    Integer.parseInt(n.ycoord.get()), n.getFloor(), n.getBuilding(), nodeSuper.getType(), n.getLongName(), n.getShortName());
             //TODO:Talk to CSV Manager
+            //NODETYPE IS NOT CHANGED AS WELL AS NEIGHBORS
             cancelEdit(e);
         }
     }
-
     public void loadEmptyDialog(){
         dialogPane.toFront();
         dialogPane.setDisable(false);

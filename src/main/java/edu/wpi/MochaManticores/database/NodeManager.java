@@ -12,7 +12,9 @@ import java.util.HashMap;
 public class NodeManager {
     private static final String Node_csv_path = "data/MapMNodes.csv";
 
-    public static void updateNode(Connection connection, String id,  int xcoord, int ycoord) throws SQLException, FileNotFoundException {
+
+
+    public static void updateNodeCoords(Connection connection, String id, int xcoord, int ycoord) throws SQLException, FileNotFoundException {
         PreparedStatement pstmt = connection.prepareStatement("UPDATE NODES SET xcoord=?, ycoord=? WHERE nodeID=?");
         pstmt.setInt(1, xcoord);
         pstmt.setInt(2, ycoord);
@@ -23,6 +25,27 @@ public class NodeManager {
         NodeSuper tempNode = MapSuper.getMap().get(id);
         tempNode.setCoords(xcoord, ycoord);
         MapSuper.getMap().put(id, tempNode);
+    }
+
+    public static void updateNode(Connection connection, String newNodeID, String oldNodeID, int xcoord, int ycoord, String floor,
+                                  String building, String nodeType, String longName, String shortName) throws SQLException {
+        PreparedStatement pstmt = connection.prepareStatement("UPDATE NODES SET nodeID=?, xcoord=?, ycoord=?, building=?, nodeType=?, longName=?, shortName=?" +
+                "WHERE nodeID=?");
+        pstmt.setString(1, newNodeID);
+        pstmt.setString(2, String.valueOf(xcoord));
+        pstmt.setString(3, String.valueOf(ycoord));
+        pstmt.setString(4, building);
+        pstmt.setString(5, nodeType);
+        pstmt.setString(6, longName);
+        pstmt.setString(7, shortName);
+        pstmt.setString(8, oldNodeID);
+        pstmt.executeUpdate();
+
+
+        VertexList oldNeighbors = MapSuper.getMap().get(oldNodeID).getVertextList();
+        NodeSuper node = new NodeSuper(xcoord, ycoord, floor, building, longName, shortName, newNodeID, nodeType, oldNeighbors);
+        MapSuper.getMap().remove(oldNodeID);
+        MapSuper.getMap().put(newNodeID, node);
     }
 
     public static void updateNodeName(Connection connection, String id, String newName) throws SQLException, FileNotFoundException {
