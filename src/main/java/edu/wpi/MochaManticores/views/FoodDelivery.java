@@ -1,5 +1,10 @@
 package edu.wpi.MochaManticores.views;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
+import edu.wpi.MochaManticores.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
@@ -48,13 +53,6 @@ public class FoodDelivery extends SceneController{
         // changeSceneTo(e, "mainMenu");
         dialogPane.setVisible(true);
         loadDialog();
-    // Go back trigger makes the user to go back
-    /*
-    * TODO
-    * Get a logic that access the stack of scenes
-    */
-    public void onGoBackClickEvent(ActionEvent e) {
-        super.back();
     }
 
     public void loadDialog(){
@@ -83,7 +81,7 @@ public class FoodDelivery extends SceneController{
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
         JFXButton exit = new JFXButton("OK!");
         exit.setOnAction(event -> {
-            back(event);
+            back();
         });
         dialog.setOnDialogClosed(event -> {
             dialogPane.setDisable(true);
@@ -91,13 +89,6 @@ public class FoodDelivery extends SceneController{
         });
         message.setActions(exit);
         dialog.show();
-    public void makeAnOrderOnClickEvent(ActionEvent e) {
-        changeSceneTo("FoodDeliveryDietaryPreferences");
-//        try {
-//            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/MochaManticores/fxml/FoodDeliveryDietaryPreferences.fxml"));
-//            App.getPrimaryStage().getScene().setRoot(root);
-//        } catch (IOException ex) {
-//            ex.printStackTrace();
-//        }
+
+        }
     }
-}
