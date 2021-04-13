@@ -182,6 +182,7 @@ public class edgesPage extends SceneController{
             for (int j = 0; j < nodeToAdd.getFields().length; j++) {
                 if(nodeToAdd.getFields()[j].get().toLowerCase().contains(searchTerm.toLowerCase()) || searchTerm.equals("")){
                     edges.add(nodeToAdd);
+                    break;
                 }
             }
 
