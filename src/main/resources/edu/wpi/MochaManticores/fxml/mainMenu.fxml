@@ -57,7 +57,7 @@
                   </Label>
                   <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
                      <children>
-                        <JFXButton fx:id="mapButton" onAction="#gotoMap" prefHeight="81.0" prefWidth="217.0" style="-fx-background-color: #FF6B35;" text="Veiw Map" textFill="WHITE">
+                        <JFXButton fx:id="mapButton" onAction="#gotoMap" prefHeight="81.0" prefWidth="217.0" style="-fx-background-color: #FF6B35;" text="View Map" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="36.0" />
                            </font>
