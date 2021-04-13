@@ -33,6 +33,9 @@ public class LoginPage extends SceneController{
 
     }
 
+    public void staffMenu(ActionEvent e) {
+        super.changeSceneTo("staffMainMenu");
+    }
     public void closePopUp(ActionEvent e) {
         emergencyPopUp.setOpacity(0);
     }

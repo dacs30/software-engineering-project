@@ -88,7 +88,7 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
                         </JFXButton>
-                        <JFXButton id="staffMemberBtn" stylesheets="@../stylesheets.css" text="STAFF MEMBER?" GridPane.rowIndex="1" />
+                        <JFXButton id="staffMemberBtn" onAction="#staffMenu" stylesheets="@../stylesheets.css" text="STAFF MEMBER?" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                </children>

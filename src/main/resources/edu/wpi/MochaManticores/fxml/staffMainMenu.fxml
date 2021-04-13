@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1207.0" stylesheets="@../stylesheets.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.staffMainMenuController">
+    <children>
+        <ImageView fx:id="backgroundIMG" fitHeight="800.0" fitWidth="1207.0" opacity="0.5" pickOnBounds="true">
+            <image>
+                <Image url="@../images/100909_00_BrighamWomens_BTM_N8_966x668.jpg" />
+            </image>
+        </ImageView>
+        <GridPane fx:id="contentPane" prefHeight="800.0" prefWidth="1207.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Rectangle fx:id="loginRectangle" arcHeight="20.0" arcWidth="20" fill="#0f4b91" height="700.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.0" visible="false" width="550.0" GridPane.columnIndex="1">
+                    <effect>
+                        <DropShadow height="76.35" radius="28.119999999999997" width="38.13" />
+                    </effect></Rectangle>
+                <GridPane maxHeight="700.0" maxWidth="550.0" prefHeight="700.0" prefWidth="550.0" style="-fx-background-color: #0F4B91;" GridPane.columnIndex="1">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="314.0" minHeight="10.0" prefHeight="180.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="385.0" minHeight="10.0" prefHeight="212.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="337.0" minHeight="10.0" prefHeight="308.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <effect>
+                        <DropShadow height="54.61" radius="26.310000000000002" width="52.63" />
+                    </effect>
+               <children>
+                  <Label prefHeight="130.0" prefWidth="328.0" text="What would you like to do?" textFill="WHITE" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="36.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="-150.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="40.0" GridPane.rowIndex="1">
+                     <children>
+                        <JFXButton fx:id="nodeButton" onAction="#gotoNode" prefHeight="81.0" prefWidth="253.0" style="-fx-background-color: #FF6B35;" text="Edit Nodes" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="36.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="edgeButton" alignment="CENTER_RIGHT" onAction="#gotoEdge" prefHeight="79.0" prefWidth="238.0" style="-fx-background-color: #FF6B35;" text="Edit Edges" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="36.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </JFXButton>
+                     </children>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                     <padding>
+                        <Insets left="10.0" top="60.0" />
+                     </padding>
+                  </HBox>
+                  <JFXButton fx:id="backButton" onAction="#back" prefHeight="81.0" prefWidth="217.0" style="-fx-background-color: white;" text="Back" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="System Bold" size="36.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+                </GridPane>
+                <GridPane>
+                    <columnConstraints>
+                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="260.48150634765625" minHeight="10.0" prefHeight="94.55554962158203" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="491.59260177612305" minHeight="10.0" prefHeight="439.44445037841797" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <ImageView fitHeight="150.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/logo-with-text.png" />
+                            </image>
+                            <GridPane.margin>
+                                <Insets left="50.0" />
+                            </GridPane.margin>
+                        </ImageView>
+                    </children>
+                </GridPane>
+            </children>
+        </GridPane>
+    </children>
+</AnchorPane>
