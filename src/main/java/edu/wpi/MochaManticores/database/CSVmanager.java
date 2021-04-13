@@ -7,6 +7,7 @@ import java.io.*;
 import java.sql.*;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class CSVmanager {
 
@@ -80,7 +81,7 @@ public class CSVmanager {
     }
     //save NODE CSV
     String putNodesInMap(Connection connect) throws SQLException, FileNotFoundException {
-        PrintWriter pw = new PrintWriter(new File(this.CSVpath));
+        //PrintWriter pw = new PrintWriter(new File(this.CSVpath));
         StringBuilder sb = new StringBuilder();
 
         String sql = "SELECT * FROM NODES";
@@ -106,13 +107,13 @@ public class CSVmanager {
             sb.append("\n");
         }
         results.close();
-        pw.write(sb.toString());
-        pw.close();
-        return sb.toString();
+//        pw.write(sb.toString());
+//        pw.close();
+        return "sb.toString()";
     }
     //save EDGES CSV
      String updateEdgesInMap(Connection connect) throws FileNotFoundException, SQLException {
-        PrintWriter pw = new PrintWriter(new File(this.CSVpath));
+        //PrintWriter pw = new PrintWriter(new File(this.CSVpath));
         StringBuilder sb = new StringBuilder();
 
         String sql = "SELECT * FROM EDGES";
@@ -141,8 +142,8 @@ public class CSVmanager {
             sb.append("\n");
         }
         results.close();
-        pw.write(sb.toString());
-        pw.close();
-        return sb.toString();
+//        pw.write(sb.toString());
+//        pw.close();
+        return "sb.toString()";
     }
 }
