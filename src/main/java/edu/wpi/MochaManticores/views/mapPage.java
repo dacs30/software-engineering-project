@@ -347,20 +347,28 @@ public class mapPage extends SceneController{
     }
 
     public void downloadCSV(ActionEvent e){
-        File dst = new File(getPath() + "\\MapMNodes.csv");
-        try{
-            File source = new File("data/MapMNodes.csv");
-            Files.copy(source.toPath(),dst.toPath());
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
+        String path = getPath();
+        if(path.equals("")){
 
+        }else{
+            File dst = new File(path + "\\MapMNodes.csv");
+            try{
+                File source = new File("data/MapMNodes.csv");
+                Files.copy(source.toPath(),dst.toPath());
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        }
     }
 
     public String getPath() {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         File selectedDirectory = directoryChooser.showDialog(App.getPrimaryStage());
-        return  selectedDirectory.getAbsolutePath();//TODO: check windows or UNIX and start at ~/Downloads or $USER/downloads
+        if(selectedDirectory!=null){
+            String path = selectedDirectory.getAbsolutePath();
+            return  selectedDirectory.getAbsolutePath();//TODO: check windows or UNIX and start at ~/Downloads or $USER/downloads
+        }
+        return "";
     }
 
     public void loadErrorDialog(){
