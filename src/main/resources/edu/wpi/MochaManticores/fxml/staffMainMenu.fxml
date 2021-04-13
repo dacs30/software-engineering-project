@@ -39,9 +39,10 @@
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints maxHeight="314.0" minHeight="10.0" prefHeight="180.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="385.0" minHeight="10.0" prefHeight="212.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="337.0" minHeight="10.0" prefHeight="308.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="314.0" minHeight="10.0" prefHeight="207.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="385.0" minHeight="10.0" prefHeight="229.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="337.0" minHeight="10.0" prefHeight="121.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="337.0" minHeight="10.0" prefHeight="145.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <effect>
                         <DropShadow height="54.61" radius="26.310000000000002" width="52.63" />
@@ -55,7 +56,7 @@
                         <Insets left="-150.0" />
                      </GridPane.margin>
                   </Label>
-                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="40.0" GridPane.rowIndex="1">
+                  <HBox prefHeight="158.0" prefWidth="550.0" spacing="40.0" GridPane.rowIndex="1">
                      <children>
                         <JFXButton fx:id="nodeButton" onAction="#gotoNode" prefHeight="81.0" prefWidth="253.0" style="-fx-background-color: #FF6B35;" text="Edit Nodes" textFill="WHITE">
                            <font>
@@ -81,7 +82,12 @@
                         <Insets left="10.0" top="60.0" />
                      </padding>
                   </HBox>
-                  <JFXButton fx:id="backButton" onAction="#back" prefHeight="81.0" prefWidth="217.0" style="-fx-background-color: white;" text="Back" GridPane.rowIndex="2">
+                  <JFXButton fx:id="downloadButton" onAction="#downloadCSVs" prefHeight="81.0" prefWidth="382.0" style="-fx-background-color: #FF6B35;" text="Download CSV Files" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="36.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="backButton" onAction="#back" prefHeight="81.0" prefWidth="217.0" style="-fx-background-color: white;" text="Back" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                      <font>
                         <Font name="System Bold" size="36.0" />
                      </font>
