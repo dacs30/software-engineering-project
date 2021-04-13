@@ -3,7 +3,6 @@ package edu.wpi.MochaManticores.views;
 import edu.wpi.MochaManticores.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -44,6 +43,6 @@ public class LoginPage extends SceneController{
     }
 
     public void exitApp(ActionEvent e){
-super.exitApp(e);
+        super.exitApp(e);
     }
 }

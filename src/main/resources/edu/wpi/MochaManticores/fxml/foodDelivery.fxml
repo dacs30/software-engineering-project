@@ -1,61 +1,121 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDialog?>
+<?import com.jfoenix.controls.JFXTextArea?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.FoodDelivery">
+<AnchorPane prefHeight="800.0" prefWidth="1207.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.FoodDelivery">
    <children>
-      <BorderPane prefHeight="400.0" prefWidth="600.0">
-         <top>
-            <Label alignment="CENTER" text="Food Delivery" textAlignment="CENTER" BorderPane.alignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="36.0" />
-               </font>
-               <BorderPane.margin>
-                  <Insets bottom="10.0" top="10.0" />
-               </BorderPane.margin>
-            </Label>
-         </top>
-         <center>
-            <GridPane BorderPane.alignment="CENTER">
+      <ImageView fx:id="backgroundIMG" fitHeight="800.0" fitWidth="1207.0" opacity="0.5" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../images/100909_00_BrighamWomens_BTM_N8_966x668.jpg" />
+         </image>
+      </ImageView>
+      <StackPane fx:id="dialogPane" prefHeight="800.0" prefWidth="1207.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <JFXDialog visible="false">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" />
+               </children></JFXDialog>
+         </children>
+      </StackPane>
+      <GridPane fx:id="contentGrid" prefHeight="800.0" prefWidth="1207.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="0.0" prefWidth="189.4073944091797" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="1207.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <GridPane>
               <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints maxHeight="258.66666666666663" minHeight="10.0" prefHeight="258.66666666666663" valignment="CENTER" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="172.22222222222223" minHeight="10.0" prefHeight="67.11111111111114" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="BOTTOM" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="465.0" text="Welcome to the food delivery app! To request a service, just press &quot;Make an order&quot; or &quot;Go back&quot; to go back." textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/logo-small.png" />
+                     </image>
+                  </ImageView>
+                  <JFXButton id="backBtnFoodDelivery" buttonType="RAISED" stylesheets="@../stylesheets.css" text="BACK" textFill="WHITE" GridPane.rowIndex="1">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
                      <GridPane.margin>
-                        <Insets left="100.0" right="100.0" />
+                        <Insets bottom="30.0" />
                      </GridPane.margin>
-                     <font>
-                        <Font size="14.0" />
-                     </font></Label>
+                  </JFXButton>
+               </children>
+            </GridPane>
+            <GridPane maxHeight="700.0" maxWidth="1000.0" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #0F4B91;" stylesheets="@../stylesheets.css" GridPane.columnIndex="1">
+              <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <effect>
+                  <DropShadow />
+               </effect>
+               <children>
+                  <Label id="foodDeliveryTitleLabel" stylesheets="@../stylesheets.css" text="Food Delivery" textFill="WHITE" />
                   <GridPane GridPane.rowIndex="1">
                     <columnConstraints>
-                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button fx:id="makeAnOrderBtn" mnemonicParsing="false" onAction="#makeAnOrderOnClickEvent" text="Make an order" GridPane.valignment="TOP" />
-                        <Button fx:id="goBackHomeBtnFoodDelivery" mnemonicParsing="false" onAction="#onGoBackClickEvent" text="Go back" GridPane.columnIndex="1" GridPane.valignment="TOP" />
+                        <JFXComboBox fx:id="dietaryPreferences" focusColor="WHITE" promptText="Dietary Preferences" stylesheets="@../stylesheets.css" unFocusColor="WHITE" />
                      </children>
                   </GridPane>
+                  <GridPane GridPane.rowIndex="2">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="82.07406616210938" minHeight="10.0" prefHeight="41.1851806640625" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="133.8148193359375" minHeight="10.0" prefHeight="133.8148193359375" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label id="labelFoodDelivery" stylesheets="@../stylesheets.css" text="Allergies (if any)" textFill="WHITE" />
+                        <JFXTextArea id="allergiesPrompt" focusColor="WHITE" promptText="Allergies" stylesheets="@../stylesheets.css" unFocusColor="WHITE" GridPane.rowIndex="1">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <GridPane.margin>
+                              <Insets bottom="50.0" left="100.0" right="100.0" />
+                           </GridPane.margin>
+                        </JFXTextArea>
+                     </children>
+                  </GridPane>
+                  <JFXComboBox fx:id="foodMenu" focusColor="WHITE" promptText="Menu" stylesheets="@../stylesheets.css" unFocusColor="WHITE" GridPane.rowIndex="3" />
+                  <JFXButton id="submitBtnFoodDelivery" onAction="#submitForm" stylesheets="@../stylesheets.css" text="SUBMIT" GridPane.rowIndex="4" />
                </children>
             </GridPane>
-         </center>
-      </BorderPane>
+         </children>
+      </GridPane>
    </children>
 </AnchorPane>
