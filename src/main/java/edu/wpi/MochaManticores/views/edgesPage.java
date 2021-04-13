@@ -9,6 +9,11 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Nodes.EdgeMapSuper;
 import edu.wpi.MochaManticores.Nodes.EdgeSuper;
+import edu.wpi.MochaManticores.Nodes.MapSuper;
+import edu.wpi.MochaManticores.Nodes.NodeSuper;
+import edu.wpi.MochaManticores.database.EdgeManager;
+import edu.wpi.MochaManticores.database.Mdb;
+import edu.wpi.MochaManticores.database.NodeManager;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -24,6 +29,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -263,15 +271,38 @@ public class edgesPage extends SceneController{
         nodeIDField.setText(node.getNodeID());
     }
 
-    public void submitEdit(ActionEvent e){
-        for (Edge edge : listOfEdges) {
-            if (edge.getNodeID().equals(selectedEdge.getNodeID())) {
-                Edge n = updateEdge(edge);
-                break;
+    public void submitEdit(ActionEvent e) throws SQLException {
+        if (!checkInput()) {
+            loadEmptyDialog();
+        } else {
+            NodeSuper nodeSuper = MapSuper.getMap().get(selectedEdge.getNodeID());
+            Edge n = null;
+            for (Edge edge : listOfEdges) {
+                if (edge.getNodeID().equals(selectedEdge.getNodeID())) {
+                    n = updateEdge(edge);
+                    break;
+                }
             }
+            if (n == null) {
+                System.out.println("Cannot Find Node in List of Nodes");
+                return;
             }
-        //TODO:Talk to CSV Manager
-        cancelEdit(e);
+
+            Connection connection = null;
+            try {
+                connection = DriverManager.getConnection(Mdb.JDBC_URL);
+            } catch (SQLException sqlException) {
+                System.out.println("Connection failed. Check output console.");
+                sqlException.printStackTrace();
+                return;
+            }
+            EdgeManager.updateEdge(connection, selectedEdge.getNodeID(), n.getNodeID(), selectedEdge.getStartNode(),
+                    n.getStartNode(), selectedEdge.getEndNode(), n.getEndNode());
+
+            //TODO:Talk to CSV Manager
+            cancelEdit(e);
+            //NODETYPE IS NOT CHANGED AS WELL AS NEIGHBORS
+        }
     }
 
     public Edge updateEdge(Edge n){
@@ -292,6 +323,12 @@ public class edgesPage extends SceneController{
 
     }
 
+    public boolean checkInput(){
+        return  !startNode.getText().equals("") &&
+                !endNode.getText().equals("") &&
+                !nodeID.getText().equals("");
+    }
+
     public void back(ActionEvent e){
         if(editPage.isVisible()){
             cancelEdit(e);
@@ -299,5 +336,25 @@ public class edgesPage extends SceneController{
             super.back();
         }
 
+    }
+    public void loadEmptyDialog(){
+        dialogPane.toFront();
+        dialogPane.setDisable(false);
+        JFXDialogLayout message = new JFXDialogLayout();
+        message.setHeading(new Text("Oops!"));
+        message.setBody(new Text("Looks like some of the fields are empty."));
+        JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
+        JFXButton exit = new JFXButton("DONE");
+        exit.setOnAction(event -> {
+            dialog.close();
+            dialogPane.setDisable(true);
+            dialogPane.toBack();
+        });
+        dialog.setOnDialogClosed(event -> {
+            dialogPane.setDisable(true);
+            dialogPane.toBack();
+        });
+        message.setActions(exit);
+        dialog.show();
     }
 }

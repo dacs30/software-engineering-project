@@ -1,5 +1,10 @@
 package edu.wpi.MochaManticores.database;
 
+import edu.wpi.MochaManticores.Algorithms.GreedyBestFirst;
+import edu.wpi.MochaManticores.Nodes.EdgeMapSuper;
+import edu.wpi.MochaManticores.Nodes.EdgeSuper;
+import edu.wpi.MochaManticores.Nodes.MapSuper;
+
 import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,6 +22,24 @@ public class EdgeManager {
         pstmt.setString(2, Node1);
         pstmt.setString(3, Node2);
         pstmt.executeUpdate();
+
+    }
+
+    public static void updateEdge(Connection connection, String oldEdgeID, String newEdgeID, String oldStart, String newStart, String oldEnd, String newEnd) throws SQLException {
+        PreparedStatement pstmt = connection.prepareStatement("UPDATE EDGES SET edgeID=?, startNode=?, endNode=? WHERE edgeID=?");
+        pstmt.setString(1, newEdgeID);
+        pstmt.setString(2, newStart);
+        pstmt.setString(3, newEnd);
+        pstmt.setString(4, oldEdgeID);
+        pstmt.executeUpdate();
+
+        EdgeMapSuper.getMap().remove(oldEdgeID);
+        EdgeSuper edge = new EdgeSuper(newEdgeID, newStart, newEnd);
+        EdgeMapSuper.getMap().put(newEdgeID, edge);
+
+        MapSuper.getMap().get(oldStart).delNeighbor(oldEnd);
+        MapSuper.getMap().get(newStart).addNeighbor(newEnd, GreedyBestFirst.calcHeuristic(MapSuper.getMap().get(newStart),
+                                                                                            MapSuper.getMap().get(newEnd)));
 
     }
 
