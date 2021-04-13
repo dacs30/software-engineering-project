@@ -100,7 +100,7 @@ public class mapPage extends SceneController{
             this.nodeID = new SimpleStringProperty(nodeID);
             this.nodeType = new SimpleStringProperty(nodeType);
             this.neighbors = neighbors;
-            fields = new ArrayList<StringProperty>(Arrays.asList(this.xcoord, this.ycoord,this.floor,this.building,this.longName,this.shortName,this.nodeID));
+            fields = new ArrayList<StringProperty>(Arrays.asList(this.xcoord, this.ycoord,this.floor,this.building,this.longName,this.shortName,this.nodeID,this.nodeType));
         }
         public Node(ArrayList<StringProperty> fields, VertexList neighbors){
             this.xcoord = fields.get(0);
@@ -377,6 +377,8 @@ public class mapPage extends SceneController{
     public void loadEditPage(Node node){
         selectionPage.setVisible(false);
         editPage.setVisible(true);
+        dispTable.getSelectionModel().clearSelection();
+        cleanEditPage();
         if(node!=null){
             xcoordField.setText(node.getXcoord());
             ycoordField.setText(node.getYcoord());
@@ -386,8 +388,15 @@ public class mapPage extends SceneController{
             shortNameField.setText(node.getShortName());
             nodeIDField.setText(node.getNodeID());
         }
-
-
+    }
+    public void cleanEditPage(){
+        xcoordField.setText("");
+        ycoordField.setText("");
+        floorField.setText("");
+        buildingField.setText("");
+        logNameField.setText("");
+        shortNameField.setText("");
+        nodeIDField.setText("");
     }
 
     public void submitEdit(ActionEvent e){
