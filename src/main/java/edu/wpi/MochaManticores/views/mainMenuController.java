@@ -23,15 +23,15 @@ public class mainMenuController extends SceneController{
     }
 
     public void gotoService(ActionEvent e){
-        super.changeSceneTo(e, "landingPage");
+        super.changeSceneTo("landingPage");
     }
 
     public void gotoMap(ActionEvent e){
-        super.changeSceneTo(e, "mapPage");
+        super.changeSceneTo("mapPage");
     }
 
-    public void back(ActionEvent e){
-        super.back(e);
+    public void back(){
+        super.back();
     }
 
 }

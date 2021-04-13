@@ -5,9 +5,6 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 
 public class sanitationServiceController extends SceneController {
 
@@ -43,22 +40,12 @@ public class sanitationServiceController extends SceneController {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        returnToMain(e);
+        returnToMain();
     }
 
 
-    public void back(ActionEvent e) {
-        try {
-            loc.setText("");
-            safetyHaz.setText("");
-            type.setText("");
-            equipment.setText("");
-            description.setText("");
-
-        }catch(Exception ex){
-            ex.printStackTrace();
-        }
-        returnToMain(e);
+    public void back() {
+        super.back();
     }
 }
 

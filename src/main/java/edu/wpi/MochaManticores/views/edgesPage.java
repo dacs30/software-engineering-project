@@ -8,8 +8,6 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.MochaManticores.Nodes.EdgeMapSuper;
 import edu.wpi.MochaManticores.Nodes.EdgeSuper;
-import edu.wpi.MochaManticores.Nodes.MapSuper;
-import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -25,7 +23,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.util.Iterator;
-import java.util.Set;
 
 public class edgesPage extends SceneController{
     public JFXTextField mapName;
@@ -190,7 +187,7 @@ public class edgesPage extends SceneController{
     }
 
     public void cancel(ActionEvent e){
-        returnToMain(e);
+        returnToMain();
     }
 
     public void submit(ActionEvent e){
@@ -267,7 +264,7 @@ public class edgesPage extends SceneController{
         if(editPage.isVisible()){
             cancelEdit(e);
         }else{
-            super.back(e);
+            super.back();
         }
 
     }

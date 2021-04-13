@@ -7,9 +7,6 @@ import edu.wpi.MochaManticores.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 
 public class FloralSceneController extends SceneController {
 
@@ -37,7 +34,7 @@ public class FloralSceneController extends SceneController {
 
   @FXML
   private void goBack(ActionEvent e) {
-returnToMain(e);
+returnToMain();
   }
   @FXML
   private void submitForm(ActionEvent e) {
@@ -47,7 +44,7 @@ returnToMain(e);
     System.out.printf("Blue: %s\nYellow: %s\nOrange: %s\n",blue.isSelected(),yellow.isSelected(),orange.isSelected());
     System.out.println(personalNote.getText());
 
-    returnToMain(e);
+    returnToMain();
   }
 
   @FXML

@@ -1,12 +1,8 @@
 package edu.wpi.MochaManticores.views;
 
-import edu.wpi.MochaManticores.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.shape.Rectangle;
 
 public class landingPageController extends SceneController {
 
@@ -23,12 +19,12 @@ public class landingPageController extends SceneController {
 
   @FXML
   private void advanceScene(ActionEvent e) {
-    changeSceneTo(e,"Scene2");
+    changeSceneTo("Scene2");
   }
 
   @FXML
   private void advanceInternalTransportScene(ActionEvent e) {
-    changeSceneTo(e,"internalTransportation");
+    changeSceneTo("internalTransportation");
   }
 
   @FXML
@@ -41,31 +37,31 @@ public class landingPageController extends SceneController {
 
   @FXML
   private void emergencyForm(ActionEvent e){
-    changeSceneTo(e, "EmergencyForm");
+    changeSceneTo("EmergencyForm");
   }
 
 
   public void advanceFoodService(ActionEvent e) {
-    changeSceneTo(e, "foodDelivery");
+    changeSceneTo("foodDelivery");
   }
 
   @FXML
   private void advanceToExtTransportation(ActionEvent e) {
-    changeSceneTo(e,"extTransportation");
+    changeSceneTo("extTransportation");
   }
 
   @FXML
   private void advanceToFloralScene(ActionEvent e) {
-    changeSceneTo(e,"floralScene");
+    changeSceneTo("floralScene");
   }
 
   @FXML
   private void grabSanitation(ActionEvent e) {
-    changeSceneTo(e,"sanitationService");
+    changeSceneTo("sanitationService");
   }
 
-  public void back(ActionEvent e){
-    super.back(e);
+  public void back(){
+    super.back();
   }
 
   public void exitApp(ActionEvent e){

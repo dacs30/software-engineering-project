@@ -13,7 +13,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 
-public class FoodDeliveryDietaryPreferences {
+public class FoodDeliveryDietaryPreferences extends SceneController{
 
     ObservableList<String> dropdownOptions = FXCollections.observableArrayList("No restrictions", "Vegan", "Vegetarian");
 
@@ -37,23 +37,13 @@ public class FoodDeliveryDietaryPreferences {
 
 
     public void foodDeliveryGoBackOnClickedEvent(ActionEvent e) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/MochaManticores/fxml/foodDelivery.fxml"));
-            App.getPrimaryStage().getScene().setRoot(root);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        super.back();
     }
 
     public void foodDeliverySubmitOnClickEvent(ActionEvent e) {
         System.out.println(dietaryOptions.getSelectionModel().getSelectedItem());
         System.out.println(allergies.getText());
         System.out.println(menuChoiceBox.getSelectionModel().getSelectedItem());
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/MochaManticores/fxml/confirmationFoodDelivery.fxml"));
-            App.getPrimaryStage().getScene().setRoot(root);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        super.changeSceneTo("confirmationFoodDelivery");
     }
 }

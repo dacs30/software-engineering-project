@@ -24,11 +24,11 @@ public class ConfirmationFoodDelivery extends SceneController {
 //    }
 
     public void confrimationEnded(MouseEvent mouseEvent) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/MochaManticores/fxml/landingPage.fxml"));
-            App.getPrimaryStage().getScene().setRoot(root);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+//        try {
+//            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/MochaManticores/fxml/landingPage.fxml"));
+//            App.getPrimaryStage().getScene().setRoot(root);
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//        }
     }
 }

@@ -21,7 +21,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 import java.util.Iterator;
@@ -45,7 +44,6 @@ public class mapPage extends SceneController{
 
     @FXML
     private GridPane contentPane;
-
 
     @FXML
     public GridPane selectionPage;
@@ -97,6 +95,7 @@ public class mapPage extends SceneController{
             this.nodeID = fields[6];
             this.neighbors = neighbors;
         }
+
 
         public Set<String> getNeighbors() {
             return neighbors;
@@ -327,6 +326,10 @@ public class mapPage extends SceneController{
         }
     }
 
+    public void addButton(ActionEvent e){
+            loadEditPage(null);
+    }
+
     public void loadErrorDialog(){
         dialogPane.toFront();
         dialogPane.setDisable(false);
@@ -351,24 +354,64 @@ public class mapPage extends SceneController{
     public void loadEditPage(Node node){
         selectionPage.setVisible(false);
         editPage.setVisible(true);
-        xcoordField.setText(node.getXcoord());
-        ycoordField.setText(node.getYcoord());
-        floorField.setText(node.getFloor());
-        buildingField.setText(node.getBuilding());
-        logNameField.setText(node.getLongName());
-        shortNameField.setText(node.getShortName());
-        nodeIDField.setText(node.getNodeID());
+        if(node!=null){
+            xcoordField.setText(node.getXcoord());
+            ycoordField.setText(node.getYcoord());
+            floorField.setText(node.getFloor());
+            buildingField.setText(node.getBuilding());
+            logNameField.setText(node.getLongName());
+            shortNameField.setText(node.getShortName());
+            nodeIDField.setText(node.getNodeID());
+        }
+
+
     }
 
     public void submitEdit(ActionEvent e){
-        for (Node node : listOfNodes) {
-            if (node.getNodeID().equals(selectedNode.getNodeID())) {
-                Node n = updateNode(node);
-                break;
+        if(!checkInput()){
+            loadEmptyDialog();
+        }else{
+            //updateNode(x,y,floor,building,longName,shortName,newNodeID, nodeID);
+            for (Node node : listOfNodes) {
+                if (node.getNodeID().equals(selectedNode.getNodeID())) {
+                    Node n = updateNode(node);
+                    break;
+                }
             }
-            }
-        //TODO:Talk to CSV Manager
-        cancelEdit(e);
+            //TODO:Talk to CSV Manager
+            cancelEdit(e);
+        }
+    }
+
+    public void loadEmptyDialog(){
+        dialogPane.toFront();
+        dialogPane.setDisable(false);
+        JFXDialogLayout message = new JFXDialogLayout();
+        message.setHeading(new Text("Oops!"));
+        message.setBody(new Text("Looks like some of the fields are empty."));
+        JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
+        JFXButton exit = new JFXButton("DONE");
+        exit.setOnAction(event -> {
+            dialog.close();
+            dialogPane.setDisable(true);
+            dialogPane.toBack();
+        });
+        dialog.setOnDialogClosed(event -> {
+            dialogPane.setDisable(true);
+            dialogPane.toBack();
+        });
+        message.setActions(exit);
+        dialog.show();
+    }
+
+    public boolean checkInput(){
+        return  !xcoordField.getText().equals("") &&
+                !ycoordField.getText().equals("") &&
+                !floorField.getText().equals("") &&
+                !buildingField.getText().equals("") &&
+                !logNameField.getText().equals("") &&
+                !shortNameField.getText().equals("") &&
+                !nodeIDField.getText().equals("");
     }
 
     public Node updateNode(Node n){
@@ -397,7 +440,7 @@ public class mapPage extends SceneController{
         if(editPage.isVisible()){
             cancelEdit(e);
         }else{
-            super.back(e);
+            super.back();
         }
 
     }

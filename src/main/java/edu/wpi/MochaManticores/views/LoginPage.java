@@ -1,9 +1,7 @@
 package edu.wpi.MochaManticores.views;
 
-import edu.wpi.MochaManticores.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -28,11 +26,11 @@ public class LoginPage extends SceneController{
     AnchorPane emergencyPopUp;
 
     public void onMouseClickedContinue(ActionEvent e) {
-        changeSceneTo(e, "mainMenu");
-    };
+        changeSceneTo("mainMenu");
+    }
 
     public void emergencyBtnClicked(ActionEvent e) {
-        emergencyPopUp.setOpacity(1);
+
     }
 
     public void closePopUp(ActionEvent e) {
@@ -40,7 +38,7 @@ public class LoginPage extends SceneController{
     }
 
     public void goToEmergencyForm(ActionEvent e) {
-        changeSceneTo(e, "genericForm");
+        changeSceneTo("genericForm");
     }
 
     public void exitApp(ActionEvent e){

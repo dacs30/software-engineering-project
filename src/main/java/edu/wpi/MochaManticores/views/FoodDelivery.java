@@ -1,11 +1,6 @@
 package edu.wpi.MochaManticores.views;
 
-import edu.wpi.MochaManticores.App;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-
-import java.io.IOException;
 
 public class FoodDelivery extends SceneController {
 
@@ -15,11 +10,11 @@ public class FoodDelivery extends SceneController {
     * Get a logic that access the stack of scenes
     */
     public void onGoBackClickEvent(ActionEvent e) {
-        returnToMain(e);
+        super.back();
     }
 
     public void makeAnOrderOnClickEvent(ActionEvent e) {
-        changeSceneTo(e, "FoodDeliveryDietaryPreferences");
+        changeSceneTo("FoodDeliveryDietaryPreferences");
 //        try {
 //            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/MochaManticores/fxml/FoodDeliveryDietaryPreferences.fxml"));
 //            App.getPrimaryStage().getScene().setRoot(root);

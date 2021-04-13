@@ -2,13 +2,10 @@ package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.*;
 import javafx.fxml.FXML;
-import javafx.scene.paint.Paint;
 
 import javafx.event.ActionEvent;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class GenericForm extends SceneController{
@@ -49,16 +46,16 @@ public class GenericForm extends SceneController{
         System.out.println(rbOne.isSelected());
         System.out.println(rbTwo.isSelected());
         System.out.println(rbThree.isSelected());
-        returnToMain(e);
+        returnToMain();
     }
 
     public void cancel(ActionEvent e) {
         System.out.println("Form cancelled");
-        returnToMain(e);
+        returnToMain();
     }
 
-    public void back(ActionEvent e){
-        super.back(e);
+    public void back(){
+        super.back();
     }
 
     public void setSingleRadio(ActionEvent e){
