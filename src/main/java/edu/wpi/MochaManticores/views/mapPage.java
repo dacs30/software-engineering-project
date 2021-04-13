@@ -32,7 +32,10 @@ import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.CopyOption;
 import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.nio.file.StandardOpenOption;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -354,7 +357,7 @@ public class mapPage extends SceneController{
             File dst = new File(path + "\\MapMNodes.csv");
             try{
                 File source = new File("data/MapMNodes.csv");
-                Files.copy(source.toPath(),dst.toPath());
+                Files.copy(source.toPath(),dst.toPath(), StandardCopyOption.REPLACE_EXISTING);
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }

@@ -27,6 +27,7 @@ import javafx.stage.DirectoryChooser;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.Iterator;
 
 public class edgesPage extends SceneController{
@@ -215,7 +216,7 @@ public class edgesPage extends SceneController{
             File dst = new File(path + "\\MapMEdges.csv");
             try{
                 File source = new File("data/MapMEdges.csv");
-                Files.copy(source.toPath(),dst.toPath());
+                Files.copy(source.toPath(),dst.toPath(),StandardCopyOption.REPLACE_EXISTING);
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
