@@ -126,7 +126,11 @@ public class CSVmanager {
             sb.append(",");
         }
         sb.append("\n");
+        int j = 1;
         while (results.next()) {
+            System.out.printf("On Edge %d, EdgeID: %s, StartNode: %s, EndNode: %s\n", j, results.getString(1),
+            results.getString(2), results.getString(3));
+            j++;
             //updating neighbors in Nodes
             NodeSuper startNode = MapSuper.getMap().get(results.getString(2));
             NodeSuper endNode = MapSuper.getMap().get(results.getString(3));

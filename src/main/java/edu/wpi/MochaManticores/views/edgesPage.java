@@ -182,6 +182,7 @@ public class edgesPage extends SceneController{
     private ObservableList<Edge> buildTable(String searchTerm){
         ObservableList<Edge> edges = FXCollections.observableArrayList();
         Iterator<EdgeSuper> mapIter = EdgeMapSuper.getMap().values().iterator();
+        System.out.println(EdgeMapSuper.getMap().size());
         for (int i = 0; i <EdgeMapSuper.getMap().size(); i++) {
             EdgeSuper e = mapIter.next();
             Edge nodeToAdd = new Edge(e.getStartingNode(),
