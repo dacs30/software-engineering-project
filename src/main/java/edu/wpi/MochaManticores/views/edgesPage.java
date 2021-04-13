@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Nodes.EdgeMapSuper;
 import edu.wpi.MochaManticores.Nodes.EdgeSuper;
 import javafx.beans.property.SimpleStringProperty;
@@ -21,7 +22,11 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.DirectoryChooser;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Iterator;
 
 public class edgesPage extends SceneController{
@@ -200,6 +205,23 @@ public class edgesPage extends SceneController{
             loadEditPage(n);
         }
 
+    }
+
+    public void downloadCSV(ActionEvent e){
+        File dst = new File(getPath() + "\\MapMEdges.csv");
+        try{
+            File source = new File("data/MapMEdges.csv");
+            Files.copy(source.toPath(),dst.toPath());
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+
+    }
+
+    public String getPath() {
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        File selectedDirectory = directoryChooser.showDialog(App.getPrimaryStage());
+        return  selectedDirectory.getAbsolutePath();//TODO: check windows or UNIX and start at ~/Downloads or $USER/downloads
     }
 
     public void loadErrorDialog(){

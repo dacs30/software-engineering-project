@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.database.Mdb;
@@ -25,7 +26,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.DirectoryChooser;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileSystemView;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -339,6 +346,23 @@ public class mapPage extends SceneController{
             loadEditPage(null);
     }
 
+    public void downloadCSV(ActionEvent e){
+        File dst = new File(getPath() + "\\MapMNodes.csv");
+        try{
+            File source = new File("data/MapMNodes.csv");
+            Files.copy(source.toPath(),dst.toPath());
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+
+    }
+
+    public String getPath() {
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        File selectedDirectory = directoryChooser.showDialog(App.getPrimaryStage());
+        return  selectedDirectory.getAbsolutePath();//TODO: check windows or UNIX and start at ~/Downloads or $USER/downloads
+    }
+
     public void loadErrorDialog(){
         dialogPane.toFront();
         dialogPane.setDisable(false);
@@ -371,6 +395,7 @@ public class mapPage extends SceneController{
         shortNameField.setText(node.getShortName());
         nodeIDField.setText(node.getNodeID());
     }
+
     public void cleanEditPage(){
         xcoordField.setText("");
         ycoordField.setText("");
