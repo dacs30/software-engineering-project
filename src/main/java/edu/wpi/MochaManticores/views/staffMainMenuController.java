@@ -35,7 +35,7 @@ public class staffMainMenuController extends SceneController{
     }
 
     public void gotoNode(ActionEvent e){
-        super.changeSceneTo("mapPage");
+        super.changeSceneTo("nodePage");
     }
 
     public void downloadCSVs(ActionEvent e) {
