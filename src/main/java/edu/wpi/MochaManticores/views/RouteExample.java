@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.text.Text;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -30,17 +31,24 @@ public class RouteExample extends SceneController {
     @FXML
     private JFXComboBox endNodeSelection;
 
+    @FXML
+    private Text pathField;
+
     public void initialize(){
 
         Iterator<NodeSuper> mapIter = MapSuper.getMap().values().iterator();
         for (int i = 0; i < MapSuper.getMap().size(); i++) {
             NodeSuper n = mapIter.next();
-            nodes.add(n);
-            longNames.add(n.getLongName());
+            if(n.getType().equals("PARK") || n.getType().equals("WALK")){
+                nodes.add(n);
+                longNames.add(n.getLongName());
+            }
+
         }
 
         startNodeSelection.getItems().addAll(longNames);
         endNodeSelection.getItems().addAll(longNames);
+        pathField.setText("Path:\nSTART\n|\n");
 
         //startNodeSelection.getItems().ad
     }
@@ -63,11 +71,18 @@ public class RouteExample extends SceneController {
             }
 
         LinkedList<String> path = star.path(stops);
+        if(path != null){
+            System.out.println("Path found:");
+        }
         for (String str :
                 path) {
-            System.out.println(str);
+            pathField.setText(pathField.getText()+"\n"+str+"\n|\n");
         }
-        Platform.exit();
+            pathField.setText(pathField.getText()+"\nEND");
+    }
+
+    public void back(){
+        super.back();
     }
 
 }

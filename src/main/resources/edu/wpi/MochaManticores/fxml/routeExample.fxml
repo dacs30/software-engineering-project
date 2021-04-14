@@ -3,12 +3,19 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.scene.layout.AnchorPane?>
-
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.RouteExample">
    <children>
       <JFXComboBox fx:id="startNodeSelection" layoutX="41.0" layoutY="122.0" prefHeight="25.0" prefWidth="348.0" />
       <JFXComboBox fx:id="endNodeSelection" layoutX="481.0" layoutY="122.0" prefHeight="25.0" prefWidth="348.0" />
       <JFXButton fx:id="pathButton" layoutX="925.0" layoutY="122.0" onAction="#getPath" text="Get Path" />
+      <JFXButton fx:id="backButton" layoutX="41.0" layoutY="694.0" onAction="#back" prefHeight="64.0" prefWidth="146.0" style="-fx-background-color: #0f4b91;" text="Back" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </JFXButton>
+      <Text fx:id="pathField" layoutX="280.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="402.13671875" />
    </children>
 </AnchorPane>
