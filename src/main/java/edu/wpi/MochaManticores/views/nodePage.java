@@ -398,13 +398,16 @@ public class nodePage extends SceneController{
     public void loadEditPage(Node node){
         selectionPage.setVisible(false);
         editPage.setVisible(true);
-        xcoordField.setText(node.getXcoord());
-        ycoordField.setText(node.getYcoord());
-        floorField.setText(node.getFloor());
-        buildingField.setText(node.getBuilding());
-        logNameField.setText(node.getLongName());
-        shortNameField.setText(node.getShortName());
-        nodeIDField.setText(node.getNodeID());
+        if(node != null){
+            xcoordField.setText(node.getXcoord());
+            ycoordField.setText(node.getYcoord());
+            floorField.setText(node.getFloor());
+            buildingField.setText(node.getBuilding());
+            logNameField.setText(node.getLongName());
+            shortNameField.setText(node.getShortName());
+            nodeIDField.setText(node.getNodeID());
+        }
+
     }
 
     public void cleanEditPage(){

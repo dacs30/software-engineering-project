@@ -55,7 +55,6 @@ public class mapPage extends SceneController{
         mapWindow.setImage(new Image(location + "00_thelowerlevel2.png"));
     }
 
-
     public void loadGround(){
         locationTitle.setText("Ground Floor");
         mapWindow.setImage(new Image(location + "00_thegroundfloor.png"));
@@ -77,10 +76,7 @@ public class mapPage extends SceneController{
     }
 
     private void setDeminsions(){
-//
 //        mapWindow.setFitHeight();
 //        mapWindow.setFitWidth();
     }
-
-    //public void load
 }
