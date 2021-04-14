@@ -34,7 +34,7 @@ public class AStar {
         this.closedSet = new HashMap<>();
         LinkedList<String> path = new LinkedList<>();
         path.addAll(shortestPath(stops.pop(), stops.getFirst()));
-        if (path.size() > 2) {
+        if (path.size() > 2) { //fix for when there were entries missing along a correct path
             for (int i = 0; i < stops.size() - 2; i++) {
                 path.removeLast();
                 path.addAll(shortestPath(stops.pop(), stops.getFirst()));
