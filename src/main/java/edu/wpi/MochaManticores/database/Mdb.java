@@ -10,7 +10,8 @@ public class Mdb extends Thread{
 
     private static DatabaseMetaData meta;
     public static String JDBC_URL = "jdbc:derby:Mdatabase;create=true";
-    private static final String Edge_csv_path = "data/MapMEdges.csv";
+    //private static final String Edge_csv_path = "data/MapMEdges.csv";
+    private static final String Edge_csv_path = "data/edges.csv";
     private static final String Node_csv_path = "data/MapMNodes.csv";
 
     public static void nodeStartup(Connection connection, CSVmanager nodeCSV) throws SQLException {

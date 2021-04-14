@@ -94,6 +94,7 @@ public class CSVmanager {
             sb.append(",");
         }
         sb.append("\n");
+        int count = 0;
         while (results.next()) {
             NodeSuper tempNode = new NodeSuper(Integer.parseInt(results.getString(2)), Integer.parseInt(results.getString(3)),
                     results.getString(4), results.getString(5), results.getString(7), results.getString(8),
@@ -128,8 +129,8 @@ public class CSVmanager {
         sb.append("\n");
         int j = 1;
         while (results.next()) {
-            System.out.printf("On Edge %d, EdgeID: %s, StartNode: %s, EndNode: %s\n", j, results.getString(1),
-            results.getString(2), results.getString(3));
+            //System.out.printf("On Edge %d, EdgeID: %s, StartNode: %s, EndNode: %s\n", j, results.getString(1),
+            results.getString(2); results.getString(3);
             j++;
             //updating neighbors in Nodes
             NodeSuper startNode = MapSuper.getMap().get(results.getString(2));
