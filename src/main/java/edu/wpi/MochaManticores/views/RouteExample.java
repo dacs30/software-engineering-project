@@ -55,6 +55,7 @@ public class RouteExample extends SceneController {
 
 
     public void getPath(ActionEvent e){
+        pathField.setText("Path:\nSTART\n|\n");
         AStar star = new AStar();
         LinkedList<NodeSuper> stops = new LinkedList<>();
 

@@ -5,6 +5,7 @@ import edu.wpi.MochaManticores.Nodes.NodeSuper;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Set;
 
 public class AStar {
     private HashMap<String, NodeSuper> nodes;
@@ -87,6 +88,9 @@ public class AStar {
 
         DijkstraNode cheapestNeighbor = null;
         boolean first = true;
+        String s = dijkstraNode.getId();
+        NodeSuper n = this.nodes.get(s);
+        Set<String> neigh = n.getNeighbors();
         for (Object o : this.nodes.get(dijkstraNode.getId()).getNeighbors()) {
             String  i = (String) o;
             if (openSet.containsKey(i)) {
