@@ -63,6 +63,11 @@ public class SceneController {
         changeSceneTo(scene);
     }
 
+    protected void back(int scenes){
+        for (int i = 0; i < scenes; i++) {
+            back();
+        }
+    }
 
     public void exitApp(ActionEvent e){
         Platform.exit();

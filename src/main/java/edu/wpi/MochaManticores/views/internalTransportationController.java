@@ -14,7 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-public class internalTransportationController {
+public class internalTransportationController extends SceneController{
 
 
     ObservableList<String> typeOfTransportList = FXCollections
@@ -42,12 +42,7 @@ public class internalTransportationController {
     }
     @FXML
     private void cancelScene(ActionEvent e) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/MochaManticores/fxml/landingPage.fxml"));
-            App.getPrimaryStage().getScene().setRoot(root);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+super.back();
     }
     @FXML
         private void advanceSuccessScene(ActionEvent e) {
@@ -55,11 +50,12 @@ public class internalTransportationController {
         System.out.println(numberOfStaff.getText());
         System.out.println(destination.getText());
         System.out.println(transportComboBox.getSelectionModel().getSelectedItem());
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/MochaManticores/fxml/successPage.fxml"));
-                App.getPrimaryStage().getScene().setRoot(root);
-            } catch (IOException ex) {
-            ex.printStackTrace();
-            }
+        super.changeSceneTo("successPage");
+//            try {
+//                Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/MochaManticores/fxml/successPage.fxml"));
+//                App.getPrimaryStage().getScene().setRoot(root);
+//            } catch (IOException ex) {
+//            ex.printStackTrace();
+//            }
     }
 }
