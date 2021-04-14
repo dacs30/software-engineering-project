@@ -50,6 +50,33 @@ public class NodeManager {
         MapSuper.getMap().put(newNodeID, node);
     }
 
+    public static void addNode(Connection connection, String newNodeID, int xcoord, int ycoord, String floor,
+                                  String building, String nodeType, String longName, String shortName, String neighborID) throws SQLException {
+        String sql = "INSERT INTO NODES (nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        pstmt.setString(1, newNodeID);
+        pstmt.setString(2, String.valueOf(xcoord));
+        pstmt.setString(3, String.valueOf(ycoord));
+        pstmt.setString(4, building);
+        pstmt.setString(5, nodeType);
+        pstmt.setString(6, longName);
+        pstmt.setString(7, shortName);
+        pstmt.executeUpdate();
+
+        if(!MapSuper.getMap().containsKey(newNodeID)) {
+            MapSuper.getMap().put(newNodeID, new NodeSuper(xcoord, ycoord, floor, building, longName, shortName, newNodeID, nodeType,
+                                                            new VertexList(new HashMap<>())));
+
+            //insert neighboring node and cost
+            MapSuper.getMap().get(newNodeID).addNeighbor(neighborID, AStar.calcHeuristic(MapSuper.getMap().get(newNodeID),
+                    MapSuper.getMap().get(neighborID)));
+        }
+        else {
+            System.out.println("This node already exists");
+        }
+    }
+
     public static void updateNodeName(Connection connection, String id, String newName) throws SQLException, FileNotFoundException {
         PreparedStatement pstmt = connection.prepareStatement("UPDATE NODES SET longName=? WHERE nodeID=?");
         pstmt.setString(1, newName);

@@ -25,6 +25,7 @@ public class AStar {
      * function: path()
      * usage: finds the best path between any number of nodes based on the heuristic
      * input: a list of nodes that must be included in the path, with the first being the start point and the last being the end point
+     *        the list MUST have at least 2 nodes in it
      * returns: a Linkedlist of the node IDs along the found path
      */
     public LinkedList<String> path(LinkedList<NodeSuper> stops){
@@ -137,10 +138,10 @@ public class AStar {
         int floorOffset = 50;       //determines how much the algorithm prefers nodes on the same floor as the target node
         //calculate euclidean distance between nodes
 
-        int heuristic = (int) Math.sqrt(Math.pow(firstNode.getXcoord()-secondNode.getXcoord(), 2) + Math.pow(firstNode.getYcoord()-secondNode.getYcoord(), 2));
+        int heuristic = (int) Math.round(Math.sqrt(Math.pow(firstNode.getXcoord()-secondNode.getXcoord(), 2) + Math.pow(firstNode.getYcoord()-secondNode.getYcoord(), 2)));
 
         //add offset cost for being outside of the target building
-        if(firstNode.getBuilding().equals(secondNode.getBuilding())) {
+        if(!firstNode.getBuilding().equals(secondNode.getBuilding())) {
             heuristic += buildingOffset;
             //if inside the target building, add offset for being on a different floor
         } else if(!firstNode.getFloor().equals(secondNode.getFloor())) {

@@ -43,6 +43,24 @@ public class EdgeManager {
 
     }
 
+    public static void addEdge(Connection connection, String newEdgeID, String newStart, String newEnd) throws SQLException {
+        String sql = "INSERT INTO EDGES (edgeID, startNode, endNode) " +
+                "VALUES (?, ?, ?)";
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        pstmt.setString(1, newEdgeID);
+        pstmt.setString(2, newStart);
+        pstmt.setString(3, newEnd);
+        pstmt.executeUpdate();
+
+        if(!EdgeMapSuper.getMap().containsKey(newEdgeID)) {
+            EdgeMapSuper.getMap().put(newEdgeID, new EdgeSuper(newEdgeID, newStart, newEnd));
+        }
+        else {
+            System.out.println("A Node with this EdgeID already exists.");
+        }
+
+    }
+
     public static void showEdgeInformation(String edgeInfo) {
         System.out.println(edgeInfo);
     }
