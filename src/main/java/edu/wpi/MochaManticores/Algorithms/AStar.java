@@ -137,10 +137,10 @@ public class AStar {
         int floorOffset = 50;       //determines how much the algorithm prefers nodes on the same floor as the target node
         //calculate euclidean distance between nodes
 
-        int heuristic = (int) Math.sqrt(Math.pow(firstNode.getXcoord()-secondNode.getXcoord(), 2) + Math.pow(firstNode.getYcoord()-secondNode.getYcoord(), 2));
+        int heuristic = (int) Math.round(Math.sqrt(Math.pow(firstNode.getXcoord()-secondNode.getXcoord(), 2) + Math.pow(firstNode.getYcoord()-secondNode.getYcoord(), 2)));
 
         //add offset cost for being outside of the target building
-        if(firstNode.getBuilding().equals(secondNode.getBuilding())) {
+        if(!firstNode.getBuilding().equals(secondNode.getBuilding())) {
             heuristic += buildingOffset;
             //if inside the target building, add offset for being on a different floor
         } else if(!firstNode.getFloor().equals(secondNode.getFloor())) {
