@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Set;
 
 public class NodeManager {
     private static final String Node_csv_path = "data/MapMNodes.csv";
@@ -51,7 +52,7 @@ public class NodeManager {
     }
 
     public static void addNode(Connection connection, String newNodeID, int xcoord, int ycoord, String floor,
-                                  String building, String nodeType, String longName, String shortName, String neighborID) throws SQLException {
+                                  String building, String nodeType, String longName, String shortName) throws SQLException {
         String sql = "INSERT INTO NODES (nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -68,9 +69,6 @@ public class NodeManager {
             MapSuper.getMap().put(newNodeID, new NodeSuper(xcoord, ycoord, floor, building, longName, shortName, newNodeID, nodeType,
                                                             new VertexList(new HashMap<>())));
 
-            //insert neighboring node and cost
-            MapSuper.getMap().get(newNodeID).addNeighbor(neighborID, AStar.calcHeuristic(MapSuper.getMap().get(newNodeID),
-                    MapSuper.getMap().get(neighborID)));
         }
         else {
             System.out.println("This node already exists");
@@ -88,27 +86,12 @@ public class NodeManager {
         MapSuper.getMap().put(id, tempNode);
     }
 
-    public static void createNode(Connection connection,String nodeID, int xcoord, int ycoord, String floor, String building, String nodeType, String longName, String shortName,
-                                  String neighborID) throws SQLException, FileNotFoundException{
-        String sql = "INSERT INTO NODES (nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        PreparedStatement pstmt = connection.prepareStatement(sql);
-
+    public static void delNode(Connection connection, String nodeID) throws SQLException {
+        PreparedStatement pstmt = connection.prepareStatement("DELETE FROM NODES WHERE nodeID=?");
         pstmt.setString(1, nodeID);
-        pstmt.setInt(2, xcoord);
-        pstmt.setInt(3, ycoord);
-        pstmt.setString(4, floor);
-        pstmt.setString(5, building);
-        pstmt.setString(6, nodeType);
-        pstmt.setString(7, longName);
-        pstmt.setString(8, shortName);
         pstmt.executeUpdate();
 
-        CSVmanager nodeCSV = new CSVmanager(Node_csv_path);
-        NodeSuper newNode = new NodeSuper(xcoord, ycoord, floor, building, longName, shortName, nodeID, nodeType, new VertexList(new HashMap<>()));
-        newNode.addNeighbor(neighborID, AStar.calcHeuristic(newNode, MapSuper.getMap().get(neighborID)));
-        MapSuper.getMap().put(nodeID, newNode);
-
+        MapSuper.getMap().remove(nodeID);
     }
 
     public static void showNodeInformation(String nodeInfo) {
