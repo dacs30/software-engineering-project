@@ -38,3 +38,8 @@
     -fx-font-family: Roboto;
     -fx-font-weight: bold;
 }
+
+#availableServicesText {
+    -fx-font-family: Roboto;
+    -fx-font-weight: bold;
+}
