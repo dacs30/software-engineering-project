@@ -7,6 +7,8 @@ import edu.wpi.MochaManticores.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 
 public class FloralSceneController extends SceneController {
 
@@ -31,32 +33,28 @@ public class FloralSceneController extends SceneController {
   @FXML
   private JFXCheckBox orange;
 
+  @FXML
+  private GridPane contentGrid;
+  @FXML
+  private ImageView backgroundIMG;
+
 
   @FXML
   private void goBack(ActionEvent e) {
-returnToMain();
-  }
-  @FXML
-  private void submitForm(ActionEvent e) {
-    System.out.println(rmNum.getText());
-    System.out.println(delivDate.getText());
-    System.out.printf("Tulip: %s\nRose: %s\nLillie: %s\n",tulip.isSelected(),rose.isSelected(),lilie.isSelected());
-    System.out.printf("Blue: %s\nYellow: %s\nOrange: %s\n",blue.isSelected(),yellow.isSelected(),orange.isSelected());
-    System.out.println(personalNote.getText());
-
-    returnToMain();
+back();
   }
 
   @FXML
-  private void helpButton(ActionEvent e) {
-    Scene scene = App.getPrimaryStage().getScene();
-    scene.lookup("#helpPopup").setVisible(true);
+  private void initialize() {
+    double height = App.getPrimaryStage().getScene().getHeight();
+    double width = App.getPrimaryStage().getScene().getWidth();
+    backgroundIMG.setFitHeight(height);
+    backgroundIMG.setFitWidth(width);
+    contentGrid.setPrefSize(width,height);
+    //dialogPane.setDisable(false);
   }
 
-  @FXML
-  private void closePopup(ActionEvent e) {
-    Scene scene = App.getPrimaryStage().getScene();
-    scene.lookup("#helpPopup").setVisible(false);
+  public void submitEvent(ActionEvent actionEvent) {
+    System.out.println("hey");
   }
-
 }
