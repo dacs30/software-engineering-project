@@ -90,6 +90,7 @@ public class AStar {
             if (openSet.containsKey(i)) {
                 if (first){
                     cheapestNeighbor = openSet.get(i);
+                    first = false;
                 }
                 DijkstraNode node = openSet.get(i);
                 if (calcHeuristic(nodes.get(i), nodes.get(target.getId())) < calcHeuristic(nodes.get(cheapestNeighbor.getId()), nodes.get(target.getId()))){
