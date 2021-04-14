@@ -33,10 +33,12 @@ public class FloralSceneController extends SceneController {
   @FXML
   private JFXCheckBox orange;
 
+
   @FXML
   private GridPane contentGrid;
   @FXML
   private ImageView backgroundIMG;
+
 
 
   @FXML

@@ -46,7 +46,7 @@ public class extTransportationController extends SceneController {
 
 
     public void backEvent(ActionEvent actionEvent) {
-        changeSceneTo("landingPage");
+        super.back();
     }
 
     public void submitEvent(ActionEvent actionEvent) {
@@ -78,7 +78,7 @@ public class extTransportationController extends SceneController {
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
         JFXButton ok = new JFXButton("OK");
         ok.setOnAction(event -> {
-            changeSceneTo("landingPage");
+            super.back();
         });
 
         dialog.setOnDialogClosed(event -> {

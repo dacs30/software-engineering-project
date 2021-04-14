@@ -35,7 +35,7 @@ public class MapSuper {
      * inputs: NodeSuper newNode (Node to be added)
      * returns: void
      */
-    public void addNode(NodeSuper newNode) {
+    public static void addNode(NodeSuper newNode) {
         String newKey = newNode.getID();
         myMap.put(newKey, newNode);
 

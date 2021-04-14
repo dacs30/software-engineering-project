@@ -1,6 +1,8 @@
 package edu.wpi.MochaManticores.views;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -75,6 +77,10 @@ public class mapPage extends SceneController{
         mapWindow.setImage(new Image(location + "03_thethirdfloor.png"));
     }
 
+    @FXML
+    public void goToRouteExample(ActionEvent e){
+        super.changeSceneTo("routeExample");
+    }
     private void setDeminsions(){
 //        mapWindow.setFitHeight();
 //        mapWindow.setFitWidth();

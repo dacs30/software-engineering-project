@@ -79,7 +79,7 @@ public class CSVmanager {
     }
     //save NODE CSV
     String putNodesInMap(Connection connect) throws SQLException, FileNotFoundException {
-        //PrintWriter pw = new PrintWriter(new File(this.CSVpath));
+        PrintWriter pw = new PrintWriter(new File(this.CSVpath));
         StringBuilder sb = new StringBuilder();
 
         String sql = "SELECT * FROM NODES";
@@ -98,6 +98,7 @@ public class CSVmanager {
                     results.getString(1), results.getString(6), new VertexList(new HashMap<>()));
             MapSuper.getMap().put(tempNode.getID(), tempNode);
 
+            //writing to csv file
             for(int i = 1; i <= rsmd.getColumnCount(); i++) {
                 sb.append(results.getString(i));
                 sb.append(",");
@@ -105,13 +106,13 @@ public class CSVmanager {
             sb.append("\n");
         }
         results.close();
-//        pw.write(sb.toString());
-//        pw.close();
-        return "sb.toString()";
+        pw.write(sb.toString());
+        pw.close();
+        return sb.toString();
     }
     //save EDGES CSV
      String updateEdgesInMap(Connection connect) throws FileNotFoundException, SQLException {
-        //PrintWriter pw = new PrintWriter(new File(this.CSVpath));
+        PrintWriter pw = new PrintWriter(new File(this.CSVpath));
         StringBuilder sb = new StringBuilder();
 
         String sql = "SELECT * FROM EDGES";
@@ -134,6 +135,8 @@ public class CSVmanager {
             //creating edgeSuper to put in EdgeMap
             EdgeSuper tempEdgeNode = new EdgeSuper(results.getString(1), results.getString(2), results.getString(3));
             EdgeMapSuper.getMap().put(results.getString(1), tempEdgeNode);
+
+            //writing to csv file
             for(int i = 1; i <= rsmd.getColumnCount(); i++) {
                 sb.append(results.getString(i));
                 sb.append(",");
@@ -141,8 +144,8 @@ public class CSVmanager {
             sb.append("\n");
         }
         results.close();
-//        pw.write(sb.toString());
-//        pw.close();
-        return "sb.toString()";
+        pw.write(sb.toString());
+        pw.close();
+        return sb.toString();
     }
 }

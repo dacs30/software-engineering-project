@@ -29,6 +29,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -271,7 +272,7 @@ public class edgesPage extends SceneController{
         nodeIDField.setText(node.getNodeID());
     }
 
-    public void submitEdit(ActionEvent e) throws SQLException {
+    public void submitEdit(ActionEvent e) throws SQLException, FileNotFoundException {
         if (!checkInput()) {
             loadEmptyDialog();
         } else {
