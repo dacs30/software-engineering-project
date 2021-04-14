@@ -1,12 +1,14 @@
 package edu.wpi.MochaManticores.database;
 
-import edu.wpi.MochaManticores.Algorithms.GreedyBestFirst;
+import edu.wpi.MochaManticores.Algorithms.AStar;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.Nodes.VertexList;
 
 import java.io.FileNotFoundException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 public class NodeManager {
@@ -77,7 +79,7 @@ public class NodeManager {
 
         CSVmanager nodeCSV = new CSVmanager(Node_csv_path);
         NodeSuper newNode = new NodeSuper(xcoord, ycoord, floor, building, longName, shortName, nodeID, nodeType, new VertexList(new HashMap<>()));
-        newNode.addNeighbor(neighborID, GreedyBestFirst.calcHeuristic(newNode, MapSuper.getMap().get(neighborID)));
+        newNode.addNeighbor(neighborID, AStar.calcHeuristic(newNode, MapSuper.getMap().get(neighborID)));
         MapSuper.getMap().put(nodeID, newNode);
 
     }

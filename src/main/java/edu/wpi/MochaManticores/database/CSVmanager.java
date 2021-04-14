@@ -1,13 +1,11 @@
 package edu.wpi.MochaManticores.database;
 
-import edu.wpi.MochaManticores.Algorithms.GreedyBestFirst;
+import edu.wpi.MochaManticores.Algorithms.AStar;
 import edu.wpi.MochaManticores.Nodes.*;
 
 import java.io.*;
 import java.sql.*;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Scanner;
 
 public class CSVmanager {
 
@@ -135,7 +133,7 @@ public class CSVmanager {
             //updating neighbors in Nodes
             NodeSuper startNode = MapSuper.getMap().get(results.getString(2));
             NodeSuper endNode = MapSuper.getMap().get(results.getString(3));
-            startNode.addNeighbor(results.getString(3), GreedyBestFirst.calcHeuristic(startNode, endNode));
+            startNode.addNeighbor(results.getString(3), AStar.calcHeuristic(startNode, endNode));
 
             //creating edgeSuper to put in EdgeMap
             EdgeSuper tempEdgeNode = new EdgeSuper(results.getString(1), results.getString(2), results.getString(3));

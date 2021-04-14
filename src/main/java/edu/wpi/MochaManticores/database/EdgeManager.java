@@ -1,6 +1,6 @@
 package edu.wpi.MochaManticores.database;
 
-import edu.wpi.MochaManticores.Algorithms.GreedyBestFirst;
+import edu.wpi.MochaManticores.Algorithms.AStar;
 import edu.wpi.MochaManticores.Nodes.EdgeMapSuper;
 import edu.wpi.MochaManticores.Nodes.EdgeSuper;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
@@ -38,7 +38,7 @@ public class EdgeManager {
         EdgeMapSuper.getMap().put(newEdgeID, edge);
 
         MapSuper.getMap().get(oldStart).delNeighbor(oldEnd);
-        MapSuper.getMap().get(newStart).addNeighbor(newEnd, GreedyBestFirst.calcHeuristic(MapSuper.getMap().get(newStart),
+        MapSuper.getMap().get(newStart).addNeighbor(newEnd, AStar.calcHeuristic(MapSuper.getMap().get(newStart),
                                                                                             MapSuper.getMap().get(newEnd)));
 
     }
