@@ -21,6 +21,8 @@ public class landingPageController extends SceneController {
   @FXML private void initialize(){
       double height = super.getHeight();
       double width = super.getWidth();
+      backgroundIMG.setFitWidth(width);
+      backgroundIMG.setFitHeight(height);
       contentPane.setPrefSize(width,height);
   }
 

@@ -91,4 +91,8 @@ public class FoodDelivery extends SceneController{
         dialog.show();
 
         }
+
+    public void backBtn(ActionEvent e) {
+        back();
     }
+}

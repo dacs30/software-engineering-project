@@ -54,7 +54,7 @@
                         <Image url="@../images/logo-small.png" />
                      </image>
                   </ImageView>
-                  <JFXButton id="backBtnFoodDelivery" buttonType="RAISED" stylesheets="@../stylesheets.css" text="BACK" textFill="WHITE" GridPane.rowIndex="1">
+                  <JFXButton id="backBtnFoodDelivery" buttonType="RAISED" onAction="#backBtn" stylesheets="@../stylesheets.css" text="BACK" textFill="WHITE" GridPane.rowIndex="1">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
