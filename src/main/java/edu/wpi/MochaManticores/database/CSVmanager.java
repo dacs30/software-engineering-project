@@ -131,13 +131,13 @@ public class CSVmanager {
             NodeSuper startNode = MapSuper.getMap().get(results.getString(2));
             NodeSuper endNode = MapSuper.getMap().get(results.getString(3));
             startNode.addNeighbor(results.getString(3), AStar.calcHeuristic(startNode, endNode));
+
+            //making nodes bidirectional
             endNode.addNeighbor(results.getString(2), AStar.calcHeuristic(endNode, startNode));
 
             //creating edgeSuper to put in EdgeMap
             EdgeSuper tempEdgeNode = new EdgeSuper(results.getString(1), results.getString(2), results.getString(3));
             EdgeMapSuper.getMap().put(results.getString(1), tempEdgeNode);
-
-            //creating reverse directionality
 
             //writing to csv file
             for(int i = 1; i <= rsmd.getColumnCount(); i++) {
