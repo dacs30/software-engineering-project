@@ -40,7 +40,6 @@ public class mapPage extends SceneController{
         backgroundIMG.setFitWidth(width);
         contentPane.setPrefSize(width,height);
         loadLOne();
-        setDeminsions();
     }
 
     public void back(){
@@ -81,8 +80,5 @@ public class mapPage extends SceneController{
     public void goToRouteExample(ActionEvent e){
         super.changeSceneTo("routeExample");
     }
-    private void setDeminsions(){
-//        mapWindow.setFitHeight();
-//        mapWindow.setFitWidth();
-    }
+
 }
