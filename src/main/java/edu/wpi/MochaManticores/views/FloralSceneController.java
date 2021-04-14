@@ -34,7 +34,7 @@ public class FloralSceneController extends SceneController {
 
   @FXML
   private void goBack(ActionEvent e) {
-returnToMain();
+    super.back();
   }
   @FXML
   private void submitForm(ActionEvent e) {
@@ -44,7 +44,7 @@ returnToMain();
     System.out.printf("Blue: %s\nYellow: %s\nOrange: %s\n",blue.isSelected(),yellow.isSelected(),orange.isSelected());
     System.out.println(personalNote.getText());
 
-    returnToMain();
+    super.back();
   }
 
   @FXML
