@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Map;
 
 public class EdgeManager {
     private static final String Edge_csv_path = "data/MapMEdges.csv";
@@ -54,6 +55,8 @@ public class EdgeManager {
 
         if(!EdgeMapSuper.getMap().containsKey(newEdgeID)) {
             EdgeMapSuper.getMap().put(newEdgeID, new EdgeSuper(newEdgeID, newStart, newEnd));
+            MapSuper.getMap().get(newStart).addNeighbor(newEnd, AStar.calcHeuristic(MapSuper.getMap().get(newStart),
+                                                                                        MapSuper.getMap().get(newEnd)));
         }
         else {
             System.out.println("A Node with this EdgeID already exists.");
