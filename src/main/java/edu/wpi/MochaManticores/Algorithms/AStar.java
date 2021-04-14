@@ -76,7 +76,7 @@ public class AStar {
         /**
          * function: fan()
          * usage: goes through each neighbor of a node setting them as visited, marking the path traveled so far, checking if the target has been found and
-         *          if not figuring which neighbor to search next based on the heuristic
+         *         if not figuring which neighbor to search next based on the heuristic
          * input: dijkstranode which is the current node, target which is the node being searched for, and queue which is the next nodes to be checked
          * returns: true if the target is found and false otherwise
          */
