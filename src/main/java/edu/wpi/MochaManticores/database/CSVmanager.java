@@ -98,6 +98,7 @@ public class CSVmanager {
                     results.getString(1), results.getString(6), new VertexList(new HashMap<>()));
             MapSuper.getMap().put(tempNode.getID(), tempNode);
 
+            //writing to csv file
             for(int i = 1; i <= rsmd.getColumnCount(); i++) {
                 sb.append(results.getString(i));
                 sb.append(",");
@@ -134,6 +135,8 @@ public class CSVmanager {
             //creating edgeSuper to put in EdgeMap
             EdgeSuper tempEdgeNode = new EdgeSuper(results.getString(1), results.getString(2), results.getString(3));
             EdgeMapSuper.getMap().put(results.getString(1), tempEdgeNode);
+
+            //writing to csv file
             for(int i = 1; i <= rsmd.getColumnCount(); i++) {
                 sb.append(results.getString(i));
                 sb.append(",");

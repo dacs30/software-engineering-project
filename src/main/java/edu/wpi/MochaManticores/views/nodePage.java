@@ -31,6 +31,7 @@ import javafx.stage.DirectoryChooser;
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.CopyOption;
 import java.nio.file.Files;
@@ -420,7 +421,7 @@ public class nodePage extends SceneController{
         nodeIDField.setText("");
     }
 
-    public void submitEdit(ActionEvent e) throws SQLException {
+    public void submitEdit(ActionEvent e) throws SQLException, FileNotFoundException {
         if (!checkInput()) {
             loadEmptyDialog();
         } else {

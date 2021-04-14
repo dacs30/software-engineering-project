@@ -13,6 +13,7 @@ import java.util.Map;
 
 public class EdgeManager {
     private static final String Edge_csv_path = "data/bwMEdges.csv";
+    private static final CSVmanager edgeCSV = new CSVmanager(Edge_csv_path);
 
     public static void createEdge(Connection connection, String Node1, String Node2) throws SQLException, FileNotFoundException {
         String edgeId = Node1 + "_" + Node2;
@@ -24,9 +25,11 @@ public class EdgeManager {
         pstmt.setString(3, Node2);
         pstmt.executeUpdate();
 
+        edgeCSV.updateEdgesInMap(connection);
+
     }
 
-    public static void updateEdge(Connection connection, String oldEdgeID, String newEdgeID, String oldStart, String newStart, String oldEnd, String newEnd) throws SQLException {
+    public static void updateEdge(Connection connection, String oldEdgeID, String newEdgeID, String oldStart, String newStart, String oldEnd, String newEnd) throws SQLException, FileNotFoundException {
         PreparedStatement pstmt = connection.prepareStatement("UPDATE EDGES SET edgeID=?, startNode=?, endNode=? WHERE edgeID=?");
         pstmt.setString(1, newEdgeID);
         pstmt.setString(2, newStart);
@@ -42,9 +45,11 @@ public class EdgeManager {
         MapSuper.getMap().get(newStart).addNeighbor(newEnd, AStar.calcHeuristic(MapSuper.getMap().get(newStart),
                                                                                             MapSuper.getMap().get(newEnd)));
 
+        edgeCSV.updateEdgesInMap(connection);
+
     }
 
-    public static void addEdge(Connection connection, String newEdgeID, String newStart, String newEnd) throws SQLException {
+    public static void addEdge(Connection connection, String newEdgeID, String newStart, String newEnd) throws SQLException, FileNotFoundException {
         String sql = "INSERT INTO EDGES (edgeID, startNode, endNode) " +
                 "VALUES (?, ?, ?)";
         PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -57,6 +62,7 @@ public class EdgeManager {
             EdgeMapSuper.getMap().put(newEdgeID, new EdgeSuper(newEdgeID, newStart, newEnd));
             MapSuper.getMap().get(newStart).addNeighbor(newEnd, AStar.calcHeuristic(MapSuper.getMap().get(newStart),
                                                                                         MapSuper.getMap().get(newEnd)));
+            edgeCSV.updateEdgesInMap(connection);
         }
         else {
             System.out.println("A Node with this EdgeID already exists.");
