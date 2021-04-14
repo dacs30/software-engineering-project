@@ -85,4 +85,7 @@ public class mapPage extends SceneController{
 //        mapWindow.setFitHeight();
 //        mapWindow.setFitWidth();
     }
+
+    public void loadAStar(){
+    }
 }
