@@ -11,6 +11,6 @@ public class successController extends SceneController{
 
   @FXML
   private void advanceScene(ActionEvent e) {
-    super.back(2);
+    super.backMulti(2);
   }
 }

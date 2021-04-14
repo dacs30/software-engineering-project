@@ -63,8 +63,8 @@ public class SceneController {
         changeSceneTo(scene);
     }
 
-    protected void back(int scenes){
-        for (int i = 0; i < scenes; i++) {
+    protected void backMulti(int num){
+        for (int i = 0; i < num; i++) {
             back();
         }
     }
