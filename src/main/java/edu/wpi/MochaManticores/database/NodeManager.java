@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 public class NodeManager {
-    private static final String Node_csv_path = "data/MapMNodes.csv";
+    private static final String Node_csv_path = "data/bwMNodes.csv";
 
 
 

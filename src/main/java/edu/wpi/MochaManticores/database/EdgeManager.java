@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.Map;
 
 public class EdgeManager {
-    private static final String Edge_csv_path = "data/MapMEdges.csv";
+    private static final String Edge_csv_path = "data/bwMEdges.csv";
 
     public static void createEdge(Connection connection, String Node1, String Node2) throws SQLException, FileNotFoundException {
         String edgeId = Node1 + "_" + Node2;
