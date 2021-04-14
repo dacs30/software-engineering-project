@@ -25,6 +25,7 @@ public class AStar {
      * function: path()
      * usage: finds the best path between any number of nodes based on the heuristic
      * input: a list of nodes that must be included in the path, with the first being the start point and the last being the end point
+     *        the list MUST have at least 2 nodes in it
      * returns: a Linkedlist of the node IDs along the found path
      */
     public LinkedList<String> path(LinkedList<NodeSuper> stops){
