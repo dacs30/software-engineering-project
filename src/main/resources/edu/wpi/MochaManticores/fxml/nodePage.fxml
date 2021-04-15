@@ -38,7 +38,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <GridPane fx:id="selectionPage" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="589.0" prefWidth="1006.0" style="-fx-background-color: #0f4b91;" GridPane.columnIndex="1">
+            <GridPane fx:id="selectionPage" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="589.0" prefWidth="1006.0" style="-fx-background-color: #0f4b91;" visible="false" GridPane.columnIndex="1">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
@@ -152,7 +152,7 @@
                   <DropShadow height="53.62" radius="26.0625" width="52.63" />
                </effect>
             </GridPane>
-            <GridPane fx:id="editPage" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="589.0" prefWidth="1006.0" style="-fx-background-color: #0f4b91;" visible="false" GridPane.columnIndex="1">
+            <GridPane fx:id="editPage" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="589.0" prefWidth="1006.0" style="-fx-background-color: #0f4b91;" GridPane.columnIndex="1">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                </columnConstraints>
@@ -192,20 +192,25 @@
                         <GridPane prefHeight="212.0" prefWidth="775.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="244.0" minWidth="10.0" prefWidth="244.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="254.0" minWidth="10.0" prefWidth="118.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="339.0" minWidth="10.0" prefWidth="310.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="244.0" minWidth="10.0" prefWidth="189.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="254.0" minWidth="10.0" prefWidth="252.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="339.0" minWidth="10.0" prefWidth="236.0" />
                            </columnConstraints>
                            <rowConstraints>
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <JFXButton alignment="CENTER_RIGHT" buttonType="RAISED" cancelButton="true" onAction="#cancelEdit" prefHeight="86.0" ripplerFill="BLACK" style="-fx-background-color: #E74C3c;" text="Cancel" textFill="WHITE" GridPane.columnIndex="1">
+                              <JFXButton alignment="CENTER_RIGHT" buttonType="RAISED" cancelButton="true" onAction="#cancelEdit" prefHeight="86.0" ripplerFill="BLACK" style="-fx-background-color: #E74C3c;" text="Cancel" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                                  <font>
                                     <Font size="40.0" />
                                  </font>
                               </JFXButton>
-                              <JFXButton buttonType="RAISED" contentDisplay="RIGHT" onAction="#submitEdit" prefHeight="86.0" ripplerFill="BLACK" style="-fx-background-color: #30DD27;" text="Submit" textFill="WHITE" GridPane.columnIndex="3">
+                              <JFXButton buttonType="RAISED" contentDisplay="RIGHT" onAction="#submitEdit" prefHeight="86.0" ripplerFill="BLACK" style="-fx-background-color: #30DD27;" text="Submit" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+                                 <font>
+                                    <Font size="40.0" />
+                                 </font>
+                              </JFXButton>
+                              <JFXButton alignment="CENTER_RIGHT" buttonType="RAISED" cancelButton="true" onAction="#delNode" prefHeight="86.0" prefWidth="173.0" ripplerFill="BLACK" style="-fx-background-color: #E74C3c;" text="Delete" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                                  <font>
                                     <Font size="40.0" />
                                  </font>

@@ -43,9 +43,7 @@ public class RouteExample extends SceneController {
                 nodes.add(n);
                 longNames.add(n.getLongName());
             }
-
         }
-
         startNodeSelection.getItems().addAll(longNames);
         endNodeSelection.getItems().addAll(longNames);
         pathField.setText("Path:\nSTART\n|\n");
@@ -84,6 +82,10 @@ public class RouteExample extends SceneController {
 
     public void back(){
         super.back();
+    }
+
+    public void delNode(){
+
     }
 
 }
