@@ -21,6 +21,13 @@ public class AStar {
             fullSet.put(s, new DijkstraNode(s, null, 0));
         }
     }
+    //potential fix for multi floor pathing:
+    //get stair-elevator preference
+    //if multi floor find closest stair-elevator
+    //path start to stair-elevator
+    //path elevator-end
+    //add paths
+    //redo overlap handling
 
     /**
      * function: path()
