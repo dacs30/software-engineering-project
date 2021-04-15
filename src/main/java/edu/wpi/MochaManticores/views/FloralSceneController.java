@@ -1,14 +1,17 @@
 package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.MochaManticores.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class FloralSceneController extends SceneController {
 
@@ -27,11 +30,13 @@ public class FloralSceneController extends SceneController {
   private JFXCheckBox lilie;
 
   @FXML
-  private JFXCheckBox blue;
+  private JFXRadioButton blueVase;
   @FXML
-  private JFXCheckBox yellow;
+  private JFXRadioButton yellowVase;
   @FXML
-  private JFXCheckBox orange;
+  private JFXRadioButton orangeVase;
+
+  private List<JFXRadioButton> vases;
 
 
   @FXML
@@ -53,10 +58,22 @@ back();
     backgroundIMG.setFitHeight(height);
     backgroundIMG.setFitWidth(width);
     contentGrid.setPrefSize(width,height);
+    vases = Arrays.asList(blueVase, yellowVase, orangeVase);
     //dialogPane.setDisable(false);
   }
 
   public void submitEvent(ActionEvent actionEvent) {
     System.out.println("hey");
+  }
+
+  public void setSingleVase(ActionEvent e){
+    JFXRadioButton source = (JFXRadioButton) e.getSource();
+    String pressed = source.getId();
+    for (JFXRadioButton button : vases) {
+      if (!button.getId().equals(pressed)) {
+        button.setSelected(false);
+      }
+    }
+
   }
 }

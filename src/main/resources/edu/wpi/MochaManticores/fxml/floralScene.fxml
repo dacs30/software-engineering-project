@@ -124,9 +124,9 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <JFXRadioButton text="Blue" />
-                                    <JFXRadioButton text="Yellow" GridPane.columnIndex="1" />
-                                    <JFXRadioButton text="Orange" GridPane.columnIndex="2" />
+                                    <JFXRadioButton fx:id="blueVase" onAction="#setSingleVase" text="Blue" />
+                                    <JFXRadioButton fx:id="yellowVase" onAction="#setSingleVase" text="Yellow" GridPane.columnIndex="1" />
+                                    <JFXRadioButton fx:id="orangeVase" onAction="#setSingleVase" text="Orange" GridPane.columnIndex="2" />
                                  </children>
                               </GridPane>
                               <Label id="vaseLabel" text="Vase options" textFill="WHITE" />
