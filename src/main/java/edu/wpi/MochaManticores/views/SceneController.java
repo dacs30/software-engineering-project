@@ -34,17 +34,6 @@ public class SceneController {
         }
     }
 
-//    @FXML
-//    private void advanceScene(ActionEvent e) {
-//        try {
-//            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/teamname/fxml/Scene2.fxml"));
-//            App.getPrimaryStage().getScene().setRoot(root);
-//        } catch (IOException ex) {
-//            ex.printStackTrace();
-//        }
-//    }
-//}
-
     public double getHeight() {
         return height;
     }
@@ -63,7 +52,7 @@ public class SceneController {
         changeSceneTo(scene);
     }
 
-    protected void backMulti(int num){
+    protected void back(int num){
         for (int i = 0; i < num; i++) {
             back();
         }

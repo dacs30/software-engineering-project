@@ -516,4 +516,7 @@ public class nodePage extends SceneController{
         }
 
     }
+    public void delNode(){
+
+    }
 }
