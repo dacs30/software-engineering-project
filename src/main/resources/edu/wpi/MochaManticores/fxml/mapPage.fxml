@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDialog?>
+<?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -137,22 +138,23 @@
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="398.0" minHeight="10.0" prefHeight="77.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="728.0" minHeight="10.0" prefHeight="728.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label fx:id="locationTitle" alignment="CENTER" prefHeight="70.0" prefWidth="907.0" text="Location" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                  <Label fx:id="locationTitle" alignment="TOP_CENTER" text="Location" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER">
                      <font>
                         <Font size="48.0" />
                      </font>
                   </Label>
-                  <StackPane fx:id="mapStack" prefHeight="705.0" prefWidth="1013.0">
-                     <children>
-                        <ImageView id="mapPane" fx:id="mapWindow" fitHeight="736.0" fitWidth="1019.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
-                           <viewport>
-                              <Rectangle2D />
-                           </viewport></ImageView>
-                     </children>
-                  </StackPane>
+                  <ImageView id="mapPane" fx:id="mapWindow" pickOnBounds="true" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <viewport>
+                        <Rectangle2D />
+                     </viewport>
+                     <GridPane.margin>
+                        <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+                     </GridPane.margin>
+                  </ImageView>
                </children>
             </GridPane>
          </children>
