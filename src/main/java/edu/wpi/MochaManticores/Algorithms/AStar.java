@@ -106,7 +106,7 @@ public class AStar {
                     first = false;
                 }
                 DijkstraNode node = openSet.get(i);
-                if (calcHeuristic(nodes.get(i), nodes.get(target.getId())) < calcHeuristic(nodes.get(cheapestNeighbor.getId()), nodes.get(target.getId()))){
+                if (calcGBF(nodes.get(i), nodes.get(target.getId())) < calcGBF(nodes.get(cheapestNeighbor.getId()), nodes.get(target.getId()))){
                     cheapestNeighbor = openSet.get(i);
                 }
                 openSet.remove(i);
@@ -138,20 +138,19 @@ public class AStar {
     }
 
     /**
-     * function: calcHeuristic()
+     * function: calcGBF()
      * usage: returns the estimated cost between two nodes,
      *        favoring nodes in the same building and on the same floor
      * inputs: NodeSuper firstNode (one of the two nodes)
      *         NodeSuper secondNode (the other node)
      * returns: int heuristic (the estimated cost to travel from 1 node to the other)
      */
-    public static int calcHeuristic(NodeSuper firstNode, NodeSuper secondNode) {
-
+    public static int calcGBF(NodeSuper firstNode, NodeSuper secondNode) {
         //Establish function constants
         int buildingOffset = 100;   //determines how much the algorithm prefers nodes in the same building as the target node
         int floorOffset = 50;       //determines how much the algorithm prefers nodes on the same floor as the target node
-        //calculate euclidean distance between nodes
 
+        //calculate euclidean distance between nodes
         int heuristic = (int) Math.round(Math.sqrt(Math.pow(firstNode.getXcoord()-secondNode.getXcoord(), 2) + Math.pow(firstNode.getYcoord()-secondNode.getYcoord(), 2)));
 
         //add offset cost for being outside of the target building
@@ -162,5 +161,18 @@ public class AStar {
             heuristic += floorOffset;
         }
         return heuristic;
+    }
+
+    /**
+     * function: calcHeuristic()
+     * usage: returns the euclidean distance between two nodes,
+     *        for use in establishing vertex cost
+     * inputs: NodeSuper firstNode (one of the two nodes)
+     *         NodeSuper secondNode (the other node)
+     * returns: int heuristic (the estimated cost to travel from 1 node to the other)
+     */
+    public static int calcHeuristic(NodeSuper firstNode, NodeSuper secondNode) {
+        //calculate euclidean distance between nodes
+        return (int) Math.round(Math.sqrt(Math.pow(firstNode.getXcoord()-secondNode.getXcoord(), 2) + Math.pow(firstNode.getYcoord()-secondNode.getYcoord(), 2)));
     }
 }

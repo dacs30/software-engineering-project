@@ -55,14 +55,6 @@ public class AlgoTest {
         neighbors5.put("NODE4", 30);
         VertexList n5 = new VertexList(neighbors5);
         this.NODE5 = new NodeSuper(-20, 10, "G", "Outside", "Test Node 5", "TN5", "NODE5", "TEST", n5);
-
-        //Make the map
-        this.TESTMAP1 = new MapSuper("TESTMAP1");
-        TESTMAP1.addNode(NODE1);
-        TESTMAP1.addNode(NODE2);
-        TESTMAP1.addNode(NODE3);
-        TESTMAP1.addNode(NODE4);
-        TESTMAP1.addNode(NODE5);
     }
 
     @Test
@@ -73,16 +65,21 @@ public class AlgoTest {
     @Test
     public void testGBF1() {
         setUpMap();
-        assertEquals(10, AStar.calcHeuristic(NODE1, NODE2));
+        assertEquals(10, AStar.calcGBF(NODE1, NODE2));
     }
     @Test
     public void testGBF2() {
         setUpMap();
-        assertEquals(14, AStar.calcHeuristic(NODE3, NODE1));
+        assertEquals(14, AStar.calcGBF(NODE3, NODE1));
     }
     @Test
     public void testGBF3() {
         setUpMap();
-        assertEquals(64, AStar.calcHeuristic(NODE4, NODE1));
+        assertEquals(64, AStar.calcGBF(NODE4, NODE1));
+    }
+    @Test
+    public void testHeuristic1() {
+        setUpMap();
+        assertEquals(14, AStar.calcHeuristic(NODE4, NODE1));
     }
 }
