@@ -31,14 +31,14 @@ public class landingPageController extends SceneController {
       backgroundIMG.setFitHeight(height);
       contentPane.setPrefSize(width,height);
 
-    dialogPane.setDisable(false);
+    dialogPane.toBack();
   }
 
   public void loadDialog(){
     //TODO Center the text of it.
 
-    dialogPane.toFront();
-    dialogPane.setDisable(false);
+
+    //dialogPane.setDisable(false);
     JFXDialogLayout message = new JFXDialogLayout();
     message.setMaxHeight(Region.USE_PREF_SIZE);
     message.setMaxHeight(Region.USE_PREF_SIZE);
@@ -60,18 +60,19 @@ public class landingPageController extends SceneController {
     JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
     JFXButton yes = new JFXButton("YES");
     yes.setOnAction(event -> {
+      dialogPane.toBack();
+      dialog.close();
       changeSceneTo("EmergencyForm");
     });
 
     JFXButton no = new JFXButton("NO");
     no.setOnAction(event -> {
-      dialogPane.toBack();
       dialog.close();
+      dialogPane.toBack();
     });
 
     dialog.setOnDialogClosed(event -> {
       dialogPane.toBack();
-      dialog.close();
     });
 
     message.setActions(yes, no);
@@ -95,7 +96,8 @@ public class landingPageController extends SceneController {
 
   @FXML
   private void confirmEmergency(ActionEvent e){
-    dialogPane.setVisible(true);
+    //dialogPane.setVisible(true);
+    dialogPane.toFront();
     loadDialog();
   }
 
