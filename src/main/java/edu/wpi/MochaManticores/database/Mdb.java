@@ -9,11 +9,11 @@ import java.util.Scanner;
 public class Mdb extends Thread{
 
     private static DatabaseMetaData meta;
+    private static Connection connection = null;
     public static String JDBC_URL = "jdbc:derby:Mdatabase;create=true";
-    private static final String Edge_csv_path = "data/bwMEdges.csv";
-    private static final String Node_csv_path = "data/bwMNodes.csv";
 
-    public static void nodeStartup(Connection connection, CSVmanager nodeCSV) throws SQLException {
+
+    public static void nodeStartup(Connection connection) throws SQLException {
         Statement stmt = connection.createStatement();
         //create data tables
         try {
@@ -31,14 +31,15 @@ public class Mdb extends Thread{
                         " shortName VARCHAR(255), " +
                         " PRIMARY KEY (nodeID))";
                 stmt.executeUpdate(sql);
-                nodeCSV.load_node_csv(connection);
+                NodeManager.loadFromCSV(connection);
             }
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
 
-    public static void edgeStartup(Connection connection, CSVmanager edgeCSV) throws SQLException {
+    public static void edgeStartup(Connection connection) throws SQLException {
         Statement stmt = connection.createStatement();
         try {
             ResultSet rs = meta.getTables(null, "APP", "EDGES", null);
@@ -52,14 +53,14 @@ public class Mdb extends Thread{
                         " endNode CHAR(10), " +
                         " PRIMARY KEY (edgeID))";
                 stmt.executeUpdate(sql);
-                edgeCSV.load_edges_csv(connection);
+                EdgeManager.loadFromCSV(connection);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
 
-        public static void databaseStartup() throws InterruptedException, FileNotFoundException, SQLException {
+    public static void databaseStartup() throws InterruptedException, FileNotFoundException, SQLException {
         System.out.println("-------Embedded Apache Derby Connection Testing --------");
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
@@ -75,7 +76,7 @@ public class Mdb extends Thread{
         }
 
         System.out.println("Apache Derby driver registered!\n");
-        Connection connection = null;
+        connection = null;
 
         try {
             connection = DriverManager.getConnection(JDBC_URL);
@@ -88,19 +89,17 @@ public class Mdb extends Thread{
 
 
         //create data tables
-            CSVmanager nodeCSV = new CSVmanager(Node_csv_path);
-            CSVmanager edgeCSV = new CSVmanager(Edge_csv_path);
             Connection finalConnection = connection;
             Thread nodeThread = new Thread(() -> {
                 try {
-                    nodeStartup(finalConnection, nodeCSV);
+                    nodeStartup(finalConnection);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
             });
             Thread edgeThread = new Thread(() -> {
                 try {
-                    edgeStartup(finalConnection, edgeCSV);
+                    edgeStartup(finalConnection);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -111,10 +110,13 @@ public class Mdb extends Thread{
 
             nodeThread.join();
             edgeThread.join();
-            nodeCSV.putNodesInMap(connection);
-            edgeCSV.updateEdgesInMap(connection);
+    }
 
-        }
+    public static void databaseShutdown() throws InterruptedException, FileNotFoundException, SQLException {
+
+    }
+
+
 
 
     public static void showMenu() {
@@ -125,15 +127,7 @@ public class Mdb extends Thread{
                 "5 - Exit Program\n");
     }
 
-    public static String getEdge_csv_path() {
-        return Edge_csv_path;
-    }
-
-    public static String getNode_csv_path() {
-        return Node_csv_path;
-    }
-
-    public static void commandLineMenu(String[] args, CSVmanager nodeCSV, Connection connection, CSVmanager edgeCSV) throws FileNotFoundException, SQLException {
+    public static void commandLineMenu(String[] args, Connection connection) throws FileNotFoundException, SQLException {
         if(args.length != 1) {
             showMenu();
         }
@@ -142,7 +136,7 @@ public class Mdb extends Thread{
             int inputVal = Integer.parseInt(args[0]);
             switch(inputVal) {
                 case 1:
-                    NodeManager.showNodeInformation(nodeCSV.putNodesInMap(connection));
+                    NodeManager.showNodeInformation(connection);
                     break;
                 case 2:
                     System.out.print("Enter NodeID of the Node's Coordinates to be Changed: \n");
@@ -163,7 +157,7 @@ public class Mdb extends Thread{
                     System.out.printf("Node with id %s has been updated with a new name\n", idForName);
                     break;
                 case 4:
-                    EdgeManager.showEdgeInformation(edgeCSV.updateEdgesInMap(connection));
+                    EdgeManager.showEdgeInformation(connection);
                     break;
                 case 5:
                     System.out.println("Exiting Program!");

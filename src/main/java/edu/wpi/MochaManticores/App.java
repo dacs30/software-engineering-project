@@ -2,30 +2,17 @@ package edu.wpi.MochaManticores;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Objects;
-import java.util.Stack;
 
-import edu.wpi.MochaManticores.Nodes.EdgeMapSuper;
-import edu.wpi.MochaManticores.Nodes.MapSuper;
-import edu.wpi.MochaManticores.Nodes.NodeSuper;
-import edu.wpi.MochaManticores.database.CSVmanager;
 import edu.wpi.MochaManticores.database.Mdb;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
-import edu.wpi.MochaManticores.database.CSVmanager;
 
 public class App extends Application {
 
