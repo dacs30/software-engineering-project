@@ -133,7 +133,7 @@
                   </JFXButton>
                </children>
             </GridPane>
-            <GridPane fx:id="mapGrid" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #0f4b91;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <GridPane fx:id="mapGrid" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #0f4b91;" GridPane.columnIndex="1">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
@@ -147,14 +147,24 @@
                         <Font size="48.0" />
                      </font>
                   </Label>
-                  <ImageView id="mapPane" fx:id="mapWindow" pickOnBounds="true" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                     <viewport>
-                        <Rectangle2D />
-                     </viewport>
-                     <GridPane.margin>
+                  <GridPane fx:id="innerMapGrid" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.vgrow="SOMETIMES">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                     <children>
+                        <ImageView id="mapPane" fx:id="mapWindow" pickOnBounds="true" preserveRatio="true" style="-fx-background-size: contain; -fx-background-repeat: no-repeat;" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES">
+                           <viewport>
+                              <Rectangle2D />
+                           </viewport>
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                        </ImageView>
+                     </children>
+                     <padding>
                         <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
-                     </GridPane.margin>
-                  </ImageView>
+                     </padding>
+                  </GridPane>
                </children>
             </GridPane>
          </children>

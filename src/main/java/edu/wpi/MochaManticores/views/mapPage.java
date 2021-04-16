@@ -35,6 +35,9 @@ public class mapPage extends SceneController{
     @FXML
     private GridPane mapGrid;
 
+    @FXML
+    private GridPane innerMapGrid;
+
     private String location = "edu/wpi/MochaManticores/images/";
 
     Rectangle2D noZoom;
@@ -53,8 +56,8 @@ public class mapPage extends SceneController{
             }
         };
         mapWindow.setOnMouseMoved(eventHandler);
-        mapWindow.setFitHeight(850);
-        mapWindow.setFitWidth(1250);
+        mapWindow.setFitHeight(super.getHeight() / 1.5);
+        mapWindow.setFitWidth(super.getWidth() / 1.5);
 //        mapWindow.setFitHeight(mapStack.getHeight()/2);
 //        mapWindow.setFitWidth(mapStack.getWidth()/2);
     }
@@ -67,12 +70,6 @@ public class mapPage extends SceneController{
         noZoom = new Rectangle2D(0, 0, img.getWidth() , img.getHeight());
         zoomPort = new Rectangle2D(x, y, (double).25*img.getWidth() , (double).25*img.getHeight());
 
-        if(mapWindow.getFitHeight()> 850){
-            mapWindow.setFitHeight(850);
-        }
-        if(mapWindow.getFitWidth()>1250){
-            mapWindow.setFitWidth(1250);
-        }
         mapWindow.setImage(img);
         mapWindow.setViewport(z);
     }
