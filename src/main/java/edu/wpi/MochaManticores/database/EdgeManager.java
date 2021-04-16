@@ -15,19 +15,6 @@ public class EdgeManager {
     private static final String Edge_csv_path = "data/bwMEdges.csv";
     private static final CSVmanager edgeCSV = new CSVmanager(Edge_csv_path);
 
-    public static void createEdge(Connection connection, String Node1, String Node2) throws SQLException, FileNotFoundException {
-        String edgeId = Node1 + "_" + Node2;
-        String sql = "INSERT INTO EDGES (edgeID, startNode, endNode) " +
-                "VALUES (?, ?, ?)";
-        PreparedStatement pstmt = connection.prepareStatement(sql);
-        pstmt.setString(1, edgeId);
-        pstmt.setString(2, Node1);
-        pstmt.setString(3, Node2);
-        pstmt.executeUpdate();
-
-        edgeCSV.updateEdgesInMap(connection);
-
-    }
 
     public static void updateEdge(Connection connection, String oldEdgeID, String newEdgeID, String oldStart, String newStart, String oldEnd, String newEnd) throws SQLException, FileNotFoundException {
         PreparedStatement pstmt = connection.prepareStatement("UPDATE EDGES SET edgeID=?, startNode=?, endNode=? WHERE edgeID=?");
@@ -68,6 +55,17 @@ public class EdgeManager {
             System.out.println("A Node with this EdgeID already exists.");
         }
 
+    }
+
+    public static void delEdge(Connection connection, String edgeId) throws SQLException, FileNotFoundException {
+        PreparedStatement pstmt = connection.prepareStatement("DELETE FROM EDGES WHERE edgeID=?");
+        pstmt.setString(1, edgeId);
+        pstmt.executeUpdate();
+
+        EdgeMapSuper.delEdgeNode(edgeId);
+
+        //update CSV files
+        edgeCSV.updateEdgesInMap(connection);
     }
 
     public static void showEdgeInformation(String edgeInfo) {
