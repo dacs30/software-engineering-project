@@ -297,7 +297,7 @@ public class edgesPage extends SceneController{
                 sqlException.printStackTrace();
                 return;
             }
-            EdgeManager.updateEdge(connection, selectedEdge.getNodeID(), n.getNodeID(), selectedEdge.getStartNode(),
+            EdgeManager.updateEdge(connection, selectedEdge.getNodeID(), selectedEdge.getStartNode(),
                     n.getStartNode(), selectedEdge.getEndNode(), n.getEndNode());
 
             //TODO:Talk to CSV Manager
