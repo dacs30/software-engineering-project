@@ -41,6 +41,14 @@ public class sanitationServiceController extends SceneController {
     public GridPane contentPane;
 
     @FXML
+    private void initialize(){
+      double height = super.getHeight();
+      double width = super.getWidth();
+      backgroundIMG.setFitHeight(height);
+      backgroundIMG.setFitWidth(width);
+     }
+
+    @FXML
     private void submit(ActionEvent e) {
         try {
             System.out.println(loc.getText());
