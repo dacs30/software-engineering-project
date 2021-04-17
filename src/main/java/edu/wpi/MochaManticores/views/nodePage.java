@@ -41,6 +41,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 public class nodePage extends SceneController{
@@ -340,7 +342,15 @@ public class nodePage extends SceneController{
         if (n == null){
             loadErrorDialog();
         }else{
-            selectedNode = new Node(n.getFields(),n.getNeighbors());
+            StringProperty fields[] = new StringProperty[n.getFields().length];
+            LinkedList<String> neigh = new LinkedList<>();
+            for (int i = 0; i < n.getFields().length; i++) {
+                fields[i] = n.getFields()[i];
+            }
+            for (int i = 0; i < n.getNeighbors().size(); i++) {
+                neigh.add((String) n.getNeighbors().toArray()[i]);
+            }
+            selectedNode = new Node(fields,(Set) neigh);
             System.out.println("Node Info:\n"+n);
             loadEditPage(n);
         }
@@ -453,6 +463,7 @@ public class nodePage extends SceneController{
             cancelEdit(e);
         }
     }
+
     public void loadEmptyDialog(){
         dialogPane.toFront();
         dialogPane.setDisable(false);
@@ -516,7 +527,18 @@ public class nodePage extends SceneController{
         }
 
     }
-    public void delNode(){
 
+    public void delNode() throws SQLException, FileNotFoundException{
+        if(checkInput()){
+            Connection connection = null;
+            try {
+                connection = DriverManager.getConnection(Mdb.JDBC_URL);
+            } catch (SQLException sqlException) {
+                System.out.println("Connection failed. Check output console.");
+                sqlException.printStackTrace();
+                return;
+            }
+            NodeManager.delNode(connection, selectedNode.getNodeID());
+        }
     }
 }

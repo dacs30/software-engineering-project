@@ -131,9 +131,7 @@ public class mapPage extends SceneController{
 
 
         setZoom(src,curX*4,curY*4,zoomPort);
-
-
-        //System.out.printf("X: %f\nY: %f\n\n",curX,curY);
+        System.out.printf("X: %f\nY: %f\n\n",curX,curY);
 
     }
 }
