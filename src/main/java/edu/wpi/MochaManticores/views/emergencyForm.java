@@ -3,37 +3,35 @@ package edu.wpi.MochaManticores.views;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 
 public class emergencyForm extends SceneController {
-
-    @FXML
-    private TextField room;
 
     @FXML
     private ComboBox numPeople;
 
     @FXML
-    private CheckBox gurney;
+    private ImageView backgroundIMG;
 
     @FXML
-    private Button submitButton;
-
+    private TextField roomNumber;
 
     public void initialize() {
+        double height = super.getHeight();
+        double width = super.getWidth();
+        backgroundIMG.setFitHeight(height);
+        backgroundIMG.setFitWidth(width);
+
         numPeople.getItems().clear();
         numPeople.getItems().addAll("1", "2", "3");
         numPeople.getSelectionModel().select("1");
     }
-    @FXML
-    private void submit(ActionEvent e){
-        try{
-            System.out.println(room.getText());
-            System.out.println(numPeople.getSelectionModel().getSelectedIndex()+1);
-            System.out.println(gurney.isSelected());
-        }catch(Exception ex){
-            ex.printStackTrace();
-        }
-        //System.exit(0);
-        super.back();
+
+    public void backBtn(ActionEvent actionEvent) {
+        back();
+    }
+
+    public void submitEmergency(ActionEvent actionEvent) {
+        System.out.println("Some logic");
     }
 }

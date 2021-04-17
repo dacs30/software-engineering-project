@@ -1,0 +1,48 @@
+#backBtn {
+    -fx-background-color: #0F4B91;
+    -fx-font-family: Roboto;
+    -fx-font-size: 30;
+    -fx-font-weight: bold;
+}
+
+#emergencyRequestFormLabel {
+    -fx-font-weight: bold;
+    -fx-font-family: Roboto;
+    -fx-font-size: 50;
+}
+
+.jfx-check-box{
+    -fx-font-size: 25;
+}
+
+.label {
+    -fx-text-fill: white;
+    -fx-font-family: Roboto;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+}
+
+.jfx-combo-box {
+    -fx-prompt-text-fill: grey ;
+    -fx-background-color: white;
+    -fx-font-size: 20;
+    -fx-pref-width: 350;
+    -fx-font-family: Roboto;
+}
+
+.jfx-text-field {
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-text-fill : #ffffff;
+    -jfx-unfocus-color : #ffffff;
+    -fx-max-width: 400;
+    -fx-prompt-text-fill: rgba(205, 205, 205, 0.51);
+    -fx-progress-color: white;
+}
+
+#submitBtn{
+    -fx-background-color: #FFFFFF;
+    -fx-font-family: Roboto;
+    -fx-font-size: 25;
+    -fx-font-weight: bold;
+}
