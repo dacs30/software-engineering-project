@@ -31,7 +31,7 @@ public class landingPageController extends SceneController {
       backgroundIMG.setFitHeight(height);
       contentPane.setPrefSize(width,height);
 
-    dialogPane.toBack();
+      dialogPane.toBack();
   }
 
   public void loadDialog(){
