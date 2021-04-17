@@ -117,9 +117,13 @@ public class Mdb extends Thread{
             EdgeManager.updateEdgesMap(connection);
     }
 
-    public static void databaseShutdown() throws InterruptedException, FileNotFoundException, SQLException {
-        NodeManager.saveNodes(connection);
-        EdgeManager.saveEdges(connection);
+    public static void databaseShutdown(){
+        try {
+            NodeManager.saveNodes(connection);
+            EdgeManager.saveEdges(connection);
+        }catch(FileNotFoundException | SQLException e){
+            e.printStackTrace();
+        }
     }
 
 

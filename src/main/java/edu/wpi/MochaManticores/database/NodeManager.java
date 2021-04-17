@@ -148,6 +148,7 @@ public class NodeManager {
         pstmt.executeUpdate();
 
 
+
         // create new node super and replace old node
         VertexList oldNeighbors = MapSuper.getMap().get(oldNodeID).getVertextList();
         NodeSuper node = new NodeSuper(xcoord, ycoord, floor, building, longName, shortName, newNodeID, nodeType, oldNeighbors);
