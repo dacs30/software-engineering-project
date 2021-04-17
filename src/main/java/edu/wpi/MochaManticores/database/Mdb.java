@@ -33,6 +33,7 @@ public class Mdb extends Thread{
                 stmt.executeUpdate(sql);
                 NodeManager.loadFromCSV(connection);
             }
+            //NodeManager.updateNodesMap(connection);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -110,10 +111,15 @@ public class Mdb extends Thread{
 
             nodeThread.join();
             edgeThread.join();
+
+            // updates the hm here because the data doesnt exist if we do it in the threads, where is map super created?
+            NodeManager.updateNodesMap(connection);
+            EdgeManager.updateEdgesMap(connection);
     }
 
     public static void databaseShutdown() throws InterruptedException, FileNotFoundException, SQLException {
-
+        NodeManager.saveNodes(connection);
+        EdgeManager.saveEdges(connection);
     }
 
 

@@ -24,7 +24,7 @@ public class EdgeManager {
                 if(line == null) break;
                 String[] row = line.split(CSVdelim);
 
-                EdgeManager.addEdge(connection,row[0],row[1],row[2]);
+                EdgeManager.addEdge_db(connection,row[0],row[1],row[2]);
             }
         } catch (FileNotFoundException | SQLException e){
             e.printStackTrace();
@@ -43,18 +43,22 @@ public class EdgeManager {
     }
     //adds edge to CSV
     public static void addEdge_db(Connection connection, String newEdgeID, String newStart, String newEnd) throws SQLException {
-        String sql = "INSERT INTO EDGES (edgeID, startNode, endNode) " +
-                "VALUES (?, ?, ?)";
-        PreparedStatement pstmt = connection.prepareStatement(sql);
-        pstmt.setString(1, newEdgeID);
-        pstmt.setString(2, newStart);
-        pstmt.setString(3, newEnd);
-        pstmt.executeUpdate();
+        try {
+            String sql = "INSERT INTO EDGES (edgeID, startNode, endNode) " +
+                    "VALUES (?, ?, ?)";
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, newEdgeID);
+            pstmt.setString(2, newStart);
+            pstmt.setString(3, newEnd);
+            pstmt.executeUpdate();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
     }
 
     //adds edges into map
-    public static void addEdge_map(String newEdgeID, String newStart, String newEnd) throws SQLException {
-        if(!EdgeMapSuper.getMap().containsKey(newEdgeID)) {
+    public static void addEdge_map(String newEdgeID, String newStart, String newEnd) {
+        if (!EdgeMapSuper.getMap().containsKey(newEdgeID)) {
             // add edge to edge super
             EdgeMapSuper.getMap().put(newEdgeID, new EdgeSuper(newEdgeID, newStart, newEnd));
 
@@ -62,11 +66,14 @@ public class EdgeManager {
             NodeSuper startNode = MapSuper.getMap().get(newStart);
             NodeSuper endNode = MapSuper.getMap().get(newEnd);
 
-            //add neighbor edgesp[[[[[[[[[[[[45
+            if(startNode == null | endNode == null){
+                System.out.println("a node with ID has not been found");
+            }
+
+            //add neighbor edges
             startNode.addNeighbor(newEnd, AStar.calcHeuristic(startNode, endNode));
             endNode.addNeighbor(newStart, AStar.calcHeuristic(endNode, startNode));
-        }
-        else {
+        } else {
             System.out.println("A Node with this EdgeID already exists.");
         }
     }
@@ -99,47 +106,13 @@ public class EdgeManager {
     }
 
     // useless
-    String updateEdgesInMap(Connection connect) throws FileNotFoundException, SQLException {
-        PrintWriter pw = new PrintWriter(new File(Edge_csv_path));
-        StringBuilder sb = new StringBuilder();
-
+    public static void updateEdgesMap(Connection connect) throws SQLException {
         String sql = "SELECT * FROM EDGES";
         Statement stmt = connect.createStatement();
         ResultSet results = stmt.executeQuery(sql);
-        ResultSetMetaData rsmd = results.getMetaData();
-
-        for(int i = 1; i <= rsmd.getColumnCount(); i++) {
-            sb.append(rsmd.getColumnName(i));
-            sb.append(",");
-        }
-        sb.append("\n");
         while (results.next()) {
-            results.getString(2); results.getString(3);
-            //updating neighbors in Nodes
-            NodeSuper startNode = MapSuper.getMap().get(results.getString(2));
-            NodeSuper endNode = MapSuper.getMap().get(results.getString(3));
-
-
-            startNode.addNeighbor(results.getString(3), AStar.calcHeuristic(startNode, endNode));
-
-            //making nodes bidirectional
-            endNode.addNeighbor(results.getString(2), AStar.calcHeuristic(endNode, startNode));
-
-            //creating edgeSuper to put in EdgeMap
-            EdgeSuper tempEdgeNode = new EdgeSuper(results.getString(1), results.getString(2), results.getString(3));
-            EdgeMapSuper.getMap().put(results.getString(1), tempEdgeNode);
-
-            //writing to csv file
-            for(int i = 1; i <= rsmd.getColumnCount(); i++) {
-                sb.append(results.getString(i));
-                sb.append(",");
-            }
-            sb.append("\n");
+            EdgeManager.addEdge_map(results.getString(1),results.getString(2),results.getString(3));
         }
-        results.close();
-        pw.write(sb.toString());
-        pw.close();
-        return sb.toString();
     }
 
 

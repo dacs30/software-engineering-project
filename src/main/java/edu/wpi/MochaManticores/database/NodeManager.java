@@ -23,7 +23,7 @@ public class NodeManager {
                 if(line == null) break;
                 String[] row = line.split(CSVdelim);
 
-                addNode(connect, row[0],
+                addNode_db(connect, row[0],
                         row[1], row[2],
                         row[3], row[4],
                         row[5], row[6],
@@ -105,17 +105,16 @@ public class NodeManager {
     }
 
     //TODO currently this iterates through database adding all elements to the map, should be unnessiary now
-    public static void putNodesInMap(Connection connect) throws SQLException {
+    public static void updateNodesMap(Connection connect) throws SQLException {
         String sql = "SELECT * FROM NODES";
         Statement stmt = connect.createStatement();
         ResultSet results = stmt.executeQuery(sql);
-        ResultSetMetaData rsmd = results.getMetaData();
 
         while (results.next()) {
-            NodeSuper tempNode = new NodeSuper(Integer.parseInt(results.getString(2)), Integer.parseInt(results.getString(3)),
-                    results.getString(4), results.getString(5), results.getString(7), results.getString(8),
-                    results.getString(1), results.getString(6), new VertexList(new HashMap<>()));
-            MapSuper.getMap().put(tempNode.getID(), tempNode);
+            NodeManager.addNode_map(results.getString(1), results.getString(2),
+                                    results.getString(3), results.getString(4),
+                                    results.getString(5), results.getString(6),
+                                    results.getString(7), results.getString(8));
         }
     }
 
