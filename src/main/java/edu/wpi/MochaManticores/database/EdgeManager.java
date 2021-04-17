@@ -141,7 +141,8 @@ public class EdgeManager {
             pstmt.setString(4, oldEdgeID);
             pstmt.executeUpdate();
 
-            EdgeMapSuper.getMap().remove(oldEdgeID);
+            EdgeManager.delEdge(connection,oldEdgeID);
+
             EdgeSuper edge = new EdgeSuper(newEdgeID, newStart, newEnd);
             EdgeMapSuper.getMap().put(newEdgeID, edge);
 

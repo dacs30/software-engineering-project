@@ -359,6 +359,8 @@ public class DatabaseTest {
                 NODE3.getFloor(), NODE3.getBuilding(), NODE3.getType(), NODE3.getLongName(), NODE3.getShortName());
 
         String edgeID = NODE1.getID()+"_"+NODE2.getID();
+        String edgeIDNEW = NODE1.getID()+"_"+NODE3.getID();
+
         EdgeManager.addEdge(connection, edgeID, NODE1.getID(), NODE2.getID());
 
         Assertions.assertTrue(MapSuper.getMap().get(NODE1.getID()).getNeighbors().contains(NODE2.getID()));
@@ -372,6 +374,7 @@ public class DatabaseTest {
         Assertions.assertFalse(MapSuper.getMap().get(NODE2.getID()).getNeighbors().contains(NODE1.getID()));
 
         EdgeManager.delEdge(connection, edgeID);
+        EdgeManager.delEdge(connection, edgeIDNEW);
         NodeManager.delNode(connection, NODE1.getID());
         NodeManager.delNode(connection, NODE2.getID());
         NodeManager.delNode(connection, NODE3.getID());
