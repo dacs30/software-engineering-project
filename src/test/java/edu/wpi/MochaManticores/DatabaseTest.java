@@ -1,23 +1,17 @@
 package edu.wpi.MochaManticores;
 
-import static org.testfx.api.FxAssert.verifyThat;
 
-import com.sun.org.apache.xpath.internal.operations.Equals;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.Nodes.VertexList;
 import edu.wpi.MochaManticores.database.Mdb;
 import edu.wpi.MochaManticores.database.NodeManager;
-import javafx.scene.Node;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.testfx.api.FxRobot;
-import org.testfx.api.FxToolkit;
-import org.testfx.framework.junit5.ApplicationExtension;
+import org.junit.jupiter.api.Assertions;
 
+import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.HashMap;
 
@@ -36,8 +30,7 @@ public class DatabaseTest {
     public void setUp() throws SQLException, InterruptedException {
         //init the database for testing
         Mdb.databaseStartup();
-
-
+        connection = Mdb.getConnection();
 
         //Make the nodes
         HashMap<String, Integer> neighbors1 = new HashMap<>();
@@ -70,14 +63,18 @@ public class DatabaseTest {
     }
 
     @Test
-    public void SelectNode() throws SQLException, InterruptedException {
+    public void testAddNode() throws SQLException, InterruptedException, FileNotFoundException {
         this.setUp();
-
-        NodeManager.addNode(Mdb.getConnection(),"TESTNODE","0","0","-1","TEST","TEST","MODIFYTEST","MODIFY");
-        String sql = "SELECT * FROM NODES WHERE NODEID = TESTNODE";
-        Statement stmt = Mdb.getConnection().createStatement();
-        ResultSet expected = stmt.executeQuery(sql);
-
-        Assertions.assertEquals(expected,NodeManager.selectNode(Mdb.getConnection(),"TESTNODE"));
+        NodeManager.addNode(connection, NODE1.getID(), String.valueOf(NODE1.getXcoord()), String.valueOf(NODE1.getYcoord()),
+                NODE1.getFloor(), NODE1.getBuilding(), NODE1.getType(), NODE1.getLongName(), NODE1.getShortName());
+        String sql = "SELECT * FROM NODES WHERE nodeID=?";
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        pstmt.setString(1, NODE1.getID());
+        ResultSet results = pstmt.executeQuery();
+        results.next();
+        String nodeId = results.getString(1).replaceAll("\\s","");
+        Assertions.assertEquals(NODE1.getID(), nodeId);
+        NodeManager.delNode(connection, NODE1.getID());
     }
+
 }
