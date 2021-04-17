@@ -61,7 +61,7 @@ public class Mdb extends Thread{
         }
     }
 
-    public static void databaseStartup() throws InterruptedException, FileNotFoundException, SQLException {
+    public static void databaseStartup() throws InterruptedException, SQLException {
         System.out.println("-------Embedded Apache Derby Connection Testing --------");
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");

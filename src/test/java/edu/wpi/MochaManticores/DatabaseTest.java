@@ -5,6 +5,7 @@ import static org.testfx.api.FxAssert.verifyThat;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.Nodes.VertexList;
+import edu.wpi.MochaManticores.database.Mdb;
 import javafx.scene.Node;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -14,6 +15,9 @@ import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationExtension;
 
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 public class DatabaseTest {
@@ -23,9 +27,17 @@ public class DatabaseTest {
     public NodeSuper NODE4;
     public NodeSuper NODE5;
     public MapSuper TESTMAP1;
+    private static DatabaseMetaData meta;
+    private static Connection connection = null;
+    public static String JDBC_URL = "jdbc:derby:Mdatabase;create=true";
 
     //Setup
-    public void setUp() {
+    public void setUp() throws SQLException, InterruptedException {
+        //init the database for testing
+        Mdb.databaseStartup();
+
+
+
         //Make the nodes
         HashMap<String, Integer> neighbors1 = new HashMap<>();
         VertexList n1 = new VertexList(neighbors1);
@@ -53,6 +65,11 @@ public class DatabaseTest {
         this.NODE5 = new NodeSuper(-20, 10, "G", "Outside", "Test Node 5", "TN5", "NODE5", "TEST", n5);
 
         this.TESTMAP1 = new MapSuper("TESTMAP1");
+
+    }
+
+    @Test
+    public static void testModifyNode(){
 
     }
 }
