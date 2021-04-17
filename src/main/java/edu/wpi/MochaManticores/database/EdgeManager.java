@@ -19,10 +19,6 @@ public class EdgeManager {
             BufferedReader reader = new BufferedReader(new FileReader(Edge_csv_path));
             String line = reader.readLine();
 
-            String sql = "INSERT INTO EDGES (edgeID, startNode, endNode) " +
-                    "VALUES (?, ?, ?)";
-            PreparedStatement pstmt = connection.prepareStatement(sql);
-
             while (line != null){
                 line = reader.readLine();
                 if(line == null) break;
@@ -59,20 +55,52 @@ public class EdgeManager {
     //adds edges into map
     public static void addEdge_map(String newEdgeID, String newStart, String newEnd) throws SQLException {
         if(!EdgeMapSuper.getMap().containsKey(newEdgeID)) {
-
+            // add edge to edge super
             EdgeMapSuper.getMap().put(newEdgeID, new EdgeSuper(newEdgeID, newStart, newEnd));
 
-            MapSuper.getMap().get(newStart).addNeighbor(newEnd,AStar.calcHeuristic(MapSuper.getMap().get(newStart),MapSuper.getMap().get(newEnd)));
+            //get neighbor nodes
+            NodeSuper startNode = MapSuper.getMap().get(newStart);
+            NodeSuper endNode = MapSuper.getMap().get(newEnd);
+
+            //add neighbor edgesp[[[[[[[[[[[[45
+            startNode.addNeighbor(newEnd, AStar.calcHeuristic(startNode, endNode));
+            endNode.addNeighbor(newStart, AStar.calcHeuristic(endNode, startNode));
         }
         else {
             System.out.println("A Node with this EdgeID already exists.");
         }
     }
 
+    public static void saveEdges(Connection connection)throws SQLException, FileNotFoundException{
+        PrintWriter pw = new PrintWriter(new File(Edge_csv_path));
+        StringBuilder sb = new StringBuilder();
 
-    // What??
+        String sql = "SELECT * FROM EDGES";
+        Statement stmt = connection.createStatement();
+        ResultSet results = stmt.executeQuery(sql);
+        ResultSetMetaData rsmd = results.getMetaData();
+
+        for(int i = 1; i <= rsmd.getColumnCount(); i++) {
+            sb.append(rsmd.getColumnName(i));
+            sb.append(",");
+        }
+        sb.append("\n");
+        while (results.next()) {
+            //writing to csv file
+            for(int i = 1; i <= rsmd.getColumnCount(); i++) {
+                sb.append(results.getString(i));
+                sb.append(",");
+            }
+            sb.append("\n");
+        }
+        results.close();
+        pw.write(sb.toString());
+        pw.close();
+    }
+
+    // useless
     String updateEdgesInMap(Connection connect) throws FileNotFoundException, SQLException {
-        PrintWriter pw = new PrintWriter(new File(this.CSVpath));
+        PrintWriter pw = new PrintWriter(new File(Edge_csv_path));
         StringBuilder sb = new StringBuilder();
 
         String sql = "SELECT * FROM EDGES";
@@ -90,6 +118,8 @@ public class EdgeManager {
             //updating neighbors in Nodes
             NodeSuper startNode = MapSuper.getMap().get(results.getString(2));
             NodeSuper endNode = MapSuper.getMap().get(results.getString(3));
+
+
             startNode.addNeighbor(results.getString(3), AStar.calcHeuristic(startNode, endNode));
 
             //making nodes bidirectional

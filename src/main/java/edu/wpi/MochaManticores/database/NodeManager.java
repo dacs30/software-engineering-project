@@ -18,9 +18,6 @@ public class NodeManager {
             BufferedReader reader = new BufferedReader(new FileReader(Node_csv_path));
             String line = reader.readLine();
 
-            String sql = "INSERT INTO NODES (nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement pstmt = connect.prepareStatement(sql);
             while (line != null){
                 line = reader.readLine();
                 if(line == null) break;
@@ -51,17 +48,22 @@ public class NodeManager {
     public static void addNode_db(Connection connection, String newNodeID, String xcoord, String ycoord, String floor,
                                String building, String nodeType, String longName, String shortName) throws SQLException{
 
-        String sql = "INSERT INTO NODES (nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        PreparedStatement pstmt = connection.prepareStatement(sql);
-        pstmt.setString(1, newNodeID);
-        pstmt.setInt(2, Integer.parseInt(xcoord));
-        pstmt.setInt(3, Integer.parseInt(ycoord));
-        pstmt.setString(4, building);
-        pstmt.setString(5, nodeType);
-        pstmt.setString(6, longName);
-        pstmt.setString(7, shortName);
-        pstmt.executeUpdate();
+        try {
+            String sql = "INSERT INTO NODES (nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, newNodeID);
+            pstmt.setInt(2, Integer.parseInt(xcoord));
+            pstmt.setInt(3, Integer.parseInt(ycoord));
+            pstmt.setString(4,floor);
+            pstmt.setString(5, building);
+            pstmt.setString(6, nodeType);
+            pstmt.setString(7, longName);
+            pstmt.setString(8, shortName);
+            pstmt.executeUpdate();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
     }
 
     public static void addNode_map(String newNodeID, String xcoord, String ycoord, String floor,
@@ -102,7 +104,7 @@ public class NodeManager {
         pw.close();
     }
 
-    //TODO currently this iterates through the whole database and saves all nodes, lets do this on a node by node basis -> faster
+    //TODO currently this iterates through database adding all elements to the map, should be unnessiary now
     public static void putNodesInMap(Connection connect) throws SQLException {
         String sql = "SELECT * FROM NODES";
         Statement stmt = connect.createStatement();
