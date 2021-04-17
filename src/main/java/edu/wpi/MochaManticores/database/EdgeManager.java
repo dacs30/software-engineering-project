@@ -66,13 +66,12 @@ public class EdgeManager {
             NodeSuper startNode = MapSuper.getMap().get(newStart);
             NodeSuper endNode = MapSuper.getMap().get(newEnd);
 
-            if(startNode == null | endNode == null){
-                System.out.println("a node with ID has not been found");
+            if(startNode != null && endNode != null){
+                //add neighbor edges
+                startNode.addNeighbor(newEnd, AStar.calcHeuristic(startNode, endNode));
+                endNode.addNeighbor(newStart, AStar.calcHeuristic(endNode, startNode));
             }
 
-            //add neighbor edges
-            startNode.addNeighbor(newEnd, AStar.calcHeuristic(startNode, endNode));
-            endNode.addNeighbor(newStart, AStar.calcHeuristic(endNode, startNode));
         } else {
             System.out.println("A Node with this EdgeID already exists.");
         }
