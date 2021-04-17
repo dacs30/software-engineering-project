@@ -13,6 +13,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
+/*
+TODO:
+Bind imageView to parent Width and Height property see: https://stackoverflow.com/questions/12630296/resizing-images-to-fit-the-parent-node
+ */
+
+
 public class mapPage extends SceneController{
 
 

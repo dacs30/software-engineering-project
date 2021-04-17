@@ -23,6 +23,9 @@ public class LoginPage extends SceneController{
         backgroundIMG.setFitWidth(width);
         contentPane.setPrefSize(width,height);
 
+        backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
+        backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
+
         App.getPrimaryStage().widthProperty().addListener((obs, oldVal, newVal) -> {
 
             if (newVal.doubleValue() < 400) {
@@ -37,11 +40,6 @@ public class LoginPage extends SceneController{
         });
 
         App.getPrimaryStage().heightProperty().addListener((obs, oldVal, newVal) -> {
-            final double height2 = super.getHeight();
-            final double width2 = super.getWidth();
-            backgroundIMG.setFitHeight(height2);
-            backgroundIMG.setFitWidth(width2);
-            contentPane.setPrefSize(width2,height2);
 
             if (newVal.doubleValue() < 400) {
                 new JFXResponsiveHandler(App.getPrimaryStage(), JFXResponsiveHandler.PSEUDO_CLASS_EX_SMALL);

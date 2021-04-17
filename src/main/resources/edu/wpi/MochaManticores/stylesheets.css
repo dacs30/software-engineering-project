@@ -144,8 +144,8 @@
 }
 
 .image-view:medium-device{
-    -fx-pref-height: 979;
-    -fx-pref-width: 979;
+    -fx-fit-to-height: 2000;
+    -fx-fit-to-width: 2000;
 }
 
 .image-view:large-device{
