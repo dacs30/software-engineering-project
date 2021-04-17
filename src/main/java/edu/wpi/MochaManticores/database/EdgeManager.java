@@ -146,8 +146,12 @@ public class EdgeManager {
             EdgeMapSuper.getMap().put(newEdgeID, edge);
 
             MapSuper.getMap().get(oldStart).delNeighbor(oldEnd);
+            MapSuper.getMap().get(oldEnd).delNeighbor(oldStart);
+
             MapSuper.getMap().get(newStart).addNeighbor(newEnd, AStar.calcHeuristic(MapSuper.getMap().get(newStart),
                     MapSuper.getMap().get(newEnd)));
+            MapSuper.getMap().get(newEnd).addNeighbor(newStart, AStar.calcHeuristic(MapSuper.getMap().get(newEnd),
+                    MapSuper.getMap().get(newStart)));
         } else {
             System.out.println("The New Start Node or the New End Node is Invalid");
         }
