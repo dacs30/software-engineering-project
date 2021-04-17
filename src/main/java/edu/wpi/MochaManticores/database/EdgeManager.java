@@ -68,7 +68,7 @@ public class EdgeManager {
             NodeSuper endNode = MapSuper.getMap().get(newEnd);
 
             if(startNode != null && endNode != null){
-                //add neighbor edges
+                //add neighbor edges and make them bi-directional
                 startNode.addNeighbor(newEnd, AStar.calcHeuristic(startNode, endNode));
                 endNode.addNeighbor(newStart, AStar.calcHeuristic(endNode, startNode));
             }
@@ -76,6 +76,21 @@ public class EdgeManager {
         } else {
             System.out.println("A Node with this EdgeID already exists.");
         }
+    }
+
+    public static void delEdge(Connection connection, String edgeID) throws SQLException, FileNotFoundException {
+        //remove edge from database
+        PreparedStatement pstmt = connection.prepareStatement("DELETE FROM EDGES WHERE edgeID=?");
+        pstmt.setString(1, edgeID);
+        pstmt.executeUpdate();
+
+        //remove as neighbors from the nodes
+        String[] edges = edgeID.split("_");
+        MapSuper.getMap().get(edges[0]).delNeighbor(edges[1]);
+        MapSuper.getMap().get(edges[1]).delNeighbor(edges[0]);
+
+        // remove node from map
+        EdgeMapSuper.delEdgeNode(edgeID);
     }
 
     public static void saveEdges(Connection connection)throws SQLException, FileNotFoundException{
@@ -116,21 +131,26 @@ public class EdgeManager {
     }
 
 
-    public static void updateEdge(Connection connection, String oldEdgeID, String newEdgeID, String oldStart, String newStart, String oldEnd, String newEnd) throws SQLException, FileNotFoundException {
-        PreparedStatement pstmt = connection.prepareStatement("UPDATE EDGES SET edgeID=?, startNode=?, endNode=? WHERE edgeID=?");
-        pstmt.setString(1, newEdgeID);
-        pstmt.setString(2, newStart);
-        pstmt.setString(3, newEnd);
-        pstmt.setString(4, oldEdgeID);
-        pstmt.executeUpdate();
+    public static void updateEdge(Connection connection, String oldEdgeID, String oldStart, String newStart, String oldEnd, String newEnd) throws SQLException, FileNotFoundException {
+        if(MapSuper.getMap().containsKey(newStart) && MapSuper.getMap().containsKey(newEnd)) {
+            PreparedStatement pstmt = connection.prepareStatement("UPDATE EDGES SET edgeID=?, startNode=?, endNode=? WHERE edgeID=?");
+            String newEdgeID = newStart + "_" + newEnd;
+            pstmt.setString(1, newEdgeID);
+            pstmt.setString(2, newStart);
+            pstmt.setString(3, newEnd);
+            pstmt.setString(4, oldEdgeID);
+            pstmt.executeUpdate();
 
-        EdgeMapSuper.getMap().remove(oldEdgeID);
-        EdgeSuper edge = new EdgeSuper(newEdgeID, newStart, newEnd);
-        EdgeMapSuper.getMap().put(newEdgeID, edge);
+            EdgeMapSuper.getMap().remove(oldEdgeID);
+            EdgeSuper edge = new EdgeSuper(newEdgeID, newStart, newEnd);
+            EdgeMapSuper.getMap().put(newEdgeID, edge);
 
-        MapSuper.getMap().get(oldStart).delNeighbor(oldEnd);
-        MapSuper.getMap().get(newStart).addNeighbor(newEnd, AStar.calcHeuristic(MapSuper.getMap().get(newStart),
-                                                                                            MapSuper.getMap().get(newEnd)));
+            MapSuper.getMap().get(oldStart).delNeighbor(oldEnd);
+            MapSuper.getMap().get(newStart).addNeighbor(newEnd, AStar.calcHeuristic(MapSuper.getMap().get(newStart),
+                    MapSuper.getMap().get(newEnd)));
+        } else {
+            System.out.println("The New Start Node or the New End Node is Invalid");
+        }
 
     }
 

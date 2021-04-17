@@ -72,7 +72,7 @@ public class NodeManager {
             MapSuper.getMap().put(newNodeID, new NodeSuper(Integer.parseInt(xcoord), Integer.parseInt(ycoord), floor, building, longName, shortName, newNodeID, nodeType, new VertexList(new HashMap<>())));
         }
         else {
-            System.out.println("This node already exists");
+            System.out.printf("This node %s already exists\n", newNodeID);
         }
     }
 
