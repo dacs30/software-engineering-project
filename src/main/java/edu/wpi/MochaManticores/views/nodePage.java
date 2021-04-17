@@ -40,10 +40,7 @@ import java.nio.file.StandardOpenOption;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class nodePage extends SceneController{
     public JFXTextField mapName;
@@ -343,14 +340,14 @@ public class nodePage extends SceneController{
             loadErrorDialog();
         }else{
             StringProperty fields[] = new StringProperty[n.getFields().length];
-            LinkedList<String> neigh = new LinkedList<>();
+            Set<String> neigh = new HashSet<>();
             for (int i = 0; i < n.getFields().length; i++) {
                 fields[i] = n.getFields()[i];
             }
             for (int i = 0; i < n.getNeighbors().size(); i++) {
                 neigh.add((String) n.getNeighbors().toArray()[i]);
             }
-            selectedNode = new Node(fields,(Set) neigh);
+            selectedNode = new Node(fields, neigh);
             System.out.println("Node Info:\n"+n);
             loadEditPage(n);
         }
