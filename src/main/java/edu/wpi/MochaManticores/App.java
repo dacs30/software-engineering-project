@@ -61,8 +61,8 @@ public class App extends Application {
     try {
       Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("fxml/loadingPage.fxml")));
       Scene scene = new Scene(root);
-      primaryStage.setMaximized(true);
-      primaryStage.setFullScreen(true);
+      //primaryStage.setMaximized(true);
+      //primaryStage.setFullScreen(true);
       primaryStage.setScene(scene);
       primaryStage.setMinHeight(primaryStage.getScene().getHeight());
       primaryStage.setMinWidth(primaryStage.getScene().getWidth());
@@ -70,6 +70,8 @@ public class App extends Application {
       primaryStage.show();
       root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("fxml/loginPage.fxml")));
       App.getPrimaryStage().getScene().setRoot(root);
+
+
 
     } catch (IOException e) {
       e.printStackTrace();

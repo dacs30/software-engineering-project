@@ -1,5 +1,7 @@
 package edu.wpi.MochaManticores.views;
 
+import com.jfoenix.responsive.JFXResponsiveHandler;
+import edu.wpi.MochaManticores.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;

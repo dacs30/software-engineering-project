@@ -1,5 +1,6 @@
 package edu.wpi.MochaManticores.views;
 
+import com.jfoenix.responsive.JFXResponsiveHandler;
 import edu.wpi.MochaManticores.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,6 +22,38 @@ public class LoginPage extends SceneController{
         backgroundIMG.setFitHeight(height);
         backgroundIMG.setFitWidth(width);
         contentPane.setPrefSize(width,height);
+
+        App.getPrimaryStage().widthProperty().addListener((obs, oldVal, newVal) -> {
+
+            if (newVal.doubleValue() < 400) {
+                new JFXResponsiveHandler(App.getPrimaryStage(), JFXResponsiveHandler.PSEUDO_CLASS_EX_SMALL);
+           } else if (newVal.doubleValue() < 768){
+               new JFXResponsiveHandler(App.getPrimaryStage(), JFXResponsiveHandler.PSEUDO_CLASS_SMALL);
+           }else if (newVal.doubleValue() < 979){
+               new JFXResponsiveHandler(App.getPrimaryStage(), JFXResponsiveHandler.PSEUDO_CLASS_MEDIUM);
+           }else{
+               new JFXResponsiveHandler(App.getPrimaryStage(), JFXResponsiveHandler.PSEUDO_CLASS_LARGE);
+           }
+        });
+
+        App.getPrimaryStage().heightProperty().addListener((obs, oldVal, newVal) -> {
+            final double height2 = super.getHeight();
+            final double width2 = super.getWidth();
+            backgroundIMG.setFitHeight(height2);
+            backgroundIMG.setFitWidth(width2);
+            contentPane.setPrefSize(width2,height2);
+
+            if (newVal.doubleValue() < 400) {
+                new JFXResponsiveHandler(App.getPrimaryStage(), JFXResponsiveHandler.PSEUDO_CLASS_EX_SMALL);
+            } else if (newVal.doubleValue() < 768){
+                new JFXResponsiveHandler(App.getPrimaryStage(), JFXResponsiveHandler.PSEUDO_CLASS_SMALL);
+            }else if (newVal.doubleValue() < 979){
+                new JFXResponsiveHandler(App.getPrimaryStage(), JFXResponsiveHandler.PSEUDO_CLASS_MEDIUM);
+            }else{
+                new JFXResponsiveHandler(App.getPrimaryStage(), JFXResponsiveHandler.PSEUDO_CLASS_LARGE);
+            }
+        });
+
     }
 
     @FXML
