@@ -203,4 +203,16 @@ public class NodeManager {
         System.out.println(sb.toString());
     }
 
+    public static ResultSet selectNode(Connection connection, String NodeID) throws SQLException{
+        try {
+            String sql = "SELECT * FROM NODES WHERE NODEID =" + NodeID;
+            Statement stmt = connection.createStatement();
+            return stmt.executeQuery(sql);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        System.out.println("failed to select NODEID: " + NodeID);
+        return null;
+    }
+
 }

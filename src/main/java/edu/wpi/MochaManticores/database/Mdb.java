@@ -178,4 +178,8 @@ public class Mdb extends Thread{
             }
         }
     }
+
+    public static Connection getConnection() {
+        return connection;
+    }
 }

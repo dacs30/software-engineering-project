@@ -2,12 +2,15 @@ package edu.wpi.MochaManticores;
 
 import static org.testfx.api.FxAssert.verifyThat;
 
+import com.sun.org.apache.xpath.internal.operations.Equals;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.Nodes.VertexList;
 import edu.wpi.MochaManticores.database.Mdb;
+import edu.wpi.MochaManticores.database.NodeManager;
 import javafx.scene.Node;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,9 +18,7 @@ import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationExtension;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.HashMap;
 
 public class DatabaseTest {
@@ -69,7 +70,14 @@ public class DatabaseTest {
     }
 
     @Test
-    public static void testModifyNode(){
+    public void SelectNode() throws SQLException, InterruptedException {
+        this.setUp();
 
+        NodeManager.addNode(Mdb.getConnection(),"TESTNODE","0","0","-1","TEST","TEST","MODIFYTEST","MODIFY");
+        String sql = "SELECT * FROM NODES WHERE NODEID = TESTNODE";
+        Statement stmt = Mdb.getConnection().createStatement();
+        ResultSet expected = stmt.executeQuery(sql);
+
+        Assertions.assertEquals(expected,NodeManager.selectNode(Mdb.getConnection(),"TESTNODE"));
     }
 }
