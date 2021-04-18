@@ -1,30 +1,132 @@
 package edu.wpi.MochaManticores.database;
 
 import edu.wpi.MochaManticores.Algorithms.AStar;
-import edu.wpi.MochaManticores.Nodes.MapSuper;
-import edu.wpi.MochaManticores.Nodes.NodeSuper;
-import edu.wpi.MochaManticores.Nodes.VertexList;
+import edu.wpi.MochaManticores.Nodes.*;
 
-import java.io.FileNotFoundException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.io.*;
+import java.sql.*;
 import java.util.HashMap;
 import java.util.Set;
 
 public class NodeManager {
     private static final String Node_csv_path = "data/bwMNodes.csv";
-    private static final CSVmanager nodeCSV = new CSVmanager(Node_csv_path);
+    private static final String CSVdelim = ",";
 
+    public static void loadFromCSV(Connection connect){
+        //loads database and sets hashmap
+        try{
+            BufferedReader reader = new BufferedReader(new FileReader(Node_csv_path));
+            String line = reader.readLine();
 
+            while (line != null){
+                line = reader.readLine();
+                if(line == null) break;
+                String[] row = line.split(CSVdelim);
+
+                addNode_db(connect, row[0],
+                        row[1], row[2],
+                        row[3], row[4],
+                        row[5], row[6],
+                        row[7]);
+            }
+        } catch (SQLException | IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void addNode(Connection connection, String newNodeID, String xcoord, String ycoord, String floor,
+                               String building, String nodeType, String longName, String shortName) throws SQLException{
+        try{
+            NodeManager.addNode_db(connection,newNodeID,xcoord,ycoord,floor,building,nodeType,longName,shortName);
+            NodeManager.addNode_map(newNodeID,xcoord,ycoord,floor,building,nodeType,longName,shortName);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    //adds to database and hashmap
+    public static void addNode_db(Connection connection, String newNodeID, String xcoord, String ycoord, String floor,
+                               String building, String nodeType, String longName, String shortName) throws SQLException{
+
+        try {
+            String sql = "INSERT INTO NODES (nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, newNodeID);
+            pstmt.setInt(2, Integer.parseInt(xcoord));
+            pstmt.setInt(3, Integer.parseInt(ycoord));
+            pstmt.setString(4,floor);
+            pstmt.setString(5, building);
+            pstmt.setString(6, nodeType);
+            pstmt.setString(7, longName);
+            pstmt.setString(8, shortName);
+            pstmt.executeUpdate();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void addNode_map(String newNodeID, String xcoord, String ycoord, String floor,
+                                   String building, String nodeType, String longName, String shortName) throws SQLException{
+        if(!MapSuper.getMap().containsKey(newNodeID)) {
+            MapSuper.getMap().put(newNodeID, new NodeSuper(Integer.parseInt(xcoord), Integer.parseInt(ycoord), floor, building, longName, shortName, newNodeID, nodeType, new VertexList(new HashMap<>())));
+        }
+        else {
+            System.out.printf("This node %s already exists\n", newNodeID);
+        }
+    }
+
+    //saves values in database to a CSV file
+    public static void saveNodes(Connection connect) throws  SQLException,FileNotFoundException{
+        PrintWriter pw = new PrintWriter(new File(Node_csv_path));
+        StringBuilder sb = new StringBuilder();
+
+        String sql = "SELECT * FROM NODES";
+        Statement stmt = connect.createStatement();
+        ResultSet results = stmt.executeQuery(sql);
+        ResultSetMetaData rsmd = results.getMetaData();
+
+        for(int i = 1; i <= rsmd.getColumnCount(); i++) {
+            sb.append(rsmd.getColumnName(i));
+            sb.append(",");
+        }
+        sb.append("\n");
+        while (results.next()) {
+            //writing to csv file
+            for(int i = 1; i <= rsmd.getColumnCount(); i++) {
+                sb.append(results.getString(i));
+                sb.append(",");
+            }
+            sb.append("\n");
+        }
+        results.close();
+        pw.write(sb.toString());
+        pw.close();
+    }
+
+    //TODO currently this iterates through database adding all elements to the map, should be unnessiary now
+    public static void updateNodesMap(Connection connect) throws SQLException {
+        String sql = "SELECT * FROM NODES";
+        Statement stmt = connect.createStatement();
+        ResultSet results = stmt.executeQuery(sql);
+
+        while (results.next()) {
+            NodeManager.addNode_map(results.getString(1), results.getString(2),
+                                    results.getString(3), results.getString(4),
+                                    results.getString(5), results.getString(6),
+                                    results.getString(7), results.getString(8));
+        }
+    }
 
     public static void updateNodeCoords(Connection connection, String id, int xcoord, int ycoord) throws SQLException, FileNotFoundException {
+        //update node in database
         PreparedStatement pstmt = connection.prepareStatement("UPDATE NODES SET xcoord=?, ycoord=? WHERE nodeID=?");
         pstmt.setInt(1, xcoord);
         pstmt.setInt(2, ycoord);
         pstmt.setString(3, id);
         pstmt.executeUpdate();
-        nodeCSV.putNodesInMap(connection);
+
+        //update node in map
         NodeSuper tempNode = MapSuper.getMap().get(id);
         tempNode.setCoords(xcoord, ycoord);
         MapSuper.getMap().put(id, tempNode);
@@ -32,6 +134,7 @@ public class NodeManager {
 
     public static void updateNode(Connection connection, String newNodeID, String oldNodeID, int xcoord, int ycoord, String floor,
                                   String building, String nodeType, String longName, String shortName) throws SQLException, FileNotFoundException {
+        //update node entry in database
         PreparedStatement pstmt = connection.prepareStatement("UPDATE NODES SET nodeID=?, xcoord=?, ycoord=?, building=?, nodeType=?, longName=?, shortName=?" +
                 "WHERE nodeID=?");
         pstmt.setString(1, newNodeID);
@@ -45,63 +148,71 @@ public class NodeManager {
         pstmt.executeUpdate();
 
 
+
+        // create new node super and replace old node
         VertexList oldNeighbors = MapSuper.getMap().get(oldNodeID).getVertextList();
         NodeSuper node = new NodeSuper(xcoord, ycoord, floor, building, longName, shortName, newNodeID, nodeType, oldNeighbors);
         MapSuper.getMap().remove(oldNodeID);
         MapSuper.getMap().put(newNodeID, node);
-
-        nodeCSV.putNodesInMap(connection);
-    }
-
-    public static void addNode(Connection connection, String newNodeID, int xcoord, int ycoord, String floor,
-                                  String building, String nodeType, String longName, String shortName) throws SQLException, FileNotFoundException {
-        String sql = "INSERT INTO NODES (nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        PreparedStatement pstmt = connection.prepareStatement(sql);
-        pstmt.setString(1, newNodeID);
-        pstmt.setString(2, String.valueOf(xcoord));
-        pstmt.setString(3, String.valueOf(ycoord));
-        pstmt.setString(4, building);
-        pstmt.setString(5, nodeType);
-        pstmt.setString(6, longName);
-        pstmt.setString(7, shortName);
-        pstmt.executeUpdate();
-
-        if(!MapSuper.getMap().containsKey(newNodeID)) {
-            MapSuper.getMap().put(newNodeID, new NodeSuper(xcoord, ycoord, floor, building, longName, shortName, newNodeID, nodeType,
-                                                            new VertexList(new HashMap<>())));
-
-            nodeCSV.putNodesInMap(connection);
-        }
-        else {
-            System.out.println("This node already exists");
-        }
     }
 
     public static void updateNodeName(Connection connection, String id, String newName) throws SQLException, FileNotFoundException {
+        //update in database
         PreparedStatement pstmt = connection.prepareStatement("UPDATE NODES SET longName=? WHERE nodeID=?");
         pstmt.setString(1, newName);
         pstmt.setString(2, id);
         pstmt.executeUpdate();
+
+        // create new node super and change name in map
         NodeSuper tempNode = MapSuper.getMap().get(id);
         tempNode.setLongName(newName);
         MapSuper.getMap().put(id, tempNode);
-
-        nodeCSV.putNodesInMap(connection);
     }
 
     public static void delNode(Connection connection, String nodeID) throws SQLException, FileNotFoundException {
+        //remove node from database
         PreparedStatement pstmt = connection.prepareStatement("DELETE FROM NODES WHERE nodeID=?");
         pstmt.setString(1, nodeID);
         pstmt.executeUpdate();
 
+        // remove node from map
         MapSuper.getMap().remove(nodeID);
-
-        nodeCSV.putNodesInMap(connection);
     }
 
-    public static void showNodeInformation(String nodeInfo) {
-        System.out.println(nodeInfo);
+    public static void showNodeInformation(Connection connection) throws SQLException{
+        StringBuilder sb = new StringBuilder();
+
+        String sql = "SELECT * FROM NODES";
+        Statement stmt = connection.createStatement();
+        ResultSet results = stmt.executeQuery(sql);
+        ResultSetMetaData rsmd = results.getMetaData();
+
+        for(int i = 1; i <= rsmd.getColumnCount(); i++) {
+            sb.append(rsmd.getColumnName(i));
+            sb.append(",");
+        }
+        sb.append("\n");
+        while (results.next()) {
+            for(int i = 1; i <= rsmd.getColumnCount(); i++) {
+                sb.append(results.getString(i));
+                sb.append(",");
+            }
+            sb.append("\n");
+        }
+
+        System.out.println(sb.toString());
+    }
+
+    public static ResultSet selectNode(Connection connection, String NodeID) throws SQLException{
+        try {
+            String sql = "SELECT * FROM NODES WHERE NODEID =" + NodeID;
+            Statement stmt = connection.createStatement();
+            return stmt.executeQuery(sql);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        System.out.println("failed to select NODEID: " + NodeID);
+        return null;
     }
 
 }
