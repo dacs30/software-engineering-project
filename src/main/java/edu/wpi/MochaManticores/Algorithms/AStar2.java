@@ -1,8 +1,11 @@
 package edu.wpi.MochaManticores.Algorithms;
 
+import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
 
 /**
@@ -19,8 +22,8 @@ public class AStar2 {
     private NodeSuper target;                   //The node being searched for
 
     //Constructor
-    public AStar2(HashMap<String, NodeSuper> nodes) {
-        this.nodes = nodes;
+    public AStar2() {
+        this.nodes = MapSuper.getMap();
     }
 
     /**
@@ -31,7 +34,7 @@ public class AStar2 {
      * @param target the node to search for
      * @return an ArrayList of Strings containing the IDs of the nodes from the target to the start node
      */
-    public ArrayList<String> findRoute(NodeSuper start, NodeSuper target) {
+    public LinkedList<String> findRoute(NodeSuper start, NodeSuper target) {
         //Initialize class variables
         this.horizon = new PriorityQueue<AStarNode>(10, new NodeComparator());  //Sorts using NodeComparator
         this.visitedNodes = new ArrayList<>();                                              //Initialized as empty
@@ -39,7 +42,7 @@ public class AStar2 {
         this.currentNode = new AStarNode(start, target, "NONE", 0);         //Initialized to start node
         this.target = target;                           //Initializes the target variable
         //Initialize local variables
-        ArrayList<String> route = new ArrayList<>();    //Initialized as empty
+        LinkedList<String> route = new LinkedList<>();    //Initialized as empty
         String traceBackNode = target.getID();          //First ID on the route list will be the target node
 
         //Explore the horizon until the target node is found
@@ -56,7 +59,7 @@ public class AStar2 {
 
         //Once the target has been found, retrace steps back to the start node
         while(true) {
-            route.add(traceBackNode);
+            route.addFirst(traceBackNode);
             traceBackNode = this.visitedNodes.get(this.visitedNodes.indexOf(traceBackNode)).getLastID();
             //Once the start node has been found, break the loop
             if(traceBackNode == "NONE") {
