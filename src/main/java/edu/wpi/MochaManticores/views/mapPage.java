@@ -94,6 +94,11 @@ public class mapPage extends SceneController {
 
     private String location = "edu/wpi/MochaManticores/images/";
 
+    private String selectedFloor = "";
+
+    public void setSelectedFloor(String selectedFloor) {
+        this.selectedFloor = selectedFloor;
+    }
 
     Rectangle2D noZoom;
     Rectangle2D zoomPort;
@@ -172,7 +177,6 @@ public class mapPage extends SceneController {
     public void loadDialog(StringBuilder path){
         dialogPane.toFront();
         dialogPane.setDisable(false);
-        //TODO Center the text of it.
 
         JFXDialogLayout message = new JFXDialogLayout();
         message.setMaxHeight(Region.USE_PREF_SIZE);
@@ -213,9 +217,11 @@ public class mapPage extends SceneController {
         body.setStyle("-fx-alignment: center");
         body.setTextAlignment(TextAlignment.CENTER);
 
-
-        vbox.getChildren().addAll(start,body,ending);
-
+        if(path.toString().equals("Please select at least one node")) {
+            vbox.getChildren().addAll(body);
+        }else{
+            vbox.getChildren().addAll(start, body, ending);
+        }
         message.setHeading(header);
         message.setBody(vbox);
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
@@ -249,37 +255,59 @@ public class mapPage extends SceneController {
     public void loadLOne() {
         locationTitle.setText("Lower Level 1");
         Image img = new Image(location + "00_thelowerlevel1.png");
+        setSelectedFloor("L1");
         setZoom(img, 0, 0, noZoom);
+        drawNodes();
+
     }
 
     public void loadLTwo() {
         locationTitle.setText("Lower Level 2");
+        setSelectedFloor("L2");
+
         Image img = new Image(location + "00_thelowerlevel2.png");
         setZoom(img, 0, 0, noZoom);
+        drawNodes();
+
     }
 
     public void loadGround() {
         locationTitle.setText("Ground Floor");
+        setSelectedFloor("G");
+
         Image img = new Image(location + "00_thegroundfloor.png");
         setZoom(img, 0, 0, noZoom);
+        drawNodes();
+
     }
 
     public void loadFOne() {
         locationTitle.setText("Floor 1");
+        setSelectedFloor("1");
+
         Image img = new Image(location + "01_thefirstfloor.png");
         setZoom(img, 0, 0, noZoom);
+        drawNodes();
+
     }
 
     public void loadFTwo() {
         locationTitle.setText("Floor 2");
+        setSelectedFloor("2");
+
         Image img = new Image(location + "02_thesecondfloor.png");
         setZoom(img, 0, 0, noZoom);
+        drawNodes();
+
     }
 
     public void loadFThree() {
         locationTitle.setText("Floor 3");
+        setSelectedFloor("L3");
+
         Image img = new Image(location + "00_thegroundfloor.png");
         setZoom(img, 0, 0, noZoom);
+        drawNodes();
     }
 
     public void drawCoord(MouseEvent e) {
@@ -334,7 +362,7 @@ public class mapPage extends SceneController {
             pitStops = new LinkedList<>();
         }
 
-        loadDialog(pathToTake); // calling the dialog pane with the path
+       loadDialog(pathToTake); // calling the dialog pane with the path
 
     }
 
@@ -345,19 +373,20 @@ public class mapPage extends SceneController {
         Iterator<NodeSuper> mapIter = MapSuper.getMap().values().iterator();
         for (int i = 0; i < MapSuper.getMap().size(); i++) {
             NodeSuper n = mapIter.next();
-            Circle spot = new Circle(n.getXcoord() / xRatio, n.getYcoord() / yRatio, 4, Color.WHITE);
-            spot.setStrokeWidth(1);
-            spot.setStroke(Color.DARKGRAY);
-            EventHandler<MouseEvent> highlight = new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent e) {
-                    highlightNode(e);
-                }
-            };
-            spot.setOnMouseClicked(highlight);
-            nodes.put(n.getID(), new node(spot, n.getID()));
-            nodePane.getChildren().addAll(nodes.get(n.getID()).c);
-
+            if(n.getFloor().equals(selectedFloor)){
+                Circle spot = new Circle(n.getXcoord() / xRatio, n.getYcoord() / yRatio, 4, Color.WHITE);
+                spot.setStrokeWidth(1);
+                spot.setStroke(Color.DARKGRAY);
+                EventHandler<MouseEvent> highlight = new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent e) {
+                        highlightNode(e);
+                    }
+                };
+                spot.setOnMouseClicked(highlight);
+                nodes.put(n.getID(), new node(spot, n.getID()));
+                nodePane.getChildren().addAll(nodes.get(n.getID()).c);
+            }
         }
     }
 
