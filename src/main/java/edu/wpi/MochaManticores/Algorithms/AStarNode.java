@@ -46,7 +46,7 @@ public class AStarNode{
      */
     @Override
     public boolean equals(Object o) {
-        return (o == this.ID);
+        return ( ((String) o).equals(this.ID));
     }
 
     //getters and setters
