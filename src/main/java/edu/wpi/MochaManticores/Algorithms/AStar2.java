@@ -26,6 +26,22 @@ public class AStar2 {
         this.nodes = MapSuper.getMap();
     }
 
+    public LinkedList<String> multiStopRoute(LinkedList<NodeSuper> stops){
+        LinkedList<String> path = new LinkedList<>();
+        if (stops.size() == 1){
+            path.add(stops.getFirst().getID());
+        } else if(stops.size() == 2){
+            path = findRoute(stops.getFirst(), stops.getLast());
+        } else {
+            path = findRoute(stops.pop(), stops.getFirst());
+            for (int i = 0; i < stops.size() - 1; i++) {
+                path.removeLast();
+                path.addAll(findRoute(stops.pop(), stops.getFirst()));
+            }
+        }
+        return path;
+    }
+
     /**
      * method: findRoute()
      * usage: Uses an A* algorithm to calculate the most efficient route to the target
