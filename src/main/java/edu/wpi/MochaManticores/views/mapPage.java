@@ -68,17 +68,28 @@ public class mapPage extends SceneController{
 
         //mapStack.setMaxHeight(innerMapGrid.heightProperty().doubleValue());
 
+//        mapStack.maxHeightProperty().bind(innerMapGrid.getRowConstraints().get(0).maxHeightProperty());
+//        mapStack.maxWidthProperty().bind(innerMapGrid.getColumnConstraints().get(0).maxWidthProperty());
+//
+//
+//
+//        System.out.printf("innerMapGrid (%f,%f)\n",innerMapGrid.widthProperty().get(),innerMapGrid.heightProperty().get());
+        mapWindow.setPreserveRatio(false);
+        //mapWindow.fitHeightProperty().bind(mapStack.widthProperty());
+        //mapWindow.fitHeightProperty().bind(mapStack.heightProperty());
 
         loadFOne();
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
-                zoomImg(e);
+                //zoomImg(e);
             }
         };
         mapWindow.setOnMouseMoved(eventHandler);
-        mapWindow.setFitHeight(super.getHeight() / 1.5);
-        mapWindow.setFitWidth(super.getWidth() / 1.5);
+
+
+//        mapWindow.setFitHeight(super.getHeight() / 1.5);
+//        mapWindow.setFitWidth(super.getWidth() / 1.5);
 //        mapWindow.setFitHeight(mapStack.getHeight()/2);
 //        mapWindow.setFitWidth(mapStack.getWidth()/2);
     }
@@ -131,6 +142,16 @@ public class mapPage extends SceneController{
         setZoom(img, 0,0,noZoom);
     }
 
+    public void drawCoord(MouseEvent e){
+        double xRatio = 5000/mapWindow.getFitWidth();
+        double yRatio = 3400/mapWindow.getFitHeight();
+        System.out.printf("(%f,%f)\n",e.getX()*xRatio,e.getY()*yRatio);
+    }
+
+    public void drawNodes(){
+
+    }
+
     @FXML
     public void goToRouteExample(ActionEvent e){
         super.changeSceneTo("routeExample");
@@ -150,9 +171,10 @@ public class mapPage extends SceneController{
 
         mapWindow.setOnMouseExited(eventHandler);
 
+        double multi = mapWindow.getFitWidth()/mapWindow.getFitHeight();
 
-        setZoom(src,curX*4,curY*4,zoomPort);
-        System.out.printf("X: %f\nY: %f\n\n",curX,curY);
+        setZoom(src,curX*multi,curY*multi,zoomPort);
+        //System.out.printf("X: %f\nY: %f\n\n",curX,curY);
 
     }
 }
