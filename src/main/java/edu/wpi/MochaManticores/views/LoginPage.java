@@ -21,6 +21,7 @@ public class LoginPage extends SceneController{
     @FXML
     private GridPane contentPane;
 
+
     @FXML
     private StackPane dialogPane;
 

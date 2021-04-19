@@ -53,6 +53,7 @@ public class mapPage extends SceneController{
         backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
         backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
+
         loadLOne();
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override
