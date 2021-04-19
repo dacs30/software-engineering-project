@@ -432,10 +432,37 @@ public class nodePage extends SceneController{
     }
 
     public void submitEdit(ActionEvent e) throws SQLException, FileNotFoundException {
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(Mdb.JDBC_URL);
+        } catch (SQLException sqlException) {
+            System.out.println("Connection failed. Check output console.");
+            sqlException.printStackTrace();
+            return;
+        }
+
         if (!checkInput()) {
             loadEmptyDialog();
         } else {
-            NodeSuper nodeSuper = MapSuper.getMap().get(selectedNode.getNodeID());
+            NodeSuper nodeSuper = null;
+            try {
+                nodeSuper = MapSuper.getMap().get(selectedNode.getNodeID());
+            }
+            catch (
+                    NullPointerException exception
+            ) {
+                NodeManager.addNode(connection, nodeIDField.getText(),
+                xcoordField.getText(),
+                ycoordField.getText(),
+                floorField.getText(),
+                buildingField.getText(),
+                "TEST",
+                logNameField.getText(),
+                shortNameField.getText());
+                cancelEdit(e);
+                return;
+            }
+
             Node n = null;
             for (Node node : listOfNodes) {
                 if (node.getNodeID().equals(selectedNode.getNodeID())) {
@@ -448,14 +475,6 @@ public class nodePage extends SceneController{
                 return;
             }
 
-            Connection connection = null;
-            try {
-                connection = DriverManager.getConnection(Mdb.JDBC_URL);
-            } catch (SQLException sqlException) {
-                System.out.println("Connection failed. Check output console.");
-                sqlException.printStackTrace();
-                return;
-            }
             NodeManager.updateNode(connection, n.nodeID.get(), nodeSuper.getID(), Integer.parseInt(n.getXcoord()),
                     Integer.parseInt(n.ycoord.get()), n.getFloor(), n.getBuilding(), nodeSuper.getType(), n.getLongName(), n.getShortName());
             //TODO:Talk to CSV Manager
@@ -516,6 +535,7 @@ public class nodePage extends SceneController{
     public void cancelEdit(ActionEvent e){
         editPage.setVisible(false);
         selectionPage.setVisible(true);
+        cancel(e);
 
     }
 
@@ -539,6 +559,7 @@ public class nodePage extends SceneController{
                 return;
             }
             NodeManager.delNode(connection, selectedNode.getNodeID());
+            cancelEdit(null);
         }
     }
 }
