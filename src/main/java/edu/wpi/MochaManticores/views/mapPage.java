@@ -3,6 +3,8 @@ package edu.wpi.MochaManticores.views;
 import com.sun.prism.image.ViewPort;
 import edu.wpi.MochaManticores.App;
 import javafx.event.ActionEvent;
+import javafx.geometry.BoundingBox;
+import javafx.geometry.Bounds;
 import javafx.scene.input.MouseEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -53,8 +55,21 @@ public class mapPage extends SceneController{
         backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
         backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
+//        contentPane.minHeightProperty().bind(App.getPrimaryStage().heightProperty());
+//        contentPane.maxHeightProperty().bind(App.getPrimaryStage().heightProperty());
+//
+//        contentPane.minWidthProperty().bind(App.getPrimaryStage().widthProperty());
+//        contentPane.maxWidthProperty().bind(App.getPrimaryStage().widthProperty());
 
-        loadLOne();
+        mapWindow.fitWidthProperty().bind(App.getPrimaryStage().widthProperty().subtract(150 + mapWindow.localToScene(mapWindow.getBoundsInLocal()).getMinX()));
+        mapWindow.fitHeightProperty().bind(App.getPrimaryStage().heightProperty().subtract(150 + mapWindow.localToScene(mapWindow.getBoundsInLocal()).getMinY()));
+
+        //System.out.println("~~~" + mapWindow.localToScene(mapWindow.getBoundsInLocal()).getMinX());
+
+        //mapStack.setMaxHeight(innerMapGrid.heightProperty().doubleValue());
+
+
+        loadFOne();
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
