@@ -130,8 +130,8 @@ public class landingPageController extends SceneController {
     changeSceneTo("sanitationService");
   }
 
-  public void back(){
-    super.back();
+  public void goBack(){
+    back();
   }
 
   public void exitApp(ActionEvent e){

@@ -31,7 +31,7 @@
 }
 
 .jfx-text-field {
-    -fx-font-size: 20;
+.    -fx-font-size: 20;
     -fx-font-weight: bold;
     -fx-text-fill : #ffffff;
     -jfx-unfocus-color : #ffffff;
