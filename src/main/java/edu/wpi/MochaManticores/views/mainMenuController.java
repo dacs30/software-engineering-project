@@ -1,5 +1,6 @@
 package edu.wpi.MochaManticores.views;
 
+import edu.wpi.MochaManticores.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
@@ -20,6 +21,9 @@ public class mainMenuController extends SceneController{
         backgroundIMG.setFitHeight(height);
         backgroundIMG.setFitWidth(width);
         contentPane.setPrefSize(width,height);
+
+        backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
+        backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
     }
 
     public void gotoService(ActionEvent e){

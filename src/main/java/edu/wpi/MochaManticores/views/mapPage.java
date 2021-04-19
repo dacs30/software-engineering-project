@@ -1,6 +1,7 @@
 package edu.wpi.MochaManticores.views;
 
 import com.sun.prism.image.ViewPort;
+import edu.wpi.MochaManticores.App;
 import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.event.EventHandler;
@@ -48,6 +49,10 @@ public class mapPage extends SceneController{
         backgroundIMG.setFitHeight(height);
         backgroundIMG.setFitWidth(width);
         contentPane.setPrefSize(width,height);
+
+        backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
+        backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
+
         loadLOne();
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override

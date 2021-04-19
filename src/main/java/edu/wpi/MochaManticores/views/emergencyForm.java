@@ -1,5 +1,6 @@
 package edu.wpi.MochaManticores.views;
 
+import edu.wpi.MochaManticores.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -21,6 +22,9 @@ public class emergencyForm extends SceneController {
         double width = super.getWidth();
         backgroundIMG.setFitHeight(height);
         backgroundIMG.setFitWidth(width);
+
+        backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
+        backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
         numPeople.getItems().clear();
         numPeople.getItems().addAll("1", "2", "3");
