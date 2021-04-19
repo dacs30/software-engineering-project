@@ -29,7 +29,7 @@
             <JFXDialog />
          </children>
       </StackPane>
-      <GridPane fx:id="contentPane" layoutX="-1.0" layoutY="-1.0" prefHeight="805.0" prefWidth="1207.0">
+      <GridPane fx:id="contentPane" layoutX="-1.0" layoutY="-1.0" prefHeight="805.0" prefWidth="1207.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="609.0" minWidth="10.0" prefWidth="298.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="909.0" />
