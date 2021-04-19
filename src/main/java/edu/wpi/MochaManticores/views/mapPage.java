@@ -305,7 +305,7 @@ public class mapPage extends SceneController {
         locationTitle.setText("Floor 3");
         setSelectedFloor("L3");
 
-        Image img = new Image(location + "00_thegroundfloor.png");
+        Image img = new Image(location + "00_thethirdfloor.png");
         setZoom(img, 0, 0, noZoom);
         drawNodes();
     }
