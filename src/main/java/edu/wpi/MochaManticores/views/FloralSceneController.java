@@ -58,6 +58,10 @@ back();
     backgroundIMG.setFitHeight(height);
     backgroundIMG.setFitWidth(width);
     contentGrid.setPrefSize(width,height);
+
+    backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
+    backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
+
     vases = Arrays.asList(blueVase, yellowVase, orangeVase);
     //dialogPane.setDisable(false);
   }

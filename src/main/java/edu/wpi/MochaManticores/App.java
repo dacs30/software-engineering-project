@@ -48,11 +48,11 @@ public class App extends Application {
     try {
       Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("fxml/loadingPage.fxml")));
       Scene scene = new Scene(root);
-      primaryStage.setMaximized(true);
-      primaryStage.setFullScreen(true);
+      //primaryStage.setMaximized(true);
+      //primaryStage.setFullScreen(true);
       primaryStage.setScene(scene);
-      primaryStage.setMinHeight(primaryStage.getScene().getHeight());
-      primaryStage.setMinWidth(primaryStage.getScene().getWidth());
+      primaryStage.setMinHeight(800);
+      primaryStage.setMinWidth(1280);
       primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
       primaryStage.show();
       root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("fxml/loginPage.fxml")));

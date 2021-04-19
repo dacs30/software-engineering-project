@@ -3,6 +3,7 @@ package edu.wpi.MochaManticores.views;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
+import edu.wpi.MochaManticores.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
@@ -30,6 +31,9 @@ public class landingPageController extends SceneController {
       backgroundIMG.setFitWidth(width);
       backgroundIMG.setFitHeight(height);
       contentPane.setPrefSize(width,height);
+
+    backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
+    backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
       dialogPane.toBack();
   }
@@ -126,8 +130,8 @@ public class landingPageController extends SceneController {
     changeSceneTo("sanitationService");
   }
 
-  public void back(){
-    super.back();
+  public void goBack(){
+    back();
   }
 
   public void exitApp(ActionEvent e){

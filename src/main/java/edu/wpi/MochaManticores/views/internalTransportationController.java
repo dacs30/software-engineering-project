@@ -48,6 +48,9 @@ public class internalTransportationController extends SceneController{
         backgroundIMG.setFitWidth(width);
         contentGrid.setPrefSize(width,height);
 
+        backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
+        backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
+
         transportComboBox.setItems(typeOfTransportList);
 
         dialogPane.setDisable(false);

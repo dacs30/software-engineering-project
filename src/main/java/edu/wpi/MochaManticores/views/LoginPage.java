@@ -21,6 +21,7 @@ public class LoginPage extends SceneController{
     @FXML
     private GridPane contentPane;
 
+
     @FXML
     private StackPane dialogPane;
 
@@ -32,7 +33,11 @@ public class LoginPage extends SceneController{
         contentPane.setPrefSize(width,height);
 
         dialogPane.toBack();
+
+        backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
+        backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
     }
+
 
     public void loadDialog(){
         //TODO Center the text of it.

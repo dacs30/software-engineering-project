@@ -276,6 +276,9 @@ public class nodePage extends SceneController{
         backgroundIMG.setFitWidth(width);
         contentPane.setPrefSize(width,height);
         dialogPane.setPrefSize(width,height);
+
+        backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
+        backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
     }
 
     public void displayTable() {

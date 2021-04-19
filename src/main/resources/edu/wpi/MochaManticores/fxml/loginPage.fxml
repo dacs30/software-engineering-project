@@ -14,7 +14,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="800.0" prefWidth="1207.0" stylesheets="@../stylesheets.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.LoginPage">
@@ -38,10 +37,6 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Rectangle fx:id="loginRectangle" arcHeight="20.0" arcWidth="20" fill="#0f4b91" height="700.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.0" visible="false" width="550.0" GridPane.columnIndex="1">
-               <effect>
-                  <DropShadow height="76.35" radius="28.119999999999997" width="38.13" />
-               </effect></Rectangle>
             <GridPane maxHeight="700.0" maxWidth="550.0" prefHeight="700.0" prefWidth="550.0" style="-fx-background-color: #0F4B91;" GridPane.columnIndex="1">
               <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

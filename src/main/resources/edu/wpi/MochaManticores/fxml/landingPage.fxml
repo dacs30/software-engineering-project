@@ -59,7 +59,7 @@
                         <Image url="@../images/logo-with-text.png" />
                      </image>
                   </ImageView>
-                  <JFXButton id="backBtn" fx:id="backButton" buttonType="RAISED" minHeight="50.0" minWidth="170.0" onAction="#back" prefHeight="50.0" prefWidth="170.0" style="-fx-background-color: #0f4b91;" stylesheets="@../Stylesheets/landingPage.css" text="Back" textFill="WHITE" GridPane.halignment="CENTER">
+                  <JFXButton id="backBtn" fx:id="backButton" buttonType="RAISED" minHeight="50.0" minWidth="170.0" onAction="#goBack" prefHeight="50.0" prefWidth="170.0" style="-fx-background-color: #0f4b91;" stylesheets="@../Stylesheets/landingPage.css" text="BACK" textFill="WHITE" GridPane.halignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -70,7 +70,7 @@
                         <Insets />
                      </GridPane.margin>
                   </JFXButton>
-                  <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#exitApp" prefHeight="52.0" prefWidth="57.0" style="-fx-background-color: #E74C3C;" text="X" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                  <JFXButton buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#exitApp" prefHeight="52.0" prefWidth="57.0" style="-fx-background-color: #E74C3C;" text="X" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -98,17 +98,9 @@
                   <JFXButton id="foodDeliveryBtn" buttonType="RAISED" onAction="#advanceFoodService" stylesheets="@../Stylesheets/landingPage.css" text="Food Delivery" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <JFXButton id="emergencyBtn" buttonType="RAISED" onAction="#confirmEmergency" stylesheets="@../Stylesheets/landingPage.css" text="Emergency" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
-            </GridPane>
-            <GridPane alignment="CENTER" prefHeight="258.0" prefWidth="1249.0">
-               <columnConstraints>
-                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="618.0" minWidth="10.0" percentWidth="33.0" prefWidth="85.0" />
-                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="631.0" minWidth="0.0" percentWidth="33.0" prefWidth="507.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
+               <effect>
+                  <DropShadow />
+               </effect>
             </GridPane>
          </children>
       </GridPane>

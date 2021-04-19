@@ -36,6 +36,10 @@ public class FoodDelivery extends SceneController{
         backgroundIMG.setFitHeight(height);
         backgroundIMG.setFitWidth(width);
         contentGrid.setPrefSize(width,height);
+
+        backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
+        backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
+
         System.out.println(width);
 
         dietaryPreferences.getItems().clear();

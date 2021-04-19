@@ -1,12 +1,11 @@
 package edu.wpi.MochaManticores;
 
 
+import edu.wpi.MochaManticores.Exceptions.InvalidUserException;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.Nodes.VertexList;
-import edu.wpi.MochaManticores.database.EdgeManager;
-import edu.wpi.MochaManticores.database.Mdb;
-import edu.wpi.MochaManticores.database.NodeManager;
+import edu.wpi.MochaManticores.database.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -65,6 +64,76 @@ public class DatabaseTest {
     static void start() throws SQLException, InterruptedException {
         setUp();
     }
+
+    // employee database test cases
+    @Test
+    public void addEmployee() throws SQLException, InvalidUserException {
+        Employee employee = new Employee("testUser",
+                "password",
+                "firstName",
+                "lastName",
+                "DEFAULT",
+                "1",
+                "false");
+
+        EmployeeManager.addEmployee(connection,employee);
+
+        Assertions.assertTrue(employee.getUsername().equals(EmployeeManager.getEmployee(connection, employee.getUsername()).getUsername()));
+
+        EmployeeManager.delEmployee(connection,employee.getUsername());
+    }
+
+    @Test
+    public void removeEmployee() throws SQLException, InvalidUserException {
+        Employee employee = new Employee("testUser",
+                "password",
+                "firstName",
+                "lastName",
+                "DEFAULT",
+                "1",
+                "false");
+
+        EmployeeManager.addEmployee(connection,employee);
+        EmployeeManager.delEmployee(connection,employee.getUsername());
+
+        Assertions.assertTrue(EmployeeManager.getEmployee(connection, employee.getUsername())==null);
+    }
+
+    @Test
+    public void modifyEmployee() throws SQLException, InvalidUserException {
+        Employee employee = new Employee("testUser",
+                "password",
+                "firstName",
+                "lastName",
+                "DEFAULT",
+                "1",
+                "false");
+
+        EmployeeManager.addEmployee(connection,employee);
+        Employee employeeMOD = new Employee("testUserMODDED",
+                "password",
+                "firstName",
+                "lastName",
+                "DEFAULT",
+                "1",
+                "false");
+
+        EmployeeManager.modEmployee(connection,employee.getUsername(),employeeMOD);
+
+        Assertions.assertTrue(EmployeeManager.getEmployee(connection, employeeMOD.getUsername()).getUsername().equals(employeeMOD.getUsername()));
+        EmployeeManager.delEmployee(connection, employeeMOD.getUsername());
+    }
+
+    @Test
+    public void loginEmployee(){}
+
+    @Test
+    public void loginAdmin(){}
+
+
+
+
+
 
     @Test
     public void testAddNode() throws SQLException, InterruptedException, FileNotFoundException {

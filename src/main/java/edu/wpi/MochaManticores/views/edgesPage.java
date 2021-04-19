@@ -23,6 +23,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -48,7 +49,8 @@ public class edgesPage extends SceneController{
     public TableColumn<Edge, String> nodeID;
     public ObservableList<Edge> listOfEdges = FXCollections.observableArrayList();
 
-
+    @FXML
+    public ImageView backgroundIMG;
 
     @FXML
     public VBox selectionPage;
@@ -137,6 +139,14 @@ public class edgesPage extends SceneController{
     }
 
     public void initialize() {
+        double height = super.getHeight();
+        double width = super.getWidth();
+        backgroundIMG.setFitHeight(height);
+        backgroundIMG.setFitWidth(width);
+
+        backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
+        backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
+
         startNode = new TableColumn<>("startNode");
         startNode.setMinWidth(100);
         startNode.setCellValueFactory(
