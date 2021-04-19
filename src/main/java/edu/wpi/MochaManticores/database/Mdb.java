@@ -61,6 +61,31 @@ public class Mdb extends Thread{
         }
     }
 
+    public static void employeeStartup(Connection connection) throws SQLException {
+        Statement stmt = connection.createStatement();
+        try {
+            ResultSet rs = meta.getTables(null, "APP", "EMPLOYEES", null);
+            rs = meta.getTables(null, "APP", "EMPLOYEES", null);
+            if(!rs.next()) {
+                String sql;
+                System.out.println("Creating Employees Table");
+                sql = "CREATE TABLE EMPLOYEES" +
+                        "(username VARCHAR(21) not NULL, " +
+                        " password VARCHAR(21), " +
+                        " fisrtName VARCHAR(21), " +
+                        " lastName VARCHAR(21), " +
+                        " employeeType VARCHAR(21)," +
+                        " ID INT," +
+                        " Admin BOOLEAN," +
+                        " PRIMARY KEY (username))";
+                stmt.executeUpdate(sql);
+                EmployeeManager.loadFromCSV(connection);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
     public static void databaseStartup() throws InterruptedException, SQLException {
         System.out.println("-------Embedded Apache Derby Connection Testing --------");
         try {
@@ -105,12 +130,22 @@ public class Mdb extends Thread{
                     throwables.printStackTrace();
                 }
             });
+            Thread employeeThread = new Thread(() -> {
+                try {
+                    employeeStartup(finalConnection);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            });
+
 
             nodeThread.start();
             edgeThread.start();
+            employeeThread.start();
 
             nodeThread.join();
             edgeThread.join();
+            employeeThread.join();
 
             // updates the hm here because the data doesnt exist if we do it in the threads, where is map super created?
             NodeManager.updateNodesMap(connection);
@@ -121,6 +156,7 @@ public class Mdb extends Thread{
         try {
             NodeManager.saveNodes(connection);
             EdgeManager.saveEdges(connection);
+            EmployeeManager.saveEmployees(connection);
         }catch(FileNotFoundException | SQLException e){
             e.printStackTrace();
         }
