@@ -26,7 +26,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.LineTo;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.layout.VBox;
+import javafx.geometry.Pos;
 
 import java.awt.*;
 import java.util.Arrays;
@@ -49,7 +54,7 @@ public class mapPage extends SceneController {
             yCoord = c.getCenterY();
         }
 
-        public void resetFill(){
+        public void resetFill() {
             c.setFill(Color.WHITE);
             c.setStrokeWidth(1);
             c.setStroke(Color.DARKGRAY);
@@ -58,7 +63,7 @@ public class mapPage extends SceneController {
 
 
     private HashMap<String, node> nodes = new HashMap();
-    
+
     private LinkedList<node> pitStops = new LinkedList<>();
     @FXML
     private ImageView backgroundIMG;
@@ -165,32 +170,59 @@ public class mapPage extends SceneController {
      * @param path
      */
     public void loadDialog(StringBuilder path){
+        dialogPane.toFront();
+        dialogPane.setDisable(false);
         //TODO Center the text of it.
 
         JFXDialogLayout message = new JFXDialogLayout();
         message.setMaxHeight(Region.USE_PREF_SIZE);
         message.setMaxHeight(Region.USE_PREF_SIZE);
 
-        final Text hearder = new Text("Path created");
-        hearder.setStyle("-fx-font-weight: bold");
-        hearder.setStyle("-fx-font-size: 30");
-        hearder.setStyle("-fx-font-family: Roboto");
-        hearder.setStyle("-fx-alignment: center");
-        message.setHeading(hearder);
 
-        final Text body = new Text(path.toString());
+        final VBox vbox = new VBox();
+        vbox.setAlignment(Pos.CENTER);
+        vbox.setMaxHeight(Region.USE_COMPUTED_SIZE);
+        vbox.setMaxWidth(Region.USE_COMPUTED_SIZE);
+
+
+
+        Text header = new Text("Path created");
+        header.setStyle("-fx-font-weight: bold");
+        header.setStyle("-fx-font-size: 30");
+        header.setStyle("-fx-font-family: Roboto");
+        header.setStyle("-fx-alignment: center");
+        Text start = new Text("Your location");
+        Text ending = new Text("Ending location");
+        ending.setFill(Color.RED);
+        start.setFill(Color.GREEN);
+        final Text body;
+        if(path.toString().equals("Please select at least one node")){
+           body = new Text(path.toString());
+           header = new Text("Error");
+           header.setFill(Color.RED);
+            vbox.setAlignment(Pos.CENTER_LEFT);
+        }else {
+
+            body = new Text(path.substring(0, path.toString().length() - 3));
+
+        }
+
+
         body.setStyle("-fx-font-size: 15");
         body.setStyle("-fx-font-family: Roboto");
         body.setStyle("-fx-alignment: center");
-        message.setHeading(hearder);
+        body.setTextAlignment(TextAlignment.CENTER);
 
-        message.setBody(body);
+
+        vbox.getChildren().addAll(start,body,ending);
+
+        message.setHeading(header);
+        message.setBody(vbox);
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
         JFXButton ok = new JFXButton("OK");
         ok.setOnAction(event -> {
             dialog.close();
             dialogPane.toBack();
-            changeSceneTo("EmergencyForm");
         });
 
         dialog.setOnDialogClosed(event -> {
@@ -256,8 +288,8 @@ public class mapPage extends SceneController {
 
         System.out.printf("(%f,%f)\n", e.getX() * xRatio, e.getY() * yRatio);
     }
-    
-    public void toAStar(){
+
+    public void toAStar() {
         AStar star = new AStar();
         //pathToTake is used in the dialog box that keeps all the nodes that the user has to pass through
         StringBuilder pathToTake = new StringBuilder(new String());
@@ -266,20 +298,45 @@ public class mapPage extends SceneController {
                 pitStops) {
             stops.add(MapSuper.getMap().get(n.nodeID));
         }
-        LinkedList<String> path = star.path(stops);
-        for (String str :
-                path) {
-            System.out.printf("\n%s\n|\n",MapSuper.getMap().get(str).getLongName());
-            pathToTake.append(MapSuper.getMap().get(str).getLongName()); //appending the paths
+        if(pitStops.isEmpty()){
+            pathToTake.append("Please select at least one node");
+        }else{
+            LinkedList<String> path = star.path(stops);
+            for (String str :
+                    path) {
+                System.out.printf("\n%s\n|\n", MapSuper.getMap().get(str).getLongName());
+                pathToTake.append(MapSuper.getMap().get(str).getLongName()).append("\n|\n");//appending the paths
+            }
+            LinkedList<Line> lines = new LinkedList();
+
+            for (int i = 0; i < path.size() - 1; i++) {
+                try {
+                    node start = nodes.get(path.get(i+1));
+                    node end = nodes.get(path.get(i+1));
+                    double startX= start.xCoord;
+                    double startY = start.yCoord;
+                    double endX= end.xCoord;
+                    double endY= end.yCoord;
+                    Line l = new Line(startX,startY,endX,endY);
+                    l.setStroke(Color.BLACK);
+                    l.setStrokeWidth(5);
+                    lines.add(l);
+                } catch (Exception e){
+                    System.out.println("Got here");
+                }
+
+            }
+            nodePane.getChildren().addAll(lines);
+            for (node n :
+                    pitStops) {
+                n.resetFill();
+            }
+            pitStops = new LinkedList<>();
         }
-        for (node n:
-             pitStops) {
-            n.resetFill();
-        }
+
         loadDialog(pathToTake); // calling the dialog pane with the path
 
     }
-
 
     public void drawNodes() {
         nodePane.getChildren().clear();
@@ -304,30 +361,24 @@ public class mapPage extends SceneController {
         }
     }
 
-
     public void highlightNode(MouseEvent e) {
         Circle src = (Circle) e.getSource();
         Iterator<node> iter = nodes.values().iterator();
 
         for (int i = 0; i < nodes.size(); i++) {
             node n = iter.next();
-            if(n.c.equals(src)){
+            if (n.c.equals(src)) {
                 n.c.setFill(Color.RED);
                 pitStops.add(n);
             }
         }
     }
 
-//    @FXML
-//    public void goToRouteExample(ActionEvent e) {
-//        super.changeSceneTo("routeExample");
-//    }
-
     @FXML
     public void goToRouteExample(ActionEvent e) {
         toAStar();
     }
-    
+
     public void zoomImg(MouseEvent e) {
         ImageView source = (ImageView) e.getSource();
         Image src = source.getImage();
