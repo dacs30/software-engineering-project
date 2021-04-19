@@ -1,5 +1,6 @@
 package edu.wpi.MochaManticores.Algorithms;
 
+import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 
 import java.util.ArrayList;
@@ -21,8 +22,8 @@ public class AStar2 {
     private NodeSuper target;                   //The node being searched for
 
     //Constructor
-    public AStar2(HashMap<String, NodeSuper> nodes) {
-        this.nodes = nodes;
+    public AStar2() {
+        this.nodes = MapSuper.getMap();
     }
 
     /**
