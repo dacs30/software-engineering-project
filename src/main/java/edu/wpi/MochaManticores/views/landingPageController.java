@@ -47,7 +47,7 @@ public class landingPageController extends SceneController {
     message.setMaxHeight(Region.USE_PREF_SIZE);
     message.setMaxHeight(Region.USE_PREF_SIZE);
 
-    final Text hearder = new Text("Are you sure it is an emergency?");
+    final Text hearder = new Text("Are you sure it is an emergency?\n Do this");
     hearder.setStyle("-fx-font-weight: bold");
     hearder.setStyle("-fx-font-size: 30");
     hearder.setStyle("-fx-font-family: Roboto");

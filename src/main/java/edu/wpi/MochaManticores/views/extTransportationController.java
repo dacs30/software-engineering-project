@@ -56,6 +56,53 @@ public class extTransportationController extends SceneController {
         loadSubmitDialog();
     }
 
+    public void helpButton(ActionEvent actionEvent){loadHelpDialogue();}
+
+    private void loadDialog(){
+        JFXDialogLayout message = new JFXDialogLayout();
+        message.setMaxHeight(Region.USE_COMPUTED_SIZE);
+        message.setMaxHeight(Region.USE_COMPUTED_SIZE);
+
+        final Text hearder = new Text("Help Page");
+        hearder.setStyle("-fx-font-weight: bold");
+        hearder.setStyle("-fx-font-size: 60");
+        hearder.setStyle("-fx-font-family: Roboto");
+        hearder.setStyle("-fx-alignment: center");
+        message.setHeading(hearder);
+
+        final Text body = new Text("Patient room: This is the room number given to the patient by the hospital.\n" +
+                "Current Room: is where the patient is currently staying until transportation out of the hospital.\n" +
+                "External Room: is the location where the patient is going to be transported to\n" +
+                "Transportation Method: This is a dropdown menu that you select which type of transportation the patient will take. ");
+
+        body.setStyle("-fx-font-size: 40");
+        body.setStyle("-fx-font-family: Roboto");
+        body.setStyle("-fx-alignment: center");
+
+        message.setBody(body);
+
+
+        JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
+
+        JFXButton cont = new JFXButton("CONTINUE");
+        cont.setOnAction(event -> {
+            dialog.close();
+            dialogPane.toBack();
+        });
+
+        dialog.setOnDialogClosed(event -> {
+            dialogPane.toBack();
+        });
+
+        message.setActions(cont);
+        dialog.show();
+
+    }
+    private void loadHelpDialogue() {
+        dialogPane.toFront();
+        loadDialog();
+    }
+
     public void loadSubmitDialog(){
         //TODO Center the text of it.
         dialogPane.toFront();
