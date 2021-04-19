@@ -72,11 +72,11 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <JFXButton onAction="#loadLOne" prefHeight="50.0" prefWidth="60.0" style="-fx-background-color: #0f4b91;" text="LL1" textFill="WHITE" GridPane.halignment="CENTER">
+                              <JFXButton onAction="#loadL1" prefHeight="50.0" prefWidth="60.0" style="-fx-background-color: #0f4b91;" text="LL1" textFill="WHITE" GridPane.halignment="CENTER">
                                  <font>
                                     <Font size="20.0" />
                                  </font></JFXButton>
-                              <JFXButton onAction="#loadLTwo" prefHeight="50.0" prefWidth="60.0" style="-fx-background-color: #0f4b91;" text="LL2" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                              <JFXButton onAction="#loadL2" prefHeight="50.0" prefWidth="60.0" style="-fx-background-color: #0f4b91;" text="LL2" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                                  <font>
                                     <Font size="20.0" />
                                  </font></JFXButton>
@@ -95,7 +95,7 @@
                                  <font>
                                     <Font size="20.0" />
                                  </font></JFXButton>
-                              <JFXButton onAction="#loadFOne" prefHeight="50.0" prefWidth="60.0" style="-fx-background-color: #0f4b91;" text="F1" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                              <JFXButton onAction="#loadF1" prefHeight="50.0" prefWidth="60.0" style="-fx-background-color: #0f4b91;" text="F1" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                                  <font>
                                     <Font size="20.0" />
                                  </font></JFXButton>
@@ -110,11 +110,11 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <JFXButton onAction="#loadFTwo" prefHeight="50.0" prefWidth="60.0" style="-fx-background-color: #0f4b91;" text="F2" textFill="WHITE" GridPane.halignment="CENTER">
+                              <JFXButton onAction="#loadF2" prefHeight="50.0" prefWidth="60.0" style="-fx-background-color: #0f4b91;" text="F2" textFill="WHITE" GridPane.halignment="CENTER">
                                  <font>
                                     <Font size="20.0" />
                                  </font></JFXButton>
-                              <JFXButton onAction="#loadFThree" prefHeight="50.0" prefWidth="60.0" style="-fx-background-color: #0f4b91;" text="F3" textFill="#fcfcfc" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                              <JFXButton onAction="#loadF3" prefHeight="50.0" prefWidth="60.0" style="-fx-background-color: #0f4b91;" text="F3" textFill="#fcfcfc" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                                  <font>
                                     <Font size="20.0" />
                                  </font></JFXButton>

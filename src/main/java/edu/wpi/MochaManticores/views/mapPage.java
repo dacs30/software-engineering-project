@@ -3,38 +3,29 @@ package edu.wpi.MochaManticores.views;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
-import com.sun.prism.image.ViewPort;
 import edu.wpi.MochaManticores.Algorithms.AStar;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import javafx.event.ActionEvent;
-import javafx.geometry.BoundingBox;
-import javafx.geometry.Bounds;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.input.MouseEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.LineTo;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.layout.VBox;
 import javafx.geometry.Pos;
 
-import java.awt.*;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -139,7 +130,7 @@ public class mapPage extends SceneController {
         //mapWindow.fitHeightProperty().bind(mapStack.widthProperty());
         //mapWindow.fitHeightProperty().bind(mapStack.heightProperty());
 
-        loadFOne();
+        loadL1();
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
@@ -252,7 +243,7 @@ public class mapPage extends SceneController {
         mapWindow.setViewport(z);
     }
 
-    public void loadLOne() {
+    public void loadL1() {
         locationTitle.setText("Lower Level 1");
         Image img = new Image(location + "00_thelowerlevel1.png");
         setSelectedFloor("L1");
@@ -261,7 +252,7 @@ public class mapPage extends SceneController {
 
     }
 
-    public void loadLTwo() {
+    public void loadL2() {
         locationTitle.setText("Lower Level 2");
         setSelectedFloor("L2");
 
@@ -281,7 +272,7 @@ public class mapPage extends SceneController {
 
     }
 
-    public void loadFOne() {
+    public void loadF1() {
         locationTitle.setText("Floor 1");
         setSelectedFloor("1");
 
@@ -291,7 +282,7 @@ public class mapPage extends SceneController {
 
     }
 
-    public void loadFTwo() {
+    public void loadF2() {
         locationTitle.setText("Floor 2");
         setSelectedFloor("2");
 
@@ -301,11 +292,11 @@ public class mapPage extends SceneController {
 
     }
 
-    public void loadFThree() {
+    public void loadF3() {
         locationTitle.setText("Floor 3");
         setSelectedFloor("L3");
 
-        Image img = new Image(location + "00_thegroundfloor.png");
+        Image img = new Image(location + "03_thethirdfloor.png");
         setZoom(img, 0, 0, noZoom);
         drawNodes();
     }
@@ -335,26 +326,26 @@ public class mapPage extends SceneController {
                 System.out.printf("\n%s\n|\n", MapSuper.getMap().get(str).getLongName());
                 pathToTake.append(MapSuper.getMap().get(str).getLongName()).append("\n|\n");//appending the paths
             }
-            LinkedList<Line> lines = new LinkedList();
-
-            for (int i = 0; i < path.size() - 1; i++) {
-                try {
-                    node start = nodes.get(path.get(i+1));
-                    node end = nodes.get(path.get(i+1));
-                    double startX= start.xCoord;
-                    double startY = start.yCoord;
-                    double endX= end.xCoord;
-                    double endY= end.yCoord;
-                    Line l = new Line(startX,startY,endX,endY);
-                    l.setStroke(Color.BLACK);
-                    l.setStrokeWidth(5);
-                    lines.add(l);
-                } catch (Exception e){
-                    System.out.println("Got here");
-                }
-
-            }
-            nodePane.getChildren().addAll(lines);
+//            LinkedList<Line> lines = new LinkedList();
+//
+//            for (int i = 0; i < path.size() - 1; i++) {
+//                try {
+//                    node start = nodes.get(path.get(i+1));
+//                    node end = nodes.get(path.get(i+1));
+//                    double startX= start.xCoord;
+//                    double startY = start.yCoord;
+//                    double endX= end.xCoord;
+//                    double endY= end.yCoord;
+//                    Line l = new Line(startX,startY,endX,endY);
+//                    l.setStroke(Color.BLACK);
+//                    l.setStrokeWidth(5);
+//                    lines.add(l);
+//                } catch (Exception e){
+//                    System.out.println("Got here");
+//                }
+//
+//            }
+//            nodePane.getChildren().addAll(lines);
             for (node n :
                     pitStops) {
                 n.resetFill();
