@@ -21,7 +21,7 @@
                 <Image url="@../images/100909_00_BrighamWomens_BTM_N8_966x668.jpg" />
             </image>
         </ImageView>
-        <GridPane fx:id="contentPane" prefHeight="800.0" prefWidth="1207.0">
+        <GridPane fx:id="contentPane" prefHeight="800.0" prefWidth="1207.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
