@@ -21,7 +21,8 @@ public class FloralSceneController extends SceneController {
   private JFXTextField delivDate;
   @FXML
   private JFXTextArea personalNote;
-
+  @FXML
+  private JFXTextField assignEmp;
   @FXML
   private JFXCheckBox tulip;
   @FXML
