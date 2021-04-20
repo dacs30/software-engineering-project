@@ -386,7 +386,7 @@ public class nodePage extends SceneController{
         System.out.println(file.getAbsolutePath());
 
         try {
-            Mdb.databaseChangeCSVs(App.getEdgeManager().getEdge_csv_path(), file.getAbsolutePath());
+            Mdb.databaseChangeCSVs(EdgeManager.getEdge_csv_path(), file.getAbsolutePath());
         } catch (FileNotFoundException fileNotFoundException) {
             fileNotFoundException.printStackTrace();
         } catch (SQLException throwables) {
@@ -470,7 +470,7 @@ public class nodePage extends SceneController{
             catch (
                     NullPointerException exception
             ) {
-                App.getNodeManager().addNode(connection, nodeIDField.getText(),
+                NodeManager.addNode(connection, nodeIDField.getText(),
                 xcoordField.getText(),
                 ycoordField.getText(),
                 floorField.getText(),
@@ -494,7 +494,7 @@ public class nodePage extends SceneController{
                 return;
             }
 
-            App.getNodeManager().updateNode(connection, n.nodeID.get(), nodeSuper.getID(), Integer.parseInt(n.getXcoord()),
+            NodeManager.updateNode(connection, n.nodeID.get(), nodeSuper.getID(), Integer.parseInt(n.getXcoord()),
                     Integer.parseInt(n.ycoord.get()), n.getFloor(), n.getBuilding(), nodeSuper.getType(), n.getLongName(), n.getShortName());
             //TODO:Talk to CSV Manager
             //NODETYPE IS NOT CHANGED AS WELL AS NEIGHBORS
@@ -577,7 +577,7 @@ public class nodePage extends SceneController{
                 sqlException.printStackTrace();
                 return;
             }
-            App.getNodeManager().delNode(connection, selectedNode.getNodeID());
+            NodeManager.delNode(connection, selectedNode.getNodeID());
             cancelEdit(null);
         }
     }

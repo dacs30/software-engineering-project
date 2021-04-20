@@ -2,7 +2,6 @@ package edu.wpi.MochaManticores.database;
 
 import edu.wpi.MochaManticores.Algorithms.AStar;
 import edu.wpi.MochaManticores.Nodes.*;
-
 import java.io.*;
 import java.sql.*;
 import java.util.HashMap;
@@ -227,5 +226,9 @@ public class NodeManager {
         String sql = "DELETE FROM NODES";
         PreparedStatement pstmt = connection.prepareStatement(sql);
         int result = pstmt.executeUpdate();
+
+        //clean hashmap
+        MapSuper.getMap().clear();
+
     }
 }

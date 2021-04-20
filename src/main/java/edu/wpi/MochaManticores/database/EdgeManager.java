@@ -197,5 +197,8 @@ public class EdgeManager {
         String sql = "DELETE FROM EDGES";
         PreparedStatement pstmt = connection.prepareStatement(sql);
         int result = pstmt.executeUpdate();
+
+        //clean hashmap
+        EdgeMapSuper.getMap().clear();
     }
 }
