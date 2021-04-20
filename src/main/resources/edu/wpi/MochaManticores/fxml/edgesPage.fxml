@@ -184,7 +184,7 @@
                   </TableView>
                   <HBox alignment="CENTER" prefHeight="110.0" prefWidth="1009.0" spacing="75.0" translateY="100.0">
                      <children>
-                        <JFXButton id="csvButton" fx:id="loadCustomCSV" buttonType="RAISED" cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="186.0" ripplerFill="BLACK" style="-fx-background-color: white;" text="Load Custom CSV">
+                        <JFXButton id="csvButton" fx:id="loadCustomCSV" buttonType="RAISED" cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#loadCustomCSV" prefHeight="65.0" prefWidth="186.0" ripplerFill="BLACK" style="-fx-background-color: white;" text="Load Custom CSV">
                            <font>
                               <Font size="20.0" />
                            </font>

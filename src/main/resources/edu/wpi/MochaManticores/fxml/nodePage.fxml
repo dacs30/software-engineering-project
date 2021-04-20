@@ -144,7 +144,7 @@
                                     <Font size="40.0" />
                                  </font>
                               </JFXButton>
-                              <JFXButton id="loadBtn" fx:id="customCSV" alignment="CENTER" buttonType="RAISED" cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="194.0" ripplerFill="BLACK" style="-fx-background-color: white;" text="Load Custom CSV" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                              <JFXButton id="loadBtn" fx:id="customCSV" alignment="CENTER" buttonType="RAISED" cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#loadCustomCSV" prefHeight="65.0" prefWidth="194.0" ripplerFill="BLACK" style="-fx-background-color: white;" text="Load Custom CSV" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
