@@ -1,17 +1,10 @@
 package edu.wpi.MochaManticores.views;
 import com.jfoenix.controls.*;
 import edu.wpi.MochaManticores.App;
-import java.awt.*;
-import java.io.IOException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
@@ -39,7 +32,7 @@ public class internalTransportationController extends SceneController{
     private ImageView backgroundIMG;
     @FXML
     private StackPane dialogPane;
-
+    
     @FXML
     private void initialize() {
         double height = App.getPrimaryStage().getScene().getHeight();
@@ -53,7 +46,7 @@ public class internalTransportationController extends SceneController{
 
         transportComboBox.setItems(typeOfTransportList);
 
-        dialogPane.setDisable(false);
+        dialogPane.toBack();
     }
 
     public void goBack(ActionEvent actionEvent) {
@@ -62,6 +55,52 @@ public class internalTransportationController extends SceneController{
 
     public void submitEvent(ActionEvent actionEvent) {
         loadSubmitDialog();
+    }
+    
+    public void helpButton(ActionEvent actionEvent){loadHelpDialogue();}
+
+    private void loadDialog(){
+        JFXDialogLayout message = new JFXDialogLayout();
+        message.setMaxHeight(Region.USE_COMPUTED_SIZE);
+        message.setMaxHeight(Region.USE_COMPUTED_SIZE);
+
+        final Text hearder = new Text("Help Page");
+        hearder.setStyle("-fx-font-weight: bold");
+        hearder.setStyle("-fx-font-size: 60");
+        hearder.setStyle("-fx-font-family: Roboto");
+        hearder.setStyle("-fx-alignment: center");
+        message.setHeading(hearder);
+
+        final Text body = new Text("Patient ID: This is the ID given to the patient by the hospital.\n" +
+                                   "Number of staff: is for the number of staff recommended to transport a patient.\n" +
+                                   "Destination: Room or location where the patient is going to be transported to.\n" +
+                                   "Method of Transportation: Dropdown menu with 3 options:(wheelchair,walker, medical bed).");
+        body.setStyle("-fx-font-size: 40");
+        body.setStyle("-fx-font-family: Roboto");
+        body.setStyle("-fx-alignment: center");
+
+        message.setBody(body);
+
+
+        JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
+
+        JFXButton cont = new JFXButton("CONTINUE");
+        cont.setOnAction(event -> {
+            dialog.close();
+            dialogPane.toBack();
+        });
+
+        dialog.setOnDialogClosed(event -> {
+            dialogPane.toBack();
+        });
+
+        message.setActions(cont);
+        dialog.show();
+
+    }
+    private void loadHelpDialogue() {
+        dialogPane.toFront();
+        loadDialog();
     }
 
     public void loadSubmitDialog(){

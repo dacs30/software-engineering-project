@@ -25,7 +25,7 @@
       </ImageView>
       <StackPane fx:id="dialogPane" prefHeight="800.0" prefWidth="1207.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <JFXDialog visible="false">
+            <JFXDialog id="message" visible="false">
                <children>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" />
                </children></JFXDialog>
@@ -54,17 +54,9 @@
                         <Image url="@../images/logo-small.png" />
                      </image>
                   </ImageView>
-                  <JFXButton id="backBtnFoodDelivery" buttonType="RAISED" onAction="#backBtn" stylesheets="@../stylesheets.css" text="BACK" textFill="WHITE" GridPane.rowIndex="1">
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <GridPane.margin>
-                        <Insets bottom="30.0" />
-                     </GridPane.margin>
-                  </JFXButton>
                </children>
             </GridPane>
-            <GridPane maxHeight="700.0" maxWidth="1000.0" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #0F4B91;" stylesheets="@../stylesheets.css" GridPane.columnIndex="1">
+            <GridPane maxHeight="700.0" maxWidth="1000.0" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #0F4B91;" stylesheets="@../Stylesheets/foodDelivery.css" GridPane.columnIndex="1">
               <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
@@ -113,8 +105,14 @@
                   </GridPane>
                   <JFXComboBox fx:id="foodMenu" focusColor="WHITE" promptText="Menu" stylesheets="@../stylesheets.css" unFocusColor="WHITE" GridPane.rowIndex="3" />
                   <JFXButton id="submitBtnFoodDelivery" onAction="#submitForm" stylesheets="@../stylesheets.css" text="SUBMIT" GridPane.rowIndex="4" />
+                  <JFXButton id="helpBtn" onAction="#helpButton" prefHeight="54.0" prefWidth="80.0" text="HELP" translateX="100.0" GridPane.halignment="LEFT" />
                </children>
             </GridPane>
+            <JFXButton id="backBtnFoodDelivery" buttonType="RAISED" onAction="#goBack" prefHeight="65.0" prefWidth="127.0" style="-fx-background-color: 0F4B91;" stylesheets="@../stylesheets.css" text="BACK" textFill="WHITE" translateY="300.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </JFXButton>
          </children>
       </GridPane>
    </children>

@@ -13,7 +13,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.scene.image.ImageView;
 
-public class FoodDelivery extends SceneController{
+public class FoodDelivery extends SceneController {
 
     @FXML
     private JFXComboBox<String> dietaryPreferences;
@@ -30,12 +30,68 @@ public class FoodDelivery extends SceneController{
     @FXML
     private ImageView backgroundIMG;
 
+    @FXML
+    private JFXButton backBtn;
+
+    @FXML
+    private void goBack(ActionEvent e) {
+        back();
+    }
+
+    public void helpButton(ActionEvent actionEvent){loadFullHelpDialogue();}
+
+    private void loadHelpDialog(){
+        JFXDialogLayout message = new JFXDialogLayout();
+        message.setMaxHeight(Region.USE_COMPUTED_SIZE);
+        message.setMaxHeight(Region.USE_COMPUTED_SIZE);
+
+        final Text hearder = new Text("Help Page");
+        hearder.setStyle("-fx-font-weight: bold");
+        hearder.setStyle("-fx-font-size: 60");
+        hearder.setStyle("-fx-font-family: Roboto");
+        hearder.setStyle("-fx-alignment: center");
+        message.setHeading(hearder);
+
+        final Text body = new Text("Patient room: This is the room number given to the patient by the hospital.\n" +
+                "Current Room: is where the patient is currently staying until transportation out of the hospital.\n" +
+                "External Room: is the location where the patient is going to be transported to\n" +
+                "Transportation Method: This is a dropdown menu that you select which type of transportation the patient will take. ");
+
+        body.setStyle("-fx-font-size: 40");
+        body.setStyle("-fx-font-family: Roboto");
+        body.setStyle("-fx-alignment: center");
+
+        message.setBody(body);
+
+
+        JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
+
+        JFXButton cont = new JFXButton("CONTINUE");
+        cont.setOnAction(event -> {
+            dialog.close();
+            dialogPane.toBack();
+        });
+
+        dialog.setOnDialogClosed(event -> {
+            dialogPane.toBack();
+        });
+
+        message.setActions(cont);
+        dialog.show();
+
+    }
+    private void loadFullHelpDialogue() {
+        dialogPane.toFront();
+        loadHelpDialog();
+    }
+
+
     public void initialize() {
         double height = App.getPrimaryStage().getScene().getHeight();
         double width = App.getPrimaryStage().getScene().getWidth();
         backgroundIMG.setFitHeight(height);
         backgroundIMG.setFitWidth(width);
-        contentGrid.setPrefSize(width,height);
+        contentGrid.setPrefSize(width, height);
 
         backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
         backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
@@ -47,10 +103,11 @@ public class FoodDelivery extends SceneController{
 
         // TODO Condition of menus depending of the dietary preference
         foodMenu.getItems().clear();
-        foodMenu.getItems().addAll("Menu 0","Menu 1", "Menu 2", "Menu 3");
+        foodMenu.getItems().addAll("Menu 0", "Menu 1", "Menu 2", "Menu 3");
 
-        dialogPane.setDisable(false);
+        //dialogPane.setDisable(false);
     }
+
 
     public void submitForm(ActionEvent e) {
         // TODO Submit action
@@ -59,7 +116,7 @@ public class FoodDelivery extends SceneController{
         loadDialog();
     }
 
-    public void loadDialog(){
+    public void loadDialog() {
         //TODO Center the text of it.
 
         dialogPane.toFront();
@@ -82,7 +139,7 @@ public class FoodDelivery extends SceneController{
         message.setHeading(hearder);
 
         message.setBody(body);
-        JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
+        JFXDialog dialog = new JFXDialog(dialogPane, message, JFXDialog.DialogTransition.CENTER);
         JFXButton exit = new JFXButton("OK!");
         exit.setOnAction(event -> {
             back();
@@ -94,9 +151,6 @@ public class FoodDelivery extends SceneController{
         message.setActions(exit);
         dialog.show();
 
-        }
-
-    public void backBtn(ActionEvent e) {
-        back();
     }
+
 }

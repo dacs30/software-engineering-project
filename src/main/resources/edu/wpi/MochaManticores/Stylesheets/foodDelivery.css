@@ -5,14 +5,21 @@
     -fx-font-weight: bold;
 }
 
-#internalTransportationLabel {
+#helpBtn {
+    -fx-background-color: #FFFFFF;
+    -fx-font-family: Roboto;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+}
+
+#oodDeliveryTitleLabel {
     -fx-font-weight: bold;
     -fx-font-family: Roboto;
     -fx-font-size: 50;
 }
 
 .jfx-text-field {
-    -fx-font-size: 20;
+    -fx-font-size: 30;
     -fx-font-weight: bold;
     -fx-text-fill : #ffffff;
     -jfx-unfocus-color : #ffffff;
@@ -20,23 +27,6 @@
     -fx-prompt-text-fill: white;
 }
 
-
-.jfx-combo-box {
-    -fx-prompt-text-fill: grey ;
-    -fx-background-color: white;
-    -fx-font-size: 20;
-    -fx-pref-width: 400;
-    -fx-font-family: Roboto;
-}
-.jfx-combo-box .text-field:focused {
-    -fx-prompt-text-fill: transparent ;
-}
-#helpBtn{
-    -fx-background-color: #FFFFFF;
-    -fx-font-family: Roboto;
-    -fx-font-size: 20;
-    -fx-font-weight: bold;
-}
 
 #submitBtn{
     -fx-background-color: #FFFFFF;
