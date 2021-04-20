@@ -153,8 +153,8 @@ public class mapPage extends SceneController {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                mapWindow.setFitWidth(App.getPrimaryStage().getWidth() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinX());
-                mapWindow.setFitHeight(App.getPrimaryStage().getHeight()*.70);
+                mapWindow.setFitWidth(App.getPrimaryStage().getWidth() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinX()-50);
+                mapWindow.setFitHeight(App.getPrimaryStage().getHeight() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinY()-50);
 
                 System.out.println(App.getPrimaryStage().getWidth() + " - " + mapStack.localToScene(mapStack.getBoundsInLocal()).getMinX() + " = " + mapWindow.getFitWidth());
             }
@@ -176,12 +176,12 @@ public class mapPage extends SceneController {
         mapWindow.setOnMouseMoved(eventHandler);
 
         App.getPrimaryStage().widthProperty().addListener((obs, oldVal, newVal) -> {
-            mapWindow.setFitWidth(mapWindow.getFitWidth() + (newVal.doubleValue() - oldVal.doubleValue()));
+            mapWindow.setFitWidth(App.getPrimaryStage().getWidth() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinX()-50);
             drawNodes();
         });
 
         App.getPrimaryStage().heightProperty().addListener((obs, oldVal, newVal) -> {
-            mapWindow.setFitHeight(mapWindow.getFitHeight() + (newVal.doubleValue()- oldVal.doubleValue()));
+            mapWindow.setFitHeight(App.getPrimaryStage().getHeight() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinY()-50);
             drawNodes();
         });
 
@@ -197,7 +197,7 @@ public class mapPage extends SceneController {
         dialogPane.toBack();
 
         //center Vbox
-        pitstopsLabel.setAlignment(Pos.CENTER);
+        //pitstopsLabel.setAlignment(Pos.CENTER);
 
 
     }
