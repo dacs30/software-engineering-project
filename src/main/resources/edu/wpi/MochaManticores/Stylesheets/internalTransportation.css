@@ -19,6 +19,14 @@
     -fx-max-width: 400;
     -fx-prompt-text-fill: white;
 }
+.jfx-text-area {
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-text-fill : #ffffff;
+    -jfx-unfocus-color : #ffffff;
+    -fx-max-width: 400;
+    -fx-prompt-text-fill: white;
+}
 
 
 .jfx-combo-box {
