@@ -8,6 +8,7 @@ import edu.wpi.MochaManticores.Algorithms.AStar2;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
@@ -142,17 +143,26 @@ public class mapPage extends SceneController {
         mapWindow.setPreserveRatio(false);
         //mapWindow.fitHeightProperty().bind(mapStack.widthProperty());
         //mapWindow.fitHeightProperty().bind(mapStack.heightProperty());
-        loadF1();
+        //loadF1();
 
         System.out.println("1");
 
         //mapWindow.setFitWidth(App.getPrimaryStage().getWidth() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinX());
         //mapWindow.setFitHeight(App.getPrimaryStage().getHeight() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinX());
 
-        mapWindow.setFitWidth(App.getPrimaryStage().getWidth()*.75);
-        mapWindow.setFitHeight(App.getPrimaryStage().getHeight()*.70);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                mapWindow.setFitWidth(App.getPrimaryStage().getWidth() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinX());
+                mapWindow.setFitHeight(App.getPrimaryStage().getHeight()*.70);
 
-        System.out.println(App.getPrimaryStage().getWidth() + " - " + mapGrid.localToScene(mapGrid.getBoundsInLocal()).getMinX() + " = " + mapWindow.getFitWidth());
+                System.out.println(App.getPrimaryStage().getWidth() + " - " + mapStack.localToScene(mapStack.getBoundsInLocal()).getMinX() + " = " + mapWindow.getFitWidth());
+            }
+        });
+//        mapWindow.setFitWidth(App.getPrimaryStage().getWidth()*.75);
+//        mapWindow.setFitHeight(App.getPrimaryStage().getHeight()*.70);
+//
+//        System.out.println(App.getPrimaryStage().getWidth() + " - " + mapGrid.localToScene(mapGrid.getBoundsInLocal()).getMinX() + " = " + mapWindow.getFitWidth());
 
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override
