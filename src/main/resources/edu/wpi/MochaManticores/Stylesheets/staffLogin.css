@@ -1,0 +1,45 @@
+#getStartedText {
+    -fx-font-family: "Roboto";
+    -fx-font-size: 60;
+    -fx-font-weight: bold;
+}
+
+#loginInformationText {
+    -fx-font-family: Roboto;
+    -fx-font-size: 15;
+    -fx-font-weight: bold;
+}
+
+.jfx-text-field, .jfx-password-field {
+    -fx-prompt-text-fill: WHITE;
+    -jfx-focus-color: WHITE;
+    -jfx-unfocus-color: WHITE;
+    -fx-text-fill: WHITE;
+}
+
+.jfx-text-area {
+    -fx-prompt-text-fill: WHITE;
+    -jfx-focus-color: GREY;
+    -jfx-unfocus-color: WHITE;
+}
+
+#emergencyBtn {
+    -fx-background-color: #E74C3C;
+    -fx-font-family: Roboto;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+}
+
+#patientBtn {
+    -fx-background-color: white;
+    -fx-font-family: Roboto;
+    -fx-font-size: 15;
+    -fx-font-weight: bold;
+}
+
+#inputEmpUserName, #password {
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-text-fill : #ffffff;
+    -jfx-unfocus-color : #ffffff;
+}

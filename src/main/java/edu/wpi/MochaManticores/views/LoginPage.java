@@ -96,7 +96,7 @@ public class LoginPage extends SceneController{
 
     public void staffMenu(ActionEvent e) {
         App.setClearenceLevel(2);
-        super.changeSceneTo("staffMainMenu");
+        changeSceneTo("employeeLogin");
     }
 
     public void exitApp(ActionEvent e){

@@ -3,7 +3,6 @@ package edu.wpi.MochaManticores.views;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
-import edu.wpi.MochaManticores.Algorithms.AStar;
 import edu.wpi.MochaManticores.Algorithms.AStar2;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
