@@ -25,7 +25,7 @@ public class EdgeManager {
                 if(line == null) break;
                 String[] row = line.split(CSVdelim);
 
-                EdgeManager.addEdge_db(connection,row[0],row[1],row[2]);
+                addEdge_db(connection,row[0],row[1],row[2]);
             }
         } catch (FileNotFoundException | SQLException e){
             e.printStackTrace();
@@ -36,8 +36,8 @@ public class EdgeManager {
 
     public static void addEdge(Connection connection, String newEdgeID, String newStart, String newEnd) throws SQLException{
         try{
-            EdgeManager.addEdge_db(connection,newEdgeID,newStart,newEnd);
-            EdgeManager.addEdge_map(newEdgeID,newStart,newEnd);
+            addEdge_db(connection,newEdgeID,newStart,newEnd);
+            addEdge_map(newEdgeID,newStart,newEnd);
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -126,7 +126,7 @@ public class EdgeManager {
         Statement stmt = connect.createStatement();
         ResultSet results = stmt.executeQuery(sql);
         while (results.next()) {
-            EdgeManager.addEdge_map(results.getString(1),results.getString(2),results.getString(3));
+            addEdge_map(results.getString(1),results.getString(2),results.getString(3));
         }
     }
 
@@ -141,7 +141,7 @@ public class EdgeManager {
             pstmt.setString(4, oldEdgeID);
             pstmt.executeUpdate();
 
-            EdgeManager.delEdge(connection,oldEdgeID);
+            delEdge(connection,oldEdgeID);
 
             EdgeSuper edge = new EdgeSuper(newEdgeID, newStart, newEnd);
             EdgeMapSuper.getMap().put(newEdgeID, edge);
@@ -197,5 +197,8 @@ public class EdgeManager {
         String sql = "DELETE FROM EDGES";
         PreparedStatement pstmt = connection.prepareStatement(sql);
         int result = pstmt.executeUpdate();
+
+        //clean hashmap
+        EdgeMapSuper.getMap().clear();
     }
 }
