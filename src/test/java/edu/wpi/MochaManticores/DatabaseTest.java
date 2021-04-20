@@ -68,8 +68,8 @@ public class DatabaseTest {
 
     //clean database test
     @Test
-    public static void cleanDB() throws FileNotFoundException, SQLException, InvalidUserException {
-        Mdb.databaseChangeCSVs("/data/bwMEdges.csv","/data/bwMNodes.csv");
+    public void cleanDB() throws FileNotFoundException, SQLException, InvalidUserException {
+        Mdb.databaseChangeCSVs("data/bwMEdges.csv","data/bwMNodes.csv");
     }
 
     // employee database test cases

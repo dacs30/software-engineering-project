@@ -148,6 +148,6 @@ public class EmployeeManager {
     public static void cleanTable(Connection connection) throws SQLException {
         String sql = "DELETE FROM EMPLOYEES";
         PreparedStatement pstmt = connection.prepareStatement(sql);
-        ResultSet result = pstmt.executeQuery();
+        int result = pstmt.executeUpdate();
     }
 }
