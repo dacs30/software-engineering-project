@@ -162,8 +162,20 @@ public class Mdb extends Thread{
         }
     }
 
-
-
+    public static void databaseChangeCSVs(String edgeCSV, String nodeCSV) throws FileNotFoundException, SQLException {
+        //save data before changing paths
+        NodeManager.saveNodes(connection);
+        EdgeManager.saveEdges(connection);
+        //change paths
+        NodeManager.setNode_csv_path(nodeCSV);
+        EdgeManager.setEdge_csv_path(edgeCSV);
+        //Clean data tables in Mdatabase
+        NodeManager.cleanTable(connection);
+        EdgeManager.cleanTable(connection);
+        //load new data
+        NodeManager.loadFromCSV(connection);
+        EdgeManager.loadFromCSV(connection);
+    }
 
     public static void showMenu() {
         System.out.print("1 - Node Information\n" +

@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 public class NodeManager {
-    private static final String Node_csv_path = "data/bwMNodes.csv";
+    private static String Node_csv_path = "data/bwMNodes.csv";
     private static final String CSVdelim = ",";
 
     public static void loadFromCSV(Connection connect){
@@ -215,4 +215,17 @@ public class NodeManager {
         return null;
     }
 
+    public static String getNode_csv_path() {
+        return Node_csv_path;
+    }
+
+    public static void setNode_csv_path(String node_csv_path) {
+        Node_csv_path = "data/"+node_csv_path;
+    }
+
+    public static void cleanTable(Connection connection) throws SQLException {
+        String sql = "DELETE FROM NODES";
+        Statement stmt = connection.createStatement();
+        stmt.executeQuery(sql);
+    }
 }

@@ -12,7 +12,7 @@ import java.sql.*;
 import java.util.Map;
 
 public class EdgeManager {
-    private static final String Edge_csv_path = "data/bwMEdges.csv";
+    private static String Edge_csv_path = "data/bwMEdges.csv";
     private static final String CSVdelim = ",";
 
     public static void loadFromCSV(Connection connection){
@@ -183,5 +183,19 @@ public class EdgeManager {
 
 
         System.out.println(sb.toString());
+    }
+
+    public static String getEdge_csv_path() {
+        return Edge_csv_path;
+    }
+
+    public static void setEdge_csv_path(String edge_csv_path) {
+        Edge_csv_path = "data/"+edge_csv_path;
+    }
+
+    public static void cleanTable(Connection connection) throws SQLException {
+        String sql = "DELETE FROM EDGES";
+        Statement stmt = connection.createStatement();
+        stmt.executeQuery(sql);
     }
 }

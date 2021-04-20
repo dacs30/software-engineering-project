@@ -8,9 +8,8 @@ import java.io.*;
 import java.sql.*;
 
 public class EmployeeManager {
-    private static final String Employee_csv_path = "data/bwMEmployees.csv";
+    private static String Employee_csv_path = "data/bwMEmployees.csv";
     private static final String CSVdelim = ",";
-
 
     public static void loadFromCSV(Connection connection){
         //loads database
@@ -124,7 +123,7 @@ public class EmployeeManager {
         return emp;
     }
 
-    public static Employee checkAdminLogin(Connection connection, String username, String password) throws InvalidLoginException, InvalidPermissionsException, InvalidUserException {
+    public static Employee checkAdminLogin(Connection connection, String username, String password) throws InvalidLoginException, InvalidPermissionsException, InvalidUserException     {
         Employee emp = EmployeeManager.getEmployee(connection, username);
 
         if(!emp.getPassword().equals(password)){
@@ -136,5 +135,19 @@ public class EmployeeManager {
         }
 
         return emp;
+    }
+
+    public static String getEmployee_csv_path() {
+        return Employee_csv_path;
+    }
+
+    public static void setEmployee_csv_path(String employee_csv_path) {
+        Employee_csv_path = "data/"+employee_csv_path;
+    }
+
+    public static void cleanTable(Connection connection) throws SQLException {
+        String sql = "DELETE FROM EMPLOYEES";
+        Statement stmt = connection.createStatement();
+        stmt.executeQuery(sql);
     }
 }
