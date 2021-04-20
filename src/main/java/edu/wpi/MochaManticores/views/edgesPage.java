@@ -29,6 +29,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 
 import java.io.FileNotFoundException;
 import java.sql.Connection;
@@ -168,6 +169,23 @@ public class edgesPage extends SceneController{
 
     public void displayTable() {
 
+    }
+
+    public void loadCustomCSV(ActionEvent e){
+        FileChooser f = new FileChooser();
+        File file = f.showOpenDialog(App.getPrimaryStage());
+        if (file == null){
+            return;
+        }
+        System.out.println(file.getAbsolutePath());
+
+        try {
+            Mdb.databaseChangeCSVs(file.getAbsolutePath(), NodeManager.getNode_csv_path());
+        } catch (FileNotFoundException fileNotFoundException) {
+            fileNotFoundException.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     public void searchPressed(ActionEvent e){

@@ -9,6 +9,7 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
+import edu.wpi.MochaManticores.database.EdgeManager;
 import edu.wpi.MochaManticores.database.Mdb;
 import edu.wpi.MochaManticores.database.NodeManager;
 import javafx.beans.property.SimpleStringProperty;
@@ -27,6 +28,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
@@ -372,6 +374,23 @@ public class nodePage extends SceneController{
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
+        }
+    }
+
+    public void loadCustomCSV(ActionEvent e){
+        FileChooser f = new FileChooser();
+        File file = f.showOpenDialog(App.getPrimaryStage());
+        if (file == null){
+            return;
+        }
+        System.out.println(file.getAbsolutePath());
+
+        try {
+            Mdb.databaseChangeCSVs(EdgeManager.getEdge_csv_path(), file.getAbsolutePath());
+        } catch (FileNotFoundException fileNotFoundException) {
+            fileNotFoundException.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
     }
 
