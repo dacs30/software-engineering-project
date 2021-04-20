@@ -84,6 +84,12 @@ public class mapPage extends SceneController {
     @FXML
     private StackPane dialogPane;
 
+    @FXML
+    private Label placeClicked;
+
+    @FXML
+    private Label finalDestinationLabel;
+
     private String location = "edu/wpi/MochaManticores/images/";
 
     private String selectedFloor = "";
@@ -394,6 +400,14 @@ public class mapPage extends SceneController {
             node n = iter.next();
             if (n.c.equals(src)) {
                 //n.c.setFill(Color.RED);
+                if(pitStops.isEmpty()){
+                    // adds the text of the location where the user is to the top when clicked
+                    placeClicked.setText(MapSuper.getMap().get(n.nodeID).getLongName());
+                }
+                if(pitStops.size() == 1){
+                    // set the second destination clicked
+                    finalDestinationLabel.setText(MapSuper.getMap().get(n.nodeID).getLongName());
+                }
                 pitStops.add(n);
             }
         }

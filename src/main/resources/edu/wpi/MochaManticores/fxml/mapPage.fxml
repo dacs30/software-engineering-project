@@ -134,13 +134,14 @@
                   </JFXButton>
                </children>
             </GridPane>
-            <GridPane fx:id="mapGrid" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #0f4b91;" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
+            <GridPane fx:id="mapGrid" minHeight="-Infinity" minWidth="-Infinity" prefHeight="786.0" prefWidth="1019.0" style="-fx-background-color: #0f4b91;" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
                   <RowConstraints maxHeight="398.0" minHeight="10.0" prefHeight="77.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="728.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="398.0" minHeight="10.0" prefHeight="107.88887786865234" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="697.0740737915039" minHeight="10.0" prefHeight="646.1111221313477" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <Label fx:id="locationTitle" alignment="TOP_CENTER" text="Location" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER">
@@ -148,7 +149,7 @@
                         <Font size="48.0" />
                      </font>
                   </Label>
-                  <StackPane fx:id="mapStack" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+                  <StackPane fx:id="mapStack" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
                      <children>
                         <ImageView id="mapPane" fx:id="mapWindow" onMouseClicked="#drawCoord" pickOnBounds="true" preserveRatio="true" style="-fx-background-size: contain; -fx-background-repeat: no-repeat;" StackPane.alignment="CENTER">
                            <viewport>
@@ -161,6 +162,19 @@
                         <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
                      </GridPane.margin>
                   </StackPane>
+                  <GridPane GridPane.rowIndex="1">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label fx:id="placeClicked" textFill="WHITE" />
+                        <Label fx:id="finalDestinationLabel" textFill="WHITE" GridPane.columnIndex="1" />
+                     </children>
+                  </GridPane>
                </children>
             </GridPane>
          </children>
