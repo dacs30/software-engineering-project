@@ -37,6 +37,9 @@ public class sanitationServiceController extends SceneController {
     public JFXButton helpBtn;
 
     @FXML
+    public JFXTextField assignEmp;
+
+    @FXML
     public ImageView backgroundIMG;
 
     @FXML

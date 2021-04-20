@@ -4,9 +4,11 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import edu.wpi.MochaManticores.Algorithms.AStar;
+import edu.wpi.MochaManticores.Algorithms.AStar2;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
@@ -114,14 +116,16 @@ public class mapPage extends SceneController {
         backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
         backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
+
+
 //        contentPane.minHeightProperty().bind(App.getPrimaryStage().heightProperty());
 //        contentPane.maxHeightProperty().bind(App.getPrimaryStage().heightProperty());
 //
 //        contentPane.minWidthProperty().bind(App.getPrimaryStage().widthProperty());
 //        contentPane.maxWidthProperty().bind(App.getPrimaryStage().widthProperty());
 
-        mapWindow.fitWidthProperty().bind(App.getPrimaryStage().widthProperty().subtract(150 + mapWindow.localToScene(mapWindow.getBoundsInLocal()).getMinX()));
-        mapWindow.fitHeightProperty().bind(App.getPrimaryStage().heightProperty().subtract(150 + mapWindow.localToScene(mapWindow.getBoundsInLocal()).getMinY()));
+//        mapWindow.fitWidthProperty().bind(App.getPrimaryStage().widthProperty().subtract(150 + mapWindow.localToScene(mapWindow.getBoundsInLocal()).getMinX()));
+//        mapWindow.fitHeightProperty().bind(App.getPrimaryStage().heightProperty().subtract(150 + mapWindow.localToScene(mapWindow.getBoundsInLocal()).getMinY()));
 
 //        nodePane.widthProperty().bind(App.getPrimaryStage().widthProperty().subtract(150 + nodePane.localToScene(nodePane.getBoundsInLocal()).getMinX()));
 //        nodePane.heightProperty().bind(App.getPrimaryStage().heightProperty().subtract(150 + nodePane.localToScene(nodePane.getBoundsInLocal()).getMinY()));
@@ -139,21 +143,45 @@ public class mapPage extends SceneController {
         mapWindow.setPreserveRatio(false);
         //mapWindow.fitHeightProperty().bind(mapStack.widthProperty());
         //mapWindow.fitHeightProperty().bind(mapStack.heightProperty());
+        //loadF1();
 
-        loadL1();
+        System.out.println("1");
+
+        //mapWindow.setFitWidth(App.getPrimaryStage().getWidth() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinX());
+        //mapWindow.setFitHeight(App.getPrimaryStage().getHeight() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinX());
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                mapWindow.setFitWidth(App.getPrimaryStage().getWidth() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinX()-50);
+                mapWindow.setFitHeight(App.getPrimaryStage().getHeight() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinY()-50);
+
+                System.out.println(App.getPrimaryStage().getWidth() + " - " + mapStack.localToScene(mapStack.getBoundsInLocal()).getMinX() + " = " + mapWindow.getFitWidth());
+            }
+        });
+//        mapWindow.setFitWidth(App.getPrimaryStage().getWidth()*.75);
+//        mapWindow.setFitHeight(App.getPrimaryStage().getHeight()*.70);
+//
+//        System.out.println(App.getPrimaryStage().getWidth() + " - " + mapGrid.localToScene(mapGrid.getBoundsInLocal()).getMinX() + " = " + mapWindow.getFitWidth());
+
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
+                System.out.println("MinWidth: " + mapWindow.localToScene(mapWindow.getBoundsInLocal()).getMinX());
                 //zoomImg(e);
             }
         };
+
+        mapStack.setOnMouseClicked(eventHandler);
         mapWindow.setOnMouseMoved(eventHandler);
 
         App.getPrimaryStage().widthProperty().addListener((obs, oldVal, newVal) -> {
+            mapWindow.setFitWidth(App.getPrimaryStage().getWidth() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinX()-50);
             drawNodes();
         });
 
         App.getPrimaryStage().heightProperty().addListener((obs, oldVal, newVal) -> {
+            mapWindow.setFitHeight(App.getPrimaryStage().getHeight() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinY()-50);
             drawNodes();
         });
 
@@ -169,7 +197,7 @@ public class mapPage extends SceneController {
         dialogPane.toBack();
 
         //center Vbox
-        pitstopsLabel.setAlignment(Pos.CENTER);
+        //pitstopsLabel.setAlignment(Pos.CENTER);
 
 
     }
@@ -290,8 +318,11 @@ public class mapPage extends SceneController {
         setSelectedFloor("1");
 
         Image img = new Image(location + "01_thefirstfloor.png");
+
         setZoom(img, 0, 0, noZoom);
         drawNodes();
+
+
 
     }
 
@@ -322,7 +353,7 @@ public class mapPage extends SceneController {
     }
 
     public void toAStar() {
-        AStar star = new AStar();
+        AStar2 star = new AStar2();
         //pathToTake is used in the dialog box that keeps all the nodes that the user has to pass through
         StringBuilder pathToTake = new StringBuilder(new String());
         LinkedList<NodeSuper> stops = new LinkedList<>();
@@ -333,7 +364,7 @@ public class mapPage extends SceneController {
             pathToTake.append("Please select at least one node");
         }else{
 
-            LinkedList<String> path = star.path(stops);
+            LinkedList<String> path = star.multiStopRoute(stops);
 
             for(int i = 1; i < path.size(); i++){
                 Text aPartOfPath = new Text(path.get(i));

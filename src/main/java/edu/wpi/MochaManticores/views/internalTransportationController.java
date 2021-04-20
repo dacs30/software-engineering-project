@@ -25,6 +25,9 @@ public class internalTransportationController extends SceneController{
     @FXML
     private JFXTextField destination;
     @FXML
+    private JFXTextField assignEmp;
+
+    @FXML
     private JFXComboBox transportComboBox;
     @FXML
     private GridPane contentGrid;
