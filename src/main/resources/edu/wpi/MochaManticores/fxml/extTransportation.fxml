@@ -24,7 +24,7 @@
       </ImageView>
       <StackPane fx:id="dialogPane" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <JFXDialog />
+            <JFXDialog id="message" />
          </children>
       </StackPane>
       <GridPane fx:id="contentGrid" prefHeight="800.0" prefWidth="1207.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -68,6 +68,7 @@
                      </children>
                   </GridPane>
                   <JFXButton id="submitBtn" onAction="#submitEvent" text="SUBMIT" GridPane.rowIndex="2" />
+                  <JFXButton id="helpBtn" onAction="#helpButton" prefHeight="54.0" prefWidth="80.0" text="HELP" translateX="70.0" GridPane.halignment="LEFT" />
                </children>
             </GridPane>
             <GridPane prefHeight="800.0" prefWidth="228.0">

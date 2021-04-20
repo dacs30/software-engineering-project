@@ -3,38 +3,30 @@ package edu.wpi.MochaManticores.views;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
-import com.sun.prism.image.ViewPort;
 import edu.wpi.MochaManticores.Algorithms.AStar;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import javafx.event.ActionEvent;
-import javafx.geometry.BoundingBox;
-import javafx.geometry.Bounds;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.input.MouseEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.LineTo;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.layout.VBox;
 import javafx.geometry.Pos;
 
-import java.awt.*;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -92,8 +84,22 @@ public class mapPage extends SceneController {
     @FXML
     private StackPane dialogPane;
 
+    @FXML
+    private Label placeClicked;
+
+    @FXML
+    private Label finalDestinationLabel;
+
+    @FXML
+    private VBox pitstopsLabel;
+
     private String location = "edu/wpi/MochaManticores/images/";
 
+    private String selectedFloor = "";
+
+    public void setSelectedFloor(String selectedFloor) {
+        this.selectedFloor = selectedFloor;
+    }
 
     Rectangle2D noZoom;
     Rectangle2D zoomPort;
@@ -134,7 +140,7 @@ public class mapPage extends SceneController {
         //mapWindow.fitHeightProperty().bind(mapStack.widthProperty());
         //mapWindow.fitHeightProperty().bind(mapStack.heightProperty());
 
-        loadFOne();
+        loadL1();
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
@@ -162,6 +168,9 @@ public class mapPage extends SceneController {
         //Initializing the dialog pane
         dialogPane.toBack();
 
+        //center Vbox
+        pitstopsLabel.setAlignment(Pos.CENTER);
+
 
     }
 
@@ -172,7 +181,6 @@ public class mapPage extends SceneController {
     public void loadDialog(StringBuilder path){
         dialogPane.toFront();
         dialogPane.setDisable(false);
-        //TODO Center the text of it.
 
         JFXDialogLayout message = new JFXDialogLayout();
         message.setMaxHeight(Region.USE_PREF_SIZE);
@@ -213,9 +221,11 @@ public class mapPage extends SceneController {
         body.setStyle("-fx-alignment: center");
         body.setTextAlignment(TextAlignment.CENTER);
 
-
-        vbox.getChildren().addAll(start,body,ending);
-
+        if(path.toString().equals("Please select at least one node")) {
+            vbox.getChildren().addAll(body);
+        }else{
+            vbox.getChildren().addAll(start, body, ending);
+        }
         message.setHeading(header);
         message.setBody(vbox);
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
@@ -246,40 +256,62 @@ public class mapPage extends SceneController {
         mapWindow.setViewport(z);
     }
 
-    public void loadLOne() {
+    public void loadL1() {
         locationTitle.setText("Lower Level 1");
         Image img = new Image(location + "00_thelowerlevel1.png");
+        setSelectedFloor("L1");
         setZoom(img, 0, 0, noZoom);
+        drawNodes();
+
     }
 
-    public void loadLTwo() {
+    public void loadL2() {
         locationTitle.setText("Lower Level 2");
+        setSelectedFloor("L2");
+
         Image img = new Image(location + "00_thelowerlevel2.png");
         setZoom(img, 0, 0, noZoom);
+        drawNodes();
+
     }
 
     public void loadGround() {
         locationTitle.setText("Ground Floor");
+        setSelectedFloor("G");
+
         Image img = new Image(location + "00_thegroundfloor.png");
         setZoom(img, 0, 0, noZoom);
+        drawNodes();
+
     }
 
-    public void loadFOne() {
+    public void loadF1() {
         locationTitle.setText("Floor 1");
+        setSelectedFloor("1");
+
         Image img = new Image(location + "01_thefirstfloor.png");
         setZoom(img, 0, 0, noZoom);
+        drawNodes();
+
     }
 
-    public void loadFTwo() {
+    public void loadF2() {
         locationTitle.setText("Floor 2");
+        setSelectedFloor("2");
+
         Image img = new Image(location + "02_thesecondfloor.png");
         setZoom(img, 0, 0, noZoom);
+        drawNodes();
+
     }
 
-    public void loadFThree() {
+    public void loadF3() {
         locationTitle.setText("Floor 3");
-        Image img = new Image(location + "00_thegroundfloor.png");
+        setSelectedFloor("L3");
+
+        Image img = new Image(location + "03_thethirdfloor.png");
         setZoom(img, 0, 0, noZoom);
+        drawNodes();
     }
 
     public void drawCoord(MouseEvent e) {
@@ -294,24 +326,32 @@ public class mapPage extends SceneController {
         //pathToTake is used in the dialog box that keeps all the nodes that the user has to pass through
         StringBuilder pathToTake = new StringBuilder(new String());
         LinkedList<NodeSuper> stops = new LinkedList<>();
-        for (node n :
-                pitStops) {
+        for (node n : pitStops) {
             stops.add(MapSuper.getMap().get(n.nodeID));
         }
         if(pitStops.isEmpty()){
             pathToTake.append("Please select at least one node");
         }else{
+
             LinkedList<String> path = star.path(stops);
-            for (String str :
-                    path) {
+
+            for(int i = 1; i < path.size(); i++){
+                Text aPartOfPath = new Text(path.get(i));
+                aPartOfPath.setStyle("-fx-text-fill: white");
+                aPartOfPath.setStyle("-fx-text-alignment: center");
+                pitstopsLabel.getChildren().add(aPartOfPath);
+            }
+
+            System.out.println(path);
+            for (String str : path) {
                 System.out.printf("\n%s\n|\n", MapSuper.getMap().get(str).getLongName());
                 pathToTake.append(MapSuper.getMap().get(str).getLongName()).append("\n|\n");//appending the paths
             }
             LinkedList<Line> lines = new LinkedList();
 
-            for (int i = 0; i < path.size() - 1; i++) {
+            for (int i = 0; i < path.size(); i++) {
                 try {
-                    node start = nodes.get(path.get(i+1));
+                    node start = nodes.get(path.get(i));
                     node end = nodes.get(path.get(i+1));
                     double startX= start.xCoord;
                     double startY = start.yCoord;
@@ -334,7 +374,7 @@ public class mapPage extends SceneController {
             pitStops = new LinkedList<>();
         }
 
-        loadDialog(pathToTake); // calling the dialog pane with the path
+       loadDialog(pathToTake); // calling the dialog pane with the path
 
     }
 
@@ -345,30 +385,46 @@ public class mapPage extends SceneController {
         Iterator<NodeSuper> mapIter = MapSuper.getMap().values().iterator();
         for (int i = 0; i < MapSuper.getMap().size(); i++) {
             NodeSuper n = mapIter.next();
-            Circle spot = new Circle(n.getXcoord() / xRatio, n.getYcoord() / yRatio, 4, Color.WHITE);
-            spot.setStrokeWidth(1);
-            spot.setStroke(Color.DARKGRAY);
-            EventHandler<MouseEvent> highlight = new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent e) {
-                    highlightNode(e);
-                }
-            };
-            spot.setOnMouseClicked(highlight);
-            nodes.put(n.getID(), new node(spot, n.getID()));
-            nodePane.getChildren().addAll(nodes.get(n.getID()).c);
-
+            if(n.getFloor().equals(selectedFloor)){
+                Circle spot = new Circle(n.getXcoord() / xRatio, n.getYcoord() / yRatio, 4, Color.WHITE);
+                spot.setStrokeWidth(1);
+                spot.setStroke(Color.DARKGRAY);
+                EventHandler<MouseEvent> highlight = new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent e) {
+                        highlightNode(e);
+                    }
+                };
+                spot.setOnMouseClicked(highlight);
+                nodes.put(n.getID(), new node(spot, n.getID()));
+                nodePane.getChildren().addAll(nodes.get(n.getID()).c);
+            }
         }
     }
 
     public void highlightNode(MouseEvent e) {
-        Circle src = (Circle) e.getSource();
+        Circle src = ((Circle)e.getSource());
+        src.setFill(Color.RED);
+
         Iterator<node> iter = nodes.values().iterator();
 
         for (int i = 0; i < nodes.size(); i++) {
             node n = iter.next();
             if (n.c.equals(src)) {
-                n.c.setFill(Color.RED);
+                //n.c.setFill(Color.RED);
+                if(pitStops.isEmpty()){
+                    // adds the text of the location where the user is to the top when clicked
+                    placeClicked.setText(MapSuper.getMap().get(n.nodeID).getLongName());
+                }
+                if(pitStops.size() == 1){
+                    // set the second destination clicked label
+                    finalDestinationLabel.setText(MapSuper.getMap().get(n.nodeID).getLongName());
+                }
+                if(pitStops.size() > 1){
+                    //set all the pitstops in the vbox for the pitstops
+                    Label aPitStop = new Label(MapSuper.getMap().get(n.nodeID).getLongName());
+                    pitstopsLabel.getChildren().add(aPitStop);
+                }
                 pitStops.add(n);
             }
         }
@@ -376,6 +432,7 @@ public class mapPage extends SceneController {
 
     @FXML
     public void goToRouteExample(ActionEvent e) {
+        drawNodes();
         toAStar();
     }
 

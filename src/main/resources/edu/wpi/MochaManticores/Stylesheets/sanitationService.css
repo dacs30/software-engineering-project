@@ -4,6 +4,12 @@
     -fx-font-size: 25;
     -fx-font-weight: bold;
 }
+#helpButton {
+    -fx-background-color: #0F4B91;
+    -fx-font-family: Roboto;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+}
 
 #sanitationServicesLabel {
     -fx-font-weight: bold;
@@ -16,7 +22,7 @@
     -fx-font-weight: bold;
     -fx-text-fill : #ffffff;
     -jfx-unfocus-color : #ffffff;
-    -fx-max-width: 730;
+    -fx-max-width: 500;
     -fx-prompt-text-fill: white;
 }
 .jfx-text-area {
@@ -24,7 +30,7 @@
     -fx-font-weight: bold;
     -fx-text-fill : #ffffff;
     -jfx-unfocus-color : #ffffff;
-    -fx-max-width: 730;
+    -fx-max-width: 500;
     -fx-prompt-text-fill: white;
 }
 

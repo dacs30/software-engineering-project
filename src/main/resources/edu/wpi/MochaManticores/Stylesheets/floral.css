@@ -5,6 +5,13 @@
     -fx-font-weight: bold;
 }
 
+#helpBtn {
+    -fx-background-color: #FFFFFF;
+    -fx-font-family: Roboto;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+}
+
 #floralDeliveryLabel {
     -fx-font-weight: bold;
     -fx-font-family: Roboto;
