@@ -58,6 +58,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="143.0" minHeight="10.0" prefHeight="143.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="143.0" minHeight="10.0" prefHeight="143.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="100.3333740234375" minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
@@ -98,12 +99,12 @@
                         <Font size="20.0" />
                      </font>
                   </JFXTextField>
-                  <JFXButton fx:id="cancelButton" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#back" prefHeight="65.0" prefWidth="150.0" style="-fx-background-color: lightgrey; -fx-border-color: dimgrey;" text="CANCEL" translateX="50.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+                  <JFXButton fx:id="cancelButton" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#back" prefHeight="65.0" prefWidth="150.0" style="-fx-background-color: lightgrey; -fx-border-color: dimgrey;" text="CANCEL" translateX="50.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="submitButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#submit" prefHeight="65.0" prefWidth="150.0" style="-fx-background-color: lightgrey; -fx-border-color: dimgrey;" text="SUBMIT" translateX="260.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="6">
+                  <JFXButton fx:id="submitButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#submit" prefHeight="65.0" prefWidth="150.0" style="-fx-background-color: lightgrey; -fx-border-color: dimgrey;" text="SUBMIT" translateX="260.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="7">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -152,6 +153,12 @@
                         <Font size="20.0" />
                      </font>
                   </JFXButton>
+                  <Label text="Assign to Employee: " textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <JFXTextField fx:id="assignEmp" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                </children>
                <GridPane.margin>
                   <Insets />
