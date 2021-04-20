@@ -58,74 +58,7 @@
                </GridPane.margin>
             </ImageView>
             <Rectangle arcHeight="39.0" arcWidth="39.0" fill="#0f4b91" height="779.0" stroke="#0f4b91" strokeType="INSIDE" width="1008.0" GridPane.columnIndex="1" />
-            <VBox fx:id="selectionPage" prefHeight="805.0" prefWidth="997.0" spacing="30.0" visible="false" GridPane.columnIndex="1">
-               <children>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Edge Selector">
-                     <font>
-                        <Font size="60.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets left="20.0" />
-                     </VBox.margin>
-                  </Text>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="201.0" prefWidth="979.0" spacing="20.0">
-                     <children>
-                        <Label alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="70.0" prefWidth="329.0" text="Search for a ID" textAlignment="RIGHT" textFill="WHITE" wrapText="true">
-                           <font>
-                              <Font name="Amiri Quran" size="30.0" />
-                           </font>
-                           <padding>
-                              <Insets top="-20.0" />
-                           </padding>
-                        </Label>
-                        <Separator orientation="VERTICAL" prefHeight="201.0" prefWidth="0.0" style="-fx-background-color: white;">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </Separator>
-                        <JFXTextField fx:id="mapName" focusColor="WHITE" labelFloat="true" onKeyTyped="#searchTyped" prefHeight="51.0" prefWidth="512.0" promptText="Enter Search Term" style="-fx-background-color: white;" unFocusColor="WHITE">
-                           <HBox.margin>
-                              <Insets right="20.0" />
-                           </HBox.margin>
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </JFXTextField>
-                        <JFXButton fx:id="searchButton" buttonType="RAISED" contentDisplay="RIGHT" onAction="#searchPressed" prefHeight="86.0" prefWidth="185.0" ripplerFill="BLACK" style="-fx-background-color: #30DD27; -fx-background-radius: 100;" text="Search" textFill="WHITE">
-                           <font>
-                              <Font size="28.0" />
-                           </font>
-                        </JFXButton>
-                     </children>
-                     <VBox.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <TableView fx:id="dispTable" editable="true" prefHeight="200.0" prefWidth="200.0">
-                     <VBox.margin>
-                        <Insets left="20.0" right="20.0" />
-                     </VBox.margin>
-                  </TableView>
-                  <HBox alignment="CENTER" prefHeight="46.0" prefWidth="883.0" spacing="75.0">
-                     <children>
-                        <JFXButton buttonType="RAISED" cancelButton="true" onAction="#cancel" prefHeight="86.0" prefWidth="190.0" ripplerFill="BLACK" style="-fx-background-color: #E74C3c; -fx-background-radius: 100;" text="Clear" textFill="WHITE">
-                           <font>
-                              <Font size="40.0" />
-                           </font>
-                        </JFXButton>
-                        <JFXButton buttonType="RAISED" contentDisplay="RIGHT" onAction="#submit" prefHeight="86.0" prefWidth="190.0" ripplerFill="BLACK" style="-fx-background-color: #30DD27; -fx-background-radius: 100;" text="Edit" textFill="WHITE">
-                           <font>
-                              <Font size="40.0" />
-                           </font>
-                        </JFXButton>
-                     </children>
-                  </HBox>
-               </children>
-               <padding>
-                  <Insets right="20.0" />
-               </padding>
-            </VBox>
-            <VBox fx:id="editPage" prefHeight="741.0" prefWidth="989.0" GridPane.columnIndex="1">
+            <VBox fx:id="editPage" prefHeight="741.0" prefWidth="989.0" visible="false" GridPane.columnIndex="1">
                <children>
                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Edge">
                      <font>
@@ -193,6 +126,86 @@
                      </children>
                   </HBox>
                </children>
+            </VBox>
+            <VBox fx:id="selectionPage" prefHeight="805.0" prefWidth="997.0" spacing="30.0" GridPane.columnIndex="1">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Edge Selector">
+                     <font>
+                        <Font size="60.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
+                  </Text>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="201.0" prefWidth="979.0" spacing="20.0">
+                     <children>
+                        <Label alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="70.0" prefWidth="329.0" text="Search for a ID" textAlignment="RIGHT" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font name="Amiri Quran" size="30.0" />
+                           </font>
+                           <padding>
+                              <Insets top="-20.0" />
+                           </padding>
+                        </Label>
+                        <Separator orientation="VERTICAL" prefHeight="201.0" prefWidth="0.0" style="-fx-background-color: white;">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Separator>
+                        <JFXTextField fx:id="mapName" focusColor="WHITE" labelFloat="true" onKeyTyped="#searchTyped" prefHeight="51.0" prefWidth="512.0" promptText="Enter Search Term" style="-fx-background-color: white;" unFocusColor="WHITE">
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </JFXTextField>
+                        <JFXButton fx:id="searchButton" buttonType="RAISED" contentDisplay="RIGHT" onAction="#searchPressed" prefHeight="86.0" prefWidth="185.0" ripplerFill="BLACK" style="-fx-background-color: #30DD27; -fx-background-radius: 100;" text="Search" textFill="WHITE">
+                           <font>
+                              <Font size="28.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <TableView fx:id="dispTable" editable="true" prefHeight="200.0" prefWidth="200.0">
+                     <VBox.margin>
+                        <Insets left="20.0" right="20.0" />
+                     </VBox.margin>
+                  </TableView>
+                  <HBox alignment="CENTER" prefHeight="46.0" prefWidth="883.0" spacing="75.0">
+                     <children>
+                        <JFXButton fx:id="loadCustomCSV" buttonType="RAISED" cancelButton="true" prefHeight="86.0" prefWidth="264.0" ripplerFill="BLACK" style="-fx-background-color: #E74C3c; -fx-background-radius: 100;" text="Load Custom CSV" textFill="WHITE">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton buttonType="RAISED" cancelButton="true" onAction="#cancel" prefHeight="86.0" prefWidth="190.0" ripplerFill="BLACK" style="-fx-background-color: #E74C3c; -fx-background-radius: 100;" text="Clear" textFill="WHITE">
+                           <font>
+                              <Font size="40.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="downloadCSV" buttonType="RAISED" cancelButton="true" onAction="#downloadCSV" prefHeight="86.0" prefWidth="231.0" ripplerFill="BLACK" style="-fx-background-color: #E74C3c; -fx-background-radius: 100;" text="CSV" textFill="WHITE">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton buttonType="RAISED" contentDisplay="RIGHT" onAction="#submit" prefHeight="86.0" prefWidth="190.0" ripplerFill="BLACK" style="-fx-background-color: #30DD27; -fx-background-radius: 100;" text="Edit" textFill="WHITE">
+                           <font>
+                              <Font size="40.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                     <padding>
+                        <Insets left="25.0" right="25.0" />
+                     </padding>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets right="20.0" />
+               </padding>
             </VBox>
          </children>
       </GridPane>

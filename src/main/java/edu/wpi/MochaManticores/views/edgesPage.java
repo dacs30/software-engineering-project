@@ -369,4 +369,6 @@ public class edgesPage extends SceneController{
         message.setActions(exit);
         dialog.show();
     }
+
+
 }
