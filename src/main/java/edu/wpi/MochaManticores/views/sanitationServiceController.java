@@ -52,6 +52,10 @@ public class sanitationServiceController extends SceneController {
     private StackPane dialogPane;
 
     @FXML
+    private JFXButton backBtn;
+
+
+    @FXML
     private void initialize(){
         double height = App.getPrimaryStage().getScene().getHeight();
         double width = App.getPrimaryStage().getScene().getWidth();
@@ -64,6 +68,10 @@ public class sanitationServiceController extends SceneController {
         backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty()); }
 
     public void helpButton(ActionEvent actionEvent){loadHelpDialogue();}
+
+    public void goBack(ActionEvent e) {
+        back();
+    }
 
     private void loadDialog(){
         JFXDialogLayout message = new JFXDialogLayout();
