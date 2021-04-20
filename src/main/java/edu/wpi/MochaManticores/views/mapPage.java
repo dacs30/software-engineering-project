@@ -86,15 +86,6 @@ public class mapPage extends SceneController {
     @FXML
     private StackPane dialogPane;
 
-    @FXML
-    private Label placeClicked;
-
-    @FXML
-    private Label finalDestinationLabel;
-
-    @FXML
-    private VBox pitstopsLabel;
-
     private String location = "edu/wpi/MochaManticores/images/";
 
     private String selectedFloor = "";
@@ -116,72 +107,34 @@ public class mapPage extends SceneController {
         backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
         backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
-
-
-//        contentPane.minHeightProperty().bind(App.getPrimaryStage().heightProperty());
-//        contentPane.maxHeightProperty().bind(App.getPrimaryStage().heightProperty());
-//
-//        contentPane.minWidthProperty().bind(App.getPrimaryStage().widthProperty());
-//        contentPane.maxWidthProperty().bind(App.getPrimaryStage().widthProperty());
-
-//        mapWindow.fitWidthProperty().bind(App.getPrimaryStage().widthProperty().subtract(150 + mapWindow.localToScene(mapWindow.getBoundsInLocal()).getMinX()));
-//        mapWindow.fitHeightProperty().bind(App.getPrimaryStage().heightProperty().subtract(150 + mapWindow.localToScene(mapWindow.getBoundsInLocal()).getMinY()));
-
-//        nodePane.widthProperty().bind(App.getPrimaryStage().widthProperty().subtract(150 + nodePane.localToScene(nodePane.getBoundsInLocal()).getMinX()));
-//        nodePane.heightProperty().bind(App.getPrimaryStage().heightProperty().subtract(150 + nodePane.localToScene(nodePane.getBoundsInLocal()).getMinY()));
-
-        //System.out.println("~~~" + mapWindow.localToScene(mapWindow.getBoundsInLocal()).getMinX());
-
-        //mapStack.setMaxHeight(innerMapGrid.heightProperty().doubleValue());
-
-//        mapStack.maxHeightProperty().bind(innerMapGrid.getRowConstraints().get(0).maxHeightProperty());
-//        mapStack.maxWidthProperty().bind(innerMapGrid.getColumnConstraints().get(0).maxWidthProperty());
-//
-//
-//
-//        System.out.printf("innerMapGrid (%f,%f)\n",innerMapGrid.widthProperty().get(),innerMapGrid.heightProperty().get());
         mapWindow.setPreserveRatio(false);
-        //mapWindow.fitHeightProperty().bind(mapStack.widthProperty());
-        //mapWindow.fitHeightProperty().bind(mapStack.heightProperty());
-        //loadF1();
 
-        System.out.println("1");
 
-        //mapWindow.setFitWidth(App.getPrimaryStage().getWidth() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinX());
-        //mapWindow.setFitHeight(App.getPrimaryStage().getHeight() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinX());
+        //loadL1();
 
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                mapWindow.setFitWidth(App.getPrimaryStage().getWidth() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinX()-50);
-                mapWindow.setFitHeight(App.getPrimaryStage().getHeight() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinY()-50);
-
-                System.out.println(App.getPrimaryStage().getWidth() + " - " + mapStack.localToScene(mapStack.getBoundsInLocal()).getMinX() + " = " + mapWindow.getFitWidth());
+                mapWindow.setFitWidth(App.getPrimaryStage().getWidth() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinX() - 50);
+                mapWindow.setFitHeight(App.getPrimaryStage().getHeight() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinY() - 50);
             }
         });
-//        mapWindow.setFitWidth(App.getPrimaryStage().getWidth()*.75);
-//        mapWindow.setFitHeight(App.getPrimaryStage().getHeight()*.70);
-//
-//        System.out.println(App.getPrimaryStage().getWidth() + " - " + mapGrid.localToScene(mapGrid.getBoundsInLocal()).getMinX() + " = " + mapWindow.getFitWidth());
 
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
-                System.out.println("MinWidth: " + mapWindow.localToScene(mapWindow.getBoundsInLocal()).getMinX());
                 //zoomImg(e);
             }
         };
-
-        mapStack.setOnMouseClicked(eventHandler);
         mapWindow.setOnMouseMoved(eventHandler);
 
         App.getPrimaryStage().widthProperty().addListener((obs, oldVal, newVal) -> {
-            mapWindow.setFitWidth(App.getPrimaryStage().getWidth() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinX()-50);
+            mapWindow.setFitWidth(App.getPrimaryStage().getWidth() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinX() - 50);
             drawNodes();
         });
 
         App.getPrimaryStage().heightProperty().addListener((obs, oldVal, newVal) -> {
-            mapWindow.setFitHeight(App.getPrimaryStage().getHeight() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinY()-50);
+            mapWindow.setFitHeight(App.getPrimaryStage().getHeight() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinY() - 50);
             drawNodes();
         });
 
@@ -195,9 +148,6 @@ public class mapPage extends SceneController {
 
         //Initializing the dialog pane
         dialogPane.toBack();
-
-        //center Vbox
-        //pitstopsLabel.setAlignment(Pos.CENTER);
 
 
     }
@@ -318,11 +268,8 @@ public class mapPage extends SceneController {
         setSelectedFloor("1");
 
         Image img = new Image(location + "01_thefirstfloor.png");
-
         setZoom(img, 0, 0, noZoom);
         drawNodes();
-
-
 
     }
 
@@ -357,7 +304,8 @@ public class mapPage extends SceneController {
         //pathToTake is used in the dialog box that keeps all the nodes that the user has to pass through
         StringBuilder pathToTake = new StringBuilder(new String());
         LinkedList<NodeSuper> stops = new LinkedList<>();
-        for (node n : pitStops) {
+        for (node n :
+                pitStops) {
             stops.add(MapSuper.getMap().get(n.nodeID));
         }
         if(pitStops.isEmpty()){
@@ -365,16 +313,9 @@ public class mapPage extends SceneController {
         }else{
 
             LinkedList<String> path = star.multiStopRoute(stops);
-
-            for(int i = 1; i < path.size(); i++){
-                Text aPartOfPath = new Text(path.get(i));
-                aPartOfPath.setStyle("-fx-text-fill: white");
-                aPartOfPath.setStyle("-fx-text-alignment: center");
-                pitstopsLabel.getChildren().add(aPartOfPath);
-            }
-
             System.out.println(path);
-            for (String str : path) {
+            for (String str :
+                    path) {
                 System.out.printf("\n%s\n|\n", MapSuper.getMap().get(str).getLongName());
                 pathToTake.append(MapSuper.getMap().get(str).getLongName()).append("\n|\n");//appending the paths
             }
@@ -443,19 +384,6 @@ public class mapPage extends SceneController {
             node n = iter.next();
             if (n.c.equals(src)) {
                 //n.c.setFill(Color.RED);
-                if(pitStops.isEmpty()){
-                    // adds the text of the location where the user is to the top when clicked
-                    placeClicked.setText(MapSuper.getMap().get(n.nodeID).getLongName());
-                }
-                if(pitStops.size() == 1){
-                    // set the second destination clicked label
-                    finalDestinationLabel.setText(MapSuper.getMap().get(n.nodeID).getLongName());
-                }
-                if(pitStops.size() > 1){
-                    //set all the pitstops in the vbox for the pitstops
-                    Label aPitStop = new Label(MapSuper.getMap().get(n.nodeID).getLongName());
-                    pitstopsLabel.getChildren().add(aPitStop);
-                }
                 pitStops.add(n);
             }
         }

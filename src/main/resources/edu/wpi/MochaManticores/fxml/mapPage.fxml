@@ -120,7 +120,7 @@
                                  </font></JFXButton>
                            </children>
                         </GridPane>
-                        <JFXButton fx:id="routeExample" onAction="#goToRouteExample" prefHeight="64.0" prefWidth="146.0" style="-fx-background-color: #0f4b91;" text="Route with A*" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                        <JFXButton fx:id="routeExample" onAction="#goToRouteExample" prefHeight="64.0" prefWidth="146.0" style="-fx-background-color: #0f4b91;" text="Get Path" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -143,7 +143,7 @@
                 <RowConstraints maxHeight="697.0740737915039" minHeight="10.0" prefHeight="646.1111221313477" vgrow="ALWAYS" />
               </rowConstraints>
                <children>
-                  <Label fx:id="locationTitle" alignment="TOP_CENTER" text="Location" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER">
+                  <Label fx:id="locationTitle" alignment="TOP_CENTER" text="Select a Floor from the left" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER">
                      <font>
                         <Font size="48.0" />
                      </font>
