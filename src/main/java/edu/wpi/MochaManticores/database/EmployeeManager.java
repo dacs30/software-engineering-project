@@ -23,7 +23,7 @@ public class EmployeeManager {
                 String[] row = line.split(CSVdelim);
 
                 Employee employee = new Employee(row[0],row[1],row[2], row[3],row[4],row[5],row[6]);
-                EmployeeManager.addEmployee(connection, employee);
+                addEmployee(connection, employee);
 
             }
         } catch (IOException e){
@@ -60,8 +60,8 @@ public class EmployeeManager {
 
     //TODO add functionality to check if editedEmployee is valid before deleting old value
     public static void modEmployee(Connection connection, String old_username, Employee editedEmployee) throws SQLException {
-        EmployeeManager.delEmployee(connection, old_username);
-        EmployeeManager.addEmployee(connection, editedEmployee);
+        delEmployee(connection, old_username);
+        addEmployee(connection, editedEmployee);
     }
 
     public static void saveEmployees(Connection connection) throws FileNotFoundException, SQLException {
@@ -112,7 +112,7 @@ public class EmployeeManager {
     }
 
     public static Employee checkEmployeeLogin(Connection connection,String username,String password) throws InvalidLoginException, InvalidUserException {
-        Employee emp = EmployeeManager.getEmployee(connection,username);
+        Employee emp = getEmployee(connection,username);
 
         //TODO passwords are currently stored in plain text
         if(!emp.getPassword().equals(password)){
@@ -124,7 +124,7 @@ public class EmployeeManager {
     }
 
     public static Employee checkAdminLogin(Connection connection, String username, String password) throws InvalidLoginException, InvalidPermissionsException, InvalidUserException     {
-        Employee emp = EmployeeManager.getEmployee(connection, username);
+        Employee emp = getEmployee(connection, username);
 
         if(!emp.getPassword().equals(password)){
             throw new InvalidLoginException();
@@ -142,12 +142,12 @@ public class EmployeeManager {
     }
 
     public static void setEmployee_csv_path(String employee_csv_path) {
-        Employee_csv_path = "data/"+employee_csv_path;
+        Employee_csv_path = employee_csv_path;
     }
 
     public static void cleanTable(Connection connection) throws SQLException {
         String sql = "DELETE FROM EMPLOYEES";
         PreparedStatement pstmt = connection.prepareStatement(sql);
-        ResultSet result = pstmt.executeQuery();
+        int result = pstmt.executeUpdate();
     }
 }

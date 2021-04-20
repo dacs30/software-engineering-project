@@ -1,6 +1,8 @@
 package edu.wpi.MochaManticores.database;
 
 
+import edu.wpi.MochaManticores.App;
+
 import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.Scanner;
@@ -32,9 +34,10 @@ public class Mdb extends Thread{
                         " PRIMARY KEY (nodeID))";
                 stmt.executeUpdate(sql);
                 NodeManager.loadFromCSV(connection);
+            }else{
+                NodeManager.cleanTable(connection);
+                NodeManager.loadFromCSV(connection);
             }
-            //NodeManager.updateNodesMap(connection);
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -54,6 +57,9 @@ public class Mdb extends Thread{
                         " endNode CHAR(10), " +
                         " PRIMARY KEY (edgeID))";
                 stmt.executeUpdate(sql);
+                EdgeManager.loadFromCSV(connection);
+            }else{
+                EdgeManager.cleanTable(connection);
                 EdgeManager.loadFromCSV(connection);
             }
         } catch (SQLException throwables) {
@@ -79,6 +85,9 @@ public class Mdb extends Thread{
                         " Admin BOOLEAN," +
                         " PRIMARY KEY (username))";
                 stmt.executeUpdate(sql);
+                EmployeeManager.loadFromCSV(connection);
+            }else{
+                EmployeeManager.cleanTable(connection);
                 EmployeeManager.loadFromCSV(connection);
             }
         } catch (SQLException throwables) {
@@ -175,6 +184,10 @@ public class Mdb extends Thread{
         //load new data
         NodeManager.loadFromCSV(connection);
         EdgeManager.loadFromCSV(connection);
+        //load hashmaps
+        NodeManager.updateNodesMap(connection);
+        EdgeManager.updateEdgesMap(connection);
+
     }
 
     public static void showMenu() {

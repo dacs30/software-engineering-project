@@ -186,6 +186,7 @@ public class edgesPage extends SceneController{
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        buildTable("");
     }
 
     public void searchPressed(ActionEvent e){

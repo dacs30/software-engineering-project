@@ -94,12 +94,12 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <JFXButton id="internalTransportationBtn" buttonType="RAISED" onAction="#advanceInternalTransportScene" stylesheets="@../Stylesheets/landingPage.css" text="Internal Transportation" textFill="WHITE" translateX="20.0" />
-                  <JFXButton id="floralDeliveryBtn" buttonType="RAISED" onAction="#advanceToFloralScene" stylesheets="@../Stylesheets/landingPage.css" text="Floral Delivery" textFill="WHITE" translateX="20.0" GridPane.rowIndex="1" />
-                  <JFXButton id="sanitationServicesBtn" buttonType="RAISED" onAction="#grabSanitation" stylesheets="@../Stylesheets/landingPage.css" text="Sanitation Services" textFill="WHITE" translateX="20.0" GridPane.rowIndex="2" />
-                  <JFXButton id="externalTransportationBtn" buttonType="RAISED" onAction="#advanceToExtTransportation" ripplerFill="WHITE" stylesheets="@../Stylesheets/landingPage.css" text="External transportation" textFill="WHITE" GridPane.columnIndex="1" />
-                  <JFXButton id="foodDeliveryBtn" buttonType="RAISED" onAction="#advanceFoodService" stylesheets="@../Stylesheets/landingPage.css" text="Food Delivery" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <JFXButton id="emergencyBtn" buttonType="RAISED" onAction="#confirmEmergency" stylesheets="@../Stylesheets/landingPage.css" text="Emergency" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <JFXButton id="internalTransportationBtn" buttonType="RAISED" onAction="#advanceInternalTransportScene" stylesheets="@../Stylesheets/landingPage.css" text="Internal Transportation" translateX="20.0" />
+                  <JFXButton id="floralDeliveryBtn" buttonType="RAISED" onAction="#advanceToFloralScene" stylesheets="@../Stylesheets/landingPage.css" text="Floral Delivery" translateX="20.0" GridPane.rowIndex="1" />
+                  <JFXButton id="sanitationServicesBtn" buttonType="RAISED" onAction="#grabSanitation" stylesheets="@../Stylesheets/landingPage.css" text="Sanitation Services" translateX="20.0" GridPane.rowIndex="2" />
+                  <JFXButton id="externalTransportationBtn" buttonType="RAISED" onAction="#advanceToExtTransportation" ripplerFill="WHITE" stylesheets="@../Stylesheets/landingPage.css" text="External transportation" GridPane.columnIndex="1" />
+                  <JFXButton id="foodDeliveryBtn" buttonType="RAISED" onAction="#advanceFoodService" stylesheets="@../Stylesheets/landingPage.css" text="Food Delivery" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <JFXButton id="emergencyBtn" buttonType="RAISED" onAction="#confirmEmergency" stylesheets="@../Stylesheets/landingPage.css" text="Emergency" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
                <effect>
                   <DropShadow />
