@@ -37,8 +37,8 @@ public class NodeManager {
     public static void addNode(Connection connection, String newNodeID, String xcoord, String ycoord, String floor,
                                String building, String nodeType, String longName, String shortName) throws SQLException{
         try{
-            NodeManager.addNode_db(connection,newNodeID,xcoord,ycoord,floor,building,nodeType,longName,shortName);
-            NodeManager.addNode_map(newNodeID,xcoord,ycoord,floor,building,nodeType,longName,shortName);
+            addNode_db(connection,newNodeID,xcoord,ycoord,floor,building,nodeType,longName,shortName);
+            addNode_map(newNodeID,xcoord,ycoord,floor,building,nodeType,longName,shortName);
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -111,7 +111,7 @@ public class NodeManager {
         ResultSet results = stmt.executeQuery(sql);
 
         while (results.next()) {
-            NodeManager.addNode_map(results.getString(1), results.getString(2),
+            addNode_map(results.getString(1), results.getString(2),
                                     results.getString(3), results.getString(4),
                                     results.getString(5), results.getString(6),
                                     results.getString(7), results.getString(8));

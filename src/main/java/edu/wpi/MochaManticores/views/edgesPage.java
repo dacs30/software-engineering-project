@@ -180,12 +180,13 @@ public class edgesPage extends SceneController{
         System.out.println(file.getAbsolutePath());
 
         try {
-            Mdb.databaseChangeCSVs(file.getAbsolutePath(), NodeManager.getNode_csv_path());
+            Mdb.databaseChangeCSVs(file.getAbsolutePath(), App.getNodeManager().getNode_csv_path());
         } catch (FileNotFoundException fileNotFoundException) {
             fileNotFoundException.printStackTrace();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        buildTable("");
     }
 
     public void searchPressed(ActionEvent e){
@@ -325,7 +326,7 @@ public class edgesPage extends SceneController{
                 sqlException.printStackTrace();
                 return;
             }
-            EdgeManager.updateEdge(connection, selectedEdge.getNodeID(), selectedEdge.getStartNode(),
+            App.getEdgeManager().updateEdge(connection, selectedEdge.getNodeID(), selectedEdge.getStartNode(),
                     n.getStartNode(), selectedEdge.getEndNode(), n.getEndNode());
 
             //TODO:Talk to CSV Manager

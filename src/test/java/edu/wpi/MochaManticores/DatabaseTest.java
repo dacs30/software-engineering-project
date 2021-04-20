@@ -83,11 +83,11 @@ public class DatabaseTest {
                 "1",
                 "false");
 
-        EmployeeManager.addEmployee(connection,employee);
+        App.getEmployeeManager().addEmployee(connection,employee);
 
-        Assertions.assertTrue(employee.getUsername().equals(EmployeeManager.getEmployee(connection, employee.getUsername()).getUsername()));
+        Assertions.assertTrue(employee.getUsername().equals(App.getEmployeeManager().getEmployee(connection, employee.getUsername()).getUsername()));
 
-        EmployeeManager.delEmployee(connection,employee.getUsername());
+        App.getEmployeeManager().delEmployee(connection,employee.getUsername());
     }
 
     @Test
@@ -100,10 +100,10 @@ public class DatabaseTest {
                 "1",
                 "false");
 
-        EmployeeManager.addEmployee(connection,employee);
-        EmployeeManager.delEmployee(connection,employee.getUsername());
+        App.getEmployeeManager().addEmployee(connection,employee);
+        App.getEmployeeManager().delEmployee(connection,employee.getUsername());
 
-        Assertions.assertTrue(EmployeeManager.getEmployee(connection, employee.getUsername())==null);
+        Assertions.assertTrue(App.getEmployeeManager().getEmployee(connection, employee.getUsername())==null);
     }
 
     @Test
@@ -116,7 +116,7 @@ public class DatabaseTest {
                 "1",
                 "false");
 
-        EmployeeManager.addEmployee(connection,employee);
+        App.getEmployeeManager().addEmployee(connection,employee);
         Employee employeeMOD = new Employee("testUserMODDED",
                 "password",
                 "firstName",
@@ -125,10 +125,10 @@ public class DatabaseTest {
                 "1",
                 "false");
 
-        EmployeeManager.modEmployee(connection,employee.getUsername(),employeeMOD);
+        App.getEmployeeManager().modEmployee(connection,employee.getUsername(),employeeMOD);
 
-        Assertions.assertTrue(EmployeeManager.getEmployee(connection, employeeMOD.getUsername()).getUsername().equals(employeeMOD.getUsername()));
-        EmployeeManager.delEmployee(connection, employeeMOD.getUsername());
+        Assertions.assertTrue(App.getEmployeeManager().getEmployee(connection, employeeMOD.getUsername()).getUsername().equals(employeeMOD.getUsername()));
+        App.getEmployeeManager().delEmployee(connection, employeeMOD.getUsername());
     }
 
     @Test
@@ -144,7 +144,7 @@ public class DatabaseTest {
 
     @Test
     public void testAddNode() throws SQLException, InterruptedException, FileNotFoundException {
-        NodeManager.addNode(connection, NODE1.getID(), String.valueOf(NODE1.getXcoord()), String.valueOf(NODE1.getYcoord()),
+        App.getNodeManager().addNode(connection, NODE1.getID(), String.valueOf(NODE1.getXcoord()), String.valueOf(NODE1.getYcoord()),
                 NODE1.getFloor(), NODE1.getBuilding(), NODE1.getType(), NODE1.getLongName(), NODE1.getShortName());
         String sql = "SELECT * FROM NODES WHERE nodeID=?";
         PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -153,17 +153,17 @@ public class DatabaseTest {
         results.next();
         String nodeId = results.getString(1).replaceAll("\\s","");
         Assertions.assertEquals(NODE1.getID(), nodeId);
-        NodeManager.delNode(connection, NODE1.getID());
+        App.getNodeManager().delNode(connection, NODE1.getID());
     }
 
     @Test
     public void testDelNode() throws SQLException, FileNotFoundException {
         //add node
-        NodeManager.addNode(connection, NODE1.getID(), String.valueOf(NODE1.getXcoord()), String.valueOf(NODE1.getYcoord()),
+        App.getNodeManager().addNode(connection, NODE1.getID(), String.valueOf(NODE1.getXcoord()), String.valueOf(NODE1.getYcoord()),
                 NODE1.getFloor(), NODE1.getBuilding(), NODE1.getType(), NODE1.getLongName(), NODE1.getShortName());
 
         //delete node
-        NodeManager.delNode(connection, NODE1.getID());
+        App.getNodeManager().delNode(connection, NODE1.getID());
 
         //try to query deleted node
         String sql = "SELECT * FROM NODES WHERE nodeID=?";
@@ -179,7 +179,7 @@ public class DatabaseTest {
     @Test
     public void testModifyNode() throws SQLException, FileNotFoundException {
         //add node
-        NodeManager.addNode(connection, NODE1.getID(), String.valueOf(NODE1.getXcoord()), String.valueOf(NODE1.getYcoord()),
+        App.getNodeManager().addNode(connection, NODE1.getID(), String.valueOf(NODE1.getXcoord()), String.valueOf(NODE1.getYcoord()),
                 NODE1.getFloor(), NODE1.getBuilding(), NODE1.getType(), NODE1.getLongName(), NODE1.getShortName());
 
         //retrieve from database
@@ -193,7 +193,7 @@ public class DatabaseTest {
         String initialName = results.getString(8).replaceAll("\\s","");
 
         //update short name
-        NodeManager.updateNode(connection, NODE1.getID(), NODE1.getID(), NODE1.getXcoord(),
+        App.getNodeManager().updateNode(connection, NODE1.getID(), NODE1.getID(), NODE1.getXcoord(),
                 NODE1.getYcoord(), NODE1.getFloor(), NODE1.getBuilding(), NODE1.getType(), NODE1.getLongName(), "CTN1");
 
         //query the changed node
@@ -206,13 +206,13 @@ public class DatabaseTest {
         Assertions.assertNotEquals(initialName, changedName);
 
         //delete node from the database
-        NodeManager.delNode(connection, NODE1.getID());
+        App.getNodeManager().delNode(connection, NODE1.getID());
     }
 
     @Test
     public void testModifyNodeID() throws FileNotFoundException, SQLException {
         //add node
-        NodeManager.addNode(connection, NODE1.getID(), String.valueOf(NODE1.getXcoord()), String.valueOf(NODE1.getYcoord()),
+        App.getNodeManager().addNode(connection, NODE1.getID(), String.valueOf(NODE1.getXcoord()), String.valueOf(NODE1.getYcoord()),
                 NODE1.getFloor(), NODE1.getBuilding(), NODE1.getType(), NODE1.getLongName(), NODE1.getShortName());
 
         //retrieve from database
@@ -226,7 +226,7 @@ public class DatabaseTest {
         String initialID = results.getString(1).replaceAll("\\s","");
 
         //update the nodeID
-        NodeManager.updateNode(connection, "CNODE1", NODE1.getID(), NODE1.getXcoord(),
+        App.getNodeManager().updateNode(connection, "CNODE1", NODE1.getID(), NODE1.getXcoord(),
                 NODE1.getYcoord(), NODE1.getFloor(), NODE1.getBuilding(), NODE1.getType(), NODE1.getLongName(), NODE1.getShortName());
 
         //query the changed node
@@ -239,20 +239,20 @@ public class DatabaseTest {
         Assertions.assertNotEquals(initialID, changedID);
 
         //delete node from the database
-        NodeManager.delNode(connection, changedID);
+        App.getNodeManager().delNode(connection, changedID);
     }
 
     @Test
     public void testAddEdge() throws SQLException, FileNotFoundException {
         //add nodes 1 and 2
-        NodeManager.addNode(connection, NODE1.getID(), String.valueOf(NODE1.getXcoord()), String.valueOf(NODE1.getYcoord()),
+        App.getNodeManager().addNode(connection, NODE1.getID(), String.valueOf(NODE1.getXcoord()), String.valueOf(NODE1.getYcoord()),
                 NODE1.getFloor(), NODE1.getBuilding(), NODE1.getType(), NODE1.getLongName(), NODE1.getShortName());
-        NodeManager.addNode(connection, NODE2.getID(), String.valueOf(NODE2.getXcoord()), String.valueOf(NODE2.getYcoord()),
+        App.getNodeManager().addNode(connection, NODE2.getID(), String.valueOf(NODE2.getXcoord()), String.valueOf(NODE2.getYcoord()),
                 NODE2.getFloor(), NODE2.getBuilding(), NODE2.getType(), NODE2.getLongName(), NODE2.getShortName());
 
         //add the edge
         String edgeID = NODE1.getID()+"_"+NODE2.getID();
-        EdgeManager.addEdge(connection, edgeID, NODE1.getID(), NODE2.getID());
+        App.getEdgeManager().addEdge(connection, edgeID, NODE1.getID(), NODE2.getID());
 
         String sql = "SELECT * FROM EDGES WHERE edgeID=?";
         PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -264,25 +264,25 @@ public class DatabaseTest {
 
         Assertions.assertEquals(edgeID, edgeIDDatabase);
 
-        EdgeManager.delEdge(connection, edgeID);
-        NodeManager.delNode(connection, NODE1.getID());
-        NodeManager.delNode(connection, NODE2.getID());
+        App.getEdgeManager().delEdge(connection, edgeID);
+        App.getNodeManager().delNode(connection, NODE1.getID());
+        App.getNodeManager().delNode(connection, NODE2.getID());
     }
 
     @Test
     public void testDelEdge() throws SQLException, FileNotFoundException {
         //add nodes 1 and 2
-        NodeManager.addNode(connection, NODE1.getID(), String.valueOf(NODE1.getXcoord()), String.valueOf(NODE1.getYcoord()),
+        App.getNodeManager().addNode(connection, NODE1.getID(), String.valueOf(NODE1.getXcoord()), String.valueOf(NODE1.getYcoord()),
                 NODE1.getFloor(), NODE1.getBuilding(), NODE1.getType(), NODE1.getLongName(), NODE1.getShortName());
-        NodeManager.addNode(connection, NODE2.getID(), String.valueOf(NODE2.getXcoord()), String.valueOf(NODE2.getYcoord()),
+        App.getNodeManager().addNode(connection, NODE2.getID(), String.valueOf(NODE2.getXcoord()), String.valueOf(NODE2.getYcoord()),
                 NODE2.getFloor(), NODE2.getBuilding(), NODE2.getType(), NODE2.getLongName(), NODE2.getShortName());
 
         //add the edge
         String edgeID = NODE1.getID()+"_"+NODE2.getID();
-        EdgeManager.addEdge(connection, edgeID, NODE1.getID(), NODE2.getID());
+        App.getEdgeManager().addEdge(connection, edgeID, NODE1.getID(), NODE2.getID());
 
         //delete the edge
-        EdgeManager.delEdge(connection, edgeID);
+        App.getEdgeManager().delEdge(connection, edgeID);
 
         //try and query the deleted edge
         String sql = "SELECT * FROM EDGES WHERE edgeID=?";
@@ -295,27 +295,27 @@ public class DatabaseTest {
             results.getString(1);
         });
 
-        NodeManager.delNode(connection, NODE1.getID());
-        NodeManager.delNode(connection, NODE2.getID());
+        App.getNodeManager().delNode(connection, NODE1.getID());
+        App.getNodeManager().delNode(connection, NODE2.getID());
     }
 
     @Test
     public void testModEdge() throws SQLException, FileNotFoundException {
         //add nodes 1 and 2
-        NodeManager.addNode(connection, NODE1.getID(), String.valueOf(NODE1.getXcoord()), String.valueOf(NODE1.getYcoord()),
+        App.getNodeManager().addNode(connection, NODE1.getID(), String.valueOf(NODE1.getXcoord()), String.valueOf(NODE1.getYcoord()),
                 NODE1.getFloor(), NODE1.getBuilding(), NODE1.getType(), NODE1.getLongName(), NODE1.getShortName());
-        NodeManager.addNode(connection, NODE2.getID(), String.valueOf(NODE2.getXcoord()), String.valueOf(NODE2.getYcoord()),
+        App.getNodeManager().addNode(connection, NODE2.getID(), String.valueOf(NODE2.getXcoord()), String.valueOf(NODE2.getYcoord()),
                 NODE2.getFloor(), NODE2.getBuilding(), NODE2.getType(), NODE2.getLongName(), NODE2.getShortName());
-        NodeManager.addNode(connection, NODE3.getID(), String.valueOf(NODE3.getXcoord()), String.valueOf(NODE3.getYcoord()),
+        App.getNodeManager().addNode(connection, NODE3.getID(), String.valueOf(NODE3.getXcoord()), String.valueOf(NODE3.getYcoord()),
                 NODE3.getFloor(), NODE3.getBuilding(), NODE3.getType(), NODE3.getLongName(), NODE3.getShortName());
 
         //add the edge
         String edgeID = NODE1.getID()+"_"+NODE2.getID();
-        EdgeManager.addEdge(connection, edgeID, NODE1.getID(), NODE2.getID());
+        App.getEdgeManager().addEdge(connection, edgeID, NODE1.getID(), NODE2.getID());
 
         String initialEdgeID = edgeID;
 
-        EdgeManager.updateEdge(connection, edgeID, NODE1.getID(), NODE1.getID(), NODE2.getID(), NODE3.getID());
+        App.getEdgeManager().updateEdge(connection, edgeID, NODE1.getID(), NODE1.getID(), NODE2.getID(), NODE3.getID());
 
         String sql = "SELECT * FROM EDGES WHERE edgeID=?";
         PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -327,50 +327,50 @@ public class DatabaseTest {
 
         Assertions.assertNotEquals(initialEdgeID, newEdgeID);
 
-        EdgeManager.delEdge(connection, newEdgeID);
-        NodeManager.delNode(connection, NODE1.getID());
-        NodeManager.delNode(connection, NODE2.getID());
-        NodeManager.delNode(connection, NODE3.getID());
+        App.getEdgeManager().delEdge(connection, newEdgeID);
+        App.getNodeManager().delNode(connection, NODE1.getID());
+        App.getNodeManager().delNode(connection, NODE2.getID());
+        App.getNodeManager().delNode(connection, NODE3.getID());
     }
 
     // ### HASHMAP TESTING ###
     @Test
     public void testAddNodeMapSuper() throws SQLException, InterruptedException, FileNotFoundException {
-        NodeManager.addNode(connection, NODE1.getID(), String.valueOf(NODE1.getXcoord()), String.valueOf(NODE1.getYcoord()),
+        App.getNodeManager().addNode(connection, NODE1.getID(), String.valueOf(NODE1.getXcoord()), String.valueOf(NODE1.getYcoord()),
                 NODE1.getFloor(), NODE1.getBuilding(), NODE1.getType(), NODE1.getLongName(), NODE1.getShortName());
 
         Assertions.assertTrue(MapSuper.getMap().containsKey(NODE1.getID()));
 
-        NodeManager.delNode(connection, NODE1.getID());
+        App.getNodeManager().delNode(connection, NODE1.getID());
 
     }
 
     @Test
     public void testDelNodeMapSuper() throws SQLException, InterruptedException, FileNotFoundException {
-        NodeManager.addNode(connection, NODE1.getID(), String.valueOf(NODE1.getXcoord()), String.valueOf(NODE1.getYcoord()),
+        App.getNodeManager().addNode(connection, NODE1.getID(), String.valueOf(NODE1.getXcoord()), String.valueOf(NODE1.getYcoord()),
                 NODE1.getFloor(), NODE1.getBuilding(), NODE1.getType(), NODE1.getLongName(), NODE1.getShortName());
 
-        NodeManager.delNode(connection, NODE1.getID());
+        App.getNodeManager().delNode(connection, NODE1.getID());
 
         Assertions.assertTrue(!MapSuper.getMap().containsKey(NODE1.getID()));
     }
 
     @Test
     public void testModNodeLongNameMapSuper() throws SQLException, FileNotFoundException {
-        NodeManager.addNode(connection, NODE1.getID(), String.valueOf(NODE1.getXcoord()), String.valueOf(NODE1.getYcoord()),
+        App.getNodeManager().addNode(connection, NODE1.getID(), String.valueOf(NODE1.getXcoord()), String.valueOf(NODE1.getYcoord()),
                 NODE1.getFloor(), NODE1.getBuilding(), NODE1.getType(), NODE1.getLongName(), NODE1.getShortName());
-        NodeManager.updateNodeName(connection, NODE1.getID(), "NODE1_NEW_NAME");
+        App.getNodeManager().updateNodeName(connection, NODE1.getID(), "NODE1_NEW_NAME");
 
         Assertions.assertTrue(MapSuper.getMap().get(NODE1.getID()).getLongName() == "NODE1_NEW_NAME");
 
-        NodeManager.delNode(connection, NODE1.getID());
+        App.getNodeManager().delNode(connection, NODE1.getID());
     }
 
     @Test
     public void testModNodeINFOMapSuper() throws SQLException, FileNotFoundException {
-        NodeManager.addNode(connection, NODE1.getID(), String.valueOf(NODE1.getXcoord()), String.valueOf(NODE1.getYcoord()),
+        App.getNodeManager().addNode(connection, NODE1.getID(), String.valueOf(NODE1.getXcoord()), String.valueOf(NODE1.getYcoord()),
                 NODE1.getFloor(), NODE1.getBuilding(), NODE1.getType(), NODE1.getLongName(), NODE1.getShortName());
-        NodeManager.updateNode(connection,NODE1.getID(),NODE1.getID(),-100,-100,"test","test","test","test","test");
+        App.getNodeManager().updateNode(connection,NODE1.getID(),NODE1.getID(),-100,-100,"test","test","test","test","test");
 
         Assertions.assertTrue(MapSuper.getMap().get(NODE1.getID()).getXcoord() == -100);
         Assertions.assertTrue(MapSuper.getMap().get(NODE1.getID()).getYcoord() == -100);
@@ -380,80 +380,80 @@ public class DatabaseTest {
         Assertions.assertTrue(MapSuper.getMap().get(NODE1.getID()).getLongName() == "test");
         Assertions.assertTrue(MapSuper.getMap().get(NODE1.getID()).getShortName() == "test");
 
-        NodeManager.delNode(connection, NODE1.getID());
+        App.getNodeManager().delNode(connection, NODE1.getID());
     }
 
     @Test
     public void testAddNeighborsMapSuper() throws SQLException, InterruptedException, FileNotFoundException {
-        NodeManager.addNode(connection, NODE1.getID(), String.valueOf(NODE1.getXcoord()), String.valueOf(NODE1.getYcoord()),
+        App.getNodeManager().addNode(connection, NODE1.getID(), String.valueOf(NODE1.getXcoord()), String.valueOf(NODE1.getYcoord()),
                 NODE1.getFloor(), NODE1.getBuilding(), NODE1.getType(), NODE1.getLongName(), NODE1.getShortName());
-        NodeManager.addNode(connection, NODE2.getID(), String.valueOf(NODE2.getXcoord()), String.valueOf(NODE2.getYcoord()),
+        App.getNodeManager().addNode(connection, NODE2.getID(), String.valueOf(NODE2.getXcoord()), String.valueOf(NODE2.getYcoord()),
                 NODE2.getFloor(), NODE2.getBuilding(), NODE2.getType(), NODE2.getLongName(), NODE2.getShortName());
 
         String edgeID = NODE1.getID()+"_"+NODE2.getID();
-        EdgeManager.addEdge(connection, edgeID, NODE1.getID(), NODE2.getID());
+        App.getEdgeManager().addEdge(connection, edgeID, NODE1.getID(), NODE2.getID());
 
         Assertions.assertTrue(MapSuper.getMap().get(NODE1.getID()).getNeighbors().contains(NODE2.getID()));
         Assertions.assertTrue(MapSuper.getMap().get(NODE2.getID()).getNeighbors().contains(NODE1.getID()));
 
-        EdgeManager.delEdge(connection, edgeID);
-        NodeManager.delNode(connection, NODE1.getID());
-        NodeManager.delNode(connection, NODE2.getID());
+        App.getEdgeManager().delEdge(connection, edgeID);
+        App.getNodeManager().delNode(connection, NODE1.getID());
+        App.getNodeManager().delNode(connection, NODE2.getID());
 
     }
 
     @Test
     public void testDelNeighborsMapSuper()throws SQLException, InterruptedException, FileNotFoundException {
-        NodeManager.addNode(connection, NODE1.getID(), String.valueOf(NODE1.getXcoord()), String.valueOf(NODE1.getYcoord()),
+        App.getNodeManager().addNode(connection, NODE1.getID(), String.valueOf(NODE1.getXcoord()), String.valueOf(NODE1.getYcoord()),
                 NODE1.getFloor(), NODE1.getBuilding(), NODE1.getType(), NODE1.getLongName(), NODE1.getShortName());
-        NodeManager.addNode(connection, NODE2.getID(), String.valueOf(NODE2.getXcoord()), String.valueOf(NODE2.getYcoord()),
+        App.getNodeManager().addNode(connection, NODE2.getID(), String.valueOf(NODE2.getXcoord()), String.valueOf(NODE2.getYcoord()),
                 NODE2.getFloor(), NODE2.getBuilding(), NODE2.getType(), NODE2.getLongName(), NODE2.getShortName());
 
         String edgeID = NODE1.getID()+"_"+NODE2.getID();
-        EdgeManager.addEdge(connection, edgeID, NODE1.getID(), NODE2.getID());
+        App.getEdgeManager().addEdge(connection, edgeID, NODE1.getID(), NODE2.getID());
 
         Assertions.assertTrue(MapSuper.getMap().get(NODE1.getID()).getNeighbors().contains(NODE2.getID()));
         Assertions.assertTrue(MapSuper.getMap().get(NODE2.getID()).getNeighbors().contains(NODE1.getID()));
 
-        EdgeManager.delEdge(connection,edgeID);
+        App.getEdgeManager().delEdge(connection,edgeID);
 
         Assertions.assertTrue(!MapSuper.getMap().get(NODE1.getID()).getNeighbors().contains(NODE2.getID()));
         Assertions.assertTrue(!MapSuper.getMap().get(NODE2.getID()).getNeighbors().contains(NODE1.getID()));
 
-        NodeManager.delNode(connection,NODE1.getID());
-        NodeManager.delNode(connection,NODE2.getID());
+        App.getNodeManager().delNode(connection,NODE1.getID());
+        App.getNodeManager().delNode(connection,NODE2.getID());
 
     }
 
     @Test
     public void testModEdgeNeighborsMapSuper() throws SQLException, InterruptedException, FileNotFoundException {
-        NodeManager.addNode(connection, NODE1.getID(), String.valueOf(NODE1.getXcoord()), String.valueOf(NODE1.getYcoord()),
+        App.getNodeManager().addNode(connection, NODE1.getID(), String.valueOf(NODE1.getXcoord()), String.valueOf(NODE1.getYcoord()),
                 NODE1.getFloor(), NODE1.getBuilding(), NODE1.getType(), NODE1.getLongName(), NODE1.getShortName());
-        NodeManager.addNode(connection, NODE2.getID(), String.valueOf(NODE2.getXcoord()), String.valueOf(NODE2.getYcoord()),
+        App.getNodeManager().addNode(connection, NODE2.getID(), String.valueOf(NODE2.getXcoord()), String.valueOf(NODE2.getYcoord()),
                 NODE2.getFloor(), NODE2.getBuilding(), NODE2.getType(), NODE2.getLongName(), NODE2.getShortName());
-        NodeManager.addNode(connection, NODE3.getID(), String.valueOf(NODE3.getXcoord()), String.valueOf(NODE3.getYcoord()),
+        App.getNodeManager().addNode(connection, NODE3.getID(), String.valueOf(NODE3.getXcoord()), String.valueOf(NODE3.getYcoord()),
                 NODE3.getFloor(), NODE3.getBuilding(), NODE3.getType(), NODE3.getLongName(), NODE3.getShortName());
 
         String edgeID = NODE1.getID()+"_"+NODE2.getID();
         String edgeIDNEW = NODE1.getID()+"_"+NODE3.getID();
 
-        EdgeManager.addEdge(connection, edgeID, NODE1.getID(), NODE2.getID());
+        App.getEdgeManager().addEdge(connection, edgeID, NODE1.getID(), NODE2.getID());
 
         Assertions.assertTrue(MapSuper.getMap().get(NODE1.getID()).getNeighbors().contains(NODE2.getID()));
         Assertions.assertTrue(MapSuper.getMap().get(NODE2.getID()).getNeighbors().contains(NODE1.getID()));
 
-        EdgeManager.updateEdge(connection,edgeID, NODE1.getID(),NODE1.getID(),NODE2.getID(),NODE3.getID());
+        App.getEdgeManager().updateEdge(connection,edgeID, NODE1.getID(),NODE1.getID(),NODE2.getID(),NODE3.getID());
 
         Assertions.assertTrue(MapSuper.getMap().get(NODE1.getID()).getNeighbors().contains(NODE3.getID()));
         Assertions.assertTrue(MapSuper.getMap().get(NODE3.getID()).getNeighbors().contains(NODE1.getID()));
         Assertions.assertFalse(MapSuper.getMap().get(NODE1.getID()).getNeighbors().contains(NODE2.getID()));
         Assertions.assertFalse(MapSuper.getMap().get(NODE2.getID()).getNeighbors().contains(NODE1.getID()));
 
-        EdgeManager.delEdge(connection, edgeID);
-        EdgeManager.delEdge(connection, edgeIDNEW);
-        NodeManager.delNode(connection, NODE1.getID());
-        NodeManager.delNode(connection, NODE2.getID());
-        NodeManager.delNode(connection, NODE3.getID());
+        App.getEdgeManager().delEdge(connection, edgeID);
+        App.getEdgeManager().delEdge(connection, edgeIDNEW);
+        App.getNodeManager().delNode(connection, NODE1.getID());
+        App.getNodeManager().delNode(connection, NODE2.getID());
+        App.getNodeManager().delNode(connection, NODE3.getID());
 
     }
 

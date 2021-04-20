@@ -1,6 +1,8 @@
 package edu.wpi.MochaManticores.database;
 
 
+import edu.wpi.MochaManticores.App;
+
 import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.Scanner;
@@ -31,9 +33,9 @@ public class Mdb extends Thread{
                         " shortName VARCHAR(255), " +
                         " PRIMARY KEY (nodeID))";
                 stmt.executeUpdate(sql);
-                NodeManager.loadFromCSV(connection);
+                App.getNodeManager().loadFromCSV(connection);
             }
-            //NodeManager.updateNodesMap(connection);
+            //App.getNodeManager().updateNodesMap(connection);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -54,7 +56,7 @@ public class Mdb extends Thread{
                         " endNode CHAR(10), " +
                         " PRIMARY KEY (edgeID))";
                 stmt.executeUpdate(sql);
-                EdgeManager.loadFromCSV(connection);
+                App.getEdgeManager().loadFromCSV(connection);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -79,7 +81,7 @@ public class Mdb extends Thread{
                         " Admin BOOLEAN," +
                         " PRIMARY KEY (username))";
                 stmt.executeUpdate(sql);
-                EmployeeManager.loadFromCSV(connection);
+                App.getEmployeeManager().loadFromCSV(connection);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -148,15 +150,15 @@ public class Mdb extends Thread{
             employeeThread.join();
 
             // updates the hm here because the data doesnt exist if we do it in the threads, where is map super created?
-            NodeManager.updateNodesMap(connection);
-            EdgeManager.updateEdgesMap(connection);
+            App.getNodeManager().updateNodesMap(connection);
+            App.getEdgeManager().updateEdgesMap(connection);
     }
 
     public static void databaseShutdown(){
         try {
-            NodeManager.saveNodes(connection);
-            EdgeManager.saveEdges(connection);
-            EmployeeManager.saveEmployees(connection);
+            App.getNodeManager().saveNodes(connection);
+            App.getEdgeManager().saveEdges(connection);
+            App.getEmployeeManager().saveEmployees(connection);
         }catch(FileNotFoundException | SQLException e){
             e.printStackTrace();
         }
@@ -164,17 +166,17 @@ public class Mdb extends Thread{
 
     public static void databaseChangeCSVs(String edgeCSV, String nodeCSV) throws FileNotFoundException, SQLException {
         //save data before changing paths
-        NodeManager.saveNodes(connection);
-        EdgeManager.saveEdges(connection);
+        App.getNodeManager().saveNodes(connection);
+        App.getEdgeManager().saveEdges(connection);
         //change paths
-        NodeManager.setNode_csv_path(nodeCSV);
-        EdgeManager.setEdge_csv_path(edgeCSV);
+        App.getNodeManager().setNode_csv_path(nodeCSV);
+        App.getEdgeManager().setEdge_csv_path(edgeCSV);
         //Clean data tables in Mdatabase
-        NodeManager.cleanTable(connection);
-        EdgeManager.cleanTable(connection);
+        App.getNodeManager().cleanTable(connection);
+        App.getEdgeManager().cleanTable(connection);
         //load new data
-        NodeManager.loadFromCSV(connection);
-        EdgeManager.loadFromCSV(connection);
+        App.getNodeManager().loadFromCSV(connection);
+        App.getEdgeManager().loadFromCSV(connection);
     }
 
     public static void showMenu() {
@@ -194,7 +196,7 @@ public class Mdb extends Thread{
             int inputVal = Integer.parseInt(args[0]);
             switch(inputVal) {
                 case 1:
-                    NodeManager.showNodeInformation(connection);
+                    App.getNodeManager().showNodeInformation(connection);
                     break;
                 case 2:
                     System.out.print("Enter NodeID of the Node's Coordinates to be Changed: \n");
@@ -203,7 +205,7 @@ public class Mdb extends Thread{
                     int xcoord = scanner.nextInt();
                     System.out.print("Enter a new Y Coordinate: \n");
                     int ycoord = scanner.nextInt();
-                    NodeManager.updateNodeCoords(connection, idForCoordinates, xcoord, ycoord);
+                    App.getNodeManager().updateNodeCoords(connection, idForCoordinates, xcoord, ycoord);
                     System.out.printf("Node with id %s has been updated!\n", idForCoordinates);
                     break;
                 case 3:
@@ -211,11 +213,11 @@ public class Mdb extends Thread{
                     String idForName = scanner.nextLine();
                     System.out.print("Enter New Name:\n");
                     String newName = scanner.nextLine();
-                    NodeManager.updateNodeName(connection, idForName, newName);
+                    App.getNodeManager().updateNodeName(connection, idForName, newName);
                     System.out.printf("Node with id %s has been updated with a new name\n", idForName);
                     break;
                 case 4:
-                    EdgeManager.showEdgeInformation(connection);
+                    App.getEdgeManager().showEdgeInformation(connection);
                     break;
                 case 5:
                     System.out.println("Exiting Program!");

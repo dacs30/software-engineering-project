@@ -5,7 +5,10 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Objects;
 
+import edu.wpi.MochaManticores.database.EdgeManager;
+import edu.wpi.MochaManticores.database.EmployeeManager;
 import edu.wpi.MochaManticores.database.Mdb;
+import edu.wpi.MochaManticores.database.NodeManager;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -18,10 +21,33 @@ public class App extends Application {
 
   private static Stage primaryStage;
   private static int clearenceLevel;
+  private static NodeManager nodeManager;
+  private static EdgeManager edgeManager;
+  private static EmployeeManager employeeManager;
 
 
-  public static void setPrimaryStage(Stage primaryStage) {
+  public static NodeManager getNodeManager() {
+    return nodeManager;
+  }
 
+  public static void setNodeManager(NodeManager nodeManager) {
+    App.nodeManager = nodeManager;
+  }
+
+  public static EdgeManager getEdgeManager() {
+    return edgeManager;
+  }
+
+  public static void setEdgeManager(EdgeManager edgeManager) {
+    App.edgeManager = edgeManager;
+  }
+
+  public static EmployeeManager getEmployeeManager() {
+    return employeeManager;
+  }
+
+  public static void setEmployeeManager(EmployeeManager employeeManager) {
+    App.employeeManager = employeeManager;
   }
 
   public static int getClearenceLevel() {
@@ -37,6 +63,9 @@ public class App extends Application {
     System.out.println("Starting Up");
     System.out.println("Starting Database");
     Mdb.databaseStartup();
+    nodeManager = new NodeManager();
+    edgeManager = new EdgeManager();
+    employeeManager = new EmployeeManager();
   }
 
 
