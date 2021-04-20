@@ -190,7 +190,7 @@ public class EdgeManager {
     }
 
     public static void setEdge_csv_path(String edge_csv_path) {
-        Edge_csv_path = "data/"+edge_csv_path;
+        Edge_csv_path = edge_csv_path;
     }
 
     public static void cleanTable(Connection connection) throws SQLException {

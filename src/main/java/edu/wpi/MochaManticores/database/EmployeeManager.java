@@ -142,7 +142,7 @@ public class EmployeeManager {
     }
 
     public static void setEmployee_csv_path(String employee_csv_path) {
-        Employee_csv_path = "data/"+employee_csv_path;
+        Employee_csv_path = employee_csv_path;
     }
 
     public static void cleanTable(Connection connection) throws SQLException {

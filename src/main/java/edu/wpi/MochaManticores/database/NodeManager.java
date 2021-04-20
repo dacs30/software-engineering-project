@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 public class NodeManager {
-    private static String Node_csv_path = "data/bwMNodes.csv";
+    private static String Node_csv_path = "/data/bwMNodes.csv";
     private static final String CSVdelim = ",";
 
     public static void loadFromCSV(Connection connect){
@@ -220,7 +220,7 @@ public class NodeManager {
     }
 
     public static void setNode_csv_path(String node_csv_path) {
-        Node_csv_path = "data/"+node_csv_path;
+        Node_csv_path = node_csv_path;
     }
 
     public static void cleanTable(Connection connection) throws SQLException {

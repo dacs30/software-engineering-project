@@ -6,6 +6,7 @@ import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.Nodes.VertexList;
 import edu.wpi.MochaManticores.database.*;
+import org.assertj.core.api.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -63,6 +64,12 @@ public class DatabaseTest {
     @BeforeAll
     static void start() throws SQLException, InterruptedException {
         setUp();
+    }
+
+    //clean database test
+    @Test
+    public static void cleanDB() throws FileNotFoundException, SQLException, InvalidUserException {
+        Mdb.databaseChangeCSVs("/data/bwMEdges.csv","/data/bwMNodes.csv");
     }
 
     // employee database test cases
