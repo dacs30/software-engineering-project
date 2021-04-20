@@ -16,8 +16,8 @@ public class AStar2 {
     //Declare instance variables
     private HashMap<String, NodeSuper> nodes;   //The HashMap containing all nodes on the map
     private PriorityQueue<AStarNode> horizon;   //Contains unvisited nodes adjacent to visited ones (lowest cost first)
-    private ArrayList<AStarNode> visitedNodes;  //Contains all visited nodes
-    private ArrayList<AStarNode> horizonNodes;  //Same as horizon but as a list to enable object retrieval
+    private HashMap<String, AStarNode> visitedNodes;  //Contains all visited nodes
+    private HashMap<String, AStarNode> horizonNodes;  //Same as horizon but as a list to enable object retrieval
     private AStarNode currentNode;              //Current node being explored
     private NodeSuper target;                   //The node being searched for
 
@@ -53,8 +53,8 @@ public class AStar2 {
     public LinkedList<String> findRoute(NodeSuper start, NodeSuper target) {
         //Initialize class variables
         this.horizon = new PriorityQueue<AStarNode>(10, new NodeComparator());  //Sorts using NodeComparator
-        this.visitedNodes = new ArrayList<>();                                              //Initialized as empty
-        this.horizonNodes = new ArrayList<>();                                              //Initialized as empty
+        this.visitedNodes = new HashMap<>();                                              //Initialized as empty
+        this.horizonNodes = new HashMap<>();                                              //Initialized as empty
         this.currentNode = new AStarNode(start, target, "NONE", 0);         //Initialized to start node
         this.target = target;                           //Initializes the target variable
         //Initialize local variables
@@ -64,19 +64,20 @@ public class AStar2 {
         //Explore the horizon until the target node is found
         while(true) {
             //checkNeighbors adds to the horizon and compares routes, returns false unless the target is found
+            this.visitedNodes.put(this.currentNode.getID(), this.currentNode);
             if(checkNeighbors()) {
                 break;
             }
             //After exploring a node, shift it from the horizon to the visited list and get the next node
-            this.visitedNodes.add(this.currentNode);
+            //this.visitedNodes.add(this.currentNode);
             this.currentNode = this.horizon.poll();
-            this.horizonNodes.remove(this.currentNode);
+            this.horizonNodes.remove(this.currentNode.getID());
         }
 
         //Once the target has been found, retrace steps back to the start node
         while(true) {
             route.addFirst(traceBackNode);
-            traceBackNode = this.visitedNodes.get(this.visitedNodes.indexOf(traceBackNode)).getLastID();
+            traceBackNode = this.visitedNodes.get(traceBackNode).getLastID();
             //Once the start node has been found, break the loop
             if(traceBackNode == "NONE") {
                 break;
@@ -105,15 +106,15 @@ public class AStar2 {
             AStarNode newNode = new AStarNode(neighbor, this.target, currentID, travelCost);    //Makes a new A* node
 
             //If the node has already been visited, see if the new path is faster
-            if(this.visitedNodes.contains(ID)) {
-                this.visitedNodes.get(this.visitedNodes.indexOf(ID)).compareCosts(currentID, travelCost);
+            if(this.visitedNodes.containsKey(ID)) {
+                this.visitedNodes.get(ID).compareCosts(currentID, travelCost);
             }
 
             //Otherwise, if it's already on the horizon check to see if this new path is faster
             else if(this.horizon.contains(ID)) {
-                if(this.horizonNodes.get(this.horizonNodes.indexOf(ID)).getCost() > travelCost) {
+                if(this.horizonNodes.get(ID).getCost() > travelCost) {
                     //Update the horizonNodes list entry and replace the horizon entry
-                    this.horizonNodes.get(this.horizonNodes.indexOf(ID)).compareCosts(currentID, travelCost);
+                    this.horizonNodes.get(ID).compareCosts(currentID, travelCost);
                     this.horizon.remove(ID);
                     this.horizon.add(newNode);
                 }
@@ -122,10 +123,10 @@ public class AStar2 {
             //Otherwise, add the node to the horizon and check whether or not it's the target
             else {
                 this.horizon.add(newNode);
-                this.horizonNodes.add(newNode);
+                this.horizonNodes.put(ID, newNode);
                 if(neighbor.getID().equals(this.target.getID())) {
                     //Before the loop breaks, add the target node to visitedNodes (prevents an issue in the next loop)
-                    this.visitedNodes.add(newNode);
+                    this.visitedNodes.put(ID, newNode);
                     //Set the found flag to break the search loop
                     located = true;
                 }
