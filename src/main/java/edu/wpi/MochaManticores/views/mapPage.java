@@ -21,6 +21,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.layout.VBox;
@@ -320,32 +321,34 @@ public class mapPage extends SceneController {
         if(pitStops.isEmpty()){
             pathToTake.append("Please select at least one node");
         }else{
+
             LinkedList<String> path = star.path(stops);
+            System.out.println(path);
             for (String str :
                     path) {
                 System.out.printf("\n%s\n|\n", MapSuper.getMap().get(str).getLongName());
                 pathToTake.append(MapSuper.getMap().get(str).getLongName()).append("\n|\n");//appending the paths
             }
-//            LinkedList<Line> lines = new LinkedList();
-//
-//            for (int i = 0; i < path.size() - 1; i++) {
-//                try {
-//                    node start = nodes.get(path.get(i+1));
-//                    node end = nodes.get(path.get(i+1));
-//                    double startX= start.xCoord;
-//                    double startY = start.yCoord;
-//                    double endX= end.xCoord;
-//                    double endY= end.yCoord;
-//                    Line l = new Line(startX,startY,endX,endY);
-//                    l.setStroke(Color.BLACK);
-//                    l.setStrokeWidth(5);
-//                    lines.add(l);
-//                } catch (Exception e){
-//                    System.out.println("Got here");
-//                }
-//
-//            }
-//            nodePane.getChildren().addAll(lines);
+            LinkedList<Line> lines = new LinkedList();
+
+            for (int i = 0; i < path.size(); i++) {
+                try {
+                    node start = nodes.get(path.get(i));
+                    node end = nodes.get(path.get(i+1));
+                    double startX= start.xCoord;
+                    double startY = start.yCoord;
+                    double endX= end.xCoord;
+                    double endY= end.yCoord;
+                    Line l = new Line(startX,startY,endX,endY);
+                    l.setStroke(Color.BLACK);
+                    l.setStrokeWidth(5);
+                    lines.add(l);
+                } catch (Exception e){
+                    System.out.println("Got here");
+                }
+
+            }
+            nodePane.getChildren().addAll(lines);
             for (node n :
                     pitStops) {
                 n.resetFill();
@@ -382,13 +385,15 @@ public class mapPage extends SceneController {
     }
 
     public void highlightNode(MouseEvent e) {
-        Circle src = (Circle) e.getSource();
+        Circle src = ((Circle)e.getSource());
+        src.setFill(Color.RED);
+
         Iterator<node> iter = nodes.values().iterator();
 
         for (int i = 0; i < nodes.size(); i++) {
             node n = iter.next();
             if (n.c.equals(src)) {
-                n.c.setFill(Color.RED);
+                //n.c.setFill(Color.RED);
                 pitStops.add(n);
             }
         }
@@ -396,6 +401,7 @@ public class mapPage extends SceneController {
 
     @FXML
     public void goToRouteExample(ActionEvent e) {
+        drawNodes();
         toAStar();
     }
 
