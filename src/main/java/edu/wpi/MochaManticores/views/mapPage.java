@@ -90,6 +90,9 @@ public class mapPage extends SceneController {
     @FXML
     private Label finalDestinationLabel;
 
+    @FXML
+    private VBox pitstopsLabel;
+
     private String location = "edu/wpi/MochaManticores/images/";
 
     private String selectedFloor = "";
@@ -164,6 +167,9 @@ public class mapPage extends SceneController {
 
         //Initializing the dialog pane
         dialogPane.toBack();
+
+        //center Vbox
+        pitstopsLabel.setAlignment(Pos.CENTER);
 
 
     }
@@ -320,8 +326,7 @@ public class mapPage extends SceneController {
         //pathToTake is used in the dialog box that keeps all the nodes that the user has to pass through
         StringBuilder pathToTake = new StringBuilder(new String());
         LinkedList<NodeSuper> stops = new LinkedList<>();
-        for (node n :
-                pitStops) {
+        for (node n : pitStops) {
             stops.add(MapSuper.getMap().get(n.nodeID));
         }
         if(pitStops.isEmpty()){
@@ -329,9 +334,16 @@ public class mapPage extends SceneController {
         }else{
 
             LinkedList<String> path = star.path(stops);
+
+            for(int i = 1; i < path.size(); i++){
+                Text aPartOfPath = new Text(path.get(i));
+                aPartOfPath.setStyle("-fx-text-fill: white");
+                aPartOfPath.setStyle("-fx-text-alignment: center");
+                pitstopsLabel.getChildren().add(aPartOfPath);
+            }
+
             System.out.println(path);
-            for (String str :
-                    path) {
+            for (String str : path) {
                 System.out.printf("\n%s\n|\n", MapSuper.getMap().get(str).getLongName());
                 pathToTake.append(MapSuper.getMap().get(str).getLongName()).append("\n|\n");//appending the paths
             }
@@ -405,8 +417,13 @@ public class mapPage extends SceneController {
                     placeClicked.setText(MapSuper.getMap().get(n.nodeID).getLongName());
                 }
                 if(pitStops.size() == 1){
-                    // set the second destination clicked
+                    // set the second destination clicked label
                     finalDestinationLabel.setText(MapSuper.getMap().get(n.nodeID).getLongName());
+                }
+                if(pitStops.size() > 1){
+                    //set all the pitstops in the vbox for the pitstops
+                    Label aPitStop = new Label(MapSuper.getMap().get(n.nodeID).getLongName());
+                    pitstopsLabel.getChildren().add(aPitStop);
                 }
                 pitStops.add(n);
             }
