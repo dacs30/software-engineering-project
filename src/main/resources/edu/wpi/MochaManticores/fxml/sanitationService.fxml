@@ -6,6 +6,7 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -48,8 +49,8 @@
             </ImageView>
             <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #0F4B91;" GridPane.columnIndex="1">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="545.6666259765625" minWidth="10.0" prefWidth="221.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="991.0000610351562" minWidth="10.0" prefWidth="779.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="545.6666259765625" minWidth="10.0" prefWidth="190.33334350585938" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="991.0000610351562" minWidth="10.0" prefWidth="809.6666564941406" />
               </columnConstraints>
               <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -62,7 +63,7 @@
                   <RowConstraints maxHeight="100.3333740234375" minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <JFXTextArea fx:id="description" maxHeight="-Infinity" maxWidth="513.0" minHeight="-Infinity" prefHeight="131.0" prefWidth="513.0" promptText="Detailed description of the incident" style="-fx-background-color: #0F4B91;" unFocusColor="#615858" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                  <JFXTextArea fx:id="description" maxHeight="-Infinity" maxWidth="513.0" minHeight="-Infinity" prefHeight="109.0" prefWidth="500.0" promptText="Detailed description of the incident" style="-fx-background-color: #0F4B91;" unFocusColor="#615858" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -132,7 +133,7 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                    <Label prefHeight="120.0" prefWidth="656.0" text=" Sanitation Service Request Form" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="1" GridPane.valignment="CENTER">
+                    <Label id="sanitationServicesLabel" prefHeight="76.0" prefWidth="808.0" text=" Sanitation Service Request Form" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="1" GridPane.valignment="CENTER">
                         <font>
                             <Font name="Serif Regular" size="44.0" />
                         </font>
@@ -148,7 +149,7 @@
                         <Font size="20.0" />
                      </font>
                   </JFXTextField>
-                  <JFXButton id="helpBtn" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#helpButton" prefHeight="41.0" prefWidth="84.0" style="-fx-background-color: lightgrey; -fx-border-color: dimgrey;" text="HELP" translateX="-30.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                  <JFXButton id="helpBtn" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#helpButton" prefHeight="41.0" prefWidth="84.0" style="-fx-background-color: lightgrey; -fx-border-color: dimgrey;" text="HELP" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -163,6 +164,9 @@
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
+               <effect>
+                  <DropShadow />
+               </effect>
             </GridPane>
          </children>
       </GridPane>

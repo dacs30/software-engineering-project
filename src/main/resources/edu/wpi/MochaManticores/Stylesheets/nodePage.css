@@ -1,20 +1,45 @@
-#cancelButton {
-    -fx-background-color: #0F4B91;
+#clearButton {
+    -fx-background-color: #FFFFFF;
     -fx-font-family: Roboto;
     -fx-font-size: 25;
     -fx-font-weight: bold;
 }
-#helpButton {
-    -fx-background-color: #0F4B91;
+#csvButton {
+    -fx-background-color: #FFFFFF;
+    -fx-font-family: Roboto;
+    -fx-font-size: 25;
+    -fx-font-weight: bold;
+}
+#addButton {
+    -fx-background-color: #FFFFFF;
+    -fx-font-family: Roboto;
+    -fx-font-size: 25;
+    -fx-font-weight: bold;
+}
+#loadBtn {
+    -fx-background-color: #FFFFFF;
     -fx-font-family: Roboto;
     -fx-font-size: 20;
     -fx-font-weight: bold;
 }
 
-#sanitationServicesLabel {
+#editBtn {
+    -fx-background-color: #0F4B91;
+    -fx-font-family: Roboto;
+    -fx-font-size: 25;
+    -fx-font-weight: bold;
+}
+#searchBtn1 {
+    -fx-background-color: #FFFFFF;
+    -fx-font-family: Roboto;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+}
+
+#nodeSelectorLabel {
     -fx-font-weight: bold;
     -fx-font-family: Roboto;
-    -fx-font-size: 45;
+    -fx-font-size: 50;
 }
 
 .jfx-text-field {
