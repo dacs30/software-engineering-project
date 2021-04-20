@@ -3,7 +3,6 @@ package edu.wpi.MochaManticores.Algorithms;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
@@ -11,21 +10,29 @@ import java.util.PriorityQueue;
 /**
  * AStar implementation using a priority queue to find the most efficient path to the target node
  * @author aksil
+ * @author gatch
  */
 public class AStar2 {
     //Declare instance variables
-    private HashMap<String, NodeSuper> nodes;   //The HashMap containing all nodes on the map
-    private PriorityQueue<AStarNode> horizon;   //Contains unvisited nodes adjacent to visited ones (lowest cost first)
-    private HashMap<String, AStarNode> visitedNodes;  //Contains all visited nodes
-    private HashMap<String, AStarNode> horizonNodes;  //Same as horizon but as a list to enable object retrieval
-    private AStarNode currentNode;              //Current node being explored
-    private NodeSuper target;                   //The node being searched for
+    private HashMap<String, NodeSuper> nodes;           //The HashMap containing all nodes on the map
+    private PriorityQueue<AStarNode> horizon;           //Contains unvisited nodes adjacent to visited ones (lowest cost first)
+    private HashMap<String, AStarNode> visitedNodes;    //Contains all visited nodes
+    private HashMap<String, AStarNode> horizonNodes;    //Same as horizon but as a list to enable object retrieval
+    private AStarNode currentNode;                      //Current node being explored
+    private NodeSuper target;                           //The node being searched for
 
     //Constructor
     public AStar2() {
         this.nodes = MapSuper.getMap();
     }
 
+    /**
+     * method: multiStopRoute()
+     * usage: takes in a linked list of nodes and returns a linked list
+     *        of node IDs representing a path through all input nodes
+     * @param stops LinkedList containing start and target nodes in order
+     * @return path LinkedList containing all node IDs in the route
+     */
     public LinkedList<String> multiStopRoute(LinkedList<NodeSuper> stops){
         LinkedList<String> path = new LinkedList<>();
         if (stops.size() == 1){
@@ -48,17 +55,18 @@ public class AStar2 {
      *        with exploration guided by GBF
      * @param start the node of origin
      * @param target the node to search for
-     * @return an ArrayList of Strings containing the IDs of the nodes from the target to the start node
+     * @return an LinkedList of Strings containing the IDs of the nodes from the first node to the target
      */
     public LinkedList<String> findRoute(NodeSuper start, NodeSuper target) {
         //Initialize class variables
         this.horizon = new PriorityQueue<AStarNode>(10, new NodeComparator());  //Sorts using NodeComparator
-        this.visitedNodes = new HashMap<>();                                              //Initialized as empty
-        this.horizonNodes = new HashMap<>();                                              //Initialized as empty
+        this.visitedNodes = new HashMap<>();                                                //Initialized as empty
+        this.horizonNodes = new HashMap<>();                                                //Initialized as empty
         this.currentNode = new AStarNode(start, target, "NONE", 0);         //Initialized to start node
         this.target = target;                           //Initializes the target variable
+
         //Initialize local variables
-        LinkedList<String> route = new LinkedList<>();    //Initialized as empty
+        LinkedList<String> route = new LinkedList<>();  //Initialized as empty
         String traceBackNode = target.getID();          //First ID on the route list will be the target node
 
         //Explore the horizon until the target node is found
@@ -68,8 +76,6 @@ public class AStar2 {
             if(checkNeighbors()) {
                 break;
             }
-            //After exploring a node, shift it from the horizon to the visited list and get the next node
-            //this.visitedNodes.add(this.currentNode);
             this.currentNode = this.horizon.poll();
             this.horizonNodes.remove(this.currentNode.getID());
         }
