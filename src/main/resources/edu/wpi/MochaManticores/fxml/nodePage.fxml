@@ -180,7 +180,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Node Editor" wrappingWidth="357.40625" GridPane.columnIndex="1">
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Node Editor" wrappingWidth="357.40625" GridPane.columnIndex="1" textAlignment="CENTER">
                            <font>
                               <Font size="48.0" />
                            </font>
@@ -209,17 +209,17 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <JFXButton alignment="CENTER_RIGHT" buttonType="RAISED" cancelButton="true" onAction="#cancelEdit" prefHeight="86.0" ripplerFill="BLACK" style="-fx-background-color: #E74C3c;" text="Cancel" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                              <JFXButton alignment="CENTER_RIGHT" buttonType="RAISED" cancelButton="true" onAction="#cancelEdit" prefHeight="86.0" ripplerFill="BLACK" style="-fx-background-color: #FFFF;" text="Cancel" textFill="BLACK" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                                  <font>
                                     <Font size="40.0" />
                                  </font>
                               </JFXButton>
-                              <JFXButton buttonType="RAISED" contentDisplay="RIGHT" onAction="#submitEdit" prefHeight="86.0" ripplerFill="BLACK" style="-fx-background-color: #30DD27;" text="Submit" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+                              <JFXButton buttonType="RAISED" contentDisplay="RIGHT" onAction="#submitEdit" prefHeight="86.0" ripplerFill="BLACK" style="-fx-background-color: #FFFF;" text="Submit" textFill="BLACK" GridPane.columnIndex="3" GridPane.halignment="CENTER">
                                  <font>
                                     <Font size="40.0" />
                                  </font>
                               </JFXButton>
-                              <JFXButton alignment="CENTER_RIGHT" buttonType="RAISED" cancelButton="true" onAction="#delNode" prefHeight="86.0" prefWidth="173.0" ripplerFill="BLACK" style="-fx-background-color: #E74C3c;" text="Delete" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                              <JFXButton alignment="CENTER_RIGHT" buttonType="RAISED" cancelButton="true" onAction="#delNode" prefHeight="86.0" prefWidth="173.0" ripplerFill="BLACK" style="-fx-background-color: #FFFF;" text="Delete" textAlignment="CENTER" textFill="BLACK" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                                  <font>
                                     <Font size="40.0" />
                                  </font>
