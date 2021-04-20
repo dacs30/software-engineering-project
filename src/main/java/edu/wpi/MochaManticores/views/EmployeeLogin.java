@@ -130,7 +130,7 @@ public class EmployeeLogin extends SceneController{
     public void onMouseClickedContinue(ActionEvent actionEvent) {
         Connection connection = Mdb.getConnection();
         // try the login with the inputed credentials
-        // error if fails
+        // error if fail
         try {
             EmployeeManager.checkEmployeeLogin(connection, empUserName.getText(), empPassword.getText());
             changeSceneTo("staffMainMenu");
