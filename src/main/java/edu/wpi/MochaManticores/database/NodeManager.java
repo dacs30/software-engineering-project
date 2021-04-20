@@ -225,7 +225,7 @@ public class NodeManager {
 
     public static void cleanTable(Connection connection) throws SQLException {
         String sql = "DELETE FROM NODES";
-        Statement stmt = connection.createStatement();
-        stmt.executeQuery(sql);
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        ResultSet result = pstmt.executeQuery();
     }
 }
