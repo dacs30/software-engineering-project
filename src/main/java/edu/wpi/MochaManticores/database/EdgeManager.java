@@ -124,7 +124,9 @@ public class EdgeManager {
         Statement stmt = connect.createStatement();
         ResultSet results = stmt.executeQuery(sql);
         while (results.next()) {
-            addEdge_map(results.getString(1),results.getString(2),results.getString(3));
+            addEdge_map(results.getString(1).replaceAll("\\s",""),
+                    results.getString(2).replaceAll("\\s",""),
+                    results.getString(3).replaceAll("\\s",""));
         }
     }
 

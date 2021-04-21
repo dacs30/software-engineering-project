@@ -4,6 +4,8 @@ import edu.wpi.MochaManticores.Nodes.*;
 import java.io.*;
 import java.sql.*;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Set;
 
 public class NodeManager {
     private static String Node_csv_path = "data/bwMNodes.csv";
@@ -108,7 +110,7 @@ public class NodeManager {
         ResultSet results = stmt.executeQuery(sql);
 
         while (results.next()) {
-            addNode_map(results.getString(1), results.getString(2),
+            addNode_map(results.getString(1).replaceAll("\\s",""), results.getString(2),
                                     results.getString(3), results.getString(4),
                                     results.getString(5), results.getString(6),
                                     results.getString(7), results.getString(8));
@@ -173,6 +175,15 @@ public class NodeManager {
         pstmt.executeUpdate();
 
         // remove node from map
+        System.out.println(MapSuper.getMap().get(nodeID).getNeighbors());
+        LinkedList<String> neighbors = new LinkedList<>();
+        for(String neighborID : MapSuper.getMap().get(nodeID).getNeighbors()) {
+            neighbors.add(neighborID);
+        }
+        for(String neighborID : neighbors) {
+            String edgeID = nodeID+"_"+neighborID;
+            EdgeManager.delEdge(connection, edgeID);
+        }
         MapSuper.getMap().remove(nodeID);
     }
 
