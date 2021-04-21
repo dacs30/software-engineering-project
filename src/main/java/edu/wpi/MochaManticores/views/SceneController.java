@@ -12,7 +12,7 @@ import java.util.EmptyStackException;
 import java.util.Objects;
 import java.util.Stack;
 
-public class SceneController {
+public class SceneController{
     protected static Stack<String> scenes = new Stack<>();
     double height = App.getPrimaryStage().getScene().getHeight();
     double width = App.getPrimaryStage().getScene().getWidth();

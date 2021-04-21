@@ -25,7 +25,7 @@ public class internalTransportationController extends SceneController{
     @FXML
     private JFXTextField destination;
     @FXML
-    private JFXTextField assignEmp;
+    private JFXTextField empBox;
 
     @FXML
     private JFXComboBox transportComboBox;
@@ -50,6 +50,10 @@ public class internalTransportationController extends SceneController{
         transportComboBox.setItems(typeOfTransportList);
 
         dialogPane.toBack();
+
+        if(App.getClearenceLevel()<=0){
+            empBox.setVisible(false);
+        }
     }
 
     public void goBack(ActionEvent actionEvent) {

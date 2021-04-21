@@ -47,6 +47,9 @@ public class FloralSceneController extends SceneController {
   @FXML
   private StackPane dialogPane;
 
+  @FXML
+  private JFXTextField empBox;
+
 
 
 
@@ -68,10 +71,16 @@ back();
     backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
     backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
-    vases = Arrays.asList(blueVase, yellowVase, orangeVase); }
+    vases = Arrays.asList(blueVase, yellowVase, orangeVase);
+
+    if(App.getClearenceLevel()<=0){
+      empBox.setVisible(false);
+    }
+  }
 
   public void submitEvent(ActionEvent actionEvent) {
     System.out.println("Submitted");
+
   }
 
   public void helpButton(ActionEvent actionEvent){loadHelpDialogue();}

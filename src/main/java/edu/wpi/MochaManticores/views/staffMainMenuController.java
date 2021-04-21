@@ -59,6 +59,10 @@ public class staffMainMenuController extends SceneController{
         }
     }
 
+    public void gotoService(ActionEvent e){
+        super.changeSceneTo("landingPage");
+    }
+
     public String getPath() {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         File selectedDirectory = directoryChooser.showDialog(App.getPrimaryStage());

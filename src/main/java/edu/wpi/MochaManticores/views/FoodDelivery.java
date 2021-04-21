@@ -1,9 +1,6 @@
 package edu.wpi.MochaManticores.views;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.*;
 import edu.wpi.MochaManticores.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -32,6 +29,10 @@ public class FoodDelivery extends SceneController {
 
     @FXML
     private JFXButton backBtn;
+
+    @FXML
+    private JFXTextField empBox;
+
 
     @FXML
     private void goBack(ActionEvent e) {
@@ -104,6 +105,10 @@ public class FoodDelivery extends SceneController {
         // TODO Condition of menus depending of the dietary preference
         foodMenu.getItems().clear();
         foodMenu.getItems().addAll("Menu 0", "Menu 1", "Menu 2", "Menu 3");
+
+        if(App.getClearenceLevel()<=0){
+            empBox.setVisible(false);
+        }
 
         //dialogPane.setDisable(false);
     }

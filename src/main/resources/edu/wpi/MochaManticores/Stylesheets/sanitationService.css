@@ -1,15 +1,16 @@
 #cancelButton {
-    -fx-background-color: #0F4B91;
+    -fx-background-color: #FFFFFF;
     -fx-font-family: Roboto;
-    -fx-font-size: 25;
+    -fx-font-size: 20;
     -fx-font-weight: bold;
 }
-#helpBtn {
-    -fx-background-color: #0F4B91;
+#helpBtn{
+    -fx-background-color: #FFFFFF;
     -fx-font-family: Roboto;
-    -fx-font-size: 25;
+    -fx-font-size: 20;
     -fx-font-weight: bold;
 }
+
 #backBtn {
     -fx-background-color: #0F4B91;
     -fx-font-family: Roboto;
@@ -42,8 +43,8 @@
 
 
 #submitButton{
-    -fx-background-color: #0F4B91;
+    -fx-background-color: #FFFFFF;
     -fx-font-family: Roboto;
-    -fx-font-size: 25;
+    -fx-font-size: 20;
     -fx-font-weight: bold;
 }

@@ -56,6 +56,14 @@
                         <Image url="@../images/logo-small.png" />
                      </image>
                   </ImageView>
+                  <JFXButton id="backBtnFoodDelivery" buttonType="RAISED" onAction="#goBack" prefHeight="65.0" prefWidth="127.0" style="-fx-background-color: 0F4B91;" stylesheets="@../stylesheets.css" text="BACK" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <GridPane.margin>
+                        <Insets bottom="30.0" />
+                     </GridPane.margin>
+                  </JFXButton>
                </children>
             </GridPane>
             <GridPane maxHeight="700.0" maxWidth="1000.0" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #0F4B91;" stylesheets="@../Stylesheets/foodDelivery.css" GridPane.columnIndex="1">
@@ -112,14 +120,9 @@
                   <JFXComboBox fx:id="foodMenu" focusColor="WHITE" promptText="Menu" stylesheets="@../stylesheets.css" unFocusColor="WHITE" GridPane.rowIndex="4" />
                   <JFXButton id="submitBtnFoodDelivery" onAction="#submitForm" stylesheets="@../stylesheets.css" text="SUBMIT" GridPane.rowIndex="5" />
                   <JFXButton id="helpBtn" onAction="#helpButton" prefHeight="54.0" prefWidth="80.0" text="HELP" translateX="100.0" GridPane.halignment="LEFT" />
-                  <JFXTextField maxHeight="-Infinity" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="800.0" promptText="Assign To Employee" GridPane.rowIndex="3" />
+                  <JFXTextField fx:id="empBox" maxHeight="-Infinity" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="800.0" promptText="Assign To Employee" GridPane.rowIndex="3" />
                </children>
             </GridPane>
-            <JFXButton id="backBtnFoodDelivery" buttonType="RAISED" onAction="#goBack" prefHeight="65.0" prefWidth="127.0" style="-fx-background-color: 0F4B91;" stylesheets="@../stylesheets.css" text="BACK" textFill="WHITE" translateY="300.0">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </JFXButton>
          </children>
       </GridPane>
    </children>

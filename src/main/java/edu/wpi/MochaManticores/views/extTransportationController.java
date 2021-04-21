@@ -3,6 +3,7 @@ package edu.wpi.MochaManticores.views;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.JFXTextField;
 import edu.wpi.MochaManticores.App;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,6 +31,8 @@ public class extTransportationController extends SceneController {
     private ComboBox<String> transportationMethods;
     @FXML
     private StackPane dialogPane;
+    @FXML
+    private JFXTextField empBox;
 
     @FXML
     private void initialize() {
@@ -45,6 +48,10 @@ public class extTransportationController extends SceneController {
         transportationMethods.setItems(transportationMethod);
 
         dialogPane.setDisable(false);
+
+        if(App.getClearenceLevel()<=0){
+            empBox.setVisible(false);
+        }
     }
 
 

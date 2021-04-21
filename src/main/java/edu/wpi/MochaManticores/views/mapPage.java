@@ -32,7 +32,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-public class mapPage extends SceneController {
+public class mapPage extends SceneController{
 
     public class node {
         Circle c;

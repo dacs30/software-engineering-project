@@ -63,7 +63,6 @@ public class nodePage extends SceneController{
     @FXML
     private GridPane contentPane;
 
-
     @FXML
     public GridPane selectionPage;
 

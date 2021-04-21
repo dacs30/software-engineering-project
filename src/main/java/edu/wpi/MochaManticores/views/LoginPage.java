@@ -36,6 +36,8 @@ public class LoginPage extends SceneController{
 
         backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
         backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
+
+
     }
 
 
@@ -95,7 +97,7 @@ public class LoginPage extends SceneController{
     }
 
     public void staffMenu(ActionEvent e) {
-        App.setClearenceLevel(2);
+        App.setClearenceLevel(1);
         changeSceneTo("employeeLogin");
     }
 

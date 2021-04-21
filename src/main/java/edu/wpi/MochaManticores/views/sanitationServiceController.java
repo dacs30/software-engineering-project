@@ -4,6 +4,7 @@ import com.jfoenix.controls.*;
 import edu.wpi.MochaManticores.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
@@ -37,7 +38,7 @@ public class sanitationServiceController extends SceneController {
     public JFXButton helpBtn;
 
     @FXML
-    public JFXTextField assignEmp;
+    public JFXTextField empBox;
 
     @FXML
     public ImageView backgroundIMG;
@@ -50,6 +51,9 @@ public class sanitationServiceController extends SceneController {
 
     @FXML
     private StackPane dialogPane;
+
+    @FXML
+    private Label empTitle;
 
     @FXML
     private JFXButton backBtn;
@@ -65,7 +69,14 @@ public class sanitationServiceController extends SceneController {
 
         dialogPane.toBack();
         backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
-        backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty()); }
+        backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
+
+        if(App.getClearenceLevel()<=0){
+            empBox.setVisible(false);
+            empTitle.setVisible(false);
+        }
+
+    }
 
     public void helpButton(ActionEvent actionEvent){loadHelpDialogue();}
 

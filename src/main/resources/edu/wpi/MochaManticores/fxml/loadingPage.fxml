@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXSpinner?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="edu.wpi.MochaManticores.views.loadingPage"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.loadingPage">
+   <children>
+      <ImageView fitHeight="93.0" fitWidth="280.0" layoutX="160.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="247.4023895263672" AnchorPane.leftAnchor="160.0" AnchorPane.rightAnchor="160.0" AnchorPane.topAnchor="72.0">
+         <image>
+            <Image url="@../images/logo-with-text.png" />
+         </image>
+      </ImageView>
+      <JFXSpinner layoutX="275.0" layoutY="175.0" AnchorPane.bottomAnchor="175.0" AnchorPane.leftAnchor="275.0" AnchorPane.rightAnchor="275.0" AnchorPane.topAnchor="175.0" />
+   </children>
 </AnchorPane>

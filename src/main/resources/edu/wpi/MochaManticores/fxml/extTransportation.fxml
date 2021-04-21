@@ -66,7 +66,7 @@
                         <JFXTextField promptText="Current Room" stylesheets="@../Stylesheets/externalTransportation.css" GridPane.rowIndex="1" />
                         <JFXTextField promptText="External Room" stylesheets="@../Stylesheets/externalTransportation.css" GridPane.rowIndex="2" />
                         <JFXComboBox fx:id="transportationMethods" promptText="Select transportation method" GridPane.rowIndex="3" />
-                        <JFXTextField fx:id="assignEmp" promptText="Assign An Employee" GridPane.rowIndex="4" />
+                        <JFXTextField fx:id="empBox" promptText="Assign An Employee" GridPane.rowIndex="4" />
                      </children>
                   </GridPane>
                   <JFXButton id="submitBtn" onAction="#submitEvent" text="SUBMIT" GridPane.rowIndex="2" />

@@ -23,10 +23,10 @@
             <Image url="@../images/100909_00_BrighamWomens_BTM_N8_966x668.jpg" />
          </image>
       </ImageView>
-      <GridPane fx:id="contentGrid" prefHeight="800.0" prefWidth="1202.0">
+      <GridPane fx:id="contentGrid" prefHeight="800.0" prefWidth="1202.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="30.0" />
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1055.3333129882812" minWidth="10.0" prefWidth="1039.3333129882812" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="184.0740509033203" minWidth="10.0" prefWidth="189.4073944091797" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="1037.25927734375" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -34,6 +34,16 @@
             <RowConstraints />
         </rowConstraints>
          <children>
+            <StackPane fx:id="dialogPane" prefHeight="800.0" prefWidth="1185.0" GridPane.columnIndex="1">
+               <children>
+                  <JFXDialog id="message" prefHeight="263.0" prefWidth="1119.0" />
+               </children>
+            </StackPane>
+            <StackPane fx:id="dialogPane1" prefHeight="800.0" prefWidth="1185.0" GridPane.columnIndex="1">
+               <children>
+                  <JFXDialog id="message" prefHeight="263.0" prefWidth="1119.0" />
+               </children>
+            </StackPane>
             <GridPane maxHeight="700.0" maxWidth="1000.0" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #0F4B91;" GridPane.columnIndex="1" GridPane.valignment="CENTER">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="545.6666259765625" minWidth="10.0" prefWidth="190.33334350585938" />
@@ -87,12 +97,12 @@
                         <Font size="20.0" />
                      </font>
                   </JFXTextField>
-                  <JFXButton fx:id="cancelButton" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#back" prefHeight="65.0" prefWidth="140.0" style="-fx-background-color: lightgrey; -fx-border-color: dimgrey;" text="CANCEL" translateX="50.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+                  <JFXButton id="cancelButton" fx:id="cancelButton" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#back" text="CANCEL" translateX="50.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="submitButton" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#submit" prefHeight="65.0" prefWidth="140.0" ripplerFill="BLACK" style="-fx-background-color: lightgrey; -fx-border-color: dimgrey;" text="SUBMIT" translateX="260.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="7">
+                  <JFXButton fx:id="submitButton" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#submit" ripplerFill="BLACK" text="SUBMIT" translateX="260.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="7">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -136,17 +146,17 @@
                         <Font size="20.0" />
                      </font>
                   </JFXTextField>
-                  <JFXButton id="helpBtn" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#helpButton" prefHeight="65.0" prefWidth="120.0" style="-fx-background-color: lightgrey; -fx-border-color: dimgrey;" text="HELP" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                  <JFXButton id="helpBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#helpButton" prefHeight="54.0" prefWidth="80.0" text="HELP" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </JFXButton>
-                  <Label text="Assign to Employee: " textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+                  <Label fx:id="empTitle" text="Assign to Employee: " textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <JFXTextField fx:id="assignEmp" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <JFXTextField fx:id="empBox" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                </children>
                <GridPane.margin>
                   <Insets />
@@ -169,7 +179,7 @@
                         <Image url="@../images/logo-small.png" />
                      </image>
                   </ImageView>
-                  <JFXButton id="backBtn" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#goBack" prefHeight="65.0" prefWidth="140.0" style="-fx-background-color: #0F4B91;" text="BACK" textFill="WHITE" GridPane.rowIndex="1">
+                  <JFXButton id="backBtn" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#goBack" prefHeight="65.0" prefWidth="140.0" style="-fx-background-color: #0F4B91;" text="BACK" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -179,16 +189,6 @@
                   </JFXButton>
                </children>
             </GridPane>
-            <StackPane fx:id="dialogPane" prefHeight="800.0" prefWidth="1185.0" GridPane.columnIndex="1">
-               <children>
-                  <JFXDialog id="message" prefHeight="263.0" prefWidth="1119.0" />
-               </children>
-            </StackPane>
-            <StackPane fx:id="dialogPane1" prefHeight="800.0" prefWidth="1185.0" GridPane.columnIndex="1">
-               <children>
-                  <JFXDialog id="message" prefHeight="263.0" prefWidth="1119.0" />
-               </children>
-            </StackPane>
          </children>
       </GridPane>
     </children>

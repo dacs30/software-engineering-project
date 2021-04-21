@@ -87,7 +87,7 @@
                         <JFXTextField fx:id="numberOfStaff" labelFloat="true" promptText="Number of Staff Needed" GridPane.rowIndex="1" />
                         <JFXTextField fx:id="destination" labelFloat="true" text="Destination" GridPane.rowIndex="2" />
                         <JFXComboBox fx:id="transportComboBox" promptText="Method of Transportation" GridPane.rowIndex="3" />
-                        <JFXTextField fx:id="assignEmp" promptText="Assign to Employee" GridPane.rowIndex="4" />
+                        <JFXTextField fx:id="empBox" promptText="Assign to Employee" GridPane.rowIndex="4" />
                      </children>
                   </GridPane>
                   <JFXButton id="submitBtn" onAction="#submitEvent" text="SUBMIT" GridPane.rowIndex="2" />
