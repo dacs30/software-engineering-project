@@ -66,3 +66,10 @@
     -fx-font-size: 25;
     -fx-font-weight: bold;
 }
+
+#backBtn {
+    -fx-background-color: #0F4B91;
+    -fx-font-family: Roboto;
+    -fx-font-size: 30;
+    -fx-font-weight: bold;
+}
