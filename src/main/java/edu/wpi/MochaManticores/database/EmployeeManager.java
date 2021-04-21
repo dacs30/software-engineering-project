@@ -34,7 +34,7 @@ public class EmployeeManager {
     //TODO add exceptions for duplicate username handling
     public static void addEmployee(Connection connection, Employee employee){
         try{
-            String sql = "INSERT INTO EMPLOYEES (username, password, fisrtName, lastName, employeeType,ID, Admin) " +
+            String sql = "INSERT INTO EMPLOYEES (username, password, fisrtName, lastName, employeeType,ID, AdminLevel) " +
                     "VALUES (?,?,?,?,?,?,?)";
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, employee.getUsername());

@@ -82,7 +82,7 @@ public class Mdb extends Thread{
                         " lastName VARCHAR(21), " +
                         " employeeType VARCHAR(21)," +
                         " ID INT," +
-                        " Admin BOOLEAN," +
+                        " AdminLevel BOOLEAN," +
                         " PRIMARY KEY (username))";
                 stmt.executeUpdate(sql);
                 EmployeeManager.loadFromCSV(connection);
