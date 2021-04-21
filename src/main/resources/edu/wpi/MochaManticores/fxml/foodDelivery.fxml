@@ -104,7 +104,7 @@
                     </rowConstraints>
                      <children>
                         <Label id="labelFoodDelivery" stylesheets="@../stylesheets.css" text="Allergies (if any)" textFill="WHITE" />
-                        <JFXTextArea id="allergiesPrompt" focusColor="WHITE" promptText="Allergies" style="-fx-font-weight: bold;" stylesheets="@../stylesheets.css" unFocusColor="WHITE" GridPane.rowIndex="1">
+                        <JFXTextArea id="allergiesPrompt" focusColor="WHITE" promptText="Allergies" style="-fx-font-weight: bold;" stylesheets="@../Stylesheets/foodDelivery.css" unFocusColor="WHITE" GridPane.rowIndex="1">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -117,10 +117,10 @@
                         </JFXTextArea>
                      </children>
                   </GridPane>
-                  <JFXComboBox fx:id="foodMenu" focusColor="WHITE" promptText="Menu" stylesheets="@../stylesheets.css" unFocusColor="WHITE" GridPane.rowIndex="4" />
+                  <JFXComboBox fx:id="foodMenu" focusColor="WHITE" promptText="Menu" stylesheets="@../Stylesheets/foodDelivery.css" unFocusColor="WHITE" GridPane.rowIndex="4" />
                   <JFXButton id="submitBtnFoodDelivery" onAction="#submitForm" stylesheets="@../stylesheets.css" text="SUBMIT" GridPane.rowIndex="5" />
                   <JFXButton id="helpBtn" onAction="#helpButton" prefHeight="54.0" prefWidth="80.0" text="HELP" translateX="100.0" GridPane.halignment="LEFT" />
-                  <JFXTextField fx:id="empBox" maxHeight="-Infinity" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="800.0" promptText="Assign To Employee" GridPane.rowIndex="3" />
+                  <JFXTextField fx:id="empBox" maxHeight="-Infinity" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="800.0" promptText="Assign To Employee" stylesheets="@../Stylesheets/foodDelivery.css" GridPane.rowIndex="3" />
                </children>
             </GridPane>
          </children>

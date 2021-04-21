@@ -7,7 +7,7 @@
 
 .jfx-text-area {
     -fx-prompt-text-fill: WHITE;
-    -jfx-focus-color: GREY;
+    -jfx-focus-color: WHITE;
     -jfx-unfocus-color: WHITE;
 }
 
