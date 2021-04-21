@@ -46,11 +46,11 @@ public class staffMainMenuController extends SceneController{
         if(path.equals("")){
 
         }else{
-            File dst = new File(path + "\\MapMNodes.csv");
-            File dst2 = new File(path + "\\MapMEdges.csv");
+            File dst = new File(path + "\\bwMNodes.csv");
+            File dst2 = new File(path + "\\bwMEdges.csv");
             try{
-                File source = new File("data/MapMNodes.csv");
-                File source2 = new File("data/MapMEdges.csv");
+                File source = new File("data/bwMNodes.csv");
+                File source2 = new File("data/bwMEdges.csv");
                 Files.copy(source.toPath(),dst.toPath(),REPLACE_EXISTING);
                 Files.copy(source2.toPath(),dst2.toPath(),REPLACE_EXISTING);
             } catch (IOException ioException) {

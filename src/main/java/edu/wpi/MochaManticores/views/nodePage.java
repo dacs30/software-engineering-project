@@ -366,9 +366,9 @@ public class nodePage extends SceneController{
         if(path.equals("")){
 
         }else{
-            File dst = new File(path + "\\MapMNodes.csv");
+            File dst = new File(path + "\\bwMNodes.csv");
             try{
-                File source = new File("data/MapMNodes.csv");
+                File source = new File("data/bwMNodes.csv");
                 Files.copy(source.toPath(),dst.toPath(), StandardCopyOption.REPLACE_EXISTING);
             } catch (IOException ioException) {
                 ioException.printStackTrace();

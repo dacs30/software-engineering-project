@@ -252,9 +252,9 @@ public class edgesPage extends SceneController{
         if(path.equals("")){
 
         }else{
-            File dst = new File(path + "\\MapMEdges.csv");
+            File dst = new File(path + "\\bwMEdges.csv");
             try{
-                File source = new File("data/MapMEdges.csv");
+                File source = new File("data/bwMEdges.csv");
                 Files.copy(source.toPath(),dst.toPath(),StandardCopyOption.REPLACE_EXISTING);
             } catch (IOException ioException) {
                 ioException.printStackTrace();
