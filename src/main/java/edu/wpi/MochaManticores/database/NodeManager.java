@@ -1,11 +1,9 @@
 package edu.wpi.MochaManticores.database;
 
-import edu.wpi.MochaManticores.Algorithms.AStar;
 import edu.wpi.MochaManticores.Nodes.*;
 import java.io.*;
 import java.sql.*;
 import java.util.HashMap;
-import java.util.Set;
 
 public class NodeManager {
     private static String Node_csv_path = "data/bwMNodes.csv";

@@ -19,7 +19,7 @@ public class AStarNode{
         this.ID = node.getID();
         this.lastID = lastID;
         this.costToReach = costToReach;
-        this.estimatedCost = AStar.calcGBF(node, target);
+        this.estimatedCost = calcGBF(node, target);
         this.priority = costToReach + estimatedCost;
     }
 
@@ -47,6 +47,32 @@ public class AStarNode{
     @Override
     public boolean equals(Object o) {
         return ( ((String) o).equals(this.ID));
+    }
+
+    /**
+     * function: calcGBF()
+     * usage: returns the estimated cost between two nodes,
+     *        favoring nodes in the same building and on the same floor
+     * inputs: NodeSuper firstNode (one of the two nodes)
+     *         NodeSuper secondNode (the other node)
+     * returns: int heuristic (the estimated cost to travel from 1 node to the other)
+     */
+    public static int calcGBF(NodeSuper firstNode, NodeSuper secondNode) {
+        //Establish function constants
+        int buildingOffset = 100;   //determines how much the algorithm prefers nodes in the same building as the target node
+        int floorOffset = 50;       //determines how much the algorithm prefers nodes on the same floor as the target node
+
+        //calculate euclidean distance between nodes
+        int heuristic = (int) Math.round(Math.sqrt(Math.pow(firstNode.getXcoord()-secondNode.getXcoord(), 2) + Math.pow(firstNode.getYcoord()-secondNode.getYcoord(), 2)));
+
+        //add offset cost for being outside of the target building
+        if(!firstNode.getBuilding().equals(secondNode.getBuilding())) {
+            heuristic += buildingOffset;
+            //if inside the target building, add offset for being on a different floor
+        } else if(!firstNode.getFloor().equals(secondNode.getFloor())) {
+            heuristic += floorOffset;
+        }
+        return heuristic;
     }
 
     //getters and setters

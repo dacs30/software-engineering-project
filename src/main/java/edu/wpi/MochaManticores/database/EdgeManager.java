@@ -1,7 +1,6 @@
 package edu.wpi.MochaManticores.database;
 
-import com.sun.javafx.collections.MappingChange;
-import edu.wpi.MochaManticores.Algorithms.AStar;
+import edu.wpi.MochaManticores.Algorithms.AStar2;
 import edu.wpi.MochaManticores.Nodes.EdgeMapSuper;
 import edu.wpi.MochaManticores.Nodes.EdgeSuper;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
@@ -9,7 +8,6 @@ import edu.wpi.MochaManticores.Nodes.NodeSuper;
 
 import java.io.*;
 import java.sql.*;
-import java.util.Map;
 
 public class EdgeManager {
     private static String Edge_csv_path = "data/bwMEdges.csv";
@@ -69,8 +67,8 @@ public class EdgeManager {
 
             if(startNode != null && endNode != null){
                 //add neighbor edges and make them bi-directional
-                startNode.addNeighbor(newEnd, AStar.calcHeuristic(startNode, endNode));
-                endNode.addNeighbor(newStart, AStar.calcHeuristic(endNode, startNode));
+                startNode.addNeighbor(newEnd, AStar2.calcHeuristic(startNode, endNode));
+                endNode.addNeighbor(newStart, AStar2.calcHeuristic(endNode, startNode));
             }
 
         } else {
@@ -149,9 +147,9 @@ public class EdgeManager {
             MapSuper.getMap().get(oldStart).delNeighbor(oldEnd);
             MapSuper.getMap().get(oldEnd).delNeighbor(oldStart);
 
-            MapSuper.getMap().get(newStart).addNeighbor(newEnd, AStar.calcHeuristic(MapSuper.getMap().get(newStart),
+            MapSuper.getMap().get(newStart).addNeighbor(newEnd, AStar2.calcHeuristic(MapSuper.getMap().get(newStart),
                     MapSuper.getMap().get(newEnd)));
-            MapSuper.getMap().get(newEnd).addNeighbor(newStart, AStar.calcHeuristic(MapSuper.getMap().get(newEnd),
+            MapSuper.getMap().get(newEnd).addNeighbor(newStart, AStar2.calcHeuristic(MapSuper.getMap().get(newEnd),
                     MapSuper.getMap().get(newStart)));
         } else {
             System.out.println("The New Start Node or the New End Node is Invalid");

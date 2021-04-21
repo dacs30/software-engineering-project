@@ -1,6 +1,7 @@
 package edu.wpi.MochaManticores;
 
-import edu.wpi.MochaManticores.Algorithms.AStar;
+import edu.wpi.MochaManticores.Algorithms.AStar2;
+import edu.wpi.MochaManticores.Algorithms.AStarNode;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.Nodes.VertexList;
@@ -65,21 +66,21 @@ public class AlgoTest {
     @Test
     public void testGBF1() {
         setUpMap();
-        assertEquals(10, AStar.calcGBF(NODE1, NODE2));
+        assertEquals(10, AStarNode.calcGBF(NODE1, NODE2));
     }
     @Test
     public void testGBF2() {
         setUpMap();
-        assertEquals(14, AStar.calcGBF(NODE3, NODE1));
+        assertEquals(14, AStarNode.calcGBF(NODE3, NODE1));
     }
     @Test
     public void testGBF3() {
         setUpMap();
-        assertEquals(64, AStar.calcGBF(NODE4, NODE1));
+        assertEquals(64, AStarNode.calcGBF(NODE4, NODE1));
     }
     @Test
     public void testHeuristic1() {
         setUpMap();
-        assertEquals(14, AStar.calcHeuristic(NODE4, NODE1));
+        assertEquals(14, AStar2.calcHeuristic(NODE4, NODE1));
     }
 }

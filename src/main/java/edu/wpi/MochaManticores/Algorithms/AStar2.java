@@ -141,4 +141,17 @@ public class AStar2 {
         //return true if one of the neighbors is the target, false otherwise
         return located;
     }
+
+    /**
+     * function: calcHeuristic()
+     * usage: returns the euclidean distance between two nodes,
+     *        for use in establishing vertex cost
+     * inputs: NodeSuper firstNode (one of the two nodes)
+     *         NodeSuper secondNode (the other node)
+     * returns: int heuristic (the estimated cost to travel from 1 node to the other)
+     */
+    public static int calcHeuristic(NodeSuper firstNode, NodeSuper secondNode) {
+        //calculate euclidean distance between nodes
+        return (int) Math.round(Math.sqrt(Math.pow(firstNode.getXcoord()-secondNode.getXcoord(), 2) + Math.pow(firstNode.getYcoord()-secondNode.getYcoord(), 2)));
+    }
 }

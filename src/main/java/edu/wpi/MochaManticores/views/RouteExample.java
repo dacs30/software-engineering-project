@@ -1,18 +1,15 @@
 package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.JFXComboBox;
-import edu.wpi.MochaManticores.Algorithms.AStar;
+import edu.wpi.MochaManticores.Algorithms.AStar2;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
-import edu.wpi.MochaManticores.*;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -54,7 +51,7 @@ public class RouteExample extends SceneController {
 
     public void getPath(ActionEvent e){
         pathField.setText("Path:\nSTART\n|\n");
-        AStar star = new AStar();
+        AStar2 star = new AStar2();
         LinkedList<NodeSuper> stops = new LinkedList<>();
 
         for (NodeSuper node :
@@ -69,7 +66,7 @@ public class RouteExample extends SceneController {
             }
             }
 
-        LinkedList<String> path = star.path(stops);
+        LinkedList<String> path = star.multiStopRoute(stops);
         if(path != null){
             System.out.println("Path found:");
         }
