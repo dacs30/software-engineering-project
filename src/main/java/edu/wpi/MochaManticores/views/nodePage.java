@@ -386,6 +386,7 @@ public class nodePage extends SceneController{
 
         try {
             Mdb.databaseChangeCSVs(EdgeManager.getEdge_csv_path(), file.getAbsolutePath());
+            cancel(null);
         } catch (FileNotFoundException fileNotFoundException) {
             fileNotFoundException.printStackTrace();
         } catch (SQLException throwables) {
