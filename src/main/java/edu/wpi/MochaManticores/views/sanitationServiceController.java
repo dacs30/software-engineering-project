@@ -140,7 +140,7 @@ public class sanitationServiceController extends SceneController {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        returnToMain();
+        back();
     }
 
 
