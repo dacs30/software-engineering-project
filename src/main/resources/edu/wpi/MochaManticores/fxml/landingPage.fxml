@@ -62,7 +62,7 @@
                         <Image url="@../images/logo-with-text.png" />
                      </image>
                   </ImageView>
-                  <JFXButton id="backBtn" fx:id="backButton" buttonType="RAISED" minHeight="50.0" minWidth="170.0" onAction="#goBack" prefHeight="50.0" prefWidth="170.0" style="-fx-background-color: #0f4b91;" stylesheets="@../Stylesheets/landingPage.css" text="BACK" textFill="WHITE" GridPane.halignment="CENTER">
+                  <JFXButton id="backBtn" fx:id="backButton" buttonType="RAISED" minHeight="50.0" minWidth="170.0" onAction="#goBack" prefHeight="60.0" prefWidth="170.0" style="-fx-background-color: #0f4b91;" stylesheets="@../Stylesheets/landingPage.css" text="BACK" textFill="WHITE" GridPane.halignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
