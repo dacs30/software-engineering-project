@@ -232,7 +232,8 @@ public class edgesPage extends SceneController{
     }
 
     public void cancel(ActionEvent e){
-        returnToMain();
+        buildTable("");
+        mapName.setText("");
     }
 
     public void submit(ActionEvent e){
@@ -350,7 +351,7 @@ public class edgesPage extends SceneController{
     public void cancelEdit(ActionEvent e){
         editPage.setVisible(false);
         selectionPage.setVisible(true);
-
+        cancel(e);
     }
 
     public boolean checkInput(){
