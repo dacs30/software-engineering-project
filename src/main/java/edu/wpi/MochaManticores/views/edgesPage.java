@@ -329,11 +329,15 @@ public class edgesPage extends SceneController {
             Edge n = null;
 
             if (selectedEdge == null) {
-                if(!EdgeMapSuper.getMap().containsKey(startNodeField.getText()) || !EdgeMapSuper.getMap().containsKey(endNodeField.getText())){
+                String startNodeID = startNodeField.getText().replaceAll("\\s","");
+                String endNodeID = endNodeField.getText().replaceAll("\\s", "");
+                String edgeID = nodeIDField.getText().replaceAll("\\s","");
+                System.out.printf("%s%s%s\n", startNodeID, endNodeID, edgeID);
+                if(!MapSuper.getMap().containsKey(startNodeID) || !MapSuper.getMap().containsKey(endNodeID)){
                     loadNoNodeDialog();
                     return;
                 }
-                EdgeManager.addEdge(connection, nodeIDField.getText(), startNodeField.getText(), endNodeField.getText());
+                EdgeManager.addEdge(connection, edgeID, startNodeID, endNodeID);
                 cancelEdit(e);
                 return;
             }

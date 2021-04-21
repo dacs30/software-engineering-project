@@ -469,7 +469,10 @@ public class nodePage extends SceneController{
             catch (
                     NullPointerException exception
             ) {
-                NodeManager.addNode(connection, nodeIDField.getText(),
+                String nodeID = nodeIDField.getText().replaceAll("\\s", "");
+                System.out.println(nodeID);
+                System.out.println(nodeIDField.getText().replaceAll("\\s", ""));
+                NodeManager.addNode(connection, nodeID,
                 xcoordField.getText(),
                 ycoordField.getText(),
                 floorField.getText(),
