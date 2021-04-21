@@ -81,6 +81,7 @@ public class FoodDelivery extends SceneController {
         dialog.show();
 
     }
+
     private void loadFullHelpDialogue() {
         dialogPane.toFront();
         loadHelpDialog();

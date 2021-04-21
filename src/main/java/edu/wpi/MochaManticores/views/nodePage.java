@@ -437,7 +437,6 @@ public class nodePage extends SceneController{
             shortNameField.setText(node.getShortName());
             nodeIDField.setText(node.getNodeID());
         }
-
     }
 
     public void cleanEditPage(){
