@@ -525,7 +525,7 @@ public class nodePage extends SceneController{
     }
 
     public boolean checkInput(){
-        return  super.checkInput(Arrays.asList(xcoordField, ycoordField, floorField, buildingField, logNameField,shortNameField, nodeIDField, nodeTypeField));
+        return  editor.checkInput(Arrays.asList(xcoordField.getText(), ycoordField.getText(), floorField.getText(), buildingField.getText(), logNameField.getText(),shortNameField.getText(), nodeIDField.getText(), nodeTypeField.getText()));
     }
 
     public Node updateNode(Node n){

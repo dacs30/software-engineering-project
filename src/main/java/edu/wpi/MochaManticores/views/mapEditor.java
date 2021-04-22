@@ -3,6 +3,7 @@ package edu.wpi.MochaManticores.views;
 import com.jfoenix.controls.*;
 import edu.wpi.MochaManticores.Algorithms.AStar2;
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.Editors.mapEdit;
 import edu.wpi.MochaManticores.Nodes.EdgeMapSuper;
 import edu.wpi.MochaManticores.Nodes.EdgeSuper;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
@@ -29,6 +30,7 @@ import javafx.scene.text.TextAlignment;
 import edu.wpi.MochaManticores.views.nodePage;
 import edu.wpi.MochaManticores.views.edgesPage;
 
+import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -57,6 +59,8 @@ public class mapEditor extends SceneController {
     public JFXTextField startNodeID;
     @FXML
     public JFXTextField endNodeID;
+    @FXML
+    private JFXTextField nodeTypeField;
 
     public class node {
         Circle c;
@@ -64,6 +68,7 @@ public class mapEditor extends SceneController {
         double xCoord;
         double yCoord;
         NodeSuper nodeRef;
+        boolean highlighted;
 
         public node(Circle c, String nodeID, NodeSuper nodeRef) {
             this.c = c;
@@ -71,6 +76,7 @@ public class mapEditor extends SceneController {
             this.nodeRef = nodeRef;
             xCoord = c.getCenterX();
             yCoord = c.getCenterY();
+            this.highlighted = false;
         }
 
         public NodeSuper getNodeRef() {
@@ -118,6 +124,14 @@ public class mapEditor extends SceneController {
             c.setStrokeWidth(1);
             c.setStroke(Color.valueOf("#FF6B35"));
         }
+
+        public boolean isHighlighted() {
+            return highlighted;
+        }
+
+        public void setHighlighted(boolean highlighted) {
+            this.highlighted = highlighted;
+        }
     }
 
     public class edge {
@@ -129,6 +143,7 @@ public class mapEditor extends SceneController {
         double x2;
         double y1;
         double y2;
+        boolean highlighted;
         //EdgeSuper edgeRef;
 
         public edge(Line l, String edgeID, String startID, String endID) {
@@ -141,6 +156,7 @@ public class mapEditor extends SceneController {
             this.x2 = l.getEndX();
             this.y1 = l.getStartY();
             this.y2 = l.getEndY();
+            this.highlighted = false;
         }
 
         public Line getL() {
@@ -191,6 +207,13 @@ public class mapEditor extends SceneController {
             this.y2 = y2;
         }
 
+        public boolean isHighlighted() {
+            return highlighted;
+        }
+
+        public void setHighlighted(boolean highlighted) {
+            this.highlighted = highlighted;
+        }
     }
 
     private HashMap<String, node> nodes = new HashMap();
@@ -240,6 +263,17 @@ public class mapEditor extends SceneController {
     private String location = "edu/wpi/MochaManticores/images/";
 
     private String selectedFloor = "";
+
+    @FXML
+    private JFXButton nodeSubmit;
+    @FXML
+    private JFXButton edgeSubmit;
+    @FXML
+    private JFXButton cancelChanges;
+    @FXML
+    private JFXButton cancelChanges1;
+
+    private mapEdit editor = new mapEdit();
 
     public void setSelectedFloor(String selectedFloor) {
         this.selectedFloor = selectedFloor;
@@ -298,11 +332,68 @@ public class mapEditor extends SceneController {
 
         drawNodes();
 
+        // Setting button handlers
+        EventHandler<ActionEvent> handleSubmitNode = new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                NodeSuper editedNode;
+                String selectedID;
+                if (!checkInput()) {
+                    mapEditor.super.loadErrorDialog(dialogPane, "Please do not leave fields blank!");
+                } else {
+                    try {
+                        editedNode = new NodeSuper(Integer.parseInt(xCoordField.getText()),
+                                Integer.parseInt(yCoordField.getText()),
+                                floorField.getText(),
+                                bldgField.getText(), longNameField.getText(),
+                                shortNameField.getText(),
+                                nodeIDField.getText(),
+                                "TEST",
+                                MapSuper.getMap().get(nodeIDField.getText()).getVertextList());
+                        selectedID = nodeIDField.getText();
+
+
+                    } catch (NullPointerException npe){
+                        editedNode = new NodeSuper(Integer.parseInt(xCoordField.getText()),
+                                Integer.parseInt(yCoordField.getText()),
+                                floorField.getText(),
+                                bldgField.getText(), longNameField.getText(),
+                                shortNameField.getText(),
+                                nodeIDField.getText(),
+                                "TEST",
+                                null);
+                        selectedID = "";
+                    }
+                    try {
+                        boolean success = editor.submitEditNodeToDB(editedNode, selectedID);
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+        };
+
+        nodeSubmit.setOnAction(handleSubmitNode);
 
         //Initializing the dialog pane
         dialogPane.toBack();
 
 
+    }
+
+
+    public boolean checkInput(){
+        return  editor.checkInput(Arrays.asList(xCoordField.getText(),
+                yCoordField.getText(),
+                floorField.getText(),
+                bldgField.getText(),
+                longNameField.getText(),
+                shortNameField.getText(),
+                nodeIDField.getText(),
+                "TEST"));
     }
 
     /**
@@ -554,7 +645,6 @@ public class mapEditor extends SceneController {
                         mouseOverNode(e, 5);
                     }
                 };
-
                 EventHandler<MouseEvent> small = new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent e) {
@@ -637,7 +727,14 @@ public class mapEditor extends SceneController {
         edgeInfoBox.toBack();
 
         Circle src = ((Circle) e.getSource());
-        src.setFill(Color.valueOf("#0F4B91"));
+        if (src.getFill().equals(Color.valueOf("#0F4B91"))){
+            //Already highlighted
+            src.setFill(Color.WHITE);
+        } else {
+            //Not highlighted
+            src.setFill(Color.valueOf("#0F4B91"));
+        }
+
 
         Iterator<node> iter = nodes.values().iterator();
 
@@ -653,6 +750,7 @@ public class mapEditor extends SceneController {
                 typeField.setText(n.getNodeRef().getType());
                 longNameField.setText(n.getNodeRef().getLongName());
                 shortNameField.setText(n.getNodeRef().getShortName());
+                n.setHighlighted(!n.isHighlighted());
 
                 pitStops.add(n);
             }
@@ -664,6 +762,7 @@ public class mapEditor extends SceneController {
         nodeInfoBox.setVisible(false);
         nodeInfoBox.toBack();
         Line src = (Line) e.getSource();
+
         Iterator<edge> iter = edges.values().iterator();
         for (int i = 0; i < edges.size(); i++) {
             edge ed = iter.next();

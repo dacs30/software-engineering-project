@@ -79,15 +79,6 @@ public class SceneController{
         Platform.exit();
     }
 
-    public boolean checkInput(List<JFXTextField> fields) {
-        for (JFXTextField j : fields){
-            if (j.getText().equals("")){
-                return false;
-            }
-        }
-        return true;
-    }
-
     public void loadErrorDialog(StackPane dialogPane, String msg){
         dialogPane.toFront();
         dialogPane.setDisable(false);

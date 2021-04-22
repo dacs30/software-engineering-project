@@ -430,7 +430,7 @@ public class edgesPage extends SceneController {
     }
 
     public boolean checkInput() {
-        return super.checkInput(Arrays.asList(startNodeField, endNodeField, nodeIDField));
+        return editor.checkInput(Arrays.asList(startNodeField.getText(), endNodeField.getText(), nodeIDField.getText()));
     }
 
     public void back(ActionEvent e) {
