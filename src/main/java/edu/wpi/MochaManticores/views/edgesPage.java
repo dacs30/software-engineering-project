@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.Editors.mapEdit;
 import edu.wpi.MochaManticores.Nodes.EdgeMapSuper;
 import edu.wpi.MochaManticores.Nodes.EdgeSuper;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
@@ -52,6 +53,8 @@ public class edgesPage extends SceneController {
     public TableColumn<Edge, String> endNode;
     public TableColumn<Edge, String> nodeID;
     public ObservableList<Edge> listOfEdges = FXCollections.observableArrayList();
+
+    private mapEdit editor = new mapEdit();
 
     @FXML
     public ImageView backgroundIMG;
@@ -314,47 +317,82 @@ public class edgesPage extends SceneController {
 
     }
 
-    public void submitEdit(ActionEvent e) throws FileNotFoundException, SQLException {
-        if (!checkInput()) {
+//    public void submitEdit(ActionEvent e) throws FileNotFoundException, SQLException {
+//        if (!checkInput()) {
+//            loadEmptyDialog();
+//        } else {
+//            Connection connection = null;
+//            try {
+//                connection = getConnection();
+//            } catch (SQLException except) {
+//                return;
+//            }
+//
+//            Edge n = null;
+//
+//            if (selectedEdge == null) {
+//                if(!EdgeMapSuper.getMap().containsKey(startNodeField.getText()) || !EdgeMapSuper.getMap().containsKey(endNodeField.getText())){
+//                    loadNoNodeDialog();
+//                    return;
+//                }
+//                EdgeManager.addEdge(connection, nodeIDField.getText(), startNodeField.getText(), endNodeField.getText());
+//                cancelEdit(e);
+//                return;
+//            }
+//            for (Edge edge : listOfEdges) {
+//                if (edge.getNodeID().equals(selectedEdge.getNodeID())) {
+//                    n = updateEdge(edge);
+//                    break;
+//                }
+//            }
+//
+//            if(!EdgeMapSuper.getMap().containsKey(startNodeField.getText()) || !EdgeMapSuper.getMap().containsKey(endNodeField.getText())){
+//                loadNoNodeDialog();
+//                return;
+//            }
+//
+//            EdgeManager.updateEdge(connection, selectedEdge.getNodeID(), selectedEdge.getStartNode(),
+//                    n.getStartNode(), selectedEdge.getEndNode(), n.getEndNode());
+//
+//
+//            //TODO:Talk to CSV Manager
+//            cancelEdit(e);
+//            //NODETYPE IS NOT CHANGED AS WELL AS NEIGHBORS
+//        }
+//    }
+
+    public void submitEdit(ActionEvent e) throws SQLException, FileNotFoundException {
+        EdgeSuper edgeSuper;
+        String selectedID;
+        if(!checkInput()){
             loadEmptyDialog();
-        } else {
-            Connection connection = null;
-            try {
-                connection = getConnection();
-            } catch (SQLException except) {
-                return;
-            }
+        }else{
+            if(editor.validNode(startNodeField.getText()) && editor.validNode(endNodeField.getText())){
+                edgeSuper = new EdgeSuper(startNodeField.getText()+"_"+endNodeField.getText(),
+                        startNodeField.getText(),
+                        endNodeField.getText());
+                if(selectedEdge==null){
+                    selectedID = "";
+                    editor.submitEditEdgeToDB(edgeSuper,selectedID,"","");
+                }else{
+                    Edge n = null;
+                    selectedID = selectedEdge.getNodeID();
+                    for (Edge edge : listOfEdges) {
+                        if (edge.getNodeID().equals(selectedEdge.getNodeID())) {
+                            n = updateEdge(edge);
+                            break;
+                        }
+                    }
 
-            Edge n = null;
-
-            if (selectedEdge == null) {
-                if(!EdgeMapSuper.getMap().containsKey(startNodeField.getText()) || !EdgeMapSuper.getMap().containsKey(endNodeField.getText())){
-                    loadNoNodeDialog();
-                    return;
+                    if (!EdgeMapSuper.getMap().containsKey(startNodeField.getText()) || !EdgeMapSuper.getMap().containsKey(endNodeField.getText())) {
+                        loadNoNodeDialog();
+                        return;
+                    }
+                    editor.submitEditEdgeToDB(edgeSuper,selectedID,selectedEdge.getStartNode(),selectedEdge.getEndNode());
+                    cancelEdit(e);
                 }
-                EdgeManager.addEdge(connection, nodeIDField.getText(), startNodeField.getText(), endNodeField.getText());
-                cancelEdit(e);
-                return;
+
             }
-            for (Edge edge : listOfEdges) {
-                if (edge.getNodeID().equals(selectedEdge.getNodeID())) {
-                    n = updateEdge(edge);
-                    break;
-                }
-            }
-
-            if(!EdgeMapSuper.getMap().containsKey(startNodeField.getText()) || !EdgeMapSuper.getMap().containsKey(endNodeField.getText())){
-                loadNoNodeDialog();
-                return;
-            }
-
-            EdgeManager.updateEdge(connection, selectedEdge.getNodeID(), selectedEdge.getStartNode(),
-                    n.getStartNode(), selectedEdge.getEndNode(), n.getEndNode());
-
-
-            //TODO:Talk to CSV Manager
-            cancelEdit(e);
-            //NODETYPE IS NOT CHANGED AS WELL AS NEIGHBORS
         }
     }
 
