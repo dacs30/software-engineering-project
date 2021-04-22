@@ -1,0 +1,75 @@
+#clearButton {
+    -fx-background-color: #FFFFFF;
+    -fx-font-family: Roboto;
+    -fx-font-size: 25;
+    -fx-font-weight: bold;
+}
+#csvButton {
+    -fx-background-color: #FFFFFF;
+    -fx-font-family: Roboto;
+    -fx-font-size: 25;
+    -fx-font-weight: bold;
+}
+#addButton {
+    -fx-background-color: #FFFFFF;
+    -fx-font-family: Roboto;
+    -fx-font-size: 25;
+    -fx-font-weight: bold;
+}
+#loadBtn {
+    -fx-background-color: #FFFFFF;
+    -fx-font-family: Roboto;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+}
+
+#editBtn {
+    -fx-background-color: #0F4B91;
+    -fx-font-family: Roboto;
+    -fx-font-size: 25;
+    -fx-font-weight: bold;
+}
+#searchBtn1 {
+    -fx-background-color: #FFFFFF;
+    -fx-font-family: Roboto;
+    -fx-font-size: 25;
+    -fx-font-weight: bold;
+}
+
+#EdgesPageLabel {
+    -fx-font-weight: bold;
+    -fx-font-family: Roboto;
+    -fx-font-size: 50;
+}
+
+.jfx-text-field {
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-text-fill : #000000;
+    -jfx-unfocus-color : #ffffff;
+    -fx-max-width: 500;
+    -fx-prompt-text-fill: white;
+}
+.jfx-text-area {
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-text-fill : #ffffff;
+    -jfx-unfocus-color : #ffffff;
+    -fx-max-width: 500;
+    -fx-prompt-text-fill: white;
+}
+
+
+#submitButton{
+    -fx-background-color: #0F4B91;
+    -fx-font-family: Roboto;
+    -fx-font-size: 25;
+    -fx-font-weight: bold;
+}
+
+#backBtn {
+    -fx-background-color: #0F4B91;
+    -fx-font-family: Roboto;
+    -fx-font-size: 30;
+    -fx-font-weight: bold;
+}
