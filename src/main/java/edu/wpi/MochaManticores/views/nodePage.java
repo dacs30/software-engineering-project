@@ -32,6 +32,7 @@ import javafx.stage.FileChooser;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -362,18 +363,7 @@ public class nodePage extends SceneController{
     }
 
     public void downloadCSV(ActionEvent e){
-        String path = getPath();
-        if(path.equals("")){
-
-        }else{
-            File dst = new File(path + "\\bwMNodes.csv");
-            try{
-                File source = new File("data/bwMNodes.csv");
-                Files.copy(source.toPath(),dst.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        }
+        super.downloadCSV(e, "\\bwMNodes.csv", "data/bwMNodes.csv");
     }
 
     public void loadCustomCSV(ActionEvent e){
@@ -394,35 +384,10 @@ public class nodePage extends SceneController{
         }
     }
 
-    public String getPath() {
-        DirectoryChooser directoryChooser = new DirectoryChooser();
-        File selectedDirectory = directoryChooser.showDialog(App.getPrimaryStage());
-        if(selectedDirectory!=null){
-            String path = selectedDirectory.getAbsolutePath();
-            return  selectedDirectory.getAbsolutePath();//TODO: check windows or UNIX and start at ~/Downloads or $USER/downloads
-        }
-        return "";
-    }
+
 
     public void loadErrorDialog(){
-        dialogPane.toFront();
-        dialogPane.setDisable(false);
-        JFXDialogLayout message = new JFXDialogLayout();
-        message.setHeading(new Text("Oops!"));
-        message.setBody(new Text("Please select a table entry before editing."));
-        JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
-        JFXButton exit = new JFXButton("DONE");
-        exit.setOnAction(event -> {
-            dialog.close();
-            dialogPane.setDisable(true);
-            dialogPane.toBack();
-        });
-        dialog.setOnDialogClosed(event -> {
-            dialogPane.setDisable(true);
-            dialogPane.toBack();
-        });
-        message.setActions(exit);
-        dialog.show();
+        super.loadErrorDialog(dialogPane,"Please select a table entry before editing.");
     }
 
     public void loadEditPage(Node node){
@@ -452,10 +417,8 @@ public class nodePage extends SceneController{
     public void submitEdit(ActionEvent e) throws SQLException, FileNotFoundException {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection(Mdb.JDBC_URL);
+            connection = getConnection();
         } catch (SQLException sqlException) {
-            System.out.println("Connection failed. Check output console.");
-            sqlException.printStackTrace();
             return;
         }
 
@@ -466,9 +429,7 @@ public class nodePage extends SceneController{
             try {
                 nodeSuper = MapSuper.getMap().get(selectedNode.getNodeID());
             }
-            catch (
-                    NullPointerException exception
-            ) {
+            catch (NullPointerException exception) {
                 NodeManager.addNode(connection, nodeIDField.getText(),
                 xcoordField.getText(),
                 ycoordField.getText(),
@@ -502,34 +463,11 @@ public class nodePage extends SceneController{
     }
 
     public void loadEmptyDialog(){
-        dialogPane.toFront();
-        dialogPane.setDisable(false);
-        JFXDialogLayout message = new JFXDialogLayout();
-        message.setHeading(new Text("Oops!"));
-        message.setBody(new Text("Looks like some of the fields are empty."));
-        JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
-        JFXButton exit = new JFXButton("DONE");
-        exit.setOnAction(event -> {
-            dialog.close();
-            dialogPane.setDisable(true);
-            dialogPane.toBack();
-        });
-        dialog.setOnDialogClosed(event -> {
-            dialogPane.setDisable(true);
-            dialogPane.toBack();
-        });
-        message.setActions(exit);
-        dialog.show();
+        super.loadErrorDialog(dialogPane, "Looks like some of the fields are empty.");
     }
 
     public boolean checkInput(){
-        return  !xcoordField.getText().equals("") &&
-                !ycoordField.getText().equals("") &&
-                !floorField.getText().equals("") &&
-                !buildingField.getText().equals("") &&
-                !logNameField.getText().equals("") &&
-                !shortNameField.getText().equals("") &&
-                !nodeIDField.getText().equals("");
+        return  super.checkInput(Arrays.asList(xcoordField, ycoordField, floorField, buildingField, logNameField,shortNameField, nodeIDField));
     }
 
     public Node updateNode(Node n){
