@@ -1,4 +1,4 @@
 USERNAME,PASSWORD,FISRTNAME,LASTNAME,EMPLOYEETYPE,ID,ADMINLEVEL,
 jimbob123,password,jim,bob,DEFAULT,1,false,
 mrdude,1234567,mr,dude,DEFAULT,2,true,
-admin,admin,admin,admin,DEFAULT,3,true,
+admin,password,admin,admin,DEFAULT,3,true,

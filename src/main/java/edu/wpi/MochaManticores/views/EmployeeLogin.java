@@ -6,10 +6,14 @@ import com.jfoenix.controls.JFXDialogLayout;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.database.Mdb;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -48,6 +52,16 @@ public class EmployeeLogin extends SceneController{
 
         backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
         backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
+        EventHandler<KeyEvent> enter = new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent e) {
+                if(e.getCharacter().equals("\r")){
+                    onMouseClickedContinue(null);
+                }
+            }
+        };
+        empPassword.setOnKeyTyped(enter);
+
     }
 
     public void loadEmergencyDialog(){
@@ -121,6 +135,18 @@ public class EmployeeLogin extends SceneController{
         dialog.setOnDialogClosed(event -> {
             dialogPane.toBack();
         });
+
+        EventHandler<KeyEvent> enter = new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent e) {
+                if(e.getCharacter().equals("\r")){
+                    dialog.close();
+                    dialogPane.setDisable(true);
+                    dialogPane.toBack();
+                }
+            }
+        };
+        dialog.setOnKeyTyped(enter);
 
         message.setActions(ok);
         dialog.show();

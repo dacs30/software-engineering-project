@@ -8,9 +8,11 @@ import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.database.Mdb;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
@@ -96,6 +98,18 @@ public class SceneController{
             dialogPane.setDisable(true);
             dialogPane.toBack();
         });
+        EventHandler<KeyEvent> enter = new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent e) {
+                if(e.getCharacter().equals("\r")){
+                    dialog.close();
+                    dialogPane.setDisable(true);
+                    dialogPane.toBack();
+                }
+            }
+        };
+        dialog.setOnKeyTyped(enter);
+
         message.setActions(exit);
         dialog.show();
     }
