@@ -20,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -390,6 +391,8 @@ public class mapEditor extends SceneController {
         //Initializing the dialog pane
         dialogPane.toBack();
 
+//        floorSelector.getSelectionModel().select(3);
+//        loadF1();
 
     }
 
@@ -644,7 +647,10 @@ public class mapEditor extends SceneController {
                 EventHandler<MouseEvent> highlight = new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent e) {
-                        highlightNode(e);
+                        if(e.getButton().equals(MouseButton.PRIMARY)){
+                            highlightNode(e);
+                        }
+
                         // Populate textual editing field
                     }
                 };
@@ -693,7 +699,9 @@ public class mapEditor extends SceneController {
             EventHandler<MouseEvent> highlight = new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent e) {
-                    highlightEdge(e);
+                    if(e.getButton().equals(MouseButton.PRIMARY)){
+                        highlightEdge(e);
+                    }
                     // Populate textual editing field
                 }
             };
