@@ -16,6 +16,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -58,6 +59,16 @@ public class mapEditor extends SceneController {
     public JFXTextField startNodeID;
     @FXML
     public JFXTextField endNodeID;
+    @FXML
+    public VBox contextBox;
+    @FXML
+    public Group addNode;
+    @FXML
+    public Group addEdge;
+    @FXML
+    public Group deleteNode;
+    @FXML
+    public Group deleteEdge;
     @FXML
     private JFXTextField nodeTypeField;
 
@@ -443,6 +454,25 @@ public class mapEditor extends SceneController {
 
         nodeSubmit.setOnAction(handleSubmitNode);
         edgeSubmit.setOnAction(handleSubmitEdge);
+
+        EventHandler<MouseEvent> addNodeBox = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if(event.isSecondaryButtonDown()){
+                    contextBox.toFront();
+                    contextBox.setVisible(true);
+                    addNode.setVisible(true);
+                    deleteNode.setVisible(false);
+                    addEdge.setVisible(false);
+                    deleteEdge.setVisible(false);
+                } else if (event.isPrimaryButtonDown()){
+                    contextBox.toBack();
+                    contextBox.setVisible(false);
+                }
+            }
+        };
+
+        nodePane.setOnMouseClicked(addNodeBox);
 
         //Initializing the dialog pane
         dialogPane.toBack();
