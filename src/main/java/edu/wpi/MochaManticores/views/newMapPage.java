@@ -115,6 +115,28 @@ public class newMapPage extends SceneController{
     private GridPane innerMapGrid;
 
     @FXML
+    private JFXButton LL1Button;
+
+    @FXML
+    private JFXButton LL2Button;
+
+    @FXML
+    private JFXButton groundButton;
+
+    @FXML
+    private JFXButton F1Button;
+
+    @FXML
+    private JFXButton F2Button;
+
+    @FXML
+    private JFXButton F3Button;
+
+    @FXML
+    private JFXButton serviceButton;
+
+
+    @FXML
     private StackPane dialogPane;
 
     private String location = "edu/wpi/MochaManticores/images/";
@@ -131,12 +153,7 @@ public class newMapPage extends SceneController{
     public void initialize() {
         double height = super.getHeight();
         double width = super.getWidth();
-        backgroundIMG.setFitHeight(height);
-        backgroundIMG.setFitWidth(width);
-        contentPane.setPrefSize(width, height);
 
-        backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
-        backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
         mapWindow.setPreserveRatio(false);
 
@@ -256,6 +273,9 @@ public class newMapPage extends SceneController{
     public void back() {
         super.back();
     }
+    public void gotoService(ActionEvent e){
+        changeSceneTo("landingPage");
+    }
 
     private void setZoom(Image img, double x, double y, Rectangle2D z) {
         noZoom = new Rectangle2D(0, 0, img.getWidth(), img.getHeight());
@@ -266,7 +286,6 @@ public class newMapPage extends SceneController{
     }
 
     public void loadL1() {
-        locationTitle.setText("Lower Level 1");
         Image img = new Image(location + "00_thelowerlevel1.png");
         setSelectedFloor("L1");
         setZoom(img, 0, 0, noZoom);
@@ -275,7 +294,6 @@ public class newMapPage extends SceneController{
     }
 
     public void loadL2() {
-        locationTitle.setText("Lower Level 2");
         setSelectedFloor("L2");
 
         Image img = new Image(location + "00_thelowerlevel2.png");
@@ -285,7 +303,6 @@ public class newMapPage extends SceneController{
     }
 
     public void loadGround() {
-        locationTitle.setText("Ground Floor");
         setSelectedFloor("G");
 
         Image img = new Image(location + "00_thegroundfloor.png");
@@ -295,7 +312,6 @@ public class newMapPage extends SceneController{
     }
 
     public void loadF1() {
-        locationTitle.setText("Floor 1");
         setSelectedFloor("1");
 
         Image img = new Image(location + "01_thefirstfloor.png");
@@ -305,7 +321,6 @@ public class newMapPage extends SceneController{
     }
 
     public void loadF2() {
-        locationTitle.setText("Floor 2");
         setSelectedFloor("2");
 
         Image img = new Image(location + "02_thesecondfloor.png");
@@ -315,7 +330,6 @@ public class newMapPage extends SceneController{
     }
 
     public void loadF3() {
-        locationTitle.setText("Floor 3");
         setSelectedFloor("L3");
 
         Image img = new Image(location + "03_thethirdfloor.png");

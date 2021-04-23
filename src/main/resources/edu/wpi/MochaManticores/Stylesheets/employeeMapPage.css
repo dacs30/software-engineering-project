@@ -40,6 +40,25 @@
     -fx-font-size: 20;
     -fx-font-weight: bold;
 }
+#editNodeBtn {
+    -fx-background-color: #FFFFFF;
+    -fx-font-family: Roboto;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+}
+#editEdgesBtn {
+    -fx-background-color: #FFFFFF;
+    -fx-font-family: Roboto;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+}
+
+#downloadCSVBtn {
+    -fx-background-color: #FFFFFF;
+    -fx-font-family: Roboto;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+}
 
 #backBtn {
     -fx-background-color: #FFFFFF;

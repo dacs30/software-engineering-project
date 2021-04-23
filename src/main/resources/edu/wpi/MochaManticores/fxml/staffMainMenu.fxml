@@ -82,7 +82,7 @@
                         <Insets left="10.0" top="60.0" />
                      </padding>
                   </HBox>
-                  <JFXButton fx:id="downloadButton" onAction="#downloadCSVs" prefHeight="81.0" prefWidth="382.0" style="-fx-background-color: #FF6B35;" text="Download CSV Files" textFill="WHITE" GridPane.rowIndex="2">
+                  <JFXButton fx:id="downloadButton" onAction="#downloadCSVs" prefHeight="81.0" prefWidth="151.0" style="-fx-background-color: #FF6B35;" text="Download CSV Files" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="2">
                      <font>
                         <Font name="System Bold" size="36.0" />
                      </font>
@@ -104,6 +104,11 @@
                         <Insets left="10.0" top="30.0" />
                      </padding>
                   </HBox>
+                  <JFXButton fx:id="mapButton" alignment="BOTTOM_CENTER" onAction="#goToMap" prefHeight="81.0" prefWidth="217.0" style="-fx-background-color: #FF6B35;" text="View Map" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="System Bold" size="36.0" />
+                     </font>
+                  </JFXButton>
                </children>
                 </GridPane>
                 <GridPane>
