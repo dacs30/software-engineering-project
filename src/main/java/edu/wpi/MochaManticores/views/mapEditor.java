@@ -384,7 +384,13 @@ public class mapEditor extends SceneController {
                                 nodeTypeField.getText(),
                                 null);
                         selectedID = "";
-                        MapSuper.addNode(editedNode);
+                        try {
+                            editor.submitEditNodeToDB(editedNode, selectedID);
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
                 selectFloor();
@@ -395,7 +401,7 @@ public class mapEditor extends SceneController {
         EventHandler<ActionEvent> handleSubmitEdge = new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                EdgeSuper editedEdge;
+                EdgeSuper editedEdge = null;
                 String selectedID;
                 if (!editor.checkInput(Arrays.asList(edgeIDField.getText(), startNodeID.getText(), endNodeID.getText()))) { // IF fields are blank, submit error
                     mapEditor.super.loadErrorDialog(dialogPane, "Please do not leave fields blank!");
@@ -420,9 +426,16 @@ public class mapEditor extends SceneController {
                                 startNodeID.getText(),
                                 endNodeID.getText());
                         selectedID = "";
-                        EdgeMapSuper.insertEdgeNode(editedEdge.edgeID, editedEdge);
+                        try {
+                            editor.submitEditEdgeToDB(editedEdge, selectedID, "", "");
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
+                edgeIDField.setText(startNodeID.getText()+"_"+endNodeID.getText());
                 selectFloor();
             }
 

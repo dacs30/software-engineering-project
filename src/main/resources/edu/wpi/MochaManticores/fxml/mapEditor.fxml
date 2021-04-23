@@ -68,7 +68,7 @@
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                      </GridPane.margin>
                   </JFXButton>
-                  <VBox fx:id="nodeInfoBox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-background-color: #0f4b91;" GridPane.rowIndex="2">
+                  <VBox fx:id="nodeInfoBox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-background-color: #0f4b91;" visible="false" GridPane.rowIndex="2">
                      <children>
                         <Label text="Selected Node" textFill="WHITE">
                            <font>
@@ -278,7 +278,7 @@
                         <Insets bottom="10.0" />
                      </padding>
                   </VBox>
-                  <VBox fx:id="edgeInfoBox" alignment="TOP_CENTER" layoutX="25.0" layoutY="216.0" spacing="25.0" style="-fx-background-color: #0f4b91;" visible="false" GridPane.rowIndex="2">
+                  <VBox fx:id="edgeInfoBox" alignment="TOP_CENTER" layoutX="25.0" layoutY="216.0" spacing="25.0" style="-fx-background-color: #0f4b91;" GridPane.rowIndex="2">
                      <children>
                         <Label text="Selected Edge" textFill="WHITE">
                            <font>
@@ -298,11 +298,11 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <JFXTextField fx:id="edgeIDField" focusColor="WHITE" promptText="Enter Text Here" unFocusColor="WHITE" HBox.hgrow="ALWAYS">
+                              <Label fx:id="edgeIDField" text="Edge ID Field" textFill="WHITE" underline="true">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
-                              </JFXTextField>
+                              </Label>
                            </children>
                            <VBox.margin>
                               <Insets />
