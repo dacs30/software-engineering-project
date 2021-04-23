@@ -49,8 +49,6 @@ public class mapEditor extends SceneController {
     @FXML
     public JFXTextField floorField;
     @FXML
-    public JFXTextField typeField;
-    @FXML
     public JFXTextField longNameField;
     @FXML
     public JFXTextField shortNameField;
@@ -346,39 +344,83 @@ public class mapEditor extends SceneController {
             public void handle(ActionEvent event) {
                 NodeSuper editedNode;
                 String selectedID;
-                if (!checkInput()) {
+                if (!editor.checkInput(Arrays.asList(xCoordField.getText(),
+                        yCoordField.getText(),
+                        floorField.getText(),
+                        bldgField.getText(),
+                        longNameField.getText(),
+                        shortNameField.getText(),
+                        nodeIDField.getText(),
+                        nodeTypeField.getText()))) { // IF fields are blank, submit error
                     mapEditor.super.loadErrorDialog(dialogPane, "Please do not leave fields blank!");
                 } else {
-                    try {
-                        editedNode = new NodeSuper(Integer.parseInt(xCoordField.getText()),
+                    if (MapSuper.getMap().get(nodeIDField.getText()) != null) {
+                        editedNode = new NodeSuper(
+                                Integer.parseInt(xCoordField.getText()),
                                 Integer.parseInt(yCoordField.getText()),
                                 floorField.getText(),
-                                bldgField.getText(), longNameField.getText(),
+                                bldgField.getText(),
+                                longNameField.getText(),
                                 shortNameField.getText(),
                                 nodeIDField.getText(),
                                 nodeTypeField.getText(),
                                 MapSuper.getMap().get(nodeIDField.getText()).getVertextList());
                         selectedID = nodeIDField.getText();
-
-
-                    } catch (NullPointerException npe){
+                        try {
+                            editor.submitEditNodeToDB(editedNode, selectedID);
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    } else { // New Node
                         editedNode = new NodeSuper(Integer.parseInt(xCoordField.getText()),
                                 Integer.parseInt(yCoordField.getText()),
                                 floorField.getText(),
-                                bldgField.getText(), longNameField.getText(),
+                                bldgField.getText(),
+                                longNameField.getText(),
                                 shortNameField.getText(),
                                 nodeIDField.getText(),
                                 nodeTypeField.getText(),
                                 null);
                         selectedID = "";
+                        MapSuper.addNode(editedNode);
                     }
-                    try {
-                        boolean success = editor.submitEditNodeToDB(editedNode, selectedID);
-                        nodes.get(selectedID).update(editedNode);
-                    } catch (SQLException throwables) {
-                        throwables.printStackTrace();
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
+                }
+                selectFloor();
+            }
+
+        };
+
+        EventHandler<ActionEvent> handleSubmitEdge = new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                EdgeSuper editedEdge;
+                String selectedID;
+                if (!editor.checkInput(Arrays.asList(edgeIDField.getText(), startNodeID.getText(), endNodeID.getText()))) { // IF fields are blank, submit error
+                    mapEditor.super.loadErrorDialog(dialogPane, "Please do not leave fields blank!");
+                } else {
+                    EdgeSuper oldEdge = EdgeMapSuper.getMap().get(edgeIDField.getText());
+                    if (oldEdge != null) {
+                        editedEdge = new EdgeSuper(
+                                edgeIDField.getText(),
+                                startNodeID.getText(),
+                                endNodeID.getText());
+                        selectedID = edgeIDField.getText();
+                        try {
+                            editor.submitEditEdgeToDB(editedEdge, selectedID, oldEdge.getStartingNode(), oldEdge.getEndingNode());
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    } else { // New Edge
+                        editedEdge = new EdgeSuper(
+                                edgeIDField.getText(),
+                                startNodeID.getText(),
+                                endNodeID.getText());
+                        selectedID = "";
+                        EdgeMapSuper.insertEdgeNode(editedEdge.edgeID, editedEdge);
                     }
                 }
                 selectFloor();
@@ -387,6 +429,7 @@ public class mapEditor extends SceneController {
         };
 
         nodeSubmit.setOnAction(handleSubmitNode);
+        edgeSubmit.setOnAction(handleSubmitEdge);
 
         //Initializing the dialog pane
         dialogPane.toBack();
