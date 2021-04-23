@@ -53,7 +53,7 @@ public class mapEditor extends SceneController {
     @FXML
     public JFXTextField shortNameField;
     @FXML
-    public JFXTextField edgeIDField;
+    public Label edgeIDField;
     @FXML
     public JFXTextField startNodeID;
     @FXML
@@ -842,15 +842,16 @@ public class mapEditor extends SceneController {
             edge ed = iter.next();
             HashMap<String, EdgeSuper> edgeSupers = EdgeMapSuper.getMap();
             if(ed.l.equals(src)){
-                EdgeSuper cur = edgeSupers.get(ed.edgeID.replaceAll("\\s",""));
+                EdgeSuper cur = edgeSupers.get(ed.startID + "_" + ed.endID);
                 if (cur == null){
-                    cur = edgeSupers.get(ed.endID.replaceAll("\\s","") + "_" + ed.startID.replaceAll("\\s",""));
+                    cur = edgeSupers.get(ed.endID + "_" + ed.startID);
                 }
                 if (cur == null){
-                    System.out.println("NODE DOES NOT EXIST");
+                    System.out.println("EDGE NOT FOUND");
+                    return;
                 }
-                edgeIDField.setText(ed.edgeID.replaceAll("\\s",""));
-                assert cur != null;
+
+                edgeIDField.setText(cur.edgeID);
                 startNodeID.setText(cur.getStartingNode().replaceAll("\\s",""));
                 endNodeID.setText(cur.getEndingNode().replaceAll("\\s",""));
             }

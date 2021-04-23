@@ -1,6 +1,7 @@
 package edu.wpi.MochaManticores.Editors;
 
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.Nodes.EdgeMapSuper;
 import edu.wpi.MochaManticores.Nodes.EdgeSuper;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
@@ -56,6 +57,10 @@ public class mapEdit {
 
     public boolean validNode(String nodeID){
         return MapSuper.getMap().containsKey(nodeID);
+    }
+
+    public boolean validEdge(String startNode, String endNode){
+        return EdgeMapSuper.getMap().containsKey(startNode+"_"+endNode) || EdgeMapSuper.getMap().containsKey(endNode+"_"+startNode);
     }
 
     public void downloadCSV(ActionEvent e, String dstPath, String srcPath) {
