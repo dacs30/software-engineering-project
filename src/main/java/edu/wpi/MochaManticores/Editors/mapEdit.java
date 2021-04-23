@@ -81,25 +81,25 @@ public class mapEdit {
             return false;
         }
         if (selectedID.equals("")) {
-            NodeManager.addNode(connection, nodeSuper.getID(),
+            NodeManager.addNode(connection, nodeSuper.getID().replaceAll("\\s",""),
                     String.valueOf(nodeSuper.getXcoord()),
                     String.valueOf(nodeSuper.getYcoord()),
-                    nodeSuper.getFloor(),
+                    nodeSuper.getFloor().replaceAll("\\s",""),
                     nodeSuper.getBuilding(),
-                    nodeSuper.getType(),
+                    nodeSuper.getType().replaceAll("\\s",""),
                     nodeSuper.getLongName(),
-                    nodeSuper.getShortName());
+                    nodeSuper.getShortName().replaceAll("\\s",""));
         } else {
             NodeManager.updateNode(connection,
-                    nodeSuper.getID(),
+                    nodeSuper.getID().replaceAll("\\s",""),
                     selectedID,
                     nodeSuper.getXcoord(),
                     nodeSuper.getYcoord(),
                     nodeSuper.getFloor(),
                     nodeSuper.getBuilding(),
-                    nodeSuper.getType(),
-                    nodeSuper.getLongName(),
-                    nodeSuper.getShortName());
+                    nodeSuper.getType().replaceAll("\\s",""),
+                    nodeSuper.getLongName().replaceAll("\\s",""),
+                    nodeSuper.getShortName().replaceAll("\\s",""));
         }
         return true;
 

@@ -132,6 +132,13 @@ public class mapEditor extends SceneController {
         public void setHighlighted(boolean highlighted) {
             this.highlighted = highlighted;
         }
+
+        public void update(NodeSuper newNode){
+            this.nodeID = newNode.getID();
+            this.xCoord = newNode.getXcoord();
+            this.yCoord = newNode.getYcoord();
+            nodeRef = MapSuper.getMap().get(newNode.getID());
+        }
     }
 
     public class edge {
@@ -348,7 +355,7 @@ public class mapEditor extends SceneController {
                                 bldgField.getText(), longNameField.getText(),
                                 shortNameField.getText(),
                                 nodeIDField.getText(),
-                                "TEST",
+                                nodeTypeField.getText(),
                                 MapSuper.getMap().get(nodeIDField.getText()).getVertextList());
                         selectedID = nodeIDField.getText();
 
@@ -360,20 +367,22 @@ public class mapEditor extends SceneController {
                                 bldgField.getText(), longNameField.getText(),
                                 shortNameField.getText(),
                                 nodeIDField.getText(),
-                                "TEST",
+                                nodeTypeField.getText(),
                                 null);
                         selectedID = "";
                     }
                     try {
                         boolean success = editor.submitEditNodeToDB(editedNode, selectedID);
+                        nodes.get(selectedID).update(editedNode);
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
-
                 }
+                selectFloor();
             }
+
         };
 
         nodeSubmit.setOnAction(handleSubmitNode);
@@ -680,6 +689,7 @@ public class mapEditor extends SceneController {
             l.setStrokeWidth(2);
             String edgeID = node.getNodeID() + "_" + neigh.getID();
             edges.put(edgeID, new edge(l, edgeID, node.getNodeID(), neigh.getID()));
+
             EventHandler<MouseEvent> highlight = new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent e) {
@@ -747,7 +757,7 @@ public class mapEditor extends SceneController {
                 yCoordField.setText(Integer.toString(n.getNodeRef().getYcoord()));
                 bldgField.setText(n.getNodeRef().getBuilding());
                 floorField.setText(n.getNodeRef().getFloor());
-                typeField.setText(n.getNodeRef().getType());
+                nodeTypeField.setText(n.getNodeRef().getType());
                 longNameField.setText(n.getNodeRef().getLongName());
                 shortNameField.setText(n.getNodeRef().getShortName());
                 n.setHighlighted(!n.isHighlighted());
@@ -776,6 +786,7 @@ public class mapEditor extends SceneController {
                     System.out.println("NODE DOES NOT EXIST");
                 }
                 edgeIDField.setText(ed.edgeID);
+                assert cur != null;
                 startNodeID.setText(cur.getStartingNode());
                 endNodeID.setText(cur.getEndingNode());
             }

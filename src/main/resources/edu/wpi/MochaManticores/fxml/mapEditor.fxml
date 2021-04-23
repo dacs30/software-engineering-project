@@ -203,7 +203,7 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <JFXTextField fx:id="typeField" focusColor="WHITE" promptText="Enter Text Here" unFocusColor="WHITE" HBox.hgrow="ALWAYS">
+                              <JFXTextField fx:id="nodeTypeField" focusColor="WHITE" promptText="Enter Text Here" unFocusColor="WHITE" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
