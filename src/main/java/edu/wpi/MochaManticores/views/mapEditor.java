@@ -290,7 +290,10 @@ public class mapEditor extends SceneController {
     @FXML
     private JFXButton cancelChanges1;
 
+    private boolean nodeClicked = false;
+
     private mapEdit editor = new mapEdit();
+    private double[] newCoords = new double[2];
 
     public void setSelectedFloor(String selectedFloor) {
         this.selectedFloor = selectedFloor;
@@ -353,58 +356,7 @@ public class mapEditor extends SceneController {
         EventHandler<ActionEvent> handleSubmitNode = new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                NodeSuper editedNode;
-                String selectedID;
-                if (!editor.checkInput(Arrays.asList(xCoordField.getText(),
-                        yCoordField.getText(),
-                        floorField.getText(),
-                        bldgField.getText(),
-                        longNameField.getText(),
-                        shortNameField.getText(),
-                        nodeIDField.getText(),
-                        nodeTypeField.getText()))) { // IF fields are blank, submit error
-                    mapEditor.super.loadErrorDialog(dialogPane, "Please do not leave fields blank!");
-                } else {
-                    if (MapSuper.getMap().get(nodeIDField.getText()) != null) {
-                        editedNode = new NodeSuper(
-                                Integer.parseInt(xCoordField.getText()),
-                                Integer.parseInt(yCoordField.getText()),
-                                floorField.getText(),
-                                bldgField.getText(),
-                                longNameField.getText(),
-                                shortNameField.getText(),
-                                nodeIDField.getText(),
-                                nodeTypeField.getText(),
-                                MapSuper.getMap().get(nodeIDField.getText()).getVertextList());
-                        selectedID = nodeIDField.getText();
-                        try {
-                            editor.submitEditNodeToDB(editedNode, selectedID);
-                        } catch (SQLException throwables) {
-                            throwables.printStackTrace();
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        }
-                    } else { // New Node
-                        editedNode = new NodeSuper(Integer.parseInt(xCoordField.getText()),
-                                Integer.parseInt(yCoordField.getText()),
-                                floorField.getText(),
-                                bldgField.getText(),
-                                longNameField.getText(),
-                                shortNameField.getText(),
-                                nodeIDField.getText(),
-                                nodeTypeField.getText(),
-                                null);
-                        selectedID = "";
-                        try {
-                            editor.submitEditNodeToDB(editedNode, selectedID);
-                        } catch (SQLException throwables) {
-                            throwables.printStackTrace();
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-                selectFloor();
+                submitNodeEdit();
             }
 
         };
@@ -412,42 +364,7 @@ public class mapEditor extends SceneController {
         EventHandler<ActionEvent> handleSubmitEdge = new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                EdgeSuper editedEdge = null;
-                String selectedID;
-                if (!editor.checkInput(Arrays.asList(edgeIDField.getText(), startNodeID.getText(), endNodeID.getText()))) { // IF fields are blank, submit error
-                    mapEditor.super.loadErrorDialog(dialogPane, "Please do not leave fields blank!");
-                } else {
-                    EdgeSuper oldEdge = EdgeMapSuper.getMap().get(edgeIDField.getText());
-                    if (oldEdge != null) {
-                        editedEdge = new EdgeSuper(
-                                edgeIDField.getText(),
-                                startNodeID.getText(),
-                                endNodeID.getText());
-                        selectedID = edgeIDField.getText();
-                        try {
-                            editor.submitEditEdgeToDB(editedEdge, selectedID, oldEdge.getStartingNode(), oldEdge.getEndingNode());
-                        } catch (SQLException throwables) {
-                            throwables.printStackTrace();
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        }
-                    } else { // New Edge
-                        editedEdge = new EdgeSuper(
-                                edgeIDField.getText(),
-                                startNodeID.getText(),
-                                endNodeID.getText());
-                        selectedID = "";
-                        try {
-                            editor.submitEditEdgeToDB(editedEdge, selectedID, "", "");
-                        } catch (SQLException throwables) {
-                            throwables.printStackTrace();
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-                edgeIDField.setText(startNodeID.getText()+"_"+endNodeID.getText());
-                selectFloor();
+                submitEdgeEdit();
             }
 
         };
@@ -455,19 +372,105 @@ public class mapEditor extends SceneController {
         nodeSubmit.setOnAction(handleSubmitNode);
         edgeSubmit.setOnAction(handleSubmitEdge);
 
+        addNode.managedProperty().bind(addNode.visibleProperty());
+        deleteNode.managedProperty().bind(deleteNode.visibleProperty());
+        addEdge.managedProperty().bind(addEdge.visibleProperty());
+        deleteEdge.managedProperty().bind(deleteEdge.visibleProperty());
+
+        addNode.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                edgeInfoBox.setVisible(false);
+                nodeInfoBox.setVisible(true);
+                edgeInfoBox.toBack();
+
+                contextBox.toBack();
+                contextBox.setVisible(false);
+                nodeClicked = false;
+
+                double xRatio = 5000 / mapWindow.getFitWidth();
+                double yRatio = 3400 / mapWindow.getFitHeight();
+
+                int newX = (int) (newCoords[0] * xRatio);
+                int newY = (int) (newCoords[1] * yRatio);
+
+                nodeIDField.setText("");
+                xCoordField.setText(Integer.toString(newX));
+                yCoordField.setText(Integer.toString(newY));
+                bldgField.setText("");
+                floorField.setText(selectedFloor);
+                nodeTypeField.setText("");
+                longNameField.setText("");
+                shortNameField.setText("");
+
+                Circle spot = new Circle(newCoords[0], newCoords[1], 4, Color.WHITE);
+                spot.setStrokeWidth(1);
+                spot.setStroke(Color.valueOf("#FF6B35"));
+                EventHandler<MouseEvent> highlight = new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent e) {
+                        nodeClicked = !nodeClicked;
+                        if(e.getButton().equals(MouseButton.PRIMARY)){
+                            highlightNode(e);
+                        } else if (e.getButton() == MouseButton.SECONDARY){
+                            contextBox.toFront();
+                            contextBox.setVisible(true);
+                            addNode.setVisible(false);
+                            deleteNode.setVisible(true);
+                            addEdge.setVisible(true);
+                            deleteEdge.setVisible(false);
+
+                            contextBox.relocate(e.getSceneX(), e.getSceneY());
+                        }
+                        // Populate textual editing field
+                    }
+                };
+                EventHandler<MouseEvent> large = new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent e) {
+                        mouseOverNode(e, 5);
+                    }
+                };
+                EventHandler<MouseEvent> small = new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent e) {
+                        mouseOverNode(e, 3);
+                    }
+                };
+                spot.setOnMouseClicked(highlight);
+                spot.setOnMouseEntered(large);
+                spot.setOnMouseExited(small);
+
+                nodePane.getChildren().addAll(spot);
+
+            }
+        });
+        deleteNode.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+            }
+        });
+
+
         EventHandler<MouseEvent> addNodeBox = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if(event.isSecondaryButtonDown()){
+                if(event.getButton() == MouseButton.SECONDARY && !nodeClicked){
                     contextBox.toFront();
                     contextBox.setVisible(true);
                     addNode.setVisible(true);
                     deleteNode.setVisible(false);
                     addEdge.setVisible(false);
                     deleteEdge.setVisible(false);
-                } else if (event.isPrimaryButtonDown()){
+
+                    contextBox.relocate(event.getSceneX(), event.getSceneY());
+                    newCoords[0] = event.getX(); newCoords[1] = event.getY();
+                    //System.out.println(contextBox.getLayoutX() + " " + contextBox.getLayoutY());
+                } else if (event.getButton() == MouseButton.PRIMARY){
                     contextBox.toBack();
                     contextBox.setVisible(false);
+                    nodeClicked = false;
                 }
             }
         };
@@ -480,6 +483,102 @@ public class mapEditor extends SceneController {
 //        floorSelector.getSelectionModel().select(3);
 //        loadF1();
 
+    }
+
+    public void submitEdgeEdit(){
+        EdgeSuper editedEdge = null;
+        String selectedID;
+        if (!editor.checkInput(Arrays.asList(edgeIDField.getText(), startNodeID.getText(), endNodeID.getText()))) { // IF fields are blank, submit error
+            mapEditor.super.loadErrorDialog(dialogPane, "Please do not leave fields blank!");
+        } else {
+            EdgeSuper oldEdge = EdgeMapSuper.getMap().get(edgeIDField.getText());
+            if (oldEdge != null) {
+                editedEdge = new EdgeSuper(
+                        edgeIDField.getText(),
+                        startNodeID.getText(),
+                        endNodeID.getText());
+                selectedID = edgeIDField.getText();
+                try {
+                    editor.submitEditEdgeToDB(editedEdge, selectedID, oldEdge.getStartingNode(), oldEdge.getEndingNode());
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            } else { // New Edge
+                editedEdge = new EdgeSuper(
+                        edgeIDField.getText(),
+                        startNodeID.getText(),
+                        endNodeID.getText());
+                selectedID = "";
+                try {
+                    editor.submitEditEdgeToDB(editedEdge, selectedID, "", "");
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        edgeIDField.setText(startNodeID.getText()+"_"+endNodeID.getText());
+        selectFloor();
+    }
+
+    public void submitNodeEdit(){
+        NodeSuper editedNode;
+        String selectedID;
+        if (!editor.checkInput(Arrays.asList(xCoordField.getText(),
+                yCoordField.getText(),
+                floorField.getText(),
+                bldgField.getText(),
+                longNameField.getText(),
+                shortNameField.getText(),
+                nodeIDField.getText(),
+                nodeTypeField.getText()))) { // IF fields are blank, submit error
+            loadErrorDialog(dialogPane, "Please do not leave fields blank!");
+        } else if (nodeIDField.getLength() != 10) {
+            loadErrorDialog(dialogPane, "Node IDs must be of length 10!");
+        } else {
+            if (MapSuper.getMap().get(nodeIDField.getText()) != null) {
+                editedNode = new NodeSuper(
+                        Integer.parseInt(xCoordField.getText()),
+                        Integer.parseInt(yCoordField.getText()),
+                        floorField.getText(),
+                        bldgField.getText(),
+                        longNameField.getText(),
+                        shortNameField.getText(),
+                        nodeIDField.getText(),
+                        nodeTypeField.getText(),
+                        MapSuper.getMap().get(nodeIDField.getText()).getVertextList());
+                selectedID = nodeIDField.getText();
+                try {
+                    editor.submitEditNodeToDB(editedNode, selectedID);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            } else { // New Node
+                editedNode = new NodeSuper(Integer.parseInt(xCoordField.getText()),
+                        Integer.parseInt(yCoordField.getText()),
+                        floorField.getText(),
+                        bldgField.getText(),
+                        longNameField.getText(),
+                        shortNameField.getText(),
+                        nodeIDField.getText(),
+                        nodeTypeField.getText(),
+                        null);
+                selectedID = "";
+                try {
+                    editor.submitEditNodeToDB(editedNode, selectedID);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        selectFloor();
     }
 
 
@@ -721,6 +820,7 @@ public class mapEditor extends SceneController {
 
     public void drawNodes() {
         nodePane.getChildren().clear();
+        nodes.clear();
         double xRatio = 5000 / mapWindow.getFitWidth();
         double yRatio = 3400 / mapWindow.getFitHeight();
         Iterator<NodeSuper> mapIter = MapSuper.getMap().values().iterator();
@@ -733,10 +833,19 @@ public class mapEditor extends SceneController {
                 EventHandler<MouseEvent> highlight = new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent e) {
+                        nodeClicked = !nodeClicked;
                         if(e.getButton().equals(MouseButton.PRIMARY)){
                             highlightNode(e);
-                        }
+                        } else if (e.getButton() == MouseButton.SECONDARY){
+                            contextBox.toFront();
+                            contextBox.setVisible(true);
+                            addNode.setVisible(false);
+                            deleteNode.setVisible(true);
+                            addEdge.setVisible(true);
+                            deleteEdge.setVisible(false);
 
+                            contextBox.relocate(e.getSceneX(), e.getSceneY());
+                        }
                         // Populate textual editing field
                     }
                 };
@@ -787,6 +896,15 @@ public class mapEditor extends SceneController {
                 public void handle(MouseEvent e) {
                     if(e.getButton().equals(MouseButton.PRIMARY)){
                         highlightEdge(e);
+                    } else if (e.getButton() == MouseButton.SECONDARY){
+                        contextBox.toFront();
+                        contextBox.setVisible(true);
+                        addNode.setVisible(false);
+                        deleteNode.setVisible(false);
+                        addEdge.setVisible(false);
+                        deleteEdge.setVisible(true);
+
+                        contextBox.relocate(e.getSceneX(), e.getSceneY());
                     }
                     // Populate textual editing field
                 }

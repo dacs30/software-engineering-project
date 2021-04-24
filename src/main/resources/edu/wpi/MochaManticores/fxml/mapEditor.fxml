@@ -410,46 +410,6 @@
                            </viewport>
                         </ImageView>
                         <Pane fx:id="nodePane" />
-                        <VBox fx:id="contextBox" maxHeight="-Infinity" maxWidth="-Infinity" spacing="10.0" style="-fx-background-color: WHITE; -fx-border-color: BLACK; -fx-border-width: 3;" visible="false">
-                           <children>
-                              <Group fx:id="addNode">
-                                 <children>
-                                    <Label text="Add Node" />
-                                    <Separator layoutY="17.0" prefWidth="200.0" style="-fx-background-color: GREY;" />
-                                 </children>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </Group>
-                              <Group fx:id="addEdge">
-                                 <children>
-                                    <Label text="Add Edge" />
-                                    <Separator layoutY="17.0" prefWidth="200.0" style="-fx-background-color: GREY;" />
-                                 </children>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </Group>
-                              <Group fx:id="deleteNode">
-                                 <children>
-                                    <Label text="Delete Node" />
-                                    <Separator layoutY="17.0" prefWidth="200.0" style="-fx-background-color: GREY;" />
-                                 </children>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </Group>
-                              <Group fx:id="deleteEdge">
-                                 <children>
-                                    <Label text="Delete Edge" />
-                                    <Separator layoutY="17.0" prefWidth="200.0" style="-fx-background-color: GREY;" />
-                                 </children>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </Group>
-                           </children>
-                        </VBox>
                      </children>
                      <GridPane.margin>
                         <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
@@ -462,5 +422,45 @@
             </GridPane>
          </children>
       </GridPane>
+      <VBox fx:id="contextBox" maxHeight="-Infinity" maxWidth="-Infinity" spacing="10.0" style="-fx-background-color: WHITE; -fx-border-color: BLACK; -fx-border-width: 3;" visible="false">
+         <children>
+            <Group fx:id="addNode">
+               <children>
+                  <Label text="Add Node" />
+                  <Separator layoutY="17.0" prefWidth="200.0" style="-fx-background-color: GREY;" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Group>
+            <Group fx:id="addEdge">
+               <children>
+                  <Label text="Add Edge" />
+                  <Separator layoutY="17.0" prefWidth="200.0" style="-fx-background-color: GREY;" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Group>
+            <Group fx:id="deleteNode">
+               <children>
+                  <Label text="Delete Node" />
+                  <Separator layoutY="17.0" prefWidth="200.0" style="-fx-background-color: GREY;" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Group>
+            <Group fx:id="deleteEdge">
+               <children>
+                  <Label text="Delete Edge" />
+                  <Separator layoutY="17.0" prefWidth="200.0" style="-fx-background-color: GREY;" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Group>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
