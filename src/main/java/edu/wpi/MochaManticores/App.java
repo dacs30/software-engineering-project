@@ -5,10 +5,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Objects;
 
-import edu.wpi.MochaManticores.database.EdgeManager;
-import edu.wpi.MochaManticores.database.EmployeeManager;
-import edu.wpi.MochaManticores.database.Mdb;
-import edu.wpi.MochaManticores.database.NodeManager;
+import edu.wpi.MochaManticores.database.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -60,7 +57,7 @@ public class App extends Application {
 
   @Override
   public void init() throws InterruptedException, FileNotFoundException, SQLException {
-    this is an error
+    DatabaseManager.startup();
   }
 
 
@@ -96,6 +93,6 @@ public class App extends Application {
   @Override
   public void stop() {
     System.out.println("Shutting Down");
-    this is another error
+    DatabaseManager.shutdown();
   }
 }

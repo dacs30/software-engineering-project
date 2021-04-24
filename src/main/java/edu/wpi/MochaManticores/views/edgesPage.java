@@ -11,9 +11,7 @@ import edu.wpi.MochaManticores.Nodes.EdgeMapSuper;
 import edu.wpi.MochaManticores.Nodes.EdgeSuper;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
-import edu.wpi.MochaManticores.database.EdgeManager;
-import edu.wpi.MochaManticores.database.Mdb;
-import edu.wpi.MochaManticores.database.NodeManager;
+import edu.wpi.MochaManticores.database.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -34,7 +32,6 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
 import java.io.FileNotFoundException;
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.io.File;
@@ -185,14 +182,8 @@ public class edgesPage extends SceneController {
             return;
         }
         System.out.println(file.getAbsolutePath());
-        try {
-            Mdb.databaseChangeCSVs(file.getAbsolutePath(), NodeManager.getNode_csv_path());
-            cancel(e);
-        } catch (FileNotFoundException fileNotFoundException) {
-            fileNotFoundException.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        DatabaseManager.resetTable(sel.EDGE,file.getAbsolutePath());
+        cancel(e);
         buildTable("");
     }
 
@@ -317,15 +308,6 @@ public class edgesPage extends SceneController {
         if (!checkInput()) {
             loadEmptyDialog();
         } else {
-            Connection connection = null;
-            try {
-                connection = DriverManager.getConnection(Mdb.JDBC_URL);
-            } catch (SQLException sqlException) {
-                System.out.println("Connection failed. Check output console.");
-                sqlException.printStackTrace();
-                return;
-            }
-            //NodeSuper nodeSuper = MapSuper.getMap().get(selectedEdge.getNodeID());
             Edge n = null;
 
             if (selectedEdge == null) {
@@ -333,7 +315,7 @@ public class edgesPage extends SceneController {
                     loadNoNodeDialog();
                     return;
                 }
-                EdgeManager.addEdge(connection, nodeIDField.getText(), startNodeField.getText(), endNodeField.getText());
+                DatabaseManager.addEdge(new EdgeSuper(nodeIDField.getText(), startNodeField.getText(), endNodeField.getText()));
                 cancelEdit(e);
                 return;
             }
@@ -348,9 +330,8 @@ public class edgesPage extends SceneController {
                 loadNoNodeDialog();
                 return;
             }
-
-            EdgeManager.updateEdge(connection, selectedEdge.getNodeID(), selectedEdge.getStartNode(),
-                    n.getStartNode(), selectedEdge.getEndNode(), n.getEndNode());
+            EdgeSuper tmp = new EdgeSuper(n.getStartNode()+"_"+n.getEndNode(),n.getStartNode(),n.getEndNode());
+            DatabaseManager.modEdge(selectedEdge.getNodeID(), tmp);
 
 
             //TODO:Talk to CSV Manager
@@ -361,15 +342,7 @@ public class edgesPage extends SceneController {
 
     public void delEdge(ActionEvent e) throws SQLException, FileNotFoundException {
         if(checkInput()){
-            Connection connection = null;
-            try {
-                connection = DriverManager.getConnection(Mdb.JDBC_URL);
-            } catch (SQLException sqlException) {
-                System.out.println("Connection failed. Check output console.");
-                sqlException.printStackTrace();
-                return;
-            }
-            EdgeManager.delEdge(connection,selectedEdge.getNodeID());
+            DatabaseManager.delElement(sel.EDGE, selectedEdge.getNodeID());
             cancelEdit(null);
         }
     }

@@ -149,13 +149,15 @@ public class NodeManager extends Manager<NodeSuper>{
     public void updateElementMap() throws SQLException {
         String sql = "SELECT * FROM NODES";
         Statement stmt = connection.createStatement();
-        ResultSet results = stmt.executeQuery(sql);
+        ResultSet result = stmt.executeQuery(sql);
 
-        while (results.next()) {
-            NodeSuper node = new NodeSuper(results.getString(1), results.getString(2),
-                    results.getString(3), results.getString(4),
-                    results.getString(5), results.getString(6),
-                    results.getString(7), results.getString(8));
+        while (result.next()) {
+            NodeSuper node = new NodeSuper(Integer.parseInt(result.getString(2)),Integer.parseInt(result.getString(3)),
+                    result.getString(4),result.getString(5),
+                    result.getString(7),result.getString(8),
+                    result.getString(1),result.getString(6),
+                    new VertexList(new HashMap<>()));
+            addElement_map(node);
         }
     }
 }

@@ -135,7 +135,24 @@ public class EdgeManager extends Manager<EdgeSuper>{
         pw.close();
     }
 
-    public EdgeSuper getElement(String edgeID) throws InvalidElementException
+    public EdgeSuper getElement(String edgeID) throws InvalidElementException {
+        try {
+            String sql = "SELECT * FROM EDGE WHERE EDGEID=?";
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, edgeID);
+            ResultSet result = pstmt.executeQuery();
+
+            if (!result.next()) {
+                throw new InvalidElementException();
+            }
+
+            EdgeSuper edge = new EdgeSuper(result.getString(1),result.getString(2),result.getString(3));
+            return edge;
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public void showEdgeInformation() throws SQLException{
         StringBuilder sb = new StringBuilder();
@@ -184,10 +201,10 @@ public class EdgeManager extends Manager<EdgeSuper>{
     public void updateElementMap() throws SQLException {
         String sql = "SELECT * FROM EDGES";
         Statement stmt = connection.createStatement();
-        ResultSet results = stmt.executeQuery(sql);
-        while (results.next()) {
-            create edge
-            addEdge_map(edge);
+        ResultSet result = stmt.executeQuery(sql);
+        while (result.next()) {
+            EdgeSuper edge = new EdgeSuper(result.getString(1),result.getString(2),result.getString(3));
+            addElement_map(edge);
         }
     }
 }

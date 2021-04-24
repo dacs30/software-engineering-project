@@ -9,9 +9,8 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
-import edu.wpi.MochaManticores.database.EdgeManager;
-import edu.wpi.MochaManticores.database.Mdb;
-import edu.wpi.MochaManticores.database.NodeManager;
+import edu.wpi.MochaManticores.Nodes.VertexList;
+import edu.wpi.MochaManticores.database.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -39,8 +38,6 @@ import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -383,15 +380,8 @@ public class nodePage extends SceneController{
             return;
         }
         System.out.println(file.getAbsolutePath());
-
-        try {
-            Mdb.databaseChangeCSVs(EdgeManager.getEdge_csv_path(), file.getAbsolutePath());
-            cancel(null);
-        } catch (FileNotFoundException fileNotFoundException) {
-            fileNotFoundException.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        DatabaseManager.resetTable(sel.NODE,file.getAbsolutePath());
+        cancel(null);
     }
 
     public String getPath() {
@@ -450,15 +440,6 @@ public class nodePage extends SceneController{
     }
 
     public void submitEdit(ActionEvent e) throws SQLException, FileNotFoundException {
-        Connection connection = null;
-        try {
-            connection = DriverManager.getConnection(Mdb.JDBC_URL);
-        } catch (SQLException sqlException) {
-            System.out.println("Connection failed. Check output console.");
-            sqlException.printStackTrace();
-            return;
-        }
-
         if (!checkInput()) {
             loadEmptyDialog();
         } else {
@@ -469,14 +450,12 @@ public class nodePage extends SceneController{
             catch (
                     NullPointerException exception
             ) {
-                NodeManager.addNode(connection, nodeIDField.getText(),
-                xcoordField.getText(),
-                ycoordField.getText(),
-                floorField.getText(),
-                buildingField.getText(),
-                "TEST",
-                logNameField.getText(),
-                shortNameField.getText());
+                NodeSuper tmp = new NodeSuper(Integer.parseInt(xcoordField.getText()),
+                        Integer.parseInt(ycoordField.getText()), floorField.getText(),
+                        buildingField.getText(),logNameField.getText(),
+                        shortNameField.getText(),nodeIDField.getText(),
+                        "TEST", null);
+                DatabaseManager.addNode(tmp);
                 cancelEdit(e);
                 return;
             }
@@ -493,10 +472,11 @@ public class nodePage extends SceneController{
                 return;
             }
 
-            NodeManager.updateNode(connection, n.nodeID.get(), nodeSuper.getID(), Integer.parseInt(n.getXcoord()),
-                    Integer.parseInt(n.ycoord.get()), n.getFloor(), n.getBuilding(), nodeSuper.getType(), n.getLongName(), n.getShortName());
-            //TODO:Talk to CSV Manager
-            //NODETYPE IS NOT CHANGED AS WELL AS NEIGHBORS
+            NodeSuper tmp = new NodeSuper(Integer.parseInt(n.getXcoord()),
+                    Integer.parseInt(n.ycoord.get()), n.getFloor(), n.getBuilding(),
+                    n.getLongName(), n.getShortName(),n.getNodeID(),nodeSuper.getType(), null);
+
+            DatabaseManager.modNode(nodeSuper.getID(), tmp);
             cancelEdit(e);
         }
     }
@@ -568,15 +548,7 @@ public class nodePage extends SceneController{
 
     public void delNode() throws SQLException, FileNotFoundException{
         if(checkInput()){
-            Connection connection = null;
-            try {
-                connection = DriverManager.getConnection(Mdb.JDBC_URL);
-            } catch (SQLException sqlException) {
-                System.out.println("Connection failed. Check output console.");
-                sqlException.printStackTrace();
-                return;
-            }
-            NodeManager.delNode(connection, selectedNode.getNodeID());
+            DatabaseManager.delElement(sel.NODE,selectedNode.getNodeID());
             cancelEdit(null);
         }
     }

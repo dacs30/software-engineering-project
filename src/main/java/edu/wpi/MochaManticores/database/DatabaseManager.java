@@ -1,20 +1,19 @@
 package edu.wpi.MochaManticores.database;
 
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
+import edu.wpi.MochaManticores.Exceptions.InvalidLoginException;
+import edu.wpi.MochaManticores.Exceptions.InvalidPermissionsException;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.Nodes.EdgeSuper;
-import javafx.embed.swt.SWTFXUtils;
 
 import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.SQLException;
-
 public class DatabaseManager{
     private static Connection connection = null;
     private static EmployeeManager empManager = null;
     private static NodeManager nodeManager = null;
     private static EdgeManager edgeManager = null;
-    public enum selector {NODE,EDGE,EMPLOYEE};
     // maybe store maps here too
     // map super
     // edge map super
@@ -59,6 +58,7 @@ public class DatabaseManager{
     (maps : public)
     getMap()
      */
+
     // ==== Mdb methods ==== //
     public static void startup(){
         try{
@@ -74,10 +74,18 @@ public class DatabaseManager{
 
     // ==== Manager Methods === //
 
-    public static void resetTable(selector s){
-        getManager(s).
+    public static void resetTable(sel s, String newPath){
+        try {
+            Manager man = getManager(s);
+            System.out.println("resetting Table: " + s);
+            man.saveElements();
+            man.cleanTable();
+            man.setCSV_path(newPath);
+            man.loadFromCSV();
+        }catch(SQLException | FileNotFoundException e){
+            e.printStackTrace();
+        }
     }
-
 
     public static void addNode(NodeSuper node){
         getNodeManager().addElement(node);
@@ -89,13 +97,14 @@ public class DatabaseManager{
         getEmpManager().addElement(employee);
     };
 
-    public static void delElement(selector s, String ID) {
+    public static void delElement(sel s, String ID) {
         try {
             getManager(s).delElement(ID);
         }catch(SQLException e){
             e.printStackTrace();
         }
     }
+
 
     public static void modNode(String ID, NodeSuper newNode){
         try{
@@ -119,14 +128,6 @@ public class DatabaseManager{
         }
     }
 
-    public static void saveElements(selector s){
-        try {
-            getManager(s).saveElements();
-        }catch(FileNotFoundException | SQLException e){
-            e.printStackTrace();
-        }
-    }
-
     public static NodeSuper getNode(String ID) throws InvalidElementException {
         return getNodeManager().getElement(ID);
     }
@@ -137,25 +138,21 @@ public class DatabaseManager{
         return getEmpManager().getElement(ID);
     }
 
-    public static String getCSV_path(selector s){
+    public static String getCSV_path(sel s){
         return getManager(s).getCSV_path();
     }
 
-    public static void setCSV_path(selector s, String path){
-        getManager(s).setCSV_path(path);
+    // ==== Employee specials ==== //
+    public static Employee checkEmployeeLogin(String usr, String pass) throws InvalidLoginException, InvalidElementException {
+        return getEmpManager().checkEmployeeLogin(usr,pass);
     }
 
-    public static void cleanTable(selector s){
-        try {
-            getManager(s).cleanTable();
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
+    public static Employee checkAdminLogin(String usr, String pass) throws InvalidLoginException, InvalidPermissionsException, InvalidElementException{
+        return getEmpManager().checkAdminLogin(usr,pass);
     }
-
 
     // ==== Private DB methods ==== //
-    private static Manager getManager(selector s){
+    private static Manager getManager(sel s){
         switch(s){
             case NODE:
                 return getNodeManager();
@@ -164,8 +161,37 @@ public class DatabaseManager{
             case EMPLOYEE:
                 return getEmpManager();
             default:
+                System.out.println("No Manager Found");
                 return null;
         }
+    }
+
+    private static void loadFromCSV(sel s){
+        try{
+            getManager(s).loadFromCSV();
+        }catch(NullPointerException e){
+            e.printStackTrace();
+        }
+    }
+
+    private static void saveElements(sel s){
+        try {
+            getManager(s).saveElements();
+        }catch(FileNotFoundException | SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    private static void cleanTable(sel s){
+        try {
+            getManager(s).cleanTable();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    private static void setCSV_path(sel s, String path){
+        getManager(s).setCSV_path(path);
     }
 
     // ==== getters and setters ===== //
