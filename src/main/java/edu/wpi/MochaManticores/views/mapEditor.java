@@ -14,9 +14,11 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -34,6 +36,7 @@ import edu.wpi.MochaManticores.views.edgesPage;
 
 import javax.swing.*;
 import java.io.FileNotFoundException;
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -79,6 +82,7 @@ public class mapEditor extends SceneController {
         double yCoord;
         NodeSuper nodeRef;
         boolean highlighted;
+        List<Line> edges;
 
         public node(Circle c, String nodeID, NodeSuper nodeRef) {
             this.c = c;
@@ -87,6 +91,23 @@ public class mapEditor extends SceneController {
             xCoord = c.getCenterX();
             yCoord = c.getCenterY();
             this.highlighted = false;
+            this.edges = new ArrayList<>();
+        }
+
+        public List<Line> getEdges() {
+            return edges;
+        }
+
+        public void setEdges(List<Line> edges) {
+            this.edges = edges;
+        }
+
+        public void addEdge(Line l){
+            this.edges.add(l);
+        }
+
+        public void removeEdge(Line l){
+            this.edges.remove(l);
         }
 
         public NodeSuper getNodeRef() {
@@ -291,6 +312,7 @@ public class mapEditor extends SceneController {
     private JFXButton cancelChanges1;
 
     private boolean nodeClicked = false;
+    private Node prevCircle;
 
     private mapEdit editor = new mapEdit();
     private double[] newCoords = new double[2];
@@ -343,14 +365,17 @@ public class mapEditor extends SceneController {
         App.getPrimaryStage().widthProperty().addListener((obs, oldVal, newVal) -> {
             mapWindow.setFitWidth(App.getPrimaryStage().getWidth() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinX() - 50);
             drawNodes();
+            drawEdges();
         });
 
         App.getPrimaryStage().heightProperty().addListener((obs, oldVal, newVal) -> {
             mapWindow.setFitHeight(App.getPrimaryStage().getHeight() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinY() - 50);
             drawNodes();
+            drawEdges();
         });
 
         drawNodes();
+        drawEdges();
 
         // Setting button handlers
         EventHandler<ActionEvent> handleSubmitNode = new EventHandler<ActionEvent>() {
@@ -448,9 +473,30 @@ public class mapEditor extends SceneController {
         deleteNode.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                edgeInfoBox.setVisible(false);
+                nodeInfoBox.setVisible(true);
+                edgeInfoBox.toBack();
 
+                contextBox.toBack();
+                contextBox.setVisible(false);
+                nodeClicked = false;
+
+                Iterator<node> iter = nodes.values().iterator();
+                for (int i = 0; i < nodes.size(); i++){
+                    node n = iter.next();
+                    if (n.c.equals(prevCircle)){
+                        try {
+                            editor.deleteNode(n.getNodeID());
+                            nodePane.getChildren().remove(prevCircle);
+                        } catch (SQLException | FileNotFoundException throwables) {
+                            throwables.printStackTrace();
+                        }
+                    }
+                }
             }
         });
+
+
 
 
         EventHandler<MouseEvent> addNodeBox = new EventHandler<MouseEvent>() {
@@ -466,6 +512,7 @@ public class mapEditor extends SceneController {
 
                     contextBox.relocate(event.getSceneX(), event.getSceneY());
                     newCoords[0] = event.getX(); newCoords[1] = event.getY();
+
                     //System.out.println(contextBox.getLayoutX() + " " + contextBox.getLayoutY());
                 } else if (event.getButton() == MouseButton.PRIMARY){
                     contextBox.toBack();
@@ -708,6 +755,7 @@ public class mapEditor extends SceneController {
         setSelectedFloor("L1");
         setZoom(img, 0, 0, noZoom);
         drawNodes();
+        drawEdges();
 
     }
 
@@ -718,6 +766,7 @@ public class mapEditor extends SceneController {
         Image img = new Image(location + "00_thelowerlevel2.png");
         setZoom(img, 0, 0, noZoom);
         drawNodes();
+        drawEdges();
 
     }
 
@@ -728,6 +777,7 @@ public class mapEditor extends SceneController {
         Image img = new Image(location + "00_thegroundfloor.png");
         setZoom(img, 0, 0, noZoom);
         drawNodes();
+        drawEdges();
 
     }
 
@@ -738,6 +788,7 @@ public class mapEditor extends SceneController {
         Image img = new Image(location + "01_thefirstfloor.png");
         setZoom(img, 0, 0, noZoom);
         drawNodes();
+        drawEdges();
 
     }
 
@@ -748,6 +799,7 @@ public class mapEditor extends SceneController {
         Image img = new Image(location + "02_thesecondfloor.png");
         setZoom(img, 0, 0, noZoom);
         drawNodes();
+        drawEdges();
 
     }
 
@@ -758,6 +810,7 @@ public class mapEditor extends SceneController {
         Image img = new Image(location + "03_thethirdfloor.png");
         setZoom(img, 0, 0, noZoom);
         drawNodes();
+        drawEdges();
     }
 
     public void drawCoord(MouseEvent e) {
@@ -845,6 +898,8 @@ public class mapEditor extends SceneController {
                             deleteEdge.setVisible(false);
 
                             contextBox.relocate(e.getSceneX(), e.getSceneY());
+
+                            prevCircle = (Node) e.getSource();
                         }
                         // Populate textual editing field
                     }
@@ -861,17 +916,143 @@ public class mapEditor extends SceneController {
                         mouseOverNode(e, 3);
                     }
                 };
+                EventHandler<MouseEvent> drag = new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        Circle src = (Circle) event.getSource();
+                        Point2D p = nodePane.sceneToLocal(event.getSceneX(), event.getSceneY());
+                        double newX = p.getX();
+                        double newY = p.getY();
+                        double xRatio = 5000 / mapWindow.getFitWidth();
+                        double yRatio = 3400 / mapWindow.getFitHeight();
+
+                        System.out.println(event.getSceneX() + " " + event.getSceneY());
+                        System.out.println(newX + " " + newY);
+                        System.out.println(event.getX() + " " + event.getY());
+
+
+                        src.setCenterX(newX);
+                        src.setCenterY(newY);
+
+                        Iterator<node> iter = nodes.values().iterator();
+                        for(int i =0; i < nodes.size(); i ++){
+                            node n = iter.next();
+                            if (n.c.equals(src)){
+
+
+                                //                                try {
+//                                    editor.submitEditNodeToDB(new NodeSuper((int)(newX * xRatio),
+//                                            (int) (newY * yRatio),
+//                                            n.getNodeRef().getFloor(),
+//                                            n.getNodeRef().getBuilding(),
+//                                            n.getNodeRef().getLongName(),
+//                                            n.getNodeRef().getShortName(),
+//                                            n.getNodeRef().getID(),
+//                                            n.getNodeRef().getType(),
+//                                            n.getNodeRef().getVertextList()), n.getNodeID());
+//                                } catch (SQLException | FileNotFoundException throwables) {
+//                                    throwables.printStackTrace();
+//                                }
+
+                            }
+                        }
+                    }
+                };
+                spot.setOnMouseDragged(drag);
                 spot.setOnMouseClicked(highlight);
                 spot.setOnMouseEntered(large);
                 spot.setOnMouseExited(small);
                 nodes.put(n.getID(), new node(spot, n.getID(), n));
-                drawEdges(nodes.get(n.getID()));
+                //drawEdges2(nodes.get(n.getID()));
                 nodePane.getChildren().addAll(nodes.get(n.getID()).c);
             }
         }
     }
 
-    private void drawEdges(node node) {
+    private void drawEdges(){
+        double xRatio = 5000 / mapWindow.getFitWidth();
+        double yRatio = 3400 / mapWindow.getFitHeight();
+
+        Iterator<EdgeSuper> allEdges = EdgeMapSuper.getMap().values().iterator();
+
+        HashMap<String, NodeSuper> allNodes = MapSuper.getMap();
+        while (allEdges.hasNext()){
+            EdgeSuper e = allEdges.next();
+
+            NodeSuper start = allNodes.get(e.getStartingNode());
+            NodeSuper end = allNodes.get(e.getEndingNode());
+            if (start.getFloor().equals(selectedFloor) || end.getFloor().equals(selectedFloor)){
+                //System.out.println(e);
+                Line l = new Line(
+                        start.getXcoord() / xRatio,
+                        start.getYcoord() / yRatio,
+                        end.getXcoord() / xRatio,
+                        end.getYcoord() / yRatio);
+                node nS = nodes.get(start.getID());
+                node nE = nodes.get(end.getID());
+                if (nS != null){
+                    nS.addEdge(l);
+                    l.startXProperty().bind(nS.c.centerXProperty());
+                    l.startYProperty().bind(nS.c.centerYProperty());
+                }
+                if (nE != null) {
+                    nE.addEdge(l);
+                    l.endXProperty().bind(nE.c.centerXProperty());
+                    l.endYProperty().bind(nE.c.centerYProperty());
+                }
+
+
+                if (!start.getFloor().equals(end.getFloor())){
+                    l.setStroke(Color.RED);
+                } else {
+                    l.setStroke(Color.BLACK);
+                }
+                l.setStrokeWidth(2);
+                edges.put(e.edgeID, new edge(l, e.edgeID, start.getID(), end.getID()));
+
+                EventHandler<MouseEvent> highlight = new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent e) {
+                        if(e.getButton().equals(MouseButton.PRIMARY)){
+                            highlightEdge(e);
+                        } else if (e.getButton() == MouseButton.SECONDARY){
+                            contextBox.toFront();
+                            contextBox.setVisible(true);
+                            addNode.setVisible(false);
+                            deleteNode.setVisible(false);
+                            addEdge.setVisible(false);
+                            deleteEdge.setVisible(true);
+
+                            contextBox.relocate(e.getSceneX(), e.getSceneY());
+                        }
+                        // Populate textual editing field
+                    }
+                };
+                EventHandler<MouseEvent> bold = new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent e) {
+                        mouseOverEdge(e, 4);
+                    }
+                };
+
+                EventHandler<MouseEvent> unbold = new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent e) {
+                        mouseOverEdge(e, 2);
+                    }
+                };
+                l.setOnMouseClicked(highlight);
+                l.setOnMouseEntered(bold);
+                l.setOnMouseExited(unbold);
+
+                nodePane.getChildren().addAll(l);
+                l.toBack();
+            }
+        }
+
+    }
+
+    private void drawEdges2(node node) {
         double xRatio = 5000 / mapWindow.getFitWidth();
         double yRatio = 3400 / mapWindow.getFitHeight();
         HashMap<String, NodeSuper> allNodes = MapSuper.getMap();
@@ -882,6 +1063,8 @@ public class mapEditor extends SceneController {
             double endX = neigh.getXcoord() / xRatio;
             double endY = neigh.getYcoord() / yRatio;
             Line l = new Line(startX, startY, endX, endY);
+            l.startXProperty().bind(node.c.centerXProperty());
+            l.startYProperty().bind(node.c.centerYProperty());
             if (!node.getNodeRef().getFloor().equals(neigh.getFloor())) {
                 l.setStroke(Color.RED);
             } else {
@@ -890,6 +1073,7 @@ public class mapEditor extends SceneController {
             l.setStrokeWidth(2);
             String edgeID = node.getNodeID() + "_" + neigh.getID();
             edges.put(edgeID, new edge(l, edgeID, node.getNodeID(), neigh.getID()));
+            node.addEdge(l);
 
             EventHandler<MouseEvent> highlight = new EventHandler<MouseEvent>() {
                 @Override
