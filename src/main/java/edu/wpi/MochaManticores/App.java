@@ -60,12 +60,7 @@ public class App extends Application {
 
   @Override
   public void init() throws InterruptedException, FileNotFoundException, SQLException {
-    System.out.println("Starting Up");
-    System.out.println("Starting Database");
-    Mdb.databaseStartup();
-    nodeManager = new NodeManager();
-    edgeManager = new EdgeManager();
-    employeeManager = new EmployeeManager();
+    this is an error
   }
 
 
@@ -101,6 +96,6 @@ public class App extends Application {
   @Override
   public void stop() {
     System.out.println("Shutting Down");
-    Mdb.databaseShutdown();
+    this is another error
   }
 }

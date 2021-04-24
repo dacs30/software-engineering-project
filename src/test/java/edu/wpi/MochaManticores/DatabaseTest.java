@@ -1,12 +1,11 @@
 package edu.wpi.MochaManticores;
 
 
-import edu.wpi.MochaManticores.Exceptions.InvalidUserException;
+import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.Nodes.VertexList;
 import edu.wpi.MochaManticores.database.*;
-import org.assertj.core.api.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -68,13 +67,13 @@ public class DatabaseTest {
 
     //clean database test
     @Test
-    public void cleanDB() throws FileNotFoundException, SQLException, InvalidUserException {
+    public void cleanDB() throws FileNotFoundException, SQLException, InvalidElementException {
         Mdb.databaseChangeCSVs("data/bwMEdges.csv","data/bwMNodes.csv");
     }
 
     // employee database test cases
     @Test
-    public void addEmployee() throws SQLException, InvalidUserException {
+    public void addEmployee() throws SQLException, InvalidElementException {
         Employee employee = new Employee("testUser",
                 "password",
                 "firstName",
@@ -91,7 +90,7 @@ public class DatabaseTest {
     }
 
     @Test
-    public void removeEmployee() throws SQLException, InvalidUserException {
+    public void removeEmployee() throws SQLException, InvalidElementException {
         Employee employee = new Employee("testUser",
                 "password",
                 "firstName",
@@ -107,7 +106,7 @@ public class DatabaseTest {
     }
 
     @Test
-    public void modifyEmployee() throws SQLException, InvalidUserException {
+    public void modifyEmployee() throws SQLException, InvalidElementException {
         Employee employee = new Employee("testUser",
                 "password",
                 "firstName",
@@ -353,17 +352,6 @@ public class DatabaseTest {
         NodeManager.delNode(connection, NODE1.getID());
 
         Assertions.assertTrue(!MapSuper.getMap().containsKey(NODE1.getID()));
-    }
-
-    @Test
-    public void testModNodeLongNameMapSuper() throws SQLException, FileNotFoundException {
-        NodeManager.addNode(connection, NODE1.getID(), String.valueOf(NODE1.getXcoord()), String.valueOf(NODE1.getYcoord()),
-                NODE1.getFloor(), NODE1.getBuilding(), NODE1.getType(), NODE1.getLongName(), NODE1.getShortName());
-        NodeManager.updateNodeName(connection, NODE1.getID(), "NODE1_NEW_NAME");
-
-        Assertions.assertTrue(MapSuper.getMap().get(NODE1.getID()).getLongName() == "NODE1_NEW_NAME");
-
-        NodeManager.delNode(connection, NODE1.getID());
     }
 
     @Test

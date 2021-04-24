@@ -223,7 +223,7 @@ public class edgesPage extends SceneController {
             EdgeSuper e = mapIter.next();
             Edge nodeToAdd = new Edge(e.getStartingNode(),
                     e.getEndingNode(),
-                    e.edgeID);
+                    e.getEdgeID());
             for (int j = 0; j < nodeToAdd.getFields().length; j++) {
                 if (nodeToAdd.getFields()[j].get().toLowerCase().contains(searchTerm.toLowerCase()) || searchTerm.equals("")) {
                     edges.add(nodeToAdd);
