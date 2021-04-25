@@ -127,8 +127,10 @@ public class mapEdit {
     }
 
     public void deleteNode(String IDtoDel) throws SQLException, FileNotFoundException {
-        Connection connection = getConnection();
-        NodeManager.delNode(connection, IDtoDel);
+        if(validNode(IDtoDel)){
+            Connection connection = getConnection();
+            NodeManager.delNode(connection, IDtoDel);
+        }
     }
 
     public void deleteEdge(String edgeToDel) throws SQLException, FileNotFoundException {

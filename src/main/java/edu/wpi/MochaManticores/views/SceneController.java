@@ -35,6 +35,7 @@ public class SceneController{
     protected static Stack<String> scenes = new Stack<>();
     double height = App.getPrimaryStage().getScene().getHeight();
     double width = App.getPrimaryStage().getScene().getWidth();
+    private boolean dialogOpen = false;
 
     @FXML
     protected void returnToMain(){
@@ -82,12 +83,16 @@ public class SceneController{
     }
 
     public void loadErrorDialog(StackPane dialogPane, String msg){
+        if(dialogOpen){
+            return;
+        }
         dialogPane.toFront();
         dialogPane.setDisable(false);
         JFXDialogLayout message = new JFXDialogLayout();
         message.setHeading(new Text("Oops!"));
         message.setBody(new Text(msg));
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
+        dialogOpen= true;
         JFXButton exit = new JFXButton("DONE");
         exit.setOnAction(event -> {
             dialog.close();
@@ -95,6 +100,7 @@ public class SceneController{
             dialogPane.toBack();
         });
         dialog.setOnDialogClosed(event -> {
+            dialogOpen = false;
             dialogPane.setDisable(true);
             dialogPane.toBack();
         });
