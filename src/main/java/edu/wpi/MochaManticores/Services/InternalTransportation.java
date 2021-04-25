@@ -1,12 +1,14 @@
 package edu.wpi.MochaManticores.Services;
 
-public class InternalTransportation implements IServiceRequest {
+public class InternalTransportation extends ServiceRequest {
     private String patientID;
     private int numStaffNeeded;
     private String destination;
     private String transportationMethod;
 
-    public InternalTransportation(String patientID, int numStaffNeeded, String destination, String transportationMethod) {
+    public InternalTransportation(String patientID, int numStaffNeeded, String destination, String transportationMethod, boolean employee,
+                                  boolean completed) {
+        super(employee, completed);
         this.patientID = patientID;
         this.numStaffNeeded = numStaffNeeded;
         this.destination = destination;

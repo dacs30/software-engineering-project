@@ -1,23 +1,46 @@
 package edu.wpi.MochaManticores.Services;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class ServiceMap {
-    private static final LinkedList<IServiceRequest> serviceRequests = new LinkedList<>();
+    private static final HashMap<ServiceRequestType, LinkedList<ServiceRequest>> myMap = new HashMap<>();
 
     /**
-     * getServices()
-     * @return a LinkedList of service requests
+     * function: addToType()
+     * @param type type of service request
+     * @param request the service request that needs to be added
      */
-    public static LinkedList<IServiceRequest> getServices() {
-        return serviceRequests;
+    public static void addToType(ServiceRequestType type, ServiceRequest request) {
+        //adds a linked list to key if there is no linked list already there
+        myMap.computeIfAbsent(type, k -> new LinkedList<>());
+        myMap.get(type).add(request);
     }
 
     /**
-     * function: delServiceRequest()
-     * @param serviceRequest a serviceRequest that has been completed
+     * function: getServiceRequestsForType()
+     * @param type type of service requests
+     * @return a linked list of service requests
      */
-    public static void delServiceRequest(IServiceRequest serviceRequest) {
-        serviceRequests.remove(serviceRequest);
+    public static LinkedList<ServiceRequest> getServiceRequestsForType(ServiceRequestType type) {
+        return myMap.get(type);
     }
+
+    /**
+     * function: delRequest()
+     * @param type type of service request
+     * @param request the service request that needs to be deleted
+     */
+    public static void delRequest(ServiceRequestType type, ServiceRequest request) {
+        myMap.get(type).remove(request);
+    }
+}
+
+enum ServiceRequestType {
+    InternalTransportation,
+    ExternalTransportation,
+    FloralDelivery,
+    FoodDelivery,
+    SanitationServices,
+    Emergency
 }
