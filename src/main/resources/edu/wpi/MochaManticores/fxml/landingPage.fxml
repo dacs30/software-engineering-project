@@ -28,11 +28,17 @@
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
-                  <RowConstraints maxHeight="176.0" minHeight="10.0" prefHeight="176.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="154.07406616210938" minHeight="10.0" prefHeight="79.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="290.9629669189453" minHeight="10.0" prefHeight="70.51852416992188" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="362.6296081542969" minHeight="10.0" prefHeight="75.48147583007812" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="386.7037048339844" minHeight="10.0" prefHeight="386.7037048339844" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="176.0" minHeight="10.0" percentHeight="20.0" prefHeight="119.11112213134766" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="154.07406616210938" minHeight="10.0" percentHeight="8.0" prefHeight="104.88887786865234" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="290.9629669189453" minHeight="10.0" percentHeight="8.0" prefHeight="70.51852416992188" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="362.6296081542969" minHeight="10.0" percentHeight="7.0" prefHeight="95.88888549804688" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="386.7037048339844" minHeight="10.0" percentHeight="8.0" prefHeight="71.07403564453125" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="534.9629821777344" minHeight="10.0" percentHeight="8.0" prefHeight="69.81484985351562" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="534.9629821777344" minHeight="10.0" percentHeight="8.0" prefHeight="316.1851501464844" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="534.9629821777344" minHeight="10.0" percentHeight="8.0" prefHeight="316.1851501464844" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="534.9629821777344" minHeight="10.0" percentHeight="8.0" prefHeight="316.1851501464844" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="534.9629821777344" minHeight="10.0" percentHeight="8.0" prefHeight="316.1851501464844" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="534.9629821777344" minHeight="10.0" percentHeight="8.0" prefHeight="316.1851501464844" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <ImageView fitHeight="150.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
@@ -55,29 +61,99 @@
                         </Label>
                      </children>
                   </GridPane>
-                  <GridPane GridPane.rowIndex="1">
-                    <columnConstraints>
-                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
+                  <HBox fx:id="menuSideManu" alignment="CENTER_LEFT" onMouseClicked="#renderMenu" spacing="30.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <children>
-                        <HBox alignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                           <children>
-                              <Icon content="HOME" stylesheets="@../Stylesheets/landingPage.css" />
-                              <Label id="menuSideBarLabel" stylesheets="@../Stylesheets/landingPage.css" text="Menu">
-                                 <padding>
-                                    <Insets left="30.0" />
-                                 </padding>
-                              </Label>
-                           </children>
-                        </HBox>
+                        <Icon content="HOME" stylesheets="@../Stylesheets/landingPage.css" />
+                        <Label id="menuSideBarLabel" stylesheets="@../Stylesheets/landingPage.css" text="Menu" />
                      </children>
-                  </GridPane>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="30.0" GridPane.rowIndex="2">
+                     <children>
+                        <Icon content="MAP" />
+                        <Label id="mapSideLabel" stylesheets="@../Stylesheets/landingPage.css" text="Label" />
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" spacing="30.0" GridPane.rowIndex="4">
+                     <children>
+                        <Icon content="RESTAURANT" stylesheets="@../Stylesheets/landingPage.css" />
+                        <Label id="menuSideBarLabel" stylesheets="@../Stylesheets/landingPage.css" text="Food Delivery" />
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" spacing="30.0" GridPane.rowIndex="5">
+                     <children>
+                        <Icon content="LOCAL_PHARMACY" stylesheets="@../Stylesheets/landingPage.css" />
+                        <Label id="menuSideBarLabel" stylesheets="@../Stylesheets/landingPage.css" text="Medicine Delivery" />
+                     </children>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" spacing="30.0" GridPane.rowIndex="6">
+                     <children>
+                        <Icon content="DOMAIN" stylesheets="@../Stylesheets/landingPage.css" />
+                        <Label id="menuSideBarLabel" prefHeight="48.0" prefWidth="153.0" stylesheets="@../Stylesheets/landingPage.css" text="Internal Transportation" wrapText="true" />
+                     </children>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" spacing="30.0" GridPane.rowIndex="7">
+                     <children>
+                        <Icon content="LOCAL_CAR_WASH" stylesheets="@../Stylesheets/landingPage.css" />
+                        <Label id="menuSideBarLabel" prefHeight="48.0" prefWidth="153.0" stylesheets="@../Stylesheets/landingPage.css" text="External Transportation" wrapText="true" />
+                     </children>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" spacing="30.0" GridPane.rowIndex="8">
+                     <children>
+                        <Icon content="SHOPPING_CART" stylesheets="@../Stylesheets/landingPage.css" />
+                        <Label id="menuSideBarLabel" prefHeight="48.0" prefWidth="153.0" stylesheets="@../Stylesheets/landingPage.css" text="Shopping" wrapText="true" />
+                     </children>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" spacing="30.0" GridPane.rowIndex="9">
+                     <children>
+                        <Icon content="WB_SUNNY" stylesheets="@../Stylesheets/landingPage.css" />
+                        <Label id="menuSideBarLabel" prefHeight="48.0" prefWidth="153.0" stylesheets="@../Stylesheets/landingPage.css" text="Sanitation" wrapText="true" />
+                     </children>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </HBox>
+                  <HBox id="emergencyVBox" alignment="CENTER_LEFT" spacing="30.0" stylesheets="@../Stylesheets/landingPage.css" GridPane.rowIndex="10">
+                     <children>
+                        <Icon content="ERROR" stylesheets="@../Stylesheets/landingPage.css" />
+                        <Label id="menuSideBarLabel" prefHeight="48.0" prefWidth="153.0" stylesheets="@../Stylesheets/landingPage.css" text="Emergency" wrapText="true" />
+                     </children>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                     <GridPane.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </GridPane.margin>
+                  </HBox>
                </children>
             </GridPane>
-            <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" />
+            <Pane fx:id="scenesPane" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" />
          </children>
       </GridPane>
    </children>

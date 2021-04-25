@@ -34,6 +34,9 @@ public class landingPageController extends SceneController {
   @FXML
   private StackPane dialogPane;
 
+  @FXML
+  private Pane scenesPane;
+
 
   public void initialize(){
       double height = super.getHeight();
@@ -94,5 +97,11 @@ public class landingPageController extends SceneController {
     message.setActions(yes, no);
     dialog.show();
 
+  }
+
+  public void renderMenu(MouseEvent mouseEvent) throws IOException {
+    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("edu/wpi/MochaManticores/fxml/loadingPage.fxml")));
+
+    scenesPane.getChildren().add(root);
   }
 }

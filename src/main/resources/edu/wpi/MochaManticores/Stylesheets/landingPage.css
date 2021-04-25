@@ -58,3 +58,14 @@
     -fx-font-size: 20;
     -fx-font-family: Roboto;
 }
+
+#mapSideLabel {
+    -fx-text-fill: rgba(97, 97, 97, 0.68);
+    -fx-font-size: 20;
+    -fx-font-family: Roboto;
+}
+
+#emergencyVBox {
+    -fx-background-color: #ff9494;
+    -fx-background-radius: 20;
+}
