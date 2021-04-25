@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.Editors.mapEdit;
 import edu.wpi.MochaManticores.Nodes.EdgeMapSuper;
 import edu.wpi.MochaManticores.Nodes.EdgeSuper;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
@@ -41,6 +42,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
 import java.util.Iterator;
 
 public class edgesPage extends SceneController {
@@ -51,6 +53,8 @@ public class edgesPage extends SceneController {
     public TableColumn<Edge, String> endNode;
     public TableColumn<Edge, String> nodeID;
     public ObservableList<Edge> listOfEdges = FXCollections.observableArrayList();
+
+    private mapEdit editor = new mapEdit();
 
     @FXML
     public ImageView backgroundIMG;
@@ -313,49 +317,82 @@ public class edgesPage extends SceneController {
 
     }
 
+//    public void submitEdit(ActionEvent e) throws FileNotFoundException, SQLException {
+//        if (!checkInput()) {
+//            loadEmptyDialog();
+//        } else {
+//            Connection connection = null;
+//            try {
+//                connection = getConnection();
+//            } catch (SQLException except) {
+//                return;
+//            }
+//
+//            Edge n = null;
+//
+//            if (selectedEdge == null) {
+//                if(!EdgeMapSuper.getMap().containsKey(startNodeField.getText()) || !EdgeMapSuper.getMap().containsKey(endNodeField.getText())){
+//                    loadNoNodeDialog();
+//                    return;
+//                }
+//                EdgeManager.addEdge(connection, nodeIDField.getText(), startNodeField.getText(), endNodeField.getText());
+//                cancelEdit(e);
+//                return;
+//            }
+//            for (Edge edge : listOfEdges) {
+//                if (edge.getNodeID().equals(selectedEdge.getNodeID())) {
+//                    n = updateEdge(edge);
+//                    break;
+//                }
+//            }
+//
+//            if(!EdgeMapSuper.getMap().containsKey(startNodeField.getText()) || !EdgeMapSuper.getMap().containsKey(endNodeField.getText())){
+//                loadNoNodeDialog();
+//                return;
+//            }
+//
+//            EdgeManager.updateEdge(connection, selectedEdge.getNodeID(), selectedEdge.getStartNode(),
+//                    n.getStartNode(), selectedEdge.getEndNode(), n.getEndNode());
+//
+//
+//            //TODO:Talk to CSV Manager
+//            cancelEdit(e);
+//            //NODETYPE IS NOT CHANGED AS WELL AS NEIGHBORS
+//        }
+//    }
+
     public void submitEdit(ActionEvent e) throws SQLException, FileNotFoundException {
-        if (!checkInput()) {
+        EdgeSuper edgeSuper;
+        String selectedID;
+        if(!checkInput()){
             loadEmptyDialog();
-        } else {
-            Connection connection = null;
-            try {
-                connection = DriverManager.getConnection(Mdb.JDBC_URL);
-            } catch (SQLException sqlException) {
-                System.out.println("Connection failed. Check output console.");
-                sqlException.printStackTrace();
-                return;
-            }
-            //NodeSuper nodeSuper = MapSuper.getMap().get(selectedEdge.getNodeID());
-            Edge n = null;
+        }else{
+            if(editor.validNode(startNodeField.getText()) && editor.validNode(endNodeField.getText())){
+                edgeSuper = new EdgeSuper(startNodeField.getText()+"_"+endNodeField.getText(),
+                        startNodeField.getText(),
+                        endNodeField.getText());
+                if(selectedEdge==null){
+                    selectedID = "";
+                    editor.submitEditEdgeToDB(edgeSuper,selectedID,"","");
+                }else{
+                    Edge n = null;
+                    selectedID = selectedEdge.getNodeID();
+                    for (Edge edge : listOfEdges) {
+                        if (edge.getNodeID().equals(selectedEdge.getNodeID())) {
+                            n = updateEdge(edge);
+                            break;
+                        }
+                    }
 
-            if (selectedEdge == null) {
-                if(!EdgeMapSuper.getMap().containsKey(startNodeField.getText()) || !EdgeMapSuper.getMap().containsKey(endNodeField.getText())){
-                    loadNoNodeDialog();
-                    return;
+                    if (!EdgeMapSuper.getMap().containsKey(startNodeField.getText()) || !EdgeMapSuper.getMap().containsKey(endNodeField.getText())) {
+                        loadNoNodeDialog();
+                        return;
+                    }
+                    editor.submitEditEdgeToDB(edgeSuper,selectedID,selectedEdge.getStartNode(),selectedEdge.getEndNode());
+                    cancelEdit(e);
                 }
-                EdgeManager.addEdge(connection, nodeIDField.getText(), startNodeField.getText(), endNodeField.getText());
-                cancelEdit(e);
-                return;
+
             }
-            for (Edge edge : listOfEdges) {
-                if (edge.getNodeID().equals(selectedEdge.getNodeID())) {
-                    n = updateEdge(edge);
-                    break;
-                }
-            }
-
-            if(!EdgeMapSuper.getMap().containsKey(startNodeField.getText()) || !EdgeMapSuper.getMap().containsKey(endNodeField.getText())){
-                loadNoNodeDialog();
-                return;
-            }
-
-            EdgeManager.updateEdge(connection, selectedEdge.getNodeID(), selectedEdge.getStartNode(),
-                    n.getStartNode(), selectedEdge.getEndNode(), n.getEndNode());
-
-
-            //TODO:Talk to CSV Manager
-            cancelEdit(e);
-            //NODETYPE IS NOT CHANGED AS WELL AS NEIGHBORS
         }
     }
 
@@ -393,9 +430,7 @@ public class edgesPage extends SceneController {
     }
 
     public boolean checkInput() {
-        return !startNode.getText().equals("") &&
-                !endNode.getText().equals("") &&
-                !nodeID.getText().equals("");
+        return editor.checkInput(Arrays.asList(startNodeField.getText(), endNodeField.getText(), nodeIDField.getText()));
     }
 
     public void back(ActionEvent e) {
@@ -408,64 +443,11 @@ public class edgesPage extends SceneController {
     }
 
     public void loadEmptyDialog() {
-        dialogPane.toFront();
-        dialogPane.setDisable(false);
-        JFXDialogLayout message = new JFXDialogLayout();
-        message.setHeading(new Text("Oops!"));
-        message.setBody(new Text("Looks like some of the fields are empty."));
-        JFXDialog dialog = new JFXDialog(dialogPane, message, JFXDialog.DialogTransition.CENTER);
-        JFXButton exit = new JFXButton("DONE");
-        exit.setOnAction(event -> {
-            dialog.close();
-            dialogPane.setDisable(true);
-            dialogPane.toBack();
-        });
-        dialog.setOnDialogClosed(event -> {
-            dialogPane.setDisable(true);
-            dialogPane.toBack();
-        });
-        message.setActions(exit);
-        dialog.show();
+        super.loadErrorDialog(dialogPane, "Looks like some of the fields are empty.");
     }
 
     public void loadNoNodeDialog(){
-        //TODO Center the text of it.
-        dialogPane.toFront();
-        dialogPane.setDisable(false);
-        JFXDialogLayout message = new JFXDialogLayout();
-        message.setMaxHeight(Region.USE_PREF_SIZE);
-        message.setMaxHeight(Region.USE_PREF_SIZE);
-
-        final Text hearder = new Text("Error");
-        hearder.setStyle("-fx-font-weight: bold");
-        hearder.setStyle("-fx-font-size: 30");
-        hearder.setFill(Color.valueOf("#e74c3c"));
-        hearder.setStyle("-fx-font-family: Roboto");
-        hearder.setStyle("-fx-alignment: center");
-        message.setHeading(hearder);
-
-        final Text body = new Text("No node exists with the given nodeID");
-        body.setStyle("-fx-font-size: 15");
-        body.setStyle("-fx-font-family: Roboto");
-        body.setStyle("-fx-alignment: center");
-        message.setHeading(hearder);
-
-        message.setBody(body);
-        JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
-        JFXButton ok = new JFXButton("OK");
-        ok.setOnAction(event -> {
-            dialogPane.toBack();
-            dialogPane.setDisable(true);
-            dialog.close();
-        });
-
-        dialog.setOnDialogClosed(event -> {
-            dialogPane.toBack();
-            dialog.close();
-        });
-
-        message.setActions(ok);
-        dialog.show();
+        super.loadErrorDialog(dialogPane, "No node exists with the given nodeID");
     }
 
 

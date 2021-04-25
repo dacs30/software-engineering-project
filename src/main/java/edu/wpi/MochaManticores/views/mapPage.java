@@ -81,7 +81,7 @@ public class mapPage extends SceneController{
 
         public void resetFill() {
             c.setFill(Color.WHITE);
-            c.setStrokeWidth(1);
+            c.setStrokeWidth(2);
             c.setStroke(Color.valueOf("#FF6B35"));
         }
     }
@@ -390,7 +390,7 @@ public class mapPage extends SceneController{
             NodeSuper n = mapIter.next();
             if(n.getFloor().equals(selectedFloor)){
                 Circle spot = new Circle(n.getXcoord() / xRatio, n.getYcoord() / yRatio, 4, Color.WHITE);
-                spot.setStrokeWidth(1);
+                spot.setStrokeWidth(2);
                 spot.setStroke(Color.valueOf("#FF6B35"));
                 EventHandler<MouseEvent> highlight = new EventHandler<MouseEvent>() {
                     @Override
@@ -401,14 +401,14 @@ public class mapPage extends SceneController{
                 EventHandler<MouseEvent> large = new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent e) {
-                        mouseOverNode(e,5);
+                        mouseOverNode(e,6);
                     }
                 };
 
                 EventHandler<MouseEvent> small = new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent e) {
-                        mouseOverNode(e,3);
+                        mouseOverNode(e,4);
                     }
                 };
                 spot.setOnMouseClicked(highlight);

@@ -1,14 +1,33 @@
 package edu.wpi.MochaManticores.views;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.JFXTextField;
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.database.Mdb;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
+import javafx.stage.DirectoryChooser;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.EmptyStackException;
+import java.util.List;
 import java.util.Objects;
 import java.util.Stack;
 
@@ -16,6 +35,7 @@ public class SceneController{
     protected static Stack<String> scenes = new Stack<>();
     double height = App.getPrimaryStage().getScene().getHeight();
     double width = App.getPrimaryStage().getScene().getWidth();
+    private boolean dialogOpen = false;
 
     @FXML
     protected void returnToMain(){
@@ -60,5 +80,78 @@ public class SceneController{
 
     public void exitApp(ActionEvent e){
         Platform.exit();
+    }
+
+    public void loadErrorDialog(StackPane dialogPane, String msg){
+        if(dialogOpen){
+            return;
+        }
+        dialogPane.toFront();
+        dialogPane.setDisable(false);
+        JFXDialogLayout message = new JFXDialogLayout();
+        message.setHeading(new Text("Oops!"));
+        message.setBody(new Text(msg));
+        JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
+        dialogOpen= true;
+        JFXButton exit = new JFXButton("DONE");
+        exit.setOnAction(event -> {
+            dialog.close();
+            dialogPane.setDisable(true);
+            dialogPane.toBack();
+        });
+        dialog.setOnDialogClosed(event -> {
+            dialogOpen = false;
+            dialogPane.setDisable(true);
+            dialogPane.toBack();
+        });
+        EventHandler<KeyEvent> enter = new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent e) {
+                if(e.getCharacter().equals("\r")){
+                    dialog.close();
+                    dialogPane.setDisable(true);
+                    dialogPane.toBack();
+                }
+            }
+        };
+        dialog.setOnKeyTyped(enter);
+
+        message.setActions(exit);
+        dialog.show();
+    }
+
+    public Connection getConnection() throws SQLException {
+        try {
+            return DriverManager.getConnection(Mdb.JDBC_URL);
+        } catch (SQLException sqlException) {
+            System.out.println("Connection failed. Check output console.");
+            sqlException.printStackTrace();
+            throw new SQLException();
+        }
+    }
+
+    public String getPath() {
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        File selectedDirectory = directoryChooser.showDialog(App.getPrimaryStage());
+        if(selectedDirectory!=null){
+            String path = selectedDirectory.getAbsolutePath();
+            return  selectedDirectory.getAbsolutePath();//TODO: check windows or UNIX and start at ~/Downloads or $USER/downloads
+        }
+        return "";
+    }
+
+    public void downloadCSV(ActionEvent e, String dstPath, String srcPath){
+        String path = getPath();
+        if(path.equals("")){
+
+        }else{
+            File dst = new File(path + dstPath);
+            try{
+                File source = new File(srcPath);
+                Files.copy(source.toPath(),dst.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        }
     }
 }

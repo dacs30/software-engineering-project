@@ -2,8 +2,6 @@ package edu.wpi.MochaManticores.views;
 //TODO:comment :(
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.MochaManticores.App;
@@ -12,6 +10,7 @@ import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.database.EdgeManager;
 import edu.wpi.MochaManticores.database.Mdb;
 import edu.wpi.MochaManticores.database.NodeManager;
+import edu.wpi.MochaManticores.Editors.mapEdit;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -25,20 +24,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
-import javax.swing.*;
-import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.CopyOption;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
-import java.nio.file.StandardOpenOption;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -78,7 +67,10 @@ public class nodePage extends SceneController{
     public JFXTextField floorField;
     public JFXTextField ycoordField;
     public JFXTextField xcoordField;
+    public JFXTextField nodeTypeField;
     public Node selectedNode;
+
+    private mapEdit editor = new mapEdit();
 
     public class Node extends RecursiveTreeObject<Node>{
         public StringProperty xcoord;
@@ -88,14 +80,26 @@ public class nodePage extends SceneController{
         public StringProperty longName;
         public StringProperty shortName;
         public StringProperty nodeID;
+        public StringProperty nodeType;
 
+        public String getNodeType() {
+            return nodeType.get();
+        }
 
+        public StringProperty nodeTypeProperty() {
+            return nodeType;
+        }
+
+        public void setNodeType(String nodeType) {
+            this.nodeType.set(nodeType);
+        }
 
         public Set<String> neighbors;
 
         public StringProperty[] fields;
 
-        public Node(String xcoord, String ycoord, String floor, String building, String longName, String shortName, String nodeID, Set<String> neighbors) {
+
+        public Node(String xcoord, String ycoord, String floor, String building, String longName, String shortName, String nodeID, Set<String> neighbors,String nodeType) {
             this.xcoord = new SimpleStringProperty(xcoord);
             this.ycoord = new SimpleStringProperty(ycoord);
             this.floor = new SimpleStringProperty(floor);
@@ -104,8 +108,10 @@ public class nodePage extends SceneController{
             this.shortName = new SimpleStringProperty(shortName);
             this.nodeID = new SimpleStringProperty(nodeID);
             this.neighbors = neighbors;
+            this.nodeType = new SimpleStringProperty(nodeType);
             fields = new StringProperty[]{this.xcoord, this.ycoord,this.floor,this.building,this.longName,this.shortName,this.nodeID};
         }
+
         public Node(StringProperty[] fields, Set<String> neighbors){
             this.xcoord = fields[0];
             this.ycoord = fields[1];
@@ -318,7 +324,8 @@ public class nodePage extends SceneController{
                     n.getLongName(),
                     n.getShortName(),
                     n.getID(),
-                    n.getNeighbors());
+                    n.getNeighbors(),
+                    n.getType());
             for (int j = 0; j < nodeToAdd.getFields().length; j++) {
                 if(nodeToAdd.getFields()[j].get().toLowerCase().contains(searchTerm.toLowerCase()) || searchTerm.equals("")){
                     nodes.add(nodeToAdd);
@@ -362,18 +369,7 @@ public class nodePage extends SceneController{
     }
 
     public void downloadCSV(ActionEvent e){
-        String path = getPath();
-        if(path.equals("")){
-
-        }else{
-            File dst = new File(path + "\\bwMNodes.csv");
-            try{
-                File source = new File("data/bwMNodes.csv");
-                Files.copy(source.toPath(),dst.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        }
+        super.downloadCSV(e, "\\bwMNodes.csv", "data/bwMNodes.csv");
     }
 
     public void loadCustomCSV(ActionEvent e){
@@ -394,35 +390,10 @@ public class nodePage extends SceneController{
         }
     }
 
-    public String getPath() {
-        DirectoryChooser directoryChooser = new DirectoryChooser();
-        File selectedDirectory = directoryChooser.showDialog(App.getPrimaryStage());
-        if(selectedDirectory!=null){
-            String path = selectedDirectory.getAbsolutePath();
-            return  selectedDirectory.getAbsolutePath();//TODO: check windows or UNIX and start at ~/Downloads or $USER/downloads
-        }
-        return "";
-    }
+
 
     public void loadErrorDialog(){
-        dialogPane.toFront();
-        dialogPane.setDisable(false);
-        JFXDialogLayout message = new JFXDialogLayout();
-        message.setHeading(new Text("Oops!"));
-        message.setBody(new Text("Please select a table entry before editing."));
-        JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
-        JFXButton exit = new JFXButton("DONE");
-        exit.setOnAction(event -> {
-            dialog.close();
-            dialogPane.setDisable(true);
-            dialogPane.toBack();
-        });
-        dialog.setOnDialogClosed(event -> {
-            dialogPane.setDisable(true);
-            dialogPane.toBack();
-        });
-        message.setActions(exit);
-        dialog.show();
+        super.loadErrorDialog(dialogPane,"Please select a table entry before editing.");
     }
 
     public void loadEditPage(Node node){
@@ -436,6 +407,7 @@ public class nodePage extends SceneController{
             logNameField.setText(node.getLongName());
             shortNameField.setText(node.getShortName());
             nodeIDField.setText(node.getNodeID());
+            nodeTypeField.setText(node.getNodeType());
         }
     }
 
@@ -447,89 +419,113 @@ public class nodePage extends SceneController{
         logNameField.setText("");
         shortNameField.setText("");
         nodeIDField.setText("");
+        nodeTypeField.setText("");
     }
 
+//    public void submitEdit(ActionEvent e) throws SQLException, FileNotFoundException {
+//        Connection connection = null;
+//        try {
+//            connection = getConnection();
+//        } catch (SQLException sqlException) {
+//            return;
+//        }
+//
+//        if (!checkInput()) {
+//            loadEmptyDialog();
+//        } else {
+//            NodeSuper nodeSuper = null;
+//            try {
+//                nodeSuper = MapSuper.getMap().get(selectedNode.getNodeID());
+//            }
+//            catch (NullPointerException exception) {
+//                NodeManager.addNode(connection,
+//                nodeIDField.getText(),
+//                xcoordField.getText(),
+//                ycoordField.getText(),
+//                floorField.getText(),
+//                buildingField.getText(),
+//                "TEST",
+//                logNameField.getText(),
+//                shortNameField.getText());
+//                cancelEdit(e);
+//                return;
+//            }
+//
+//            Node n = null;
+//            for (Node node : listOfNodes) {
+//                if (node.getNodeID().equals(selectedNode.getNodeID())) {
+//                    n = updateNode(node);
+//                    break;
+//                }
+//            }
+//            if (n == null) {
+//                System.out.println("Cannot Find Node in List of Nodes");
+//                return;
+//            }
+//
+//            NodeManager.updateNode(connection, n.nodeID.get(), nodeSuper.getID(), Integer.parseInt(n.getXcoord()),
+//                    Integer.parseInt(n.ycoord.get()), n.getFloor(), n.getBuilding(), nodeSuper.getType(), n.getLongName(), n.getShortName());
+//            //TODO:Talk to CSV Manager
+//            //NODETYPE IS NOT CHANGED AS WELL AS NEIGHBORS
+//            cancelEdit(e);
+//        }
+//    }
+
     public void submitEdit(ActionEvent e) throws SQLException, FileNotFoundException {
-        Connection connection = null;
-        try {
-            connection = DriverManager.getConnection(Mdb.JDBC_URL);
-        } catch (SQLException sqlException) {
-            System.out.println("Connection failed. Check output console.");
-            sqlException.printStackTrace();
-            return;
-        }
-
-        if (!checkInput()) {
+        NodeSuper nodeSuper;
+        String selectedID;
+        if(!checkInput()){ //Ensures that the user has inputted values
             loadEmptyDialog();
-        } else {
-            NodeSuper nodeSuper = null;
-            try {
-                nodeSuper = MapSuper.getMap().get(selectedNode.getNodeID());
-            }
-            catch (
-                    NullPointerException exception
-            ) {
-                NodeManager.addNode(connection, nodeIDField.getText(),
-                xcoordField.getText(),
-                ycoordField.getText(),
-                floorField.getText(),
-                buildingField.getText(),
-                "TEST",
-                logNameField.getText(),
-                shortNameField.getText());
-                cancelEdit(e);
-                return;
-            }
-
-            Node n = null;
-            for (Node node : listOfNodes) {
-                if (node.getNodeID().equals(selectedNode.getNodeID())) {
-                    n = updateNode(node);
-                    break;
+        }else{
+            try{ //selectedNode != null so Node is being EDITED
+                nodeSuper = new NodeSuper(
+                        Integer.parseInt(xcoordField.getText()),
+                        Integer.parseInt(ycoordField.getText()),
+                        floorField.getText(),
+                        buildingField.getText(),
+                        logNameField.getText(),
+                        shortNameField.getText(),
+                        nodeIDField.getText(),
+                        nodeTypeField.getText(),
+                        MapSuper.getMap().get(selectedNode.getNodeID()).getVertextList());
+                selectedID = selectedNode.getNodeID();
+                Node n = null;
+                for (Node node : listOfNodes) {
+                    if (node.getNodeID().equals(selectedNode.getNodeID())) {
+                        n = updateNode(node);
+                        break;
+                    }
                 }
-            }
-            if (n == null) {
-                System.out.println("Cannot Find Node in List of Nodes");
-                return;
-            }
+                if (n == null) {
+                    System.out.println("Cannot Find Node in List of Nodes");
+                    return;
+                }
+            } catch (NullPointerException nullPtrException){ //selectedNode == null so Node is being ADDED
 
-            NodeManager.updateNode(connection, n.nodeID.get(), nodeSuper.getID(), Integer.parseInt(n.getXcoord()),
-                    Integer.parseInt(n.ycoord.get()), n.getFloor(), n.getBuilding(), nodeSuper.getType(), n.getLongName(), n.getShortName());
-            //TODO:Talk to CSV Manager
-            //NODETYPE IS NOT CHANGED AS WELL AS NEIGHBORS
+                nodeSuper = new NodeSuper(
+                        Integer.parseInt(xcoordField.getText()),
+                        Integer.parseInt(ycoordField.getText()),
+                        floorField.getText(),
+                        buildingField.getText(),
+                        logNameField.getText(),
+                        shortNameField.getText(),
+                        nodeIDField.getText(),
+                        nodeTypeField.getText(),
+                        null);
+                selectedID = "";
+            }
+            boolean success = editor.submitEditNodeToDB(nodeSuper, selectedID);
             cancelEdit(e);
+
         }
     }
 
     public void loadEmptyDialog(){
-        dialogPane.toFront();
-        dialogPane.setDisable(false);
-        JFXDialogLayout message = new JFXDialogLayout();
-        message.setHeading(new Text("Oops!"));
-        message.setBody(new Text("Looks like some of the fields are empty."));
-        JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
-        JFXButton exit = new JFXButton("DONE");
-        exit.setOnAction(event -> {
-            dialog.close();
-            dialogPane.setDisable(true);
-            dialogPane.toBack();
-        });
-        dialog.setOnDialogClosed(event -> {
-            dialogPane.setDisable(true);
-            dialogPane.toBack();
-        });
-        message.setActions(exit);
-        dialog.show();
+        super.loadErrorDialog(dialogPane, "Looks like some of the fields are empty.");
     }
 
     public boolean checkInput(){
-        return  !xcoordField.getText().equals("") &&
-                !ycoordField.getText().equals("") &&
-                !floorField.getText().equals("") &&
-                !buildingField.getText().equals("") &&
-                !logNameField.getText().equals("") &&
-                !shortNameField.getText().equals("") &&
-                !nodeIDField.getText().equals("");
+        return  editor.checkInput(Arrays.asList(xcoordField.getText(), ycoordField.getText(), floorField.getText(), buildingField.getText(), logNameField.getText(),shortNameField.getText(), nodeIDField.getText(), nodeTypeField.getText()));
     }
 
     public Node updateNode(Node n){
