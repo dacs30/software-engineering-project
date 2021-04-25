@@ -65,6 +65,7 @@
                      <children>
                         <Icon content="HOME" stylesheets="@../Stylesheets/landingPage.css" />
                         <Label id="menuSideBarLabel" stylesheets="@../Stylesheets/landingPage.css" text="Menu" />
+                        <MaterialDesignIconView glyphName="BATTERY" />
                      </children>
                      <padding>
                         <Insets left="30.0" />
@@ -73,7 +74,7 @@
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="30.0" GridPane.rowIndex="2">
                      <children>
                         <Icon content="MAP" />
-                        <Label id="mapSideLabel" stylesheets="@../Stylesheets/landingPage.css" text="Label" />
+                        <Label id="mapSideLabel" stylesheets="@../Stylesheets/landingPage.css" text="Map" />
                      </children>
                      <opaqueInsets>
                         <Insets />
