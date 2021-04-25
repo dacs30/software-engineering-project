@@ -1,0 +1,43 @@
+#formSquare {
+    -fx-background-color: rgba(15, 76, 145, 0.75);
+}
+
+#centerPane {
+    -fx-background-color: white;
+    -fx-background-radius: 40;
+}
+
+.jfx-text-field {
+    -fx-font-family: Roboto;
+    -fx-font-size: 24;
+    -fx-prompt-text-fill: rgba(193, 193, 193, 0.93);
+    -fx-text-fill: black;
+}
+
+.jfx-button {
+    -fx-background-color: #0F4B91;
+    -fx-font-family: Roboto;
+    -fx-text-fill: white;
+    -fx-font-size: 20;
+    -fx-background-radius: 40;
+    transition: background-color 2s ease;
+    -fx-alignment: center;
+}
+
+#orLabel {
+    -fx-font-family: Roboto;
+    -fx-font-size: 60;
+    -fx-text-fill: rgb(15, 76, 145);
+    -fx-alignment: center;
+}
+
+#langSelect {
+    -fx-font-family: Roboto;
+    -fx-font-size: 20;
+    -fx-text-fill: rgb(15, 76, 145);
+    -fx-alignment: center;
+}
+
+#dropDown {
+    -fx-background-color: rgba(15, 76, 145, 0.35);
+}
