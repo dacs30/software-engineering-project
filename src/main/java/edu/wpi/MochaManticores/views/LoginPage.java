@@ -25,6 +25,13 @@ public class LoginPage extends SceneController{
     @FXML
     private StackPane dialogPane;
 
+    /**
+     * Initializes a page with an image and fits the map to screen
+     * then creates starting and ending nodes using the edges
+     *
+     * @return void
+     */
+
     public void initialize(){
         double height = super.getHeight();
         double width = super.getWidth();
@@ -40,9 +47,14 @@ public class LoginPage extends SceneController{
 
     }
 
+    /**
+     * Loads the emergency dialogue and if 'yes' is completed,
+     * the page is changed to the emergency form
+     *
+     * @return void
+     */
 
     public void loadDialog(){
-        //TODO Center the text of it.
 
         JFXDialogLayout message = new JFXDialogLayout();
         message.setMaxHeight(Region.USE_PREF_SIZE);

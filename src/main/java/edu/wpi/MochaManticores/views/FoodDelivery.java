@@ -41,6 +41,12 @@ public class FoodDelivery extends SceneController {
 
     public void helpButton(ActionEvent actionEvent){loadFullHelpDialogue();}
 
+    /**
+     * Loads the help dialog for the user to complete the request
+     *
+     * @return void
+     */
+
     private void loadHelpDialog(){
         JFXDialogLayout message = new JFXDialogLayout();
         message.setMaxHeight(Region.USE_COMPUTED_SIZE);
@@ -88,6 +94,12 @@ public class FoodDelivery extends SceneController {
     }
 
 
+    /**
+     * Initializes a page with an image and fits the map to screen
+     * then creates starting and ending nodes using the edges
+     *
+     * @return void
+     */
     public void initialize() {
         double height = App.getPrimaryStage().getScene().getHeight();
         double width = App.getPrimaryStage().getScene().getWidth();
@@ -114,6 +126,11 @@ public class FoodDelivery extends SceneController {
         //dialogPane.setDisable(false);
     }
 
+    /**
+     * Loads the submitted dialog and confirms the request was submitted
+     *
+     * @return void
+     */
 
     public void submitForm(ActionEvent e) {
         // TODO Submit action
@@ -122,6 +139,11 @@ public class FoodDelivery extends SceneController {
         loadDialog();
     }
 
+    /**
+     * Loads the submitted dialog and confirms the request was submitted
+     *
+     * @return void
+     */
     public void loadDialog() {
         //TODO Center the text of it.
 

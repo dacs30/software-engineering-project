@@ -42,7 +42,7 @@ public class newMapPage extends SceneController{
 
         public Circle getC() {
             return c;
-        }
+        } // getters and setters
 
         public void setC(Circle c) {
             this.c = c;
@@ -72,7 +72,7 @@ public class newMapPage extends SceneController{
             this.yCoord = yCoord;
         }
 
-        public node(Circle c, String nodeID) {
+        public node(Circle c, String nodeID) {//constructor
             this.c = c;
             this.nodeID = nodeID;
             xCoord = c.getCenterX();
@@ -149,6 +149,13 @@ public class newMapPage extends SceneController{
 
     Rectangle2D noZoom;
     Rectangle2D zoomPort;
+
+    /**
+     * Initializes a page with a stack of images and
+     * loads floors depending on which floor is requested by the user
+     *
+     * @return void
+     */
 
     public void initialize() {
         double height = super.getHeight();
@@ -277,6 +284,13 @@ public class newMapPage extends SceneController{
         changeSceneTo("landingPage");
     }
 
+    /**
+     * Sets the zoom of the image to the proportion that is made below
+     *
+     * @return void
+     */
+
+
     private void setZoom(Image img, double x, double y, Rectangle2D z) {
         noZoom = new Rectangle2D(0, 0, img.getWidth(), img.getHeight());
         zoomPort = new Rectangle2D(x, y, (double) .25 * img.getWidth(), (double) .25 * img.getHeight());
@@ -284,6 +298,13 @@ public class newMapPage extends SceneController{
         mapWindow.setImage(img);
         mapWindow.setViewport(z);
     }
+
+    /**
+     * Loads the image of the floor layout that the user requests
+     *
+     * @return void
+     */
+
 
     public void loadL1() {
         Image img = new Image(location + "00_thelowerlevel1.png");
@@ -344,6 +365,12 @@ public class newMapPage extends SceneController{
         System.out.printf("(%f,%f)\n", e.getX() * xRatio, e.getY() * yRatio);
     }
 
+    /**
+     * Uses AStar algorithm to find the shortest path
+     *
+     * @return void
+     */
+
     public void toAStar() {
         AStar2 star = new AStar2();
         //pathToTake is used in the dialog box that keeps all the nodes that the user has to pass through
@@ -394,6 +421,13 @@ public class newMapPage extends SceneController{
         loadDialog(pathToTake); // calling the dialog pane with the path
 
     }
+
+    /**
+     * Creates ratios for the image and
+     * draws the nodes
+     *
+     * @return void
+     */
 
     public void drawNodes() {
         nodePane.getChildren().clear();

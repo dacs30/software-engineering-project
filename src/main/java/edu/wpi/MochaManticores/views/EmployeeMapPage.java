@@ -284,6 +284,13 @@ public class EmployeeMapPage extends SceneController {
         changeSceneTo("landingPage");
     }
 
+    /**
+     * Sets the image zoom to allow for the
+     * user to rescale the floor
+     *
+     * @return void
+     */
+
     private void setZoom(Image img, double x, double y, Rectangle2D z) {
         noZoom = new Rectangle2D(0, 0, img.getWidth(), img.getHeight());
         zoomPort = new Rectangle2D(x, y, (double) .25 * img.getWidth(), (double) .25 * img.getHeight());
@@ -292,7 +299,7 @@ public class EmployeeMapPage extends SceneController {
         mapWindow.setViewport(z);
     }
 
-    public void loadL1() {
+    public void loadL1() {//loads each of the floor layouts
         Image img = new Image(location + "00_thelowerlevel1.png");
         setSelectedFloor("L1");
         setZoom(img, 0, 0, noZoom);
@@ -351,6 +358,13 @@ public class EmployeeMapPage extends SceneController {
         System.out.printf("(%f,%f)\n", e.getX() * xRatio, e.getY() * yRatio);
     }
 
+    /**
+     * Uses the AStar algorithm to get the path of
+     * the nodes and throws an exception if there is no node selected
+     *
+     * @return void
+     */
+
     public void toAStar() {
         AStar2 star = new AStar2();
         //pathToTake is used in the dialog box that keeps all the nodes that the user has to pass through
@@ -402,6 +416,13 @@ public class EmployeeMapPage extends SceneController {
 
     }
 
+    /**
+     * gets the nodes and edges from the map and
+     * produces the nodes
+     *
+     * @return void
+     */
+
     public void drawNodes() {
         nodePane.getChildren().clear();
         double xRatio = 5000 / mapWindow.getFitWidth();
@@ -441,6 +462,13 @@ public class EmployeeMapPage extends SceneController {
         }
     }
 
+    /**
+     * highlights the node that the user
+     * puts the mouse over
+     *
+     * @return void
+     */
+
     public void highlightNode(MouseEvent e) {
         Circle src = ((Circle) e.getSource());
         src.setFill(Color.valueOf("#0F4B91"));
@@ -473,6 +501,12 @@ public class EmployeeMapPage extends SceneController {
         drawNodes();
         toAStar();
     }
+
+    /**
+     * Allows the user to zoom into the image if it is requested
+     *
+     * @return void
+     */
 
     public void zoomImg(MouseEvent e) {
         ImageView source = (ImageView) e.getSource();
@@ -507,6 +541,13 @@ public class EmployeeMapPage extends SceneController {
     public void gotoNode(ActionEvent e) {
         super.changeSceneTo("nodePage");
     }
+
+    /**
+     * Allows the user to copy the file of the CSV
+     * and throws an exception if the path does not work
+     *
+     * @return void
+     */
 
     public void downloadCSVs(ActionEvent e) {
         String path = getPath();

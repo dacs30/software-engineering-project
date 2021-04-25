@@ -34,6 +34,13 @@ public class extTransportationController extends SceneController {
     @FXML
     private JFXTextField empBox;
 
+    /**
+     * Initializes a page with an image and fits the map to screen
+     * then creates starting and ending nodes using the edges
+     *
+     * @return void
+     */
+
     @FXML
     private void initialize() {
         double height = App.getPrimaryStage().getScene().getHeight();
@@ -64,6 +71,12 @@ public class extTransportationController extends SceneController {
     }
 
     public void helpButton(ActionEvent actionEvent){loadHelpDialogue();}
+
+    /**
+     * Loads the help dialogue for the user to fill in the service request
+     *
+     * @return void
+     */
 
     private void loadDialog(){
         JFXDialogLayout message = new JFXDialogLayout();

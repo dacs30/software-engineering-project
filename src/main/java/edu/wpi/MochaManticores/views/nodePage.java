@@ -106,7 +106,7 @@ public class nodePage extends SceneController{
             this.neighbors = neighbors;
             fields = new StringProperty[]{this.xcoord, this.ycoord,this.floor,this.building,this.longName,this.shortName,this.nodeID};
         }
-        public Node(StringProperty[] fields, Set<String> neighbors){
+        public Node(StringProperty[] fields, Set<String> neighbors){//constructors for nodes and node fields
             this.xcoord = fields[0];
             this.ycoord = fields[1];
             this.floor = fields[2];
@@ -119,7 +119,7 @@ public class nodePage extends SceneController{
 
         public Set<String> getNeighbors() {
             return neighbors;
-        }
+        }//getters and setters
 
         public void setNeighbors(Set<String> neighbors) {
             this.neighbors = neighbors;
@@ -231,6 +231,13 @@ public class nodePage extends SceneController{
         }
     }
 
+    /**
+     * gets the node information of the node
+     * that the user requests on the map page
+     *
+     * @return void
+     */
+
     public void initialize() {
         xcoord = new TableColumn<Node, String>("X-coordinates");
         xcoord.setMinWidth(100);
@@ -286,6 +293,14 @@ public class nodePage extends SceneController{
 
     }
 
+    /**
+     * Builds a table with the search term that was inputted
+     * otherwise builds the table with no input
+     *
+     * @return void
+     */
+
+
     public void searchPressed(ActionEvent e){
         String searchTerm = mapName.getText();
 
@@ -295,6 +310,12 @@ public class nodePage extends SceneController{
             buildTable(searchTerm);
         }
     }
+    /**
+     * Builds a table with the search term that was inputted
+     * otherwise builds the table with no input
+     *
+     * @return void
+     */
 
     public void searchTyped(KeyEvent e){
         String searchTerm = mapName.getText();
@@ -305,6 +326,13 @@ public class nodePage extends SceneController{
             buildTable(searchTerm);
         }
     }
+
+    /**
+     * Builds a table with the node that was searched that was inputted
+     * otherwise builds the table with no input
+     *
+     * @return void
+     */
 
     private ObservableList<Node> buildTable(String searchTerm){
         ObservableList<Node> nodes = FXCollections.observableArrayList();
@@ -332,11 +360,24 @@ public class nodePage extends SceneController{
         dispTable.getColumns().setAll(xcoord,ycoord,floor,building,longName,shortName,nodeID);
         return nodes;
     }
+    /**
+     * Allows for the inputted search term to be
+     * cancelled and reset to an empty search term
+     *
+     * @return void
+     */
 
     public void cancel(ActionEvent e){
         buildTable("");
         mapName.setText("");
     }
+
+    /**
+     * Allows for the node information to be edited and
+     * displays it on a table
+     *
+     * @return void
+     */
 
     public void editButton(ActionEvent e){
         Node n = dispTable.getSelectionModel().getSelectedItem();
@@ -361,6 +402,13 @@ public class nodePage extends SceneController{
             loadEditPage(null);
     }
 
+    /**
+     * Allows the user to copy the file of the CSV
+     * and throws an exception if the path does not work
+     *
+     * @return void
+     */
+
     public void downloadCSV(ActionEvent e){
         String path = getPath();
         if(path.equals("")){
@@ -375,6 +423,12 @@ public class nodePage extends SceneController{
             }
         }
     }
+    /**
+     * Loads the custom CSV file that the user requests to use
+     * and throws an exception if the path does not work
+     *
+     * @return void
+     */
 
     public void loadCustomCSV(ActionEvent e){
         FileChooser f = new FileChooser();
@@ -393,6 +447,13 @@ public class nodePage extends SceneController{
             throwables.printStackTrace();
         }
     }
+    /**
+     *
+     * Gets the path to the correct CSV file in order for the map
+     * to be displayed
+     *
+     * @return An empty string
+     */
 
     public String getPath() {
         DirectoryChooser directoryChooser = new DirectoryChooser();
@@ -403,6 +464,13 @@ public class nodePage extends SceneController{
         }
         return "";
     }
+
+    /**
+     * Displays an error dialogue for the user if they try
+     * to change a table entry without selecting one
+     *
+     * @return void
+     */
 
     public void loadErrorDialog(){
         dialogPane.toFront();
@@ -424,6 +492,12 @@ public class nodePage extends SceneController{
         message.setActions(exit);
         dialog.show();
     }
+    /**
+     * Loads the node page for the user to have access to editing
+     * the node information
+     *
+     * @return void
+     */
 
     public void loadEditPage(Node node){
         selectionPage.setVisible(false);
@@ -448,6 +522,13 @@ public class nodePage extends SceneController{
         shortNameField.setText("");
         nodeIDField.setText("");
     }
+
+    /**
+     * Submits the node page for the user to change
+     * the edge information and update it in the database
+     *
+     * @return void
+     */
 
     public void submitEdit(ActionEvent e) throws SQLException, FileNotFoundException {
         Connection connection = null;
@@ -500,6 +581,12 @@ public class nodePage extends SceneController{
             cancelEdit(e);
         }
     }
+    /**
+     * Loads an error dialogue that some fields
+     * may be empty if the user did not complete the fields and submits the node page
+     *
+     * @return void
+     */
 
     public void loadEmptyDialog(){
         dialogPane.toFront();
@@ -521,6 +608,12 @@ public class nodePage extends SceneController{
         message.setActions(exit);
         dialog.show();
     }
+    /**
+     * Checks to make sure that all of the fields are completed,
+     * otherwise returns false
+     *
+     * @return true or false
+     */
 
     public boolean checkInput(){
         return  !xcoordField.getText().equals("") &&
@@ -531,6 +624,12 @@ public class nodePage extends SceneController{
                 !shortNameField.getText().equals("") &&
                 !nodeIDField.getText().equals("");
     }
+    /**
+     * Updates the node information with the fields
+     * that the user created and submitted
+     *
+     * @return void
+     */
 
     public Node updateNode(Node n){
         n.setXcoord(xcoordField.getText());
@@ -550,6 +649,12 @@ public class nodePage extends SceneController{
         return n;
     }
 
+    /**
+     * Closes the node page and resets all the information
+     * the user inputted to change the node
+     *
+     * @return void
+     */
     public void cancelEdit(ActionEvent e){
         editPage.setVisible(false);
         selectionPage.setVisible(true);
@@ -566,6 +671,13 @@ public class nodePage extends SceneController{
 
     }
 
+    /**
+     * Deletes the node and its properties if the user wishes to
+     * remove a node
+     *
+     *
+     * @return void
+     */
     public void delNode() throws SQLException, FileNotFoundException{
         if(checkInput()){
             Connection connection = null;

@@ -35,6 +35,13 @@ public class internalTransportationController extends SceneController{
     private ImageView backgroundIMG;
     @FXML
     private StackPane dialogPane;
+
+    /**
+     * Initializes a page with an image and fits the map to screen
+     * then creates starting and ending nodes using the edges
+     *
+     * @return void
+     */
     
     @FXML
     private void initialize() {
@@ -65,6 +72,13 @@ public class internalTransportationController extends SceneController{
     }
     
     public void helpButton(ActionEvent actionEvent){loadHelpDialogue();}
+
+
+    /**
+     * Loads the help dialogue for the user to complete the service request
+     *
+     * @return void
+     */
 
     private void loadDialog(){
         JFXDialogLayout message = new JFXDialogLayout();
@@ -109,6 +123,12 @@ public class internalTransportationController extends SceneController{
         dialogPane.toFront();
         loadDialog();
     }
+
+    /**
+     * Loads the submitted dialog and confirms the request was submitted
+     *
+     * @return void
+     */
 
     public void loadSubmitDialog(){
         //TODO Center the text of it.

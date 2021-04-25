@@ -31,6 +31,8 @@ public class RouteExample extends SceneController {
     @FXML
     private Text pathField;
 
+
+
     public void initialize(){
 
         Iterator<NodeSuper> mapIter = MapSuper.getMap().values().iterator();

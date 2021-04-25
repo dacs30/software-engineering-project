@@ -3,42 +3,56 @@
     -fx-font-family: Roboto;
     -fx-font-size: 20;
     -fx-font-weight: bold;
+    -fx-background-radius: 40;
+    -fx-border-radius: 40;
 }
 #LL2Btn {
     -fx-background-color: #FFFFFF;
     -fx-font-family: Roboto;
     -fx-font-size: 20;
     -fx-font-weight: bold;
+    -fx-border-radius: 40;
+    -fx-background-radius: 40;
 }
 #groundBtn {
     -fx-background-color: #FFFFFF;
     -fx-font-family: Roboto;
     -fx-font-size: 20;
     -fx-font-weight: bold;
+    -fx-border-radius: 40;
+    -fx-background-radius: 40;
 }
 #F1Btn {
     -fx-background-color: #FFFFFF;
     -fx-font-family: Roboto;
     -fx-font-size: 20;
     -fx-font-weight: bold;
+    -fx-border-radius: 40;
+    -fx-background-radius: 40;
 }
 #F2Btn {
     -fx-background-color: #FFFFFF;
     -fx-font-family: Roboto;
     -fx-font-size: 20;
     -fx-font-weight: bold;
+    -fx-border-radius: 40;
+    -fx-background-radius: 40;
 }
 #F3Btn {
     -fx-background-color: #FFFFFF;
     -fx-font-family: Roboto;
     -fx-font-size: 20;
     -fx-font-weight: bold;
+    -fx-border-radius: 40;
+    -fx-background-radius: 40;
 }
 #getPathBtn {
     -fx-background-color: #FFFFFF;
     -fx-font-family: Roboto;
     -fx-font-size: 20;
     -fx-font-weight: bold;
+    -fx-border-radius: 40;
+    -fx-background-radius: 40;
 }
 
 #backBtn {
@@ -46,10 +60,13 @@
     -fx-font-family: Roboto;
     -fx-font-size: 20;
     -fx-font-weight: bold;
+    -fx-border-radius: 40;
+    -fx-background-radius: 40;
 }
 #serviceBtn {
     -fx-background-color: #FFFFFF;
     -fx-font-family: Roboto;
     -fx-font-size: 20;
     -fx-font-weight: bold;
+    -fx-background-radius: 40;
 }

@@ -125,7 +125,9 @@ public class edgesPage extends SceneController {
             fields = new StringProperty[]{this.startNode, this.endNode, this.nodeID};
         }
 
-        public Edge(StringProperty[] fields) {
+
+
+        public Edge(StringProperty[] fields) { // constructor for edges and edge fields
             this.startNode = fields[0];
             this.endNode = fields[1];
             this.nodeID = fields[2];
@@ -141,6 +143,13 @@ public class edgesPage extends SceneController {
         }
 
     }
+
+    /**
+     * Initializes a page with an image and fits the map to screen
+     * then creates starting and ending nodes using the edges
+     *
+     * @return void
+     */
 
     public void initialize() {
         double height = super.getHeight();
@@ -178,10 +187,17 @@ public class edgesPage extends SceneController {
         loadEditPage(null);
     }
 
+    /**
+     * selects a file and checks for exceptions then builds
+     * table column if no exceptions are caught and prints out the exception if they are found
+     *
+     * @return void
+     */
+
     public void loadCustomCSV(ActionEvent e) {
         FileChooser f = new FileChooser();
         File file = f.showOpenDialog(App.getPrimaryStage());
-        if (file == null) {
+        if (file == null) { //checks if there is a file
             return;
         }
         System.out.println(file.getAbsolutePath());
@@ -196,6 +212,13 @@ public class edgesPage extends SceneController {
         buildTable("");
     }
 
+    /**
+     * Builds a table with the search term that was inputted
+     * otherwise builds the table with no input
+     *
+     * @return void
+     */
+
     public void searchPressed(ActionEvent e) {
         String searchTerm = mapName.getText();
 
@@ -206,6 +229,13 @@ public class edgesPage extends SceneController {
         }
     }
 
+    /**
+     * Builds a table with the search term that was inputted
+     * otherwise builds the table with no input
+     *
+     * @return void
+     */
+
     public void searchTyped(KeyEvent e) {
         String searchTerm = mapName.getText();
 
@@ -215,6 +245,13 @@ public class edgesPage extends SceneController {
             buildTable(searchTerm);
         }
     }
+
+    /**
+     * Builds a table using the inputted search term that was given
+     * and builds the nodes and edges to the table
+     *
+     * @return edges
+     */
 
     private ObservableList<Edge> buildTable(String searchTerm) {
         ObservableList<Edge> edges = FXCollections.observableArrayList();
@@ -237,11 +274,24 @@ public class edgesPage extends SceneController {
         dispTable.getColumns().setAll(startNode, endNode, nodeID);
         return edges;
     }
+    /**
+     * Allows for the inputted search term to be
+     * cancelled and reset to an empty search term
+     *
+     * @return void
+     */
 
     public void cancel(ActionEvent e) {
         buildTable("");
         mapName.setText("");
     }
+
+    /**
+     * submits the search term and the node information is then
+     * displayed for the user
+     *
+     * @return void
+     */
 
     public void submit(ActionEvent e) {
         Edge n = dispTable.getSelectionModel().getSelectedItem();
@@ -254,6 +304,13 @@ public class edgesPage extends SceneController {
         }
 
     }
+
+    /**
+     * Allows the user to copy the file of the CSV
+     * and throws an exception if the path does not work
+     *
+     * @return void
+     */
 
     public void downloadCSV(ActionEvent e) {
         String path = getPath();
@@ -270,6 +327,14 @@ public class edgesPage extends SceneController {
         }
     }
 
+    /**
+     *
+     * Gets the path to the correct CSV file in order for the map
+     * to be displayed
+     *
+     * @return An empty string
+     */
+
     public String getPath() {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         File selectedDirectory = directoryChooser.showDialog(App.getPrimaryStage());
@@ -279,6 +344,13 @@ public class edgesPage extends SceneController {
         }
         return "";
     }
+
+    /**
+     * Displays an error dialogue for the user if they try
+     * to change a table entry without selecting one
+     *
+     * @return void
+     */
 
     public void loadErrorDialog() {
         dialogPane.toFront();
@@ -301,6 +373,13 @@ public class edgesPage extends SceneController {
         dialog.show();
     }
 
+    /**
+     * Loads the edit page for the user to have access to editing
+     * the edge information
+     *
+     * @return void
+     */
+
     public void loadEditPage(Edge node) {
         selectionPage.setVisible(false);
         editPage.setVisible(true);
@@ -312,6 +391,13 @@ public class edgesPage extends SceneController {
         }
 
     }
+
+    /**
+     * Submits the edit page for the user to change
+     * the edge information and update it in the database
+     *
+     * @return void
+     */
 
     public void submitEdit(ActionEvent e) throws SQLException, FileNotFoundException {
         if (!checkInput()) {
@@ -359,6 +445,14 @@ public class edgesPage extends SceneController {
         }
     }
 
+    /**
+     * Deletes the edge and its properties if the user wishes to
+     * remove an edge
+     *
+     *
+     * @return void
+     */
+
     public void delEdge(ActionEvent e) throws SQLException, FileNotFoundException {
         if(checkInput()){
             Connection connection = null;
@@ -373,6 +467,12 @@ public class edgesPage extends SceneController {
             cancelEdit(null);
         }
     }
+    /**
+     * Updates the edge information for the user to have access to editing
+     * the edge information
+     *
+     * @return void
+     */
 
     public Edge updateEdge(Edge n) {
         n.setStartNode(startNodeField.getText());
@@ -385,6 +485,13 @@ public class edgesPage extends SceneController {
         System.out.println("printed");
         return n;
     }
+
+    /**
+     * Closes the editing page and resets all the information
+     * the user inputted to change the edit
+     *
+     * @return void
+     */
 
     public void cancelEdit(ActionEvent e) {
         editPage.setVisible(false);
@@ -407,6 +514,13 @@ public class edgesPage extends SceneController {
 
     }
 
+    /**
+     * Loads an error dialog for the user if the user
+     * did not complete the edit information and some fields are empty
+     *
+     * @return void
+     */
+
     public void loadEmptyDialog() {
         dialogPane.toFront();
         dialogPane.setDisable(false);
@@ -427,6 +541,13 @@ public class edgesPage extends SceneController {
         message.setActions(exit);
         dialog.show();
     }
+
+    /**
+     * Loads an error dialog for the user if there is no
+     * node with the given Node ID
+     *
+     * @return void
+     */
 
     public void loadNoNodeDialog(){
         //TODO Center the text of it.

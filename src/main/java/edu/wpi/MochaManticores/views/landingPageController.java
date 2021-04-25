@@ -24,6 +24,12 @@ public class landingPageController extends SceneController {
   @FXML
   private StackPane dialogPane;
 
+  /**
+   * Initializes a page with an image and fits the map to screen
+   * then creates starting and ending nodes using the edges
+   *
+   * @return void
+   */
 
   @FXML private void initialize(){
       double height = super.getHeight();
@@ -38,8 +44,13 @@ public class landingPageController extends SceneController {
       dialogPane.toBack();
   }
 
+  /**
+   * Loads the submitted dialog and confirms the request was submitted
+   *
+   * @return void
+   */
+
   public void loadDialog(){
-    //TODO Center the text of it.
 
 
     //dialogPane.setDisable(false);
@@ -97,7 +108,12 @@ public class landingPageController extends SceneController {
   @FXML
   private void dismissEmergencyDialog(ActionEvent e){
   }
-
+  /**
+   * If the emergency message is true, the dialog would
+   * confirm the emergency request was submitted
+   *
+   * @return void
+   */
   @FXML
   private void confirmEmergency(ActionEvent e){
     //dialogPane.setVisible(true);
@@ -108,7 +124,7 @@ public class landingPageController extends SceneController {
   @FXML
   private void emergencyForm(ActionEvent e){
     changeSceneTo("EmergencyForm");
-  }
+  }//changes the request page
 
 
   public void advanceFoodService(ActionEvent e) {

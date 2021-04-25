@@ -146,6 +146,13 @@ public class mapPage extends SceneController{
     Rectangle2D noZoom;
     Rectangle2D zoomPort;
 
+    /**
+     * Initializes a page with an image and fits the map to screen
+     * then creates starting and ending nodes using the edges
+     *
+     * @return void
+     */
+
     public void initialize() {
         double height = super.getHeight();
         double width = super.getWidth();
@@ -275,6 +282,12 @@ public class mapPage extends SceneController{
         super.back();
     }
 
+    /**
+     * Sets the zoom of the image to the proportion that is made below
+     *
+     * @return void
+     */
+
     private void setZoom(Image img, double x, double y, Rectangle2D z) {
         noZoom = new Rectangle2D(0, 0, img.getWidth(), img.getHeight());
         zoomPort = new Rectangle2D(x, y, (double) .25 * img.getWidth(), (double) .25 * img.getHeight());
@@ -282,6 +295,12 @@ public class mapPage extends SceneController{
         mapWindow.setImage(img);
         mapWindow.setViewport(z);
     }
+
+    /**
+     * Loads the image of the floor layouts
+     *
+     * @return void
+     */
 
     public void loadL1() {
         locationTitle.setText("Lower Level 1");
@@ -348,6 +367,13 @@ public class mapPage extends SceneController{
         System.out.printf("(%f,%f)\n", e.getX() * xRatio, e.getY() * yRatio);
     }
 
+    /**
+     * Uses AStar algorithm to find the shortest path
+     *
+     * @return void
+     */
+
+
     public void toAStar() {
         AStar2 star = new AStar2();
         //pathToTake is used in the dialog box that keeps all the nodes that the user has to pass through
@@ -399,6 +425,14 @@ public class mapPage extends SceneController{
 
     }
 
+    /**
+     * Creates ratios for the image and
+     * draws the nodes
+     *
+     * @return void
+     */
+
+
     public void drawNodes() {
         nodePane.getChildren().clear();
         double xRatio = 5000 / mapWindow.getFitWidth();
@@ -438,6 +472,14 @@ public class mapPage extends SceneController{
         }
     }
 
+    /**
+     * Highlights the node if the mouse is
+     * hovering over the node
+     *
+     * @return void
+     */
+
+
     public void highlightNode(MouseEvent e) {
         Circle src = ((Circle)e.getSource());
         src.setFill(Color.valueOf("#0F4B91"));
@@ -452,6 +494,14 @@ public class mapPage extends SceneController{
             }
         }
     }
+
+    /**
+     * If a mouse is over the node this
+     * checks if the mouse is hovering over the node
+     *
+     * @return void
+     */
+
 
     public void mouseOverNode(MouseEvent e, double radius){
         Circle src = ((Circle)e.getSource());
@@ -470,6 +520,12 @@ public class mapPage extends SceneController{
         drawNodes();
         toAStar();
     }
+
+    /**
+     * Sets the zoom of the image to the proportion that is made below
+     *
+     * @return void
+     */
 
     public void zoomImg(MouseEvent e) {
         ImageView source = (ImageView) e.getSource();

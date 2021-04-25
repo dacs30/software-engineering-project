@@ -59,6 +59,12 @@ public class sanitationServiceController extends SceneController {
     private JFXButton backBtn;
 
 
+    /**
+     * Initializes a page with an image and fits the map to screen
+     * then creates starting and ending nodes using the edges
+     *
+     * @return void
+     */
     @FXML
     private void initialize(){
         double height = App.getPrimaryStage().getScene().getHeight();
@@ -84,8 +90,13 @@ public class sanitationServiceController extends SceneController {
         back();
     }
 
+    /**
+     * Loads the submitted dialog and confirms the request was submitted
+     *
+     * @return void
+     */
+
     public void loadSubmitDialog(){
-        //TODO Center the text of it.
         dialogPane.toFront();
         dialogPane.setDisable(false);
         JFXDialogLayout message = new JFXDialogLayout();
@@ -120,6 +131,12 @@ public class sanitationServiceController extends SceneController {
         message.setActions(ok);
         dialog.show();
     }
+    /**
+     * Loads the help dialog for the user to
+     * complete the service request
+     *
+     * @return void
+     */
 
     private void loadDialog(){
         JFXDialogLayout message = new JFXDialogLayout();
@@ -161,6 +178,7 @@ public class sanitationServiceController extends SceneController {
         dialog.show();
 
     }
+
 
     private void loadHelpDialogue() {
         dialogPane.toFront();

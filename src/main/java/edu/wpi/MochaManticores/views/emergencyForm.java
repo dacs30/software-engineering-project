@@ -26,7 +26,7 @@ public class emergencyForm extends SceneController {
     @FXML
     private StackPane dialogPane;
 
-    public void initialize() {
+    public void initialize() {// initializes the page and fits the image to the screen
         double height = super.getHeight();
         double width = super.getWidth();
         backgroundIMG.setFitHeight(height);
@@ -48,8 +48,12 @@ public class emergencyForm extends SceneController {
         loadSubmitDialog();
     }
 
+    /**
+     * Loads the submitted dialog and confirms the request was submitted
+     *
+     * @return void
+     */
     public void loadSubmitDialog(){
-        //TODO Center the text of it.
         dialogPane.toFront();
         dialogPane.setDisable(false);
         JFXDialogLayout message = new JFXDialogLayout();

@@ -58,6 +58,13 @@ public class FloralSceneController extends SceneController {
 back();
   }
 
+  /**
+   * Initializes a page with an image and fits the map to screen
+   * then creates starting and ending nodes using the edges
+   *
+   * @return void
+   */
+
   @FXML
   private void initialize() {
     double height = App.getPrimaryStage().getScene().getHeight();
@@ -81,6 +88,12 @@ back();
   public void submitEvent(ActionEvent actionEvent) {
     loadSubmitDialog();
   }
+
+  /**
+   * Loads the submitted dialog and confirms the request was submitted
+   *
+   * @return void
+   */
 
   public void loadSubmitDialog(){
     //TODO Center the text of it.

@@ -90,6 +90,12 @@ public class EmployeeLogin extends SceneController{
         message.setActions(yes, no);
         dialog.show();
     }
+    /**
+     * Loads an error dialog for the user if the credentials
+     * do not match the database
+     *
+     * @return void
+     */
 
     public void loadLoginErrorDialog(){
         JFXDialogLayout message = new JFXDialogLayout();
