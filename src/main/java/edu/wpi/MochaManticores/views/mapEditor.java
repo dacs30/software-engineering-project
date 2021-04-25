@@ -909,9 +909,8 @@ public class mapEditor extends SceneController {
 
     public void loadL1() {
         locationTitle.setText("Lower Level 1");
-        Image img = new Image(location + "00_thelowerlevel1.png");
         setSelectedFloor("L1");
-        setZoom(img, 0, 0, noZoom);
+        setZoom(new Image(location + "00_thelowerlevel1.png"), 0, 0, noZoom);
         drawNodes();
         drawEdges();
 
@@ -921,8 +920,7 @@ public class mapEditor extends SceneController {
         locationTitle.setText("Lower Level 2");
         setSelectedFloor("L2");
 
-        Image img = new Image(location + "00_thelowerlevel2.png");
-        setZoom(img, 0, 0, noZoom);
+        setZoom(new Image(location + "00_thelowerlevel2.png"), 0, 0, noZoom);
         drawNodes();
         drawEdges();
 
@@ -932,8 +930,7 @@ public class mapEditor extends SceneController {
         locationTitle.setText("Ground Floor");
         setSelectedFloor("G");
 
-        Image img = new Image(location + "00_thegroundfloor.png");
-        setZoom(img, 0, 0, noZoom);
+        setZoom(new Image(location + "00_thegroundfloor.png"), 0, 0, noZoom);
         drawNodes();
         drawEdges();
 
@@ -943,8 +940,7 @@ public class mapEditor extends SceneController {
         locationTitle.setText("Floor 1");
         setSelectedFloor("1");
 
-        Image img = new Image(location + "01_thefirstfloor.png");
-        setZoom(img, 0, 0, noZoom);
+        setZoom(new Image(location + "01_thefirstfloor.png"), 0, 0, noZoom);
         drawNodes();
         drawEdges();
 
@@ -954,8 +950,8 @@ public class mapEditor extends SceneController {
         locationTitle.setText("Floor 2");
         setSelectedFloor("2");
 
-        Image img = new Image(location + "02_thesecondfloor.png");
-        setZoom(img, 0, 0, noZoom);
+
+        setZoom(new Image(location + "02_thesecondfloor.png"), 0, 0, noZoom);
         drawNodes();
         drawEdges();
 
@@ -965,8 +961,7 @@ public class mapEditor extends SceneController {
         locationTitle.setText("Floor 3");
         setSelectedFloor("L3");
 
-        Image img = new Image(location + "03_thethirdfloor.png");
-        setZoom(img, 0, 0, noZoom);
+        setZoom(new Image(location + "03_thethirdfloor.png"), 0, 0, noZoom);
         drawNodes();
         drawEdges();
     }
