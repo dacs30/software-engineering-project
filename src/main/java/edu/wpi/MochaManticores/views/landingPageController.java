@@ -1,16 +1,26 @@
 package edu.wpi.MochaManticores.views;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
-import edu.wpi.MochaManticores.App;
+import com.jfoenix.controls.*;
+import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+
+import javafx.scene.input.MouseEvent;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.Collection;
+import java.util.Objects;
 
 public class landingPageController extends SceneController {
 
@@ -25,17 +35,19 @@ public class landingPageController extends SceneController {
   private StackPane dialogPane;
 
 
-  @FXML private void initialize(){
+  public void initialize(){
       double height = super.getHeight();
       double width = super.getWidth();
-      backgroundIMG.setFitWidth(width);
-      backgroundIMG.setFitHeight(height);
-      contentPane.setPrefSize(width,height);
+//      backgroundIMG.setFitWidth(width);
+//      backgroundIMG.setFitHeight(height);
+//      contentPane.setPrefSize(width,height);
+//
+//    backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
+//    backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
+//
+//      dialogPane.toBack();
 
-    backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
-    backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
-      dialogPane.toBack();
   }
 
   public void loadDialog(){
@@ -83,59 +95,4 @@ public class landingPageController extends SceneController {
     dialog.show();
 
   }
-
-  @FXML
-  private void advanceScene(ActionEvent e) {
-    changeSceneTo("Scene2");
-  }
-
-  @FXML
-  private void advanceInternalTransportScene(ActionEvent e) {
-    changeSceneTo("internalTransportation");
-  }
-
-  @FXML
-  private void dismissEmergencyDialog(ActionEvent e){
-  }
-
-  @FXML
-  private void confirmEmergency(ActionEvent e){
-    //dialogPane.setVisible(true);
-    dialogPane.toFront();
-    loadDialog();
-  }
-
-  @FXML
-  private void emergencyForm(ActionEvent e){
-    changeSceneTo("EmergencyForm");
-  }
-
-
-  public void advanceFoodService(ActionEvent e) {
-    changeSceneTo("foodDelivery");
-  }
-
-  @FXML
-  private void advanceToExtTransportation(ActionEvent e) {
-    changeSceneTo("extTransportation");
-  }
-
-  @FXML
-  private void advanceToFloralScene(ActionEvent e) {
-    changeSceneTo("floralScene");
-  }
-
-  @FXML
-  private void grabSanitation(ActionEvent e) {
-    changeSceneTo("sanitationService");
-  }
-
-  public void goBack(){
-    back();
-  }
-
-  public void exitApp(ActionEvent e){
-    super.exitApp(e);
-  }
-
 }

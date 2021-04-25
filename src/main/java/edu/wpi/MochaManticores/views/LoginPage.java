@@ -164,15 +164,15 @@ public class LoginPage extends SceneController{
             EmployeeManager.checkEmployeeLogin(connection, employeeUsername.getText(), employeePassword.getText());
             changeSceneTo("staffMainMenu");
         } catch (Exception e) {
-            // popup the error dialog
+            // Validators
+            employeeUsername.setText(null);
+            employeePassword.setText(null);
             RequiredFieldValidator wrongCreditals = new RequiredFieldValidator();
             employeeUsername.getValidators().add(wrongCreditals);
             employeePassword.getValidators().add(wrongCreditals);
             wrongCreditals.setMessage("Wrong credentials");
             employeeUsername.validate();
             employeePassword.validate();
-            employeeUsername.setText(null);
-            employeePassword.setText(null);
         }
     }
 }

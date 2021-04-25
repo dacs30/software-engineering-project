@@ -45,3 +45,16 @@
     -fx-font-family: Roboto;
     -fx-font-weight: bold;
 }
+
+
+#servicesSideLabel {
+    -fx-text-fill: rgba(128, 128, 128, 0.68);
+    -fx-font-size: 20;
+    -fx-font-family: Roboto;
+}
+
+#menuSideBarLabel {
+    -fx-text-fill: rgba(97, 97, 97, 0.68);
+    -fx-font-size: 20;
+    -fx-font-family: Roboto;
+}
