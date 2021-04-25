@@ -130,4 +130,9 @@ public class mapEdit {
         Connection connection = getConnection();
         NodeManager.delNode(connection, IDtoDel);
     }
+
+    public void deleteEdge(String edgeToDel) throws SQLException, FileNotFoundException {
+        Connection connection = getConnection();
+        EdgeManager.delEdge(connection, edgeToDel);
+    }
 }

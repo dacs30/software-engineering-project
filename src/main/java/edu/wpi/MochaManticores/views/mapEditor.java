@@ -310,9 +310,13 @@ public class mapEditor extends SceneController {
     private JFXButton cancelChanges;
     @FXML
     private JFXButton cancelChanges1;
+    @FXML
+    private VBox defaultBox;
 
     private boolean nodeClicked = false;
     private Node prevCircle;
+    private boolean dragged = false;
+    private Node prevLine;
 
     private mapEdit editor = new mapEdit();
     private double[] newCoords = new double[2];
@@ -408,6 +412,8 @@ public class mapEditor extends SceneController {
                 edgeInfoBox.setVisible(false);
                 nodeInfoBox.setVisible(true);
                 edgeInfoBox.toBack();
+                defaultBox.setVisible(false);
+                defaultBox.toBack();
 
                 contextBox.toBack();
                 contextBox.setVisible(false);
@@ -476,6 +482,8 @@ public class mapEditor extends SceneController {
                 edgeInfoBox.setVisible(false);
                 nodeInfoBox.setVisible(true);
                 edgeInfoBox.toBack();
+                defaultBox.setVisible(false);
+                defaultBox.toBack();
 
                 contextBox.toBack();
                 contextBox.setVisible(false);
@@ -495,9 +503,51 @@ public class mapEditor extends SceneController {
                 }
             }
         });
+        deleteEdge.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                edgeInfoBox.setVisible(true);
+                nodeInfoBox.setVisible(false);
+                nodeInfoBox.toBack();
+                defaultBox.setVisible(false);
+                defaultBox.toBack();
 
+                contextBox.toBack();
+                contextBox.setVisible(false);
+                nodeClicked = false;
 
+                HashMap<String, EdgeSuper> allEdges = EdgeMapSuper.getMap();
+                Iterator<edge> iter = edges.values().iterator();
+                for (int i = 0; i < edges.size(); i++){
+                    edge e = iter.next();
+                    if (e.l.equals(prevLine)){
+                        try {
+                            editor.deleteEdge(e.getEdgeID());
+                        } catch (SQLException | FileNotFoundException throwables) {
+                            throwables.printStackTrace();
+                        }
+                        nodePane.getChildren().remove(prevLine);
+                    }
+                }
+            }
+        });
 
+        EventHandler<ActionEvent> cancelButton = new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                edgeInfoBox.setVisible(false);
+                nodeInfoBox.setVisible(false);
+                nodeInfoBox.toBack();
+                edgeInfoBox.toBack();
+                defaultBox.setVisible(true);
+                defaultBox.toFront();
+
+                drawNodes();
+                drawEdges();
+            }
+        };
+        cancelChanges.setOnAction(cancelButton);
+        cancelChanges1.setOnAction(cancelButton);
 
         EventHandler<MouseEvent> addNodeBox = new EventHandler<MouseEvent>() {
             @Override
@@ -886,9 +936,13 @@ public class mapEditor extends SceneController {
                 EventHandler<MouseEvent> highlight = new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent e) {
-                        nodeClicked = !nodeClicked;
+                        nodeClicked = true;
                         if(e.getButton().equals(MouseButton.PRIMARY)){
-                            highlightNode(e);
+                            if (!dragged) {
+                                highlightNode(e);
+                            } else {
+                                dragged = !dragged;
+                            }
                         } else if (e.getButton() == MouseButton.SECONDARY){
                             contextBox.toFront();
                             contextBox.setVisible(true);
@@ -926,36 +980,15 @@ public class mapEditor extends SceneController {
                         double xRatio = 5000 / mapWindow.getFitWidth();
                         double yRatio = 3400 / mapWindow.getFitHeight();
 
-                        System.out.println(event.getSceneX() + " " + event.getSceneY());
-                        System.out.println(newX + " " + newY);
-                        System.out.println(event.getX() + " " + event.getY());
+                        if (newX >= 0 && newY >= 0){
+                            src.setCenterX(newX);
+                            src.setCenterY(newY);
 
-
-                        src.setCenterX(newX);
-                        src.setCenterY(newY);
-
-                        Iterator<node> iter = nodes.values().iterator();
-                        for(int i =0; i < nodes.size(); i ++){
-                            node n = iter.next();
-                            if (n.c.equals(src)){
-
-
-                                //                                try {
-//                                    editor.submitEditNodeToDB(new NodeSuper((int)(newX * xRatio),
-//                                            (int) (newY * yRatio),
-//                                            n.getNodeRef().getFloor(),
-//                                            n.getNodeRef().getBuilding(),
-//                                            n.getNodeRef().getLongName(),
-//                                            n.getNodeRef().getShortName(),
-//                                            n.getNodeRef().getID(),
-//                                            n.getNodeRef().getType(),
-//                                            n.getNodeRef().getVertextList()), n.getNodeID());
-//                                } catch (SQLException | FileNotFoundException throwables) {
-//                                    throwables.printStackTrace();
-//                                }
-
-                            }
+                            highlightNode(event);
+                            xCoordField.setText(Integer.toString((int) (newX * xRatio)));
+                            yCoordField.setText(Integer.toString((int) (newY * yRatio)));
                         }
+                        dragged = true;
                     }
                 };
                 spot.setOnMouseDragged(drag);
@@ -1013,6 +1046,7 @@ public class mapEditor extends SceneController {
                 EventHandler<MouseEvent> highlight = new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent e) {
+                        nodeClicked = true;
                         if(e.getButton().equals(MouseButton.PRIMARY)){
                             highlightEdge(e);
                         } else if (e.getButton() == MouseButton.SECONDARY){
@@ -1022,6 +1056,8 @@ public class mapEditor extends SceneController {
                             deleteNode.setVisible(false);
                             addEdge.setVisible(false);
                             deleteEdge.setVisible(true);
+
+                            prevLine = (Node) e.getSource();
 
                             contextBox.relocate(e.getSceneX(), e.getSceneY());
                         }
@@ -1131,6 +1167,8 @@ public class mapEditor extends SceneController {
         edgeInfoBox.setVisible(false);
         nodeInfoBox.setVisible(true);
         edgeInfoBox.toBack();
+        defaultBox.setVisible(false);
+        defaultBox.toBack();
 
         Circle src = ((Circle) e.getSource());
         if (src.getFill().equals(Color.valueOf("#0F4B91"))){
@@ -1167,6 +1205,9 @@ public class mapEditor extends SceneController {
         edgeInfoBox.setVisible(true);
         nodeInfoBox.setVisible(false);
         nodeInfoBox.toBack();
+        defaultBox.setVisible(false);
+        defaultBox.toBack();
+
         Line src = (Line) e.getSource();
 
         Iterator<edge> iter = edges.values().iterator();
