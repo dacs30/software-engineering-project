@@ -17,6 +17,7 @@ import javafx.scene.text.Text;
 
 import javafx.scene.input.MouseEvent;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Collection;
@@ -37,8 +38,12 @@ public class landingPageController extends SceneController {
   @FXML
   private Pane scenesPane;
 
+  @FXML
+  private Button btn;
+
 
   public void initialize(){
+
       double height = super.getHeight();
       double width = super.getWidth();
 //      backgroundIMG.setFitWidth(width);

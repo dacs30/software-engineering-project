@@ -63,9 +63,8 @@
                   </GridPane>
                   <HBox fx:id="menuSideManu" alignment="CENTER_LEFT" onMouseClicked="#renderMenu" spacing="30.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <children>
-                        <Icon content="HOME" stylesheets="@../Stylesheets/landingPage.css" />
+                        <Icon content="ACCESS_ALARMS" />
                         <Label id="menuSideBarLabel" stylesheets="@../Stylesheets/landingPage.css" text="Menu" />
-                        <MaterialDesignIconView glyphName="BATTERY" />
                      </children>
                      <padding>
                         <Insets left="30.0" />
@@ -85,7 +84,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" spacing="30.0" GridPane.rowIndex="4">
                      <children>
-                        <Icon content="RESTAURANT" stylesheets="@../Stylesheets/landingPage.css" />
+                        <Icon content="RESTAURANT" />
                         <Label id="menuSideBarLabel" stylesheets="@../Stylesheets/landingPage.css" text="Food Delivery" />
                      </children>
                      <opaqueInsets>
@@ -97,7 +96,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" spacing="30.0" GridPane.rowIndex="5">
                      <children>
-                        <Icon content="LOCAL_PHARMACY" stylesheets="@../Stylesheets/landingPage.css" />
+                        <Icon content="HOME" />
                         <Label id="menuSideBarLabel" stylesheets="@../Stylesheets/landingPage.css" text="Medicine Delivery" />
                      </children>
                      <padding>
@@ -106,7 +105,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" spacing="30.0" GridPane.rowIndex="6">
                      <children>
-                        <Icon content="DOMAIN" stylesheets="@../Stylesheets/landingPage.css" />
+                        <Icon content="DOMAIN" />
                         <Label id="menuSideBarLabel" prefHeight="48.0" prefWidth="153.0" stylesheets="@../Stylesheets/landingPage.css" text="Internal Transportation" wrapText="true" />
                      </children>
                      <padding>
