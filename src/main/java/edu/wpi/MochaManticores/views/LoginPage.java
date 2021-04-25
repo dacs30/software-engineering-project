@@ -135,7 +135,7 @@ public class LoginPage extends SceneController{
 
     public void onMouseClickedContinue(ActionEvent e) {
         App.setClearenceLevel(0);
-        changeSceneTo("mainMenu");
+        changeSceneTo("landingPage");
     }
 
     public void emergencyBtnClicked(ActionEvent e) {

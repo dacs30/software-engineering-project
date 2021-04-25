@@ -36,7 +36,7 @@ public class landingPageController extends SceneController {
   private StackPane dialogPane;
 
   @FXML
-  private Pane scenesPane;
+  private AnchorPane scenesPane;
 
   @FXML
   private Button btn;
@@ -54,7 +54,6 @@ public class landingPageController extends SceneController {
 //    backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
 //
 //      dialogPane.toBack();
-
 
   }
 
@@ -105,8 +104,11 @@ public class landingPageController extends SceneController {
   }
 
   public void renderMenu(MouseEvent mouseEvent) throws IOException {
-    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("edu/wpi/MochaManticores/fxml/loadingPage.fxml")));
+    System.out.println(getClass().getResource("/edu/wpi/MochaManticores/fxml"));
+
+    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/homePage2.fxml")));
 
     scenesPane.getChildren().add(root);
+    scenesPane.getChildren();
   }
 }
