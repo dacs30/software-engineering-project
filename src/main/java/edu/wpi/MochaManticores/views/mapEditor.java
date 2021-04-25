@@ -341,6 +341,7 @@ public class mapEditor extends SceneController {
     private boolean addingEdge = false;
     private boolean editing = false;
     private Node prevLine;
+    private LinkedList<node> stashedChanges = new LinkedList<>();
 
     private Line edgeToAdd = null;
 
@@ -605,10 +606,11 @@ public class mapEditor extends SceneController {
                 for (int i = 0; i < nodes.size(); i++) {
                     node n = iter.next();
                     if(n.c.equals(prevCircle)){
+                        stashedChanges.add(new node(n.getC(), n.getNodeID(), n.getNodeRef()));
                         edgeIDField.setText(n.getNodeID() + "_" );
                         startNodeID.setText(n.getNodeID().replaceAll("\\s",""));
                         endNodeID.setText("");
-                        Line newEdge = new Line(n.getxCoord(), n.getyCoord(), n.getxCoord(), n.getyCoord());
+                        Line newEdge = new Line(stashedChanges.getLast().getxCoord(), stashedChanges.getLast().getyCoord(), stashedChanges.getLast().getxCoord(), stashedChanges.getLast().getyCoord());
                         //TODO: keep edge in window
                         newEdge.endXProperty().bind(mouseX);
                         newEdge.endYProperty().bind(mouseY);
@@ -641,6 +643,8 @@ public class mapEditor extends SceneController {
                 edgeInfoBox.toBack();
                 defaultBox.setVisible(true);
                 defaultBox.toFront();
+
+                stashedChanges.clear();
 
                 drawNodes();
                 drawEdges();
@@ -707,7 +711,7 @@ public class mapEditor extends SceneController {
                 }
             } else { // New Edge
                 editedEdge = new EdgeSuper(
-                        edgeIDField.getText(),
+                        startNodeID.getText() + "_" + endNodeID.getText(),
                         startNodeID.getText(),
                         endNodeID.getText());
                 selectedID = "";
@@ -1323,6 +1327,8 @@ public class mapEditor extends SceneController {
                 shortNameField.setText(n.getNodeRef().getShortName());
                 n.setHighlighted(!n.isHighlighted());
 
+                stashedChanges.add(n);
+
                 pitStops.add(n);
             }
         }
@@ -1376,16 +1382,13 @@ public class mapEditor extends SceneController {
         Circle src = (Circle) e.getSource();
         Iterator<node> iter = nodes.values().iterator();
 
-        node start = null;
+        node start = stashedChanges.getLast();
         node end = null;
 
         for (int i = 0; i < nodes.size(); i++) {
             node n = iter.next();
             if(n.c.equals(src)){
                 end = n;
-            }
-            if(n.c.equals(prevCircle)){
-                start=n;
             }
         }
 
