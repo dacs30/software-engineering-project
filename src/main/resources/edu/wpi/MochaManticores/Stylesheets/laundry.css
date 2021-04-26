@@ -1,0 +1,37 @@
+#formSquare {
+    -fx-background-color : #ffffff;
+    -fx-background-radius: 40;
+}
+
+#backgroundGrid {
+    -fx-background-color: rgba(15, 75, 145, .75);
+}
+
+.label {
+    -fx-font-family: Roboto;
+    -fx-font-size: 60;
+    -fx-font-weight: bold;
+}
+
+.jfx text field {
+    -fx-text-fill: black;
+
+}
+
+.jfx-button{
+    -fx-background-color: #0F4B91;
+    -fx-font-family: Roboto;
+    -fx-text-fill: white;
+    -fx-font-size: 20;
+    -fx-border-radius: 40;
+    -fx-background-radius: 40;
+    transition: background-color 2s ease;
+}
+
+#washLabel {
+    -fx-font-size: 30;
+}
+
+#laundry-Label {
+    -fx-font-size: 20;
+}
