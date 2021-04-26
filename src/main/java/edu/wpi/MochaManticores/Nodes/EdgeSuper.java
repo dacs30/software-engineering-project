@@ -5,7 +5,7 @@ package edu.wpi.MochaManticores.Nodes;
  * @author saiv
  */
 public class EdgeSuper {
-    public String edgeID;       //edgeID of the edge node
+    private String edgeID;       //edgeID of the edge node
     private String startingNode;        //nodeID of the startingNode
     private String endingNode;      //nodeID of the endingNode
 
@@ -44,5 +44,21 @@ public class EdgeSuper {
      */
     public void setEndingNode(String endingNode) {
         this.endingNode = endingNode;
+    }
+
+    /**
+     * function: gets the edge id
+     * @return
+     */
+    public String getEdgeID() {
+        return edgeID;
+    }
+
+    /**
+     * function: sets the edge id
+     * @return
+     */
+    public void setEdgeID(String edgeID) {
+        this.edgeID = edgeID;
     }
 }

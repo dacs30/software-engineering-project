@@ -2,7 +2,7 @@ package edu.wpi.MochaManticores.database;
 
 public class Employee {
     //employee attributes
-    public enum employeeType {DEFAULT};
+    public enum employeeType {DEFAULT,JANITOR,DOCTOR,NURSE,FLORIST,CHEF,STAFF};
 
     private String username;
     private String password;
@@ -96,6 +96,24 @@ public class Employee {
     public static employeeType getTypeFromString(String type){
         employeeType empType;
         switch(type){
+            case "JANITOR":
+                empType = employeeType.JANITOR;
+                break;
+            case "DOCTOR":
+                empType = employeeType.DOCTOR;
+                break;
+            case "NURSE":
+                empType = employeeType.NURSE;
+                break;
+            case "FLORIST":
+                empType = employeeType.FLORIST;
+                break;
+            case "CHEF":
+                empType = employeeType.CHEF;
+                break;
+            case "STAFF":
+                empType = employeeType.STAFF;
+                break;
             default:
                 empType = employeeType.DEFAULT;
                 break;
@@ -107,6 +125,24 @@ public class Employee {
     public static String getStringFromType(employeeType type){
         String empType;
         switch (type){
+            case JANITOR:
+                empType = "JANITOR";
+                break;
+            case DOCTOR:
+                empType = "DOCTOR";
+                break;
+            case NURSE:
+                empType = "NURSE";
+                break;
+            case FLORIST:
+                empType = "FLORIST";
+                break;
+            case CHEF:
+                empType = "CHEF";
+                break;
+            case STAFF:
+                empType = "STAFF";
+                break;
             default:
                 empType = "DEFAULT";
                 break;

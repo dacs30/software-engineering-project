@@ -25,7 +25,7 @@ public class MapSuper {
      * inputs: String ID (the node ID of the desired node)
      * returns: NodeSuper (unnamed) (the specified MapNode)
      */
-    public NodeSuper getNode(String ID) {
+    public static NodeSuper getNode(String ID) {
         return myMap.get(ID);
     }
 

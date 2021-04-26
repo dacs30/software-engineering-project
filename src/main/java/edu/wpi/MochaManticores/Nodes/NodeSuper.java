@@ -1,5 +1,6 @@
 package edu.wpi.MochaManticores.Nodes;
 
+import java.util.HashMap;
 import java.util.Set;
 
 /**
@@ -32,6 +33,10 @@ public class NodeSuper {
         this.nodeID = nodeID;
         this.nodeType = nodeType;
         this.neighbors = neighbors;
+        if(neighbors == null){
+            this.neighbors = new VertexList(new HashMap<>());
+        }
+
     }
 
     /**
