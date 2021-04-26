@@ -5,10 +5,12 @@ import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.database.Mdb;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -53,6 +55,16 @@ public class LoginPage extends SceneController{
 
         backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
         backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
+        EventHandler<KeyEvent> enter = new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent e) {
+                //System.out.println(e.getCharacter());
+                if(e.getCharacter().equals("\r")){
+                    onMouseClickedContinue(null);
+                }
+            }
+        };
+        employeePassword.setOnKeyTyped(enter);
 
     }
 
