@@ -1,0 +1,6 @@
+InternalTransportation,PatientID,10,destination,TransportationMethod,
+ExternalTransportation,PatientRoom,CurrentRoom,ExternalRoom,ExternalTransportationMethod,
+FloralDelivery,RoomNumber,DeliveryChoice,TypeOfFlowers,VaseOption,PersonalizedNote,
+FoodDelivery,DietaryPreferences,Allergies,Menu,
+SanitationServices,Location,SafetyHazards,SanitationType,Equipment Needed,Description,
+Emergency,9,Location,FALSE,

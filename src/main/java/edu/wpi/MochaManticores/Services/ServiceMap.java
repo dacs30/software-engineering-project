@@ -1,10 +1,17 @@
 package edu.wpi.MochaManticores.Services;
 
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.LinkedList;
 
 public class ServiceMap {
     private static final HashMap<ServiceRequestType, LinkedList<ServiceRequest>> myMap = new HashMap<>();
+    public static ServiceRequestType InternalTransportation = ServiceRequestType.InternalTransportation;
+    public static ServiceRequestType ExternalTransportation = ServiceRequestType.ExternalTransportation;
+    public static ServiceRequestType Emergency = ServiceRequestType.Emergency;
+    public static ServiceRequestType FloralDelivery = ServiceRequestType.FloralDelivery;
+    public static ServiceRequestType SanitationServices = ServiceRequestType.SanitationServices;
+    public static ServiceRequestType FoodDelivery = ServiceRequestType.FoodDelivery;
 
     /**
      * function: addToType()
@@ -31,8 +38,9 @@ public class ServiceMap {
      * @param type type of service request
      * @param request the service request that needs to be deleted
      */
-    public static void delRequest(ServiceRequestType type, ServiceRequest request) {
+    public static void delRequest(ServiceRequestType type, ServiceRequest request) throws FileNotFoundException {
         myMap.get(type).remove(request);
+        ServiceRequest.delRequestFromCSV(request);
     }
 }
 

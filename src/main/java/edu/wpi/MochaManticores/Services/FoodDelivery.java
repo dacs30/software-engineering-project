@@ -5,8 +5,8 @@ public class FoodDelivery extends ServiceRequest {
     private String allergies;
     private String menu;
 
-    public FoodDelivery(boolean employee, boolean completed, String dietaryPreference, String allergies, String menu) {
-        super(employee, completed);
+    public FoodDelivery(boolean employee, boolean completed, int row, String dietaryPreference, String allergies, String menu) {
+        super(employee, completed, row);
         this.dietaryPreference = dietaryPreference;
         this.allergies = allergies;
         this.menu = menu;

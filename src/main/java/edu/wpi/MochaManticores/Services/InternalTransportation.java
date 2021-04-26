@@ -7,8 +7,8 @@ public class InternalTransportation extends ServiceRequest {
     private String transportationMethod;
 
     public InternalTransportation(String patientID, int numStaffNeeded, String destination, String transportationMethod, boolean employee,
-                                  boolean completed) {
-        super(employee, completed);
+                                  boolean completed, int row) {
+        super(employee, completed, row);
         this.patientID = patientID;
         this.numStaffNeeded = numStaffNeeded;
         this.destination = destination;

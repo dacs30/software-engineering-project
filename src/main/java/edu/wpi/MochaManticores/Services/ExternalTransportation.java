@@ -6,9 +6,9 @@ public class ExternalTransportation extends ServiceRequest{
     private String externalRoom;
     private String transportationMethod;
 
-    public ExternalTransportation(boolean employee, boolean completed, String patientRoom, String currentRoom,
+    public ExternalTransportation(boolean employee, boolean completed, int row, String patientRoom, String currentRoom,
                                   String externalRoom, String transportationMethod) {
-        super(employee, completed);
+        super(employee, completed, row);
         this.patientRoom = patientRoom;
         this.currentRoom = currentRoom;
         this.externalRoom = externalRoom;

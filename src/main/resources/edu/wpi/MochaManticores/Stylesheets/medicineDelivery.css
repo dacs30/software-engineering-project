@@ -1,0 +1,11 @@
+#backgroundGrid {
+    -fx-background-color: rgba(15, 75, 145, 0.75);
+}
+
+#formSquare {
+    -fx-background-color: white;
+}
+
+.jfx-text-field {
+    -fx-text-fill: black;
+}
