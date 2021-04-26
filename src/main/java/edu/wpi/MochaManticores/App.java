@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Objects;
 
+import edu.wpi.MochaManticores.Services.ServiceMap;
+import edu.wpi.MochaManticores.Services.ServiceRequest;
 import edu.wpi.MochaManticores.database.EdgeManager;
 import edu.wpi.MochaManticores.database.EmployeeManager;
 import edu.wpi.MochaManticores.database.Mdb;
@@ -73,9 +75,7 @@ public class App extends Application {
     System.out.println("Starting Up");
     System.out.println("Starting Database");
     Mdb.databaseStartup();
-    nodeManager = new NodeManager();
-    edgeManager = new EdgeManager();
-    employeeManager = new EmployeeManager();
+    ServiceRequest.loadFromCSV(Mdb.getConnection());
   }
 
 
