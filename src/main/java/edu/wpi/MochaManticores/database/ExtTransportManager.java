@@ -5,6 +5,7 @@ import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.Nodes.VertexList;
 import edu.wpi.MochaManticores.Services.ExternalTransportation;
+import edu.wpi.MochaManticores.Services.ServiceMap;
 import edu.wpi.MochaManticores.Services.ServiceRequestType;
 import edu.wpi.MochaManticores.database.Manager;
 
@@ -72,29 +73,29 @@ public class ExtTransportManager extends Manager<ExternalTransportation> {
     }
 
     void addElement_map(ExternalTransportation temp) {
-        if(!ServiceMap.getMap().containsKey(node.getID())) {
-            MapSuper.addNode(node);
+        if(!ServiceMap.containsRequest(this.type, temp.RequestID)) {
+            ServiceMap.addRequest(this.type,temp);
         }
         else {
-            System.out.printf("This node %s already exists\n", node.getID());
+            System.out.printf("This node %s already exists\n", temp.RequestID);
         }
     }
 
     @Override
-    void delElement(String s) throws SQLException {
+    void delElement(String ID) throws SQLException {
         //remove node from database
-        PreparedStatement pstmt = connection.prepareStatement("DELETE FROM NODES WHERE nodeID=?");
-        pstmt.setString(1, nodeID);
+        PreparedStatement pstmt = connection.prepareStatement("DELETE FROM EXTTRANSPORT WHERE RequestID=?");
+        pstmt.setString(1, ID);
         pstmt.executeUpdate();
 
         // remove node from map
-        MapSuper.getMap().remove(nodeID);
+        ServiceMap.delRequest(this.type,ID);
     }
 
     @Override
-    void modElement(String s, ExternalTransportation ExternalTransportation) throws SQLException {
-        delElement(oldNodeID);
-        addElement(node);
+    void modElement(String ID, ExternalTransportation temp) throws SQLException {
+        delElement(ID);
+        addElement(temp);
     }
 
     @Override
@@ -102,7 +103,7 @@ public class ExtTransportManager extends Manager<ExternalTransportation> {
         PrintWriter pw = new PrintWriter(new File(csv_path));
         StringBuilder sb = new StringBuilder();
 
-        String sql = "SELECT * FROM NODES";
+        String sql = "SELECT * FROM EXTTRANSPORT";
         Statement stmt = connection.createStatement();
         ResultSet results = stmt.executeQuery(sql);
         ResultSetMetaData rsmd = results.getMetaData();
@@ -126,10 +127,10 @@ public class ExtTransportManager extends Manager<ExternalTransportation> {
     }
 
     @Override
-    ExternalTransportation getElement(String s) throws InvalidElementException {
+    ExternalTransportation getElement(String ID) throws InvalidElementException {
         // unlike employeeManager, we get nodes from the map so that they include neighbors
-        if(MapSuper.getMap().containsKey(NodeID)){
-            return MapSuper.getNode(NodeID);
+        if(ServiceMap.containsRequest(this.type,ID)){
+            return (ExternalTransportation) ServiceMap.getRequest(type,ID); //TODO DOES THIS CAST BREAK THINGS
         }else{
             throw new InvalidElementException();
         }
@@ -147,11 +148,7 @@ public class ExtTransportManager extends Manager<ExternalTransportation> {
 
     @Override
     void cleanTable() throws SQLException {
-        String sql = "DELETE FROM NODES";
-        PreparedStatement pstmt = connection.prepareStatement(sql);
-        int result = pstmt.executeUpdate();
-
-        //clean hashmap
-        MapSuper.getMap().clear();
+        // not implemented
     }
+
 }

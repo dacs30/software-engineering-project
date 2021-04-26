@@ -19,9 +19,9 @@ public class ServiceMap {
      * @param request the service request that needs to be added
      */
     public static void addRequest(ServiceRequestType type, ServiceRequest request) {
-        //adds a linked list to key if there is no linked list already there
-        myMap.computeIfAbsent(type, k -> new LinkedList<>());
-        myMap.get(type).add(request);
+        //adds a hashmap to key if there is no linked list already there
+        myMap.computeIfAbsent(type, k -> new HashMap<String,ServiceRequest>());
+        myMap.get(type).put(request.getRequestID(), request);
     }
 
     /**
@@ -40,10 +40,12 @@ public class ServiceMap {
     /**
      * function: delRequest()
      * @param type type of service request
-     * @param request the service request that needs to be deleted
+     * @param ID the service request that needs to be deleted
      */
-    public static void delRequest(ServiceRequestType type, ServiceRequest request) throws FileNotFoundException {
-        myMap.get(type).remove(request);
+    public static void delRequest(ServiceRequestType type, String ID){
+        if (containsRequest(type,ID)) {
+            myMap.get(type).remove(ID);
+        }
     }
 
     /**
@@ -52,15 +54,10 @@ public class ServiceMap {
      * @param requestID string to represent Request
      */
     public static ServiceRequest getRequest(ServiceRequestType type, String requestID){
-        myMap.get(type).
+        return myMap.get(type).get(requestID);
     }
-}
 
-public enum ServiceRequestType {
-    InternalTransportation,
-    ExternalTransportation,
-    FloralDelivery,
-    FoodDelivery,
-    SanitationServices,
-    Emergency
+    public static boolean containsRequest(ServiceRequestType type, String requestID){
+        return myMap.get(type).containsKey(requestID);
+    }
 }
