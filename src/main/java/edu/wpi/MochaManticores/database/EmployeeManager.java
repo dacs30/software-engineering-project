@@ -19,6 +19,10 @@ public class EmployeeManager extends Manager<Employee>{
         }
     }
 
+    /*
+     function loadFromCSV()
+     load elements from the CSV
+     */
     public void loadFromCSV(){
         //loads database
         try{
@@ -40,7 +44,10 @@ public class EmployeeManager extends Manager<Employee>{
     }
 
     //TODO add exceptions for duplicate username handling
-    @Override
+    /*
+    function: addElement(Employee)
+    add element to database
+     */
     public void addElement(Employee employee){
         try{
             String sql = "INSERT INTO EMPLOYEES (username, password, fisrtName, lastName, employeeType,ID, AdminLevel) " +
@@ -61,6 +68,10 @@ public class EmployeeManager extends Manager<Employee>{
     }
 
     //TODO safe deletes, better handing of execptions
+    /*
+    function: delElement(s)
+    deletes element of given ID string
+     */
     public void delElement(String username) throws SQLException {
         PreparedStatement pstmt = connection.prepareStatement("DELETE FROM EMPLOYEES WHERE username=?");
         pstmt.setString(1, username);
@@ -68,11 +79,19 @@ public class EmployeeManager extends Manager<Employee>{
     }
 
     //TODO add functionality to check if editedEmployee is valid before deleting old value
+    /*
+    function: modElement(s,edgeSuper)
+    modifies element of ID s to become element EdgeSuper
+     */
     public void modElement(String old_username, Employee editedEmployee) throws SQLException {
         delElement(old_username);
         addElement(editedEmployee);
     }
 
+    /*
+    function: saveElements()
+    saves elements to given CSV file
+     */
     public void saveElements() throws FileNotFoundException, SQLException {
         PrintWriter pw = new PrintWriter(new File(Employee_csv_path));
         StringBuilder sb = new StringBuilder();
@@ -100,6 +119,10 @@ public class EmployeeManager extends Manager<Employee>{
         pw.close();
     }
 
+    /*
+    function: getElement()
+    returns employee object, specified by ID
+     */
     public Employee getElement(String username) throws InvalidElementException {
         try {
             String sql = "SELECT * FROM EMPLOYEES WHERE USERNAME =?";
@@ -120,6 +143,11 @@ public class EmployeeManager extends Manager<Employee>{
         return null;
     }
 
+    /*
+     function:  checkEmployeeLogin()
+     checks user password and clearance, throws invalid login if pass is wrong, throws invalid element if user doesnt exist
+     @return Employee
+     */
     public Employee checkEmployeeLogin(String username,String password) throws InvalidLoginException, InvalidElementException {
         Employee emp = getElement(username);
 
@@ -132,6 +160,12 @@ public class EmployeeManager extends Manager<Employee>{
         return emp;
     }
 
+    /*
+     function:  checkAdminLogin()
+     checks user password and clearance, throws invalid login if pass is wrong, throws invalid element if user doesnt exist,
+     Throws invalid permissions if user is not an admin
+     @return Employee
+     */
     public Employee checkAdminLogin(String username, String password) throws InvalidLoginException, InvalidPermissionsException, InvalidElementException {
         Employee emp = getElement(username);
 
@@ -146,13 +180,27 @@ public class EmployeeManager extends Manager<Employee>{
         return emp;
     }
 
+    /*
+    function: getCSV_path()
+    getter for CSV_path
+    return string
+     */
     public String getCSV_path() {
         return Employee_csv_path;
     }
 
+    /*
+    function setCSV_path()
+    setter for CSV_path
+     */
     public void setCSV_path(String employee_csv_path) {
         Employee_csv_path = employee_csv_path;
     }
+
+    /*
+    function: cleanTable()
+    saves and empties database table
+     */
     public void cleanTable() throws SQLException {
         String sql = "DELETE FROM EMPLOYEES";
         PreparedStatement pstmt = connection.prepareStatement(sql);

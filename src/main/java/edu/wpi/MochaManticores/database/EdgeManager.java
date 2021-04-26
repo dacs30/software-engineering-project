@@ -23,6 +23,10 @@ public class EdgeManager extends Manager<EdgeSuper>{
         }
     }
 
+    /*
+     function loadFromCSV()
+     load elements from the CSV
+     */
     public void loadFromCSV(){
         try{
             BufferedReader reader = new BufferedReader(new FileReader(Edge_csv_path));
@@ -43,11 +47,19 @@ public class EdgeManager extends Manager<EdgeSuper>{
         }
     }
 
+    /*
+    function: addElement(NodeSuper)
+    add element to database and map
+     */
     public void addElement(EdgeSuper edge){
         addElement_db(edge);
         addElement_map(edge);
     }
-    //adds edge to CSV
+
+    /*
+    function: addElement_db
+    adds element to just the database
+    */
     public void addElement_db(EdgeSuper edge){
         try {
             String sql = "INSERT INTO EDGES (edgeID, startNode, endNode) " +
@@ -62,7 +74,10 @@ public class EdgeManager extends Manager<EdgeSuper>{
         }
     }
 
-    //adds edges into map
+    /*
+    function: addElement_map
+    adds element to just the hashmap
+     */
     public void addElement_map(EdgeSuper edge) {
         if (!EdgeMapSuper.getMap().containsKey(edge.getEdgeID())) {
             // add edge to edge super
@@ -83,6 +98,10 @@ public class EdgeManager extends Manager<EdgeSuper>{
         }
     }
 
+    /*
+    function: delElement(s)
+    deletes element of given ID string
+     */
     public void delElement(String edgeID) throws SQLException {
         //remove edge from database
         PreparedStatement pstmt = connection.prepareStatement("DELETE FROM EDGES WHERE edgeID=?");
@@ -98,6 +117,10 @@ public class EdgeManager extends Manager<EdgeSuper>{
         EdgeMapSuper.delEdgeNode(edgeID);
     }
 
+    /*
+    function: modElement(s,edgeSuper)
+    modifies element of ID s to become element EdgeSuper
+     */
     public void modElement(String oldEdgeID, EdgeSuper edge) throws SQLException {
         if(MapSuper.getMap().containsKey(edge.getStartingNode()) && MapSuper.getMap().containsKey(edge.getEndingNode())) {
             delElement(oldEdgeID);
@@ -108,6 +131,10 @@ public class EdgeManager extends Manager<EdgeSuper>{
 
     }
 
+    /*
+    function: saveElements()
+    saves elements to given CSV file
+     */
     public void saveElements()throws SQLException, FileNotFoundException{
         PrintWriter pw = new PrintWriter(new File(Edge_csv_path));
         StringBuilder sb = new StringBuilder();
@@ -135,6 +162,10 @@ public class EdgeManager extends Manager<EdgeSuper>{
         pw.close();
     }
 
+    /*
+    function: getElement()
+    returns EdgeSuper object, specified by ID
+     */
     public EdgeSuper getElement(String edgeID) throws InvalidElementException {
         try {
             String sql = "SELECT * FROM EDGE WHERE EDGEID=?";
@@ -154,6 +185,10 @@ public class EdgeManager extends Manager<EdgeSuper>{
         return null;
     }
 
+    /*
+    function: showEdgeInformation()
+    displays all the EDGE data
+     */
     public void showEdgeInformation() throws SQLException{
         StringBuilder sb = new StringBuilder();
 
@@ -180,14 +215,27 @@ public class EdgeManager extends Manager<EdgeSuper>{
         System.out.println(sb.toString());
     }
 
+    /*
+    function: getCSV_path()
+    getter for CSV_path
+    return string
+     */
     public String getCSV_path() {
         return Edge_csv_path;
     }
 
+    /*
+    function setCSV_path()
+    setter for CSV_path
+     */
     public void setCSV_path(String edge_csv_path) {
         Edge_csv_path = edge_csv_path;
     }
 
+    /*
+    function: cleanTable()
+    saves and empties database table
+     */
     public void cleanTable() throws SQLException {
         String sql = "DELETE FROM EDGES";
         PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -197,7 +245,10 @@ public class EdgeManager extends Manager<EdgeSuper>{
         EdgeMapSuper.getMap().clear();
     }
 
-    // useless
+    /*
+    function updateElementMap()
+    updates the hashmap to match the data in the database, used only during startup
+     */
     public void updateElementMap() throws SQLException {
         String sql = "SELECT * FROM EDGES";
         Statement stmt = connection.createStatement();

@@ -20,6 +20,10 @@ public class NodeManager extends Manager<NodeSuper>{
         }
     }
 
+    /*
+     function loadFromCSV()
+     load elements from the CSV
+     */
     public void loadFromCSV(){
         //loads database and sets hashmap
         try{
@@ -40,12 +44,19 @@ public class NodeManager extends Manager<NodeSuper>{
         }
     }
 
+    /*
+    function: addElement(NodeSuper)
+    add element to database and map
+     */
     public void addElement(NodeSuper node){
         addElement_db(node);
         addElement_map(node);
     }
 
-    //adds to database and hashmap
+    /*
+    function: addElement_db
+    adds element to just the database
+     */
     public void addElement_db(NodeSuper node){
 
         try {
@@ -66,6 +77,10 @@ public class NodeManager extends Manager<NodeSuper>{
         }
     }
 
+    /*
+    function: addElement_map
+    adds element to just the hashmap
+     */
     public void addElement_map(NodeSuper node){
         if(!MapSuper.getMap().containsKey(node.getID())) {
             MapSuper.addNode(node);
@@ -75,6 +90,10 @@ public class NodeManager extends Manager<NodeSuper>{
         }
     }
 
+    /*
+    function: delElement(s)
+    deletes element of given ID string
+     */
     public void delElement(String nodeID) throws SQLException{
         //remove node from database
         PreparedStatement pstmt = connection.prepareStatement("DELETE FROM NODES WHERE nodeID=?");
@@ -85,12 +104,19 @@ public class NodeManager extends Manager<NodeSuper>{
         MapSuper.getMap().remove(nodeID);
     }
 
+    /*
+    function: modElement(ID,NodeSuper)
+    modifies element of ID s to become element nodeSuper
+     */
     public void modElement(String oldNodeID, NodeSuper node) throws SQLException {
         delElement(oldNodeID);
         addElement(node);
     }
 
-    //saves values in database to a CSV file
+    /*
+    function: saveElements()
+    saves elements to given CSV file
+     */
     public void saveElements() throws  SQLException,FileNotFoundException{
         PrintWriter pw = new PrintWriter(new File(Node_csv_path));
         StringBuilder sb = new StringBuilder();
@@ -118,6 +144,10 @@ public class NodeManager extends Manager<NodeSuper>{
         pw.close();
     }
 
+    /*
+    function: getElement()
+    returns NodeSuper object, specified by ID
+     */
     public NodeSuper getElement(String NodeID) throws InvalidElementException{
         // unlike employeeManager, we get nodes from the map so that they include neighbors
         if(MapSuper.getMap().containsKey(NodeID)){
@@ -127,14 +157,27 @@ public class NodeManager extends Manager<NodeSuper>{
         }
     }
 
+    /*
+    function: getCSV_path()
+    getter for CSV_path
+    return string
+     */
     public String getCSV_path() {
         return Node_csv_path;
     }
 
+    /*
+    function setCSV_path()
+    setter for CSV_path
+     */
     public void setCSV_path(String node_csv_path) {
         Node_csv_path = node_csv_path;
     }
 
+    /*
+    function: cleanTable()
+    saves and empties database table
+     */
     public void cleanTable() throws SQLException {
         String sql = "DELETE FROM NODES";
         PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -145,7 +188,10 @@ public class NodeManager extends Manager<NodeSuper>{
 
     }
 
-    //TODO currently this iterates through database adding all elements to the map, should be unnessiary now
+    /*
+    function updateElementMap()
+    updates the hashmap to match the data in the database, used only during startup
+     */
     public void updateElementMap() throws SQLException {
         String sql = "SELECT * FROM NODES";
         Statement stmt = connection.createStatement();

@@ -14,6 +14,9 @@ public class Mdb extends Thread{
     private static Connection connection = null;
     public static String JDBC_URL = "jdbc:derby:Mdatabase;create=true";
 
+    /* function nodeStartup()
+     * creates the node table if it does not already exist, then populates the table and map
+     */
     public static void nodeStartup() throws SQLException {
         Statement stmt = connection.createStatement();
         //create data tables
@@ -42,6 +45,9 @@ public class Mdb extends Thread{
         }
     }
 
+    /* function edgeStartup()
+     * creates the edge table if it does not already exist, then populates the table and map
+     */
     public static void edgeStartup() throws SQLException {
         Statement stmt = connection.createStatement();
         try {
@@ -66,6 +72,9 @@ public class Mdb extends Thread{
         }
     }
 
+    /* function employeeStartup()
+     * creates the employee table if it does not already exist, then populates the table
+     */
     public static void employeeStartup() throws SQLException {
         Statement stmt = connection.createStatement();
         try {
@@ -94,6 +103,9 @@ public class Mdb extends Thread{
         }
     }
 
+    /* function databaseStartup()
+     * creates database connection and calls startup threads
+     */
     public static void databaseStartup() throws InterruptedException, SQLException {
         System.out.println("-------Embedded Apache Derby Connection Testing --------");
         try {
@@ -160,11 +172,16 @@ public class Mdb extends Thread{
             DatabaseManager.getEdgeManager().updateElementMap();
     }
 
+    /* function databaseShutdown()
+     * clears connection and saves the tables.
+     */
     public static void databaseShutdown(){
         try {
             DatabaseManager.getNodeManager().saveElements();
             DatabaseManager.getEdgeManager().saveElements();
             DatabaseManager.getEmpManager().saveElements();
+            connection = null;
+            DatabaseManager.setConnection(null);
         }catch(FileNotFoundException | SQLException e){
             e.printStackTrace();
         }
