@@ -5,8 +5,8 @@ public class EmergencyRequest extends ServiceRequest {
     private String location;
     private boolean gurney;
 
-    public EmergencyRequest(boolean employee, boolean completed, int row, int numPeopleNeeded, String location, boolean gurney) {
-        super(employee, completed, row);
+    public EmergencyRequest(String RequestID, String employee, boolean completed, int numPeopleNeeded, String location, boolean gurney) {
+        super(employee, completed, RequestID);
         this.numPeopleNeeded = numPeopleNeeded;
         this.location = location;
         this.gurney = gurney;
@@ -24,12 +24,4 @@ public class EmergencyRequest extends ServiceRequest {
         return gurney;
     }
 
-    public String[] getFields() {
-        return new String[]{
-                String.valueOf(ServiceMap.Emergency),
-                String.valueOf(numPeopleNeeded),
-                location,
-                String.valueOf(gurney),
-        };
-    }
 }

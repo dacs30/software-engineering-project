@@ -1,17 +1,12 @@
 package edu.wpi.MochaManticores.database;
 
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
-import edu.wpi.MochaManticores.Nodes.MapSuper;
-import edu.wpi.MochaManticores.Nodes.NodeSuper;
-import edu.wpi.MochaManticores.Nodes.VertexList;
 import edu.wpi.MochaManticores.Services.ExternalTransportation;
 import edu.wpi.MochaManticores.Services.ServiceMap;
 import edu.wpi.MochaManticores.Services.ServiceRequestType;
-import edu.wpi.MochaManticores.database.Manager;
 
 import java.io.*;
 import java.sql.*;
-import java.util.HashMap;
 
 public class ExtTransportManager extends Manager<ExternalTransportation> {
     private static String csv_path = "data/services/ExtTransport.csv";

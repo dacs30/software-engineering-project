@@ -6,9 +6,9 @@ public class InternalTransportation extends ServiceRequest {
     private String destination;
     private String transportationMethod;
 
-    public InternalTransportation(String patientID, int numStaffNeeded, String destination, String transportationMethod, boolean employee,
-                                  boolean completed, int row) {
-        super(employee, completed, row);
+    public InternalTransportation(String RequestID, String employee, boolean completed, String patientID,
+                                  int numStaffNeeded, String destination, String transportationMethod) {
+        super(employee, completed, RequestID);
         this.patientID = patientID;
         this.numStaffNeeded = numStaffNeeded;
         this.destination = destination;

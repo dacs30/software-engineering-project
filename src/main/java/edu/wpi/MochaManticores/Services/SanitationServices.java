@@ -7,9 +7,9 @@ public class SanitationServices extends ServiceRequest {
     private String equipmentNeeded;
     private String description;
 
-    public SanitationServices(boolean employee, boolean completed, int row, String location, String safetyHazards,
+    public SanitationServices(String RequestID, String employee, boolean completed, String location, String safetyHazards,
                               String sanitationType, String equipmentNeeded, String description) {
-        super(employee, completed, row);
+        super(employee, completed, RequestID);
         this.location = location;
         this.safetyHazards = safetyHazards;
         this.sanitationType = sanitationType;
@@ -37,14 +37,4 @@ public class SanitationServices extends ServiceRequest {
         return description;
     }
 
-    public String[] getFields() {
-        return new String[]{
-                String.valueOf(ServiceMap.SanitationServices),
-                location,
-                safetyHazards,
-                sanitationType,
-                equipmentNeeded,
-                description
-        };
-    }
 }

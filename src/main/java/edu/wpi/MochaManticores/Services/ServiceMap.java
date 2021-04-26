@@ -5,20 +5,20 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 public class ServiceMap {
-    private static final HashMap<ServiceRequestType, HashMap<String, ServiceRequest>> myMap = new HashMap<>();
-    public static ServiceRequestType InternalTransportation = ServiceRequestType.InternalTransportation;
-    public static ServiceRequestType ExternalTransportation = ServiceRequestType.ExternalTransportation;
-    public static ServiceRequestType Emergency = ServiceRequestType.Emergency;
-    public static ServiceRequestType FloralDelivery = ServiceRequestType.FloralDelivery;
-    public static ServiceRequestType SanitationServices = ServiceRequestType.SanitationServices;
-    public static ServiceRequestType FoodDelivery = ServiceRequestType.FoodDelivery;
+    private final HashMap<ServiceRequestType, HashMap<String, ServiceRequest>> myMap = new HashMap<>();
+    public ServiceRequestType InternalTransportation = ServiceRequestType.InternalTransportation;
+    public ServiceRequestType ExternalTransportation = ServiceRequestType.ExternalTransportation;
+    public ServiceRequestType Emergency = ServiceRequestType.Emergency;
+    public ServiceRequestType FloralDelivery = ServiceRequestType.FloralDelivery;
+    public ServiceRequestType SanitationServices = ServiceRequestType.SanitationServices;
+    public ServiceRequestType FoodDelivery = ServiceRequestType.FoodDelivery;
 
     /**
      * function: addRequest()
      * @param type type of service request
      * @param request the service request that needs to be added
      */
-    public static void addRequest(ServiceRequestType type, ServiceRequest request) {
+    public void addRequest(ServiceRequestType type, ServiceRequest request) {
         //adds a hashmap to key if there is no linked list already there
         myMap.computeIfAbsent(type, k -> new HashMap<String,ServiceRequest>());
         myMap.get(type).put(request.getRequestID(), request);
@@ -29,7 +29,7 @@ public class ServiceMap {
      * @param type type of service requests
      * @return a linked list of service requests
      */
-    public static LinkedList<ServiceRequest> getServiceRequestsForType(ServiceRequestType type) {
+    public LinkedList<ServiceRequest> getServiceRequestsForType(ServiceRequestType type) {
         LinkedList<ServiceRequest> temp = new LinkedList<ServiceRequest>();
         for (ServiceRequest value : myMap.get(type).values()) {
             temp.add(value);
@@ -42,7 +42,7 @@ public class ServiceMap {
      * @param type type of service request
      * @param ID the service request that needs to be deleted
      */
-    public static void delRequest(ServiceRequestType type, String ID){
+    public void delRequest(ServiceRequestType type, String ID){
         if (containsRequest(type,ID)) {
             myMap.get(type).remove(ID);
         }
@@ -53,11 +53,11 @@ public class ServiceMap {
      * @param type type of request
      * @param requestID string to represent Request
      */
-    public static ServiceRequest getRequest(ServiceRequestType type, String requestID){
+    public ServiceRequest getRequest(ServiceRequestType type, String requestID){
         return myMap.get(type).get(requestID);
     }
 
-    public static boolean containsRequest(ServiceRequestType type, String requestID){
+    public boolean containsRequest(ServiceRequestType type, String requestID){
         return myMap.get(type).containsKey(requestID);
     }
 }
