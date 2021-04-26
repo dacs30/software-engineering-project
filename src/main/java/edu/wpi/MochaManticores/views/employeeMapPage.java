@@ -47,7 +47,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.*;
 
-public class mapPage extends SceneController {
+public class employeeMapPage extends SceneController {
 
     @FXML
     public JFXTextField xCoordField;
@@ -739,7 +739,7 @@ public class mapPage extends SceneController {
         EdgeSuper editedEdge = null;
         String selectedID;
         if (!editor.checkInput(Arrays.asList(edgeIDField.getText(), startNodeID.getText(), endNodeID.getText()))) { // IF fields are blank, submit error
-            mapPage.super.loadErrorDialog(dialogPane, "Please do not leave fields blank!");
+            employeeMapPage.super.loadErrorDialog(dialogPane, "Please do not leave fields blank!");
         } else {
             EdgeSuper oldEdge = EdgeMapSuper.getMap().get(edgeIDField.getText());
             if (oldEdge != null) {
