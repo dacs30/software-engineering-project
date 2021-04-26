@@ -25,11 +25,11 @@ public class EmergencyRequest extends ServiceRequest {
     }
 
     public String[] getFields() {
-        String[] arr = new String[4];
-        arr[0] = String.valueOf(ServiceMap.Emergency);
-        arr[1] = String.valueOf(this.numPeopleNeeded);
-        arr[2] = this.location;
-        arr[3] = String.valueOf(this.gurney);
-        return arr;
+        return new String[]{
+                String.valueOf(ServiceMap.Emergency),
+                String.valueOf(numPeopleNeeded),
+                location,
+                String.valueOf(gurney),
+        };
     }
 }
