@@ -55,6 +55,7 @@ public class EmployeeLogin extends SceneController{
         EventHandler<KeyEvent> enter = new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent e) {
+                System.out.println(e.getCharacter());
                 if(e.getCharacter().equals("\r")){
                     onMouseClickedContinue(null);
                 }
