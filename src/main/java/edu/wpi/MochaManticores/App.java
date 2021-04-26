@@ -14,6 +14,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 
@@ -24,6 +25,15 @@ public class App extends Application {
   private static NodeManager nodeManager;
   private static EdgeManager edgeManager;
   private static EmployeeManager employeeManager;
+  //private static final String location = "edu/wpi/MochaManticores/images/";
+
+  //Load in assets
+  //public static final Image floor2 = new Image(location + "02_thesecondfloor.png");
+  //public static final Image floor1 = new Image(location + "01_thefirstfloor.png");
+  //public static final Image floor0 = new Image(location + "00_thegroundfloor.png");
+  //public static final Image floorL1 = new Image(location + "00_thelowerlevel1.png");
+  //public static final Image floorL2 = new Image(location + "00_thelowerlevel2.png");
+  //public static final Image floor3 = new Image(location + "04_thethirdfloor.png");
 
 
   public static NodeManager getNodeManager() {
