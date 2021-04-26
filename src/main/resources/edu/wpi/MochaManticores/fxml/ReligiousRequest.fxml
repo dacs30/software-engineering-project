@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@../Stylesheets/ReligiousRequest.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.ReligiousRequestController">
+    <children>
+        <GridPane id="backgroundGrid" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <GridPane id="formSquare" stylesheets="@../Stylesheets/ReligiousRequest.css">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <GridPane.margin>
+                        <Insets bottom="100.0" left="150.0" right="150.0" top="100.0" />
+                    </GridPane.margin>
+                    <children>
+
+                        <Label text="Religious Request Form" />
+
+                        <JFXTextField fx:id="reasonBox" promptText="Reason for visit" GridPane.rowIndex="1">
+                            <padding>
+                                <Insets left="50.0" right="50.0" />
+                            </padding>
+                        </JFXTextField>
+
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0" GridPane.rowIndex="2">
+                            <children>
+                                <JFXTextField fx:id="roomIDbox" promptText="Room Number">
+                                    <padding>
+                                        <Insets left="0" right="0" />
+                                    </padding>
+                                </JFXTextField>
+
+                                <ComboBox fx:id="TypeOfSacredPerson" prefWidth="200.0" promptText="Select one" />
+
+                            </children>
+                        </HBox>
+
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="200.0" GridPane.rowIndex="3">
+                            <children>
+                                <JFXButton fx:id="cancelBTN" buttonType="RAISED" onAction="#cancelEvent" prefHeight="70.0" prefWidth="155.0" text="Cancel" />
+                                <JFXButton fx:id="submitBTN" buttonType="RAISED" onAction="#submitEvent" prefHeight="70.0" prefWidth="155.0" text="Submit" />
+                            </children>
+                        </HBox>
+
+
+                    </children>
+                    <effect>
+                        <DropShadow color="#0000001f" height="143.89" radius="73.00999999999999" width="150.15" />
+                    </effect>
+                </GridPane>
+            </children>
+        </GridPane>
+    </children>
+</AnchorPane>
