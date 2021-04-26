@@ -4,6 +4,7 @@ import com.jfoenix.controls.*;
 import edu.wpi.MochaManticores.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -38,8 +39,6 @@ public class FoodDelivery extends SceneController {
     private void goBack(ActionEvent e) {
         back();
     }
-
-    public void helpButton(ActionEvent actionEvent){loadFullHelpDialogue();}
 
     private void loadHelpDialog(){
         JFXDialogLayout message = new JFXDialogLayout();
@@ -159,4 +158,7 @@ public class FoodDelivery extends SceneController {
 
     }
 
+    public void helpButton(MouseEvent mouseEvent) {
+        loadHelpDialog();
+    }
 }

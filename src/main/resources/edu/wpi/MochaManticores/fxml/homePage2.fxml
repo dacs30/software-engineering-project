@@ -13,7 +13,7 @@
 
 <AnchorPane stylesheets="@../Stylesheets/homePage.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.HomePage">
    <children>
-      <ImageView fitHeight="800.0" fitWidth="1200.0" opacity="0.75" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ImageView fx:id="backgroundIMG" fitHeight="800.0" fitWidth="1200.0" opacity="0.75" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@../images/cool-background.jpg" />
          </image></ImageView>
@@ -27,7 +27,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <GridPane id="covidContainer">
+            <GridPane id="card" maxWidth="-Infinity" prefWidth="800.0">
               <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -51,7 +51,7 @@
                       <RowConstraints maxHeight="99.0" minHeight="10.0" prefHeight="99.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label id="covidDescription" text="Take a quick questionnaire before you appointment" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1" />
+                        <Label id="covidDescription" text="Take a quick questionnaire before your appointment" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1" />
                         <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                            <children>
                               <ImageView fitHeight="150.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
@@ -76,28 +76,49 @@
             </GridPane>
             <GridPane GridPane.rowIndex="2">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <GridPane id="card">
+                  <GridPane id="card" maxWidth="-Infinity" prefWidth="800.0">
                      <columnConstraints>
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                      </columnConstraints>
                      <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <GridPane.margin>
-                        <Insets bottom="50.0" left="250.0" right="250.0" top="50.0" />
+                        <Insets bottom="50.0" left="200.0" right="200.0" top="50.0" />
                      </GridPane.margin>
                      <effect>
                         <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
                      </effect>
                      <children>
-                        <Label id="cardLabel" text="CONTACT US" GridPane.rowIndex="1" />
+                        <GridPane GridPane.columnIndex="1">
+                           <columnConstraints>
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints maxHeight="75.11114501953125" minHeight="10.0" prefHeight="68.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="99.0" minHeight="10.0" prefHeight="99.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label id="covidDescription" text="Check our new chat" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1" />
+                              <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                                 <children>
+                                    <Label id="covidLabel" text="CONTACT US" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </GridPane>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/contact.png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </GridPane>
                </children>
