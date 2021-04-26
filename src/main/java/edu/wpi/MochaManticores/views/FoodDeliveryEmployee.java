@@ -49,7 +49,7 @@ public class FoodDeliveryEmployee {
             return ref;
         }
 
-        public String getDietaryPreference(){
+        public String getDietaryPref(){
             return dp.get();
         }
 
@@ -94,7 +94,7 @@ public class FoodDeliveryEmployee {
 
         dietaryPref = new TableColumn<fd, String>("Dietary Preferences");
         dietaryPref.setMinWidth(100);
-        dietaryPref.setCellValueFactory(new PropertyValueFactory<fd, String>("Dietary Preferences"));
+        dietaryPref.setCellValueFactory(new PropertyValueFactory<fd, String>("dietaryPref"));
         //dietaryPref.setPrefWidth(foodDeliveryTable.getPrefWidth()/3);
 
         allergies = new TableColumn<fd, String>("Allergies");
@@ -123,7 +123,7 @@ public class FoodDeliveryEmployee {
             fd fdToAdd = new fd(s);
             for (int i = 0; i < fdToAdd.getFields().size(); i++){
                 if(fdToAdd.getFields().get(i).toLowerCase().equals(searchTerm) || searchTerm.equals("")){
-                    System.out.println(i + " " + fdToAdd.getDietaryPreference());
+                    //System.out.println(i + " " + fdToAdd.getDietaryPreference());
                     tableRow.add(fdToAdd);
                     break;
                 }
