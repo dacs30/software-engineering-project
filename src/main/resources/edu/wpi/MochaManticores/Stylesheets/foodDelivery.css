@@ -3,14 +3,6 @@
     -fx-background-radius: 40;
 }
 
-#helpBtn {
-    -fx-background-color: #0F4B91;
-    -fx-font-family: Roboto;
-    -fx-font-size: 20;
-    -fx-font-weight: bold;
-    -fx-text-fill: white;
-}
-
 #foodDeliveryTitleLabel {
     -fx-text-fill: grey;
     -fx-font-weight: bold;

@@ -174,7 +174,9 @@ public class LoginPage extends SceneController{
         System.out.println(employeeUsername.getText());
         try {
             EmployeeManager.checkEmployeeLogin(connection, employeeUsername.getText(), employeePassword.getText());
-            changeSceneTo("staffMainMenu");
+            // sets to employee level
+            App.setClearenceLevel(1);
+            changeSceneTo("landingPage");
         } catch (Exception e) {
             // Validators
             employeeUsername.setText(null);

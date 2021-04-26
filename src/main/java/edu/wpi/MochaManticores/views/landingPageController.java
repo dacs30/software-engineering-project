@@ -2,6 +2,7 @@ package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
+import edu.wpi.MochaManticores.App;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -56,6 +57,9 @@ public class landingPageController extends SceneController {
   private HBox sanitationSideMenu;
 
   @FXML
+  private HBox mapSidePane;
+
+  @FXML
   private HBox emergencySidePanel;
 
   HBox currentVbox;
@@ -68,8 +72,13 @@ public class landingPageController extends SceneController {
       double width = super.getWidth();
       //contentPane.setPrefSize(width,height);
 
+      Parent root = null;
 
-      Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/homePage2.fxml")));
+      if(App.getClearenceLevel() == 1){
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/employeeHomePage.fxml")));
+      } else {
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/homePage2.fxml")));
+      }
 
       scenesPane.getChildren().add(root);
 
@@ -144,8 +153,13 @@ public class landingPageController extends SceneController {
   public void renderMenu(MouseEvent mouseEvent) throws IOException {
     scenesPane.getChildren().removeAll(scenesPane.getChildren());
 
-    System.out.println(getClass().getResource("/edu/wpi/MochaManticores/fxml"));
-    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/homePage2.fxml")));
+    Parent root = null;
+    // if it is an employee the page page is different
+    if(App.getClearenceLevel() == 1){
+      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/employeeHomePage.fxml")));
+    } else {
+      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/homePage2.fxml")));
+    }
 
     currentVbox.setStyle("-fx-background-radius: 0;");
     currentVbox.setStyle("-fx-background-color:  #E9E9E9");
@@ -163,7 +177,13 @@ public class landingPageController extends SceneController {
     scenesPane.getChildren().removeAll(scenesPane.getChildren());
 
     // sets parent to be the file to be loaded
-    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/foodDelivery.fxml")));
+    // if it is an employee the page page is different
+    Parent root = null;
+    if(App.getClearenceLevel() == 1){
+      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/foodDeliveryEmployee.fxml")));
+    } else {
+      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/foodDelivery.fxml")));
+    }
 
     // change the colors of the old selected page back to the default
     currentVbox.setStyle("-fx-background-radius: 0;");
@@ -296,5 +316,33 @@ public class landingPageController extends SceneController {
 
   public void openEmergencyDIalog(MouseEvent mouseEvent) {
     loadDialog();
+  }
+
+  public void renderMapEditor(MouseEvent mouseEvent) throws IOException {
+    // removes the children so you don't end up with weird scenes one over the other
+    scenesPane.getChildren().removeAll(scenesPane.getChildren());
+
+    Parent root = null;
+
+    // if it is an employee the page page is different
+    if(App.getClearenceLevel() == 1){
+      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/mapEditor.fxml")));
+    } else {
+      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/homePage2.fxml")));
+    }
+
+    // change the colors of the old selected page back to the default
+    currentVbox.setStyle("-fx-background-radius: 0;");
+    currentVbox.setStyle("-fx-background-color:  #E9E9E9");
+
+    // changes the currentbox
+    currentVbox = mapSidePane;
+
+    // gives the selected properties for the new selected page
+    mapSidePane.setStyle("-fx-background-radius: 20;");
+    mapSidePane.setStyle("-fx-background-color: rgba(15,75,145,0.29);");
+
+    // adds the selected page to the scenesPane so it can be displayed
+    scenesPane.getChildren().add(root);
   }
 }

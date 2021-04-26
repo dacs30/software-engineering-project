@@ -4,3 +4,4 @@ FloralDelivery,RoomNumber,DeliveryChoice,TypeOfFlowers,VaseOption,PersonalizedNo
 FoodDelivery,DietaryPreferences,Allergies,Menu,
 SanitationServices,Location,SafetyHazards,SanitationType,Equipment Needed,Description,
 Emergency,9,Location,FALSE,
+FoodDelivery,Vegetarian,meat,Menu 1,
