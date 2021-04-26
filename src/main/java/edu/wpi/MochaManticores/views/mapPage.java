@@ -134,8 +134,8 @@ public class mapPage extends SceneController{
         backgroundIMG.setFitWidth(width);
         contentPane.setPrefSize(width, height);
 
-        backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
-        backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
+        //backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
+        //backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
         mapWindow.setPreserveRatio(false);
 
