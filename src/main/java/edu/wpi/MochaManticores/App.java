@@ -75,7 +75,7 @@ public class App extends Application {
     System.out.println("Starting Up");
     System.out.println("Starting Database");
     Mdb.databaseStartup();
-    ServiceRequest.loadFromCSV(Mdb.getConnection());
+    ServiceRequest.loadFromCSV();
   }
 
 
