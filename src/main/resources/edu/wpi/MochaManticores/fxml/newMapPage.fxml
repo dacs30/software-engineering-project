@@ -25,8 +25,8 @@
         </StackPane>
         <GridPane fx:id="contentPane" layoutY="-1.0" prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
             <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="1200.0" minWidth="10.0" percentWidth="85.0" prefWidth="1200.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="1200.0" minWidth="10.0" percentWidth="85.0" prefWidth="1200.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="1200.0" minWidth="10.0" percentWidth="142.0" prefWidth="1200.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="1200.0" minWidth="10.0" percentWidth="28.0" prefWidth="1200.0" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -37,11 +37,11 @@
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints maxHeight="190.0" minHeight="10.0" prefHeight="188.66665649414062" vgrow="NEVER" />
-                        <RowConstraints maxHeight="697.0740737915039" minHeight="10.0" prefHeight="611.3333435058594" vgrow="ALWAYS" />
+                        <RowConstraints maxHeight="190.0" minHeight="10.0" prefHeight="168.0" vgrow="NEVER" />
+                        <RowConstraints maxHeight="697.0740737915039" minHeight="10.0" prefHeight="632.0" vgrow="ALWAYS" />
                     </rowConstraints>
                     <children>
-                        <StackPane fx:id="mapStack" prefHeight="612.0" prefWidth="998.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+                        <StackPane fx:id="mapStack" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="1000.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
                             <children>
                                 <ImageView id="mapPane" fx:id="mapWindow" fitHeight="1.0" fitWidth="1.0" onMouseClicked="#drawCoord" pickOnBounds="true" preserveRatio="true" style="-fx-background-size: contain; -fx-background-repeat: no-repeat;" StackPane.alignment="TOP_LEFT">
                                     <viewport>
@@ -51,7 +51,10 @@
                               <Insets />
                            </StackPane.margin>
                                 </ImageView>
-                                <Pane fx:id="nodePane" minWidth="-Infinity" prefHeight="629.0" prefWidth="974.0" StackPane.alignment="TOP_LEFT" />
+                                <Pane fx:id="nodePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="1003.0" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets />
+                           </StackPane.margin></Pane>
                             </children>
                             <GridPane.margin>
                                 <Insets left="25.0" right="25.0" />
@@ -102,7 +105,7 @@
                                           <Font size="20.0" />
                                       </font>
                         </JFXButton>
-                        <ImageView fitHeight="82.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                        <ImageView fitHeight="75.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                            <image>
                               <Image url="@../images/logo-small.png" />
                            </image>
