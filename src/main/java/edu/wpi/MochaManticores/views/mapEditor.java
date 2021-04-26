@@ -615,7 +615,7 @@ public class mapEditor extends SceneController {
                         newEdge.endXProperty().bind(mouseX);
                         newEdge.endYProperty().bind(mouseY);
                         newEdge.setStrokeWidth(5);
-                        newEdge.setStroke(Color.BLUE);
+                        newEdge.setStroke(Color.valueOf("#0F4B91"));
                         edgeToAdd = newEdge;
                         nodePane.getChildren().addAll(newEdge);
                         newEdge.toBack();
@@ -637,6 +637,9 @@ public class mapEditor extends SceneController {
         EventHandler<ActionEvent> cancelButton = new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                if(!loadYesNoDialog(dialogPane,"Are you sure you want to cancel?").get()){
+                    return;
+                }
                 edgeInfoBox.setVisible(false);
                 nodeInfoBox.setVisible(false);
                 nodeInfoBox.toBack();
@@ -650,6 +653,7 @@ public class mapEditor extends SceneController {
                 drawEdges();
                 nodePane.getChildren().remove(edgeToAdd);
                 editing = false;
+                addingEdge = false;
             }
         };
         cancelChanges.setOnAction(cancelButton);
@@ -1045,7 +1049,8 @@ public class mapEditor extends SceneController {
                     @Override
                     public void handle(MouseEvent e) {
                         nodeClicked = true;
-                        if(e.getButton().equals(MouseButton.PRIMARY)){if(addingEdge){
+                        if(e.getButton().equals(MouseButton.PRIMARY)){
+                            if(addingEdge){
                             connectNodes(e);
                         }else{
                             if (!dragged) {

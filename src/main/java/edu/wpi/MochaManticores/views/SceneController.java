@@ -3,7 +3,6 @@ package edu.wpi.MochaManticores.views;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
-import com.jfoenix.controls.JFXTextField;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.database.Mdb;
 import javafx.application.Platform;
@@ -13,11 +12,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -25,11 +24,10 @@ import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.EmptyStackException;
-import java.util.List;
 import java.util.Objects;
 import java.util.Stack;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SceneController{
     protected static Stack<String> scenes = new Stack<>();
@@ -60,6 +58,60 @@ public class SceneController{
 
     public double getWidth() {
         return width;
+    }
+
+    public AtomicBoolean loadYesNoDialog(StackPane dialogPane, String msg){
+
+        AtomicBoolean answer = new AtomicBoolean(false);
+        if(dialogOpen){
+            return answer;
+        }
+        dialogPane.toFront();
+        dialogPane.setDisable(false);
+        //TODO Center the text of it.
+
+        JFXDialogLayout message = new JFXDialogLayout();
+        message.setMaxHeight(Region.USE_PREF_SIZE);
+        message.setMaxHeight(Region.USE_PREF_SIZE);
+
+        final Text hearder = new Text(msg);
+        hearder.setStyle("-fx-font-weight: bold");
+        hearder.setStyle("-fx-font-size: 30");
+        hearder.setStyle("-fx-font-family: Roboto");
+        hearder.setStyle("-fx-alignment: center");
+        message.setHeading(hearder);
+
+        final Text body = new Text("If it is, please, click yes to proceed.");
+        body.setStyle("-fx-font-size: 15");
+        body.setStyle("-fx-font-family: Roboto");
+        body.setStyle("-fx-alignment: center");
+        message.setHeading(hearder);
+
+        message.setBody(body);
+        JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
+        JFXButton yes = new JFXButton("YES");
+        yes.setOnAction(event -> {
+            answer.set(true);
+            dialog.close();
+            dialogPane.toBack();
+            changeSceneTo("EmergencyForm");
+        });
+
+        JFXButton no = new JFXButton("NO");
+        no.setOnAction(event -> {
+            dialog.close();
+            dialogPane.toBack();
+
+        });
+
+        dialog.setOnDialogClosed(event -> {
+            answer.set(false);
+            dialogPane.toBack();
+        });
+
+        message.setActions(yes, no);
+        dialog.show();
+        return answer;
     }
 
 
