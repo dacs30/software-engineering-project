@@ -1046,7 +1046,7 @@ public class employeeMapPage extends SceneController {
             pathToTake.append("Please select at least one node");
         } else {
 
-            LinkedList<String> path = star.multiStopRoute(stops);
+            LinkedList<String> path = star.multiStopRoute(stops,pathToTake.toString());
             System.out.println(path);
             for (String str :
                     path) {
@@ -1236,7 +1236,7 @@ public class employeeMapPage extends SceneController {
                     l.setStroke(Color.BLACK);
                 }
                 l.setStrokeWidth(2);
-                edges.put(e.edgeID, new edge(l, e.edgeID, start.getID(), end.getID()));
+                edges.put(e.getEdgeID(), new edge(l, e.getEdgeID(), start.getID(), end.getID()));
 
                 EventHandler<MouseEvent> highlight = new EventHandler<MouseEvent>() {
                     @Override
@@ -1438,7 +1438,7 @@ public class employeeMapPage extends SceneController {
                     return;
                 }
 
-                edgeIDField.setText(cur.edgeID);
+                edgeIDField.setText(cur.getEdgeID());
                 startNodeID.setText(cur.getStartingNode().replaceAll("\\s",""));
                 endNodeID.setText(cur.getEndingNode().replaceAll("\\s",""));
             }
