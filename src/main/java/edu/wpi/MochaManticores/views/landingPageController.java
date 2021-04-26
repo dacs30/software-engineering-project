@@ -328,7 +328,7 @@ public class landingPageController extends SceneController {
     if(App.getClearenceLevel() == 1){
       root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/mapEditor.fxml")));
     } else {
-      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/homePage2.fxml")));
+      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/mapPage.fxml")));
     }
 
     // change the colors of the old selected page back to the default

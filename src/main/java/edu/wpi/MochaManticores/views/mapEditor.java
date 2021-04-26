@@ -1210,7 +1210,7 @@ public class mapEditor extends SceneController {
                     l.setStroke(Color.BLACK);
                 }
                 l.setStrokeWidth(2);
-                edges.put(e.edgeID, new edge(l, e.edgeID, start.getID(), end.getID()));
+                edges.put(e.getEdgeID(), new edge(l, e.getEdgeID(), start.getID(), end.getID()));
 
                 EventHandler<MouseEvent> highlight = new EventHandler<MouseEvent>() {
                     @Override
@@ -1412,7 +1412,7 @@ public class mapEditor extends SceneController {
                     return;
                 }
 
-                edgeIDField.setText(cur.edgeID);
+                edgeIDField.setText(cur.getEdgeID());
                 startNodeID.setText(cur.getStartingNode().replaceAll("\\s",""));
                 endNodeID.setText(cur.getEndingNode().replaceAll("\\s",""));
             }

@@ -65,9 +65,8 @@ public class App extends Application {
   public void init() throws InterruptedException, FileNotFoundException, SQLException {
     System.out.println("Starting Up");
     System.out.println("Starting Database");
-    Mdb.databaseStartup();
-    ServiceRequest.loadFromCSV(Mdb.getConnection());
     DatabaseManager.startup();
+    ServiceRequest.loadFromCSV(DatabaseManager.getConnection());
   }
 
 
