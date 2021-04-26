@@ -90,6 +90,9 @@ public class mapEditor extends SceneController {
     @FXML
     private JFXTextField nodeTypeField;
 
+    /**
+     * Wrapper class for drawing nodes on the map
+     */
     public class node {
         Circle c;
         String nodeID;
@@ -187,6 +190,9 @@ public class mapEditor extends SceneController {
         }
     }
 
+    /**
+     * Wrapper class for drawing edges on the map
+     */
     public class edge {
         Line l;
         String edgeID;
@@ -273,6 +279,10 @@ public class mapEditor extends SceneController {
 
     private HashMap<String, edge> edges = new HashMap<String, edge>();
 
+
+    /**
+     * Used as input for A*
+     */
     private LinkedList<node> pitStops = new LinkedList<>();
 
     @FXML
@@ -357,6 +367,13 @@ public class mapEditor extends SceneController {
 
     Rectangle2D zoomPort;
 
+    /**
+     * initializes the scene with the following eventHandlers:
+     * handleSubmitNode - Submits node edits to DB
+     * handleSubmitEdge - Submits edge edits to DB
+     * mouseMoved - tracks mouse movement
+     * cancelButton - cancels any edits
+     */
     public void initialize() {
         double height = super.getHeight();
         double width = super.getWidth();
@@ -790,6 +807,10 @@ public class mapEditor extends SceneController {
         editing = false;
     }
 
+    /**
+     *
+     * @return true if input in edit fields are valid
+     */
     public boolean checkInput(){
         return  editor.checkInput(Arrays.asList(xCoordField.getText(),
                 yCoordField.getText(),
@@ -871,6 +892,9 @@ public class mapEditor extends SceneController {
 
     }
 
+    /**
+     * selects floor from comboBox loads the map image
+     */
     public void selectFloor() {
         String floor = (String) floorSelector.getSelectionModel().getSelectedItem();
         System.out.println(floor);
@@ -902,6 +926,13 @@ public class mapEditor extends SceneController {
         super.back();
     }
 
+    /**
+     * sizes the map image
+     * @param img, the image object with the correct map image
+     * @param x, the x coord of the mouse
+     * @param y, the y coord of the mouse
+     * @param z, the Rectangle2D object for the image Viewport
+     */
     private void setZoom(Image img, double x, double y, Rectangle2D z) {
         noZoom = new Rectangle2D(0, 0, img.getWidth(), img.getHeight());
         zoomPort = new Rectangle2D(x, y, (double) .25 * img.getWidth(), (double) .25 * img.getHeight());
@@ -1027,11 +1058,17 @@ public class mapEditor extends SceneController {
 
     }
 
+    /**
+     * redraws all the nodes and edges
+     */
     public void resetMap(){
         drawNodes();
         drawEdges();
     }
 
+    /**
+     * draws all nodes on screen and creates node objects for each node
+     */
     public void drawNodes() {
         nodePane.getChildren().clear();
         nodes.clear();
@@ -1128,6 +1165,9 @@ public class mapEditor extends SceneController {
         }
     }
 
+    /**
+     * draws all edges on screen and creates edge objects
+     */
     private void drawEdges(){
         double xRatio = 5000 / mapWindow.getFitWidth();
         double yRatio = 3400 / mapWindow.getFitHeight();
@@ -1217,6 +1257,10 @@ public class mapEditor extends SceneController {
 
     }
 
+    /**
+     * Legacy implementation
+     * @param node, corresponding node for the edges to be drawn
+     */
     private void drawEdges2(node node) {
         double xRatio = 5000 / mapWindow.getFitWidth();
         double yRatio = 3400 / mapWindow.getFitHeight();
@@ -1280,6 +1324,11 @@ public class mapEditor extends SceneController {
 
     }
 
+    /**
+     * make edge bold/unbold if the user mouses over the edge
+     * @param e, MouseEvent to get mouse data
+     * @param stroke, stroke to set the edge to
+     */
     public void mouseOverEdge(MouseEvent e, double stroke){
         Line src = (Line) e.getSource();
         Iterator<edge> iter = edges.values().iterator();
@@ -1291,6 +1340,10 @@ public class mapEditor extends SceneController {
         }
     }
 
+    /**
+     * change color of node if clicked on
+     * @param e, MouseEvent to get mouse data
+     */
     public void highlightNode(MouseEvent e) {
 
         edgeInfoBox.setVisible(false);
@@ -1332,6 +1385,10 @@ public class mapEditor extends SceneController {
         }
     }
 
+    /**
+     * selects the clicked on edge
+     * @param e, MouseEvent to get mouse data
+     */
     public void highlightEdge(MouseEvent e){
         edgeInfoBox.setVisible(true);
         nodeInfoBox.setVisible(false);
@@ -1363,6 +1420,11 @@ public class mapEditor extends SceneController {
 
     }
 
+    /**
+     * Change size of node if moused over
+     * @param e, MouseEvent to get mouse data
+     * @param radius, new radius to set node to
+     */
     public void mouseOverNode(MouseEvent e, double radius) {
         Circle src = ((Circle) e.getSource());
         Iterator<node> iter = nodes.values().iterator();
@@ -1375,6 +1437,10 @@ public class mapEditor extends SceneController {
 
     }
 
+    /**
+     * connects two nodes with an edge
+     * @param e, MouseEvent to get mouse data
+     */
     public void connectNodes(MouseEvent e){
         System.out.println("connectNodes");
         Circle src = (Circle) e.getSource();
