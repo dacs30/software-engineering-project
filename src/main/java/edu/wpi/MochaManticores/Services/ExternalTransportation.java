@@ -30,4 +30,14 @@ public class ExternalTransportation extends ServiceRequest{
     public String getTransportationMethod() {
         return transportationMethod;
     }
+
+    public String[] getFields() {
+        return new String[]{
+                String.valueOf(ServiceMap.ExternalTransportation),
+                patientRoom,
+                currentRoom,
+                externalRoom,
+                transportationMethod,
+        };
+    }
 }

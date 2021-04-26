@@ -46,6 +46,16 @@ public class InternalTransportation extends ServiceRequest {
     public void setTransportationMethod(String transportationMethod) {
         this.transportationMethod = transportationMethod;
     }
+
+    public String[] getFields() {
+        return new String[]{
+                String.valueOf(ServiceMap.InternalTransportation),
+                patientID,
+                String.valueOf(numStaffNeeded),
+                destination,
+                transportationMethod,
+        };
+    }
 }
 
 

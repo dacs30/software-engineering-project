@@ -16,16 +16,16 @@
       <StackPane fx:id="dialogPane" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <GridPane id="shit" stylesheets="@../Stylesheets/landingPage.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="NEVER" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="80.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <GridPane id="sideMenu" fx:id="sidePanel" style="-fx-background-color: #E9E9E9;" stylesheets="@../Stylesheets/landingPage.css">
+            <GridPane id="sideMenu" fx:id="sidePanel" maxWidth="-Infinity" style="-fx-background-color: #E9E9E9;" stylesheets="@../Stylesheets/landingPage.css" GridPane.hgrow="NEVER">
               <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
               </columnConstraints>
               <rowConstraints>
                   <RowConstraints maxHeight="176.0" minHeight="10.0" percentHeight="20.0" prefHeight="119.11112213134766" vgrow="SOMETIMES" />
@@ -97,7 +97,7 @@
                               <Image url="@../images/foodDeliveryIcon.png" />
                            </image>
                         </ImageView>
-                        <Label id="menuSideBarLabel" stylesheets="@../Stylesheets/landingPage.css" text="Food Delivery" />
+                        <Label id="menuSideBarLabel" prefHeight="44.0" prefWidth="79.0" stylesheets="@../Stylesheets/landingPage.css" text="Food Delivery" wrapText="true" />
                      </children>
                      <opaqueInsets>
                         <Insets />
@@ -113,7 +113,7 @@
                               <Image url="@../images/medicineDeliveryIcon.png" />
                            </image>
                         </ImageView>
-                        <Label id="menuSideBarLabel" stylesheets="@../Stylesheets/landingPage.css" text="Medicine Delivery" />
+                        <Label id="menuSideBarLabel" prefHeight="44.0" prefWidth="68.0" stylesheets="@../Stylesheets/landingPage.css" text="Medicine Delivery" wrapText="true" />
                      </children>
                      <padding>
                         <Insets left="20.0" />
@@ -126,7 +126,7 @@
                               <Image url="@../images/internalTransportationIcon.png" />
                            </image>
                         </ImageView>
-                        <Label id="menuSideBarLabel" prefHeight="48.0" prefWidth="153.0" stylesheets="@../Stylesheets/landingPage.css" text="Internal Transportation" wrapText="true" />
+                        <Label id="menuSideBarLabel" prefHeight="48.0" prefWidth="153.0" stylesheets="@../Stylesheets/landingPage.css" text="Internal   Transportation" wrapText="true" />
                      </children>
                      <padding>
                         <Insets left="20.0" />

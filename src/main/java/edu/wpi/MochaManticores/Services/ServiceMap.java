@@ -22,6 +22,7 @@ public class ServiceMap {
         //adds a linked list to key if there is no linked list already there
         myMap.computeIfAbsent(type, k -> new LinkedList<>());
         myMap.get(type).add(request);
+        ServiceRequest.addRequest(request);
     }
 
     /**

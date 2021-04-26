@@ -36,4 +36,15 @@ public class SanitationServices extends ServiceRequest {
     public String getDescription() {
         return description;
     }
+
+    public String[] getFields() {
+        return new String[]{
+                String.valueOf(ServiceMap.SanitationServices),
+                location,
+                safetyHazards,
+                sanitationType,
+                equipmentNeeded,
+                description
+        };
+    }
 }

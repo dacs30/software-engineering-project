@@ -3,6 +3,7 @@ package edu.wpi.MochaManticores.views;
 import com.jfoenix.controls.*;
 import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.Mdb;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -168,12 +169,11 @@ public class LoginPage extends SceneController{
     }
 
     public void loginStaff(ActionEvent actionEvent) {
-        Connection connection = Mdb.getConnection();
         // try the login with the inputed credentials
         // error if fail
         System.out.println(employeeUsername.getText());
         try {
-            EmployeeManager.checkEmployeeLogin(connection, employeeUsername.getText(), employeePassword.getText());
+            DatabaseManager.checkEmployeeLogin(employeeUsername.getText(), employeePassword.getText());
             // sets to employee level
             App.setClearenceLevel(1);
             changeSceneTo("landingPage");

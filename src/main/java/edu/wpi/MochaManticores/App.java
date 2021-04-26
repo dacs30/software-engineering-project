@@ -5,18 +5,20 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Objects;
 
+import edu.wpi.MochaManticores.Algorithms.AStar2;
+import edu.wpi.MochaManticores.Algorithms.PathPlanning;
 import edu.wpi.MochaManticores.Services.ServiceMap;
 import edu.wpi.MochaManticores.Services.ServiceRequest;
 import edu.wpi.MochaManticores.database.EdgeManager;
 import edu.wpi.MochaManticores.database.EmployeeManager;
 import edu.wpi.MochaManticores.database.Mdb;
 import edu.wpi.MochaManticores.database.NodeManager;
+import edu.wpi.MochaManticores.database.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 
@@ -27,16 +29,15 @@ public class App extends Application {
   private static NodeManager nodeManager;
   private static EdgeManager edgeManager;
   private static EmployeeManager employeeManager;
-  //private static final String location = "edu/wpi/MochaManticores/images/";
+  private static PathPlanning algoType = new AStar2();
 
-  //Load in assets
-  //public static final Image floor2 = new Image(location + "02_thesecondfloor.png");
-  //public static final Image floor1 = new Image(location + "01_thefirstfloor.png");
-  //public static final Image floor0 = new Image(location + "00_thegroundfloor.png");
-  //public static final Image floorL1 = new Image(location + "00_thelowerlevel1.png");
-  //public static final Image floorL2 = new Image(location + "00_thelowerlevel2.png");
-  //public static final Image floor3 = new Image(location + "04_thethirdfloor.png");
+  public static PathPlanning getAlgoType() {
+    return App.algoType;
+  }
 
+  public void setAlgoType(PathPlanning algoType) {
+    App.algoType = algoType;
+  }
 
   public static NodeManager getNodeManager() {
     return nodeManager;
@@ -74,8 +75,7 @@ public class App extends Application {
   public void init() throws InterruptedException, FileNotFoundException, SQLException {
     System.out.println("Starting Up");
     System.out.println("Starting Database");
-    Mdb.databaseStartup();
-    ServiceRequest.loadFromCSV(Mdb.getConnection());
+    DatabaseManager.startup();
   }
 
 

@@ -20,7 +20,7 @@ public abstract class ServiceRequest {
         this.rowNum = rowNum;
     }
 
-    public static void loadFromCSV(Connection connection){
+    public static void loadFromCSV(){
         //loads database
         try{
             //ALL EMPLOYEE SERVICE REQUESTS AND HAVE NOT BEEN COMPLETED
@@ -28,56 +28,56 @@ public abstract class ServiceRequest {
             String line = reader.readLine();
             int rowNum = 0;
 
-            while (line != null){
+            while (line != null) {
                 String[] row = line.split(CSVdelim);
 
                 //check if it is a type of service
                 boolean isService = false;
-                for(ServiceRequestType serviceRequestType : ServiceRequestType.values()) {
-                    if(row[0].equals(serviceRequestType.name())) {
+                for (ServiceRequestType serviceRequestType : ServiceRequestType.values()) {
+                    if (row[0].equals(serviceRequestType.name())) {
                         isService = true;
                         break;
                     }
                 }
 
-                //if it is a service
-                switch (row[0]) {
-                    case "Emergency":
-                        EmergencyRequest emergencyRequest = new EmergencyRequest(true, false, rowNum,
-                                Integer.parseInt(row[1]), row[2], Boolean.parseBoolean(row[3]));
-                        ServiceMap.addToType(ServiceMap.Emergency, emergencyRequest);
-                        break;
-                    case "ExternalTransportation":
-                        ExternalTransportation externalTransportation = new ExternalTransportation(true, false, rowNum,
-                                row[1], row[2], row[3], row[4]);
-                        ServiceMap.addToType(ServiceMap.ExternalTransportation, externalTransportation);
-                        break;
-                    case "FloralDelivery":
-                        FloralDelivery floralDelivery = new FloralDelivery(true, false, rowNum,
-                                row[1], row[2], row[3], row[4], row[5]);
-                        ServiceMap.addToType(ServiceMap.FloralDelivery, floralDelivery);
-                        break;
-                    case "FoodDelivery":
-                        FoodDelivery foodDelivery = new FoodDelivery(true, false, rowNum, row[1],
-                                row[2], row[3]);
-                        ServiceMap.addToType(ServiceMap.FoodDelivery, foodDelivery);
-                        break;
-                    case "SanitationServices":
-                        SanitationServices sanitationServices = new SanitationServices(true, false, rowNum,
-                                row[1], row[2], row[3], row[4], row[5]);
-                        ServiceMap.addToType(ServiceMap.SanitationServices, sanitationServices);
-                        break;
-                    case "InternalTransportation":
-                        InternalTransportation internalTransportation = new InternalTransportation(row[1],
-                                Integer.parseInt(row[2]), row[3], row[4], true, false, rowNum);
-                        ServiceMap.addToType(ServiceMap.InternalTransportation, internalTransportation);
-                        break;
-                    default:
-                        System.out.println("Non-Valid Service Request Type");
-
-                }
+                if (isService) {
+                    switch (row[0]) {
+                        case "Emergency":
+                            EmergencyRequest emergencyRequest = new EmergencyRequest(true, false, rowNum,
+                                    Integer.parseInt(row[1]), row[2], Boolean.parseBoolean(row[3]));
+                            ServiceMap.addToType(ServiceMap.Emergency, emergencyRequest);
+                            break;
+                        case "ExternalTransportation":
+                            ExternalTransportation externalTransportation = new ExternalTransportation(true, false, rowNum,
+                                    row[1], row[2], row[3], row[4]);
+                            ServiceMap.addToType(ServiceMap.ExternalTransportation, externalTransportation);
+                            break;
+                        case "FloralDelivery":
+                            FloralDelivery floralDelivery = new FloralDelivery(true, false, rowNum,
+                                    row[1], row[2], row[3], row[4], row[5]);
+                            ServiceMap.addToType(ServiceMap.FloralDelivery, floralDelivery);
+                            break;
+                        case "FoodDelivery":
+                            FoodDelivery foodDelivery = new FoodDelivery(true, false, rowNum, row[1],
+                                    row[2], row[3]);
+                            ServiceMap.addToType(ServiceMap.FoodDelivery, foodDelivery);
+                            break;
+                        case "SanitationServices":
+                            SanitationServices sanitationServices = new SanitationServices(true, false, rowNum,
+                                    row[1], row[2], row[3], row[4], row[5]);
+                            ServiceMap.addToType(ServiceMap.SanitationServices, sanitationServices);
+                            break;
+                        case "InternalTransportation":
+                            InternalTransportation internalTransportation = new InternalTransportation(row[1],
+                                    Integer.parseInt(row[2]), row[3], row[4], true, false, rowNum);
+                            ServiceMap.addToType(ServiceMap.InternalTransportation, internalTransportation);
+                            break;
+                        default:
+                            System.out.println("Non-Valid Service Request Type");
+                    }
                 line = reader.readLine();
                 rowNum++;
+            }
             }
         } catch (IOException e){
             e.printStackTrace();

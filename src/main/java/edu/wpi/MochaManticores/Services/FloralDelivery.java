@@ -37,4 +37,15 @@ public class FloralDelivery extends ServiceRequest{
     public String getPersonalizedNote() {
         return personalizedNote;
     }
+
+    public String[] getFields() {
+        return new String[]{
+                String.valueOf(ServiceMap.FloralDelivery),
+                roomNumber,
+                deliveryChoice,
+                typeOfFlowers,
+                vaseOptions,
+                personalizedNote
+        };
+    }
 }

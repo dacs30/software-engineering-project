@@ -5,9 +5,7 @@ import edu.wpi.MochaManticores.Nodes.EdgeMapSuper;
 import edu.wpi.MochaManticores.Nodes.EdgeSuper;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
-import edu.wpi.MochaManticores.database.EdgeManager;
-import edu.wpi.MochaManticores.database.Mdb;
-import edu.wpi.MochaManticores.database.NodeManager;
+import edu.wpi.MochaManticores.database.*;
 import javafx.event.ActionEvent;
 import javafx.stage.DirectoryChooser;
 
@@ -79,62 +77,29 @@ public class mapEdit {
     }
 
     public boolean submitEditNodeToDB(NodeSuper nodeSuper, String selectedID) throws SQLException, FileNotFoundException {
-        Connection connection;
-        try {
-            connection = getConnection();
-        } catch (SQLException sqlException) {
-            return false;
-        }
         if (selectedID.equals("")) {
-            NodeManager.addNode(connection, nodeSuper.getID().replaceAll("\\s",""),
-                    String.valueOf(nodeSuper.getXcoord()),
-                    String.valueOf(nodeSuper.getYcoord()),
-                    nodeSuper.getFloor().replaceAll("\\s",""),
-                    nodeSuper.getBuilding(),
-                    nodeSuper.getType().replaceAll("\\s",""),
-                    nodeSuper.getLongName(),
-                    nodeSuper.getShortName().replaceAll("\\s",""));
+            DatabaseManager.addNode(nodeSuper);
         } else {
-            NodeManager.updateNode(connection,
-                    nodeSuper.getID().replaceAll("\\s",""),
-                    selectedID,
-                    nodeSuper.getXcoord(),
-                    nodeSuper.getYcoord(),
-                    nodeSuper.getFloor(),
-                    nodeSuper.getBuilding(),
-                    nodeSuper.getType().replaceAll("\\s",""),
-                    nodeSuper.getLongName().replaceAll("\\s",""),
-                    nodeSuper.getShortName().replaceAll("\\s",""));
+            DatabaseManager.modNode(selectedID, nodeSuper);
         }
         return true;
 
     }
 
     public boolean submitEditEdgeToDB(EdgeSuper edgeSuper, String selectedID, String oldStart, String oldEnd) throws SQLException, FileNotFoundException {
-        Connection connection;
-        try {
-            connection = getConnection();
-        } catch (SQLException sqlException) {
-            return false;
-        }
-
         if(selectedID.equals("")){
-            EdgeManager.addEdge(connection, edgeSuper.edgeID, edgeSuper.getStartingNode(), edgeSuper.getEndingNode());
+            DatabaseManager.addEdge(edgeSuper);
         }else{
-            EdgeManager.updateEdge(connection,selectedID,oldStart,edgeSuper.getStartingNode(), oldEnd, edgeSuper.getEndingNode());
+            DatabaseManager.modEdge(selectedID, edgeSuper);
         }
         return true;
     }
 
     public void deleteNode(String IDtoDel) throws SQLException, FileNotFoundException {
-        if(validNode(IDtoDel)){
-            Connection connection = getConnection();
-            NodeManager.delNode(connection, IDtoDel);
-        }
+            DatabaseManager.delElement(sel.NODE, IDtoDel);
     }
 
     public void deleteEdge(String edgeToDel) throws SQLException, FileNotFoundException {
-        Connection connection = getConnection();
-        EdgeManager.delEdge(connection, edgeToDel);
+        DatabaseManager.delElement(sel.EDGE, edgeToDel);
     }
 }
