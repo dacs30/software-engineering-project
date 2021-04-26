@@ -14,50 +14,6 @@ public class DatabaseManager{
     private static EmployeeManager empManager = null;
     private static NodeManager nodeManager = null;
     private static EdgeManager edgeManager = null;
-    // maybe store maps here too
-    // map super
-    // edge map super
-
-    /*
-    (Mdb : public)
-    start database
-        - create db
-        - get connection
-        - create managers
-        - create tables
-            - populate tables
-            - populate maps
-
-    Shutdown database
-        - save tables
-        - clear connection
-        - clear managers
-
-    (manager : public)
-    Reset Table
-        - save table
-        - clean table
-        - reset filepath
-        - load
-        (if map) - update map
-
-    addElement -> unique
-    addElement_db  -> unique
-    addElement_map  -> unique
-    updateElement  -> unique
-    delElement
-    getElement  -> unique
-
-    (manager : private)
-    loadFromCSV
-    saveToCSV
-    showInfo
-    cleanTable
-    setElement_CSV_path
-
-    (maps : public)
-    getMap()
-     */
 
     // ==== Mdb methods ==== //
 
