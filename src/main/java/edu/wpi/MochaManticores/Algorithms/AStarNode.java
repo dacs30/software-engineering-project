@@ -14,7 +14,7 @@ public class AStarNode{
     private int estimatedCost;  //heuristic cost to reach the target node
     private int priority;       //the estimated aggregate cost to reach the target node traveling through this node
 
-    //Constructor
+    //A* Constructor
     public AStarNode(NodeSuper node, NodeSuper target, String lastID, int costToReach) {
         this.ID = node.getID();
         this.lastID = lastID;
@@ -23,10 +23,28 @@ public class AStarNode{
         this.priority = costToReach + estimatedCost;
     }
 
+    //Dijkstra's Constructor
+    public AStarNode(NodeSuper node, String lastID, int costToReach) {
+        this.ID = node.getID();
+        this.lastID = lastID;
+        this.costToReach = costToReach;
+        this.estimatedCost = 0;
+        this.priority = costToReach;
+    }
+
+    //GBF Constructor
+    public AStarNode(NodeSuper node, NodeSuper target, String lastID) {
+        this.ID = node.getID();
+        this.lastID = lastID;
+        this.costToReach = 0;
+        this.estimatedCost = calcGBF(node, target);
+        this.priority = estimatedCost;
+    }
+
     /**
      * method: compareCosts()
      * usage: compares the current cost to reach this node with a new possible route,
-     *        alters the node if a new route is selected
+     *        alters the node if a new route is selected. Used by A*
      * @param lastID
      * @param costToReach
      */

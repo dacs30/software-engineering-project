@@ -343,7 +343,7 @@ public class mapPage extends SceneController{
             pathToTake.append("Please select at least one node");
         }else{
 
-            LinkedList<String> path = star.multiStopRoute(stops);
+            LinkedList<String> path = star.multiStopRoute(stops, "none"); //CONDITION NEEDS TO BE INPUT HERE
             System.out.println(path);
             for (String str :
                     path) {

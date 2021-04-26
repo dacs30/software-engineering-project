@@ -57,7 +57,7 @@ public class EmployeeManager extends Manager<Employee>{
             pstmt.setString(2, employee.getPassword());
             pstmt.setString(3, employee.getFirstName());
             pstmt.setString(4, employee.getLastName());
-            pstmt.setString(5, employee.getStringFromType(employee.getType()));
+            pstmt.setString(5, Employee.getStringFromType(employee.getType()));
             pstmt.setInt(6, employee.getID());
             pstmt.setBoolean(7, employee.isAdmin());
             pstmt.executeUpdate();

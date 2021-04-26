@@ -13,7 +13,7 @@ public class NodeSuper {
     //Declare instance variables
     private int xcoord;                         //X coordinate of the node
     private int ycoord;                         //Y coordinate of the node
-    private String floor;                          //Floor number of the node
+    private String floor;                       //Floor number of the node
     private String building;                    //Building the node is in
     private String longName;                    //Name of the node
     private String shortName;                   //Abbreviated node name
@@ -21,6 +21,8 @@ public class NodeSuper {
     private String nodeType;                    //Type of node (elevator, door, etc.)
     private final String teamAssigned = "m";    //Node created by D21 team M
     private VertexList neighbors;               //A list of connected nodes with vertex costs
+    private boolean isHandicap;
+    private boolean isRestricted;
 
     //Constructor
     public NodeSuper(int xcoord, int ycoord, String floor, String building, String longName, String shortName, String nodeID, String nodeType, VertexList neighbors) {
@@ -33,6 +35,8 @@ public class NodeSuper {
         this.nodeID = nodeID;
         this.nodeType = nodeType;
         this.neighbors = neighbors;
+        this.isHandicap = nodeType.equals("Staircase");
+        this.isRestricted = false;
         if(neighbors == null){
             this.neighbors = new VertexList(new HashMap<>());
         }
@@ -244,5 +248,13 @@ public class NodeSuper {
      */
     public void setType(String newType) {
         this.nodeID = newType;
+    }
+
+    public boolean isRestricted() {
+        return isRestricted;
+    }
+
+    public boolean isHandicap() {
+        return isHandicap;
     }
 }
