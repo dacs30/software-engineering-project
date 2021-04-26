@@ -654,9 +654,9 @@ public class mapEditor extends SceneController {
         EventHandler<ActionEvent> cancelButton = new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if(!loadYesNoDialog(dialogPane,"Are you sure you want to cancel?").get()){
-                    return;
-                }
+//                if(!loadYesNoDialog(dialogPane,"Are you sure you want to cancel?").get()){
+//                    return;
+//                }
                 edgeInfoBox.setVisible(false);
                 nodeInfoBox.setVisible(false);
                 nodeInfoBox.toBack();

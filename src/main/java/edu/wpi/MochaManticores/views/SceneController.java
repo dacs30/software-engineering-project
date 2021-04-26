@@ -98,7 +98,6 @@ public class SceneController{
             answer.set(true);
             dialog.close();
             dialogPane.toBack();
-            changeSceneTo("EmergencyForm");
         });
 
         JFXButton no = new JFXButton("NO");

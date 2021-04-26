@@ -2,6 +2,8 @@ package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.*;
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.Services.ServiceMap;
+import edu.wpi.MochaManticores.Services.ServiceRequest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
@@ -15,6 +17,9 @@ public class FoodDelivery extends SceneController {
 
     @FXML
     private JFXComboBox<String> dietaryPreferences;
+
+    @FXML
+    private JFXTextArea allergiesField;
 
     @FXML
     private JFXComboBox<String> foodMenu;
@@ -117,8 +122,14 @@ public class FoodDelivery extends SceneController {
 
 
     public void submitForm(ActionEvent e) {
-        // TODO Submit action
+
         // changeSceneTo(e, "mainMenu");
+        ServiceRequest.addRequest(new edu.wpi.MochaManticores.Services.FoodDelivery(App.getClearenceLevel()==1,
+                false,
+                0,
+                dietaryPreferences.getSelectionModel().getSelectedItem(),
+                allergiesField.getText(),
+                foodMenu.getSelectionModel().getSelectedItem()), ServiceMap.FoodDelivery);
         dialogPane.setVisible(true);
         loadDialog();
     }

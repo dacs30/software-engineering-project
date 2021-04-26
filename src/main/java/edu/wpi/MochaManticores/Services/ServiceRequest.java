@@ -116,7 +116,8 @@ public abstract class ServiceRequest {
         }
     }
 
-    public static void addRequest(ServiceRequest request) {
+    public static void addRequest(ServiceRequest request, ServiceRequestType type) {
+        ServiceMap.addToType(type,request);
         StringBuilder sb = new StringBuilder();
         LinkedList<String[]> values = new LinkedList<>();
         try{

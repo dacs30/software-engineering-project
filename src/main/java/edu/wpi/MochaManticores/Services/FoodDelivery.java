@@ -23,4 +23,15 @@ public class FoodDelivery extends ServiceRequest {
     public String getMenu() {
         return menu;
     }
+
+    public String[] getFields() {
+        String[] fields = {
+                String.valueOf(ServiceMap.FoodDelivery),
+                dietaryPreference,
+                allergies,
+                menu
+        };
+
+        return fields;
+    }
 }
