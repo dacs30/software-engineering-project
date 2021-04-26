@@ -20,7 +20,7 @@ public abstract class ServiceRequest {
         this.rowNum = rowNum;
     }
 
-    public static void loadFromCSV(Connection connection){
+    public static void loadFromCSV(){
         //loads database
         try{
             //ALL EMPLOYEE SERVICE REQUESTS AND HAVE NOT BEEN COMPLETED
