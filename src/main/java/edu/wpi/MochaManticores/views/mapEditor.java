@@ -1008,7 +1008,6 @@ public class mapEditor extends SceneController {
     }
 
     public void toAStar() {
-        AStar2 star = new AStar2();
         //pathToTake is used in the dialog box that keeps all the nodes that the user has to pass through
         StringBuilder pathToTake = new StringBuilder(new String());
         LinkedList<NodeSuper> stops = new LinkedList<>();
@@ -1020,7 +1019,7 @@ public class mapEditor extends SceneController {
             pathToTake.append("Please select at least one node");
         } else {
 
-            LinkedList<String> path = star.multiStopRoute(stops);
+            LinkedList<String> path = App.getAlgoType().multiStopRoute(stops, "none");
             System.out.println(path);
             for (String str :
                     path) {
@@ -1210,7 +1209,7 @@ public class mapEditor extends SceneController {
                     l.setStroke(Color.BLACK);
                 }
                 l.setStrokeWidth(2);
-                edges.put(e.edgeID, new edge(l, e.edgeID, start.getID(), end.getID()));
+                edges.put(e.getEdgeID(), new edge(l, e.getEdgeID(), start.getID(), end.getID()));
 
                 EventHandler<MouseEvent> highlight = new EventHandler<MouseEvent>() {
                     @Override
@@ -1412,7 +1411,7 @@ public class mapEditor extends SceneController {
                     return;
                 }
 
-                edgeIDField.setText(cur.edgeID);
+                edgeIDField.setText(cur.getEdgeID());
                 startNodeID.setText(cur.getStartingNode().replaceAll("\\s",""));
                 endNodeID.setText(cur.getEndingNode().replaceAll("\\s",""));
             }

@@ -1,5 +1,8 @@
 package edu.wpi.MochaManticores.Nodes;
 
+import edu.wpi.MochaManticores.Algorithms.AStar2;
+import edu.wpi.MochaManticores.Algorithms.PathPlanning;
+
 import java.util.HashMap;
 import java.util.Set;
 
@@ -25,7 +28,7 @@ public class MapSuper {
      * inputs: String ID (the node ID of the desired node)
      * returns: NodeSuper (unnamed) (the specified MapNode)
      */
-    public NodeSuper getNode(String ID) {
+    public static NodeSuper getNode(String ID) {
         return myMap.get(ID);
     }
 
