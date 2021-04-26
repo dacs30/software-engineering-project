@@ -41,6 +41,8 @@ public class FoodDelivery extends SceneController {
     }
 
     private void loadHelpDialog(){
+        dialogPane.toFront();
+        dialogPane.setDisable(false);
         JFXDialogLayout message = new JFXDialogLayout();
         message.setMaxHeight(Region.USE_COMPUTED_SIZE);
         message.setMaxHeight(Region.USE_COMPUTED_SIZE);
