@@ -3,7 +3,6 @@ package edu.wpi.MochaManticores.views;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
-import edu.wpi.MochaManticores.Algorithms.AStar2;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
@@ -330,8 +329,7 @@ public class mapPage extends SceneController{
         System.out.printf("(%f,%f)\n", e.getX() * xRatio, e.getY() * yRatio);
     }
 
-    public void toAStar() {
-        AStar2 star = new AStar2();
+    public void findPath() {
         //pathToTake is used in the dialog box that keeps all the nodes that the user has to pass through
         StringBuilder pathToTake = new StringBuilder(new String());
         LinkedList<NodeSuper> stops = new LinkedList<>();
@@ -343,7 +341,7 @@ public class mapPage extends SceneController{
             pathToTake.append("Please select at least one node");
         }else{
 
-            LinkedList<String> path = star.multiStopRoute(stops, "none"); //CONDITION NEEDS TO BE INPUT HERE
+            LinkedList<String> path = App.getAlgoType().multiStopRoute(stops, "none"); //CONDITION NEEDS TO BE INPUT HERE
             System.out.println(path);
             for (String str :
                     path) {
@@ -450,7 +448,7 @@ public class mapPage extends SceneController{
     @FXML
     public void goToRouteExample(ActionEvent e) {
         drawNodes();
-        toAStar();
+        findPath();
     }
 
     public void zoomImg(MouseEvent e) {

@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Objects;
 
+import edu.wpi.MochaManticores.Algorithms.AStar2;
+import edu.wpi.MochaManticores.Algorithms.PathPlanning;
 import edu.wpi.MochaManticores.Services.ServiceMap;
 import edu.wpi.MochaManticores.Services.ServiceRequest;
 import edu.wpi.MochaManticores.database.EdgeManager;
@@ -27,7 +29,15 @@ public class App extends Application {
   private static NodeManager nodeManager;
   private static EdgeManager edgeManager;
   private static EmployeeManager employeeManager;
+  private static PathPlanning algoType = new AStar2();
 
+  public static PathPlanning getAlgoType() {
+    return App.algoType;
+  }
+
+  public void setAlgoType(PathPlanning algoType) {
+    App.algoType = algoType;
+  }
 
   public static NodeManager getNodeManager() {
     return nodeManager;

@@ -1008,7 +1008,6 @@ public class mapEditor extends SceneController {
     }
 
     public void toAStar() {
-        AStar2 star = new AStar2();
         //pathToTake is used in the dialog box that keeps all the nodes that the user has to pass through
         StringBuilder pathToTake = new StringBuilder(new String());
         LinkedList<NodeSuper> stops = new LinkedList<>();
@@ -1020,7 +1019,7 @@ public class mapEditor extends SceneController {
             pathToTake.append("Please select at least one node");
         } else {
 
-            LinkedList<String> path = star.multiStopRoute(stops);
+            LinkedList<String> path = App.getAlgoType().multiStopRoute(stops, "none");
             System.out.println(path);
             for (String str :
                     path) {

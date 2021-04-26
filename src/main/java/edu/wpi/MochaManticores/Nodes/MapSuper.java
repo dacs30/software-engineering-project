@@ -1,5 +1,8 @@
 package edu.wpi.MochaManticores.Nodes;
 
+import edu.wpi.MochaManticores.Algorithms.AStar2;
+import edu.wpi.MochaManticores.Algorithms.PathPlanning;
+
 import java.util.HashMap;
 import java.util.Set;
 
