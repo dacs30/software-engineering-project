@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 public class ServiceMap {
-    private static final HashMap<ServiceRequestType, LinkedList<ServiceRequest>> myMap = new HashMap<>();
+    private static final HashMap<ServiceRequestType, HashMap<String, ServiceRequest>> myMap = new HashMap<>();
     public static ServiceRequestType InternalTransportation = ServiceRequestType.InternalTransportation;
     public static ServiceRequestType ExternalTransportation = ServiceRequestType.ExternalTransportation;
     public static ServiceRequestType Emergency = ServiceRequestType.Emergency;
@@ -14,15 +14,14 @@ public class ServiceMap {
     public static ServiceRequestType FoodDelivery = ServiceRequestType.FoodDelivery;
 
     /**
-     * function: addToType()
+     * function: addRequest()
      * @param type type of service request
      * @param request the service request that needs to be added
      */
-    public static void addToType(ServiceRequestType type, ServiceRequest request) {
+    public static void addRequest(ServiceRequestType type, ServiceRequest request) {
         //adds a linked list to key if there is no linked list already there
         myMap.computeIfAbsent(type, k -> new LinkedList<>());
         myMap.get(type).add(request);
-        ServiceRequest.addRequest(request);
     }
 
     /**
@@ -31,7 +30,11 @@ public class ServiceMap {
      * @return a linked list of service requests
      */
     public static LinkedList<ServiceRequest> getServiceRequestsForType(ServiceRequestType type) {
-        return myMap.get(type);
+        LinkedList<ServiceRequest> temp = new LinkedList<ServiceRequest>();
+        for (ServiceRequest value : myMap.get(type).values()) {
+            temp.add(value);
+        }
+        return temp;
     }
 
     /**
@@ -41,11 +44,19 @@ public class ServiceMap {
      */
     public static void delRequest(ServiceRequestType type, ServiceRequest request) throws FileNotFoundException {
         myMap.get(type).remove(request);
-        ServiceRequest.delRequestFromCSV(request);
+    }
+
+    /**
+     * function: getRequest()
+     * @param type type of request
+     * @param requestID string to represent Request
+     */
+    public static ServiceRequest getRequest(ServiceRequestType type, String requestID){
+        myMap.get(type).
     }
 }
 
-enum ServiceRequestType {
+public enum ServiceRequestType {
     InternalTransportation,
     ExternalTransportation,
     FloralDelivery,

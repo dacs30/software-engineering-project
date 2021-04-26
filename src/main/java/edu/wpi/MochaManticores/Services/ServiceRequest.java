@@ -2,23 +2,52 @@ package edu.wpi.MochaManticores.Services;
 
 import edu.wpi.MochaManticores.database.Employee;
 
+import java.awt.image.ImageProducer;
 import java.io.*;
 import java.sql.Connection;
 import java.util.LinkedList;
 import java.util.List;
 
 public abstract class ServiceRequest {
-    private boolean employee;
+    private String employee;
     private boolean completed;
     private static String Services_csv_path = "data/services.csv";
     private static final String CSVdelim = ",";
-    public int rowNum;
 
-    public ServiceRequest(boolean employee, boolean completed, int rowNum) {
+    public boolean getCompleted(){
+        return completed;
+    }
+
+    public void setCompleted(boolean b){
+        completed = b;
+    }
+
+    public String getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(String employee) {
+        this.employee = employee;
+    }
+
+    public String getRequestID() {
+        return RequestID;
+    }
+
+    public void setRequestID(String requestID) {
+        RequestID = requestID;
+    }
+
+    public String RequestID;
+
+    public ServiceRequest(String employee, boolean completed, String RequestID) {
         this.employee = employee;
         this.completed = completed;
-        this.rowNum = rowNum;
+        this.RequestID = RequestID;
     }
+
+
+
 
     public static void loadFromCSV(){
         //loads database
@@ -45,6 +74,12 @@ public abstract class ServiceRequest {
                         case "Emergency":
                             EmergencyRequest emergencyRequest = new EmergencyRequest(true, false, rowNum,
                                     Integer.parseInt(row[1]), row[2], Boolean.parseBoolean(row[3]));
+
+                            Servicemap.add()
+                                        generate ID
+                                        add to map (map based on service name and val -> is an object of service request)
+                                        add to DB  (put in db w/ primary key ID, at table "NAME" with info from object)
+
                             ServiceMap.addToType(ServiceMap.Emergency, emergencyRequest);
                             break;
                         case "ExternalTransportation":
@@ -149,29 +184,5 @@ public abstract class ServiceRequest {
         } catch (IOException e){
             e.printStackTrace();
         }
-    }
-
-    public boolean isEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(boolean employee) {
-        this.employee = employee;
-    }
-
-    public boolean isCompleted() {
-        return completed;
-    }
-
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
-    }
-
-    public void setRowNum(int rowNum) {
-        this.rowNum = rowNum;
-    }
-
-    public String[] getFields() {
-        return new String[1];
     }
 }

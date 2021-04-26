@@ -6,9 +6,9 @@ public class ExternalTransportation extends ServiceRequest{
     private String externalRoom;
     private String transportationMethod;
 
-    public ExternalTransportation(boolean employee, boolean completed, int row, String patientRoom, String currentRoom,
+    public ExternalTransportation(String RequestID, String employee, boolean completed, String patientRoom, String currentRoom,
                                   String externalRoom, String transportationMethod) {
-        super(employee, completed, row);
+        super(employee, completed, RequestID);
         this.patientRoom = patientRoom;
         this.currentRoom = currentRoom;
         this.externalRoom = externalRoom;
@@ -29,15 +29,5 @@ public class ExternalTransportation extends ServiceRequest{
 
     public String getTransportationMethod() {
         return transportationMethod;
-    }
-
-    public String[] getFields() {
-        return new String[]{
-                String.valueOf(ServiceMap.ExternalTransportation),
-                patientRoom,
-                currentRoom,
-                externalRoom,
-                transportationMethod,
-        };
     }
 }

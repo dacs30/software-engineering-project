@@ -103,6 +103,35 @@ public class Mdb extends Thread{
         }
     }
 
+    public static void EXTtransportStartup() throws SQLException {
+        Statement stmt = connection.createStatement();
+        try {
+            ResultSet rs = meta.getTables(null, "APP", "EMPLOYEES", null);
+            rs = meta.getTables(null, "APP", "EMPLOYEES", null);
+            if(!rs.next()) {
+                String sql;
+                System.out.println("Creating External Transportation Request Table");
+                sql = "CREATE TABLE EXTTRANSPORT" +
+                        "(RequestID VARCHAR(21) not NULL, " +
+                        " EmpID VARCHAR(21), " +
+                        " completed BOOLEAN, " +
+                        " patientRoom VARCHAR(21), " +
+                        " currentRoom VARCHAR(21)," +
+                        " externalRoom VARCHAR(21)," +
+                        " transportationMethod VARCHAR(21)," +
+                        " PRIMARY KEY (RequestID))";
+                stmt.executeUpdate(sql);
+                //DatabaseManager.getEmpManager().loadFromCSV();
+            }else{
+                //DatabaseManager.getEmpManager().cleanTable();
+                //DatabaseManager.getEmpManager().loadFromCSV();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+
     /* function databaseStartup()
      * creates database connection and calls startup threads
      */
@@ -134,6 +163,7 @@ public class Mdb extends Thread{
             return;
         }
 
+        //create hashmaps here
 
         //create data tables
             Thread nodeThread = new Thread(() -> {
@@ -157,19 +187,29 @@ public class Mdb extends Thread{
                     throwables.printStackTrace();
                 }
             });
+            Thread EXTtransportThread = new Thread(() -> {
+                try {
+                    EXTtransportStartup();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            });
 
 
             nodeThread.start();
             edgeThread.start();
             employeeThread.start();
+            EXTtransportThread.start();
 
             nodeThread.join();
             edgeThread.join();
             employeeThread.join();
+            EXTtransportThread.join();
 
             // updates the hm here because the data doesnt exist if we do it in the threads, where is map super created?
             DatabaseManager.getNodeManager().updateElementMap();
             DatabaseManager.getEdgeManager().updateElementMap();
+
     }
 
     /* function databaseShutdown()
