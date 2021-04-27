@@ -60,4 +60,8 @@ public class ServiceMap {
     public boolean containsRequest(ServiceRequestType type, String requestID){
         return myMap.get(type).containsKey(requestID);
     }
+
+    public int getSize(ServiceRequestType type){
+        return myMap.get(type).size();
+    }
 }

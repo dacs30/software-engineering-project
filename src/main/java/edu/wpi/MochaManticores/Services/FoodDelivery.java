@@ -7,6 +7,9 @@ public class FoodDelivery extends ServiceRequest {
 
     public FoodDelivery(String RequestID, String employee, boolean completed, String dietaryPreference, String allergies, String menu) {
         super(employee, completed, RequestID);
+        if(RequestID == null){
+            this.RequestID = generateRequestID(ServiceRequestType.FoodDelivery);
+        }
         this.dietaryPreference = dietaryPreference;
         this.allergies = allergies;
         this.menu = menu;

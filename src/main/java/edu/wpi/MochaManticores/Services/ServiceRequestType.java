@@ -6,5 +6,9 @@ public enum ServiceRequestType {
     FloralDelivery,
     FoodDelivery,
     SanitationServices,
-    Emergency
+    Emergency,
+    ReligiousRequest,
+    LanguageInterperter,
+    Medicine,
+    Laundry
 }

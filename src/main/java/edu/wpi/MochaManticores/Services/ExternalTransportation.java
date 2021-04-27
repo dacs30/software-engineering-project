@@ -9,6 +9,9 @@ public class ExternalTransportation extends ServiceRequest{
     public ExternalTransportation(String RequestID, String employee, boolean completed, String patientRoom, String currentRoom,
                                   String externalRoom, String transportationMethod) {
         super(employee, completed, RequestID);
+        if(RequestID == null){
+            this.RequestID = generateRequestID(ServiceRequestType.ExternalTransportation);
+        }
         this.patientRoom = patientRoom;
         this.currentRoom = currentRoom;
         this.externalRoom = externalRoom;

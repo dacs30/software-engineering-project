@@ -7,10 +7,14 @@ public class EmergencyRequest extends ServiceRequest {
 
     public EmergencyRequest(String RequestID, String employee, boolean completed, int numPeopleNeeded, String location, boolean gurney) {
         super(employee, completed, RequestID);
+        if(RequestID == null){
+            this.RequestID = generateRequestID(ServiceRequestType.Emergency);
+        }
         this.numPeopleNeeded = numPeopleNeeded;
         this.location = location;
         this.gurney = gurney;
     }
+
 
     public int getNumPeopleNeeded() {
         return numPeopleNeeded;
