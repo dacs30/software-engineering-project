@@ -9,7 +9,7 @@ public class InternalTransportation extends ServiceRequest {
     public InternalTransportation(String RequestID, String employee, boolean completed, String patientID,
                                   int numStaffNeeded, String destination, String transportationMethod) {
         super(employee, completed, RequestID);
-        if(RequestID == null){
+        if(RequestID.equals("")){
             this.RequestID = generateRequestID(ServiceRequestType.InternalTransportation);
         }
         this.patientID = patientID;

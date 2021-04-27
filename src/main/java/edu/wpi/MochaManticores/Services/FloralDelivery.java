@@ -11,8 +11,8 @@ public class FloralDelivery extends ServiceRequest{
     public FloralDelivery(String RequestID, String employee, boolean completed, String roomNumber, String deliveryChoice,
                           String typeOfFlowers, String vaseOptions, String personalizedNote) {
         super(employee, completed, RequestID);
-        if(RequestID == null){
-            this.RequestID = generateRequestID(ServiceRequestType.FloralDelivery);
+        if(RequestID.equals("")){
+            this.RequestID = generateRequestID(ServiceRequestType.InternalTransportation);
         }
         this.roomNumber = roomNumber;
         this.deliveryChoice = deliveryChoice;

@@ -10,8 +10,8 @@ public class SanitationServices extends ServiceRequest {
     public SanitationServices(String RequestID, String employee, boolean completed, String location, String safetyHazards,
                               String sanitationType, String equipmentNeeded, String description) {
         super(employee, completed, RequestID);
-        if(RequestID == null){
-            this.RequestID = generateRequestID(ServiceRequestType.SanitationServices);
+        if(RequestID.equals("")){
+            this.RequestID = generateRequestID(ServiceRequestType.InternalTransportation);
         }
         this.location = location;
         this.safetyHazards = safetyHazards;

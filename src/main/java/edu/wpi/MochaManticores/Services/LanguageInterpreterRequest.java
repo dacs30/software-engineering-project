@@ -9,6 +9,9 @@ public class LanguageInterpreterRequest extends ServiceRequest{
     public LanguageInterpreterRequest(String employee, String RequestID, boolean completed, String room,
                                       String languageOne, String languageTwo) {
         super(employee, completed, RequestID);
+        if(RequestID.equals("")){
+            this.RequestID = generateRequestID(ServiceRequestType.InternalTransportation);
+        }
         this.room = room;
         this.languageOne = languageOne;
         this.languageTwo = languageTwo;
