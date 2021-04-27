@@ -33,7 +33,7 @@ public class FoodDeliveryManager extends Manager<FoodDelivery> {
                 if(line == null) break;
                 String[] row = line.split(CSVdelim);
 
-                FoodDelivery temp = new FoodDelivery(row[0],row[1],Boolean.parseBoolean(row[2]),
+                FoodDelivery temp = new FoodDelivery("",row[1],Boolean.parseBoolean(row[2]),
                         row[3],row[4],row[5]);
                 addElement(temp);
             }
@@ -44,6 +44,7 @@ public class FoodDeliveryManager extends Manager<FoodDelivery> {
 
     @Override
     void addElement(FoodDelivery v) {
+        v.setRequestID(v.generateRequestID(this.type));
         addElement_db(v);
         addElement_map(v);
     }

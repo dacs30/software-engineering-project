@@ -6,7 +6,7 @@ public class ReligiousRequest extends ServiceRequest{
     private String typeSacredPerson;
 
 
-    public ReligiousRequest(String employee, String RequestID, boolean completed, String reasonVisit,
+    public ReligiousRequest(String RequestID, String employee, boolean completed, String reasonVisit,
                             String location, String typeSacredPerson) {
         super(employee, completed, RequestID);
         if(RequestID.equals("")){
