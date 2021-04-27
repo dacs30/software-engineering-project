@@ -91,7 +91,7 @@ public class Mdb extends Thread{
                         " fisrtName VARCHAR(21), " +
                         " lastName VARCHAR(21), " +
                         " employeeType VARCHAR(21)," +
-                        " ID INT," +
+                        " ID INTEGER," +
                         " AdminLevel BOOLEAN," +
                         " PRIMARY KEY (username))";
                 stmt.executeUpdate(sql);
@@ -229,7 +229,7 @@ public class Mdb extends Thread{
                         "(RequestID VARCHAR(40) not NULL, " +
                         " EmpID VARCHAR(21), " +
                         " completed BOOLEAN, " +
-                        "location VARCHAR(40)" +
+                        "location VARCHAR(40)," +
                         " safetyHazards VARCHAR(50), " +
                         " sanitationType VARCHAR(50), " +
                         " equipmentNeeded VARCHAR(100), " +
@@ -258,7 +258,7 @@ public class Mdb extends Thread{
                         "(RequestID VARCHAR(40) not NULL, " +
                         " EmpID VARCHAR(21), " +
                         " completed BOOLEAN, " +
-                        "numPeopleNeeded INTEGER" +
+                        "numPeopleNeeded INTEGER," +
                         "location VARCHAR(50), " +
                         "gurney BOOLEAN, " +
                         " PRIMARY KEY (RequestID))";
@@ -273,21 +273,21 @@ public class Mdb extends Thread{
         }
     }
 
-    public static void ReligiousRequest() throws SQLException {
+    public static void ReligiousRequestStartup() throws SQLException {
         Statement stmt = connection.createStatement();
         try {
             ResultSet rs = meta.getTables(null, "APP", "EMPLOYEES", null);
-            rs = meta.getTables(null, "APP", "EMGREQ", null);
+            rs = meta.getTables(null, "APP", "RELREQ", null);
             if(!rs.next()) {
                 String sql;
-                System.out.println("Creating Emergency Services Request Table");
-                sql = "CREATE TABLE EMGREQ" +
+                System.out.println("Creating Religious Services Request Table");
+                sql = "CREATE TABLE RELREQ" +
                         "(RequestID VARCHAR(40) not NULL, " +
-                        " Employee VARCHAR(21)," +
-                        " Completed BOOLEAN" +
-                        "numPeopleNeeded INTEGER" +
+                        " EmpID VARCHAR(21)," +
+                        " completed BOOLEAN," +
+                        "reasonVisit VARCHAR(50)," +
                         "location VARCHAR(50), " +
-                        "gurney BOOLEAN, " +
+                        "typeSacredPerson VARCHAR(50), " +
                         " PRIMARY KEY (RequestID))";
                 stmt.executeUpdate(sql);
                 //DatabaseManager.getEmpManager().loadFromCSV();
@@ -299,6 +299,8 @@ public class Mdb extends Thread{
             throwables.printStackTrace();
         }
     }
+
+
 
 
     /* function databaseStartup()
@@ -398,27 +400,40 @@ public class Mdb extends Thread{
                     throwables.printStackTrace();
                 }
             });
+            Thread ReligiousRequestThread = new Thread(() -> {
+                try {
+                    ReligiousRequestStartup();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            });
 
 
             nodeThread.start();
             edgeThread.start();
             employeeThread.start();
+
             EXTtransportThread.start();
             FloralDeliveryThread.start();
             FoodDeliveryThread.start();
             SanitationServicesThread.start();
             INTtransportThread.start();
             EmergencyRequestThread.start();
+            ReligiousRequestThread.start();
+
+
 
             nodeThread.join();
             edgeThread.join();
             employeeThread.join();
+
             EXTtransportThread.join();
             INTtransportThread.join();
             FloralDeliveryThread.join();
             FoodDeliveryThread.join();
             SanitationServicesThread.join();
             EmergencyRequestThread.join();
+            ReligiousRequestThread.join();
 
             // updates the hm here because the data doesnt exist if we do it in the threads, where is map super created?
             DatabaseManager.getNodeManager().updateElementMap();
