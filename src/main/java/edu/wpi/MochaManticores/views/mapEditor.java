@@ -36,12 +36,17 @@ import edu.wpi.MochaManticores.views.nodePage;
 import edu.wpi.MochaManticores.views.edgesPage;
 
 import javax.swing.*;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.*;
+
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class mapEditor extends SceneController {
 
@@ -1491,5 +1496,31 @@ public class mapEditor extends SceneController {
         setZoom(src, curX * multi, curY * multi, zoomPort);
         //System.out.printf("X: %f\nY: %f\n\n",curX,curY);
 
+    }
+
+    public void gotoEdge(ActionEvent e){
+        super.changeSceneTo("edgesPage");
+    }
+
+    public void gotoNode(ActionEvent e){
+        super.changeSceneTo("nodePage");
+    }
+
+    public void downloadCSVs(ActionEvent e) {
+        String path = getPath();
+        if(path.equals("")){
+
+        }else{
+            File dst = new File(path + "\\bwMNodes.csv");
+            File dst2 = new File(path + "\\bwMEdges.csv");
+            try{
+                File source = new File("data/bwMNodes.csv");
+                File source2 = new File("data/bwMEdges.csv");
+                Files.copy(source.toPath(),dst.toPath(),REPLACE_EXISTING);
+                Files.copy(source2.toPath(),dst2.toPath(),REPLACE_EXISTING);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        }
     }
 }

@@ -65,7 +65,6 @@
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="324.6666259765625" minWidth="10.0" prefWidth="165.66668701171875" />
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="610.0" minWidth="10.0" prefWidth="610.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="324.0" minWidth="10.0" prefWidth="200.3333740234375" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="209.6666259765625" minWidth="10.0" prefWidth="191.6666259765625" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -76,11 +75,6 @@
                               <Font size="43.0" />
                            </font>
                         </Label>
-                        <JFXButton id="downloadCSVBtn" fx:id="downloadButton" buttonType="RAISED" onAction="#downloadCSVs" prefHeight="64.0" prefWidth="175.0" style="-fx-background-color: white; -fx-background-radius: 40;" text="Download File" GridPane.columnIndex="4">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </JFXButton>
                         <ImageView fitHeight="84.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <image>
                               <Image url="@../images/logo-small.png" />

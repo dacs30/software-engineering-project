@@ -323,31 +323,44 @@ public class landingPageController extends SceneController {
   }
 
   public void renderMapEditor(MouseEvent mouseEvent) throws IOException {
-    // removes the children so you don't end up with weird scenes one over the other
-    scenesPane.getChildren().removeAll(scenesPane.getChildren());
 
-    Parent root = null;
-
-    // if it is an employee the page page is different
-    if(App.getClearenceLevel() == 1){
-      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/employeeMapPage.fxml")));
+    if (App.getClearenceLevel() >= 1){
+      super.changeSceneTo("employeeMapPage");
     } else {
-      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/mapEditor.fxml")));
+      super.changeSceneTo("mapPage");
     }
 
-    // change the colors of the old selected page back to the default
-    currentVbox.setStyle("-fx-background-radius: 0;");
-    currentVbox.setStyle("-fx-background-color:  #E9E9E9");
+    //    // removes the children so you don't end up with weird scenes one over the other
+//    scenesPane.getChildren().removeAll(scenesPane.getChildren());
+//
+//    Parent root = null;
+//
+//    // if it is an employee the page page is different
+//    if(App.getClearenceLevel() == 1){
+//      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/employeeMapPage.fxml")));
+//    } else {
+//      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/mapPage.fxml")));
+//    }
+//
+//
+//    // change the colors of the old selected page back to the default
+//    currentVbox.setStyle("-fx-background-radius: 0;");
+//    currentVbox.setStyle("-fx-background-color:  #E9E9E9");
+//
+//    // changes the currentbox
+//    currentVbox = mapSidePane;
+//
+//    // gives the selected properties for the new selected page
+//    mapSidePane.setStyle("-fx-background-radius: 20;");
+//    mapSidePane.setStyle("-fx-background-color: rgba(15,75,145,0.29);");
+//
+//    // adds the selected page to the scenesPane so it can be displayed
+//    scenesPane.maxHeight(App.getPrimaryStage().getHeight());
+//    scenesPane.maxWidth(App.getPrimaryStage().getWidth()-currentVbox.getWidth());
+//    root.maxHeight(App.getPrimaryStage().getHeight());
+//    root.maxWidth(App.getPrimaryStage().getWidth()-currentVbox.getWidth());
+//    scenesPane.getChildren().add(root);
 
-    // changes the currentbox
-    currentVbox = mapSidePane;
-
-    // gives the selected properties for the new selected page
-    mapSidePane.setStyle("-fx-background-radius: 20;");
-    mapSidePane.setStyle("-fx-background-color: rgba(15,75,145,0.29);");
-
-    // adds the selected page to the scenesPane so it can be displayed
-    scenesPane.getChildren().add(root);
   }
 
 
