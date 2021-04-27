@@ -30,7 +30,7 @@
             <JFXDialog />
          </children>
       </StackPane>
-      <GridPane fx:id="contentPane" gridLinesVisible="true" layoutX="-1.0" layoutY="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <GridPane fx:id="contentPane" layoutX="-1.0" layoutY="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
         </columnConstraints>
@@ -38,7 +38,7 @@
           <RowConstraints vgrow="ALWAYS" />
         </rowConstraints>
          <children>
-            <GridPane fx:id="mapGrid" gridLinesVisible="true" minWidth="-Infinity" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <GridPane fx:id="mapGrid" minWidth="-Infinity" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
@@ -47,7 +47,7 @@
                 <RowConstraints vgrow="ALWAYS" />
               </rowConstraints>
                <children>
-                  <GridPane gridLinesVisible="true" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+                  <GridPane GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
                      </GridPane.margin>
