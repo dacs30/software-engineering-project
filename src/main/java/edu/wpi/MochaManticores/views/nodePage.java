@@ -1,5 +1,4 @@
 package edu.wpi.MochaManticores.views;
-//TODO:comment :(
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;

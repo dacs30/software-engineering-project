@@ -1345,6 +1345,7 @@ public class mapEditor extends SceneController {
         }
     }
 
+
     /**
      * change color of node if clicked on
      * @param e, MouseEvent to get mouse data
