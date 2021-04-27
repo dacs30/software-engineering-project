@@ -5,6 +5,7 @@ import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
 import edu.wpi.MochaManticores.App;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -16,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
@@ -28,6 +30,9 @@ import java.util.Collection;
 import java.util.Objects;
 
 public class landingPageController extends SceneController {
+
+  @FXML
+  private ColumnConstraints mainGrid;
 
   @FXML
   private GridPane sidePanel;
@@ -99,9 +104,16 @@ public class landingPageController extends SceneController {
 
       dialogPane.toBack();
 
+      // create a vbox of services
       VBox services = new VBox();
-      services.getChildren().addAll(foodDeliverySidePanel, medicineDeliverySidePanel, internalTransportationSidePanel, externalTransportationSidePanel,shoppingSideMenu,sanitationSideMenu,mapSidePane);
 
+      // add the hbox of the services
+      services.getChildren().addAll(menuSidePane, foodDeliverySidePanel, medicineDeliverySidePanel, internalTransportationSidePanel, externalTransportationSidePanel,shoppingSideMenu,sanitationSideMenu,mapSidePane);
+
+
+      services.setMaxWidth(Region.USE_COMPUTED_SIZE);
+
+      // add the items to teh scroll thing with loop
       for (int i = 0; i < 10; i++){
         HBox t = new HBox();
         Label l = new Label();
@@ -112,6 +124,9 @@ public class landingPageController extends SceneController {
 
       //StackPane container = new StackPane(services);
       servicesPane.setContent(services);
+      servicesPane.setMaxWidth(sidePanel.getMaxWidth());
+
+      servicesPane.setFitToWidth(true);
   }
 
   //emergencyDialog

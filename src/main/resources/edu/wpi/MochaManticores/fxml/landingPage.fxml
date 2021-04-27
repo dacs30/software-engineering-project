@@ -16,7 +16,7 @@
 
 <AnchorPane id="outerContainer" fx:id="outerPane" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../Stylesheets/landingPage.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.landingPageController">
    <children>
-      <HBox fx:id="menuSidePane" alignment="CENTER_LEFT" onMouseClicked="#renderMenu" spacing="10.0">
+      <HBox fx:id="menuSidePane" alignment="CENTER_LEFT" onMouseClicked="#renderMenu" spacing="10.0" style="-fx-background-color: #E9E9E9;">
          <children>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -26,10 +26,10 @@
             <Label id="menuSideBarLabel" stylesheets="@../Stylesheets/landingPage.css" text="Menu" />
          </children>
          <padding>
-            <Insets left="30.0" />
+            <Insets bottom="10.0" left="20.0" top="10.0" />
          </padding>
       </HBox>
-      <HBox fx:id="mapSidePane" alignment="CENTER_LEFT" onMouseClicked="#renderMapEditor" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+      <HBox fx:id="mapSidePane" alignment="CENTER_LEFT" onMouseClicked="#renderMapEditor" spacing="10.0" style="-fx-background-color: #E9E9E9;">
          <children>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -42,10 +42,10 @@
             <Insets />
          </opaqueInsets>
          <padding>
-            <Insets left="30.0" />
+            <Insets left="20.0" />
          </padding>
       </HBox>
-      <HBox fx:id="foodDeliverySidePanel" alignment="CENTER_LEFT" onMouseClicked="#renderFoodDelivery" spacing="10.0">
+      <HBox fx:id="foodDeliverySidePanel" alignment="CENTER_LEFT" onMouseClicked="#renderFoodDelivery" spacing="10.0" style="-fx-background-color: #E9E9E9;">
          <children>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -61,7 +61,7 @@
             <Insets left="20.0" />
          </padding>
       </HBox>
-      <HBox fx:id="medicineDeliverySidePanel" alignment="CENTER_LEFT" onMouseClicked="#renderMedicineDelivery" spacing="10.0">
+      <HBox fx:id="medicineDeliverySidePanel" alignment="CENTER_LEFT" onMouseClicked="#renderMedicineDelivery" spacing="10.0" style="-fx-background-color: #E9E9E9;">
          <children>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -74,7 +74,7 @@
             <Insets left="20.0" />
          </padding>
       </HBox>
-      <HBox fx:id="internalTransportationSidePanel" alignment="CENTER_LEFT" onMouseClicked="#renderInternalTransportation" spacing="10.0">
+      <HBox fx:id="internalTransportationSidePanel" alignment="CENTER_LEFT" onMouseClicked="#renderInternalTransportation" spacing="10.0" style="-fx-background-color: #E9E9E9;">
          <children>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -87,7 +87,7 @@
             <Insets left="20.0" />
          </padding>
       </HBox>
-      <HBox fx:id="externalTransportationSidePanel" alignment="CENTER_LEFT" onMouseClicked="#renderExternalTransportation" spacing="10.0">
+      <HBox fx:id="externalTransportationSidePanel" alignment="CENTER_LEFT" onMouseClicked="#renderExternalTransportation" prefHeight="48.0" prefWidth="241.0" spacing="10.0" style="-fx-background-color: #E9E9E9;">
          <children>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -100,7 +100,7 @@
             <Insets left="20.0" />
          </padding>
       </HBox>
-      <HBox fx:id="shoppingSideMenu" alignment="CENTER_LEFT" onMouseClicked="#renderShopping" spacing="10.0">
+      <HBox fx:id="shoppingSideMenu" alignment="CENTER_LEFT" onMouseClicked="#renderShopping" spacing="10.0" style="-fx-background-color: #E9E9E9;">
          <children>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -113,7 +113,7 @@
             <Insets left="20.0" />
          </padding>
       </HBox>
-      <HBox fx:id="sanitationSideMenu" alignment="CENTER_LEFT" onMouseClicked="#renderSanitationServices" spacing="10.0">
+      <HBox fx:id="sanitationSideMenu" alignment="CENTER_LEFT" onMouseClicked="#renderSanitationServices" spacing="10.0" style="-fx-background-color: #E9E9E9;">
          <children>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -129,16 +129,16 @@
       <StackPane fx:id="dialogPane" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <GridPane id="shit" stylesheets="@../Stylesheets/landingPage.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="NEVER" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
+          <ColumnConstraints fx:id="mainGrid" hgrow="NEVER" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="80.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <GridPane id="sideMenu" fx:id="sidePanel" prefWidth="227.0" style="-fx-background-color: #E9E9E9;" stylesheets="@../Stylesheets/landingPage.css" GridPane.hgrow="NEVER">
+            <GridPane id="sideMenu" fx:id="sidePanel" style="-fx-background-color: #E9E9E9;" stylesheets="@../Stylesheets/landingPage.css">
               <columnConstraints>
-                <ColumnConstraints halignment="CENTER" maxWidth="240.0" minWidth="181.0" prefWidth="240.0" />
+                <ColumnConstraints halignment="CENTER" maxWidth="1.7976931348623157E308" percentWidth="100.0" />
                   <ColumnConstraints halignment="CENTER" maxWidth="59.0" minWidth="0.0" prefWidth="0.0" />
               </columnConstraints>
               <rowConstraints>
@@ -177,14 +177,14 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <ScrollPane fx:id="servicesPane" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+                  <ScrollPane id="scrollPane" fx:id="servicesPane" maxWidth="1.7976931348623157E308" GridPane.rowIndex="2">
                      <GridPane.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        <Insets bottom="10.0" top="10.0" />
                      </GridPane.margin>
                   </ScrollPane>
                </children>
             </GridPane>
-            <AnchorPane fx:id="scenesPane" GridPane.columnIndex="1" />
+            <AnchorPane fx:id="scenesPane" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" />
          </children>
       </GridPane>
    </children>

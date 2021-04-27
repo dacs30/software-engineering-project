@@ -33,3 +33,11 @@
     -fx-background-color: #ff9494;
     -fx-background-radius: 20;
 }
+
+.scroll-pane {
+    -fx-background-color:  transparent;
+}
+
+.scroll-pane:horizontal {
+    visibility: false;
+}
