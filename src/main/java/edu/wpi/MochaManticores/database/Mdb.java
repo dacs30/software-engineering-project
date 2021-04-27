@@ -195,11 +195,12 @@ public class Mdb extends Thread{
                 System.out.println("Creating Internal Transportation Request Table");
                 sql = "CREATE TABLE INTTRANSPORT" +
                         "(RequestID VARCHAR(21) not NULL, " +
-                        " roomNum VARCHAR(21), " +
-                        " deliveryChoice VARCHAR(100), " +
-                        " typeFlowers VARCHAR(40), " +
-                        " vaseOptions VARCHAR(40)," +
-                        " personalizedNote VARCHAR(200)," +
+                        " Employee VARCHAR(21)," +
+                        " Completed BOOLEAN" +
+                        " patientID VARCHAR(21), " +
+                        " numStaffNeeded INTEGER, " +
+                        " Destination VARCHAR(21), " +
+                        " TransportationMethod VARCHAR(21)," +
                         " PRIMARY KEY (RequestID))";
                 stmt.executeUpdate(sql);
                 //DatabaseManager.getEmpManager().loadFromCSV();
@@ -249,6 +250,35 @@ public class Mdb extends Thread{
                 System.out.println("Creating Emergency Services Request Table");
                 sql = "CREATE TABLE EMGREQ" +
                         "(RequestID VARCHAR(40) not NULL, " +
+                        " Employee VARCHAR(21)," +
+                        " Completed BOOLEAN" +
+                        "numPeopleNeeded INTEGER" +
+                        "location VARCHAR(50), " +
+                        "gurney BOOLEAN, " +
+                        " PRIMARY KEY (RequestID))";
+                stmt.executeUpdate(sql);
+                //DatabaseManager.getEmpManager().loadFromCSV();
+            }else{
+                //DatabaseManager.getEmpManager().cleanTable();
+                //DatabaseManager.getEmpManager().loadFromCSV();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public static void ReligiousRequest() throws SQLException {
+        Statement stmt = connection.createStatement();
+        try {
+            ResultSet rs = meta.getTables(null, "APP", "EMPLOYEES", null);
+            rs = meta.getTables(null, "APP", "EMGREQ", null);
+            if(!rs.next()) {
+                String sql;
+                System.out.println("Creating Emergency Services Request Table");
+                sql = "CREATE TABLE EMGREQ" +
+                        "(RequestID VARCHAR(40) not NULL, " +
+                        " Employee VARCHAR(21)," +
+                        " Completed BOOLEAN" +
                         "numPeopleNeeded INTEGER" +
                         "location VARCHAR(50), " +
                         "gurney BOOLEAN, " +
