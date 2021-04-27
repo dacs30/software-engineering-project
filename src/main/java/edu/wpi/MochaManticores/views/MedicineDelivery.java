@@ -48,7 +48,7 @@ public class MedicineDelivery {
         backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
         typeOfMedicineComboBx.getItems().clear();
-        typeOfMedicineComboBx.getItems().addAll("Tylenol", "", "Menu 2", "Menu 3");
+        typeOfMedicineComboBx.getItems().addAll("Tylenol", "Advil", "Aspirin");
     }
 
     /**
