@@ -37,7 +37,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <GridPane fx:id="mapGrid" minWidth="-Infinity" prefHeight="700.0" prefWidth="1150.0" style="-fx-background-color: #0f4b91;" translateX="100.0" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+            <GridPane fx:id="mapGrid" minWidth="-Infinity" prefHeight="810.0" prefWidth="1205.0" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
@@ -46,7 +46,7 @@
                 <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
               </rowConstraints>
                <children>
-                  <StackPane fx:id="mapStack" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+                  <StackPane fx:id="mapStack" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="900.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
                      <children>
                         <ImageView id="mapPane" fx:id="mapWindow" onMouseClicked="#drawCoord" pickOnBounds="true" preserveRatio="true" style="-fx-background-size: contain; -fx-background-repeat: no-repeat;" StackPane.alignment="CENTER">
                            <viewport>
@@ -56,9 +56,9 @@
                               <Insets />
                            </StackPane.margin>
                         </ImageView>
-                        <Pane fx:id="nodePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" StackPane.alignment="CENTER">
+                        <Pane fx:id="nodePane" prefHeight="700.0" prefWidth="900.0" StackPane.alignment="CENTER">
                            <StackPane.margin>
-                              <Insets />
+                              <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
                            </StackPane.margin></Pane>
                      </children>
                      <GridPane.margin>
@@ -77,7 +77,7 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label fx:id="locationTitle" alignment="TOP_CENTER" text="Select a Floor from the left" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                        <Label fx:id="locationTitle" alignment="TOP_CENTER" text="Select a Floor from the left" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                            <font>
                               <Font size="43.0" />
                            </font>

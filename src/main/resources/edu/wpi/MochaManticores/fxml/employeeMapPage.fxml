@@ -398,13 +398,13 @@
                   </JFXComboBox>
                </children>
             </GridPane>
-            <GridPane fx:id="mapGrid" style="-fx-background-color: #0f4b91;" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
+            <GridPane fx:id="mapGrid" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="77.0" vgrow="NEVER" />
-                  <RowConstraints maxHeight="697.0740737915039" minHeight="10.0" prefHeight="646.1111221313477" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="163.0" minHeight="10.0" prefHeight="133.0" vgrow="NEVER" />
+                  <RowConstraints maxHeight="697.0740737915039" minHeight="10.0" prefHeight="672.0" vgrow="ALWAYS" />
                </rowConstraints>
                <children>
                   <StackPane fx:id="mapStack" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
@@ -440,29 +440,29 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <JFXButton id="getPathBtn" fx:id="routeExample" buttonType="RAISED" onAction="#toAStar" prefHeight="50.0" prefWidth="175.0" style="-fx-background-color: white; -fx-border-radius: 15;" stylesheets="@../Stylesheets/employeeMapPage.css" text="Get Path" GridPane.halignment="CENTER">
+                              <JFXButton id="getPathBtn" fx:id="routeExample" buttonType="RAISED" onAction="#toAStar" prefHeight="50.0" prefWidth="175.0" style="-fx-background-color: white; -fx-border-radius: 15;" stylesheets="@../Stylesheets/employeeMapPage.css" text="Get Path" translateY="-10.0" GridPane.halignment="CENTER">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </JFXButton>
-                              <JFXButton id="editEdgesBtn" fx:id="edgeButton" alignment="CENTER" buttonType="RAISED" onAction="#gotoEdge" prefHeight="50.0" prefWidth="175.0" style="-fx-background-color: white;" text="Edit Edges" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                              <JFXButton id="editEdgesBtn" fx:id="edgeButton" alignment="CENTER" buttonType="RAISED" onAction="#gotoEdge" prefHeight="50.0" prefWidth="175.0" style="-fx-background-color: white;" text="Edit Edges" textAlignment="CENTER" translateY="-10.0" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="36.0" />
                                  </font>
                               </JFXButton>
-                              <JFXButton id="downloadCSVBtn" fx:id="downloadButton" buttonType="RAISED" onAction="#downloadCSVs" prefHeight="50.0" prefWidth="175.0" style="-fx-background-color: white;" text="Download File" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                              <JFXButton id="downloadCSVBtn" fx:id="downloadButton" buttonType="RAISED" onAction="#downloadCSVs" prefHeight="50.0" prefWidth="175.0" style="-fx-background-color: white;" text="Download File" translateY="-10.0" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="36.0" />
                                  </font>
                               </JFXButton>
-                              <JFXButton id="editNodeBtn" fx:id="nodeButton" buttonType="RAISED" onAction="#gotoNode" prefHeight="50.0" prefWidth="175.0" style="-fx-background-color: white;" text="Edit Nodes" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+                              <JFXButton id="editNodeBtn" fx:id="nodeButton" buttonType="RAISED" onAction="#gotoNode" prefHeight="50.0" prefWidth="175.0" style="-fx-background-color: white;" text="Edit Nodes" translateY="-10.0" GridPane.columnIndex="3" GridPane.halignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="36.0" />
                                  </font>
                               </JFXButton>
                            </children>
                         </GridPane>
-                        <Label fx:id="locationTitle" alignment="CENTER" text="Select a Floor from the left" textAlignment="CENTER" textFill="WHITE">
+                        <Label fx:id="locationTitle" alignment="CENTER" text="Select a Floor from the left" textAlignment="CENTER">
                            <font>
                               <Font size="24.0" />
                            </font>

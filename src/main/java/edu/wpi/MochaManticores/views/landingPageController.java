@@ -56,7 +56,7 @@ public class landingPageController extends SceneController {
   private HBox internalTransportationSidePanel;
 
   @FXML
-  private  HBox externalTransportationSidePanel;
+  private HBox externalTransportationSidePanel;
 
   @FXML
   private HBox shoppingSideMenu;
@@ -80,29 +80,29 @@ public class landingPageController extends SceneController {
 
   public void initialize() throws IOException {
 
-      sidePanel.toFront();
+    sidePanel.toFront();
 
-      double height = super.getHeight();
-      double width = super.getWidth();
-      //contentPane.setPrefSize(width,height);
+    double height = super.getHeight();
+    double width = super.getWidth();
+    //contentPane.setPrefSize(width,height);
 
-      Parent root = null;
-      greetingLabel.setText("Hello, " + App.getCurrentUsername().toUpperCase());
+    Parent root = null;
+    greetingLabel.setText("Hello, " + App.getCurrentUsername().toUpperCase());
 
-      if(App.getClearenceLevel() == 1){
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/employeeHomePage.fxml")));
-      } else {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/homePage2.fxml")));
-      }
+    if (App.getClearenceLevel() == 1) {
+      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/employeeHomePage.fxml")));
+    } else {
+      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/homePage2.fxml")));
+    }
 
-      scenesPane.getChildren().add(root);
+    scenesPane.getChildren().add(root);
 
-      currentVbox = menuSidePane;
+    currentVbox = menuSidePane;
 
-      menuSidePane.setStyle("-fx-background-radius: 20;");
-      menuSidePane.setStyle("-fx-background-color: rgba(15,75,145,0.29);");
+    menuSidePane.setStyle("-fx-background-radius: 20;");
+    menuSidePane.setStyle("-fx-background-color: rgba(15,75,145,0.29);");
 
-      dialogPane.toBack();
+    dialogPane.toBack();
 
       // create a vbox of services
       VBox services = new VBox();
@@ -130,7 +130,7 @@ public class landingPageController extends SceneController {
   }
 
   //emergencyDialog
-  public void loadDialog(){
+  public void loadDialog() {
     //TODO Center the text of it.
     //dialogPane.setDisable(false);
     JFXDialogLayout message = new JFXDialogLayout();
@@ -151,7 +151,7 @@ public class landingPageController extends SceneController {
     message.setHeading(hearder);
 
     message.setBody(body);
-    JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
+    JFXDialog dialog = new JFXDialog(dialogPane, message, JFXDialog.DialogTransition.CENTER);
     JFXButton yes = new JFXButton("YES");
     yes.setOnAction(event -> {
       // change the colors of the old selected page back to the default
@@ -193,7 +193,7 @@ public class landingPageController extends SceneController {
 
     Parent root = null;
     // if it is an employee the page page is different
-    if(App.getClearenceLevel() == 1){
+    if (App.getClearenceLevel() == 1) {
       root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/employeeHomePage.fxml")));
     } else {
       root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/homePage2.fxml")));
@@ -217,7 +217,7 @@ public class landingPageController extends SceneController {
     // sets parent to be the file to be loaded
     // if it is an employee the page page is different
     Parent root = null;
-    if(App.getClearenceLevel() == 1){
+    if (App.getClearenceLevel() == 1) {
       root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/foodDeliveryEmployee.fxml")));
     } else {
       root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/foodDelivery.fxml")));
@@ -357,7 +357,8 @@ public class landingPageController extends SceneController {
 
   public void renderMapEditor(MouseEvent mouseEvent) throws IOException {
 
-    if (App.getClearenceLevel() >= 1){
+
+    if (App.getClearenceLevel() >= 1) {
       super.changeSceneTo("employeeMapPage");
     } else {
       super.changeSceneTo("mapPage");
@@ -405,4 +406,5 @@ public class landingPageController extends SceneController {
   public void userSettings(ActionEvent actionEvent) {
     loadErrorDialog(dialogPane, "Coming in a future iteration!");
   }
+
 }
