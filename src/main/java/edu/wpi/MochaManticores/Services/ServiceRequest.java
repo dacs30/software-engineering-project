@@ -47,7 +47,7 @@ public abstract class ServiceRequest {
     }
 
     public String generateRequestID(ServiceRequestType type){
-        int num = DatabaseManager.getServiceMap().getSize(type);
+        int num = 0; //DatabaseManager.getServiceMap().getSize(type);
         switch(type){
             case Emergency:
                 return "EMG"+num;

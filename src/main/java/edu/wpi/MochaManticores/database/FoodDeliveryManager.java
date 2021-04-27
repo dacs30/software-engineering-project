@@ -50,7 +50,7 @@ public class FoodDeliveryManager extends Manager<FoodDelivery> {
     void addElement_db(FoodDelivery temp) {
 
         try {
-            String sql = "INSERT INTO FOODDEL (RequestID, EmpID, completed, dietaryPreferences, allergies, menu" +
+            String sql = "INSERT INTO FOODDEL (RequestID, EmpID, completed, dietaryPreferences, allergies, menu)" +
                     "VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, temp.getRequestID());

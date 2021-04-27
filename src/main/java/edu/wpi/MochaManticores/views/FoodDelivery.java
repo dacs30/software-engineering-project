@@ -125,9 +125,9 @@ public class FoodDelivery extends SceneController {
 
 
     public void submitForm(ActionEvent e) {
-
+        sel s = sel.FoodDelivery;
         // changeSceneTo(e, "mainMenu");
-        DatabaseManager.addRequest(sel.FoodDelivery,
+        DatabaseManager.addRequest(s,
                         new edu.wpi.MochaManticores.Services.FoodDelivery(
                         "", "", false, dietaryPreferences.getSelectionModel().getSelectedItem(),
                         allergiesField.getText(), foodMenu.getSelectionModel().getSelectedItem()));
