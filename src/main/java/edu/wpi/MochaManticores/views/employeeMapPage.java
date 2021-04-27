@@ -36,14 +36,18 @@ import edu.wpi.MochaManticores.views.nodePage;
 import edu.wpi.MochaManticores.views.edgesPage;
 
 import javax.swing.*;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.*;
 
-public class mapEditor extends SceneController {
+public class employeeMapPage extends SceneController {
 
     @FXML
     public JFXTextField xCoordField;
@@ -89,6 +93,29 @@ public class mapEditor extends SceneController {
 
     @FXML
     private JFXTextField nodeTypeField;
+
+    public void downloadCSVs(ActionEvent actionEvent) {
+        String path = getPath();
+        if (path.equals("")) {
+
+        } else {
+            File dst = new File(path + "\\bwMEdges.csv");
+            try {
+                File source = new File("data/bwMEdges.csv");
+                Files.copy(source.toPath(), dst.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        }
+    }
+
+    public void gotoEdge(ActionEvent e) {
+        super.changeSceneTo("edgesPage");
+    }
+
+    public void gotoNode(ActionEvent e) {
+        super.changeSceneTo("nodePage");
+    }
 
     /**
      * Wrapper class for drawing nodes on the map
@@ -379,7 +406,6 @@ public class mapEditor extends SceneController {
         double width = super.getWidth();
         backgroundIMG.setFitHeight(height);
         backgroundIMG.setFitWidth(width);
-        contentPane.setPrefSize(width, height);
 
         backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
         backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
@@ -670,7 +696,6 @@ public class mapEditor extends SceneController {
                 drawEdges();
                 nodePane.getChildren().remove(edgeToAdd);
                 editing = false;
-                addingEdge = false;
             }
         };
         cancelChanges.setOnAction(cancelButton);
@@ -714,7 +739,7 @@ public class mapEditor extends SceneController {
         EdgeSuper editedEdge = null;
         String selectedID;
         if (!editor.checkInput(Arrays.asList(edgeIDField.getText(), startNodeID.getText(), endNodeID.getText()))) { // IF fields are blank, submit error
-            mapEditor.super.loadErrorDialog(dialogPane, "Please do not leave fields blank!");
+            employeeMapPage.super.loadErrorDialog(dialogPane, "Please do not leave fields blank!");
         } else {
             EdgeSuper oldEdge = EdgeMapSuper.getMap().get(edgeIDField.getText());
             if (oldEdge != null) {
@@ -1009,6 +1034,7 @@ public class mapEditor extends SceneController {
     }
 
     public void toAStar() {
+        AStar2 star = new AStar2();
         //pathToTake is used in the dialog box that keeps all the nodes that the user has to pass through
         StringBuilder pathToTake = new StringBuilder(new String());
         LinkedList<NodeSuper> stops = new LinkedList<>();
@@ -1020,7 +1046,7 @@ public class mapEditor extends SceneController {
             pathToTake.append("Please select at least one node");
         } else {
 
-            LinkedList<String> path = App.getAlgoType().multiStopRoute(stops, "none");
+            LinkedList<String> path = star.multiStopRoute(stops,pathToTake.toString());
             System.out.println(path);
             for (String str :
                     path) {

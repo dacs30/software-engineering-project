@@ -11,6 +11,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.*;
@@ -18,7 +19,7 @@ import javafx.scene.text.Text;
 
 import javafx.scene.input.MouseEvent;
 
-import java.awt.*;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.Collection;
@@ -62,6 +63,9 @@ public class landingPageController extends SceneController {
   @FXML
   private HBox emergencySidePanel;
 
+  @FXML
+  private Label greetingLabel;
+
   HBox currentVbox;
 
   public void initialize() throws IOException {
@@ -73,6 +77,7 @@ public class landingPageController extends SceneController {
       //contentPane.setPrefSize(width,height);
 
       Parent root = null;
+      greetingLabel.setText("Hello, " + App.getCurrentUsername().toUpperCase());
 
       if(App.getClearenceLevel() == 1){
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/employeeHomePage.fxml")));
@@ -200,13 +205,12 @@ public class landingPageController extends SceneController {
     scenesPane.getChildren().add(root);
   }
 
-  //TODO Fix to actually render medicine
   public void renderMedicineDelivery(MouseEvent mouseEvent) throws IOException {
     // removes the children so you don't end up with weird scenes one over the other
     scenesPane.getChildren().removeAll(scenesPane.getChildren());
 
     // sets parent to be the file to be loaded
-    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/mainMenu.fxml")));
+    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/medicineDelivery.fxml")));
 
     // change the colors of the old selected page back to the default
     currentVbox.setStyle("-fx-background-radius: 0;");
@@ -326,7 +330,7 @@ public class landingPageController extends SceneController {
 
     // if it is an employee the page page is different
     if(App.getClearenceLevel() == 1){
-      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/mapEditor.fxml")));
+      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/employeeMapPage.fxml")));
     } else {
       root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/mapPage.fxml")));
     }
@@ -344,5 +348,15 @@ public class landingPageController extends SceneController {
 
     // adds the selected page to the scenesPane so it can be displayed
     scenesPane.getChildren().add(root);
+  }
+
+
+  public void logOut(ActionEvent actionEvent) {
+    App.setCurrentUsername(null);
+    changeSceneTo("loginPage");
+  }
+
+  public void userSettings(ActionEvent actionEvent) {
+    loadErrorDialog(dialogPane, "Coming in a future iteration!");
   }
 }

@@ -30,6 +30,15 @@ public class App extends Application {
   private static EdgeManager edgeManager;
   private static EmployeeManager employeeManager;
   private static PathPlanning algoType = new AStar2();
+  private static String currentUsername;
+
+  public static String getCurrentUsername() {
+    return currentUsername;
+  }
+
+  public static void setCurrentUsername(String currentUsername) {
+    App.currentUsername = currentUsername;
+  }
 
   public static PathPlanning getAlgoType() {
     return App.algoType;

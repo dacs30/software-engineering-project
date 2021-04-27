@@ -36,14 +36,14 @@ public class internalTransportationController extends SceneController{
     private ImageView backgroundIMG;
     @FXML
     private StackPane dialogPane;
-    
+
     @FXML
     private void initialize() {
         double height = App.getPrimaryStage().getScene().getHeight();
         double width = App.getPrimaryStage().getScene().getWidth();
         backgroundIMG.setFitHeight(height);
         backgroundIMG.setFitWidth(width);
-        contentGrid.setPrefSize(width,height);
+        contentGrid.setPrefSize(width, height);
 
         backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
         backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());

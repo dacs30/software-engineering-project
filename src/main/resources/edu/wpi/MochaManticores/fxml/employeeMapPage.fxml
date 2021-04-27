@@ -22,7 +22,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.mapEditor">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@../Stylesheets/employeeMapPage.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.employeeMapPage">
    <children>
       <ImageView fx:id="backgroundIMG" fitHeight="800.0" fitWidth="1207.0" layoutX="-6.0" opacity="0.35" pickOnBounds="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="-6.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
@@ -34,25 +34,25 @@
             <JFXDialog />
          </children>
       </StackPane>
-      <GridPane fx:id="contentPane" layoutX="-1.0" layoutY="-1.0" prefHeight="805.0" prefWidth="1207.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" />
-          <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="1044.0" minWidth="10.0" percentWidth="75.0" prefWidth="923.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+      <GridPane fx:id="contentPane" layoutX="-1.0" layoutY="-1.0" prefHeight="805.0" prefWidth="1207.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="25.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="NEVER" minWidth="10.0" percentWidth="75.0" prefWidth="923.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
          <children>
-            <GridPane GridPane.hgrow="NEVER">
-              <columnConstraints>
-                <ColumnConstraints hgrow="NEVER" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="NEVER" />
+            <GridPane>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" />
+               </columnConstraints>
+               <rowConstraints>
                   <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="NEVER" />
-                <RowConstraints vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="NEVER" />
+                  <RowConstraints vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="-Infinity" vgrow="NEVER" />
-              </rowConstraints>
+               </rowConstraints>
                <children>
                   <ImageView fitHeight="115.0" fitWidth="94.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER">
                      <image>
@@ -62,7 +62,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </GridPane.margin>
                   </ImageView>
-                  <JFXButton fx:id="backButton" buttonType="RAISED" onAction="#back" prefHeight="64.0" prefWidth="146.0" style="-fx-background-color: #0f4b91;" text="Back" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                  <JFXButton fx:id="backButton1" buttonType="RAISED" onAction="#back" prefHeight="64.0" prefWidth="146.0" style="-fx-background-color: #0f4b91;" text="Back" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -407,19 +407,14 @@
                </children>
             </GridPane>
             <GridPane fx:id="mapGrid" style="-fx-background-color: #0f4b91;" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="77.0" vgrow="NEVER" />
-                <RowConstraints maxHeight="697.0740737915039" minHeight="10.0" prefHeight="646.1111221313477" vgrow="ALWAYS" />
-              </rowConstraints>
+                  <RowConstraints maxHeight="697.0740737915039" minHeight="10.0" prefHeight="646.1111221313477" vgrow="ALWAYS" />
+               </rowConstraints>
                <children>
-                  <Label fx:id="locationTitle" alignment="TOP_CENTER" text="Select a Floor from the left" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER">
-                     <font>
-                        <Font size="48.0" />
-                     </font>
-                  </Label>
                   <StackPane fx:id="mapStack" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
                      <children>
                         <ImageView id="mapPane" fx:id="mapWindow" onMouseClicked="#drawCoord" pickOnBounds="true" preserveRatio="true" style="-fx-background-size: contain; -fx-background-repeat: no-repeat;" StackPane.alignment="TOP_LEFT">
@@ -433,6 +428,55 @@
                         <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
                      </GridPane.margin>
                   </StackPane>
+                  <GridPane prefHeight="84.0" prefWidth="902.0">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <GridPane GridPane.rowIndex="1">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <JFXButton id="getPathBtn" fx:id="routeExample" buttonType="RAISED" onAction="#goToRouteExample" prefHeight="50.0" prefWidth="175.0" style="-fx-background-color: white; -fx-border-radius: 15;" stylesheets="@../Stylesheets/employeeMapPage.css" text="Get Path" GridPane.halignment="CENTER">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </JFXButton>
+                              <JFXButton id="editEdgesBtn" fx:id="edgeButton" alignment="CENTER" buttonType="RAISED" onAction="#gotoEdge" prefHeight="50.0" prefWidth="175.0" style="-fx-background-color: white;" text="Edit Edges" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="36.0" />
+                                 </font>
+                              </JFXButton>
+                              <JFXButton id="downloadCSVBtn" fx:id="downloadButton" buttonType="RAISED" onAction="#downloadCSVs" prefHeight="60.0" prefWidth="175.0" style="-fx-background-color: white;" text="Download File" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="36.0" />
+                                 </font>
+                              </JFXButton>
+                              <JFXButton id="editNodeBtn" fx:id="nodeButton" buttonType="RAISED" onAction="#gotoNode" prefHeight="50.0" prefWidth="175.0" style="-fx-background-color: white;" text="Edit Nodes" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="36.0" />
+                                 </font>
+                              </JFXButton>
+                           </children>
+                        </GridPane>
+                        <Label fx:id="locationTitle" alignment="CENTER" text="Select a Floor from the left" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </GridPane>
                </children>
                <effect>
                   <DropShadow />

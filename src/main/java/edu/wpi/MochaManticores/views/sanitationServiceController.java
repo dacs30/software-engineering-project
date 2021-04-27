@@ -71,11 +71,6 @@ public class sanitationServiceController extends SceneController {
         backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
         backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
-        if(App.getClearenceLevel()<=0){
-            empBox.setVisible(false);
-            empTitle.setVisible(false);
-        }
-
     }
 
     public void helpButton(ActionEvent actionEvent){loadHelpDialogue();}

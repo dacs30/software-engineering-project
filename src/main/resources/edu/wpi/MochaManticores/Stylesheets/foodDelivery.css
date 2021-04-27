@@ -1,5 +1,5 @@
 #formsGrid {
-    -fx-background-color: white;
+    -fx-background-color: rgba(255, 255, 255, 0.75);
     -fx-background-radius: 40;
 }
 
@@ -16,7 +16,7 @@
     -jfx-unfocus-color : #bababa;
     -jfx-focus-color: grey;
     -fx-max-width: 400;
-    -fx-prompt-text-fill: rgba(193, 193, 193, 0.93);
+    -fx-prompt-text-fill: rgb(193, 193, 193);
 }
 
 .jfx-text-area {
