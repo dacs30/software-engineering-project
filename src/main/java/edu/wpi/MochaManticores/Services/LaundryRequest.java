@@ -13,7 +13,7 @@ public class LaundryRequest extends ServiceRequest {
                           boolean delicates, String washCycleTemperature, String dryCycleTemperature, int dryCycleNumber) {
         super(employee, completed, RequestID);
         if(RequestID.equals("")){
-            this.RequestID = generateRequestID(ServiceRequestType.InternalTransportation);
+            this.RequestID = generateRequestID(ServiceRequestType.Laundry);
         }
         this.name = patientName;
         this.soilLevel = soilLevel;

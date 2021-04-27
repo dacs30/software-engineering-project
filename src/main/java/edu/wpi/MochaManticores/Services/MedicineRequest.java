@@ -10,7 +10,7 @@ public class MedicineRequest extends ServiceRequest{
                            String currentFeeling, String allergies, String patientRoom) {
         super(employee, completed, RequestID);
         if(RequestID.equals("")){
-            this.RequestID = generateRequestID(ServiceRequestType.InternalTransportation);
+            this.RequestID = generateRequestID(ServiceRequestType.Medicine);
         }
         this.typeMedicine = typeMedicine;
         this.currentFeeling = currentFeeling;
