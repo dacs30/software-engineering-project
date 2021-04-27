@@ -24,7 +24,10 @@ public class DatabaseManager{
     private static FoodDeliveryManager foodDeliveryManager = null;
     private static FloralDeliveryManager floralDeliveryManager = null;
     private static SanitationServiceManager sanitationServiceManager = null;
-
+    private static ReligiousManager religiousManager = null;
+    private static MedicineRequestManager medicineRequestManager = null;
+    private static LaundryManager laundryManager = null;
+    private static LanguageInterpreterManager languageInterpreterManager = null;
 
     private static ServiceMap serviceMap = null;
 
@@ -231,7 +234,6 @@ public class DatabaseManager{
                 return getEdgeManager();
             case EMPLOYEE:
                 return getEmpManager();
-
             case InternalTransportation:
                 return getIntTransportManager();
             case ExternalTransportation:
@@ -245,13 +247,13 @@ public class DatabaseManager{
             case Emergency:
                 return getEmergencyManager();
             case ReligiousRequest:
-                return null;
+                return getReligiousManager();
             case LanguageInterperter:
-                return null;
+                return getLanguageInterpreterManager();
             case Medicine:
-                return null;
+                return getMedicineRequestManager();
             case Laundry:
-                return null;
+                return getLaundryManager();
             default:
                 System.out.println("No Manager Found");
                 return null;
@@ -378,5 +380,34 @@ public class DatabaseManager{
         }
         return sanitationServiceManager;
     }
+
+    public static ReligiousManager getReligiousManager() {
+        if(religiousManager == null){
+            religiousManager = new ReligiousManager(connection, null);
+        }
+        return religiousManager;
+    }
+
+    public static MedicineRequestManager getMedicineRequestManager() {
+        if(medicineRequestManager == null){
+            medicineRequestManager = new MedicineRequestManager(connection, null);
+        }
+        return medicineRequestManager;
+    }
+
+    public static LaundryManager getLaundryManager() {
+        if(laundryManager == null){
+            laundryManager = new LaundryManager(connection, null);
+        }
+        return laundryManager;
+    }
+
+    public static LanguageInterpreterManager getLanguageInterpreterManager() {
+        if(languageInterpreterManager == null){
+            languageInterpreterManager = new LanguageInterpreterManager(connection, null);
+        }
+        return languageInterpreterManager;
+    }
+
 
 }

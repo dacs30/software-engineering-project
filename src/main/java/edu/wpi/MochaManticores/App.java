@@ -20,6 +20,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -31,6 +32,7 @@ public class App extends Application {
   private static EmployeeManager employeeManager;
   private static PathPlanning algoType = new AStar2();
   private static String currentUsername;
+
 
   public static String getCurrentUsername() {
     return currentUsername;
@@ -87,7 +89,6 @@ public class App extends Application {
     DatabaseManager.startup();
   }
 
-
   @Override
   public void start(Stage primaryStage) {
 
@@ -120,6 +121,6 @@ public class App extends Application {
   @Override
   public void stop() {
     System.out.println("Shutting Down");
-    Mdb.databaseShutdown();
+    DatabaseManager.shutdown();
   }
 }

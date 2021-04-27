@@ -12,7 +12,7 @@ public class FloralDelivery extends ServiceRequest{
                           String typeOfFlowers, String vaseOptions, String personalizedNote) {
         super(employee, completed, RequestID);
         if(RequestID.equals("")){
-            this.RequestID = generateRequestID(ServiceRequestType.InternalTransportation);
+            this.RequestID = generateRequestID(ServiceRequestType.FloralDelivery);
         }
         this.roomNumber = roomNumber;
         this.deliveryChoice = deliveryChoice;

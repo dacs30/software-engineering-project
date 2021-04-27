@@ -1,6 +1,7 @@
 package edu.wpi.MochaManticores.database;
 
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
+import edu.wpi.MochaManticores.Services.FoodDelivery;
 import edu.wpi.MochaManticores.Services.LaundryRequest;
 import edu.wpi.MochaManticores.Services.ServiceRequestType;
 
@@ -12,6 +13,13 @@ public class LaundryManager extends Manager<LaundryRequest> {
     private static Connection connection = null;
     private static final String CSVdelim = ",";
     private static final ServiceRequestType type = ServiceRequestType.Laundry;
+
+    LaundryManager(Connection connection, String csv_path){
+        this.connection = connection;
+        if(csv_path != null){
+            this.csv_path = csv_path;
+        }
+    }
 
     @Override
     void loadFromCSV() {
@@ -138,5 +146,20 @@ public class LaundryManager extends Manager<LaundryRequest> {
     @Override
     void cleanTable() throws SQLException {
         //add the clean table functionality
+    }
+
+    public void updateElementMap() throws SQLException {
+        String sql = "SELECT * FROM LAUNDRY";
+        Statement stmt = connection.createStatement();
+        ResultSet result = stmt.executeQuery(sql);
+        while (result.next()) {
+            LaundryRequest temp = new LaundryRequest(result.getString(1),result.getString(2),
+                    Boolean.parseBoolean(result.getString(3)), result.getString(4), result.getString(5),
+                    Boolean.parseBoolean(result.getString(6)),
+                    result.getString(7),
+                    result.getString(8),
+                    Integer.parseInt(result.getString(9)));
+            addElement_map(temp);
+        }
     }
 }

@@ -92,9 +92,6 @@ public class covidSurveyController extends SceneController{
     private JFXButton submitBtn;
 
     @FXML
-    private JFXButton backBtn;
-
-    @FXML
     private void initialize() {
         double height = App.getPrimaryStage().getScene().getHeight();
         double width = App.getPrimaryStage().getScene().getWidth();
@@ -145,7 +142,7 @@ public class covidSurveyController extends SceneController{
             JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
             JFXButton ok = new JFXButton("OK");
             ok.setOnAction(event -> {
-                goBack(null);
+                changeSceneTo("landingPage");
             });
 
             dialog.setOnDialogClosed(event -> {
