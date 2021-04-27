@@ -123,10 +123,10 @@ public class Mdb extends Thread{
                         " transportationMethod VARCHAR(21)," +
                         " PRIMARY KEY (RequestID))";
                 stmt.executeUpdate(sql);
-                //DatabaseManager.getEmpManager().loadFromCSV();
+                DatabaseManager.getExtTransportManager().loadFromCSV();
             }else{
-                //DatabaseManager.getEmpManager().cleanTable();
-                //DatabaseManager.getEmpManager().loadFromCSV();
+                DatabaseManager.getExtTransportManager().cleanTable();
+                DatabaseManager.getExtTransportManager().loadFromCSV();
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -152,10 +152,10 @@ public class Mdb extends Thread{
                         " personalizedNote VARCHAR(200)," +
                         " PRIMARY KEY (RequestID))";
                 stmt.executeUpdate(sql);
-                //DatabaseManager.getEmpManager().loadFromCSV();
+                DatabaseManager.getFloralDeliveryManager().loadFromCSV();
             }else{
-                //DatabaseManager.getEmpManager().cleanTable();
-                //DatabaseManager.getEmpManager().loadFromCSV();
+                DatabaseManager.getFloralDeliveryManager().cleanTable();
+                DatabaseManager.getFloralDeliveryManager().loadFromCSV();
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -179,10 +179,10 @@ public class Mdb extends Thread{
                         " menu VARCHAR(30), " +
                         " PRIMARY KEY (RequestID))";
                 stmt.executeUpdate(sql);
-                //DatabaseManager.getEmpManager().loadFromCSV();
+                DatabaseManager.getFoodDeliveryManager().loadFromCSV();
             }else{
-                //DatabaseManager.getEmpManager().cleanTable();
-                //DatabaseManager.getEmpManager().loadFromCSV();
+                DatabaseManager.getFoodDeliveryManager().cleanTable();
+                DatabaseManager.getFoodDeliveryManager().loadFromCSV();
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -207,10 +207,10 @@ public class Mdb extends Thread{
                         " TransportationMethod VARCHAR(21)," +
                         " PRIMARY KEY (RequestID))";
                 stmt.executeUpdate(sql);
-                //DatabaseManager.getEmpManager().loadFromCSV();
+                DatabaseManager.getIntTransportManager().loadFromCSV();
             }else{
-                //DatabaseManager.getEmpManager().cleanTable();
-                //DatabaseManager.getEmpManager().loadFromCSV();
+                DatabaseManager.getIntTransportManager().cleanTable();
+                DatabaseManager.getIntTransportManager().loadFromCSV();
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -229,17 +229,17 @@ public class Mdb extends Thread{
                         "(RequestID VARCHAR(40) not NULL, " +
                         " EmpID VARCHAR(21), " +
                         " completed BOOLEAN, " +
-                        "location VARCHAR(40)" +
-                        " safetyHazards VARCHAR(50), " +
+                        " location VARCHAR(40)," +
+                        " saftey VARCHAR(50), " +
                         " sanitationType VARCHAR(50), " +
                         " equipmentNeeded VARCHAR(100), " +
                         " description VARCHAR(200)," +
                         " PRIMARY KEY (RequestID))";
                 stmt.executeUpdate(sql);
-                //DatabaseManager.getEmpManager().loadFromCSV();
+                DatabaseManager.getSanitationServices().loadFromCSV();
             }else{
-                //DatabaseManager.getEmpManager().cleanTable();
-                //DatabaseManager.getEmpManager().loadFromCSV();
+                DatabaseManager.getSanitationServices().cleanTable();
+                DatabaseManager.getSanitationServices().loadFromCSV();
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -258,15 +258,15 @@ public class Mdb extends Thread{
                         "(RequestID VARCHAR(40) not NULL, " +
                         " EmpID VARCHAR(21), " +
                         " completed BOOLEAN, " +
-                        "numPeopleNeeded INTEGER" +
+                        "numPeopleNeeded INTEGER," +
                         "location VARCHAR(50), " +
                         "gurney BOOLEAN, " +
                         " PRIMARY KEY (RequestID))";
                 stmt.executeUpdate(sql);
-                //DatabaseManager.getEmpManager().loadFromCSV();
+                DatabaseManager.getEmergencyManager().loadFromCSV();
             }else{
-                //DatabaseManager.getEmpManager().cleanTable();
-                //DatabaseManager.getEmpManager().loadFromCSV();
+                DatabaseManager.getEmergencyManager().cleanTable();
+                DatabaseManager.getEmergencyManager().loadFromCSV();
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -284,8 +284,8 @@ public class Mdb extends Thread{
                 sql = "CREATE TABLE EMGREQ" +
                         "(RequestID VARCHAR(40) not NULL, " +
                         " Employee VARCHAR(21)," +
-                        " Completed BOOLEAN" +
-                        "numPeopleNeeded INTEGER" +
+                        " Completed BOOLE AN," +
+                        "numPeopleNeeded INTEGER," +
                         "location VARCHAR(50), " +
                         "gurney BOOLEAN, " +
                         " PRIMARY KEY (RequestID))";
@@ -333,6 +333,7 @@ public class Mdb extends Thread{
         }
 
         //create hashmaps here
+        DatabaseManager.getServiceMap();
 
         //create data tables
             Thread nodeThread = new Thread(() -> {

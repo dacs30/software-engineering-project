@@ -49,7 +49,7 @@ public class SanitationServiceManager extends Manager<SanitationServices> {
 
     void addElement_db(SanitationServices temp) {
         try {
-            String sql = "INSERT INTO SANITATIONSER (RequestID, EmpID, completed, location, safetyHazards, " +
+            String sql = "INSERT INTO SANITATIONSER (RequestID, EmpID, completed, location, saftey, " +
                     "sanitationType, equipmentNeeded, description) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = connection.prepareStatement(sql);

@@ -8,7 +8,7 @@ import java.io.*;
 import java.sql.*;
 
 public class EmergencyManager  extends Manager<EmergencyRequest> {
-    private static String csv_path = "data/services/ExtTransport.csv";
+    private static String csv_path = "data/services/EmergencyRequest.csv";
     private static Connection connection = null;
     private static final String CSVdelim = ",";
     private static final ServiceRequestType type = ServiceRequestType.Emergency;

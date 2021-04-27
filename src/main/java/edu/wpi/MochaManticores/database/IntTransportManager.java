@@ -1,9 +1,7 @@
 package edu.wpi.MochaManticores.database;
 
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
-import edu.wpi.MochaManticores.Services.ExternalTransportation;
 import edu.wpi.MochaManticores.Services.InternalTransportation;
-import edu.wpi.MochaManticores.Services.ServiceMap;
 import edu.wpi.MochaManticores.Services.ServiceRequestType;
 
 import java.io.*;

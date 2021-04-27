@@ -9,7 +9,7 @@ import java.io.*;
 import java.sql.*;
 
 public class ExtTransportManager extends Manager<ExternalTransportation> {
-    private static String csv_path = "data/services/ExtTransport.csv";
+    private static String csv_path = "data/services/ExtTransport.CSV";
     private static Connection connection = null;
     private static final String CSVdelim = ",";
     private static final ServiceRequestType type = ServiceRequestType.ExternalTransportation;
