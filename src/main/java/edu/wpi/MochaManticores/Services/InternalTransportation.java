@@ -6,14 +6,19 @@ public class InternalTransportation extends ServiceRequest {
     private String destination;
     private String transportationMethod;
 
-    public InternalTransportation(String patientID, int numStaffNeeded, String destination, String transportationMethod, boolean employee,
-                                  boolean completed, int row) {
-        super(employee, completed, row);
+    public InternalTransportation(String RequestID, String employee, boolean completed, String patientID,
+                                  int numStaffNeeded, String destination, String transportationMethod) {
+        super(employee, completed, RequestID);
+        if(RequestID == null){
+            this.RequestID = generateRequestID(ServiceRequestType.InternalTransportation);
+        }
         this.patientID = patientID;
         this.numStaffNeeded = numStaffNeeded;
         this.destination = destination;
         this.transportationMethod = transportationMethod;
     }
+
+
 
     public String getPatientID() {
         return patientID;
@@ -45,16 +50,6 @@ public class InternalTransportation extends ServiceRequest {
 
     public void setTransportationMethod(String transportationMethod) {
         this.transportationMethod = transportationMethod;
-    }
-
-    public String[] getFields() {
-        return new String[]{
-                String.valueOf(ServiceMap.InternalTransportation),
-                patientID,
-                String.valueOf(numStaffNeeded),
-                destination,
-                transportationMethod,
-        };
     }
 }
 

@@ -5,8 +5,11 @@ public class FoodDelivery extends ServiceRequest {
     private String allergies;
     private String menu;
 
-    public FoodDelivery(boolean employee, boolean completed, int row, String dietaryPreference, String allergies, String menu) {
-        super(employee, completed, row);
+    public FoodDelivery(String RequestID, String employee, boolean completed, String dietaryPreference, String allergies, String menu) {
+        super(employee, completed, RequestID);
+        if(RequestID.equals("")){
+            this.RequestID = generateRequestID(ServiceRequestType.FoodDelivery);
+        }
         this.dietaryPreference = dietaryPreference;
         this.allergies = allergies;
         this.menu = menu;
@@ -22,14 +25,5 @@ public class FoodDelivery extends ServiceRequest {
 
     public String getMenu() {
         return menu;
-    }
-
-    public String[] getFields() {
-        return new String[]{
-                String.valueOf(ServiceMap.FoodDelivery),
-                dietaryPreference,
-                allergies,
-                menu,
-        };
     }
 }

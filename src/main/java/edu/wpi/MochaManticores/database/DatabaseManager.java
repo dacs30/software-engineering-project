@@ -5,6 +5,9 @@ import edu.wpi.MochaManticores.Exceptions.InvalidLoginException;
 import edu.wpi.MochaManticores.Exceptions.InvalidPermissionsException;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.Nodes.EdgeSuper;
+import edu.wpi.MochaManticores.Services.SanitationServices;
+import edu.wpi.MochaManticores.Services.ServiceMap;
+import edu.wpi.MochaManticores.Services.ServiceRequest;
 
 import java.io.FileNotFoundException;
 import java.sql.Connection;
@@ -14,50 +17,16 @@ public class DatabaseManager{
     private static EmployeeManager empManager = null;
     private static NodeManager nodeManager = null;
     private static EdgeManager edgeManager = null;
-    // maybe store maps here too
-    // map super
-    // edge map super
 
-    /*
-    (Mdb : public)
-    start database
-        - create db
-        - get connection
-        - create managers
-        - create tables
-            - populate tables
-            - populate maps
+    private static EmergencyManager emergencyManager = null;
+    private static ExtTransportManager extTransportManager = null;
+    private static IntTransportManager intTransportManager = null;
+    private static FoodDeliveryManager foodDeliveryManager = null;
+    private static FloralDeliveryManager floralDeliveryManager = null;
+    private static SanitationServiceManager sanitationServiceManager = null;
 
-    Shutdown database
-        - save tables
-        - clear connection
-        - clear managers
 
-    (manager : public)
-    Reset Table
-        - save table
-        - clean table
-        - reset filepath
-        - load
-        (if map) - update map
-
-    addElement -> unique
-    addElement_db  -> unique
-    addElement_map  -> unique
-    updateElement  -> unique
-    delElement
-    getElement  -> unique
-
-    (manager : private)
-    loadFromCSV
-    saveToCSV
-    showInfo
-    cleanTable
-    setElement_CSV_path
-
-    (maps : public)
-    getMap()
-     */
+    private static ServiceMap serviceMap = null;
 
     // ==== Mdb methods ==== //
 
@@ -100,6 +69,14 @@ public class DatabaseManager{
         }
     }
 
+    /* function: addRequest()
+     * adds request to specified manager table
+     * @ return void
+     */
+    public static void addRequest(sel s, ServiceRequest request){
+        getManager(s).addElement(request);
+    }
+
     /*  function: addNode()
      *  adds a node to the database and MapSuper()
      *  @return void
@@ -132,6 +109,18 @@ public class DatabaseManager{
         try {
             getManager(s).delElement(ID);
         }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    /*  function:  modRequest()
+     *  swaps a specifed node with a new node
+     *  @return void
+     */
+    public static void modRequest(sel s, String ID, ServiceRequest request){
+        try{
+            getManager(s).modElement(ID,request);
+        }catch(SQLException e) {
             e.printStackTrace();
         }
     }
@@ -170,6 +159,14 @@ public class DatabaseManager{
         }catch(SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    /* function: getRequest()
+     * returns a request object, you will need to cast it
+     * return ServiceRequest
+     */
+    public static ServiceRequest getRequest(sel s, String ID) throws InvalidElementException {
+        return (ServiceRequest) getManager(s).getElement(ID);  // TODO GENERALIZE ALL MANAGERS
     }
 
     /*  function:  getNode()
@@ -222,13 +219,11 @@ public class DatabaseManager{
         return getEmpManager().checkAdminLogin(usr,pass);
     }
 
-    // ==== Private DB methods ==== //
-
     /*  function:  getManager()
      *  gets a manager based on a selection, we are using this to abstract the manager classes in the API,
      *  @return Manager
      */
-    private static Manager getManager(sel s){
+    public static Manager getManager(sel s){
         switch(s){
             case NODE:
                 return getNodeManager();
@@ -236,11 +231,34 @@ public class DatabaseManager{
                 return getEdgeManager();
             case EMPLOYEE:
                 return getEmpManager();
+
+            case InternalTransportation:
+                return getIntTransportManager();
+            case ExternalTransportation:
+                return getExtTransportManager();
+            case FloralDelivery:
+                return getFloralDeliveryManager();
+            case FoodDelivery:
+                return getFoodDeliveryManager();
+            case SanitationServices:
+                return getSanitationServices();
+            case Emergency:
+                return getEmergencyManager();
+            case ReligiousRequest:
+                return null;
+            case LanguageInterperter:
+                return null;
+            case Medicine:
+                return null;
+            case Laundry:
+                return null;
             default:
                 System.out.println("No Manager Found");
                 return null;
         }
     }
+
+    // ==== Private DB methods ==== //
 
     private static void loadFromCSV(sel s){
         try{
@@ -311,4 +329,54 @@ public class DatabaseManager{
         }
         return edgeManager;
     }
+
+    public static ServiceMap getServiceMap() {
+        if(serviceMap == null){
+            serviceMap = new ServiceMap();
+        }
+        return serviceMap;
+    }
+
+    public static EmergencyManager getEmergencyManager() {
+        if(emergencyManager == null){
+            emergencyManager = new EmergencyManager(connection, null);
+        }
+        return emergencyManager;
+    }
+
+    public static ExtTransportManager getExtTransportManager() {
+        if(extTransportManager == null){
+            extTransportManager = new ExtTransportManager(connection, null);
+        }
+        return extTransportManager;
+    }
+
+    public static IntTransportManager getIntTransportManager() {
+        if(intTransportManager == null){
+            intTransportManager = new IntTransportManager(connection, null);
+        }
+        return intTransportManager;
+    }
+
+    public static FloralDeliveryManager getFloralDeliveryManager() {
+        if(floralDeliveryManager == null){
+            floralDeliveryManager = new FloralDeliveryManager(connection, null);
+        }
+        return floralDeliveryManager;
+    }
+
+    public static FoodDeliveryManager getFoodDeliveryManager() {
+        if(foodDeliveryManager == null){
+            foodDeliveryManager = new FoodDeliveryManager(connection, null);
+        }
+        return foodDeliveryManager;
+    }
+
+    public static SanitationServiceManager getSanitationServices() {
+        if(sanitationServiceManager == null){
+            sanitationServiceManager = new SanitationServiceManager (connection, null);
+        }
+        return sanitationServiceManager;
+    }
+
 }

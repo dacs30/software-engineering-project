@@ -1,6 +1,6 @@
-package edu.wpi.MochaManticores.database;
+package edu.wpi.MochaManticores.Services;
 
-public enum sel {NODE,EDGE,EMPLOYEE,
+public enum ServiceRequestType {
     InternalTransportation,
     ExternalTransportation,
     FloralDelivery,
@@ -10,4 +10,8 @@ public enum sel {NODE,EDGE,EMPLOYEE,
     ReligiousRequest,
     LanguageInterperter,
     Medicine,
-    Laundry}
+    Laundry;
+
+    public class MedicineDelivery {
+    }
+}

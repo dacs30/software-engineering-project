@@ -8,9 +8,12 @@ public class FloralDelivery extends ServiceRequest{
     private String vaseOptions;
     private String personalizedNote;
 
-    public FloralDelivery(boolean employee, boolean completed, int row, String roomNumber, String deliveryChoice,
+    public FloralDelivery(String RequestID, String employee, boolean completed, String roomNumber, String deliveryChoice,
                           String typeOfFlowers, String vaseOptions, String personalizedNote) {
-        super(employee, completed, row);
+        super(employee, completed, RequestID);
+        if(RequestID == null){
+            this.RequestID = generateRequestID(ServiceRequestType.FloralDelivery);
+        }
         this.roomNumber = roomNumber;
         this.deliveryChoice = deliveryChoice;
         this.typeOfFlowers = typeOfFlowers;
@@ -38,14 +41,4 @@ public class FloralDelivery extends ServiceRequest{
         return personalizedNote;
     }
 
-    public String[] getFields() {
-        return new String[]{
-                String.valueOf(ServiceMap.FloralDelivery),
-                roomNumber,
-                deliveryChoice,
-                typeOfFlowers,
-                vaseOptions,
-                personalizedNote
-        };
-    }
 }
