@@ -16,19 +16,19 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../Stylesheets/covidSurvey.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.covidSurveyController">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@../Stylesheets/covidSurvey.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.covidSurveyController">
    <children>
       <ImageView fx:id="backgroundIMG" fitHeight="800.0" fitWidth="1217.0" opacity="0.5" pickOnBounds="true">
          <image>
             <Image url="@../images/cool-background.jpg" />
          </image>
       </ImageView>
-      <StackPane fx:id="dialogPane" layoutX="10.0" layoutY="10.0" prefHeight="800.0" prefWidth="1200.0">
+      <StackPane fx:id="dialogPane" layoutX="10.0" layoutY="10.0" prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <JFXDialog id="message" />
          </children>
       </StackPane>
-      <GridPane fx:id="contentGrid" alignment="CENTER" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../Stylesheets/covidSurvey.css">
+      <GridPane fx:id="contentGrid" alignment="CENTER" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../Stylesheets/covidSurvey.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
@@ -56,7 +56,7 @@
                   <Insets bottom="50.0" left="100.0" right="100.0" top="50.0" />
                </GridPane.margin>
                <children>
-                  <Label text="Pre-Screening Covid-19 Survey" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <Label id="title" text="Pre-Screening Covid-19 Survey" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                   <GridPane GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="100.0" />
@@ -67,7 +67,7 @@
                     </rowConstraints>
                      <children>
                         <Label text="Patient Name:" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <JFXTextField focusColor="#0f4b91" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                        <JFXTextField focusColor="#0f4b91" maxWidth="-Infinity" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                            <padding>
                               <Insets left="50.0" right="50.0" />
                            </padding>
@@ -193,7 +193,6 @@
                         <JFXButton fx:id="submitBtn" buttonType="RAISED" onAction="#submitEvent" prefHeight="60.0" prefWidth="150.0" stylesheets="@../Stylesheets/covidSurvey.css" text="Submit" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                      </children>
                   </GridPane>
-                  <JFXButton fx:id="backBtn" onAction="#goBack" text="Back" translateX="50.0" />
                </children>
                <effect>
                   <DropShadow color="#00000033" height="125.0" radius="68.25" width="150.0" />
