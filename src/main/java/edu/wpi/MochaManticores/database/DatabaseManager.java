@@ -276,4 +276,46 @@ public class DatabaseManager{
         }
         return serviceMap;
     }
+
+    public static EmergencyManager getEmergencyManager() {
+        if(edgeManager == null){
+            edgeManager = new EdgeManager(connection, null);
+        }
+        return edgeManager;
+    }
+
+    public static ExtTransportManager getExtTransportManager() {
+        if(edgeManager == null){
+            edgeManager = new EdgeManager(connection, null);
+        }
+        return edgeManager;
+    }
+    public static IntTransportManager getIntTransportManager() {
+        if(edgeManager == null){
+            edgeManager = new EdgeManager(connection, null);
+        }
+        return edgeManager;
+    }
+
+    public static EdgeManager getEdgeManager() {
+        if(edgeManager == null){
+            edgeManager = new EdgeManager(connection, null);
+        }
+        return edgeManager;
+    }
+
+    public static EdgeManager getEdgeManager() {
+        if(edgeManager == null){
+            edgeManager = new EdgeManager(connection, null);
+        }
+        return edgeManager;
+    }
+
+    public static EdgeManager getEdgeManager() {
+        if(edgeManager == null){
+            edgeManager = new EdgeManager(connection, null);
+        }
+        return edgeManager;
+    }
+
 }

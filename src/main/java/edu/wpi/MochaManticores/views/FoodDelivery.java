@@ -126,12 +126,9 @@ public class FoodDelivery extends SceneController {
     public void submitForm(ActionEvent e) {
 
         // changeSceneTo(e, "mainMenu");
-        DatabaseManager.getServiceMap().addRequest(new edu.wpi.MochaManticores.Services.FoodDelivery(App.getClearenceLevel()==1,
-                false,
-                0,
-                dietaryPreferences.getSelectionModel().getSelectedItem(),
-                allergiesField.getText(),
-                foodMenu.getSelectionModel().getSelectedItem()), ServiceRequestType.FoodDelivery);
+        DatabaseManager.getServiceMap().addRequest(
+                new edu.wpi.MochaManticores.Services.FoodDelivery(
+                "", "", false, dietaryPreferences.getSelectionModel().getSelectedItem(), allergiesField.getText(), foodMenu.getSelectionModel().getSelectedItem()), ServiceRequestType.FoodDelivery);
         dialogPane.setVisible(true);
         loadDialog();
     }
