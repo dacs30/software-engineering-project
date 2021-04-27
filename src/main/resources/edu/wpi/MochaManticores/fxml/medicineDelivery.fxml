@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDialog?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1207.0" stylesheets="@../Stylesheets/medicineDelivery.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.MedicineDelivery">
+   <children>
+      <ImageView fx:id="backgroundIMG" fitHeight="800.0" fitWidth="1207.0" opacity="0.5" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../images/cool-background.jpg" />
+         </image>
+      </ImageView>
+      <StackPane fx:id="dialogPane" prefHeight="800.0" prefWidth="1207.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <JFXDialog id="message" visible="false">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" />
+               </children></JFXDialog>
+         </children>
+      </StackPane>
+      <GridPane fx:id="contentGrid" prefHeight="800.0" prefWidth="1207.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="1028.111083984375" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <GridPane id="formsGrid" maxHeight="700.0" maxWidth="1000.0" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../Stylesheets/medicineDelivery.css">
+              <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints maxHeight="118.66668701171875" minHeight="10.0" prefHeight="118.66668701171875" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="170.66668701171875" minHeight="10.0" prefHeight="75.85183715820312" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="170.66668701171875" minHeight="10.0" prefHeight="91.59259033203125" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="152.6666259765625" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="109.3333740234375" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="134.77777099609375" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="90.66668701171875" minHeight="10.0" prefHeight="90.66668701171875" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <effect>
+                  <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
+               </effect>
+               <children>
+                  <JFXButton id="submitBtn" onAction="#submitForm" text="SUBMIT" GridPane.rowIndex="6" />
+                  <Label id="foodDeliveryTitleLabel" stylesheets="@../stylesheets.css" text="Medicine Delivery" textFill="WHITE" />
+                  <ImageView fitHeight="150.0" fitWidth="40.0" onMouseClicked="#helpButton" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
+                     <image>
+                        <Image url="@../images/hepIcon.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets right="75.0" />
+                     </GridPane.margin>
+                  </ImageView>
+                  <JFXComboBox focusColor="#405aa800" promptText="Type of Medicine" GridPane.rowIndex="1" />
+                  <Label id="feelingsNowLabel" text="What are you feeling right now?" GridPane.rowIndex="2" />
+                  <GridPane GridPane.rowIndex="3">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <JFXCheckBox text="Muscle pain" />
+                        <JFXCheckBox text="Headache" GridPane.rowIndex="1" />
+                        <JFXCheckBox text="Some pain" GridPane.rowIndex="2" />
+                        <JFXCheckBox text="Nausea" GridPane.columnIndex="1" />
+                        <JFXCheckBox text="other pain" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <JFXCheckBox text="More pain" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
+                  <JFXTextField promptText="Allergies" GridPane.rowIndex="4" />
+                  <JFXTextField promptText="Patient room" GridPane.rowIndex="5" />
+               </children>
+            </GridPane>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>

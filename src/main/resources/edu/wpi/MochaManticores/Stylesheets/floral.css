@@ -1,8 +1,6 @@
-#backBtn {
-    -fx-background-color: #0F4B91;
-    -fx-font-family: Roboto;
-    -fx-font-size: 30;
-    -fx-font-weight: bold;
+#formsGrid {
+    -fx-background-color: rgba(255, 255, 255, 0.75);
+    -fx-background-radius: 40;
 }
 
 #helpBtn {
@@ -13,6 +11,7 @@
 }
 
 #floralDeliveryLabel {
+    -fx-text-fill: grey;
     -fx-font-weight: bold;
     -fx-font-family: Roboto;
     -fx-font-size: 50;
@@ -21,26 +20,36 @@
 .jfx-text-field {
     -fx-font-size: 20;
     -fx-font-weight: bold;
-    -fx-text-fill : #ffffff;
-    -jfx-unfocus-color : #ffffff;
+    -jfx-unfocus-color : #bababa;
+    -jfx-focus-color: grey;
     -fx-max-width: 400;
-    -fx-prompt-text-fill: white;
+    -fx-prompt-text-fill: grey;
 }
 
 #flowerLabel, #vaseLabel {
     -fx-font-family: Roboto;
     -fx-font-size: 20;
     -fx-font-weight: bold;
+    -fx-text-fill: grey;
 }
 
 .jfx-radio-button {
-    -fx-text-fill: white;
-    -fx-prompt-text-fill: white;
+    -fx-text-fill: grey;
+    -fx-prompt-text-fill: grey;
 }
 
 #submitBtn{
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: #0F4B91;
     -fx-font-family: Roboto;
+    -fx-background-radius: 40;
     -fx-font-size: 25;
+    -fx-text-fill: white;
     -fx-font-weight: bold;
+}
+
+#submitBtn:hover{
+    -fx-background-color: #c2c2c2;
+    -fx-effect: dropshadow( three-pass-box , rgba(2, 2, 2, 0.2), 20, 0.0 , 1 , 10);
+    -fx-font-family: Roboto;
+    -fx-text-fill: grey;
 }

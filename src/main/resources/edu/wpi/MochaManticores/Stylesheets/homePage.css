@@ -1,0 +1,50 @@
+#covidContainer {
+    -fx-background-color: white;
+    -fx-background-radius: 40;
+}
+
+#covidLabel {
+    -fx-font-size: 30;
+    -fx-font-family: Roboto;
+    -fx-font-weight: bold;
+}
+
+#covidDescription {
+    -fx-font-size: 20;
+    -fx-font-family: Roboto;
+}
+
+#card {
+    -fx-background-radius: 40;
+    -fx-background-color: white;
+}
+
+#cardLabel{
+    -fx-font-family: Roboto;
+    -fx-font-size: 30;
+    -fx-font-weight: bold;
+}
+
+#cardLabelMedicineDelivery {
+    -fx-font-family: Roboto;
+    -fx-font-size: 25;
+    -fx-font-weight: bold;
+}
+
+#cardLabelInternalTransportation {
+    -fx-font-size: 20;
+    fx-font-family: Roboto;
+    -fx-font-weight: bold;
+}
+
+#emergencyCard {
+    -fx-background-color: #ff9494;
+    -fx-background-radius: 40;
+}
+
+#emergencyLabel {
+    -fx-text-fill: black;
+    -fx-font-family: Roboto;
+    -fx-font-size: 40;
+    -fx-font-weight: bold;
+}

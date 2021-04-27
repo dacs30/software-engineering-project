@@ -1,44 +1,151 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.gluonhq.charm.glisten.control.Icon?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane id="outerContainer" fx:id="outerPane" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../Stylesheets/landingPage.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.landingPageController">
    <children>
+      <HBox fx:id="menuSidePane" alignment="CENTER_LEFT" onMouseClicked="#renderMenu" spacing="10.0" style="-fx-background-color: #E9E9E9;">
+         <children>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/homeIcon.png" />
+               </image>
+            </ImageView>
+            <Label id="menuSideBarLabel" stylesheets="@../Stylesheets/landingPage.css" text="Menu" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="20.0" top="10.0" />
+         </padding>
+      </HBox>
+      <HBox fx:id="mapSidePane" alignment="CENTER_LEFT" onMouseClicked="#renderMapEditor" spacing="10.0" style="-fx-background-color: #E9E9E9;">
+         <children>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/mapIcon.png" />
+               </image>
+            </ImageView>
+            <Label id="mapSideLabel" stylesheets="@../Stylesheets/landingPage.css" text="Map" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets left="20.0" />
+         </padding>
+      </HBox>
+      <HBox fx:id="foodDeliverySidePanel" alignment="CENTER_LEFT" onMouseClicked="#renderFoodDelivery" spacing="10.0" style="-fx-background-color: #E9E9E9;">
+         <children>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/foodDeliveryIcon.png" />
+               </image>
+            </ImageView>
+            <Label id="menuSideBarLabel" prefHeight="44.0" prefWidth="79.0" stylesheets="@../Stylesheets/landingPage.css" text="Food Delivery" wrapText="true" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets left="20.0" />
+         </padding>
+      </HBox>
+      <HBox fx:id="medicineDeliverySidePanel" alignment="CENTER_LEFT" onMouseClicked="#renderMedicineDelivery" spacing="10.0" style="-fx-background-color: #E9E9E9;">
+         <children>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/medicineDeliveryIcon.png" />
+               </image>
+            </ImageView>
+            <Label id="menuSideBarLabel" prefHeight="44.0" prefWidth="68.0" stylesheets="@../Stylesheets/landingPage.css" text="Medicine Delivery" wrapText="true" />
+         </children>
+         <padding>
+            <Insets left="20.0" />
+         </padding>
+      </HBox>
+      <HBox fx:id="internalTransportationSidePanel" alignment="CENTER_LEFT" onMouseClicked="#renderInternalTransportation" spacing="10.0" style="-fx-background-color: #E9E9E9;">
+         <children>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/internalTransportationIcon.png" />
+               </image>
+            </ImageView>
+            <Label id="menuSideBarLabel" prefHeight="48.0" prefWidth="153.0" stylesheets="@../Stylesheets/landingPage.css" text="Internal   Transportation" wrapText="true" />
+         </children>
+         <padding>
+            <Insets left="20.0" />
+         </padding>
+      </HBox>
+      <HBox fx:id="externalTransportationSidePanel" alignment="CENTER_LEFT" onMouseClicked="#renderExternalTransportation" prefHeight="48.0" prefWidth="241.0" spacing="10.0" style="-fx-background-color: #E9E9E9;">
+         <children>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/externalTransportation.png" />
+               </image>
+            </ImageView>
+            <Label id="menuSideBarLabel" prefHeight="48.0" prefWidth="153.0" stylesheets="@../Stylesheets/landingPage.css" text="External Transportation" wrapText="true" />
+         </children>
+         <padding>
+            <Insets left="20.0" />
+         </padding>
+      </HBox>
+      <HBox fx:id="shoppingSideMenu" alignment="CENTER_LEFT" onMouseClicked="#renderShopping" spacing="10.0" style="-fx-background-color: #E9E9E9;">
+         <children>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/shoppingIcon.png" />
+               </image>
+            </ImageView>
+            <Label id="menuSideBarLabel" prefHeight="48.0" prefWidth="153.0" stylesheets="@../Stylesheets/landingPage.css" text="Shopping" wrapText="true" />
+         </children>
+         <padding>
+            <Insets left="20.0" />
+         </padding>
+      </HBox>
+      <HBox fx:id="sanitationSideMenu" alignment="CENTER_LEFT" onMouseClicked="#renderSanitationServices" spacing="10.0" style="-fx-background-color: #E9E9E9;">
+         <children>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/sanitationServicesIcon.png" />
+               </image>
+            </ImageView>
+            <Label id="menuSideBarLabel" prefHeight="48.0" prefWidth="153.0" stylesheets="@../Stylesheets/landingPage.css" text="Sanitation" wrapText="true" />
+         </children>
+         <padding>
+            <Insets left="20.0" />
+         </padding>
+      </HBox>
+      <StackPane fx:id="dialogPane" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <GridPane id="shit" stylesheets="@../Stylesheets/landingPage.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints fx:id="mainGrid" hgrow="NEVER" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="80.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <GridPane id="sideMenu" style="-fx-background-color: #E9E9E9;" stylesheets="@../Stylesheets/landingPage.css">
+            <GridPane id="sideMenu" fx:id="sidePanel" style="-fx-background-color: #E9E9E9;" stylesheets="@../Stylesheets/landingPage.css">
               <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" maxWidth="1.7976931348623157E308" percentWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" maxWidth="59.0" minWidth="0.0" prefWidth="0.0" />
               </columnConstraints>
               <rowConstraints>
-                  <RowConstraints maxHeight="176.0" minHeight="10.0" percentHeight="20.0" prefHeight="119.11112213134766" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="154.07406616210938" minHeight="10.0" percentHeight="8.0" prefHeight="104.88887786865234" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="290.9629669189453" minHeight="10.0" percentHeight="8.0" prefHeight="70.51852416992188" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="362.6296081542969" minHeight="10.0" percentHeight="7.0" prefHeight="95.88888549804688" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="386.7037048339844" minHeight="10.0" percentHeight="8.0" prefHeight="71.07403564453125" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="534.9629821777344" minHeight="10.0" percentHeight="8.0" prefHeight="69.81484985351562" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="534.9629821777344" minHeight="10.0" percentHeight="8.0" prefHeight="316.1851501464844" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="534.9629821777344" minHeight="10.0" percentHeight="8.0" prefHeight="316.1851501464844" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="534.9629821777344" minHeight="10.0" percentHeight="8.0" prefHeight="316.1851501464844" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="534.9629821777344" minHeight="10.0" percentHeight="8.0" prefHeight="316.1851501464844" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="534.9629821777344" minHeight="10.0" percentHeight="8.0" prefHeight="316.1851501464844" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="234.0" minHeight="89.0" percentHeight="15.0" prefHeight="106.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="180.0" minHeight="10.0" percentHeight="10.0" prefHeight="163.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="1.7976931348623157E308" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="534.9629821777344" minHeight="0.0" percentHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <ImageView fitHeight="150.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
@@ -46,114 +153,38 @@
                         <Image url="@../images/logo-small.png" />
                      </image>
                   </ImageView>
-                  <GridPane GridPane.rowIndex="3">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
+                  <HBox id="emergencyVBox" fx:id="emergencySidePanel" alignment="CENTER_LEFT" onMouseClicked="#openEmergencyDIalog" spacing="10.0" stylesheets="@../Stylesheets/landingPage.css" GridPane.rowIndex="3">
                      <children>
-                        <Label id="servicesSideLabel" stylesheets="@../Stylesheets/landingPage.css" text="Services">
-                           <padding>
-                              <Insets left="30.0" />
-                           </padding>
-                        </Label>
-                     </children>
-                  </GridPane>
-                  <HBox fx:id="menuSideManu" alignment="CENTER_LEFT" onMouseClicked="#renderMenu" spacing="30.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                     <children>
-                        <Icon content="HOME" stylesheets="@../Stylesheets/landingPage.css" />
-                        <Label id="menuSideBarLabel" stylesheets="@../Stylesheets/landingPage.css" text="Menu" />
-                     </children>
-                     <padding>
-                        <Insets left="30.0" />
-                     </padding>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="30.0" GridPane.rowIndex="2">
-                     <children>
-                        <Icon content="MAP" />
-                        <Label id="mapSideLabel" stylesheets="@../Stylesheets/landingPage.css" text="Label" />
-                     </children>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <padding>
-                        <Insets left="30.0" />
-                     </padding>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" spacing="30.0" GridPane.rowIndex="4">
-                     <children>
-                        <Icon content="RESTAURANT" stylesheets="@../Stylesheets/landingPage.css" />
-                        <Label id="menuSideBarLabel" stylesheets="@../Stylesheets/landingPage.css" text="Food Delivery" />
-                     </children>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <padding>
-                        <Insets left="20.0" />
-                     </padding>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" spacing="30.0" GridPane.rowIndex="5">
-                     <children>
-                        <Icon content="LOCAL_PHARMACY" stylesheets="@../Stylesheets/landingPage.css" />
-                        <Label id="menuSideBarLabel" stylesheets="@../Stylesheets/landingPage.css" text="Medicine Delivery" />
-                     </children>
-                     <padding>
-                        <Insets left="20.0" />
-                     </padding>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" spacing="30.0" GridPane.rowIndex="6">
-                     <children>
-                        <Icon content="DOMAIN" stylesheets="@../Stylesheets/landingPage.css" />
-                        <Label id="menuSideBarLabel" prefHeight="48.0" prefWidth="153.0" stylesheets="@../Stylesheets/landingPage.css" text="Internal Transportation" wrapText="true" />
-                     </children>
-                     <padding>
-                        <Insets left="20.0" />
-                     </padding>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" spacing="30.0" GridPane.rowIndex="7">
-                     <children>
-                        <Icon content="LOCAL_CAR_WASH" stylesheets="@../Stylesheets/landingPage.css" />
-                        <Label id="menuSideBarLabel" prefHeight="48.0" prefWidth="153.0" stylesheets="@../Stylesheets/landingPage.css" text="External Transportation" wrapText="true" />
-                     </children>
-                     <padding>
-                        <Insets left="20.0" />
-                     </padding>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" spacing="30.0" GridPane.rowIndex="8">
-                     <children>
-                        <Icon content="SHOPPING_CART" stylesheets="@../Stylesheets/landingPage.css" />
-                        <Label id="menuSideBarLabel" prefHeight="48.0" prefWidth="153.0" stylesheets="@../Stylesheets/landingPage.css" text="Shopping" wrapText="true" />
-                     </children>
-                     <padding>
-                        <Insets left="20.0" />
-                     </padding>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" spacing="30.0" GridPane.rowIndex="9">
-                     <children>
-                        <Icon content="WB_SUNNY" stylesheets="@../Stylesheets/landingPage.css" />
-                        <Label id="menuSideBarLabel" prefHeight="48.0" prefWidth="153.0" stylesheets="@../Stylesheets/landingPage.css" text="Sanitation" wrapText="true" />
-                     </children>
-                     <padding>
-                        <Insets left="20.0" />
-                     </padding>
-                  </HBox>
-                  <HBox id="emergencyVBox" alignment="CENTER_LEFT" spacing="30.0" stylesheets="@../Stylesheets/landingPage.css" GridPane.rowIndex="10">
-                     <children>
-                        <Icon content="ERROR" stylesheets="@../Stylesheets/landingPage.css" />
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/emergencyIcon.png" />
+                           </image>
+                        </ImageView>
                         <Label id="menuSideBarLabel" prefHeight="48.0" prefWidth="153.0" stylesheets="@../Stylesheets/landingPage.css" text="Emergency" wrapText="true" />
                      </children>
                      <padding>
                         <Insets left="20.0" />
                      </padding>
-                     <GridPane.margin>
-                        <Insets bottom="5.0" top="5.0" />
-                     </GridPane.margin>
                   </HBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+                     <children>
+                        <Label fx:id="greetingLabel" text="Hello, USERNAME" />
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                           <children>
+                              <JFXButton alignment="TOP_LEFT" buttonType="RAISED" contentDisplay="CENTER" onAction="#logOut" prefHeight="16.0" prefWidth="59.0" style="-fx-background-color: #0F4B91;" text="Log out" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
+                              <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#userSettings" prefHeight="25.0" prefWidth="85.0" style="-fx-background-color: #0F4B91;" text="User settings" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <ScrollPane id="scrollPane" fx:id="servicesPane" maxWidth="1.7976931348623157E308" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </GridPane.margin>
+                  </ScrollPane>
                </children>
             </GridPane>
-            <Pane fx:id="scenesPane" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" />
+            <AnchorPane fx:id="scenesPane" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" />
          </children>
       </GridPane>
    </children>

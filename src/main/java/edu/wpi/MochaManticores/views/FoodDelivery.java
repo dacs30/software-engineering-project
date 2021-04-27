@@ -2,8 +2,11 @@ package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.*;
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.Services.ServiceMap;
+import edu.wpi.MochaManticores.Services.ServiceRequest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -14,6 +17,9 @@ public class FoodDelivery extends SceneController {
 
     @FXML
     private JFXComboBox<String> dietaryPreferences;
+
+    @FXML
+    private JFXTextArea allergiesField;
 
     @FXML
     private JFXComboBox<String> foodMenu;
@@ -39,9 +45,9 @@ public class FoodDelivery extends SceneController {
         back();
     }
 
-    public void helpButton(ActionEvent actionEvent){loadFullHelpDialogue();}
-
     private void loadHelpDialog(){
+        dialogPane.toFront();
+        dialogPane.setDisable(false);
         JFXDialogLayout message = new JFXDialogLayout();
         message.setMaxHeight(Region.USE_COMPUTED_SIZE);
         message.setMaxHeight(Region.USE_COMPUTED_SIZE);
@@ -116,8 +122,14 @@ public class FoodDelivery extends SceneController {
 
 
     public void submitForm(ActionEvent e) {
-        // TODO Submit action
+
         // changeSceneTo(e, "mainMenu");
+        ServiceRequest.addRequest(new edu.wpi.MochaManticores.Services.FoodDelivery(App.getClearenceLevel()==1,
+                false,
+                0,
+                dietaryPreferences.getSelectionModel().getSelectedItem(),
+                allergiesField.getText(),
+                foodMenu.getSelectionModel().getSelectedItem()), ServiceMap.FoodDelivery);
         dialogPane.setVisible(true);
         loadDialog();
     }
@@ -159,4 +171,7 @@ public class FoodDelivery extends SceneController {
 
     }
 
+    public void helpButton(MouseEvent mouseEvent) {
+        loadHelpDialog();
+    }
 }

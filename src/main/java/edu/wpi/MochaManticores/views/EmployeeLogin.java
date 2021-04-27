@@ -4,20 +4,23 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.Mdb;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import edu.wpi.MochaManticores.database.EmployeeManager;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-
-import java.sql.Connection;
 
 
 public class EmployeeLogin extends SceneController{
@@ -48,6 +51,17 @@ public class EmployeeLogin extends SceneController{
 
         backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
         backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
+        EventHandler<KeyEvent> enter = new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent e) {
+                System.out.println(e.getCharacter());
+                if(e.getCharacter().equals("\r")){
+                    onMouseClickedContinue(null);
+                }
+            }
+        };
+        empPassword.setOnKeyTyped(enter);
+
     }
 
     public void loadEmergencyDialog(){
@@ -122,17 +136,28 @@ public class EmployeeLogin extends SceneController{
             dialogPane.toBack();
         });
 
+        EventHandler<KeyEvent> enter = new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent e) {
+                if(e.getCharacter().equals("\r")){
+                    dialog.close();
+                    dialogPane.setDisable(true);
+                    dialogPane.toBack();
+                }
+            }
+        };
+        dialog.setOnKeyTyped(enter);
+
         message.setActions(ok);
         dialog.show();
     }
 
     // checks the login
     public void onMouseClickedContinue(ActionEvent actionEvent) {
-        Connection connection = Mdb.getConnection();
         // try the login with the inputed credentials
         // error if fail
         try {
-            EmployeeManager.checkEmployeeLogin(connection, empUserName.getText(), empPassword.getText());
+            DatabaseManager.checkEmployeeLogin(empUserName.getText(), empPassword.getText());
             changeSceneTo("staffMainMenu");
         } catch (Exception e) {
             // popup the error dialog

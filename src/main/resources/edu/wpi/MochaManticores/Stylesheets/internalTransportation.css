@@ -1,11 +1,10 @@
-#backBtn {
-    -fx-background-color: #0F4B91;
-    -fx-font-family: Roboto;
-    -fx-font-size: 30;
-    -fx-font-weight: bold;
+#formGrid {
+    -fx-background-color: rgba(255, 255, 255, 0.75);
+    -fx-background-radius: 40;
 }
 
 #internalTransportationLabel {
+    -fx-text-fill: grey ;
     -fx-font-weight: bold;
     -fx-font-family: Roboto;
     -fx-font-size: 50;
@@ -14,20 +13,11 @@
 .jfx-text-field {
     -fx-font-size: 20;
     -fx-font-weight: bold;
-    -fx-text-fill : #ffffff;
-    -jfx-unfocus-color : #ffffff;
+    -jfx-unfocus-color : #bababa;
+    -jfx-focus-color: grey;
     -fx-max-width: 400;
-    -fx-prompt-text-fill: white;
+    -fx-prompt-text-fill: rgba(193, 193, 193, 0.93);
 }
-.jfx-text-area {
-    -fx-font-size: 20;
-    -fx-font-weight: bold;
-    -fx-text-fill : #ffffff;
-    -jfx-unfocus-color : #ffffff;
-    -fx-max-width: 400;
-    -fx-prompt-text-fill: white;
-}
-
 
 .jfx-combo-box {
     -fx-prompt-text-fill: grey ;
@@ -36,9 +26,22 @@
     -fx-pref-width: 400;
     -fx-font-family: Roboto;
 }
+
+.jfx-combo-box {
+    -fx-font-family: Roboto;
+    -fx-prompt-text-fill: grey ;
+    -fx-background-color: rgba(186, 186, 186, 0.43);
+    -jfx-unfocus-color: transparent;
+    -fx-font-size: 20;
+}
 .jfx-combo-box .text-field:focused {
     -fx-prompt-text-fill: transparent ;
 }
+
+.jfx-combo-box:hover{
+    -fx-effect: dropshadow( three-pass-box , rgba(2, 2, 2, 0.2), 20, 0.0 , 1 , 10);
+}
+
 #helpBtn{
     -fx-background-color: #FFFFFF;
     -fx-font-family: Roboto;
@@ -47,8 +50,17 @@
 }
 
 #submitBtn{
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: #0F4B91;
     -fx-font-family: Roboto;
+    -fx-background-radius: 40;
     -fx-font-size: 25;
+    -fx-text-fill: white;
     -fx-font-weight: bold;
+}
+
+#submitBtn:hover{
+    -fx-background-color: #c2c2c2;
+    -fx-effect: dropshadow( three-pass-box , rgba(2, 2, 2, 0.2), 20, 0.0 , 1 , 10);
+    -fx-font-family: Roboto;
+    -fx-text-fill: grey;
 }
