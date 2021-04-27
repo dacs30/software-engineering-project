@@ -92,6 +92,9 @@ public class covidSurveyController extends SceneController{
     private JFXButton submitBtn;
 
     @FXML
+    private JFXButton backBtn;
+
+    @FXML
     private void initialize() {
         double height = App.getPrimaryStage().getScene().getHeight();
         double width = App.getPrimaryStage().getScene().getWidth();

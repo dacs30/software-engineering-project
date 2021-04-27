@@ -41,7 +41,7 @@
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -193,6 +193,7 @@
                         <JFXButton fx:id="submitBtn" buttonType="RAISED" onAction="#submitEvent" prefHeight="60.0" prefWidth="150.0" stylesheets="@../Stylesheets/covidSurvey.css" text="Submit" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                      </children>
                   </GridPane>
+                  <JFXButton fx:id="backBtn" onAction="#goBack" text="Back" translateX="50.0" />
                </children>
                <effect>
                   <DropShadow color="#00000033" height="125.0" radius="68.25" width="150.0" />
