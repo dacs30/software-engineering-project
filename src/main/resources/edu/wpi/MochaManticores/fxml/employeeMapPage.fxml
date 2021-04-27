@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDialog?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@../Stylesheets/employeeMapPage.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.employeeMapPage">
+   <children>
+      <ImageView fx:id="backgroundIMG" fitHeight="800.0" fitWidth="1207.0" layoutX="-6.0" opacity="0.35" pickOnBounds="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="-6.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../images/100909_00_BrighamWomens_BTM_N8_966x668.jpg" />
+         </image>
+      </ImageView>
+      <StackPane fx:id="dialogPane" disable="true" layoutX="-1.0" layoutY="-6.0" prefHeight="805.0" prefWidth="1206.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <JFXDialog />
+         </children>
+      </StackPane>
+      <GridPane fx:id="contentPane" layoutX="-1.0" layoutY="-1.0" prefHeight="805.0" prefWidth="1207.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" />
+            <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="1044.0" minWidth="10.0" percentWidth="75.0" prefWidth="923.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <GridPane>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="NEVER" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="NEVER" />
+                  <RowConstraints vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" vgrow="NEVER" />
+               </rowConstraints>
+               <children>
+                  <ImageView fitHeight="115.0" fitWidth="94.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER">
+                     <image>
+                        <Image url="@../images/logo-small.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </GridPane.margin>
+                  </ImageView>
+                  <JFXButton fx:id="backButton1" buttonType="RAISED" onAction="#back" prefHeight="64.0" prefWidth="146.0" style="-fx-background-color: #0f4b91;" text="Back" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </GridPane.margin>
+                  </JFXButton>
+                  <VBox fx:id="nodeInfoBox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-background-color: #0f4b91;" visible="false" GridPane.rowIndex="2">
+                     <children>
+                        <Label text="Selected Node" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <HBox alignment="CENTER_LEFT" spacing="5.0">
+                           <children>
+                              <Label minWidth="-Infinity" text="Node ID:" textFill="WHITE" textOverrun="CLIP" HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <JFXTextField fx:id="nodeIDField" focusColor="WHITE" promptText="Enter Text Here" unFocusColor="WHITE" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </JFXTextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets left="5.0" right="5.0" />
+                           </padding>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                           <children>
+                              <Label minWidth="-Infinity" text="X:" textFill="WHITE" textOverrun="CLIP" HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <JFXTextField focusColor="WHITE" promptText="Enter Text Here" unFocusColor="WHITE" HBox.hgrow="ALWAYS" fx:id="xCoordField">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </JFXTextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets left="5.0" right="5.0" />
+                           </padding>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="5.0">
+                           <children>
+                              <Label minWidth="-Infinity" text="Y:" textFill="WHITE" textOverrun="CLIP" HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <JFXTextField fx:id="yCoordField" focusColor="WHITE" promptText="Enter Text Here" unFocusColor="WHITE" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </JFXTextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets left="5.0" right="5.0" />
+                           </padding>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                           <children>
+                              <Label minWidth="-Infinity" text="Building:" textFill="WHITE" textOverrun="CLIP" HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <JFXTextField fx:id="bldgField" focusColor="WHITE" promptText="Enter Text Here" unFocusColor="WHITE" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </JFXTextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets left="5.0" right="5.0" />
+                           </padding>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="5.0">
+                           <children>
+                              <Label minWidth="-Infinity" text="Floor:" textFill="WHITE" textOverrun="CLIP" HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <JFXTextField fx:id="floorField" focusColor="WHITE" promptText="Enter Text Here" unFocusColor="WHITE" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </JFXTextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets left="5.0" right="5.0" />
+                           </padding>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="5.0">
+                           <children>
+                              <Label minWidth="-Infinity" text="NodeType:" textFill="WHITE" textOverrun="CLIP" HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <JFXTextField fx:id="nodeTypeField" focusColor="WHITE" promptText="Enter Text Here" unFocusColor="WHITE" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </JFXTextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets left="5.0" right="5.0" />
+                           </padding>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="5.0">
+                           <children>
+                              <Label minWidth="-Infinity" text="LongName:" textFill="WHITE" textOverrun="CLIP" HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <JFXTextField fx:id="longNameField" focusColor="WHITE" promptText="Enter Text Here" unFocusColor="WHITE" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </JFXTextField>
+                           </children>
+                           <padding>
+                              <Insets left="5.0" right="5.0" />
+                           </padding>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="5.0">
+                           <children>
+                              <Label minWidth="-Infinity" text="ShortName:" textFill="WHITE" textOverrun="CLIP" HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <JFXTextField fx:id="shortNameField" focusColor="WHITE" promptText="Enter Text Here" unFocusColor="WHITE" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </JFXTextField>
+                           </children>
+                           <padding>
+                              <Insets left="5.0" right="5.0" />
+                           </padding>
+                        </HBox>
+                        <HBox alignment="CENTER" spacing="15.0">
+                           <children>
+                              <JFXButton fx:id="nodeSubmit" buttonType="RAISED" style="-fx-background-color: WHITE;" text="Submit">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </JFXButton>
+                              <JFXButton fx:id="cancelChanges1" buttonType="RAISED" style="-fx-background-color: WHITE;" text="Cancel">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </JFXButton>
+                           </children>
+                        </HBox>
+                     </children>
+                     <GridPane.margin>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </GridPane.margin>
+                     <padding>
+                        <Insets bottom="10.0" />
+                     </padding>
+                  </VBox>
+                  <VBox fx:id="edgeInfoBox" alignment="TOP_CENTER" layoutX="25.0" layoutY="216.0" spacing="25.0" style="-fx-background-color: #0f4b91;" visible="false" GridPane.rowIndex="2">
+                     <children>
+                        <Label text="Selected Edge" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <HBox alignment="CENTER_LEFT" spacing="5.0">
+                           <children>
+                              <Label minWidth="-Infinity" text="Edge ID:" textFill="WHITE" textOverrun="CLIP" HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="edgeIDField" text="Edge ID Field" textFill="WHITE" underline="true">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets left="5.0" right="5.0" />
+                           </padding>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                           <children>
+                              <Label minWidth="-Infinity" text="Start Node:" textFill="WHITE" textOverrun="CLIP" HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <JFXTextField fx:id="startNodeID" focusColor="WHITE" promptText="Enter Text Here" unFocusColor="WHITE" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </JFXTextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets left="5.0" right="5.0" />
+                           </padding>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="5.0">
+                           <children>
+                              <Label minWidth="-Infinity" text="End Node:" textFill="WHITE" textOverrun="CLIP" HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <JFXTextField fx:id="endNodeID" focusColor="WHITE" promptText="Enter Text Here" unFocusColor="WHITE" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </JFXTextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets left="5.0" right="5.0" />
+                           </padding>
+                        </HBox>
+                        <HBox alignment="CENTER" spacing="15.0">
+                           <children>
+                              <JFXButton fx:id="edgeSubmit" buttonType="RAISED" style="-fx-background-color: WHITE;" text="Submit">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </JFXButton>
+                              <JFXButton fx:id="cancelChanges" buttonType="RAISED" style="-fx-background-color: WHITE;" text="Cancel">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </JFXButton>
+                           </children>
+                        </HBox>
+                     </children>
+                     <GridPane.margin>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </GridPane.margin>
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                  </VBox>
+                  <VBox fx:id="defaultBox" alignment="CENTER" spacing="25.0" style="-fx-background-color: #0f4b91;" GridPane.rowIndex="2">
+                     <children>
+                        <Label alignment="CENTER" graphicTextGap="6.0" text="Select a node or edge to begin editing" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                     <GridPane.margin>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </GridPane.margin>
+                  </VBox>
+                  <JFXComboBox fx:id="floorSelector" focusColor="WHITE" onAction="#selectFloor" promptText="Select Floor" style="-fx-background-color: WHITE;" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </GridPane.margin>
+                  </JFXComboBox>
+               </children>
+            </GridPane>
+            <GridPane fx:id="mapGrid" style="-fx-background-color: #0f4b91;" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="77.0" vgrow="NEVER" />
+                  <RowConstraints maxHeight="697.0740737915039" minHeight="10.0" prefHeight="646.1111221313477" vgrow="ALWAYS" />
+               </rowConstraints>
+               <children>
+                  <StackPane fx:id="mapStack" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+                     <children>
+                        <ImageView id="mapPane" fx:id="mapWindow" onMouseClicked="#drawCoord" pickOnBounds="true" preserveRatio="true" style="-fx-background-size: contain; -fx-background-repeat: no-repeat;" StackPane.alignment="TOP_LEFT">
+                           <viewport>
+                              <Rectangle2D />
+                           </viewport>
+                        </ImageView>
+                        <Pane fx:id="nodePane" />
+                     </children>
+                     <GridPane.margin>
+                        <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+                     </GridPane.margin>
+                  </StackPane>
+                  <GridPane prefHeight="84.0" prefWidth="902.0">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <GridPane GridPane.rowIndex="1">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <JFXButton id="getPathBtn" fx:id="routeExample" buttonType="RAISED" onAction="#goToRouteExample" prefHeight="50.0" prefWidth="175.0" style="-fx-background-color: white; -fx-border-radius: 15;" stylesheets="@../Stylesheets/employeeMapPage.css" text="Get Path" GridPane.halignment="CENTER">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </JFXButton>
+                              <JFXButton id="editEdgesBtn" fx:id="edgeButton" alignment="CENTER" buttonType="RAISED" onAction="#gotoEdge" prefHeight="50.0" prefWidth="175.0" style="-fx-background-color: white;" text="Edit Edges" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="36.0" />
+                                 </font>
+                              </JFXButton>
+                              <JFXButton id="downloadCSVBtn" fx:id="downloadButton" buttonType="RAISED" onAction="#downloadCSVs" prefHeight="60.0" prefWidth="175.0" style="-fx-background-color: white;" text="Download File" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="36.0" />
+                                 </font>
+                              </JFXButton>
+                              <JFXButton id="editNodeBtn" fx:id="nodeButton" buttonType="RAISED" onAction="#gotoNode" prefHeight="50.0" prefWidth="175.0" style="-fx-background-color: white;" text="Edit Nodes" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="36.0" />
+                                 </font>
+                              </JFXButton>
+                           </children>
+                        </GridPane>
+                        <Label fx:id="locationTitle" alignment="CENTER" text="Select a Floor from the left" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </GridPane>
+               </children>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </GridPane>
+         </children>
+      </GridPane>
+      <VBox fx:id="contextBox" maxHeight="-Infinity" maxWidth="-Infinity" spacing="10.0" style="-fx-background-color: WHITE; -fx-border-color: BLACK; -fx-border-width: 3;" visible="false">
+         <children>
+            <Group fx:id="addNode">
+               <children>
+                  <Label text="Add Node" />
+                  <Separator layoutY="17.0" prefWidth="200.0" style="-fx-background-color: GREY;" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Group>
+            <Group fx:id="addEdge">
+               <children>
+                  <Label text="Add Edge" />
+                  <Separator layoutY="17.0" prefWidth="200.0" style="-fx-background-color: GREY;" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Group>
+            <Group fx:id="deleteNode">
+               <children>
+                  <Label text="Delete Node" />
+                  <Separator layoutY="17.0" prefWidth="200.0" style="-fx-background-color: GREY;" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Group>
+            <Group fx:id="deleteEdge">
+               <children>
+                  <Label text="Delete Edge" />
+                  <Separator layoutY="17.0" prefWidth="200.0" style="-fx-background-color: GREY;" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Group>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
