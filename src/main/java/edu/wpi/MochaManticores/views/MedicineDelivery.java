@@ -5,6 +5,8 @@ import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Services.ServiceMap;
 import edu.wpi.MochaManticores.Services.ServiceRequest;
+import edu.wpi.MochaManticores.database.DatabaseManager;
+import edu.wpi.MochaManticores.database.sel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -60,6 +62,25 @@ public class MedicineDelivery {
     }
 
     public void submitForm(ActionEvent actionEvent) {
+        StringBuilder feel = new StringBuilder();
+        if(checkBox0.isSelected()){
+            feel.append("Muscle pain,");
+        }
+        if(checkBox1.isSelected()){
+            feel.append("Nausea,");
+        }
+        if(checkBox2.isSelected()){
+            feel.append("Headache,");
+        }
+        if(checkBox3.isSelected()){
+            feel.append("Other pain,");
+        }
+        if(checkBox4.isSelected()){
+            feel.append("Some pain,");
+        }
+        if(checkBox5.isSelected()){
+            feel.append("More pain");
+        }
         // changeSceneTo(e, "mainMenu");
         if (checkBoxesAreFilled() && !typeOfMedicineComboBx.getSelectionModel().isEmpty() && !patientRoom.getText().isEmpty()){
 //            ServiceRequest.addRequest(new edu.wpi.MochaManticores.Services.MedicineDelivery(App.getClearenceLevel()==1,
@@ -81,6 +102,9 @@ public class MedicineDelivery {
             missingInput.setMessage("Type of medicine must be selected");
             typeOfMedicineComboBx.validate();
         }
+
+        sel s = sel.Medicine;
+        DatabaseManager.addRequest(s, new edu.wpi.MochaManticores.Services.MedicineRequest("","",false,typeOfMedicineComboBx.getSelectionModel().getSelectedItem(),feel.toString(),allergies.getText(),patientRoom.getText()));
     }
 
     public void loadHelpDialogue(MouseEvent mouseEvent) {

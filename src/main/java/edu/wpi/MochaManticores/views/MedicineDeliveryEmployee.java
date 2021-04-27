@@ -271,7 +271,7 @@ public class MedicineDeliveryEmployee {
             medicineCombo.validate();
         }
         sel s = sel.Medicine;
-        DatabaseManager.addRequest(s, new edu.wpi.MochaManticores.Services.MedicineRequest(empBox.getText(),"",false,medicineCombo.getSelectionModel().getSelectedItem(),feel.toString(),allergies.getText(),patientRoom.getText()));
+        DatabaseManager.addRequest(s, new edu.wpi.MochaManticores.Services.MedicineRequest("",empBox.getText(),false,medicineCombo.getSelectionModel().getSelectedItem(),feel.toString(),allergies.getText(),patientRoom.getText()));
 
 
     }
