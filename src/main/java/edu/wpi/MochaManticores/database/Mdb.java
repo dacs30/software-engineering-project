@@ -143,6 +143,8 @@ public class Mdb extends Thread{
                 System.out.println("Creating Floral Delivery Request Table");
                 sql = "CREATE TABLE FLORALDEL" +
                         "(RequestID VARCHAR(21) not NULL, " +
+                        " EmpID VARCHAR(21), " +
+                        " completed BOOLEAN, " +
                         " roomNum VARCHAR(21), " +
                         " deliveryChoice VARCHAR(100), " +
                         " typeFlowers VARCHAR(40), " +
@@ -170,6 +172,8 @@ public class Mdb extends Thread{
                 System.out.println("Creating Food Delivery Request Table");
                 sql = "CREATE TABLE FOODDEL" +
                         "(RequestID VARCHAR(21) not NULL, " +
+                        " EmpID VARCHAR(21), " +
+                        " completed BOOLEAN, " +
                         " dietaryPreferences VARCHAR(40), " +
                         " allergies VARCHAR(150), " +
                         " menu VARCHAR(30), " +
@@ -195,6 +199,8 @@ public class Mdb extends Thread{
                 System.out.println("Creating Internal Transportation Request Table");
                 sql = "CREATE TABLE INTTRANSPORT" +
                         "(RequestID VARCHAR(21) not NULL, " +
+                        " EmpID VARCHAR(21), " +
+                        " completed BOOLEAN, " +
                         " roomNum VARCHAR(21), " +
                         " deliveryChoice VARCHAR(100), " +
                         " typeFlowers VARCHAR(40), " +
@@ -222,6 +228,8 @@ public class Mdb extends Thread{
                 System.out.println("Creating Sanitation Services Request Table");
                 sql = "CREATE TABLE SANITATIONSER" +
                         "(RequestID VARCHAR(40) not NULL, " +
+                        " EmpID VARCHAR(21), " +
+                        " completed BOOLEAN, " +
                         "location VARCHAR(40)" +
                         " safetyHazards VARCHAR(50), " +
                         " sanitationType VARCHAR(50), " +
@@ -249,6 +257,8 @@ public class Mdb extends Thread{
                 System.out.println("Creating Emergency Services Request Table");
                 sql = "CREATE TABLE EMGREQ" +
                         "(RequestID VARCHAR(40) not NULL, " +
+                        " EmpID VARCHAR(21), " +
+                        " completed BOOLEAN, " +
                         "numPeopleNeeded INTEGER" +
                         "location VARCHAR(50), " +
                         "gurney BOOLEAN, " +
