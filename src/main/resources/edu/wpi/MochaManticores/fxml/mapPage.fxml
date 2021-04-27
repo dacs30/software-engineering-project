@@ -17,11 +17,11 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.mapPage">
+<AnchorPane prefHeight="805.0" prefWidth="1089.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.mapPage">
    <children>
-      <ImageView fx:id="backgroundIMG" fitHeight="800.0" fitWidth="1207.0" layoutX="-6.0" opacity="0.35" pickOnBounds="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="-6.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ImageView fx:id="backgroundIMG" fitHeight="811.0" fitWidth="1229.0" layoutX="-12.0" layoutY="-1.0" opacity="0.5" pickOnBounds="true">
          <image>
-            <Image url="@../images/100909_00_BrighamWomens_BTM_N8_966x668.jpg" />
+            <Image url="@../images/cool-background.jpg" />
          </image>
       </ImageView>
       <StackPane fx:id="dialogPane" disable="true" layoutX="-1.0" layoutY="-6.0" prefHeight="805.0" prefWidth="1206.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -29,7 +29,7 @@
             <JFXDialog />
          </children>
       </StackPane>
-      <GridPane fx:id="contentPane" layoutX="-1.0" layoutY="-1.0" prefHeight="805.0" prefWidth="1203.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0">
+      <GridPane fx:id="contentPane" layoutX="-1.0" layoutY="-1.0" prefHeight="805.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="1044.0" minWidth="10.0" percentWidth="85.0" prefWidth="1024.0" />
         </columnConstraints>
@@ -37,23 +37,29 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <GridPane fx:id="mapGrid" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1150.0" style="-fx-background-color: #0f4b91;" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+            <GridPane fx:id="mapGrid" minWidth="-Infinity" prefHeight="700.0" prefWidth="1150.0" style="-fx-background-color: #0f4b91;" translateX="100.0" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="77.0" vgrow="NEVER" />
-                <RowConstraints maxHeight="697.0740737915039" minHeight="10.0" prefHeight="646.1111221313477" vgrow="ALWAYS" />
+                <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
               </rowConstraints>
                <children>
-                  <StackPane fx:id="mapStack" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+                  <StackPane fx:id="mapStack" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
                      <children>
-                        <ImageView id="mapPane" fx:id="mapWindow" onMouseClicked="#drawCoord" pickOnBounds="true" preserveRatio="true" style="-fx-background-size: contain; -fx-background-repeat: no-repeat;" StackPane.alignment="TOP_LEFT">
+                        <ImageView id="mapPane" fx:id="mapWindow" onMouseClicked="#drawCoord" pickOnBounds="true" preserveRatio="true" style="-fx-background-size: contain; -fx-background-repeat: no-repeat;" StackPane.alignment="CENTER">
                            <viewport>
                               <Rectangle2D />
                            </viewport>
+                           <StackPane.margin>
+                              <Insets />
+                           </StackPane.margin>
                         </ImageView>
-                        <Pane fx:id="nodePane" />
+                        <Pane fx:id="nodePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" StackPane.alignment="CENTER">
+                           <StackPane.margin>
+                              <Insets />
+                           </StackPane.margin></Pane>
                      </children>
                      <GridPane.margin>
                         <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
@@ -61,10 +67,11 @@
                   </StackPane>
                   <GridPane>
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="324.6666259765625" minWidth="10.0" prefWidth="165.66668701171875" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="324.6666259765625" minWidth="10.0" prefWidth="165.66668701171875" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="610.0" minWidth="10.0" prefWidth="610.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="324.0" minWidth="10.0" prefWidth="200.3333740234375" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="324.6666259765625" minWidth="10.0" prefWidth="103.33331298828125" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="324.6666259765625" minWidth="10.0" prefWidth="166.33331298828125" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="610.0" minWidth="10.0" prefWidth="531.6666259765625" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="324.0" minWidth="10.0" prefWidth="188.3333740234375" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="209.6666259765625" minWidth="10.0" prefWidth="169.6666259765625" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -75,15 +82,20 @@
                               <Font size="43.0" />
                            </font>
                         </Label>
-                        <ImageView fitHeight="84.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <JFXButton id="downloadCSVBtn" fx:id="downloadButton" buttonType="RAISED" minHeight="-Infinity" onAction="#downloadCSVs" prefHeight="56.0" prefWidth="155.0" style="-fx-background-color: white; -fx-background-radius: 40;" text="Download File" GridPane.columnIndex="4">
+                           <font>
+                              <Font name="System Bold" size="19.0" />
+                           </font>
+                        </JFXButton>
+                        <ImageView fitHeight="84.0" fitWidth="64.0" onMouseClicked="#back" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <image>
                               <Image url="@../images/logo-small.png" />
                            </image>
                         </ImageView>
-                        <JFXComboBox fx:id="floorSelector" focusColor="WHITE" onAction="#selectFloor" promptText="Select Floor" style="-fx-background-color: WHITE;" unFocusColor="WHITE" GridPane.columnIndex="1" />
-                        <JFXButton fx:id="routeExample" buttonType="RAISED" onAction="#goToRouteExample" prefHeight="64.0" prefWidth="146.0" style="-fx-background-color: white; -fx-border-radius: 40; -fx-background-radius: 40;" text="Get Path" GridPane.columnIndex="3">
+                        <JFXComboBox fx:id="floorSelector" focusColor="WHITE" onAction="#selectFloor" prefHeight="50.0" prefWidth="115.0" promptText="Select Floor" style="-fx-background-color: WHITE;" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                        <JFXButton fx:id="routeExample" buttonType="RAISED" onAction="#goToRouteExample" prefHeight="56.0" prefWidth="155.0" style="-fx-background-color: white; -fx-border-radius: 40; -fx-background-radius: 40;" text="Get Path" GridPane.columnIndex="3" GridPane.halignment="CENTER">
                            <font>
-                              <Font size="18.0" />
+                              <Font name="System Bold" size="19.0" />
                            </font>
                         </JFXButton>
                      </children>
@@ -93,7 +105,7 @@
                   <DropShadow />
                </effect>
                <GridPane.margin>
-                  <Insets left="175.0" />
+                  <Insets />
                </GridPane.margin>
             </GridPane>
          </children>

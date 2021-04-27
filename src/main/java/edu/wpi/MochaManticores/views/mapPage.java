@@ -31,11 +31,30 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.layout.VBox;
 import javafx.geometry.Pos;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 
 public class mapPage extends SceneController{
+
+    public void downloadCSVs(ActionEvent actionEvent) {
+        String path = getPath();
+        if (path.equals("")) {
+
+        } else {
+            File dst = new File(path + "\\bwMEdges.csv");
+            try {
+                File source = new File("data/bwMEdges.csv");
+                Files.copy(source.toPath(), dst.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        }
+    }
 
     public class node {
         Circle c;
@@ -192,6 +211,57 @@ public class mapPage extends SceneController{
         //Initializing the dialog pane
         dialogPane.toBack();
 
+
+    }
+
+    public void toAStar() {
+        AStar2 star = new AStar2();
+        //pathToTake is used in the dialog box that keeps all the nodes that the user has to pass through
+        StringBuilder pathToTake = new StringBuilder(new String());
+        LinkedList<NodeSuper> stops = new LinkedList<>();
+        for (mapPage.node n :
+                pitStops) {
+            stops.add(MapSuper.getMap().get(n.nodeID));
+        }
+        if (pitStops.isEmpty()) {
+            pathToTake.append("Please select at least one node");
+        } else {
+
+            LinkedList<String> path = star.multiStopRoute(stops,pathToTake.toString());
+            System.out.println(path);
+            for (String str :
+                    path) {
+                System.out.printf("\n%s\n|\n", MapSuper.getMap().get(str).getLongName());
+                pathToTake.append(MapSuper.getMap().get(str).getLongName()).append("\n|\n");//appending the paths
+            }
+            LinkedList<Line> lines = new LinkedList();
+
+            for (int i = 0; i < path.size(); i++) {
+                try {
+                    mapPage.node start = nodes.get(path.get(i));
+                    mapPage.node end = nodes.get(path.get(i + 1));
+                    double startX = start.xCoord;
+                    double startY = start.yCoord;
+                    double endX = end.xCoord;
+                    double endY = end.yCoord;
+                    Line l = new Line(startX, startY, endX, endY);
+                    l.setStroke(Color.BLACK);
+                    l.setStrokeWidth(5);
+                    lines.add(l);
+                } catch (Exception e) {
+                    System.out.println("Got here");
+                }
+
+            }
+            nodePane.getChildren().addAll(lines);
+            for (mapPage.node n :
+                    pitStops) {
+                n.resetFill();
+            }
+            pitStops = new LinkedList<>();
+        }
+
+        loadDialog(pathToTake); // calling the dialog pane with the path
 
     }
 
