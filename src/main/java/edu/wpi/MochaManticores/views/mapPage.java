@@ -335,7 +335,7 @@ public class mapPage extends SceneController{
 
     }
 
-    public void back() {
+    public void back(ActionEvent e) {
         super.back();
     }
 
