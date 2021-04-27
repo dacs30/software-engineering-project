@@ -60,9 +60,9 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <JFXTextField promptText="Patient Room" stylesheets="@../Stylesheets/externalTransportation.css" />
-                        <JFXTextField promptText="Current Room" stylesheets="@../Stylesheets/externalTransportation.css" GridPane.rowIndex="1" />
-                        <JFXTextField promptText="External Room" stylesheets="@../Stylesheets/externalTransportation.css" GridPane.rowIndex="2" />
+                        <JFXTextField fx:id="patientRoom" promptText="Patient Room" stylesheets="@../Stylesheets/externalTransportation.css" />
+                        <JFXTextField fx:id="currentRoom" promptText="Current Room" stylesheets="@../Stylesheets/externalTransportation.css" GridPane.rowIndex="1" />
+                        <JFXTextField fx:id="externalRoom" promptText="External Room" stylesheets="@../Stylesheets/externalTransportation.css" GridPane.rowIndex="2" />
                         <JFXComboBox fx:id="transportationMethods" promptText="Select transportation method" GridPane.rowIndex="3" />
                         <JFXTextField fx:id="empBox" promptText="Assign An Employee" GridPane.rowIndex="4" />
                      </children>
