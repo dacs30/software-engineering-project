@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -35,14 +36,14 @@ public class internalTransportationController extends SceneController{
     private ImageView backgroundIMG;
     @FXML
     private StackPane dialogPane;
-    
+
     @FXML
     private void initialize() {
         double height = App.getPrimaryStage().getScene().getHeight();
         double width = App.getPrimaryStage().getScene().getWidth();
         backgroundIMG.setFitHeight(height);
         backgroundIMG.setFitWidth(width);
-        contentGrid.setPrefSize(width,height);
+        contentGrid.setPrefSize(width, height);
 
         backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
         backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
@@ -63,8 +64,6 @@ public class internalTransportationController extends SceneController{
     public void submitEvent(ActionEvent actionEvent) {
         loadSubmitDialog();
     }
-    
-    public void helpButton(ActionEvent actionEvent){loadHelpDialogue();}
 
     private void loadDialog(){
         JFXDialogLayout message = new JFXDialogLayout();
@@ -105,10 +104,7 @@ public class internalTransportationController extends SceneController{
         dialog.show();
 
     }
-    private void loadHelpDialogue() {
-        dialogPane.toFront();
-        loadDialog();
-    }
+
 
     public void loadSubmitDialog(){
         //TODO Center the text of it.
@@ -145,5 +141,8 @@ public class internalTransportationController extends SceneController{
 
         message.setActions(ok);
         dialog.show();
+    }
+
+    public void openHelp(MouseEvent mouseEvent) {
     }
 }

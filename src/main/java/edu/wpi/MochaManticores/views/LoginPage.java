@@ -3,12 +3,15 @@ package edu.wpi.MochaManticores.views;
 import com.jfoenix.controls.*;
 import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.Mdb;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -23,6 +26,9 @@ public class LoginPage extends SceneController{
 
     @FXML
     private ImageView backgroundIMG;
+
+    @FXML
+    private JFXTextField IDField;
 
     @FXML
     private GridPane contentPane;
@@ -53,6 +59,16 @@ public class LoginPage extends SceneController{
 
         backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
         backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
+        EventHandler<KeyEvent> enter = new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent e) {
+                //System.out.println(e.getCharacter());
+                if(e.getCharacter().equals("\r")){
+                    loginStaff(null);
+                }
+            }
+        };
+        employeePassword.setOnKeyTyped(enter);
 
     }
 
@@ -135,7 +151,12 @@ public class LoginPage extends SceneController{
 
     public void onMouseClickedContinue(ActionEvent e) {
         App.setClearenceLevel(0);
-        changeSceneTo("mainMenu");
+        if (IDField.getText().equals("")){
+            App.setCurrentUsername("Guest");
+        } else {
+            App.setCurrentUsername("Patient: " + IDField.getText());
+        }
+        changeSceneTo("landingPage");
     }
 
     public void emergencyBtnClicked(ActionEvent e) {
@@ -156,13 +177,15 @@ public class LoginPage extends SceneController{
     }
 
     public void loginStaff(ActionEvent actionEvent) {
-        Connection connection = Mdb.getConnection();
         // try the login with the inputed credentials
         // error if fail
         System.out.println(employeeUsername.getText());
         try {
-            EmployeeManager.checkEmployeeLogin(connection, employeeUsername.getText(), employeePassword.getText());
-            changeSceneTo("staffMainMenu");
+            DatabaseManager.checkEmployeeLogin(employeeUsername.getText(), employeePassword.getText());
+            // sets to employee level
+            App.setClearenceLevel(1);
+            App.setCurrentUsername(employeeUsername.getText());
+            changeSceneTo("landingPage");
         } catch (Exception e) {
             // Validators
             employeeUsername.setText(null);

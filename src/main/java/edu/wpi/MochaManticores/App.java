@@ -5,10 +5,15 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Objects;
 
+import edu.wpi.MochaManticores.Algorithms.AStar2;
+import edu.wpi.MochaManticores.Algorithms.PathPlanning;
+import edu.wpi.MochaManticores.Services.ServiceMap;
+import edu.wpi.MochaManticores.Services.ServiceRequest;
 import edu.wpi.MochaManticores.database.EdgeManager;
 import edu.wpi.MochaManticores.database.EmployeeManager;
 import edu.wpi.MochaManticores.database.Mdb;
 import edu.wpi.MochaManticores.database.NodeManager;
+import edu.wpi.MochaManticores.database.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +29,24 @@ public class App extends Application {
   private static NodeManager nodeManager;
   private static EdgeManager edgeManager;
   private static EmployeeManager employeeManager;
+  private static PathPlanning algoType = new AStar2();
+  private static String currentUsername;
 
+  public static String getCurrentUsername() {
+    return currentUsername;
+  }
+
+  public static void setCurrentUsername(String currentUsername) {
+    App.currentUsername = currentUsername;
+  }
+
+  public static PathPlanning getAlgoType() {
+    return App.algoType;
+  }
+
+  public void setAlgoType(PathPlanning algoType) {
+    App.algoType = algoType;
+  }
 
   public static NodeManager getNodeManager() {
     return nodeManager;
@@ -62,10 +84,7 @@ public class App extends Application {
   public void init() throws InterruptedException, FileNotFoundException, SQLException {
     System.out.println("Starting Up");
     System.out.println("Starting Database");
-    Mdb.databaseStartup();
-    nodeManager = new NodeManager();
-    edgeManager = new EdgeManager();
-    employeeManager = new EmployeeManager();
+    DatabaseManager.startup();
   }
 
 

@@ -66,7 +66,7 @@ public class RouteExample extends SceneController {
             }
             }
 
-        LinkedList<String> path = star.multiStopRoute(stops);
+        LinkedList<String> path = star.multiStopRoute(stops, "none"); //ADD CONDITION FOR PATHING
         if(path != null){
             System.out.println("Path found:");
         }

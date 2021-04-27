@@ -76,4 +76,8 @@ public class staffMainMenuController extends SceneController{
         super.back();
     }
 
+    public void changeToMapEditor() {
+        super.changeSceneTo("mapEditor");
+    }
+
 }
