@@ -36,8 +36,8 @@
       </StackPane>
       <GridPane fx:id="contentPane" layoutX="-1.0" layoutY="-1.0" prefHeight="805.0" prefWidth="1207.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" />
-            <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="1044.0" minWidth="10.0" percentWidth="75.0" prefWidth="923.0" />
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="25.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="NEVER" minWidth="10.0" percentWidth="75.0" prefWidth="923.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
