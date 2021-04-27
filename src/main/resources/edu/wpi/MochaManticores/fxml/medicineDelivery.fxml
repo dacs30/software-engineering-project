@@ -16,7 +16,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="800.0" prefWidth="1207.0" stylesheets="@../Stylesheets/medicineDelivery.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.MedicineDelivery">
    <children>
@@ -91,14 +90,6 @@
                   </GridPane>
                   <JFXTextField promptText="Allergies" GridPane.rowIndex="4" />
                   <JFXTextField promptText="Patient room" GridPane.rowIndex="5" />
-                  <JFXButton id="backBtn" fx:id="backButton" buttonType="RAISED" onAction="#goBack" text="BACK" GridPane.halignment="LEFT">
-                     <GridPane.margin>
-                        <Insets left="100.0" />
-                     </GridPane.margin>
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </JFXButton>
                </children>
             </GridPane>
          </children>

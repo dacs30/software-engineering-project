@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
@@ -39,6 +40,16 @@ public class SceneController{
     double width = App.getPrimaryStage().getScene().getWidth();
     private boolean dialogOpen = false;
 
+    private static AnchorPane landingPageWindow;
+
+    public AnchorPane getLandingPageWindow() {
+        return landingPageWindow;
+    }
+
+    public void setLandingPageWindow(AnchorPane landingPageWindow) {
+        SceneController.landingPageWindow = landingPageWindow;
+    }
+
     @FXML
     protected void returnToMain(){
         changeSceneTo("landingPage");
@@ -54,6 +65,18 @@ public class SceneController{
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    @FXML
+    protected void changeWindowTo(String scene) throws IOException {
+
+        try {
+            landingPageWindow.getChildren().clear();
+        } catch (Exception e) {
+            //e.printStackTrace();
+        }
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/" + scene + ".fxml")));
+        landingPageWindow.getChildren().add(root);
     }
 
     public double getHeight() {

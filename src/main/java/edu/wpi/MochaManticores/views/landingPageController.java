@@ -134,6 +134,10 @@ public class landingPageController extends SceneController {
 
       // get rid of the horizontal scroll
       servicesPane.setFitToWidth(true);
+      if (scenesPane == null){
+        System.out.println("ERROR");
+      }
+      super.setLandingPageWindow(scenesPane);
   }
 
   //emergencyDialog
@@ -196,14 +200,12 @@ public class landingPageController extends SceneController {
   }
 
   public void renderMenu(MouseEvent mouseEvent) throws IOException {
-    scenesPane.getChildren().removeAll(scenesPane.getChildren());
 
-    Parent root = null;
     // if it is an employee the page page is different
     if (App.getClearenceLevel() == 1) {
-      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/employeeHomePage.fxml")));
+      super.changeWindowTo("employeeHomePage");
     } else {
-      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/homePage2.fxml")));
+      super.changeWindowTo("homePage2");
     }
 
     currentVbox.setStyle("-fx-background-radius: 0;");
@@ -214,7 +216,6 @@ public class landingPageController extends SceneController {
     menuSidePane.setStyle("-fx-background-radius: 20;");
     menuSidePane.setStyle("-fx-background-color: rgba(15,75,145,0.29);");
 
-    scenesPane.getChildren().add(root);
   }
 
   public void renderFoodDelivery(MouseEvent mouseEvent) throws IOException {

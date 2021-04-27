@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+import java.io.IOException;
+
 public class EmployeeHomePage extends SceneController {
 
     @FXML
@@ -21,17 +23,17 @@ public class EmployeeHomePage extends SceneController {
         backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
     }
-    public void goToMedicineDelivery(MouseEvent mouseEvent) {
-        super.changeSceneTo("medicineDelivery");
+    public void goToMedicineDelivery(MouseEvent mouseEvent) throws IOException {
+        super.changeWindowTo("medicineDelivery");
     }
-    public void goToInternalTransportation(MouseEvent mouseEvent) {
-        super.changeSceneTo("internalTransportation"); }
+    public void goToInternalTransportation(MouseEvent mouseEvent) throws IOException {
+        super.changeWindowTo("internalTransportation"); }
 
-    public void goToCovidSurvey(MouseEvent mouseEvent) {
-        super.changeSceneTo("covidSurvey");
+    public void goToCovidSurvey(MouseEvent mouseEvent) throws IOException {
+        super.changeWindowTo("covidSurvey");
     }
 
     public void goToMapEditor(MouseEvent mouseEvent) {
-        changeSceneTo("mapEditor");
+        changeSceneTo("employeeMapPage");
     }
 }

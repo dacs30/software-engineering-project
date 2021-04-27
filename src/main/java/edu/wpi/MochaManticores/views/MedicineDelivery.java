@@ -80,6 +80,6 @@ public class MedicineDelivery {
         }
     }
 
-    public void helpButton(MouseEvent mouseEvent) {
+    public void loadHelpDialogue(MouseEvent mouseEvent) {
     }
 }
