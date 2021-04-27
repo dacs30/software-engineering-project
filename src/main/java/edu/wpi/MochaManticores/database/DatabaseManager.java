@@ -234,7 +234,6 @@ public class DatabaseManager{
                 return getEdgeManager();
             case EMPLOYEE:
                 return getEmpManager();
-
             case InternalTransportation:
                 return getIntTransportManager();
             case ExternalTransportation:
@@ -405,7 +404,7 @@ public class DatabaseManager{
 
     public static LanguageInterpreterManager getLanguageInterpreterManager() {
         if(languageInterpreterManager == null){
-            laundryManager = new LaundryManager(connection, null);
+            languageInterpreterManager = new LanguageInterpreterManager(connection, null);
         }
         return languageInterpreterManager;
     }
