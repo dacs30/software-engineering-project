@@ -13,6 +13,13 @@ public class LaundryManager extends Manager<LaundryRequest> {
     private static final String CSVdelim = ",";
     private static final ServiceRequestType type = ServiceRequestType.Laundry;
 
+    LaundryManager(Connection connection, String csv_path){
+        this.connection = connection;
+        if(csv_path != null){
+            this.csv_path = csv_path;
+        }
+    }
+
     @Override
     void loadFromCSV() {
         //loads database and sets hashmap

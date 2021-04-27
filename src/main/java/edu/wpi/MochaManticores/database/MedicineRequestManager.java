@@ -13,6 +13,12 @@ public class MedicineRequestManager extends Manager<MedicineRequest> {
     private static final String CSVdelim = ",";
     private static final ServiceRequestType type = ServiceRequestType.Medicine;
 
+    MedicineRequestManager(Connection connection, String csv_path){
+        this.connection = connection;
+        if(csv_path != null){
+            this.csv_path = csv_path;
+        }
+    }
 
     @Override
     void loadFromCSV() {

@@ -14,6 +14,13 @@ public class LanguageInterpreterManager extends Manager<LanguageInterpreterReque
     private static final String CSVdelim = ",";
     private static final ServiceRequestType type = ServiceRequestType.LanguageInterperter;
 
+    LanguageInterpreterManager(Connection connection, String csv_path){
+        this.connection = connection;
+        if(csv_path != null){
+            this.csv_path = csv_path;
+        }
+    }
+
 
     @Override
     void loadFromCSV() {
