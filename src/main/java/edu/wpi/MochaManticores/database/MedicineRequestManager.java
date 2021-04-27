@@ -1,6 +1,7 @@
 package edu.wpi.MochaManticores.database;
 
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
+import edu.wpi.MochaManticores.Services.FoodDelivery;
 import edu.wpi.MochaManticores.Services.MedicineRequest;
 import edu.wpi.MochaManticores.Services.ServiceRequestType;
 
@@ -143,5 +144,17 @@ public class MedicineRequestManager extends Manager<MedicineRequest> {
     @Override
     void cleanTable() throws SQLException {
         //implement clean table
+    }
+
+    public void updateElementMap() throws SQLException {
+        String sql = "SELECT * FROM MEDREQ";
+        Statement stmt = connection.createStatement();
+        ResultSet result = stmt.executeQuery(sql);
+        while (result.next()) {
+            MedicineRequest temp = new MedicineRequest(result.getString(1),result.getString(2),
+                    Boolean.parseBoolean(result.getString(3)), result.getString(4), result.getString(5),
+                    result.getString(6), result.getString(7));
+            addElement_map(temp);
+        }
     }
 }

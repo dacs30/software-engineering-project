@@ -5,6 +5,7 @@ import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Services.FloralDelivery;
 import edu.wpi.MochaManticores.Services.SanitationServices;
 
+import javax.xml.crypto.Data;
 import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.Scanner;
@@ -125,8 +126,7 @@ public class Mdb extends Thread{
                 stmt.executeUpdate(sql);
                 DatabaseManager.getExtTransportManager().loadFromCSV();
             }else{
-                DatabaseManager.getExtTransportManager().cleanTable();
-                DatabaseManager.getExtTransportManager().loadFromCSV();
+                DatabaseManager.getExtTransportManager().updateElementMap();
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -154,8 +154,7 @@ public class Mdb extends Thread{
                 stmt.executeUpdate(sql);
                 DatabaseManager.getFloralDeliveryManager().loadFromCSV();
             }else{
-                DatabaseManager.getFloralDeliveryManager().cleanTable();
-                DatabaseManager.getFloralDeliveryManager().loadFromCSV();
+                DatabaseManager.getFloralDeliveryManager().updateElementMap();
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -208,8 +207,7 @@ public class Mdb extends Thread{
                 stmt.executeUpdate(sql);
                 DatabaseManager.getIntTransportManager().loadFromCSV();
             }else{
-                DatabaseManager.getIntTransportManager().cleanTable();
-                DatabaseManager.getIntTransportManager().loadFromCSV();
+                DatabaseManager.getIntTransportManager().updateElementMap();
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -237,8 +235,7 @@ public class Mdb extends Thread{
                 stmt.executeUpdate(sql);
                 DatabaseManager.getSanitationServices().loadFromCSV();
             }else{
-                DatabaseManager.getSanitationServices().cleanTable();
-                DatabaseManager.getSanitationServices().loadFromCSV();
+                DatabaseManager.getSanitationServices().updateElementMap();
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -264,8 +261,7 @@ public class Mdb extends Thread{
                 stmt.executeUpdate(sql);
                 DatabaseManager.getEmergencyManager().loadFromCSV();
             }else{
-                DatabaseManager.getEmergencyManager().cleanTable();
-                DatabaseManager.getEmergencyManager().loadFromCSV();
+                DatabaseManager.getEmergencyManager().updateElementMap();
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -289,10 +285,9 @@ public class Mdb extends Thread{
                         "typeSacredPerson VARCHAR(50), " +
                         "PRIMARY KEY (RequestID))";
                 stmt.executeUpdate(sql);
-                //DatabaseManager.getEmpManager().loadFromCSV();
+                DatabaseManager.getReligiousManager().loadFromCSV();
             }else{
-                //DatabaseManager.getEmpManager().cleanTable();
-                //DatabaseManager.getEmpManager().loadFromCSV();
+                DatabaseManager.getReligiousManager().updateElementMap();
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -317,10 +312,9 @@ public class Mdb extends Thread{
                         "patientRoom VARCHAR(50)," +
                         "PRIMARY KEY (RequestID))";
                 stmt.executeUpdate(sql);
-                //DatabaseManager.getEmpManager().loadFromCSV();
+                DatabaseManager.getMedicineRequestManager().loadFromCSV();
             }else{
-                //DatabaseManager.getEmpManager().cleanTable();
-                //DatabaseManager.getEmpManager().loadFromCSV();
+                DatabaseManager.getMedicineRequestManager().updateElementMap();
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -347,10 +341,9 @@ public class Mdb extends Thread{
                         "dryCycleNumber INTEGER," +
                         "PRIMARY KEY (RequestID))";
                 stmt.executeUpdate(sql);
-                //DatabaseManager.getEmpManager().loadFromCSV();
+                DatabaseManager.getLaundryManager().loadFromCSV();
             }else{
-                //DatabaseManager.getEmpManager().cleanTable();
-                //DatabaseManager.getEmpManager().loadFromCSV();
+                DatabaseManager.getLaundryManager().updateElementMap();
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -374,10 +367,9 @@ public class Mdb extends Thread{
                         "languageTwo VARCHAR(50)," +
                         " PRIMARY KEY (RequestID))";
                 stmt.executeUpdate(sql);
-                //DatabaseManager.getEmpManager().loadFromCSV();
+                DatabaseManager.getLanguageInterpreterManager().loadFromCSV();
             }else{
-                //DatabaseManager.getEmpManager().cleanTable();
-                //DatabaseManager.getEmpManager().loadFromCSV();
+                DatabaseManager.getLanguageInterpreterManager().updateElementMap();
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
