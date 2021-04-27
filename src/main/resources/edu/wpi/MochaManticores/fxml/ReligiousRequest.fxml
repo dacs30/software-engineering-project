@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -22,7 +22,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <GridPane id="formSquare" stylesheets="@../Stylesheets/ReligiousRequest.css">
+                <GridPane id="formsGrid" stylesheets="@../Stylesheets/ReligiousRequest.css">
                     <columnConstraints>
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -39,29 +39,23 @@
 
                         <Label text="Religious Request Form" />
 
-                        <JFXTextField fx:id="reasonBox" promptText="Reason for visit" GridPane.rowIndex="1">
-                            <padding>
-                                <Insets left="50.0" right="50.0" />
-                            </padding>
-                        </JFXTextField>
+                        <JFXTextField id="reasonForVisit" fx:id="reasonBox" labelFloat="true" promptText="Reason for visit" GridPane.rowIndex="1" />
 
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0" GridPane.rowIndex="2">
                             <children>
-                                <JFXTextField fx:id="roomIDbox" promptText="Room Number">
+                                <JFXTextField fx:id="roomIDbox" labelFloat="true" promptText="Room Number">
                                     <padding>
                                         <Insets left="0" right="0" />
                                     </padding>
                                 </JFXTextField>
-
-                                <ComboBox fx:id="TypeOfSacredPerson" prefWidth="200.0" promptText="Select one" />
+                        <JFXComboBox promptText="Select one option" />
 
                             </children>
                         </HBox>
 
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="200.0" GridPane.rowIndex="3">
                             <children>
-                                <JFXButton fx:id="cancelBTN" buttonType="RAISED" onAction="#cancelEvent" prefHeight="70.0" prefWidth="155.0" text="Cancel" />
-                                <JFXButton fx:id="submitBTN" buttonType="RAISED" onAction="#submitEvent" prefHeight="70.0" prefWidth="155.0" text="Submit" />
+                                <JFXButton fx:id="submitBTN" buttonType="RAISED" onAction="#submitEvent" prefHeight="70.0" prefWidth="155.0" text="SUBMIT" />
                             </children>
                         </HBox>
 
