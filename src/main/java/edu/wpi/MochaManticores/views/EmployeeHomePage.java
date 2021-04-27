@@ -3,8 +3,9 @@ package edu.wpi.MochaManticores.views;
 import edu.wpi.MochaManticores.App;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
-public class EmployeeHomePage {
+public class EmployeeHomePage extends SceneController {
 
     @FXML
     private ImageView backgroundIMG;
@@ -20,5 +21,17 @@ public class EmployeeHomePage {
         backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
     }
+    public void goToMedicineDelivery(MouseEvent mouseEvent) {
+        super.changeSceneTo("medicineDelivery");
+    }
+    public void goToInternalTransportation(MouseEvent mouseEvent) {
+        super.changeSceneTo("internalTransportation"); }
 
+    public void goToCovidSurvey(MouseEvent mouseEvent) {
+        super.changeSceneTo("covidSurvey");
+    }
+
+    public void goToMapEditor(MouseEvent mouseEvent) {
+        changeSceneTo("mapEditor");
+    }
 }

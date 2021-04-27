@@ -81,6 +81,5 @@ public class MedicineDelivery {
     }
 
     public void helpButton(MouseEvent mouseEvent) {
-
     }
 }

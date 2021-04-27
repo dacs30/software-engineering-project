@@ -391,7 +391,7 @@
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                      </GridPane.margin>
                   </VBox>
-                  <JFXComboBox fx:id="floorSelector" focusColor="WHITE" onAction="#selectFloor" promptText="Select Floor" style="-fx-background-color: WHITE;" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
+                  <JFXComboBox fx:id="floorSelector" focusColor="WHITE" onAction="#selectFloor" promptText="Select Floor" style="-fx-background-color: black;" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                      </GridPane.margin>

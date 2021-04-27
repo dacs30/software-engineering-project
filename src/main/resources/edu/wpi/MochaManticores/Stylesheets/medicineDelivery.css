@@ -38,8 +38,23 @@
     -fx-text-fill: white;
     -fx-font-weight: bold;
 }
+#backBtn{
+    -fx-background-color: #0F4B91;
+    -fx-font-family: Roboto;
+    -fx-background-radius: 40;
+    -fx-font-size: 25;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
 
 #submitBtn:hover{
+    -fx-background-color: #c2c2c2;
+    -fx-effect: dropshadow( three-pass-box , rgba(2, 2, 2, 0.2), 20, 0.0 , 1 , 10);
+    -fx-font-family: Roboto;
+    -fx-text-fill: grey;
+}
+
+#backBtn:hover{
     -fx-background-color: #c2c2c2;
     -fx-effect: dropshadow( three-pass-box , rgba(2, 2, 2, 0.2), 20, 0.0 , 1 , 10);
     -fx-font-family: Roboto;
