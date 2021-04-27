@@ -2,19 +2,20 @@ package edu.wpi.MochaManticores.database;
 
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import edu.wpi.MochaManticores.Services.ExternalTransportation;
+import edu.wpi.MochaManticores.Services.InternalTransportation;
 import edu.wpi.MochaManticores.Services.ServiceMap;
 import edu.wpi.MochaManticores.Services.ServiceRequestType;
 
 import java.io.*;
 import java.sql.*;
 
-public class ExtTransportManager extends Manager<ExternalTransportation> {
-    private static String csv_path = "data/services/ExtTransport.csv";
+public class IntTransportManager extends Manager<InternalTransportation> {
+    private static String csv_path = "data/services/IntTransport.csv";
     private static Connection connection = null;
     private static final String CSVdelim = ",";
     private static final ServiceRequestType type = ServiceRequestType.ExternalTransportation;
 
-    ExtTransportManager(Connection connection, String csv_path){
+    IntTransportManager(Connection connection, String csv_path){
         this.connection = connection;
         if(csv_path != null){
             this.csv_path = csv_path;
@@ -33,7 +34,7 @@ public class ExtTransportManager extends Manager<ExternalTransportation> {
                 if(line == null) break;
                 String[] row = line.split(CSVdelim);
 
-                ExternalTransportation temp = new ExternalTransportation(row[0],row[1],Boolean.parseBoolean(row[2]),
+                InternalTransportation temp = new InternalTransportation(row[0],row[1],Boolean.parseBoolean(row[2]),
                         row[3],row[4],row[5],row[6]);
                 addElement(temp);
             }
@@ -43,12 +44,12 @@ public class ExtTransportManager extends Manager<ExternalTransportation> {
     }
 
     @Override
-    void addElement(ExternalTransportation temp) {
+    void addElement(InternalTransportation temp) {
         addElement_db(temp);
         addElement_map(temp);
     }
 
-    void addElement_db(ExternalTransportation temp) {
+    void addElement_db(InternalTransportation temp) {
 
         try {
             String sql = "INSERT INTO EXTTRANSPORT (RequestID, EmpID, completed, patientRoom, currentRoom, externalRoom, transportationMethod) " +
@@ -67,7 +68,7 @@ public class ExtTransportManager extends Manager<ExternalTransportation> {
         }
     }
 
-    void addElement_map(ExternalTransportation temp) {
+    void addElement_map(InternalTransportation temp) {
         if(!DatabaseManager.getServiceMap().containsRequest(this.type, temp.RequestID)) {
             DatabaseManager.getServiceMap().addRequest(this.type,temp);
         }
@@ -88,7 +89,7 @@ public class ExtTransportManager extends Manager<ExternalTransportation> {
     }
 
     @Override
-    void modElement(String ID, ExternalTransportation temp) throws SQLException {
+    void modElement(String ID, InternalTransportation temp) throws SQLException {
         delElement(ID);
         addElement(temp);
     }
@@ -122,10 +123,10 @@ public class ExtTransportManager extends Manager<ExternalTransportation> {
     }
 
     @Override
-    ExternalTransportation getElement(String ID) throws InvalidElementException {
+    InternalTransportation getElement(String ID) throws InvalidElementException {
         // unlike employeeManager, we get nodes from the map so that they include neighbors
         if(DatabaseManager.getServiceMap().containsRequest(this.type,ID)){
-            return (ExternalTransportation) DatabaseManager.getServiceMap().getRequest(type,ID); //TODO DOES THIS CAST BREAK THINGS
+            return (InternalTransportation) DatabaseManager.getServiceMap().getRequest(type,ID); //TODO DOES THIS CAST BREAK THINGS
         }else{
             throw new InvalidElementException();
         }
