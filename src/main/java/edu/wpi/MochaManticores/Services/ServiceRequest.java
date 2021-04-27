@@ -13,8 +13,6 @@ public abstract class ServiceRequest {
     private String employee;
     private boolean completed;
     public String RequestID;
-    private static String Services_csv_path = "data/services/";
-    private static final String CSVdelim = ",";
 
     public boolean getCompleted(){
         return completed;
