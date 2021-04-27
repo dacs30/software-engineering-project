@@ -5,8 +5,8 @@ public class EmergencyRequest extends ServiceRequest {
     private String location;
     private boolean gurney;
 
-    public EmergencyRequest(boolean employee, boolean completed, int row, int numPeopleNeeded, String location, boolean gurney) {
-        super(employee, completed, row);
+    public EmergencyRequest(String employee, boolean completed, String reqID, int numPeopleNeeded, String location, boolean gurney) {
+        super(employee, completed, reqID);
         this.numPeopleNeeded = numPeopleNeeded;
         this.location = location;
         this.gurney = gurney;

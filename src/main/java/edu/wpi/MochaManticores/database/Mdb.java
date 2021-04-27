@@ -2,6 +2,8 @@ package edu.wpi.MochaManticores.database;
 
 
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.Services.FloralDelivery;
+import edu.wpi.MochaManticores.Services.SanitationServices;
 
 import java.io.FileNotFoundException;
 import java.sql.*;
@@ -107,7 +109,7 @@ public class Mdb extends Thread{
         Statement stmt = connection.createStatement();
         try {
             ResultSet rs = meta.getTables(null, "APP", "EMPLOYEES", null);
-            rs = meta.getTables(null, "APP", "EMPLOYEES", null);
+            rs = meta.getTables(null, "APP", "EXTTRANSPORT", null);
             if(!rs.next()) {
                 String sql;
                 System.out.println("Creating External Transportation Request Table");
@@ -119,6 +121,137 @@ public class Mdb extends Thread{
                         " currentRoom VARCHAR(21)," +
                         " externalRoom VARCHAR(21)," +
                         " transportationMethod VARCHAR(21)," +
+                        " PRIMARY KEY (RequestID))";
+                stmt.executeUpdate(sql);
+                //DatabaseManager.getEmpManager().loadFromCSV();
+            }else{
+                //DatabaseManager.getEmpManager().cleanTable();
+                //DatabaseManager.getEmpManager().loadFromCSV();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public static void FloralDeliveryStartup() throws SQLException {
+        Statement stmt = connection.createStatement();
+        try {
+            ResultSet rs = meta.getTables(null, "APP", "EMPLOYEES", null);
+            rs = meta.getTables(null, "APP", "FLORALDEL", null);
+            if(!rs.next()) {
+                String sql;
+                System.out.println("Creating Floral Delivery Request Table");
+                sql = "CREATE TABLE FLORALDEL" +
+                        "(RequestID VARCHAR(21) not NULL, " +
+                        " roomNum VARCHAR(21), " +
+                        " deliveryChoice VARCHAR(100), " +
+                        " typeFlowers VARCHAR(40), " +
+                        " vaseOptions VARCHAR(40)," +
+                        " personalizedNote VARCHAR(200)," +
+                        " PRIMARY KEY (RequestID))";
+                stmt.executeUpdate(sql);
+                //DatabaseManager.getEmpManager().loadFromCSV();
+            }else{
+                //DatabaseManager.getEmpManager().cleanTable();
+                //DatabaseManager.getEmpManager().loadFromCSV();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public static void FoodDeliveryStartup() throws SQLException {
+        Statement stmt = connection.createStatement();
+        try {
+            ResultSet rs = meta.getTables(null, "APP", "EMPLOYEES", null);
+            rs = meta.getTables(null, "APP", "FOODDEL", null);
+            if(!rs.next()) {
+                String sql;
+                System.out.println("Creating Food Delivery Request Table");
+                sql = "CREATE TABLE FOODDEL" +
+                        "(RequestID VARCHAR(21) not NULL, " +
+                        " dietaryPreferences VARCHAR(40), " +
+                        " allergies VARCHAR(150), " +
+                        " menu VARCHAR(30), " +
+                        " PRIMARY KEY (RequestID))";
+                stmt.executeUpdate(sql);
+                //DatabaseManager.getEmpManager().loadFromCSV();
+            }else{
+                //DatabaseManager.getEmpManager().cleanTable();
+                //DatabaseManager.getEmpManager().loadFromCSV();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public static void InternalTransportationStartup() throws SQLException {
+        Statement stmt = connection.createStatement();
+        try {
+            ResultSet rs = meta.getTables(null, "APP", "EMPLOYEES", null);
+            rs = meta.getTables(null, "APP", "INTTRANSPORT", null);
+            if(!rs.next()) {
+                String sql;
+                System.out.println("Creating Internal Transportation Request Table");
+                sql = "CREATE TABLE INTTRANSPORT" +
+                        "(RequestID VARCHAR(21) not NULL, " +
+                        " roomNum VARCHAR(21), " +
+                        " deliveryChoice VARCHAR(100), " +
+                        " typeFlowers VARCHAR(40), " +
+                        " vaseOptions VARCHAR(40)," +
+                        " personalizedNote VARCHAR(200)," +
+                        " PRIMARY KEY (RequestID))";
+                stmt.executeUpdate(sql);
+                //DatabaseManager.getEmpManager().loadFromCSV();
+            }else{
+                //DatabaseManager.getEmpManager().cleanTable();
+                //DatabaseManager.getEmpManager().loadFromCSV();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public static void SanitationServicesStartup() throws SQLException {
+        Statement stmt = connection.createStatement();
+        try {
+            ResultSet rs = meta.getTables(null, "APP", "EMPLOYEES", null);
+            rs = meta.getTables(null, "APP", "SANITATIONSER", null);
+            if(!rs.next()) {
+                String sql;
+                System.out.println("Creating Sanitation Services Request Table");
+                sql = "CREATE TABLE SANITATIONSER" +
+                        "(RequestID VARCHAR(40) not NULL, " +
+                        "location VARCHAR(40)" +
+                        " safetyHazards VARCHAR(50), " +
+                        " sanitationType VARCHAR(50), " +
+                        " equipmentNeeded VARCHAR(100), " +
+                        " description VARCHAR(200)," +
+                        " PRIMARY KEY (RequestID))";
+                stmt.executeUpdate(sql);
+                //DatabaseManager.getEmpManager().loadFromCSV();
+            }else{
+                //DatabaseManager.getEmpManager().cleanTable();
+                //DatabaseManager.getEmpManager().loadFromCSV();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public static void EmergencyRequestStartup() throws SQLException {
+        Statement stmt = connection.createStatement();
+        try {
+            ResultSet rs = meta.getTables(null, "APP", "EMPLOYEES", null);
+            rs = meta.getTables(null, "APP", "EMGREQ", null);
+            if(!rs.next()) {
+                String sql;
+                System.out.println("Creating Emergency Services Request Table");
+                sql = "CREATE TABLE EMGREQ" +
+                        "(RequestID VARCHAR(40) not NULL, " +
+                        "numPeopleNeeded INTEGER" +
+                        "location VARCHAR(50), " +
+                        "gurney BOOLEAN, " +
                         " PRIMARY KEY (RequestID))";
                 stmt.executeUpdate(sql);
                 //DatabaseManager.getEmpManager().loadFromCSV();
@@ -194,17 +327,62 @@ public class Mdb extends Thread{
                     throwables.printStackTrace();
                 }
             });
+            Thread INTtransportThread = new Thread(() -> {
+                try {
+                    InternalTransportationStartup();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            });
+            Thread FloralDeliveryThread = new Thread(() -> {
+                try {
+                    FloralDeliveryStartup();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            });
+            Thread FoodDeliveryThread = new Thread(() -> {
+                try {
+                    FoodDeliveryStartup();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            });
+            Thread SanitationServicesThread = new Thread(() -> {
+                try {
+                    SanitationServicesStartup();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            });
+            Thread EmergencyRequestThread = new Thread(() -> {
+                try {
+                    EmergencyRequestStartup();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            });
 
 
             nodeThread.start();
             edgeThread.start();
             employeeThread.start();
             EXTtransportThread.start();
+            FloralDeliveryThread.start();
+            FoodDeliveryThread.start();
+            SanitationServicesThread.start();
+            INTtransportThread.start();
+            EmergencyRequestThread.start();
 
             nodeThread.join();
             edgeThread.join();
             employeeThread.join();
             EXTtransportThread.join();
+            INTtransportThread.join();
+            FloralDeliveryThread.join();
+            FoodDeliveryThread.join();
+            SanitationServicesThread.join();
+            EmergencyRequestThread.join();
 
             // updates the hm here because the data doesnt exist if we do it in the threads, where is map super created?
             DatabaseManager.getNodeManager().updateElementMap();

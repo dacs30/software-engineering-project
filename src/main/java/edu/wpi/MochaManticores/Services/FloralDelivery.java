@@ -8,9 +8,9 @@ public class FloralDelivery extends ServiceRequest{
     private String vaseOptions;
     private String personalizedNote;
 
-    public FloralDelivery(boolean employee, boolean completed, int row, String roomNumber, String deliveryChoice,
+    public FloralDelivery(String employee, boolean completed, String reqId, String roomNumber, String deliveryChoice,
                           String typeOfFlowers, String vaseOptions, String personalizedNote) {
-        super(employee, completed, row);
+        super(employee, completed, reqId);
         this.roomNumber = roomNumber;
         this.deliveryChoice = deliveryChoice;
         this.typeOfFlowers = typeOfFlowers;
