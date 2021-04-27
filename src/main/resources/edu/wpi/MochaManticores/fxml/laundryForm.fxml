@@ -7,6 +7,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -14,7 +16,12 @@
 
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@../Stylesheets/laundry.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.LaundryFormController">
    <children>
-      <GridPane id="backgroundGrid" layoutY="6.0" AnchorPane.bottomAnchor="-6.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="6.0">
+      <ImageView fitHeight="800.0" fitWidth="1200.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../images/100909_00_BrighamWomens_BTM_N8_966x668.jpg" />
+         </image>
+      </ImageView>
+      <GridPane id="backgroundGrid" layoutY="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
@@ -22,9 +29,9 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <GridPane id="formSquare" stylesheets="@../Stylesheets/laundry.css">
+            <GridPane id="formsGrid" stylesheets="@../Stylesheets/laundry.css">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -40,25 +47,11 @@
                   <Insets bottom="100.0" left="150.0" right="150.0" top="100.0" />
                </GridPane.margin>
                <children>
-                  <JFXTextField promptText="Name" GridPane.rowIndex="1">
-                     <padding>
-                        <Insets left="50.0" right="50.0" />
-                     </padding>
-                  </JFXTextField>
+                  <JFXTextField promptText="Name" GridPane.rowIndex="1" />
                   <Label prefHeight="88.0" prefWidth="664.0" text="Laundry Request Form" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <JFXButton alignment="TOP_LEFT" text="Help" GridPane.halignment="LEFT" GridPane.valignment="TOP">
-                     <GridPane.margin>
-                        <Insets left="20.0" top="20.0" />
-                     </GridPane.margin>
-                  </JFXButton>
-                  <JFXButton alignment="CENTER" text="Submit" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+                  <JFXButton alignment="CENTER" text="SUBMIT" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
                         <Insets bottom="20.0" />
-                     </GridPane.margin>
-                  </JFXButton>
-                  <JFXButton alignment="BOTTOM_LEFT" text="Back" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
-                     <GridPane.margin>
-                        <Insets bottom="20.0" left="20.0" />
                      </GridPane.margin>
                   </JFXButton>
                   <Label id="washLabel" text="Wash Cycle" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
@@ -115,7 +108,7 @@
                   </Label>
                </children>
                <effect>
-                  <DropShadow color="#00000033" height="125.0" radius="68.25" width="150.0" />
+                  <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
                </effect>
             </GridPane>
          </children>
