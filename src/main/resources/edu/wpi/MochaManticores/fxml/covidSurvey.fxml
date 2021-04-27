@@ -3,18 +3,32 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXDialog?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../Stylesheets/covidSurvey.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.covidSurveyController">
    <children>
-      <GridPane id="backgroundGrid" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../Stylesheets/covidSurvey.css">
+      <ImageView fx:id="backgroundIMG" fitHeight="800.0" fitWidth="1217.0" opacity="0.5" pickOnBounds="true">
+         <image>
+            <Image url="@../images/cool-background.jpg" />
+         </image>
+      </ImageView>
+      <StackPane fx:id="dialogPane" layoutX="10.0" layoutY="10.0" prefHeight="800.0" prefWidth="1200.0">
+         <children>
+            <JFXDialog id="message" />
+         </children>
+      </StackPane>
+      <GridPane fx:id="contentGrid" alignment="CENTER" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../Stylesheets/covidSurvey.css">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
@@ -22,7 +36,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <GridPane id="formSquare" prefHeight="654.0" prefWidth="991.0" stylesheets="@../Stylesheets/covidSurvey.css">
+            <GridPane id="formSquare" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../Stylesheets/covidSurvey.css">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
@@ -176,7 +190,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <JFXButton buttonType="RAISED" prefHeight="60.0" prefWidth="150.0" stylesheets="@../Stylesheets/covidSurvey.css" text="Submit" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <JFXButton fx:id="submitBtn" buttonType="RAISED" onAction="#submitEvent" prefHeight="60.0" prefWidth="150.0" stylesheets="@../Stylesheets/covidSurvey.css" text="Submit" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                      </children>
                   </GridPane>
                </children>

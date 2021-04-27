@@ -1,9 +1,14 @@
 package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.*;
+import edu.wpi.MochaManticores.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
+import javafx.scene.image.ImageView;
 import java.util.Arrays;
 import java.util.List;
 
@@ -75,7 +80,29 @@ public class covidSurveyController extends SceneController{
     private List<JFXCheckBox> covidTestAns;
 
     @FXML
+    private StackPane dialogPane;
+
+    @FXML
+    private ImageView backgroundIMG;
+
+    @FXML
+    private GridPane contentGrid;
+
+    @FXML
+    private JFXButton submitBtn;
+
+    @FXML
     private void initialize() {
+        double height = App.getPrimaryStage().getScene().getHeight();
+        double width = App.getPrimaryStage().getScene().getWidth();
+        backgroundIMG.setFitHeight(height);
+        backgroundIMG.setFitWidth(width);
+        contentGrid.setPrefSize(width, height);
+
+        backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
+        backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
+
+        System.out.println(width);
 
         sickAns = Arrays.asList(yesSickCB, noSickCB);
         vaccineAns = Arrays.asList(yesVaccinatedCB, noVaccinatedCB);
@@ -92,7 +119,7 @@ public class covidSurveyController extends SceneController{
     public void submitEvent(ActionEvent actionEvent) { loadSubmitDialog(); }
 
     public void loadSubmitDialog(){
-            /*//TODO Center the text of it.
+            //TODO Center the text of it.
             dialogPane.toFront();
             dialogPane.setDisable(false);
             JFXDialogLayout message = new JFXDialogLayout();
@@ -125,7 +152,7 @@ public class covidSurveyController extends SceneController{
             });
 
             message.setActions(ok);
-            dialog.show(); */
+            dialog.show();
     }
 
     public void setSingleSickAnswer(ActionEvent e){
