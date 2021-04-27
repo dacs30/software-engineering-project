@@ -6,12 +6,12 @@ import java.util.LinkedList;
 
 public class ServiceMap {
     private final HashMap<ServiceRequestType, HashMap<String, ServiceRequest>> myMap = new HashMap<>();
-    private final HashMap<ServiceRequestType, Integer> maxMap = new HashMap<>();
+    //private final HashMap<ServiceRequestType, Integer> maxMap = new HashMap<>();
 
     public ServiceMap() {
         for (ServiceRequestType type : ServiceRequestType.values()) {
             myMap.put(type,new HashMap<String,ServiceRequest>());
-            maxMap.put(type,0);
+            //maxMap.put(type,0);
         }
     }
     /**
@@ -23,7 +23,7 @@ public class ServiceMap {
         //adds a hashmap to key if there is no linked list already there
         myMap.computeIfAbsent(type, k -> new HashMap<String,ServiceRequest>());
         myMap.get(type).put(request.getRequestID(), request);
-        maxMap.put(type,maxMap.get(type)+1);
+        //maxMap.put(type,maxMap.get(type)+1);
     }
 
     /**
@@ -64,6 +64,6 @@ public class ServiceMap {
     }
 
     public int getSize(ServiceRequestType type){
-        return maxMap.get(type);
+        return myMap.get(type).size();
     }
 }
