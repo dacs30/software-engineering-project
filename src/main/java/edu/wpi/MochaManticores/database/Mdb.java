@@ -181,8 +181,7 @@ public class Mdb extends Thread{
                 stmt.executeUpdate(sql);
                 DatabaseManager.getFoodDeliveryManager().loadFromCSV();
             }else{
-                DatabaseManager.getFoodDeliveryManager().cleanTable();
-                DatabaseManager.getFoodDeliveryManager().loadFromCSV();
+                DatabaseManager.getFoodDeliveryManager().updateElementMap();
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
