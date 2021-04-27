@@ -325,7 +325,7 @@ public class landingPageController extends SceneController {
 
     // if it is an employee the page page is different
     if(App.getClearenceLevel() == 1){
-      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/mapEditor.fxml")));
+      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/employeeMapPage.fxml")));
     } else {
       root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/mapPage.fxml")));
     }

@@ -47,7 +47,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.*;
 
-public class mapPage extends SceneController {
+public class employeeMapPage extends SceneController {
 
     @FXML
     public JFXTextField xCoordField;
@@ -739,7 +739,7 @@ public class mapPage extends SceneController {
         EdgeSuper editedEdge = null;
         String selectedID;
         if (!editor.checkInput(Arrays.asList(edgeIDField.getText(), startNodeID.getText(), endNodeID.getText()))) { // IF fields are blank, submit error
-            mapPage.super.loadErrorDialog(dialogPane, "Please do not leave fields blank!");
+            employeeMapPage.super.loadErrorDialog(dialogPane, "Please do not leave fields blank!");
         } else {
             EdgeSuper oldEdge = EdgeMapSuper.getMap().get(edgeIDField.getText());
             if (oldEdge != null) {
@@ -1046,7 +1046,7 @@ public class mapPage extends SceneController {
             pathToTake.append("Please select at least one node");
         } else {
 
-            LinkedList<String> path = star.multiStopRoute(stops, pathToTake.toString());
+            LinkedList<String> path = star.multiStopRoute(stops,pathToTake.toString());
             System.out.println(path);
             for (String str :
                     path) {
@@ -1438,7 +1438,7 @@ public class mapPage extends SceneController {
                     return;
                 }
 
-                edgeIDField.setText(cur.getEdgeID().replaceAll("\\s", ""));
+                edgeIDField.setText(cur.getEdgeID());
                 startNodeID.setText(cur.getStartingNode().replaceAll("\\s",""));
                 endNodeID.setText(cur.getEndingNode().replaceAll("\\s",""));
             }
