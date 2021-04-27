@@ -1,5 +1,6 @@
 package edu.wpi.MochaManticores.Services;
 
+import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.Employee;
 
 import java.awt.image.ImageProducer;
@@ -43,5 +44,32 @@ public abstract class ServiceRequest {
         this.employee = employee;
         this.completed = completed;
         this.RequestID = RequestID;
+    }
+
+    public String generateRequestID(ServiceRequestType type){
+        int num = DatabaseManager.getServiceMap().getSize(type);
+        switch(type){
+            case Emergency:
+                return "EMG"+num;
+            case SanitationServices:
+                return "SanSrv"+num;
+            case FoodDelivery:
+                return "FOOD"+num;
+            case FloralDelivery:
+                return "FlrDlv"+num;
+            case ExternalTransportation:
+                return "EXTtrans"+num;
+            case InternalTransportation:
+                return "INTtrans"+num;
+            case ReligiousRequest:
+                return "Relig"+num;
+            case LanguageInterperter:
+                return "LangIntp"+num;
+            case Medicine:
+                return "Med"+num;
+            case Laundry:
+                return "Laund"+num;
+        }
+        return "";
     }
 }

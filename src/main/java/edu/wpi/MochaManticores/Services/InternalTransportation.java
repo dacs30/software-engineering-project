@@ -9,11 +9,16 @@ public class InternalTransportation extends ServiceRequest {
     public InternalTransportation(String RequestID, String employee, boolean completed, String patientID,
                                   int numStaffNeeded, String destination, String transportationMethod) {
         super(employee, completed, RequestID);
+        if(RequestID == null){
+            this.RequestID = generateRequestID(ServiceRequestType.InternalTransportation);
+        }
         this.patientID = patientID;
         this.numStaffNeeded = numStaffNeeded;
         this.destination = destination;
         this.transportationMethod = transportationMethod;
     }
+
+
 
     public String getPatientID() {
         return patientID;
