@@ -447,9 +447,9 @@ public class Mdb extends Thread{
      */
     public static void databaseShutdown(){
         try {
-            DatabaseManager.getNodeManager().saveElements();
-            DatabaseManager.getEdgeManager().saveElements();
-            DatabaseManager.getEmpManager().saveElements();
+            for(sel s : sel.values()){
+                DatabaseManager.getManager(s).saveElements();
+            }
             connection = null;
             DatabaseManager.setConnection(null);
         }catch(FileNotFoundException | SQLException e){

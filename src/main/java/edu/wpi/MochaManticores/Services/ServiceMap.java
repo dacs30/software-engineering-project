@@ -6,13 +6,12 @@ import java.util.LinkedList;
 
 public class ServiceMap {
     private final HashMap<ServiceRequestType, HashMap<String, ServiceRequest>> myMap = new HashMap<>();
-    public ServiceRequestType InternalTransportation = ServiceRequestType.InternalTransportation;
-    public ServiceRequestType ExternalTransportation = ServiceRequestType.ExternalTransportation;
-    public ServiceRequestType Emergency = ServiceRequestType.Emergency;
-    public ServiceRequestType FloralDelivery = ServiceRequestType.FloralDelivery;
-    public ServiceRequestType SanitationServices = ServiceRequestType.SanitationServices;
-    public ServiceRequestType FoodDelivery = ServiceRequestType.FoodDelivery;
 
+    public ServiceMap() {
+        for (ServiceRequestType type : ServiceRequestType.values()) {
+            myMap.put(type,new HashMap<String,ServiceRequest>());
+        }
+    }
     /**
      * function: addRequest()
      * @param type type of service request

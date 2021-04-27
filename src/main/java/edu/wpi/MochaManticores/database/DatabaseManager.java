@@ -219,13 +219,11 @@ public class DatabaseManager{
         return getEmpManager().checkAdminLogin(usr,pass);
     }
 
-    // ==== Private DB methods ==== //
-
     /*  function:  getManager()
      *  gets a manager based on a selection, we are using this to abstract the manager classes in the API,
      *  @return Manager
      */
-    private static Manager getManager(sel s){
+    public static Manager getManager(sel s){
         switch(s){
             case NODE:
                 return getNodeManager();
@@ -259,6 +257,8 @@ public class DatabaseManager{
                 return null;
         }
     }
+
+    // ==== Private DB methods ==== //
 
     private static void loadFromCSV(sel s){
         try{
