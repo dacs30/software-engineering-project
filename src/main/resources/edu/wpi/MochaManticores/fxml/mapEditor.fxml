@@ -43,9 +43,9 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <GridPane>
+            <GridPane GridPane.hgrow="NEVER">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" />
+                <ColumnConstraints hgrow="NEVER" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="NEVER" />

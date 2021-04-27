@@ -28,6 +28,9 @@ public class LoginPage extends SceneController{
     private ImageView backgroundIMG;
 
     @FXML
+    private JFXTextField IDField;
+
+    @FXML
     private GridPane contentPane;
 
     @FXML
@@ -148,6 +151,11 @@ public class LoginPage extends SceneController{
 
     public void onMouseClickedContinue(ActionEvent e) {
         App.setClearenceLevel(0);
+        if (IDField.getText().equals("")){
+            App.setCurrentUsername("Guest");
+        } else {
+            App.setCurrentUsername("Patient: " + IDField.getText());
+        }
         changeSceneTo("landingPage");
     }
 
@@ -176,6 +184,7 @@ public class LoginPage extends SceneController{
             DatabaseManager.checkEmployeeLogin(employeeUsername.getText(), employeePassword.getText());
             // sets to employee level
             App.setClearenceLevel(1);
+            App.setCurrentUsername(employeeUsername.getText());
             changeSceneTo("landingPage");
         } catch (Exception e) {
             // Validators

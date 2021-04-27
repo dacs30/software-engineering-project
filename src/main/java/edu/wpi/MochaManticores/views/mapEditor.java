@@ -670,6 +670,7 @@ public class mapEditor extends SceneController {
                 drawEdges();
                 nodePane.getChildren().remove(edgeToAdd);
                 editing = false;
+                addingEdge = false;
             }
         };
         cancelChanges.setOnAction(cancelButton);

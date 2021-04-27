@@ -1,7 +1,6 @@
 package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import com.sun.rowset.internal.Row;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
