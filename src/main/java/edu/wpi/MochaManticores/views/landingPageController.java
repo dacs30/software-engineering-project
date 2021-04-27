@@ -7,11 +7,13 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.*;
@@ -66,6 +68,9 @@ public class landingPageController extends SceneController {
   @FXML
   private Label greetingLabel;
 
+  @FXML
+  private ScrollPane servicesPane;
+
   HBox currentVbox;
 
   public void initialize() throws IOException {
@@ -94,6 +99,19 @@ public class landingPageController extends SceneController {
 
       dialogPane.toBack();
 
+      VBox services = new VBox();
+      services.getChildren().addAll(foodDeliverySidePanel, medicineDeliverySidePanel, internalTransportationSidePanel, externalTransportationSidePanel,shoppingSideMenu,sanitationSideMenu,mapSidePane);
+
+      for (int i = 0; i < 10; i++){
+        HBox t = new HBox();
+        Label l = new Label();
+        l.setText("Label " + i);
+        t.getChildren().add(l);
+        services.getChildren().add(t);
+      }
+
+      //StackPane container = new StackPane(services);
+      servicesPane.setContent(services);
   }
 
   //emergencyDialog
