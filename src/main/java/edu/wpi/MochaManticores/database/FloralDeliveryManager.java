@@ -1,20 +1,19 @@
 package edu.wpi.MochaManticores.database;
 
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
-import edu.wpi.MochaManticores.Services.ExternalTransportation;
-import edu.wpi.MochaManticores.Services.ServiceMap;
+import edu.wpi.MochaManticores.Services.FloralDelivery;
 import edu.wpi.MochaManticores.Services.ServiceRequestType;
 
 import java.io.*;
 import java.sql.*;
 
-public class ExtTransportManager extends Manager<ExternalTransportation> {
-    private static String csv_path = "data/services/ExtTransport.csv";
+public class FloralDeliveryManager extends Manager<FloralDelivery> {
+    private static String csv_path = "data/services/FloralDelivery.csv";
     private static Connection connection = null;
     private static final String CSVdelim = ",";
-    private static final ServiceRequestType type = ServiceRequestType.ExternalTransportation;
+    private static final ServiceRequestType type = ServiceRequestType.FloralDelivery;
 
-    ExtTransportManager(Connection connection, String csv_path){
+    FloralDeliveryManager(Connection connection, String csv_path){
         this.connection = connection;
         if(csv_path != null){
             this.csv_path = csv_path;
@@ -33,8 +32,8 @@ public class ExtTransportManager extends Manager<ExternalTransportation> {
                 if(line == null) break;
                 String[] row = line.split(CSVdelim);
 
-                ExternalTransportation temp = new ExternalTransportation(row[0],row[1],Boolean.parseBoolean(row[2]),
-                        row[3],row[4],row[5],row[6]);
+                FloralDelivery temp = new FloralDelivery(row[0],row[1],Boolean.parseBoolean(row[2]),
+                        row[3],row[4],row[5],row[6], row[7]);
                 addElement(temp);
             }
         } catch (IOException e){
@@ -43,30 +42,33 @@ public class ExtTransportManager extends Manager<ExternalTransportation> {
     }
 
     @Override
-    void addElement(ExternalTransportation temp) {
-        addElement_db(temp);
-        addElement_map(temp);
+    void addElement(FloralDelivery v) {
+        addElement_db(v);
+        addElement_map(v);
     }
 
-    void addElement_db(ExternalTransportation temp) {
+    void addElement_db(FloralDelivery temp) {
+
         try {
-            String sql = "INSERT INTO EXTTRANSPORT (RequestID, EmpID, completed, patientRoom, currentRoom, externalRoom, transportationMethod) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO FLORALDEL (RequestID, EmpID, completed, roomNum, deliveryChoice, typeFlowers, vaseOptions, " +
+                    "personalizedNote) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, temp.getRequestID());
             pstmt.setString(2, temp.getEmployee());
             pstmt.setBoolean(3, temp.getCompleted());
-            pstmt.setString(4,temp.getPatientRoom());
-            pstmt.setString(5, temp.getCurrentRoom());
-            pstmt.setString(6, temp.getExternalRoom());
-            pstmt.setString(7, temp.getTransportationMethod());
+            pstmt.setString(4, temp.getRoomNumber());
+            pstmt.setString(5, temp.getDeliveryChoice());
+            pstmt.setString(6, temp.getTypeOfFlowers());
+            pstmt.setString(7, temp.getVaseOptions());
+            pstmt.setString(8, temp.getPersonalizedNote());
             pstmt.executeUpdate();
         }catch(SQLException e){
             e.printStackTrace();
         }
     }
 
-    void addElement_map(ExternalTransportation temp) {
+    void addElement_map(FloralDelivery temp) {
         if(!DatabaseManager.getServiceMap().containsRequest(this.type, temp.RequestID)) {
             DatabaseManager.getServiceMap().addRequest(this.type,temp);
         }
@@ -78,7 +80,7 @@ public class ExtTransportManager extends Manager<ExternalTransportation> {
     @Override
     void delElement(String ID) throws SQLException {
         //remove node from database
-        PreparedStatement pstmt = connection.prepareStatement("DELETE FROM EXTTRANSPORT WHERE RequestID=?");
+        PreparedStatement pstmt = connection.prepareStatement("DELETE FROM FLORALDEL WHERE RequestID=?");
         pstmt.setString(1, ID);
         pstmt.executeUpdate();
 
@@ -87,9 +89,10 @@ public class ExtTransportManager extends Manager<ExternalTransportation> {
     }
 
     @Override
-    void modElement(String ID, ExternalTransportation temp) throws SQLException {
-        delElement(ID);
-        addElement(temp);
+    void modElement(String s, FloralDelivery v) throws SQLException {
+        delElement(s);
+        addElement(v);
+
     }
 
     @Override
@@ -97,7 +100,7 @@ public class ExtTransportManager extends Manager<ExternalTransportation> {
         PrintWriter pw = new PrintWriter(new File(csv_path));
         StringBuilder sb = new StringBuilder();
 
-        String sql = "SELECT * FROM EXTTRANSPORT";
+        String sql = "SELECT * FROM FLORALDEL";
         Statement stmt = connection.createStatement();
         ResultSet results = stmt.executeQuery(sql);
         ResultSetMetaData rsmd = results.getMetaData();
@@ -121,10 +124,10 @@ public class ExtTransportManager extends Manager<ExternalTransportation> {
     }
 
     @Override
-    ExternalTransportation getElement(String ID) throws InvalidElementException {
+    FloralDelivery getElement(String ID) throws InvalidElementException {
         // unlike employeeManager, we get nodes from the map so that they include neighbors
         if(DatabaseManager.getServiceMap().containsRequest(this.type,ID)){
-            return (ExternalTransportation) DatabaseManager.getServiceMap().getRequest(type,ID); //TODO DOES THIS CAST BREAK THINGS
+            return (FloralDelivery) DatabaseManager.getServiceMap().getRequest(type,ID); //TODO DOES THIS CAST BREAK THINGS
         }else{
             throw new InvalidElementException();
         }
@@ -142,7 +145,6 @@ public class ExtTransportManager extends Manager<ExternalTransportation> {
 
     @Override
     void cleanTable() throws SQLException {
-        // not implemented
+        //clean table
     }
-
 }
