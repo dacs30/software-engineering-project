@@ -249,9 +249,15 @@ public class landingPageController extends SceneController {
   public void renderMedicineDelivery(MouseEvent mouseEvent) throws IOException {
     // removes the children so you don't end up with weird scenes one over the other
     scenesPane.getChildren().removeAll(scenesPane.getChildren());
+    Parent root;
+    if(App.getClearenceLevel() ==1){
+      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/medicineDeliveryEmployee.fxml")));
 
+    }else{
+      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/medicineDelivery.fxml")));
+    }
     // sets parent to be the file to be loaded
-    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/medicineDelivery.fxml")));
+
 
     // change the colors of the old selected page back to the default
     currentVbox.setStyle("-fx-background-radius: 0;");
