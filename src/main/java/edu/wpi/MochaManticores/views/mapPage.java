@@ -10,8 +10,8 @@ import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.database.DatabaseManager;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
@@ -139,6 +139,9 @@ public class mapPage extends SceneController{
     private GridPane innerMapGrid;
 
     @FXML
+    private ScrollPane directionPane;
+
+    @FXML
     private StackPane dialogPane;
 
     private String location = "edu/wpi/MochaManticores/images/";
@@ -148,6 +151,8 @@ public class mapPage extends SceneController{
     public void setSelectedFloor(String selectedFloor) {
         this.selectedFloor = selectedFloor;
     }
+
+    VBox dirVBOX = new VBox();
 
     Rectangle2D noZoom;
     Rectangle2D zoomPort;
@@ -216,6 +221,13 @@ public class mapPage extends SceneController{
         drawNodes();
 
 
+
+
+        dirVBOX.setMaxWidth(Region.USE_COMPUTED_SIZE);
+
+
+
+
         //Initializing the dialog pane
         dialogPane.toBack();
 
@@ -237,11 +249,24 @@ public class mapPage extends SceneController{
 
             LinkedList<String> path = star.multiStopRoute(stops,pathToTake.toString());
             System.out.println(path);
+            Label startLabel = new Label();
+            Label endLabel = new Label();
+            startLabel.setText(path.removeFirst());
+            startLabel.setTextFill(Color.GREEN);
+            endLabel.setText(path.removeLast());
+            endLabel.setTextFill(Color.RED);
+            dirVBOX.getChildren().add(startLabel);
             for (String str :
                     path) {
-                System.out.printf("\n%s\n|\n", MapSuper.getMap().get(str).getLongName());
-                pathToTake.append(MapSuper.getMap().get(str).getLongName()).append("\n|\n");//appending the paths
+                Label p = new Label();
+                p.setText(str);
+                dirVBOX.getChildren().add(p);
+//                System.out.printf("\n%s\n|\n", MapSuper.getMap().get(str).getLongName());
+//                pathToTake.append(MapSuper.getMap().get(str).getLongName()).append("\n|\n");//appending the paths
             }
+            dirVBOX.getChildren().add(endLabel);
+            directionPane.setContent(dirVBOX);
+            directionPane.setFitToWidth(true);
             LinkedList<Line> lines = new LinkedList();
 
             for (int i = 0; i < path.size(); i++) {
@@ -269,7 +294,7 @@ public class mapPage extends SceneController{
             pitStops = new LinkedList<>();
         }
 
-        loadDialog(pathToTake); // calling the dialog pane with the path
+        //loadDialog(pathToTake); // calling the dialog pane with the path
 
     }
 
@@ -416,6 +441,7 @@ public class mapPage extends SceneController{
     }
 
     public void findPath() throws InvalidElementException {
+        dirVBOX.getChildren().clear();
         //pathToTake is used in the dialog box that keeps all the nodes that the user has to pass through
         StringBuilder pathToTake = new StringBuilder(new String());
         LinkedList<NodeSuper> stops = new LinkedList<>();
@@ -429,11 +455,23 @@ public class mapPage extends SceneController{
 
             LinkedList<String> path = App.getAlgoType().multiStopRoute(stops, "none"); //CONDITION NEEDS TO BE INPUT HERE
             System.out.println(path);
+            Label startLabel = new Label();
+            startLabel.setText(DatabaseManager.getNode(path.removeFirst()).getLongName());
+            startLabel.setTextFill(Color.GREEN);
+            startLabel.setAlignment(Pos.CENTER);
+            Label endLabel = new Label();
+            endLabel.setText(DatabaseManager.getNode(path.removeLast()).getLongName());
+            endLabel.setTextFill(Color.RED);
+            dirVBOX.getChildren().add(startLabel);
             for (String str :
                     path) {
-                System.out.printf("\n%s\n|\n", DatabaseManager.getNode(str).getLongName());
-                pathToTake.append(DatabaseManager.getNode(str).getLongName()).append("\n|\n");//appending the paths
+                Label p = new Label();
+                p.setText(DatabaseManager.getNode(str).getLongName());
+                dirVBOX.getChildren().add(p);
+//                System.out.printf("\n%s\n|\n", DatabaseManager.getNode(str).getLongName());
+//                pathToTake.append(DatabaseManager.getNode(str).getLongName()).append("\n|\n");//appending the paths
             }
+            dirVBOX.getChildren().add(endLabel);
             LinkedList<Line> lines = new LinkedList();
 
             for (int i = 0; i < path.size(); i++) {
@@ -464,7 +502,9 @@ public class mapPage extends SceneController{
             pitStops = new LinkedList<>();
         }
 
-        loadDialog(pathToTake); // calling the dialog pane with the path
+
+        directionPane.setContent(dirVBOX);
+        //loadDialog(pathToTake); // calling the dialog pane with the path
 
     }
 

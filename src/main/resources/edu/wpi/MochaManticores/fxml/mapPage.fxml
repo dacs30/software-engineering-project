@@ -79,7 +79,7 @@
                               <Insets left="15.0" />
                            </GridPane.margin>
                         </StackPane>
-                        <ScrollPane prefHeight="200.0" prefWidth="200.0" />
+                        <ScrollPane fx:id="directionPane" prefHeight="200.0" prefWidth="200.0" />
                      </children>
                   </GridPane>
                   <GridPane alignment="CENTER">

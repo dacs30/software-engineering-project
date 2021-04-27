@@ -311,6 +311,7 @@ public class landingPageController extends SceneController {
     // adds the selected page to the scenesPane so it can be displayed
     scenesPane.getChildren().add(root);
   }
+
   public void renderCovidSurvey(MouseEvent mouseEvent) throws IOException {
     // removes the children so you don't end up with weird scenes one over the other
     scenesPane.getChildren().removeAll(scenesPane.getChildren());
