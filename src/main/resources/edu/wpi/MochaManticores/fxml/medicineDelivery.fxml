@@ -60,7 +60,7 @@
                <children>
                   <JFXButton id="submitBtn" fx:id="submitButton" buttonType="RAISED" onAction="#submitForm" text="SUBMIT" GridPane.rowIndex="6" />
                   <Label id="foodDeliveryTitleLabel" stylesheets="@../stylesheets.css" text="Medicine Delivery" textFill="WHITE" />
-                  <ImageView fx:id="helpButton" fitHeight="150.0" fitWidth="40.0"  onMouseClicked="#loadHelpDialogue" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
+                  <ImageView fx:id="helpButton" fitHeight="150.0" fitWidth="40.0" onMouseClicked="#loadHelpDialogue" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
                      <image>
                         <Image url="@../images/hepIcon.png" />
                      </image>

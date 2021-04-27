@@ -35,6 +35,9 @@ public class landingPageController extends SceneController {
   private ColumnConstraints mainGrid;
 
   @FXML
+  private GridPane gridSurvey;
+
+  @FXML
   private GridPane sidePanel;
 
   @FXML
@@ -111,7 +114,7 @@ public class landingPageController extends SceneController {
       VBox services = new VBox();
 
       // add the hbox of the services
-      services.getChildren().addAll(menuSidePane, foodDeliverySidePanel, medicineDeliverySidePanel, internalTransportationSidePanel, externalTransportationSidePanel,shoppingSideMenu,sanitationSideMenu,mapSidePane);
+      services.getChildren().addAll(menuSidePane, foodDeliverySidePanel, medicineDeliverySidePanel, internalTransportationSidePanel, externalTransportationSidePanel,shoppingSideMenu,sanitationSideMenu,surveySideMenu,mapSidePane);
 
 
       services.setMaxWidth(Region.USE_COMPUTED_SIZE);

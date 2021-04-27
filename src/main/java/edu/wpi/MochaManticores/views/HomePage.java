@@ -21,12 +21,16 @@ public class HomePage extends SceneController{
 
     }
 
-
-    public void goToSurvey(MouseEvent mouseEvent) {
-        super.changeSceneTo("covidSurvey");
-    }
     public void goToMedicineOrder(MouseEvent mouseEvent) {
         super.changeSceneTo("medicineDelivery");
     }
-    public void goToInternalTransport(MouseEvent mouseEvent) { super.changeSceneTo("internalTransportation"); }
+    public void goToInternalTransport(MouseEvent mouseEvent) {
+        super.changeSceneTo("internalTransportation"); }
+
+    public void goToCovidSurvey(MouseEvent mouseEvent) {
+        super.changeSceneTo("covidSurvey");
+    }
+    public void goToMapPage(MouseEvent mouseEvent){
+        super.changeSceneTo("mapPage");
+    }
 }

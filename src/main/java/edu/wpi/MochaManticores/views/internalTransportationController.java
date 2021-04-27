@@ -38,6 +38,9 @@ public class internalTransportationController extends SceneController{
     private StackPane dialogPane;
 
     @FXML
+    private ImageView helpButton;
+
+    @FXML
     private void initialize() {
         double height = App.getPrimaryStage().getScene().getHeight();
         double width = App.getPrimaryStage().getScene().getWidth();
@@ -144,5 +147,7 @@ public class internalTransportationController extends SceneController{
     }
 
     public void openHelp(MouseEvent mouseEvent) {
+        dialogPane.toFront();
+        loadDialog();
     }
 }

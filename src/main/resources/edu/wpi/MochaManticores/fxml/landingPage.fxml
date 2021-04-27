@@ -130,7 +130,7 @@
          <children>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/shoppingIcon.png" />
+                  <Image url="@../images/covidIcon.png" />
                </image>
             </ImageView>
             <Label id="menuSideBarLabel" prefHeight="48.0" prefWidth="153.0" stylesheets="@../Stylesheets/landingPage.css" text="Covid Survey" wrapText="true" />

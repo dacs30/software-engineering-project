@@ -27,7 +27,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <GridPane id="card" maxWidth="-Infinity" onMouseClicked="#goToSurvey" prefWidth="800.0">
+            <GridPane id="card" fx:id="gridSurvey" maxWidth="-Infinity" onMouseClicked="#goToCovidSurvey" prefWidth="800.0">
               <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -125,7 +125,7 @@
             </GridPane>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0" GridPane.rowIndex="1">
                <children>
-                  <GridPane id="card">
+                  <GridPane id="card" onMouseClicked="#goToMapPage">
                     <columnConstraints>
                       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
                     </columnConstraints>
@@ -140,7 +140,7 @@
                         <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
                      </effect>
                      <children>
-                        <ImageView fitHeight="150.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="goToMapPage" fitHeight="150.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/mapCardIcon.png" />
                            </image>
