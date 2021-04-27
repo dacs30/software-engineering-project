@@ -2,33 +2,41 @@
     -fx-background-color: rgba(15, 76, 145, 0.75);
 }
 
-#centerPane {
-    -fx-background-color: white;
+#formsGrid {
+    -fx-background-color: rgba(255, 255, 255, 0.75);
     -fx-background-radius: 40;
 }
 
 .jfx-text-field {
-    -fx-font-family: Roboto;
-    -fx-font-size: 24;
-    -fx-prompt-text-fill: rgba(193, 193, 193, 0.93);
-    -fx-text-fill: black;
+    -fx-font-size: 30;
+    -fx-font-weight: bold;
+    -jfx-unfocus-color : #bababa;
+    -jfx-focus-color: grey;
+    -fx-max-width: 400;
+    -fx-prompt-text-fill: rgb(193, 193, 193);
 }
 
-.jfx-button {
+#submitBtn{
     -fx-background-color: #0F4B91;
     -fx-font-family: Roboto;
-    -fx-text-fill: white;
-    -fx-font-size: 20;
     -fx-background-radius: 40;
-    transition: background-color 2s ease;
-    -fx-alignment: center;
+    -fx-font-size: 25;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
 }
 
-#orLabel {
+#submitBtn:hover{
+    -fx-background-color: #c2c2c2;
+    -fx-effect: dropshadow( three-pass-box , rgba(2, 2, 2, 0.2), 20, 0.0 , 1 , 10);
     -fx-font-family: Roboto;
-    -fx-font-size: 60;
-    -fx-text-fill: rgb(15, 76, 145);
-    -fx-alignment: center;
+    -fx-text-fill: grey;
+}
+
+#translatorTitleLabel {
+    -fx-text-fill: grey;
+    -fx-font-weight: bold;
+    -fx-font-family: Roboto;
+    -fx-font-size: 50;
 }
 
 #langSelect {
@@ -38,6 +46,16 @@
     -fx-alignment: center;
 }
 
-#dropDown {
-    -fx-background-color: rgba(15, 76, 145, 0.35);
+.jfx-combo-box {
+    -fx-prompt-text-fill: grey ;
+    -fx-background-color: rgba(186, 186, 186, 0.43);
+    -jfx-unfocus-color: transparent;
+    -fx-font-size: 20;
+}
+.jfx-combo-box .text-field:focused {
+    -fx-prompt-text-fill: transparent ;
+}
+
+.jfx-combo-box:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(2, 2, 2, 0.2), 20, 0.0, 1, 10);
 }
