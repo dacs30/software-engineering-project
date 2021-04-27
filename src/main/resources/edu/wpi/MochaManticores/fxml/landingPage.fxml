@@ -126,6 +126,19 @@
             <Insets left="20.0" />
          </padding>
       </HBox>
+      <HBox fx:id="surveySideMenu" alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" onMouseClicked="#renderCovidSurvey" spacing="10.0" style="-fx-background-color: #E9E9E9;">
+         <children>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/shoppingIcon.png" />
+               </image>
+            </ImageView>
+            <Label id="menuSideBarLabel" prefHeight="48.0" prefWidth="153.0" stylesheets="@../Stylesheets/landingPage.css" text="Covid Survey" wrapText="true" />
+         </children>
+         <padding>
+            <Insets left="20.0" />
+         </padding>
+      </HBox>
       <StackPane fx:id="dialogPane" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <GridPane id="shit" stylesheets="@../Stylesheets/landingPage.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>

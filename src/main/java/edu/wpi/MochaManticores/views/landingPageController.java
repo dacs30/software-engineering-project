@@ -62,6 +62,9 @@ public class landingPageController extends SceneController {
   private HBox shoppingSideMenu;
 
   @FXML
+  private HBox surveySideMenu;
+
+  @FXML
   private HBox sanitationSideMenu;
 
   @FXML
@@ -300,6 +303,27 @@ public class landingPageController extends SceneController {
     // gives the selected properties for the new selected page
     externalTransportationSidePanel.setStyle("-fx-background-radius: 20;");
     externalTransportationSidePanel.setStyle("-fx-background-color: rgba(15,75,145,0.29);");
+
+    // adds the selected page to the scenesPane so it can be displayed
+    scenesPane.getChildren().add(root);
+  }
+  public void renderCovidSurvey(MouseEvent mouseEvent) throws IOException {
+    // removes the children so you don't end up with weird scenes one over the other
+    scenesPane.getChildren().removeAll(scenesPane.getChildren());
+
+    // sets parent to be the file to be loaded
+    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/covidSurvey.fxml")));
+
+    // change the colors of the old selected page back to the default
+    currentVbox.setStyle("-fx-background-radius: 0;");
+    currentVbox.setStyle("-fx-background-color:  #E9E9E9");
+
+    // changes the currentbox
+    currentVbox = surveySideMenu;
+
+    // gives the selected properties for the new selected page
+    surveySideMenu.setStyle("-fx-background-radius: 20;");
+    surveySideMenu.setStyle("-fx-background-color: rgba(15,75,145,0.29);");
 
     // adds the selected page to the scenesPane so it can be displayed
     scenesPane.getChildren().add(root);

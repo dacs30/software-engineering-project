@@ -59,10 +59,10 @@ public class FoodDelivery extends SceneController {
         hearder.setStyle("-fx-alignment: center");
         message.setHeading(hearder);
 
-        final Text body = new Text("Patient room: This is the room number given to the patient by the hospital.\n" +
-                "Current Room: is where the patient is currently staying until transportation out of the hospital.\n" +
-                "External Room: is the location where the patient is going to be transported to\n" +
-                "Transportation Method: This is a dropdown menu that you select which type of transportation the patient will take. ");
+        final Text body = new Text("Dietary preferences: Dropdown menu with options for food.\n" +
+                "Allergies: Indicate any allergies you may have with food or beverages.\n" +
+                "Assign to Employee: Assign an employee to deliver you the food\n" +
+                "Menu: This is the menu  ");
 
         body.setStyle("-fx-font-size: 40");
         body.setStyle("-fx-font-family: Roboto");

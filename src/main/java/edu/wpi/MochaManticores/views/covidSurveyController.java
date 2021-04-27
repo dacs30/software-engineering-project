@@ -122,7 +122,6 @@ public class covidSurveyController extends SceneController{
     public void submitEvent(ActionEvent actionEvent) { loadSubmitDialog(); }
 
     public void loadSubmitDialog(){
-            //TODO Center the text of it.
             dialogPane.toFront();
             dialogPane.setDisable(false);
             JFXDialogLayout message = new JFXDialogLayout();

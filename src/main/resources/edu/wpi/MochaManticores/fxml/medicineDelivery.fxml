@@ -16,6 +16,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="800.0" prefWidth="1207.0" stylesheets="@../Stylesheets/medicineDelivery.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.MedicineDelivery">
    <children>
@@ -57,9 +58,9 @@
                   <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
                </effect>
                <children>
-                  <JFXButton id="submitBtn" onAction="#submitForm" text="SUBMIT" GridPane.rowIndex="6" />
+                  <JFXButton id="submitBtn" fx:id="submitButton" buttonType="RAISED" onAction="#submitForm" text="SUBMIT" GridPane.rowIndex="6" />
                   <Label id="foodDeliveryTitleLabel" stylesheets="@../stylesheets.css" text="Medicine Delivery" textFill="WHITE" />
-                  <ImageView fitHeight="150.0" fitWidth="40.0" onMouseClicked="#helpButton" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
+                  <ImageView fx:id="helpButton" fitHeight="150.0" fitWidth="40.0"  onMouseClicked="#loadHelpDialogue" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
                      <image>
                         <Image url="@../images/hepIcon.png" />
                      </image>
@@ -90,6 +91,14 @@
                   </GridPane>
                   <JFXTextField promptText="Allergies" GridPane.rowIndex="4" />
                   <JFXTextField promptText="Patient room" GridPane.rowIndex="5" />
+                  <JFXButton id="backBtn" fx:id="backButton" buttonType="RAISED" onAction="#goBack" text="BACK" GridPane.halignment="LEFT">
+                     <GridPane.margin>
+                        <Insets left="100.0" />
+                     </GridPane.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </JFXButton>
                </children>
             </GridPane>
          </children>
