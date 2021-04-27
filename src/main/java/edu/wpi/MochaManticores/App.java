@@ -121,6 +121,6 @@ public class App extends Application {
   @Override
   public void stop() {
     System.out.println("Shutting Down");
-    Mdb.databaseShutdown();
+    DatabaseManager.shutdown();
   }
 }
