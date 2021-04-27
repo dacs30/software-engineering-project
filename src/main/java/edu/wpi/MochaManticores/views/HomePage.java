@@ -3,6 +3,7 @@ package edu.wpi.MochaManticores.views;
 import edu.wpi.MochaManticores.App;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 public class HomePage extends SceneController{
     @FXML
@@ -21,4 +22,11 @@ public class HomePage extends SceneController{
     }
 
 
+    public void goToSurvey(MouseEvent mouseEvent) {
+        super.changeSceneTo("covidSurvey");
+    }
+    public void goToMedicineOrder(MouseEvent mouseEvent) {
+        super.changeSceneTo("medicineDelivery");
+    }
+    public void goToInternalTransport(MouseEvent mouseEvent) { super.changeSceneTo("internalTransportation"); }
 }
