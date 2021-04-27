@@ -54,11 +54,6 @@ public class extTransportationController extends SceneController {
         }
     }
 
-
-    public void backEvent(ActionEvent actionEvent) {
-        super.back();
-    }
-
     public void submitEvent(ActionEvent actionEvent) {
         loadSubmitDialog();
     }
@@ -105,6 +100,7 @@ public class extTransportationController extends SceneController {
         dialog.show();
 
     }
+
     private void loadHelpDialogue() {
         dialogPane.toFront();
         loadDialog();
@@ -145,5 +141,8 @@ public class extTransportationController extends SceneController {
 
         message.setActions(ok);
         dialog.show();
+    }
+
+    public void backEvent(ActionEvent actionEvent) {
     }
 }
