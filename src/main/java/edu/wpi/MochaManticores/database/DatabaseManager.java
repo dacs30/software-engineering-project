@@ -5,6 +5,7 @@ import edu.wpi.MochaManticores.Exceptions.InvalidLoginException;
 import edu.wpi.MochaManticores.Exceptions.InvalidPermissionsException;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.Nodes.EdgeSuper;
+import edu.wpi.MochaManticores.Services.ServiceMap;
 
 import java.io.FileNotFoundException;
 import java.sql.Connection;
@@ -14,6 +15,7 @@ public class DatabaseManager{
     private static EmployeeManager empManager = null;
     private static NodeManager nodeManager = null;
     private static EdgeManager edgeManager = null;
+    private static ServiceMap serviceMap = null;
 
     // ==== Mdb methods ==== //
 
@@ -266,5 +268,12 @@ public class DatabaseManager{
             edgeManager = new EdgeManager(connection, null);
         }
         return edgeManager;
+    }
+
+    public static ServiceMap getServiceMap() {
+        if(serviceMap == null){
+            serviceMap = new ServiceMap();
+        }
+        return serviceMap;
     }
 }

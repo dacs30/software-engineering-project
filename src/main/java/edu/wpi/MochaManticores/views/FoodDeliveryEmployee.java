@@ -6,6 +6,7 @@ import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.Services.*;
+import edu.wpi.MochaManticores.database.DatabaseManager;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -117,7 +118,7 @@ public class FoodDeliveryEmployee {
     private ObservableList<fd> buildTable(String searchTerm) {
         ObservableList<fd> tableRow = FXCollections.observableArrayList();
 
-        LinkedList<ServiceRequest> requests = ServiceMap.getServiceRequestsForType(ServiceMap.FoodDelivery);
+        LinkedList<ServiceRequest> requests = DatabaseManager.getServiceMap().getServiceRequestsForType(ServiceRequestType.FoodDelivery);
 
         for (ServiceRequest s : requests) {
             fd fdToAdd = new fd(s);

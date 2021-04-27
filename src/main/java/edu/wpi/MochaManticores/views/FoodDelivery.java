@@ -4,6 +4,8 @@ import com.jfoenix.controls.*;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Services.ServiceMap;
 import edu.wpi.MochaManticores.Services.ServiceRequest;
+import edu.wpi.MochaManticores.Services.ServiceRequestType;
+import edu.wpi.MochaManticores.database.DatabaseManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
@@ -124,12 +126,12 @@ public class FoodDelivery extends SceneController {
     public void submitForm(ActionEvent e) {
 
         // changeSceneTo(e, "mainMenu");
-        ServiceRequest.addRequest(new edu.wpi.MochaManticores.Services.FoodDelivery(App.getClearenceLevel()==1,
+        DatabaseManager.getServiceMap().addRequest(new edu.wpi.MochaManticores.Services.FoodDelivery(App.getClearenceLevel()==1,
                 false,
                 0,
                 dietaryPreferences.getSelectionModel().getSelectedItem(),
                 allergiesField.getText(),
-                foodMenu.getSelectionModel().getSelectedItem()), ServiceMap.FoodDelivery);
+                foodMenu.getSelectionModel().getSelectedItem()), ServiceRequestType.FoodDelivery);
         dialogPane.setVisible(true);
         loadDialog();
     }
