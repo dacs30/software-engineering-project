@@ -18,6 +18,7 @@
     -fx-font-size: 20;
     -fx-font-weight: bold;
     -fx-text-alignment: center;
+    -fx-text-fill: grey;
 }
 
 .jfx-button {
@@ -29,6 +30,12 @@
     -fx-font-weight: bold;
     -fx-text-fill: #FFFFFF;
     -fx-background-color: #0F4B91;
+}
 
-;
+#title{
+    -fx-font-family: Roboto;
+    -fx-font-size: 50;
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+    -fx-text-fill: grey;
 }

@@ -1,11 +1,15 @@
 package edu.wpi.MochaManticores.views;
 
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.Services.*;
 import edu.wpi.MochaManticores.database.DatabaseManager;
+import edu.wpi.MochaManticores.database.sel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -68,14 +72,29 @@ public class FoodDeliveryEmployee {
     private GridPane contentGrid;
 
     @FXML
+    private JFXComboBox<String> dietaryPreferences;
+
+    @FXML
+    private JFXTextArea allergiesField;
+
+    @FXML
+    private JFXTextField empBox;
+
+    @FXML
     private ImageView backgroundIMG;
 
     @FXML
     private GridPane requestPage;
 
+    @FXML
+    private GridPane managerPage;
+
     public TableColumn<fd, String> dietaryPref;
 
     public TableColumn<fd, String> allergies;
+
+    @FXML
+    private JFXComboBox<String> foodMenu;
 
     public TableColumn<fd, String> menuOption;
 
@@ -109,8 +128,12 @@ public class FoodDeliveryEmployee {
 
         // TODO add combox values
 
-        buildTable("");
+        dietaryPreferences.getItems().clear();
+        dietaryPreferences.getItems().addAll("Vegan", "Vegetarian", "Gluten Free");
 
+
+        managerPage.setVisible(false);
+        requestPage.setVisible(true);
         isSetToCreateRequest = false;
     }
 
@@ -136,15 +159,23 @@ public class FoodDeliveryEmployee {
     }
 
     public void changeToRequest(ActionEvent actionEvent) {
-        requestPage.toFront();
+        requestPage.setVisible(true);
+        managerPage.setVisible(false);
     }
 
     public void changeManagerTable(ActionEvent actionEvent) {
-        requestPage.toBack();
+        buildTable("");
+        requestPage.setVisible(false);
+        managerPage.setVisible(true);
     }
 
     public void submitForm(ActionEvent actionEvent) {
-
+        sel s = sel.FoodDelivery;
+        // changeSceneTo(e, "mainMenu");
+        DatabaseManager.addRequest(s,
+                new edu.wpi.MochaManticores.Services.FoodDelivery(
+                        "", empBox.getText(), false, dietaryPreferences.getSelectionModel().getSelectedItem(),
+                        allergiesField.getText(), foodMenu.getSelectionModel().getSelectedItem()));
     }
 
     public void helpButton(MouseEvent mouseEvent) {

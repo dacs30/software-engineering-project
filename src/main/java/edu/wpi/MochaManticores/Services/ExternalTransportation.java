@@ -10,7 +10,7 @@ public class ExternalTransportation extends ServiceRequest{
                                   String externalRoom, String transportationMethod) {
         super(employee, completed, RequestID);
         if(RequestID.equals("")){
-            this.RequestID = generateRequestID(ServiceRequestType.InternalTransportation);
+            this.RequestID = generateRequestID(ServiceRequestType.ExternalTransportation);
         }
         this.patientRoom = patientRoom;
         this.currentRoom = currentRoom;

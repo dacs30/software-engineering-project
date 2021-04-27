@@ -10,7 +10,7 @@ public class ReligiousRequest extends ServiceRequest{
                             String location, String typeSacredPerson) {
         super(employee, completed, RequestID);
         if(RequestID.equals("")){
-            this.RequestID = generateRequestID(ServiceRequestType.InternalTransportation);
+            this.RequestID = generateRequestID(ServiceRequestType.ReligiousRequest);
         }
         this.reasonVisit = reasonVisit;
         this.location = location;

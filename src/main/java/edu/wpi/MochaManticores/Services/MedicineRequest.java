@@ -6,11 +6,11 @@ public class MedicineRequest extends ServiceRequest{
     private String allergies;
     private String patientRoom;
 
-    public MedicineRequest(String employee, String RequestID, boolean completed, String typeMedicine,
+    public MedicineRequest(String RequestID, String employee, boolean completed, String typeMedicine,
                            String currentFeeling, String allergies, String patientRoom) {
         super(employee, completed, RequestID);
         if(RequestID.equals("")){
-            this.RequestID = generateRequestID(ServiceRequestType.InternalTransportation);
+            this.RequestID = generateRequestID(ServiceRequestType.Medicine);
         }
         this.typeMedicine = typeMedicine;
         this.currentFeeling = currentFeeling;

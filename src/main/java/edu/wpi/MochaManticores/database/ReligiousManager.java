@@ -1,6 +1,7 @@
 package edu.wpi.MochaManticores.database;
 
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
+import edu.wpi.MochaManticores.Services.FoodDelivery;
 import edu.wpi.MochaManticores.Services.ReligiousRequest;
 import edu.wpi.MochaManticores.Services.ServiceRequestType;
 
@@ -141,5 +142,17 @@ public class ReligiousManager extends Manager<ReligiousRequest> {
     @Override
     void cleanTable() throws SQLException {
         //TODO: implement clean table functionality
+    }
+
+    public void updateElementMap() throws SQLException {
+        String sql = "SELECT * FROM RELREQ";
+        Statement stmt = connection.createStatement();
+        ResultSet result = stmt.executeQuery(sql);
+        while (result.next()) {
+            ReligiousRequest temp = new ReligiousRequest(result.getString(1),result.getString(2),
+                    Boolean.parseBoolean(result.getString(3)), result.getString(4), result.getString(5),
+                    result.getString(6));
+            addElement_map(temp);
+        }
     }
 }

@@ -44,6 +44,9 @@ public class MedicineDelivery {
 
         backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
         backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
+
+        typeOfMedicineComboBx.getItems().clear();
+        typeOfMedicineComboBx.getItems().addAll("Tylenol", "", "Menu 2", "Menu 3");
     }
 
     /**
@@ -80,6 +83,6 @@ public class MedicineDelivery {
         }
     }
 
-    public void helpButton(MouseEvent mouseEvent) {
+    public void loadHelpDialogue(MouseEvent mouseEvent) {
     }
 }

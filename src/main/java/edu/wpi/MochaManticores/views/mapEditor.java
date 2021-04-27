@@ -401,13 +401,16 @@ public class mapEditor extends SceneController {
                 "F2",
                 "F3");
 
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                mapWindow.setFitWidth(App.getPrimaryStage().getWidth() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinX() - 50);
-                mapWindow.setFitHeight(App.getPrimaryStage().getHeight() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinY() - 50);
-            }
-        });
+//        Platform.runLater(new Runnable() {
+//            @Override
+//            public void run() {
+//                mapWindow.setFitWidth(App.getPrimaryStage().getWidth() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinX() - 50);
+//                mapWindow.setFitHeight(App.getPrimaryStage().getHeight() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinY() - 50);
+//            }
+//        });
+
+        mapWindow.fitHeightProperty().bind(mapStack.heightProperty());
+        mapWindow.fitWidthProperty().bind(mapStack.widthProperty());
 
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override
@@ -418,13 +421,17 @@ public class mapEditor extends SceneController {
         mapWindow.setOnMouseMoved(eventHandler);
 
         App.getPrimaryStage().widthProperty().addListener((obs, oldVal, newVal) -> {
-            mapWindow.setFitWidth(App.getPrimaryStage().getWidth() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinX() - 50);
+            //mapWindow.setFitWidth(App.getPrimaryStage().getWidth() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinX() - 50);
             drawNodes();
             drawEdges();
         });
 
         App.getPrimaryStage().heightProperty().addListener((obs, oldVal, newVal) -> {
-            mapWindow.setFitHeight(App.getPrimaryStage().getHeight() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinY() - 50);
+            //mapWindow.setFitHeight(App.getPrimaryStage().getHeight() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinY() - 50);
+            drawNodes();
+            drawEdges();
+        });
+        App.getPrimaryStage().fullScreenProperty().addListener((obs, oldVal, newVal) -> {
             drawNodes();
             drawEdges();
         });
@@ -1523,5 +1530,9 @@ public class mapEditor extends SceneController {
                 ioException.printStackTrace();
             }
         }
+    }
+
+    public void changeToPathfind(ActionEvent e){
+        super.changeSceneTo("mapPage");
     }
 }
