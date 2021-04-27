@@ -372,6 +372,10 @@ public class mapPage extends SceneController{
         super.back();
     }
 
+    public void back2(MouseEvent e) {
+        super.back();
+    }
+
     private void setZoom(Image img, double x, double y, Rectangle2D z) {
         noZoom = new Rectangle2D(0, 0, img.getWidth(), img.getHeight());
         zoomPort = new Rectangle2D(x, y, (double) .25 * img.getWidth(), (double) .25 * img.getHeight());
