@@ -148,7 +148,7 @@
                         <Label id="cardLabel" text="MAP" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
-                  <GridPane id="card" prefWidth="200.0">
+                  <GridPane id="card" onMouseClicked="#goToMedicineOrder" prefWidth="200.0">
                      <columnConstraints>
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                      </columnConstraints>
@@ -171,7 +171,7 @@
                         </ImageView>
                      </children>
                   </GridPane>
-                  <GridPane id="card" prefWidth="200.0">
+                  <GridPane id="card" onMouseClicked="#goToInternalTransport" prefWidth="200.0">
                      <columnConstraints>
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                      </columnConstraints>
