@@ -261,7 +261,7 @@ public class Mdb extends Thread{
                         "numPeopleNeeded INTEGER," +
                         "location VARCHAR(50), " +
                         "gurney BOOLEAN, " +
-                        " PRIMARY KEY (RequestID))";
+                        "PRIMARY KEY (RequestID))";
                 stmt.executeUpdate(sql);
                 DatabaseManager.getEmergencyManager().loadFromCSV();
             }else{
@@ -288,6 +288,91 @@ public class Mdb extends Thread{
                         "reasonVisit VARCHAR(50)," +
                         "location VARCHAR(50), " +
                         "typeSacredPerson VARCHAR(50), " +
+                        "PRIMARY KEY (RequestID))";
+                stmt.executeUpdate(sql);
+                //DatabaseManager.getEmpManager().loadFromCSV();
+            }else{
+                //DatabaseManager.getEmpManager().cleanTable();
+                //DatabaseManager.getEmpManager().loadFromCSV();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public static void MedicineRequestStartup() throws SQLException {
+        Statement stmt = connection.createStatement();
+        try {
+            ResultSet rs = meta.getTables(null, "APP", "EMPLOYEES", null);
+            rs = meta.getTables(null, "APP", "MEDREQ", null);
+            if(!rs.next()) {
+                String sql;
+                System.out.println("Creating Medicine Services Request Table");
+                sql = "CREATE TABLE MEDREQ" +
+                        "(RequestID VARCHAR(40) not NULL, " +
+                        "EmpID VARCHAR(30)," +
+                        "completed BOOLEAN," +
+                        "typeMedicine VARCHAR(50)," +
+                        "currentFeeling VARCHAR(200), " +
+                        "allergies VARCHAR(100)," +
+                        "patientRoom VARCHAR(50)," +
+                        "PRIMARY KEY (RequestID))";
+                stmt.executeUpdate(sql);
+                //DatabaseManager.getEmpManager().loadFromCSV();
+            }else{
+                //DatabaseManager.getEmpManager().cleanTable();
+                //DatabaseManager.getEmpManager().loadFromCSV();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public static void LaundryRequestStartup() throws SQLException {
+        Statement stmt = connection.createStatement();
+        try {
+            ResultSet rs = meta.getTables(null, "APP", "EMPLOYEES", null);
+            rs = meta.getTables(null, "APP", "LAUNDRY", null);
+            if(!rs.next()) {
+                String sql;
+                System.out.println("Creating Laundry Services Request Table");
+                sql = "CREATE TABLE LAUNDRY" +
+                        "(RequestID VARCHAR(40) not NULL, " +
+                        "EmpID VARCHAR(30)," +
+                        "completed BOOLEAN," +
+                        "patientName VARCHAR(50)," +
+                        "soilLevel VARCHAR(10), " +
+                        "delicates BOOLEAN," +
+                        "washCycleTemperature VARCHAR(10)," +
+                        "dryCycleTemperature VARCHAR(10)," +
+                        "dryCycleNumber INTEGER," +
+                        "PRIMARY KEY (RequestID))";
+                stmt.executeUpdate(sql);
+                //DatabaseManager.getEmpManager().loadFromCSV();
+            }else{
+                //DatabaseManager.getEmpManager().cleanTable();
+                //DatabaseManager.getEmpManager().loadFromCSV();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public static void LanguageInterpreterStartup() throws SQLException {
+        Statement stmt = connection.createStatement();
+        try {
+            ResultSet rs = meta.getTables(null, "APP", "EMPLOYEES", null);
+            rs = meta.getTables(null, "APP", "LANGINTREQ", null);
+            if(!rs.next()) {
+                String sql;
+                System.out.println("Creating Language Services Request Table");
+                sql = "CREATE TABLE LANGINTREQ" +
+                        "(RequestID VARCHAR(40) not NULL, " +
+                        "EmpID VARCHAR(30)," +
+                        "completed BOOLEAN," +
+                        "room VARCHAR(21)," +
+                        "languageOne VARCHAR(50), " +
+                        "languageTwo VARCHAR(50)," +
                         " PRIMARY KEY (RequestID))";
                 stmt.executeUpdate(sql);
                 //DatabaseManager.getEmpManager().loadFromCSV();
@@ -408,6 +493,27 @@ public class Mdb extends Thread{
                     throwables.printStackTrace();
                 }
             });
+            Thread LanguageInterpreterThread = new Thread(() -> {
+                try {
+                    LanguageInterpreterStartup();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            });
+            Thread LaundryThread = new Thread(() -> {
+                try {
+                    LaundryRequestStartup();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            });
+            Thread MedicineThread = new Thread(() -> {
+                try {
+                    MedicineRequestStartup();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            });
 
 
             nodeThread.start();
@@ -421,6 +527,9 @@ public class Mdb extends Thread{
             INTtransportThread.start();
             EmergencyRequestThread.start();
             ReligiousRequestThread.start();
+            LanguageInterpreterThread.start();
+            LaundryThread.start();
+            MedicineThread.start();
 
 
 
@@ -435,6 +544,9 @@ public class Mdb extends Thread{
             SanitationServicesThread.join();
             EmergencyRequestThread.join();
             ReligiousRequestThread.join();
+            LanguageInterpreterThread.join();
+            LaundryThread.join();
+            MedicineThread.join();
 
             // updates the hm here because the data doesnt exist if we do it in the threads, where is map super created?
             DatabaseManager.getNodeManager().updateElementMap();
