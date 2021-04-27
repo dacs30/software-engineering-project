@@ -2,6 +2,7 @@ package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
@@ -77,7 +78,7 @@ public class FoodDeliveryEmployee {
     private JFXTextArea allergiesField;
 
     @FXML
-    private JFXTextArea empBox;
+    private JFXTextField empBox;
 
     @FXML
     private ImageView backgroundIMG;
@@ -130,7 +131,6 @@ public class FoodDeliveryEmployee {
         dietaryPreferences.getItems().clear();
         dietaryPreferences.getItems().addAll("Vegan", "Vegetarian", "Gluten Free");
 
-        buildTable("");
 
         managerPage.setVisible(false);
         requestPage.setVisible(true);
@@ -164,6 +164,7 @@ public class FoodDeliveryEmployee {
     }
 
     public void changeManagerTable(ActionEvent actionEvent) {
+        buildTable("");
         requestPage.setVisible(false);
         managerPage.setVisible(true);
     }

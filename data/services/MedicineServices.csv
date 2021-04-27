@@ -1,5 +1,4 @@
 REQUESTID,EMPID,COMPLETED,TYPEMEDICINE,CURRENTFEELING,ALLERGIES,PATIENTROOM,
-Med0,INTtrans0,false,null,Headache, Other pain, ,
-Med1,dssd,false,Tylenol,Muscle pain, ,asdsa,sad,
-Med2,,false,Tylenol,Muscle pain, ,,,
-Med3,,false,Tylenol,Muscle pain, ,,tryui,
+Med0,kush,false,Tylenol,More pain,none,100,
+Med1,me,false,Advil,Muscle pain,,meth,69,
+Med2,none,false,Aspirin,Nausea,Other pain,More pain,none,90,

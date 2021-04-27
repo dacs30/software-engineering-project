@@ -36,6 +36,8 @@ public class MedicineDeliveryEmployee {
         StringProperty currentFeeling;
         StringProperty allergies;
         StringProperty patientRoom;
+        StringProperty employeeAssigned;
+        boolean completed;
         LinkedList<String> fields;
 
         public md(edu.wpi.MochaManticores.Services.ServiceRequest ref){
@@ -44,11 +46,29 @@ public class MedicineDeliveryEmployee {
             currentFeeling = new SimpleStringProperty(this.ref.getCurrentFeeling());
             allergies = new SimpleStringProperty(this.ref.getAllergies());
             patientRoom = new SimpleStringProperty(this.ref.getPatientRoom());
+            employeeAssigned = new SimpleStringProperty(this.ref.getEmployee());
+            completed = this.ref.getCompleted();
             fields = new LinkedList<>(Arrays.asList(
                     typeMedicine.get(),
                     currentFeeling.get(),
                     allergies.get(),
                     patientRoom.get()));
+        }
+
+        public String getEmployeeAssigned() {
+            return employeeAssigned.get();
+        }
+
+        public StringProperty employeeAssignedProperty() {
+            return employeeAssigned;
+        }
+
+        public String isCompleted() {
+            if(completed){
+                return "Completed";
+            }else{
+                return "Open";
+            }
         }
 
         public MedicineRequest getRef() {
@@ -96,6 +116,8 @@ public class MedicineDeliveryEmployee {
     public TableColumn<md, String> currentFeelingColumn;
     public TableColumn<md, String> allergiesColumn;
     public TableColumn<md, String> patientRoomColumn;
+    public TableColumn<md, String> employeeColumn;
+    public TableColumn<md, String> completedColumn;
 
     @FXML
     private GridPane contentGrid;
@@ -130,19 +152,27 @@ public class MedicineDeliveryEmployee {
     public void initialize() {
         typeMedicineColumn = new TableColumn<md, String>("Medicine Type");
         typeMedicineColumn.setMinWidth(100);
-        typeMedicineColumn.setCellValueFactory(new PropertyValueFactory<md, String>("typeMedicineColumn"));
+        typeMedicineColumn.setCellValueFactory(new PropertyValueFactory<md, String>("typeMedicine"));
 
         currentFeelingColumn = new TableColumn<md, String>("Feeling");
         currentFeelingColumn.setMinWidth(100);
-        currentFeelingColumn.setCellValueFactory(new PropertyValueFactory<md, String>("currentFeelingColumn"));
+        currentFeelingColumn.setCellValueFactory(new PropertyValueFactory<md, String>("currentFeeling"));
 
         allergiesColumn = new TableColumn<md, String>("Allergies");
         allergiesColumn.setMinWidth(100);
-        allergiesColumn.setCellValueFactory(new PropertyValueFactory<md, String>("allergiesColumn"));
+        allergiesColumn.setCellValueFactory(new PropertyValueFactory<md, String>("allergies"));
 
         patientRoomColumn = new TableColumn<md, String>("Room");
         patientRoomColumn.setMinWidth(100);
-        patientRoomColumn.setCellValueFactory(new PropertyValueFactory<md, String>("patientRoomColumn"));
+        patientRoomColumn.setCellValueFactory(new PropertyValueFactory<md, String>("patientRoom"));
+
+        employeeColumn = new TableColumn<md, String>("Assigned To");
+        employeeColumn.setMinWidth(100);
+        employeeColumn.setCellValueFactory(new PropertyValueFactory<md, String>("employeeAssigned"));
+
+        completedColumn = new TableColumn<md, String>("Status");
+        completedColumn.setMinWidth(100);
+        completedColumn.setCellValueFactory(new PropertyValueFactory<md, String>("completed"));
 
         double height = App.getPrimaryStage().getScene().getHeight();
         double width = App.getPrimaryStage().getScene().getWidth();
@@ -157,7 +187,7 @@ public class MedicineDeliveryEmployee {
         medicineCombo.getItems().addAll("Advil", "Tylenol", "Aspirin");
 
 
-        buildTable("");
+        //buildTable("");
 
         managerPage.setVisible(false);
         requestPage.setVisible(true);
@@ -181,7 +211,9 @@ public class MedicineDeliveryEmployee {
                 typeMedicineColumn,
                 currentFeelingColumn,
                 allergiesColumn,
-                patientRoomColumn);
+                patientRoomColumn,
+                employeeColumn,
+                completedColumn);
         return tableRow;
 
     }
@@ -199,23 +231,24 @@ public class MedicineDeliveryEmployee {
     public void submitForm(ActionEvent actionEvent) {
         StringBuilder feel = new StringBuilder();
         if(checkBox0.isSelected()){
-            feel.append("Muscle pain, ");
+            feel.append("Muscle pain,");
         }
         if(checkBox1.isSelected()){
-            feel.append("Nausea, ");
+            feel.append("Nausea,");
         }
         if(checkBox2.isSelected()){
-            feel.append("Headache, ");
+            feel.append("Headache,");
         }
         if(checkBox3.isSelected()){
-            feel.append("Other pain, ");
+            feel.append("Other pain,");
         }
         if(checkBox4.isSelected()){
-            feel.append("Some pain, ");
+            feel.append("Some pain,");
         }
         if(checkBox5.isSelected()){
             feel.append("More pain");
         }
+        //feel.setLength(feel.length()-1);
         // changeSceneTo(e, "mainMenu");
         if (checkBoxesAreFilled() && !medicineCombo.getSelectionModel().isEmpty() && !patientRoom.getText().isEmpty()){
 //            ServiceRequest.addRequest(new edu.wpi.MochaManticores.Services.MedicineDelivery(App.getClearenceLevel()==1,
@@ -238,7 +271,7 @@ public class MedicineDeliveryEmployee {
             medicineCombo.validate();
         }
         sel s = sel.Medicine;
-        DatabaseManager.addRequest(s, new edu.wpi.MochaManticores.Services.MedicineRequest(empBox.getText(),"",false,medicineCombo.getSelectionModel().getSelectedItem(),feel.toString(),allergies.getText(),patientRoom.getText()));
+        DatabaseManager.addRequest(s, new edu.wpi.MochaManticores.Services.MedicineRequest("",empBox.getText(),false,medicineCombo.getSelectionModel().getSelectedItem(),feel.toString(),allergies.getText(),patientRoom.getText()));
 
 
     }
@@ -249,6 +282,7 @@ public class MedicineDeliveryEmployee {
     }
 
     public void changeManagerTable(ActionEvent actionEvent) {
+        buildTable("");
         requestPage.setVisible(false);
         managerPage.setVisible(true);
     }

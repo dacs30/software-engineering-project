@@ -1,7 +1,11 @@
 package edu.wpi.MochaManticores.views;
 import com.jfoenix.controls.*;
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.Services.InternalTransportation;
 import edu.wpi.MochaManticores.Services.ServiceRequest;
+import edu.wpi.MochaManticores.Services.ServiceRequestType;
+import edu.wpi.MochaManticores.database.DatabaseManager;
+import edu.wpi.MochaManticores.database.sel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -68,15 +72,17 @@ public class internalTransportationController extends SceneController{
     public void submitEvent(ActionEvent actionEvent) {
         if(!patientID.getText().isEmpty() || !numberOfStaff.getText().isEmpty() ||
                 !destination.getText().isEmpty() || !transportComboBox.getSelectionModel().getSelectedItem().isEmpty()){
-//            ServiceRequest.addRequest(new edu.wpi.MochaManticores.Services.InternalTransportation(
-//                    patientID.getText(),
-//                    Integer.parseInt(numberOfStaff.getText()),
-//                    destination.getText(),
-//                    transportComboBox.getSelectionModel().getSelectedItem(),
-//                    App.getClearenceLevel()==1,
-//                    false,
-//                    0
-//                    ));
+            sel s = sel.InternalTransportation;
+            DatabaseManager.addRequest(s, new edu.wpi.MochaManticores.Services.InternalTransportation(
+                    "",
+                    "",
+                    false,
+                    patientID.getText(),
+                    Integer.parseInt(numberOfStaff.getText()),
+                    destination.getText(),
+                    transportComboBox.getValue()
+                    ));
+            System.out.println("Adds to database");
         }
     }
 
