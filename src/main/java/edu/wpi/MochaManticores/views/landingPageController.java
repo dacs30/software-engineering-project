@@ -126,6 +126,7 @@ public class landingPageController extends SceneController {
       servicesPane.setContent(services);
       servicesPane.setMaxWidth(sidePanel.getMaxWidth());
 
+      // get rid of the horizontal scroll
       servicesPane.setFitToWidth(true);
   }
 
