@@ -1,0 +1,18 @@
+.jfx-button{
+    -fx-background-color: white;
+    -fx-font-family: Roboto;
+    -fx-font-weight: bold;
+    -fx-text-fill: grey;
+    -fx-font-size: 15;
+    -fx-border-radius: 40;
+    -fx-background-radius: 40;
+    transition: background-color 2s ease;
+}
+
+#mapTopBar{
+    -fx-background-color: rgba(255, 255, 255, 0.75);
+}
+
+#scrollpane {
+    -fx-background-color: rgba(255, 255, 255, 0.75);
+}

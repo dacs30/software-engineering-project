@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="805.0" prefWidth="1089.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.mapPage">
+<AnchorPane prefHeight="805.0" prefWidth="1089.0" stylesheets="@../Stylesheets/mapPage.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.mapPage">
    <children>
       <ImageView fx:id="backgroundIMG" fitHeight="811.0" fitWidth="1229.0" layoutX="-12.0" layoutY="-1.0" opacity="0.5" pickOnBounds="true">
          <image>
@@ -81,19 +81,22 @@
                               <Insets left="15.0" />
                            </GridPane.margin>
                         </StackPane>
-                        <ScrollPane fx:id="directionPane" prefHeight="200.0" prefWidth="200.0" />
+                        <ScrollPane id="scrollpane" fx:id="directionPane" prefHeight="200.0" prefWidth="200.0" stylesheets="@../Stylesheets/mapPage.css">
+                           <effect>
+                              <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
+                           </effect></ScrollPane>
                      </children>
                   </GridPane>
-                  <GridPane alignment="CENTER">
+                  <GridPane id="mapTopBar" alignment="CENTER" stylesheets="@../Stylesheets/mapPage.css">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="89.0" minWidth="71.0" prefWidth="89.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="209.0" minWidth="128.0" prefWidth="169.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="245.0" minWidth="106.0" prefWidth="125.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="359.0" minWidth="220.0" prefWidth="301.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="160.0" minWidth="33.0" prefWidth="130.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="128.0" minWidth="64.0" prefWidth="106.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="136.0" minWidth="111.0" prefWidth="136.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="162.0" minWidth="157.0" prefWidth="159.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="209.0" minWidth="101.037109375" prefWidth="101.037109375" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="245.0" minWidth="106.0" prefWidth="147.33331298828125" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="359.0" minWidth="220.0" prefWidth="257.0740966796875" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="167.9259033203125" minWidth="33.0" prefWidth="117.0369873046875" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="228.9630126953125" minWidth="64.0" prefWidth="173.29620361328125" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="199.70379638671875" minWidth="105.1851806640625" prefWidth="160.888916015625" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="172.111083984375" minWidth="132.926025390625" prefWidth="172.111083984375" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints vgrow="SOMETIMES" />
@@ -104,7 +107,7 @@
                               <Font size="43.0" />
                            </font>
                         </Label>
-                        <JFXButton id="downloadCSVBtn" fx:id="downloadButton" buttonType="RAISED" minHeight="-Infinity" onAction="#downloadCSVs" prefHeight="56.0" prefWidth="165.0" style="-fx-background-color: white; -fx-background-radius: 40;" text="Download File" GridPane.columnIndex="7" GridPane.halignment="CENTER">
+                        <JFXButton id="downloadCSVBtn" fx:id="downloadButton" buttonType="RAISED" minHeight="-Infinity" onAction="#downloadCSVs" prefHeight="58.0" prefWidth="159.0" style="-fx-background-color: white; -fx-background-radius: 40;" text="Download File" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="7" GridPane.halignment="CENTER">
                            <font>
                               <Font name="System Bold" size="19.0" />
                            </font>
@@ -114,22 +117,22 @@
                               <Image url="@../images/logo-small.png" />
                            </image>
                         </ImageView>
-                        <JFXButton fx:id="routeExample" buttonType="RAISED" onAction="#goToRouteExample" prefHeight="56.0" prefWidth="124.0" style="-fx-background-color: white; -fx-border-radius: 40; -fx-background-radius: 40;" text="Get Path" GridPane.columnIndex="6" GridPane.halignment="CENTER">
+                        <JFXButton fx:id="routeExample" buttonType="RAISED" onAction="#goToRouteExample" prefHeight="56.0" prefWidth="124.0" style="-fx-background-color: white; -fx-border-radius: 40; -fx-background-radius: 40;" text="Get Path" textAlignment="CENTER" GridPane.columnIndex="6" GridPane.halignment="CENTER">
                            <font>
                               <Font name="System Bold" size="19.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton buttonType="RAISED" onAction="#back" prefHeight="51.0" prefWidth="88.0" style="-fx-background-color: white; -fx-background-radius: 40; -fx-border-radius: 40;" text="Back" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <JFXButton buttonType="RAISED" onAction="#back" prefHeight="51.0" prefWidth="88.0" style="-fx-background-color: white; -fx-background-radius: 40; -fx-border-radius: 40;" text="Back" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton buttonType="RAISED" onAction="#clearLines" prefHeight="51.0" prefWidth="88.0" style="-fx-background-color: white; -fx-background-radius: 40; -fx-border-radius: 40;" text="Clear" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <JFXButton onAction="#clearLines" prefHeight="51.0" prefWidth="88.0" text="Clear" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </JFXButton>
-                        <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <children>
                               <JFXComboBox fx:id="floorSelector" focusColor="WHITE" onAction="#selectFloor" prefHeight="50.0" prefWidth="115.0" promptText="Select Floor" style="-fx-background-color: WHITE;" unFocusColor="WHITE" />
                               <JFXToggleButton fx:id="pathHandicap" text="Handicap" />
@@ -138,21 +141,21 @@
                               <Insets top="15.0" />
                            </GridPane.margin>
                         </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="5">
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" GridPane.columnIndex="5">
                            <children>
-                              <JFXComboBox focusColor="BLACK" promptText="Select Location" style="-fx-background-color: WHITE;" />
-                              <JFXButton onAction="#findNearestLocation" text="Find Nearest" />
+                              <JFXComboBox fx:id="nearestLocationSelector" focusColor="BLACK" promptText="Select Location" style="-fx-background-color: WHITE;" />
+                              <JFXButton onAction="#findNearestLocation" prefHeight="55.0" prefWidth="140.0" text="Find Nearest" />
                            </children>
                         </VBox>
                      </children>
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
+                     <effect>
+                        <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
+                     </effect>
                   </GridPane>
                </children>
-               <effect>
-                  <DropShadow />
-               </effect>
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
