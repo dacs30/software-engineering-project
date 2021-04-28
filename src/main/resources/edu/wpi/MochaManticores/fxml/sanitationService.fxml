@@ -55,9 +55,9 @@
                </effect>
                <children>
                   <Label id="sanitationServiceTitleLabel" text="Sanitation Service" />
-                  <JFXTextField labelFloat="true" promptText="Location" GridPane.rowIndex="1" />
-                  <JFXTextField labelFloat="true" promptText="Safety Hazards" GridPane.rowIndex="2" />
-                  <JFXComboBox promptText="Sanitation Type" GridPane.rowIndex="3" />
+                  <JFXTextField fx:id="loc" labelFloat="true" promptText="Location" GridPane.rowIndex="1" />
+                  <JFXTextField fx:id="safetyHaz" labelFloat="true" promptText="Safety Hazards" GridPane.rowIndex="2" />
+                  <JFXComboBox fx:id="typeComboBox" promptText="Sanitation Type" GridPane.rowIndex="3" />
                   <GridPane GridPane.rowIndex="4">
                     <columnConstraints>
                       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -71,22 +71,21 @@
                         <GridPane GridPane.rowIndex="1">
                           <columnConstraints>
                             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints maxHeight="33.407470703125" minHeight="25.11114501953125" percentHeight="50.0" prefHeight="26.2962646484375" />
                               <RowConstraints maxHeight="31.81488037109375" minHeight="1.370361328125" percentHeight="50.0" prefHeight="22.7037353515625" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <JFXCheckBox text="Mop" GridPane.rowIndex="1" />
-                              <JFXCheckBox text="Gloves" />
-                              <JFXCheckBox text="Mask" GridPane.columnIndex="1" />
+                              <JFXCheckBox fx:id="mopNeeded" text="Mop" GridPane.rowIndex="1" />
+                              <JFXCheckBox fx:id="glovesNeeded" text="Gloves" translateX="-50.0" />
+                              <JFXCheckBox fx:id="maskNeeded" text="Mask" translateX="50.0" />
                            </children>
                         </GridPane>
                      </children>
                   </GridPane>
-                  <JFXTextField labelFloat="true" promptText="Description" GridPane.rowIndex="5" />
-                  <JFXButton id="submitBtn" text="SUBMIT" GridPane.rowIndex="6" />
+                  <JFXTextField fx:id="description" labelFloat="true" promptText="Description" GridPane.rowIndex="5" />
+                  <JFXButton id="submitBtn" fx:id="submitButton" onAction="#submit" text="SUBMIT" GridPane.rowIndex="6" />
                </children>
             </GridPane>
          </children>

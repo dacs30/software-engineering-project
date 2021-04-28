@@ -145,18 +145,18 @@
                      </rowConstraints>
                      <children>
                         <Label text="Have you experienced any of the following symptoms in the past 48 hours:" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <JFXCheckBox checkedColor="#0f4b91" text="Congestion" translateX="-50.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <JFXCheckBox checkedColor="#0f4b91" prefWidth="100.0" text="Sorethroat" translateX="60.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <JFXCheckBox checkedColor="#0f4b91" prefWidth="100.0" text="Headache" translateX="-155.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                        <JFXCheckBox checkedColor="#0f4b91" prefWidth="100.0" text="Muscle Aches" translateX="175.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                        <JFXCheckBox checkedColor="#0f4b91" text="Fatigue" translateX="-250.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                        <JFXCheckBox checkedColor="#0f4b91" prefWidth="100.0" text="Shortness of Breath" translateX="320.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                        <JFXCheckBox checkedColor="#0f4b91" prefWidth="100.0" text="Coughing" translateX="-345.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                        <JFXCheckBox checkedColor="#0f4b91" prefWidth="100.0" text="Palpitations" translateX="45.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                        <JFXCheckBox checkedColor="#0f4b91" prefWidth="100.0" text="Fever/Chills" translateX="160.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                        <JFXCheckBox checkedColor="#0f4b91" prefWidth="100.0" text="Loss of Taste/Smell" translateX="-100.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                        <JFXCheckBox checkedColor="#0f4b91" prefWidth="100.0" text="Nausea/Vomiting" translateX="-260.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                        <JFXCheckBox checkedColor="#0f4b91" prefWidth="100.0" text="Diarrhea" translateX="270.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                        <JFXCheckBox fx:id="congestionBox" checkedColor="#0f4b91" text="Congestion" translateX="-50.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <JFXCheckBox fx:id="soreThroatbox" checkedColor="#0f4b91" prefWidth="100.0" text="Sorethroat" translateX="60.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <JFXCheckBox fx:id="headacheBox" checkedColor="#0f4b91" prefWidth="100.0" text="Headache" translateX="-155.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                        <JFXCheckBox fx:id="muscleAchesBox" checkedColor="#0f4b91" prefWidth="100.0" text="Muscle Aches" translateX="175.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                        <JFXCheckBox fx:id="fatigueBox" checkedColor="#0f4b91" text="Fatigue" translateX="-250.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                        <JFXCheckBox fx:id="shortBreathBox" checkedColor="#0f4b91" prefWidth="100.0" text="Shortness of Breath" translateX="320.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                        <JFXCheckBox fx:id="coughingBox" checkedColor="#0f4b91" prefWidth="100.0" text="Coughing" translateX="-345.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                        <JFXCheckBox fx:id="palpitationsBox" checkedColor="#0f4b91" prefWidth="100.0" text="Palpitations" translateX="45.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                        <JFXCheckBox fx:id="feverChillsBox" checkedColor="#0f4b91" prefWidth="100.0" text="Fever/Chills" translateX="160.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                        <JFXCheckBox fx:id="lossOfSmellTasteBox" checkedColor="#0f4b91" prefWidth="100.0" text="Loss of Taste/Smell" translateX="-100.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                        <JFXCheckBox fx:id="nauseaBox" checkedColor="#0f4b91" prefWidth="100.0" text="Nausea/Vomiting" translateX="-260.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                        <JFXCheckBox fx:id="diarrheaBox" checkedColor="#0f4b91" prefWidth="100.0" text="Diarrhea" translateX="270.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                      </children>
                   </GridPane>
                   <GridPane GridPane.rowIndex="7">

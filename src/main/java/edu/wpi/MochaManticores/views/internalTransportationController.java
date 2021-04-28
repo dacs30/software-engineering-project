@@ -70,8 +70,8 @@ public class internalTransportationController extends SceneController{
     }
 
     public void submitEvent(ActionEvent actionEvent) {
-        if(!patientID.getText().isEmpty() || !numberOfStaff.getText().isEmpty() ||
-                !destination.getText().isEmpty() || !transportComboBox.getSelectionModel().getSelectedItem().isEmpty()){
+        if(!patientID.getText().isEmpty() && !numberOfStaff.getText().isEmpty() &&
+                !destination.getText().isEmpty() && !transportComboBox.getSelectionModel().getSelectedItem().isEmpty()){
             sel s = sel.InternalTransportation;
             DatabaseManager.addRequest(s, new edu.wpi.MochaManticores.Services.InternalTransportation(
                     "",
