@@ -1,7 +1,10 @@
 package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.*;
+import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.database.DatabaseManager;
+import edu.wpi.MochaManticores.database.sel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
@@ -116,7 +119,30 @@ public class covidSurveyController extends SceneController{
         back();
     }
 
-    public void submitEvent(ActionEvent actionEvent) { loadSubmitDialog(); }
+    public void submitEvent(ActionEvent actionEvent) {
+       /* if (!patientName.getText().isEmpty() && !dateOfBirthPicker.equals("")){
+            sel s = sel.InternalTransportation;
+            DatabaseManager.addRequest(s, new edu.wpi.MochaManticores.Services.CovidSurvey(
+                    "",
+                    "",
+                    false,
+                    patientName.getText(),
+                    dateOfBirthPicker.getValue()
+            ));
+            System.out.println("Adds to database");
+        } else if (patientName.getText().isEmpty()){
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            patientName.getValidators().add(missingInput);
+            missingInput.setMessage("Location is required");
+            patientName.validate();
+        } else if (dateOfBirthPicker.equals("")){
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            dateOfBirthPicker.getValidators().add(missingInput);
+            missingInput.setMessage("Safety Hazards are required");
+            dateOfBirthPicker.validate();
+        } */
+            loadSubmitDialog();
+    }
 
     public void loadSubmitDialog(){
             dialogPane.toFront();
