@@ -89,6 +89,7 @@
                         <ColumnConstraints hgrow="SOMETIMES" />
                       <ColumnConstraints hgrow="SOMETIMES" />
                         <ColumnConstraints hgrow="SOMETIMES" />
+                        <ColumnConstraints hgrow="SOMETIMES" />
                       <ColumnConstraints hgrow="SOMETIMES" />
                     </columnConstraints>
                     <rowConstraints>
@@ -100,23 +101,28 @@
                               <Font size="43.0" />
                            </font>
                         </Label>
-                        <JFXButton id="downloadCSVBtn" fx:id="downloadButton" buttonType="RAISED" minHeight="-Infinity" onAction="#downloadCSVs" prefHeight="56.0" prefWidth="155.0" style="-fx-background-color: white; -fx-background-radius: 40;" text="Download File" GridPane.columnIndex="5">
+                        <JFXButton id="downloadCSVBtn" fx:id="downloadButton" buttonType="RAISED" minHeight="-Infinity" onAction="#downloadCSVs" prefHeight="56.0" prefWidth="155.0" style="-fx-background-color: white; -fx-background-radius: 40;" text="Download File" GridPane.columnIndex="6">
                            <font>
                               <Font name="System Bold" size="19.0" />
                            </font>
                         </JFXButton>
-                        <ImageView fitHeight="84.0" fitWidth="64.0" onMouseClicked="#back2" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <ImageView fitHeight="84.0" fitWidth="64.0" onMouseClicked="#back" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <image>
                               <Image url="@../images/logo-small.png" />
                            </image>
                         </ImageView>
                         <JFXComboBox fx:id="floorSelector" focusColor="WHITE" onAction="#selectFloor" prefHeight="50.0" prefWidth="115.0" promptText="Select Floor" style="-fx-background-color: WHITE;" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-                        <JFXButton fx:id="routeExample" buttonType="RAISED" onAction="#goToRouteExample" prefHeight="56.0" prefWidth="155.0" style="-fx-background-color: white; -fx-border-radius: 40; -fx-background-radius: 40;" text="Get Path" GridPane.columnIndex="4" GridPane.halignment="CENTER">
+                        <JFXButton fx:id="routeExample" buttonType="RAISED" onAction="#goToRouteExample" prefHeight="56.0" prefWidth="155.0" style="-fx-background-color: white; -fx-border-radius: 40; -fx-background-radius: 40;" text="Get Path" GridPane.columnIndex="5" GridPane.halignment="CENTER">
                            <font>
                               <Font name="System Bold" size="19.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton buttonType="RAISED" onAction="#back" style="-fx-background-color: white; -fx-background-radius: 40; -fx-border-radius: 40;" text="Back" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <JFXButton buttonType="RAISED" onAction="#back" prefHeight="51.0" prefWidth="88.0" style="-fx-background-color: white; -fx-background-radius: 40; -fx-border-radius: 40;" text="Back" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton buttonType="RAISED" onAction="#clearLines" prefHeight="51.0" prefWidth="88.0" style="-fx-background-color: white; -fx-background-radius: 40; -fx-border-radius: 40;" text="Clear" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
                               <Font size="18.0" />
                            </font>

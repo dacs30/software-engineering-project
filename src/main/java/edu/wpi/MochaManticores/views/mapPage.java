@@ -111,9 +111,11 @@ public class mapPage extends SceneController{
     @FXML
     private JFXComboBox floorSelector;
 
-    private HashMap<String, node> nodes = new HashMap();
+    private final HashMap<String, node> nodes = new HashMap();
 
     private LinkedList<node> pitStops = new LinkedList<>();
+    private final LinkedList<String> savedRoute = new LinkedList<>();
+
     @FXML
     private ImageView backgroundIMG;
 
@@ -144,7 +146,7 @@ public class mapPage extends SceneController{
     @FXML
     private StackPane dialogPane;
 
-    private String location = "edu/wpi/MochaManticores/images/";
+    private final String location = "edu/wpi/MochaManticores/images/";
 
     private String selectedFloor = "";
 
@@ -237,7 +239,7 @@ public class mapPage extends SceneController{
     public void toAStar() {
         AStar2 star = new AStar2();
         //pathToTake is used in the dialog box that keeps all the nodes that the user has to pass through
-        StringBuilder pathToTake = new StringBuilder(new String());
+        StringBuilder pathToTake = new StringBuilder("");
         LinkedList<NodeSuper> stops = new LinkedList<>();
         for (mapPage.node n :
                 pitStops) {
@@ -378,7 +380,7 @@ public class mapPage extends SceneController{
 
     private void setZoom(Image img, double x, double y, Rectangle2D z) {
         noZoom = new Rectangle2D(0, 0, img.getWidth(), img.getHeight());
-        zoomPort = new Rectangle2D(x, y, (double) .25 * img.getWidth(), (double) .25 * img.getHeight());
+        zoomPort = new Rectangle2D(x, y, .25 * img.getWidth(), .25 * img.getHeight());
 
         mapWindow.setImage(img);
         mapWindow.setViewport(z);
@@ -445,9 +447,10 @@ public class mapPage extends SceneController{
     }
 
     public void findPath() throws InvalidElementException {
+        savedRoute.clear();
         dirVBOX.getChildren().clear();
         //pathToTake is used in the dialog box that keeps all the nodes that the user has to pass through
-        StringBuilder pathToTake = new StringBuilder(new String());
+        StringBuilder pathToTake = new StringBuilder("");
         LinkedList<NodeSuper> stops = new LinkedList<>();
         for (node n :
                 pitStops) {
@@ -460,45 +463,28 @@ public class mapPage extends SceneController{
             LinkedList<String> path = App.getAlgoType().multiStopRoute(stops, "none"); //CONDITION NEEDS TO BE INPUT HERE
             System.out.println(path);
             Label startLabel = new Label();
-            startLabel.setText(DatabaseManager.getNode(path.removeFirst()).getLongName());
+            String startID = path.removeFirst();
+            startLabel.setText(DatabaseManager.getNode(startID).getLongName());
+            savedRoute.add(startID);
             startLabel.setTextFill(Color.GREEN);
             startLabel.setAlignment(Pos.CENTER);
             Label endLabel = new Label();
-            endLabel.setText(DatabaseManager.getNode(path.removeLast()).getLongName());
+            String endID = path.removeLast();
+            endLabel.setText(DatabaseManager.getNode(endID).getLongName());
             endLabel.setTextFill(Color.RED);
             dirVBOX.getChildren().add(startLabel);
             for (String str :
                     path) {
+                savedRoute.add(str);
                 Label p = new Label();
                 p.setText(DatabaseManager.getNode(str).getLongName());
                 dirVBOX.getChildren().add(p);
 //                System.out.printf("\n%s\n|\n", DatabaseManager.getNode(str).getLongName());
 //                pathToTake.append(DatabaseManager.getNode(str).getLongName()).append("\n|\n");//appending the paths
             }
+            savedRoute.add(endID);
             dirVBOX.getChildren().add(endLabel);
-            LinkedList<Line> lines = new LinkedList();
 
-            for (int i = 0; i < path.size(); i++) {
-                try {
-                    node start = nodes.get(path.get(i));
-                    node end = nodes.get(path.get(i + 1));
-                    double startX = start.xCoord;
-                    double startY = start.yCoord;
-                    double endX = end.xCoord;
-                    double endY = end.yCoord;
-                    Line l = new Line(startX, startY, endX, endY);
-                    l.setStroke(Color.BLACK);
-                    l.setStrokeWidth(5);
-                    lines.add(l);
-                } catch (Exception e) {
-                    System.out.println("Got here");
-                }
-
-            }
-            nodePane.getChildren().addAll(lines);
-            for (Line l : lines){
-                l.toBack();
-            }
             for (node n :
                     pitStops) {
                 n.resetFill();
@@ -506,6 +492,7 @@ public class mapPage extends SceneController{
             pitStops = new LinkedList<>();
         }
 
+        drawNodes();
 
         directionPane.setContent(dirVBOX);
         //loadDialog(pathToTake); // calling the dialog pane with the path
@@ -538,8 +525,13 @@ public class mapPage extends SceneController{
                 loadF3();
                 break;
             default:
-                ;
         }
+    }
+
+    public void clearLines(ActionEvent e){
+        savedRoute.clear();
+        drawNodes();
+        dirVBOX.getChildren().clear();
     }
 
     public void drawNodes() {
@@ -565,7 +557,6 @@ public class mapPage extends SceneController{
                         mouseOverNode(e,6);
                     }
                 };
-
                 EventHandler<MouseEvent> small = new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent e) {
@@ -578,6 +569,32 @@ public class mapPage extends SceneController{
                 nodes.put(n.getID(), new node(spot, n.getID()));
                 nodePane.getChildren().addAll(nodes.get(n.getID()).c);
             }
+        }
+        LinkedList<Line> lines = new LinkedList();
+        for (int i = 0; i < savedRoute.size()-1; i++){
+            NodeSuper curNode = null;
+            NodeSuper endNode = null;
+            try {
+                curNode = DatabaseManager.getNode(savedRoute.get(i));
+                endNode = DatabaseManager.getNode(savedRoute.get(i+1));
+            } catch (InvalidElementException e) {
+                e.printStackTrace();
+            }
+
+            Line edge = new Line(curNode.getXcoord() / xRatio, curNode.getYcoord() / yRatio, endNode.getXcoord() / xRatio, endNode.getYcoord() / yRatio);
+            edge.setStrokeWidth(4);
+            if (curNode.getFloor().equals(selectedFloor)){
+                edge.setStroke(Color.BLACK);
+            } else {
+                edge.setStroke(Color.GREY);
+            }
+
+            lines.add(edge);
+        }
+
+        nodePane.getChildren().addAll(lines);
+        for (Line l : lines){
+            l.toBack();
         }
     }
 

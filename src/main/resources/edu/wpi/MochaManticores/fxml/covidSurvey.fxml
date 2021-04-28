@@ -195,7 +195,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <JFXButton fx:id="submitBtn" buttonType="RAISED" onAction="#submitEvent" prefHeight="60.0" prefWidth="150.0" stylesheets="@../Stylesheets/covidSurvey.css" text="Submit" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <JFXButton fx:id="submitBtn" buttonType="RAISED" onAction="#submitEvent" prefHeight="60.0" prefWidth="150.0" stylesheets="@../Stylesheets/covidSurvey.css" text="SUBMIT" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                      </children>
                   </GridPane>
                </children>
