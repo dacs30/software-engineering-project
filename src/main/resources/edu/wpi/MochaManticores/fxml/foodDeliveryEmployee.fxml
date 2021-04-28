@@ -80,6 +80,9 @@
                      </children>
                   </HBox>
                </children>
+               <effect>
+                  <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
+               </effect>
             </GridPane>
             <GridPane id="formsGrid" fx:id="managerPage" maxHeight="700.0" maxWidth="1000.0" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../Stylesheets/foodDelivery.css">
               <columnConstraints>
