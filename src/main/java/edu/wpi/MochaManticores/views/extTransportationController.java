@@ -42,6 +42,8 @@ public class extTransportationController extends SceneController {
 
     @FXML
     private void initialize() {
+
+
         double height = App.getPrimaryStage().getScene().getHeight();
         double width = App.getPrimaryStage().getScene().getWidth();
         backgroundIMG.setFitHeight(height);

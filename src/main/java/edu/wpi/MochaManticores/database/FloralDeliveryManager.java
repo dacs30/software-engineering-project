@@ -33,7 +33,7 @@ public class FloralDeliveryManager extends Manager<FloralDelivery> {
                 if(line == null) break;
                 String[] row = line.split(CSVdelim);
 
-                FloralDelivery temp = new FloralDelivery(row[0],row[1],Boolean.parseBoolean(row[2]),
+                FloralDelivery temp = new FloralDelivery("",row[1],Boolean.parseBoolean(row[2]),
                         row[3],row[4],row[5],row[6], row[7]);
                 addElement(temp);
             }
@@ -44,6 +44,7 @@ public class FloralDeliveryManager extends Manager<FloralDelivery> {
 
     @Override
     void addElement(FloralDelivery v) {
+        v.setRequestID(v.generateRequestID(this.type));
         addElement_db(v);
         addElement_map(v);
     }

@@ -34,7 +34,7 @@ public class IntTransportManager extends Manager<InternalTransportation> {
                 String[] row = line.split(CSVdelim);
 
                 InternalTransportation temp = new InternalTransportation(
-                        row[0],row[1],Boolean.parseBoolean(row[2]),
+                        "",row[1],Boolean.parseBoolean(row[2]),
                         row[3],Integer.parseInt(row[4]),row[5],row[6]);
                 addElement(temp);
             }
@@ -45,6 +45,7 @@ public class IntTransportManager extends Manager<InternalTransportation> {
 
     @Override
     void addElement(InternalTransportation temp) {
+        temp.setRequestID(temp.generateRequestID(this.type));
         addElement_db(temp);
         addElement_map(temp);
     }

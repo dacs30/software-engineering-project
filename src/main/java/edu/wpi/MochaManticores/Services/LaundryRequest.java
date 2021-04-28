@@ -9,7 +9,7 @@ public class LaundryRequest extends ServiceRequest {
     private int dryCycleNumber;
 
 
-    public LaundryRequest(String employee,String RequestID, boolean completed, String patientName, String soilLevel,
+    public LaundryRequest(String RequestID,String employee, boolean completed, String patientName, String soilLevel,
                           boolean delicates, String washCycleTemperature, String dryCycleTemperature, int dryCycleNumber) {
         super(employee, completed, RequestID);
         if(RequestID.equals("")){
