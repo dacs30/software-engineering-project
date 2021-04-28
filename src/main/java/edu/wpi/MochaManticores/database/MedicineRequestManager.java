@@ -33,7 +33,7 @@ public class MedicineRequestManager extends Manager<MedicineRequest> {
                 if(line == null) break;
                 String[] row = line.split(CSVdelim);
 
-                MedicineRequest temp = new MedicineRequest(row[0],"",Boolean.parseBoolean(row[2]),
+                MedicineRequest temp = new MedicineRequest("",row[1],Boolean.parseBoolean(row[2]),
                         row[3],row[4],row[5],row[6]);
                 addElement(temp);
             }
