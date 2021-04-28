@@ -9,7 +9,7 @@ import java.sql.*;
 import java.util.HashMap;
 
 public class NodeManager extends Manager<NodeSuper>{
-    private static String Node_csv_path = "data/bwMNodes.csv";
+    private static String Node_csv_path = "data/MapMAllnodes.csv";
     private static Connection connection = null;
     private static final String CSVdelim = ",";
 
