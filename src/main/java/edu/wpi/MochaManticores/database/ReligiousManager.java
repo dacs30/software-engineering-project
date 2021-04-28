@@ -33,7 +33,7 @@ public class ReligiousManager extends Manager<ReligiousRequest> {
                 if(line == null) break;
                 String[] row = line.split(CSVdelim);
 
-                ReligiousRequest temp = new ReligiousRequest(row[0],"",Boolean.parseBoolean(row[2]),
+                ReligiousRequest temp = new ReligiousRequest("",row[1],Boolean.parseBoolean(row[2]),
                         row[3],row[4],row[5]);
                 addElement(temp);
             }

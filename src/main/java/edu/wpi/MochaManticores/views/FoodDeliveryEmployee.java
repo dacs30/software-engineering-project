@@ -35,13 +35,37 @@ public class FoodDeliveryEmployee {
         StringProperty dp;
         StringProperty a;
         StringProperty menu;
+        StringProperty employeeAssigned;
+        boolean completed;
         LinkedList<String> fields;
+
+        public String getEmployeeAssigned() {
+            return employeeAssigned.get();
+        }
+
+        public StringProperty employeeAssignedProperty() {
+            return employeeAssigned;
+        }
+
+        public String isCompleted() {
+            if(completed){
+                return "Completed";
+            }else{
+                return "Open";
+            }
+        }
+
+        public void setCompleted(boolean completed) {
+            this.completed = completed;
+        }
 
         public fd(edu.wpi.MochaManticores.Services.ServiceRequest ref){
                 this.ref = (edu.wpi.MochaManticores.Services.FoodDelivery) ref;
                 dp = new SimpleStringProperty(this.ref.getDietaryPreference());
                 a = new SimpleStringProperty(this.ref.getAllergies());
                 menu = new SimpleStringProperty(this.ref.getMenu());
+                employeeAssigned = new SimpleStringProperty(this.ref.getEmployee());
+                completed = this.ref.getCompleted();
                 fields = new LinkedList<>(Arrays.asList(dp.get(),a.get(),menu.get()));
         }
 
@@ -93,6 +117,10 @@ public class FoodDeliveryEmployee {
 
     public TableColumn<fd, String> allergies;
 
+    public TableColumn<fd, String> employee;
+
+    public TableColumn<fd, String> completed;
+
     @FXML
     private JFXComboBox<String> foodMenu;
 
@@ -126,10 +154,21 @@ public class FoodDeliveryEmployee {
         menuOption.setCellValueFactory(new PropertyValueFactory<fd, String>("Menu"));
         //menuOption.setPrefWidth(foodDeliveryTable.getPrefWidth()/3);
 
+        employee = new TableColumn<fd, String>("Employee");
+        employee.setMinWidth(100);
+        employee.setCellValueFactory(new PropertyValueFactory<fd, String>("employeeAssigned"));
+
+        completed = new TableColumn<fd, String>("Status");
+        completed.setMinWidth(100);
+        completed.setCellValueFactory(new PropertyValueFactory<fd, String>("completed"));
+
         // TODO add combox values
 
         dietaryPreferences.getItems().clear();
         dietaryPreferences.getItems().addAll("Vegan", "Vegetarian", "Gluten Free");
+
+        foodMenu.getItems().clear();
+        foodMenu.getItems().addAll("Menu 0", "Menu 1", "Menu 2", "Menu 3");
 
 
         managerPage.setVisible(false);
@@ -153,7 +192,7 @@ public class FoodDeliveryEmployee {
             }
         }
         foodDeliveryTable.setItems(tableRow);
-        foodDeliveryTable.getColumns().setAll(dietaryPref,allergies,menuOption);
+        foodDeliveryTable.getColumns().setAll(dietaryPref,allergies,menuOption,employee,completed);
 
         return tableRow;
     }
@@ -167,6 +206,13 @@ public class FoodDeliveryEmployee {
         buildTable("");
         requestPage.setVisible(false);
         managerPage.setVisible(true);
+    }
+
+    public void completeService(ActionEvent e){
+        fd selection = foodDeliveryTable.getSelectionModel().getSelectedItem();
+        selection.setCompleted(true);
+        selection.getRef().setCompleted(true);
+        buildTable("");
     }
 
     public void submitForm(ActionEvent actionEvent) {

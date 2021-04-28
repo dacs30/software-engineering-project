@@ -6,10 +6,12 @@ import java.util.LinkedList;
 
 public class ServiceMap {
     private final HashMap<ServiceRequestType, HashMap<String, ServiceRequest>> myMap = new HashMap<>();
+    private final HashMap<ServiceRequestType, Integer> maxMap = new HashMap<>();
 
     public ServiceMap() {
         for (ServiceRequestType type : ServiceRequestType.values()) {
             myMap.put(type,new HashMap<String,ServiceRequest>());
+            maxMap.put(type,0);
         }
     }
     /**

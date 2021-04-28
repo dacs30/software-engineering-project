@@ -725,8 +725,8 @@ public class mapEditor extends SceneController {
     public void submitEdgeEdit(){
         EdgeSuper editedEdge = null;
         String selectedID;
-        if (!editor.checkInput(Arrays.asList(edgeIDField.getText(), startNodeID.getText(), endNodeID.getText()))) { // IF fields are blank, submit error
-            mapEditor.super.loadErrorDialog(dialogPane, "Please do not leave fields blank!");
+        if (!editor.checkInput(Arrays.asList(edgeIDField.getText(), startNodeID.getText(), endNodeID.getText()))) { // IF transportationMethodsTable are blank, submit error
+            mapEditor.super.loadErrorDialog(dialogPane, "Please do not leave transportationMethodsTable blank!");
         } else {
             EdgeSuper oldEdge = EdgeMapSuper.getMap().get(edgeIDField.getText());
             if (oldEdge != null) {
@@ -772,8 +772,8 @@ public class mapEditor extends SceneController {
                 longNameField.getText(),
                 shortNameField.getText(),
                 nodeIDField.getText(),
-                nodeTypeField.getText()))) { // IF fields are blank, submit error
-            loadErrorDialog(dialogPane, "Please do not leave fields blank!");
+                nodeTypeField.getText()))) { // IF transportationMethodsTable are blank, submit error
+            loadErrorDialog(dialogPane, "Please do not leave transportationMethodsTable blank!");
         } else if (nodeIDField.getLength() != 10) {
             loadErrorDialog(dialogPane, "Node IDs must be of length 10!");
         } else {
@@ -822,7 +822,7 @@ public class mapEditor extends SceneController {
 
     /**
      *
-     * @return true if input in edit fields are valid
+     * @return true if input in edit transportationMethodsTable are valid
      */
     public boolean checkInput(){
         return  editor.checkInput(Arrays.asList(xCoordField.getText(),

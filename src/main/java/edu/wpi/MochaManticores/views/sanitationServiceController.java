@@ -1,9 +1,15 @@
 package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.*;
+import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.database.DatabaseManager;
+import edu.wpi.MochaManticores.database.sel;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -11,7 +17,12 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class sanitationServiceController extends SceneController {
+
+    ObservableList<String> sanitationType = FXCollections.observableArrayList("Room Cleaning","Spill");
 
     @FXML
     private JFXTextField loc;
@@ -20,13 +31,19 @@ public class sanitationServiceController extends SceneController {
     private JFXTextField safetyHaz;
 
     @FXML
-    private JFXTextField type;
+    private JFXComboBox<String> typeComboBox;
 
     @FXML
-    private JFXTextField equipment;
+    private JFXCheckBox glovesNeeded;
+    @FXML
+    private JFXCheckBox maskNeeded;
+    @FXML
+    private JFXCheckBox mopNeeded;
+
+    private List<JFXCheckBox> equipment;
 
     @FXML
-    private JFXTextArea description;
+    private JFXTextField description;
 
     @FXML
     public JFXButton submitButton;
@@ -70,6 +87,9 @@ public class sanitationServiceController extends SceneController {
         dialogPane.toBack();
         backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
         backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
+
+        typeComboBox.setItems(sanitationType);
+        equipment = Arrays.asList(glovesNeeded, maskNeeded, mopNeeded);
 
     }
 
@@ -164,15 +184,60 @@ public class sanitationServiceController extends SceneController {
 
     @FXML
     private void submit(ActionEvent e) {
-        try {
-            System.out.println(loc.getText());
-            System.out.println(safetyHaz.getText());
-            System.out.println(type.getText());
-            System.out.println(equipment.getText());
-            System.out.println(description.getText());
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        JFXCheckBox source = (JFXCheckBox) e.getSource();
+        StringBuilder equipmentNeeded = new StringBuilder();
+        for(JFXCheckBox button : equipment) {
+             if(!button.equals(source)) {
+                 button.setSelected(false);
+             }
+            }
+        if(maskNeeded.isSelected()) {
+            equipmentNeeded.append("maskNeeded,");
         }
+        if(glovesNeeded.isSelected()) {
+            equipmentNeeded.append("gloveNeeded,");
+        }
+        if(mopNeeded.isSelected()) {
+            equipmentNeeded.append("mopNeeded,");
+        }
+            if(!loc.getText().isEmpty() && !safetyHaz.getText().isEmpty() &&
+                 !typeComboBox.getSelectionModel().getSelectedItem().isEmpty() && (glovesNeeded.isSelected() || maskNeeded.isSelected() || mopNeeded.isSelected()) && !description.getText().isEmpty()){
+            sel s = sel.SanitationServices;
+                DatabaseManager.addRequest(s, new edu.wpi.MochaManticores.Services.SanitationServices(
+                    "",
+                    "",
+                    false,
+                    loc.getText(),
+                    safetyHaz.getText(),
+                    typeComboBox.getValue(),
+                    equipmentNeeded.toString(),
+                    description.getText()
+                    ));
+            System.out.println("Adds to database");
+        } else if (loc.getText().isEmpty()){
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            loc.getValidators().add(missingInput);
+            missingInput.setMessage("Location is required.");
+            loc.validate();
+        } else if (safetyHaz.getText().isEmpty()){
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            safetyHaz.getValidators().add(missingInput);
+            missingInput.setMessage("Safety Hazards are required.");
+            safetyHaz.validate();
+        } else if (typeComboBox.getSelectionModel().getSelectedItem().isEmpty()){
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            typeComboBox.getValidators().add(missingInput);
+            missingInput.setMessage("Sanitation Type is required.");
+            typeComboBox.validate();
+        } else if (equipmentNeeded.toString().isEmpty()){
+                Alert a = new Alert(Alert.AlertType.WARNING);
+                a.show();
+            } else if (description.getText().isEmpty()){
+                RequiredFieldValidator missingInput = new RequiredFieldValidator();
+                description.getValidators().add(missingInput);
+                missingInput.setMessage("Description is required.");
+                description.validate();
+            }
         loadSubmitDialog();
     }
 
