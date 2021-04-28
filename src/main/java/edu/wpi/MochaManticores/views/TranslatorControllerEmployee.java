@@ -112,6 +112,9 @@ public class TranslatorControllerEmployee extends SceneController{
     private JFXComboBox languageOne;
     @FXML
     private JFXComboBox languageTwo;
+
+    @FXML
+    private JFXTextField empBox;
     @FXML
     private StackPane dialogPane;
 
@@ -195,9 +198,9 @@ public class TranslatorControllerEmployee extends SceneController{
                         "", "", false, roomNumber.getText(),
                         languageOne.getSelectionModel().getSelectedItem().toString(),
                         languageTwo.getSelectionModel().getSelectedItem().toString()));
-        dialogPane.setVisible(true);
-        loadDialog();
-        back();
+//        dialogPane.setVisible(true);
+//        loadDialog();
+//        back();
     }
 
     private void loadHelpDialog(){
@@ -288,6 +291,13 @@ public class TranslatorControllerEmployee extends SceneController{
         buildTable("");
         requestPage.setVisible(false);
         managerPage.setVisible(true);
+    }
+
+    public void completeService(ActionEvent e){
+        tl selection = translatorTable.getSelectionModel().getSelectedItem();
+        selection.setCompleted(true);
+        selection.getRef().setCompleted(true);
+        buildTable("");
     }
 
     public void helpButton(MouseEvent mouseEvent) {

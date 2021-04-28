@@ -12,11 +12,11 @@
     -fx-prompt-text-fill: rgb(193, 193, 193);
 }
 
-.label {
-    -fx-font-family: Roboto;
-    -fx-font-size: 60;
-    -fx-font-weight: bold;
-}
+/*.label {*/
+/*    -fx-font-family: Roboto;*/
+/*    -fx-font-size: 60;*/
+/*    -fx-font-weight: bold;*/
+/*}*/
 
 /* Styles for the Combo boxes*/
 
