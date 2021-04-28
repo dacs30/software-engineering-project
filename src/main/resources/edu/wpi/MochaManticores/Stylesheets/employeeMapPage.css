@@ -52,3 +52,15 @@
     -fx-border-radius: 40;
     -fx-background-radius: 40;
 }
+#nodeEdgeSelectorVbox {
+    -fx-background-color: rgba(255, 255, 255, 0.75);
+}
+#selectNodeEdgeLabel {
+    -fx-text-fill: grey;
+    -fx-font-family: Roboto;
+    -fx-font-weight: bold;
+}
+#title {
+    -fx-font-family: Roboto;
+    -fx-font-weight: bold;
+}

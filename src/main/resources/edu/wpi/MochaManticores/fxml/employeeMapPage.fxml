@@ -373,9 +373,9 @@
                         <Insets bottom="5.0" />
                      </padding>
                   </VBox>
-                  <VBox fx:id="defaultBox" alignment="CENTER" spacing="25.0" style="-fx-background-color: #0f4b91;" GridPane.rowIndex="2">
+                  <VBox id="nodeEdgeSelectorVbox" fx:id="defaultBox" alignment="CENTER" spacing="25.0" GridPane.rowIndex="2">
                      <children>
-                        <Label alignment="CENTER" graphicTextGap="6.0" text="Select a node or edge to begin editing" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                        <Label id="selectNodeEdgeLabel" alignment="CENTER" graphicTextGap="6.0" text="Select a node or edge to begin editing" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                            <font>
                               <Font size="36.0" />
                            </font>
@@ -390,6 +390,9 @@
                      <GridPane.margin>
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                      </GridPane.margin>
+                     <effect>
+                        <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
+                     </effect>
                   </VBox>
                   <JFXComboBox fx:id="floorSelector" focusColor="WHITE" onAction="#selectFloor" promptText="Select Floor" style="-fx-background-color: lightgrey;" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
                      <GridPane.margin>
@@ -403,8 +406,8 @@
                   <ColumnConstraints hgrow="SOMETIMES" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints vgrow="NEVER" />
-                  <RowConstraints vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="170.44446563720703" minHeight="132.51851654052734" prefHeight="170.44446563720703" vgrow="NEVER" />
+                  <RowConstraints maxHeight="677.4814834594727" minHeight="639.555534362793" prefHeight="639.555534362793" vgrow="ALWAYS" />
                </rowConstraints>
                <children>
                   <StackPane fx:id="mapStack" minHeight="0.0" minWidth="0.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
@@ -471,7 +474,7 @@
                               </JFXButton>
                            </children>
                         </GridPane>
-                        <Label fx:id="locationTitle" alignment="CENTER" text="Select a Floor from the left" textAlignment="CENTER" GridPane.halignment="CENTER">
+                        <Label id="title" fx:id="locationTitle" alignment="CENTER" text="Select a Floor from the left" textAlignment="CENTER" GridPane.halignment="CENTER">
                            <font>
                               <Font size="28.0" />
                            </font>
