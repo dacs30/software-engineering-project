@@ -36,7 +36,7 @@
       </StackPane>
       <StackPane prefHeight="800.0" prefWidth="1207.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <GridPane id="formsGrid" fx:id="requestPage" maxHeight="700.0" maxWidth="1000.0" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../Stylesheets/medicineDelivery.css" visible="false">
+            <GridPane id="formsGrid" fx:id="requestPage" maxHeight="700.0" maxWidth="1000.0" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../Stylesheets/medicineDelivery.css">
               <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
@@ -95,7 +95,7 @@
                   <JFXTextField fx:id="empBox" focusColor="#bababa" labelFloat="true" maxHeight="-Infinity" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="375.0" promptText="Assign To Employee" stylesheets="@../Stylesheets/foodDelivery.css" GridPane.rowIndex="6" />
                </children>
             </GridPane>
-            <GridPane id="formsGrid" fx:id="managerPage" maxHeight="700.0" maxWidth="1000.0" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../Stylesheets/foodDelivery.css">
+            <GridPane id="formsGrid" fx:id="managerPage" maxHeight="700.0" maxWidth="1000.0" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../Stylesheets/foodDelivery.css" visible="false">
                <columnConstraints>
                   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                </columnConstraints>

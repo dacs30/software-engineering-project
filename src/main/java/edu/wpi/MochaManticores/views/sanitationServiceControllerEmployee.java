@@ -1,16 +1,25 @@
 package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.*;
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.Services.SanitationServices;
+import edu.wpi.MochaManticores.Services.ServiceRequest;
+import edu.wpi.MochaManticores.Services.ServiceRequestType;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.sel;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
@@ -18,9 +27,107 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
-public class sanitationServiceController extends SceneController {
+public class sanitationServiceControllerEmployee extends SceneController {
+
+    public class ss extends RecursiveTreeObject<ss>{
+        edu.wpi.MochaManticores.Services.SanitationServices ref;
+        StringProperty location;
+        StringProperty safetyHazards;
+        StringProperty sanitationType;
+        StringProperty equipmentNeeded;
+        StringProperty description;
+        StringProperty employeeAssigned;
+        boolean completed;
+        LinkedList<String> fields;
+
+        public ss(edu.wpi.MochaManticores.Services.ServiceRequest ref){
+            this.ref = (edu.wpi.MochaManticores.Services.SanitationServices) ref;
+            location = new SimpleStringProperty(this.ref.getLocation());
+            safetyHazards = new SimpleStringProperty(this.ref.getSafetyHazards());
+            sanitationType = new SimpleStringProperty(this.ref.getSanitationType());
+            equipmentNeeded = new SimpleStringProperty(this.ref.getEquipmentNeeded());
+            description = new SimpleStringProperty(this.ref.getDescription());
+            employeeAssigned = new SimpleStringProperty(this.ref.getEmployee());
+            completed = this.ref.getCompleted();
+            fields = new LinkedList<>(Arrays.asList(
+                    location.get(),
+                    safetyHazards.get(),
+                    sanitationType.get(),
+                    equipmentNeeded.get(),
+                    description.get()));
+        }
+
+        public void setCompleted(boolean completed) {
+            this.completed = completed;
+        }
+
+        public SanitationServices getRef() {
+            return ref;
+        }
+
+        public String getLocation() {
+            return location.get();
+        }
+
+        public StringProperty locationProperty() {
+            return location;
+        }
+
+        public String getSafetyHazards() {
+            return safetyHazards.get();
+        }
+
+        public StringProperty safetyHazardsProperty() {
+            return safetyHazards;
+        }
+
+        public String getSanitationType() {
+            return sanitationType.get();
+        }
+
+        public StringProperty sanitationTypeProperty() {
+            return sanitationType;
+        }
+
+        public String getEquipmentNeeded() {
+            return equipmentNeeded.get();
+        }
+
+        public StringProperty equipmentNeededProperty() {
+            return equipmentNeeded;
+        }
+
+        public String getDescription() {
+            return description.get();
+        }
+
+        public StringProperty descriptionProperty() {
+            return description;
+        }
+
+        public String getEmployeeAssigned() {
+            return employeeAssigned.get();
+        }
+
+        public StringProperty employeeAssignedProperty() {
+            return employeeAssigned;
+        }
+
+        public String isCompleted() {
+            if(completed){
+                return "Completed";
+            }else{
+                return "Open";
+            }
+        }
+
+        public LinkedList<String> getFields() {
+            return fields;
+        }
+    }
 
     ObservableList<String> sanitationType = FXCollections.observableArrayList("Room Cleaning","Spill");
 
@@ -63,8 +170,6 @@ public class sanitationServiceController extends SceneController {
     @FXML
     public ImageView badgeIMG;
 
-
-
     @FXML
     public GridPane contentGrid;
 
@@ -77,14 +182,65 @@ public class sanitationServiceController extends SceneController {
     @FXML
     private JFXButton backBtn;
 
+    @FXML
+    private GridPane requestPage;
+
+    @FXML
+    private GridPane managerPage;
+
+    public TableView<ss> sanitationTable;
+
+    public TableColumn<ss, String> locationColumn;
+    public TableColumn<ss, String> safetyHazardsColumn;
+    public TableColumn<ss, String> sanitationTypeColumn;
+    public TableColumn<ss, String> equipmentNeededColumn;
+    public TableColumn<ss, String> descriptionColumn;
+    public TableColumn<ss, String> employeeAssignedColumn;
+    public TableColumn<ss, String> completedColumn;
+
+
+
+
+
 
     @FXML
     private void initialize(){
+
+        locationColumn = new TableColumn<ss, String>("Location");
+        locationColumn.setMinWidth(100);
+        locationColumn.setCellValueFactory(new PropertyValueFactory<ss, String>("location"));
+
+
+        safetyHazardsColumn = new TableColumn<ss, String>("Safety Hazards");
+        safetyHazardsColumn.setMinWidth(100);
+        safetyHazardsColumn.setCellValueFactory(new PropertyValueFactory<ss, String>("safetyHazards"));
+
+        sanitationTypeColumn = new TableColumn<ss, String>("Type");
+        sanitationTypeColumn.setMinWidth(100);
+        sanitationTypeColumn.setCellValueFactory(new PropertyValueFactory<ss, String>("sanitationType"));
+
+        equipmentNeededColumn = new TableColumn<ss, String>("Equipment Needed");
+        equipmentNeededColumn.setMinWidth(100);
+        equipmentNeededColumn.setCellValueFactory(new PropertyValueFactory<ss, String>("equipmentNeeded"));
+
+        descriptionColumn = new TableColumn<ss, String>("Description");
+        descriptionColumn.setMinWidth(100);
+        descriptionColumn.setCellValueFactory(new PropertyValueFactory<ss, String>("description"));
+
+        employeeAssignedColumn = new TableColumn<ss, String>("Employee");
+        employeeAssignedColumn.setMinWidth(100);
+        employeeAssignedColumn.setCellValueFactory(new PropertyValueFactory<ss, String>("employeeAssigned"));
+
+        completedColumn = new TableColumn<ss, String>("Status");
+        completedColumn.setMinWidth(100);
+        completedColumn.setCellValueFactory(new PropertyValueFactory<ss, String>("completed"));
+
+
         double height = App.getPrimaryStage().getScene().getHeight();
         double width = App.getPrimaryStage().getScene().getWidth();
         backgroundIMG.setFitHeight(height);
         backgroundIMG.setFitWidth(width);
-        contentGrid.setPrefSize(width,height);
+        //contentGrid.setPrefSize(width,height);
 
         dialogPane.toBack();
         backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
@@ -92,6 +248,32 @@ public class sanitationServiceController extends SceneController {
 
         typeComboBox.setItems(sanitationType);
         equipment = Arrays.asList(glovesNeeded, maskNeeded, mopNeeded);
+
+    }
+
+    private ObservableList<ss> buildTable(String searchTerm){
+        ObservableList<ss> tableRow = FXCollections.observableArrayList();
+        LinkedList<ServiceRequest> requests = DatabaseManager.getServiceMap().getServiceRequestsForType(ServiceRequestType.SanitationServices);
+
+        for(ServiceRequest s : requests){
+            ss ssToAdd = new ss(s);
+            for (int i = 0; i < ssToAdd.getFields().size(); i++) {
+                if(ssToAdd.getFields().get(i).toLowerCase().equals(searchTerm) || searchTerm.equals("")){
+                    tableRow.add(ssToAdd);
+                    break;
+                }
+            }
+        }
+        sanitationTable.setItems(tableRow);
+        sanitationTable.getColumns().setAll(
+                locationColumn,
+                safetyHazardsColumn,
+                sanitationTypeColumn,
+                equipmentNeededColumn,
+                descriptionColumn,
+                employeeAssignedColumn,
+                completedColumn);
+        return tableRow;
 
     }
 
@@ -126,7 +308,8 @@ public class sanitationServiceController extends SceneController {
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
         JFXButton ok = new JFXButton("OK");
         ok.setOnAction(event -> {
-            goBack(null);
+            dialogPane.toBack();
+            dialog.close();
         });
 
         dialog.setOnDialogClosed(event -> {
@@ -184,16 +367,32 @@ public class sanitationServiceController extends SceneController {
         loadDialog();
     }
 
+    public void changeToRequest(ActionEvent actionEvent) {
+        requestPage.setVisible(true);
+        managerPage.setVisible(false);
+    }
 
+    public void changeManagerTable(ActionEvent actionEvent) {
+        buildTable("");
+        requestPage.setVisible(false);
+        managerPage.setVisible(true);
+    }
+
+    public void completeService(ActionEvent e){
+        ss selection = sanitationTable.getSelectionModel().getSelectedItem();
+        selection.setCompleted(true);
+        selection.getRef().setCompleted(true);
+        buildTable("");
+    }
 
     @FXML
     private void submit(ActionEvent e) {
-        JFXCheckBox source = (JFXCheckBox) e.getSource();
+        //JFXCheckBox source = (JFXCheckBox) e.getSource();
         StringBuilder equipmentNeeded = new StringBuilder();
         for(JFXCheckBox button : equipment) {
-             if(!button.equals(source)) {
-                 button.setSelected(false);
-             }
+//             if(!button.equals(source)) {
+//                 button.setSelected(false);
+//             }
             }
         if(maskNeeded.isSelected()) {
             equipmentNeeded.append("maskNeeded,");

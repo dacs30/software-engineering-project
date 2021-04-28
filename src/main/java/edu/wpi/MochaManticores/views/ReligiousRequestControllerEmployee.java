@@ -37,6 +37,10 @@ public class ReligiousRequestControllerEmployee extends SceneController{
         boolean completed;
         LinkedList<String> fields;
 
+        public void setCompleted(boolean completed) {
+            this.completed = completed;
+        }
+
         public rr(edu.wpi.MochaManticores.Services.ServiceRequest ref){
             this.ref = (edu.wpi.MochaManticores.Services.ReligiousRequest) ref;
             reasonVisit = new SimpleStringProperty(this.ref.getReasonVisit());
@@ -86,7 +90,7 @@ public class ReligiousRequestControllerEmployee extends SceneController{
             return employeeAssigned;
         }
 
-        public String isCompelted() {
+        public String isCompleted() {
             if(completed){
                 return "Completed";
             }else{
@@ -114,10 +118,10 @@ public class ReligiousRequestControllerEmployee extends SceneController{
     private JFXTextField empBox;
 
     @FXML
-            private JFXTextField reasonBox;
+    private JFXTextField reasonBox;
 
     @FXML
-            private JFXTextField roomIDBox;
+    private JFXTextField roomIDbox;
 
 
 
@@ -161,7 +165,7 @@ public class ReligiousRequestControllerEmployee extends SceneController{
 
         double height = App.getPrimaryStage().getScene().getHeight();
         double width = App.getPrimaryStage().getScene().getWidth();
-        backgroundGrid.setPrefSize(width, height);
+        //backgroundGrid.setPrefSize(width, height);
 
         TypeOfSacredPerson.setItems(TypeOfSacredPersons);
 
@@ -171,7 +175,7 @@ public class ReligiousRequestControllerEmployee extends SceneController{
 
     public ObservableList<rr> buildTable(String searchTerm){
         ObservableList<rr> tableRow = FXCollections.observableArrayList();
-        LinkedList<ServiceRequest> requests = DatabaseManager.getServiceMap().getServiceRequestsForType(ServiceRequestType.Medicine);
+        LinkedList<ServiceRequest> requests = DatabaseManager.getServiceMap().getServiceRequestsForType(ServiceRequestType.ReligiousRequest);
 
         for(ServiceRequest s : requests){
             rr rrToAdd = new rr(s);
@@ -190,6 +194,10 @@ public class ReligiousRequestControllerEmployee extends SceneController{
                 employeeAssignedColumn,
                 completedColumn);
         return tableRow;
+
+    }
+
+    public void helpButton(){
 
     }
 
@@ -212,12 +220,23 @@ public class ReligiousRequestControllerEmployee extends SceneController{
         managerPage.setVisible(true);
     }
 
+    public void completeService(ActionEvent e){
+        rr selection = religionTable.getSelectionModel().getSelectedItem();
+        selection.setCompleted(true);
+        selection.getRef().setCompleted(true);
+        buildTable("");
+    }
+
 
     public void submitEvent(ActionEvent actionEvent) {
         sel s = sel.ReligiousRequest;
         DatabaseManager.addRequest(s,
-                new ReligiousRequest("", empBox.getText(),false,reasonBox.getText(),roomIDBox.getText(),TypeOfSacredPerson.getSelectionModel().getSelectedItem()));
-        exitPage();
+                new ReligiousRequest("",
+                        empBox.getText(),
+                        false,
+                        reasonBox.getText(),
+                        roomIDbox.getText(),
+                        TypeOfSacredPerson.getSelectionModel().getSelectedItem()));
     }
 }
 

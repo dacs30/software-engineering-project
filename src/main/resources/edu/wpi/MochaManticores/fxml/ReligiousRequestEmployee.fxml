@@ -33,6 +33,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
@@ -48,16 +49,18 @@
                                         <Insets left="0" right="0" />
                                     </padding>
                                 </JFXTextField>
-                        <JFXComboBox promptText="Select one option" />
+                        <JFXComboBox fx:id="TypeOfSacredPerson" promptText="Select one option" />
 
                             </children>
                         </HBox>
 
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="200.0" GridPane.rowIndex="3">
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="200.0" GridPane.rowIndex="4">
                             <children>
                                 <JFXButton fx:id="submitBTN" buttonType="RAISED" onAction="#submitEvent" prefHeight="70.0" prefWidth="155.0" text="SUBMIT" />
+                        <JFXButton id="submitBtn" fx:id="gotoManager" onAction="#changeManagerTable" prefHeight="81.0" prefWidth="232.0" text="MANAGER TABLE" />
                             </children>
                         </HBox>
+                  <JFXTextField fx:id="empBox" focusColor="#bababa" labelFloat="true" maxHeight="-Infinity" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="800.0" promptText="Assign To Employee" stylesheets="@../Stylesheets/foodDelivery.css" GridPane.rowIndex="3" />
 
 
                     </children>

@@ -47,6 +47,9 @@ public class landingPageController extends SceneController {
   private AnchorPane scenesPane;
 
   @FXML
+  private JFXButton userButton;
+
+  @FXML
   private HBox menuSidePane;
 
   @FXML
@@ -106,8 +109,10 @@ public class landingPageController extends SceneController {
     greetingLabel.setText("Hello, " + App.getCurrentUsername().toUpperCase());
 
     if (App.getClearenceLevel() == 1) {
+      userButton.setVisible(true);
       root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/employeeHomePage.fxml")));
     } else {
+      userButton.setVisible(false);
       root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/homePage2.fxml")));
     }
 
@@ -385,7 +390,12 @@ public class landingPageController extends SceneController {
     scenesPane.getChildren().removeAll(scenesPane.getChildren());
 
     // sets parent to be the file to be loaded
-    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/sanitationService.fxml")));
+    Parent root;
+    if(App.getClearenceLevel() == 1){
+      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/sanitationServiceEmployee.fxml")));
+    }else{
+      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/sanitationService.fxml")));
+    }
 
     // change the colors of the old selected page back to the default
     currentVbox.setStyle("-fx-background-radius: 0;");
@@ -412,8 +422,14 @@ public class landingPageController extends SceneController {
     scenesPane.getChildren().removeAll(scenesPane.getChildren());
 
     // sets parent to be the file to be loaded
-    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(
-            "/edu/wpi/MochaManticores/fxml/ReligiousRequest.fxml")));
+    Parent root;
+    if(App.getClearenceLevel() == 1){
+      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/ReligiousRequestEmployee.fxml")));
+    }else{
+      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/ReligiousRequest.fxml")));
+    }
+
+
 
     // change the colors of the old selected page back to the default
     currentVbox.setStyle("-fx-background-radius: 0;");
@@ -460,8 +476,12 @@ public class landingPageController extends SceneController {
     scenesPane.getChildren().removeAll(scenesPane.getChildren());
 
     // sets parent to be the file to be loaded
-    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(
-            "/edu/wpi/MochaManticores/fxml/translatorForm.fxml")));
+    Parent root;
+    if(App.getClearenceLevel() == 1){
+      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/translatorFormEmployee.fxml")));
+    }else{
+      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/translatorForm.fxml")));
+    }
 
     // change the colors of the old selected page back to the default
     currentVbox.setStyle("-fx-background-radius: 0;");
@@ -527,7 +547,12 @@ public class landingPageController extends SceneController {
   }
 
   public void userSettings(ActionEvent actionEvent) {
-    loadErrorDialog(dialogPane, "Coming in a future iteration!");
+
+    super.changeSceneTo("EmployeeEditor");
+
+
+
+    //loadErrorDialog(dialogPane, "Coming in a future iteration!");
   }
 
 }
