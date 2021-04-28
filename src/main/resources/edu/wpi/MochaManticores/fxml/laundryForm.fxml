@@ -14,14 +14,14 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@../Stylesheets/laundry.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.LaundryFormController">
+<AnchorPane id="backgroundIMG" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../Stylesheets/laundry.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.LaundryFormController">
    <children>
-      <ImageView fitHeight="800.0" fitWidth="1200.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ImageView fx:id="backgroundIMG" fitHeight="800.0" fitWidth="1200.0" opacity="0.5" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../images/100909_00_BrighamWomens_BTM_N8_966x668.jpg" />
+            <Image url="@../images/cool-background.jpg" />
          </image>
       </ImageView>
-      <GridPane id="backgroundGrid" layoutY="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <GridPane fx:id="contentGrid" layoutY="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
@@ -29,7 +29,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <GridPane id="formsGrid" stylesheets="@../Stylesheets/laundry.css">
+            <GridPane id="formsGrid" maxHeight="700.0" maxWidth="1000.0" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../Stylesheets/laundry.css">
               <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
@@ -44,11 +44,11 @@
                   <Insets />
                </opaqueInsets>
                <GridPane.margin>
-                  <Insets bottom="100.0" left="150.0" right="150.0" top="100.0" />
+                  <Insets />
                </GridPane.margin>
                <children>
                   <JFXTextField promptText="Name" GridPane.rowIndex="1" />
-                  <Label prefHeight="88.0" prefWidth="664.0" text="Laundry Request Form" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <Label id="title" prefHeight="88.0" prefWidth="664.0" text="Laundry Request Form" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                   <JFXButton alignment="CENTER" text="SUBMIT" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
                         <Insets bottom="20.0" />
