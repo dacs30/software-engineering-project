@@ -77,10 +77,20 @@ public class landingPageController extends SceneController {
   private HBox emergencySidePanel;
 
   @FXML
+  private  HBox religionSidePane;
+
+  @FXML
+  private HBox laundrySidePane;
+
+  @FXML
+  private HBox translatorSidePane;
+
+  @FXML
   private Label greetingLabel;
 
   @FXML
   private ScrollPane servicesPane;
+
 
   HBox currentVbox;
 
@@ -114,19 +124,12 @@ public class landingPageController extends SceneController {
       VBox services = new VBox();
 
       // add the hbox of the services
-      services.getChildren().addAll(menuSidePane, foodDeliverySidePanel, medicineDeliverySidePanel, internalTransportationSidePanel, externalTransportationSidePanel,shoppingSideMenu,sanitationSideMenu,surveySideMenu,mapSidePane);
+      services.getChildren().addAll(menuSidePane, foodDeliverySidePanel, medicineDeliverySidePanel,
+              internalTransportationSidePanel, externalTransportationSidePanel,shoppingSideMenu,sanitationSideMenu,
+              surveySideMenu,mapSidePane,religionSidePane, laundrySidePane,translatorSidePane);
 
 
       services.setMaxWidth(Region.USE_COMPUTED_SIZE);
-
-      // add the items to teh scroll thing with loop
-      for (int i = 0; i < 10; i++){
-        HBox t = new HBox();
-        Label l = new Label();
-        l.setText("Label " + i);
-        t.getChildren().add(l);
-        services.getChildren().add(t);
-      }
 
       //StackPane container = new StackPane(services);
       servicesPane.setContent(services);
@@ -401,6 +404,78 @@ public class landingPageController extends SceneController {
 
   public void openEmergencyDIalog(MouseEvent mouseEvent) {
     loadDialog();
+  }
+
+  public void renderReligious(MouseEvent mouseEvent) throws IOException {
+
+    // removes the children so you don't end up with weird scenes one over the other
+    scenesPane.getChildren().removeAll(scenesPane.getChildren());
+
+    // sets parent to be the file to be loaded
+    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(
+            "/edu/wpi/MochaManticores/fxml/ReligiousRequest.fxml")));
+
+    // change the colors of the old selected page back to the default
+    currentVbox.setStyle("-fx-background-radius: 0;");
+    currentVbox.setStyle("-fx-background-color:  #E9E9E9");
+
+    // changes the currentbox
+    currentVbox = religionSidePane;
+
+    // gives the selected properties for the new selected page
+    religionSidePane.setStyle("-fx-background-radius: 20;");
+    religionSidePane.setStyle("-fx-background-color: rgba(15,75,145,0.29);");
+
+    // adds the selected page to the scenesPane so it can be displayed
+    scenesPane.getChildren().add(root);
+  }
+
+  public void renderLaundry(MouseEvent mouseEvent) throws IOException {
+
+    // removes the children so you don't end up with weird scenes one over the other
+    scenesPane.getChildren().removeAll(scenesPane.getChildren());
+
+    // sets parent to be the file to be loaded
+    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(
+            "/edu/wpi/MochaManticores/fxml/laundryForm.fxml")));
+
+    // change the colors of the old selected page back to the default
+    currentVbox.setStyle("-fx-background-radius: 0;");
+    currentVbox.setStyle("-fx-background-color:  #E9E9E9");
+
+    // changes the currentbox
+    currentVbox = laundrySidePane;
+
+    // gives the selected properties for the new selected page
+    laundrySidePane.setStyle("-fx-background-radius: 20;");
+    laundrySidePane.setStyle("-fx-background-color: rgba(15,75,145,0.29);");
+
+    // adds the selected page to the scenesPane so it can be displayed
+    scenesPane.getChildren().add(root);
+  }
+
+  public void renderTranslator(MouseEvent mouseEvent) throws IOException {
+
+    // removes the children so you don't end up with weird scenes one over the other
+    scenesPane.getChildren().removeAll(scenesPane.getChildren());
+
+    // sets parent to be the file to be loaded
+    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(
+            "/edu/wpi/MochaManticores/fxml/translatorForm.fxml")));
+
+    // change the colors of the old selected page back to the default
+    currentVbox.setStyle("-fx-background-radius: 0;");
+    currentVbox.setStyle("-fx-background-color:  #E9E9E9");
+
+    // changes the currentbox
+    currentVbox = translatorSidePane;
+
+    // gives the selected properties for the new selected page
+    translatorSidePane.setStyle("-fx-background-radius: 20;");
+    translatorSidePane.setStyle("-fx-background-color: rgba(15,75,145,0.29);");
+
+    // adds the selected page to the scenesPane so it can be displayed
+    scenesPane.getChildren().add(root);
   }
 
   public void renderMapEditor(MouseEvent mouseEvent) throws IOException {

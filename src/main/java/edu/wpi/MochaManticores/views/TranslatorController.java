@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
@@ -27,11 +28,25 @@ public class TranslatorController extends SceneController{
     private JFXComboBox languageTwo;
     @FXML
     private StackPane dialogPane;
+    @FXML
+    private ImageView backgroundIMG;
+    @FXML
+    private GridPane contentGrid;
 
     @FXML
     private void initialize() {
         languageOne.setItems(availableLanguages);
         languageTwo.setItems(availableLanguages);
+
+        double height = App.getPrimaryStage().getScene().getHeight();
+        double width = App.getPrimaryStage().getScene().getWidth();
+        backgroundIMG.setFitHeight(height);
+        backgroundIMG.setFitWidth(width);
+        contentGrid.setPrefSize(width, height);
+
+        backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
+        backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
+
     }
 
     public void cancelReq(ActionEvent actionEvent) {
