@@ -1,7 +1,12 @@
 package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.*;
+import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.Services.ExternalTransportation;
+import edu.wpi.MochaManticores.Services.FloralDelivery;
+import edu.wpi.MochaManticores.database.DatabaseManager;
+import edu.wpi.MochaManticores.database.sel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
@@ -16,13 +21,12 @@ import java.util.List;
 public class FloralSceneController extends SceneController {
 
   @FXML
-  private JFXTextField rmNum;
+  private JFXTextField roomNumber;
   @FXML
-  private JFXTextField delivDate;
+  private JFXDatePicker deliveryDate;
   @FXML
-  private JFXTextArea personalNote;
-  @FXML
-  private JFXTextField assignEmp;
+  private JFXTextField personalNote;
+
   @FXML
   private JFXCheckBox tulip;
   @FXML
@@ -39,6 +43,8 @@ public class FloralSceneController extends SceneController {
 
   private List<JFXRadioButton> vases;
 
+  private List<JFXRadioButton> flowers;
+
 
   @FXML
   private GridPane contentGrid;
@@ -51,11 +57,9 @@ public class FloralSceneController extends SceneController {
   private JFXTextField empBox;
 
 
-
-
   @FXML
   private void goBack(ActionEvent e) {
-back();
+    back();
   }
 
   @FXML
@@ -64,7 +68,7 @@ back();
     double width = App.getPrimaryStage().getScene().getWidth();
     backgroundIMG.setFitHeight(height);
     backgroundIMG.setFitWidth(width);
-    contentGrid.setPrefSize(width,height);
+    contentGrid.setPrefSize(width, height);
 
     dialogPane.toBack();
 
@@ -73,16 +77,17 @@ back();
 
     vases = Arrays.asList(blueVase, yellowVase, orangeVase);
 
-    if(App.getClearenceLevel()<=0){
+    if (App.getClearenceLevel() <= 0) {
       empBox.setVisible(false);
     }
   }
 
-  public void submitEvent(ActionEvent actionEvent) {
+  public void submitForm(ActionEvent actionEvent) {
+    submitEvent(actionEvent);
     loadSubmitDialog();
   }
 
-  public void loadSubmitDialog(){
+  public void loadSubmitDialog() {
     //TODO Center the text of it.
     dialogPane.toFront();
     dialogPane.setDisable(false);
@@ -104,7 +109,7 @@ back();
     message.setHeading(hearder);
 
     message.setBody(body);
-    JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
+    JFXDialog dialog = new JFXDialog(dialogPane, message, JFXDialog.DialogTransition.CENTER);
     JFXButton ok = new JFXButton("OK");
     ok.setOnAction(event -> {
       goBack(null);
@@ -119,9 +124,11 @@ back();
     dialog.show();
   }
 
-  public void helpButton(ActionEvent actionEvent){loadHelpDialogue();}
+  public void helpButton(ActionEvent actionEvent) {
+    loadHelpDialogue();
+  }
 
-  private void loadDialog(){
+  private void loadDialog() {
     JFXDialogLayout message = new JFXDialogLayout();
     message.setMaxHeight(Region.USE_COMPUTED_SIZE);
     message.setMaxHeight(Region.USE_COMPUTED_SIZE);
@@ -146,7 +153,7 @@ back();
     message.setBody(body);
 
 
-    JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
+    JFXDialog dialog = new JFXDialog(dialogPane, message, JFXDialog.DialogTransition.CENTER);
 
     JFXButton cont = new JFXButton("CONTINUE");
     cont.setOnAction(event -> {
@@ -162,19 +169,83 @@ back();
     dialog.show();
 
   }
+
   private void loadHelpDialogue() {
     dialogPane.toFront();
     loadDialog();
   }
 
-  public void setSingleVase(ActionEvent e){
+  StringBuilder flowerSelected = new StringBuilder();
+
+  public void checkFlowers(ActionEvent e) {
     JFXRadioButton source = (JFXRadioButton) e.getSource();
-    String pressed = source.getId();
     for (JFXRadioButton button : vases) {
-      if (!button.getId().equals(pressed)) {
+      if (!button.equals(source)) {
         button.setSelected(false);
       }
     }
+    if (blueVase.isSelected()) {
+      flowerSelected.append("Rose,");
+    }
+    if (orangeVase.isSelected()) {
+      flowerSelected.append("Tulip,");
+    }
+    if (yellowVase.isSelected()) {
+      flowerSelected.append("Lilie,");
+    }
+  }
 
+  StringBuilder vaseSelected = new StringBuilder();
+
+
+  public void checkVase(ActionEvent e) {
+    JFXRadioButton source = (JFXRadioButton) e.getSource();
+    for (JFXRadioButton button : vases) {
+      if (!button.equals(source)) {
+        button.setSelected(false);
+      }
+    }
+    if (blueVase.isSelected()) {
+      vaseSelected.append("blueVase,");
+    }
+    if (orangeVase.isSelected()) {
+      vaseSelected.append("orangeVase,");
+    }
+    if (yellowVase.isSelected()) {
+      vaseSelected.append("yellowVase,");
+    }
+  }
+
+  public void submitEvent(ActionEvent actionEvent) {
+    if (!roomNumber.getText().isEmpty() && !deliveryDate.equals("") &&
+            (tulip.isSelected() || rose.isSelected() | lilie.isSelected()) &&
+            (blueVase.isSelected() || orangeVase.isSelected() || yellowVase.isSelected()) &&
+            !empBox.getText().isEmpty()) {
+      sel s = sel.ExternalTransportation;
+      DatabaseManager.addRequest(s,
+              new FloralDelivery(
+                      "", "", false, roomNumber.getText(),
+                      deliveryDate.getId(), flowerSelected.toString(),
+                      vaseSelected.toString(),
+                      empBox.getText()));
+
+    } else if (roomNumber.getText().isEmpty()) {
+      RequiredFieldValidator missingInput = new RequiredFieldValidator();
+      roomNumber.getValidators().add(missingInput);
+      missingInput.setMessage("Patient room is required");
+      roomNumber.validate();
+    } else if (deliveryDate.equals("")) {
+      RequiredFieldValidator missingInput = new RequiredFieldValidator();
+      deliveryDate.getValidators().add(missingInput);
+      missingInput.setMessage("Delivery date is required");
+      deliveryDate.validate();
+    } else if (empBox.getText().isEmpty()) {
+      RequiredFieldValidator missingInput = new RequiredFieldValidator();
+      empBox.getValidators().add(missingInput);
+      missingInput.setMessage("Employee must be assigned");
+      empBox.validate();
+      System.out.println("Adds to database");
+    }
   }
 }
+
