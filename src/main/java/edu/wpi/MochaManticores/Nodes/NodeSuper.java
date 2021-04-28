@@ -35,7 +35,7 @@ public class NodeSuper {
         this.nodeID = nodeID;
         this.nodeType = nodeType;
         this.neighbors = neighbors;
-        this.isHandicap = nodeType.equals("Staircase");
+        this.isHandicap = !nodeType.equals("STAI");
         this.isRestricted = false;
         if(neighbors == null){
             this.neighbors = new VertexList(new HashMap<>());

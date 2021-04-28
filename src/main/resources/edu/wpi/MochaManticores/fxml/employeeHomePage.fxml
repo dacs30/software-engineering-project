@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -10,6 +11,8 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane stylesheets="@../Stylesheets/employeeHomePage.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.EmployeeHomePage">
    <children>
@@ -74,43 +77,90 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <GridPane id="card" maxWidth="-Infinity" prefWidth="250.0">
-                     <columnConstraints>
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <GridPane.margin>
-                        <Insets bottom="50.0" left="200.0" right="200.0" top="50.0" />
-                     </GridPane.margin>
-                     <effect>
-                        <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
-                     </effect>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="25.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <children>
-                        <GridPane maxWidth="-Infinity" prefWidth="300.0">
+                        <GridPane id="card" maxWidth="-Infinity" prefWidth="250.0">
                            <columnConstraints>
                               <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                            </columnConstraints>
                            <rowConstraints>
-                              <RowConstraints maxHeight="112.037109375" minHeight="10.0" prefHeight="112.037109375" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="99.0" minHeight="10.0" prefHeight="53.962890625" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
+                           <effect>
+                              <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
+                           </effect>
                            <children>
-                              <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="0.0" spacing="30.0">
+                              <GridPane maxWidth="-Infinity" prefWidth="300.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints maxHeight="112.037109375" minHeight="10.0" prefHeight="112.037109375" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="99.0" minHeight="10.0" prefHeight="53.962890625" vgrow="SOMETIMES" />
+                                 </rowConstraints>
                                  <children>
-                                    <ImageView fitHeight="150.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/contact.png" />
-                                       </image>
-                                    </ImageView>
+                                    <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="0.0" spacing="30.0">
+                                       <children>
+                                          <ImageView fitHeight="150.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/contact.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </HBox>
+                                    <Label id="covidLabel" text="CHAT SERVICE" GridPane.rowIndex="1" />
                                  </children>
-                              </HBox>
-                              <Label id="covidLabel" text="CHAT SERVICE" GridPane.rowIndex="1" />
+                              </GridPane>
+                           </children>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </GridPane>
+                        <GridPane id="card" alignment="CENTER_RIGHT">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <effect>
+                              <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
+                           </effect>
+                           <children>
+                              <VBox alignment="CENTER_LEFT" minWidth="-Infinity" spacing="10.0">
+                                 <children>
+                                    <Label alignment="TOP_LEFT" text="SELECT AN ALGORITHM">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <RadioButton fx:id="radioAStar" mnemonicParsing="false" text="AStar">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </RadioButton>
+                                    <RadioButton fx:id="radioDFS" mnemonicParsing="false" text="Depth First Search">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </RadioButton>
+                                    <RadioButton fx:id="radioBFS" mnemonicParsing="false" text="Breadth First Search">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </RadioButton>
+                                 </children>
+                                 <GridPane.margin>
+                                    <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                                 </GridPane.margin>
+                              </VBox>
                            </children>
                         </GridPane>
                      </children>
-                  </GridPane>
+                     <GridPane.margin>
+                        <Insets bottom="10.0" />
+                     </GridPane.margin>
+                  </HBox>
                </children>
             </GridPane>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0" GridPane.rowIndex="1">
@@ -187,6 +237,9 @@
                </children>
             </HBox>
          </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
       </GridPane>
    </children>
 </AnchorPane>

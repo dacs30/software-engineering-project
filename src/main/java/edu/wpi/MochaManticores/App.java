@@ -46,7 +46,7 @@ public class App extends Application {
     return App.algoType;
   }
 
-  public void setAlgoType(PathPlanning algoType) {
+  public static void setAlgoType(PathPlanning algoType) {
     App.algoType = algoType;
   }
 

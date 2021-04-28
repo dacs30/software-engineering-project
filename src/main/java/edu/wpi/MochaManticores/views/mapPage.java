@@ -1,9 +1,6 @@
 package edu.wpi.MochaManticores.views;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.*;
 import edu.wpi.MochaManticores.Algorithms.AStar2;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
@@ -110,6 +107,9 @@ public class mapPage extends SceneController{
 
     @FXML
     private JFXComboBox floorSelector;
+
+    @FXML
+    private JFXToggleButton pathHandicap;
 
     private final HashMap<String, node> nodes = new HashMap();
 
@@ -459,8 +459,22 @@ public class mapPage extends SceneController{
         if (pitStops.isEmpty()) {
             pathToTake.append("Please select at least one node");
         } else {
+            LinkedList<String> path;
+            if (!pathHandicap.isSelected()){
+                if (App.getClearenceLevel() >= 1){
+                    path = App.getAlgoType().multiStopRoute(stops, "none");
+                } else {
+                    path = App.getAlgoType().multiStopRoute(stops, "publicOnly");
+                }
+            } else {
+                if (App.getClearenceLevel() >= 1){
+                    path = App.getAlgoType().multiStopRoute(stops, "handicap");
+                } else {
+                    path = App.getAlgoType().multiStopRoute(stops, "publicHandicap");
+                }
 
-            LinkedList<String> path = App.getAlgoType().multiStopRoute(stops, "none"); //CONDITION NEEDS TO BE INPUT HERE
+            }
+             //CONDITION NEEDS TO BE INPUT HERE
             System.out.println(path);
             Label startLabel = new Label();
             String startID = path.removeFirst();
