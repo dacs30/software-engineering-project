@@ -146,6 +146,9 @@ public class mapPage extends SceneController{
     @FXML
     private StackPane dialogPane;
 
+    @FXML
+    private JFXComboBox nearestLocationSelector;
+
     private final String location = "edu/wpi/MochaManticores/images/";
 
     private String selectedFloor = "";
@@ -170,6 +173,11 @@ public class mapPage extends SceneController{
         backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
         mapWindow.setPreserveRatio(false);
+
+        nearestLocationSelector.getItems().addAll("Bathroom", //REST
+                                                            "Exit", //EXIT
+                                                            "Service", //SERV
+                                                            "Retail"); //RETL
 
 
         floorSelector.getItems().addAll("LL1",
@@ -234,6 +242,23 @@ public class mapPage extends SceneController{
         dialogPane.toBack();
 
 
+    }
+
+    private String getNodeType(){
+        String type = (String) nearestLocationSelector.getSelectionModel().getSelectedItem();
+        System.out.println(type);
+        switch (type) {
+            case "Bathroom":
+                return "REST";
+            case "Exit":
+                return "EXIT";
+            case "Service":
+                return "SERV";
+            case "Retail":
+                return "RETL";
+            default:
+                return "REST";
+        }
     }
 
     public void toAStar() {
@@ -368,6 +393,73 @@ public class mapPage extends SceneController{
         message.setActions(ok);
         dialog.show();
 
+    }
+
+    public void findNearestLocation(ActionEvent e) throws InvalidElementException {
+        AStar2 star = new AStar2();
+
+        savedRoute.clear();
+        dirVBOX.getChildren().clear();
+        //pathToTake is used in the dialog box that keeps all the nodes that the user has to pass through
+        StringBuilder pathToTake = new StringBuilder("");
+        LinkedList<NodeSuper> stops = new LinkedList<>();
+        if (pitStops.size() != 1){
+            super.loadErrorDialog(dialogPane, "Must select only one node");
+            return;
+        }
+
+        LinkedList<String> path;
+        NodeSuper ns = null;
+        ns = DatabaseManager.getNode(pitStops.get(0).getNodeID());
+        if (!pathHandicap.isSelected()){
+            if (App.getClearenceLevel() >= 1){
+                path = star.findNearest(ns, getNodeType(), "none");
+            } else {
+                path = star.findNearest(ns, getNodeType(), "publicOnly");
+            }
+        } else {
+            if (App.getClearenceLevel() >= 1){
+                path = star.findNearest(ns, getNodeType(), "handicap");
+            } else {
+                path = star.findNearest(ns, getNodeType(), "publicHandicap");
+            }
+
+        }
+        //CONDITION NEEDS TO BE INPUT HERE
+        System.out.println(path);
+        Label startLabel = new Label();
+        String startID = path.removeFirst();
+        startLabel.setText(DatabaseManager.getNode(startID).getLongName());
+        savedRoute.add(startID);
+        startLabel.setTextFill(Color.GREEN);
+        startLabel.setAlignment(Pos.CENTER);
+        Label endLabel = new Label();
+        String endID = path.removeLast();
+        endLabel.setText(DatabaseManager.getNode(endID).getLongName());
+        endLabel.setTextFill(Color.RED);
+        dirVBOX.getChildren().add(startLabel);
+        for (String str :
+                path) {
+            savedRoute.add(str);
+            Label p = new Label();
+            p.setText(DatabaseManager.getNode(str).getLongName());
+            dirVBOX.getChildren().add(p);
+//                System.out.printf("\n%s\n|\n", DatabaseManager.getNode(str).getLongName());
+//                pathToTake.append(DatabaseManager.getNode(str).getLongName()).append("\n|\n");//appending the paths
+        }
+        savedRoute.add(endID);
+        dirVBOX.getChildren().add(endLabel);
+
+        for (node n :
+                pitStops) {
+            n.resetFill();
+        }
+        pitStops = new LinkedList<>();
+
+        drawNodes();
+
+        directionPane.setContent(dirVBOX);
+        //loadDialog(pathToTake); // calling the dialog pane with the path
     }
 
     public void back(ActionEvent e) {
