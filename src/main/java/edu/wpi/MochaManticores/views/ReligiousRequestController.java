@@ -2,6 +2,9 @@ package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.*;
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.Services.ReligiousRequest;
+import edu.wpi.MochaManticores.database.DatabaseManager;
+import edu.wpi.MochaManticores.database.sel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,6 +28,12 @@ public class ReligiousRequestController extends SceneController{
     @FXML
     private JFXButton cancelBTN;
 
+    @FXML
+    private JFXTextField reasonBox;
+
+    @FXML
+    private JFXTextField roomIDBox;
+
     public void initialize() {
         double height = App.getPrimaryStage().getScene().getHeight();
         double width = App.getPrimaryStage().getScene().getWidth();
@@ -42,6 +51,9 @@ public class ReligiousRequestController extends SceneController{
     }
 
     public void submitEvent(ActionEvent actionEvent) {
+        sel s = sel.ReligiousRequest;
+        DatabaseManager.addRequest(s,
+                new ReligiousRequest("", "",false,reasonBox.getText(),roomIDBox.getText(),TypeOfSacredPerson.getSelectionModel().getSelectedItem()));
         exitPage();
     }
 }
