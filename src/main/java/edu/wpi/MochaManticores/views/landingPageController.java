@@ -226,7 +226,8 @@ public class landingPageController extends SceneController {
     // if it is an employee the page page is different
     Parent root = null;
     if (App.getClearenceLevel() == 1) {
-      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/foodDeliveryEmployee.fxml")));
+      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(
+              "/edu/wpi/MochaManticores/fxml/foodDeliveryEmployee.fxml")));
     } else {
       root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/foodDelivery.fxml")));
     }
@@ -279,7 +280,13 @@ public class landingPageController extends SceneController {
     scenesPane.getChildren().removeAll(scenesPane.getChildren());
 
     // sets parent to be the file to be loaded
-    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/internalTransportation.fxml")));
+    // if it is an employee the page page is different
+    Parent root = null;
+    if (App.getClearenceLevel() == 1) {
+      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/internalTransportationEmployee.fxml")));
+    } else {
+      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/internalTransportation.fxml")));
+    }
 
     // change the colors of the old selected page back to the default
     currentVbox.setStyle("-fx-background-radius: 0;");
@@ -302,7 +309,12 @@ public class landingPageController extends SceneController {
     scenesPane.getChildren().removeAll(scenesPane.getChildren());
 
     // sets parent to be the file to be loaded
-    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/extTransportation.fxml")));
+    Parent root;
+    if(App.getClearenceLevel() == 1){
+      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/extTransportationEmployee.fxml")));
+    }else{
+      root = root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/extTransportation.fxml")));
+    }
 
     // change the colors of the old selected page back to the default
     currentVbox.setStyle("-fx-background-radius: 0;");

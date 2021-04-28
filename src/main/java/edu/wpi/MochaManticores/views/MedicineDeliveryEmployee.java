@@ -40,6 +40,10 @@ public class MedicineDeliveryEmployee {
         boolean completed;
         LinkedList<String> fields;
 
+        public void setCompleted(boolean completed) {
+            this.completed = completed;
+        }
+
         public md(edu.wpi.MochaManticores.Services.ServiceRequest ref){
             this.ref = (edu.wpi.MochaManticores.Services.MedicineRequest) ref;
             typeMedicine = new SimpleStringProperty(this.ref.getTypeMedicine());
@@ -110,6 +114,7 @@ public class MedicineDeliveryEmployee {
         public LinkedList<String> getFields() {
             return fields;
         }
+
     }
 
     public TableColumn<md, String> typeMedicineColumn;
@@ -285,6 +290,13 @@ public class MedicineDeliveryEmployee {
         buildTable("");
         requestPage.setVisible(false);
         managerPage.setVisible(true);
+    }
+
+    public void completeService(ActionEvent e){
+        md selection = medicineDeliveryTable.getSelectionModel().getSelectedItem();
+        selection.setCompleted(true);
+        selection.getRef().setCompleted(true);
+        buildTable("");
     }
 
     public void loadHelpDialogue(MouseEvent mouseEvent) {

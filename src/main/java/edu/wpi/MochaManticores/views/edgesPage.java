@@ -385,7 +385,7 @@ public class edgesPage extends SceneController {
         dialogPane.setDisable(false);
         JFXDialogLayout message = new JFXDialogLayout();
         message.setHeading(new Text("Oops!"));
-        message.setBody(new Text("Looks like some of the fields are empty."));
+        message.setBody(new Text("Looks like some of the transportationMethodsTable are empty."));
         JFXDialog dialog = new JFXDialog(dialogPane, message, JFXDialog.DialogTransition.CENTER);
         JFXButton exit = new JFXButton("DONE");
         exit.setOnAction(event -> {
