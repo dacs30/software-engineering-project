@@ -158,7 +158,7 @@ public class covidSurveyController extends SceneController{
             hearder.setStyle("-fx-alignment: center");
             message.setHeading(hearder);
 
-            final Text body = new Text("Have a great visit!");
+            final Text body = new Text("Have a great day!");
             body.setStyle("-fx-font-size: 15");
             body.setStyle("-fx-font-family: Roboto");
             body.setStyle("-fx-alignment: center");
