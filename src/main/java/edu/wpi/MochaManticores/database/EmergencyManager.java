@@ -33,7 +33,7 @@ public class EmergencyManager  extends Manager<EmergencyRequest> {
                 if(line == null) break;
                 String[] row = line.split(CSVdelim);
 
-                EmergencyRequest temp = new EmergencyRequest(row[0],row[1],Boolean.parseBoolean(row[2]),
+                EmergencyRequest temp = new EmergencyRequest("",row[1],Boolean.parseBoolean(row[2]),
                         Integer.parseInt(row[3]),row[4],Boolean.parseBoolean(row[5]));
                 addElement(temp);
             }
@@ -44,6 +44,7 @@ public class EmergencyManager  extends Manager<EmergencyRequest> {
 
     @Override
     void addElement(EmergencyRequest temp) {
+        temp.setRequestID(temp.generateRequestID(this.type));
         addElement_db(temp);
         addElement_map(temp);
     }

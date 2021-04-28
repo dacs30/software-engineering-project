@@ -34,7 +34,7 @@ public class ExtTransportManager extends Manager<ExternalTransportation> {
                 if(line == null) break;
                 String[] row = line.split(CSVdelim);
 
-                ExternalTransportation temp = new ExternalTransportation(row[0],row[1],Boolean.parseBoolean(row[2]),
+                ExternalTransportation temp = new ExternalTransportation("",row[1],Boolean.parseBoolean(row[2]),
                         row[3],row[4],row[5],row[6]);
                 addElement(temp);
             }
@@ -45,6 +45,7 @@ public class ExtTransportManager extends Manager<ExternalTransportation> {
 
     @Override
     void addElement(ExternalTransportation temp) {
+        temp.setRequestID(temp.generateRequestID(this.type));
         addElement_db(temp);
         addElement_map(temp);
     }

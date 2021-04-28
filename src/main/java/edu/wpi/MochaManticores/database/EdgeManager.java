@@ -12,7 +12,7 @@ import java.io.*;
 import java.sql.*;
 
 public class EdgeManager extends Manager<EdgeSuper>{
-    private static String Edge_csv_path = "data/bwMEdges.csv";
+    private static String Edge_csv_path = "data/MapMallEdges.csv";
     private static Connection connection = null;
     private static final String CSVdelim = ",";
 

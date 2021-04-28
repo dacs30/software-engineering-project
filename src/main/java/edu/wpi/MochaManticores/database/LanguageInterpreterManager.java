@@ -35,7 +35,7 @@ public class LanguageInterpreterManager extends Manager<LanguageInterpreterReque
                 if(line == null) break;
                 String[] row = line.split(CSVdelim);
 
-                LanguageInterpreterRequest temp = new LanguageInterpreterRequest(row[0],row[1],Boolean.parseBoolean(row[2]),
+                LanguageInterpreterRequest temp = new LanguageInterpreterRequest("",row[1],Boolean.parseBoolean(row[2]),
                         row[3],row[4],row[5]);
                 addElement(temp);
             }
@@ -46,6 +46,7 @@ public class LanguageInterpreterManager extends Manager<LanguageInterpreterReque
 
     @Override
     void addElement(LanguageInterpreterRequest v) {
+        v.setRequestID(v.generateRequestID(this.type));
         addElement_db(v);
         addElement_map(v);
     }
