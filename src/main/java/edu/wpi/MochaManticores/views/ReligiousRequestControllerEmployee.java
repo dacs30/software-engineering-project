@@ -1,12 +1,14 @@
 package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Services.ReligiousRequest;
 import edu.wpi.MochaManticores.Services.ServiceRequest;
 import edu.wpi.MochaManticores.Services.ServiceRequestType;
 import edu.wpi.MochaManticores.database.DatabaseManager;
+import edu.wpi.MochaManticores.database.sel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -108,6 +110,15 @@ public class ReligiousRequestControllerEmployee extends SceneController{
     @FXML
     private GridPane managerPage;
 
+    @FXML
+    private JFXTextField empBox;
+
+    @FXML
+            private JFXTextField reasonBox;
+
+    @FXML
+            private JFXTextField roomIDBox;
+
 
 
     ObservableList<String> TypeOfSacredPersons = FXCollections.observableArrayList("Rabbi", "Monk", "Priest",  "Purohit", "Spiritual Person");
@@ -203,6 +214,9 @@ public class ReligiousRequestControllerEmployee extends SceneController{
 
 
     public void submitEvent(ActionEvent actionEvent) {
+        sel s = sel.ReligiousRequest;
+        DatabaseManager.addRequest(s,
+                new ReligiousRequest("", empBox.getText(),false,reasonBox.getText(),roomIDBox.getText(),TypeOfSacredPerson.getSelectionModel().getSelectedItem()));
         exitPage();
     }
 }
