@@ -1,19 +1,33 @@
 package edu.wpi.MochaManticores.database;
 
 import edu.wpi.MochaManticores.Algorithms.AStar2;
+import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import edu.wpi.MochaManticores.Nodes.EdgeMapSuper;
 import edu.wpi.MochaManticores.Nodes.EdgeSuper;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
+import edu.wpi.MochaManticores.views.edgesPage;
 
 import java.io.*;
 import java.sql.*;
 
-public class EdgeManager {
-    private static String Edge_csv_path = "data/bwMEdges.csv";
+public class EdgeManager extends Manager<EdgeSuper>{
+    private static String Edge_csv_path = "data/MapMalledges.csv";
+    private static Connection connection = null;
     private static final String CSVdelim = ",";
 
-    public static void loadFromCSV(Connection connection){
+    EdgeManager(Connection connection, String Edge_csv_path){
+        this.connection = connection;
+        if(Edge_csv_path != null){
+            this.Edge_csv_path = Edge_csv_path;
+        }
+    }
+
+    /*
+     function loadFromCSV()
+     load elements from the CSV
+     */
+    public void loadFromCSV(){
         try{
             BufferedReader reader = new BufferedReader(new FileReader(Edge_csv_path));
             String line = reader.readLine();
@@ -23,52 +37,60 @@ public class EdgeManager {
                 if(line == null) break;
                 String[] row = line.split(CSVdelim);
 
-                addEdge_db(connection,row[0],row[1],row[2]);
+                EdgeSuper edge = new EdgeSuper(row[0],row[1],row[2]);
+                addElement_db(edge);
             }
-        } catch (FileNotFoundException | SQLException e){
+        } catch (FileNotFoundException e){
             e.printStackTrace();
         } catch (IOException e){
             e.printStackTrace();
         }
     }
 
-    public static void addEdge(Connection connection, String newEdgeID, String newStart, String newEnd) throws SQLException{
-        try{
-            addEdge_db(connection,newEdgeID,newStart,newEnd);
-            addEdge_map(newEdgeID,newStart,newEnd);
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
+    /*
+    function: addElement(NodeSuper)
+    add element to database and map
+     */
+    public void addElement(EdgeSuper edge){
+        addElement_db(edge);
+        addElement_map(edge);
     }
-    //adds edge to CSV
-    public static void addEdge_db(Connection connection, String newEdgeID, String newStart, String newEnd) throws SQLException {
+
+    /*
+    function: addElement_db
+    adds element to just the database
+    */
+    public void addElement_db(EdgeSuper edge){
         try {
             String sql = "INSERT INTO EDGES (edgeID, startNode, endNode) " +
                     "VALUES (?, ?, ?)";
             PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setString(1, newEdgeID);
-            pstmt.setString(2, newStart);
-            pstmt.setString(3, newEnd);
+            pstmt.setString(1, edge.getEdgeID());
+            pstmt.setString(2, edge.getStartingNode());
+            pstmt.setString(3, edge.getEndingNode());
             pstmt.executeUpdate();
         }catch(SQLException e){
             e.printStackTrace();
         }
     }
 
-    //adds edges into map
-    public static void addEdge_map(String newEdgeID, String newStart, String newEnd) {
-        if (!EdgeMapSuper.getMap().containsKey(newEdgeID)) {
+    /*
+    function: addElement_map
+    adds element to just the hashmap
+     */
+    public void addElement_map(EdgeSuper edge) {
+        if (!EdgeMapSuper.getMap().containsKey(edge.getEdgeID())) {
             // add edge to edge super
-            EdgeMapSuper.getMap().put(newEdgeID, new EdgeSuper(newEdgeID, newStart, newEnd));
+            EdgeMapSuper.getMap().put(edge.getEdgeID(), edge);
 
             //get neighbor nodes
-            NodeSuper startNode = MapSuper.getMap().get(newStart);
-            NodeSuper endNode = MapSuper.getMap().get(newEnd);
+            NodeSuper startNode = MapSuper.getMap().get(edge.getStartingNode());
+            NodeSuper endNode = MapSuper.getMap().get(edge.getEndingNode());
 
             if(startNode != null && endNode != null){
                 //add neighbor edges and make them bi-directional
-                startNode.addNeighbor(newEnd, AStar2.calcHeuristic(startNode, endNode));
-                endNode.addNeighbor(newStart, AStar2.calcHeuristic(endNode, startNode));
+                startNode.addNeighbor(edge.getEndingNode(), AStar2.calcHeuristic(startNode, endNode));
+                endNode.addNeighbor(edge.getStartingNode(), AStar2.calcHeuristic(endNode, startNode));
             }
 
         } else {
@@ -76,7 +98,11 @@ public class EdgeManager {
         }
     }
 
-    public static void delEdge(Connection connection, String edgeID) throws SQLException, FileNotFoundException {
+    /*
+    function: delElement(s)
+    deletes element of given ID string
+     */
+    public void delElement(String edgeID) throws SQLException {
         //remove edge from database
         PreparedStatement pstmt = connection.prepareStatement("DELETE FROM EDGES WHERE edgeID=?");
         pstmt.setString(1, edgeID);
@@ -91,7 +117,25 @@ public class EdgeManager {
         EdgeMapSuper.delEdgeNode(edgeID);
     }
 
-    public static void saveEdges(Connection connection)throws SQLException, FileNotFoundException{
+    /*
+    function: modElement(s,edgeSuper)
+    modifies element of ID s to become element EdgeSuper
+     */
+    public void modElement(String oldEdgeID, EdgeSuper edge) throws SQLException {
+        if(MapSuper.getMap().containsKey(edge.getStartingNode()) && MapSuper.getMap().containsKey(edge.getEndingNode())) {
+            delElement(oldEdgeID);
+            addElement(edge);
+        } else {
+            System.out.println("The New Start Node or the New End Node is Invalid");
+        }
+
+    }
+
+    /*
+    function: saveElements()
+    saves elements to given CSV file
+     */
+    public void saveElements()throws SQLException, FileNotFoundException{
         PrintWriter pw = new PrintWriter(new File(Edge_csv_path));
         StringBuilder sb = new StringBuilder();
 
@@ -118,46 +162,34 @@ public class EdgeManager {
         pw.close();
     }
 
-    // useless
-    public static void updateEdgesMap(Connection connect) throws SQLException {
-        String sql = "SELECT * FROM EDGES";
-        Statement stmt = connect.createStatement();
-        ResultSet results = stmt.executeQuery(sql);
-        while (results.next()) {
-            addEdge_map(results.getString(1),results.getString(2),results.getString(3));
+    /*
+    function: getElement()
+    returns EdgeSuper object, specified by ID
+     */
+    public EdgeSuper getElement(String edgeID) throws InvalidElementException {
+        try {
+            String sql = "SELECT * FROM EDGE WHERE EDGEID=?";
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, edgeID);
+            ResultSet result = pstmt.executeQuery();
+
+            if (!result.next()) {
+                throw new InvalidElementException();
+            }
+
+            EdgeSuper edge = new EdgeSuper(result.getString(1),result.getString(2),result.getString(3));
+            return edge;
+        }catch(SQLException e){
+            e.printStackTrace();
         }
+        return null;
     }
 
-
-    public static void updateEdge(Connection connection, String oldEdgeID, String oldStart, String newStart, String oldEnd, String newEnd) throws SQLException, FileNotFoundException {
-        if(MapSuper.getMap().containsKey(newStart) && MapSuper.getMap().containsKey(newEnd)) {
-            PreparedStatement pstmt = connection.prepareStatement("UPDATE EDGES SET edgeID=?, startNode=?, endNode=? WHERE edgeID=?");
-            String newEdgeID = newStart + "_" + newEnd;
-            pstmt.setString(1, newEdgeID);
-            pstmt.setString(2, newStart);
-            pstmt.setString(3, newEnd);
-            pstmt.setString(4, oldEdgeID);
-            pstmt.executeUpdate();
-
-            delEdge(connection,oldEdgeID);
-
-            EdgeSuper edge = new EdgeSuper(newEdgeID, newStart, newEnd);
-            EdgeMapSuper.getMap().put(newEdgeID, edge);
-
-            MapSuper.getMap().get(oldStart).delNeighbor(oldEnd);
-            MapSuper.getMap().get(oldEnd).delNeighbor(oldStart);
-
-            MapSuper.getMap().get(newStart).addNeighbor(newEnd, AStar2.calcHeuristic(MapSuper.getMap().get(newStart),
-                    MapSuper.getMap().get(newEnd)));
-            MapSuper.getMap().get(newEnd).addNeighbor(newStart, AStar2.calcHeuristic(MapSuper.getMap().get(newEnd),
-                    MapSuper.getMap().get(newStart)));
-        } else {
-            System.out.println("The New Start Node or the New End Node is Invalid");
-        }
-
-    }
-
-    public static void showEdgeInformation(Connection connection) throws SQLException{
+    /*
+    function: showEdgeInformation()
+    displays all the EDGE data
+     */
+    public void showEdgeInformation() throws SQLException{
         StringBuilder sb = new StringBuilder();
 
         String sql = "SELECT * FROM EDGES";
@@ -183,20 +215,47 @@ public class EdgeManager {
         System.out.println(sb.toString());
     }
 
-    public static String getEdge_csv_path() {
+    /*
+    function: getCSV_path()
+    getter for CSV_path
+    return string
+     */
+    public String getCSV_path() {
         return Edge_csv_path;
     }
 
-    public static void setEdge_csv_path(String edge_csv_path) {
+    /*
+    function setCSV_path()
+    setter for CSV_path
+     */
+    public void setCSV_path(String edge_csv_path) {
         Edge_csv_path = edge_csv_path;
     }
 
-    public static void cleanTable(Connection connection) throws SQLException {
+    /*
+    function: cleanTable()
+    saves and empties database table
+     */
+    public void cleanTable() throws SQLException {
         String sql = "DELETE FROM EDGES";
         PreparedStatement pstmt = connection.prepareStatement(sql);
         int result = pstmt.executeUpdate();
 
         //clean hashmap
         EdgeMapSuper.getMap().clear();
+    }
+
+    /*
+    function updateElementMap()
+    updates the hashmap to match the data in the database, used only during startup
+     */
+    public void updateElementMap() throws SQLException {
+        String sql = "SELECT * FROM EDGES";
+        Statement stmt = connection.createStatement();
+        ResultSet result = stmt.executeQuery(sql);
+        while (result.next()) {
+            EdgeSuper edge = new EdgeSuper(result.getString(1),result.getString(2),result.getString(3));
+            addElement_map(edge);
+        }
     }
 }

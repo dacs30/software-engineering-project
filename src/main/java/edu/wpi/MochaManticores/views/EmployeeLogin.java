@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.Mdb;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,8 +21,6 @@ import javafx.scene.layout.StackPane;
 import edu.wpi.MochaManticores.database.EmployeeManager;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-
-import java.sql.Connection;
 
 
 public class EmployeeLogin extends SceneController{
@@ -55,6 +54,7 @@ public class EmployeeLogin extends SceneController{
         EventHandler<KeyEvent> enter = new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent e) {
+                System.out.println(e.getCharacter());
                 if(e.getCharacter().equals("\r")){
                     onMouseClickedContinue(null);
                 }
@@ -154,11 +154,10 @@ public class EmployeeLogin extends SceneController{
 
     // checks the login
     public void onMouseClickedContinue(ActionEvent actionEvent) {
-        Connection connection = Mdb.getConnection();
         // try the login with the inputed credentials
         // error if fail
         try {
-            EmployeeManager.checkEmployeeLogin(connection, empUserName.getText(), empPassword.getText());
+            DatabaseManager.checkEmployeeLogin(empUserName.getText(), empPassword.getText());
             changeSceneTo("staffMainMenu");
         } catch (Exception e) {
             // popup the error dialog

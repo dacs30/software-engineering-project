@@ -1,0 +1,54 @@
+#getPathBtn {
+    -fx-background-color: #FFFFFF;
+    -fx-font-family: Roboto;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-border-radius: 40;
+    -fx-background-radius: 40;
+}
+#formGrid {
+    -fx-background-color: rgba(255, 255, 255, 0.75);
+    -fx-background-radius: 40;
+}
+#editNodeBtn {
+    -fx-background-color: #FFFFFF;
+    -fx-font-family: Roboto;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-border-radius: 40;
+    -fx-background-radius: 40;
+}
+#editEdgesBtn {
+    -fx-background-color: #FFFFFF;
+    -fx-font-family: Roboto;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-border-radius: 40;
+    -fx-background-radius: 40;
+}
+
+#downloadCSVBtn {
+    -fx-background-color: #FFFFFF;
+    -fx-font-family: Roboto;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-border-radius: 40;
+    -fx-background-radius: 40;
+}
+
+#backBtn {
+    -fx-background-color: #FFFFFF;
+    -fx-font-family: Roboto;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-border-radius: 40;
+    -fx-background-radius: 40;
+}
+#serviceBtn {
+    -fx-background-color: #FFFFFF;
+    -fx-font-family: Roboto;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-border-radius: 40;
+    -fx-background-radius: 40;
+}

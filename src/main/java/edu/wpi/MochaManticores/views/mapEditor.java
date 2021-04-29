@@ -36,12 +36,17 @@ import edu.wpi.MochaManticores.views.nodePage;
 import edu.wpi.MochaManticores.views.edgesPage;
 
 import javax.swing.*;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.*;
+
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class mapEditor extends SceneController {
 
@@ -90,6 +95,9 @@ public class mapEditor extends SceneController {
     @FXML
     private JFXTextField nodeTypeField;
 
+    /**
+     * Wrapper class for drawing nodes on the map
+     */
     public class node {
         Circle c;
         String nodeID;
@@ -187,6 +195,9 @@ public class mapEditor extends SceneController {
         }
     }
 
+    /**
+     * Wrapper class for drawing edges on the map
+     */
     public class edge {
         Line l;
         String edgeID;
@@ -273,6 +284,10 @@ public class mapEditor extends SceneController {
 
     private HashMap<String, edge> edges = new HashMap<String, edge>();
 
+
+    /**
+     * Used as input for A*
+     */
     private LinkedList<node> pitStops = new LinkedList<>();
 
     @FXML
@@ -357,6 +372,13 @@ public class mapEditor extends SceneController {
 
     Rectangle2D zoomPort;
 
+    /**
+     * initializes the scene with the following eventHandlers:
+     * handleSubmitNode - Submits node edits to DB
+     * handleSubmitEdge - Submits edge edits to DB
+     * mouseMoved - tracks mouse movement
+     * cancelButton - cancels any edits
+     */
     public void initialize() {
         double height = super.getHeight();
         double width = super.getWidth();
@@ -379,13 +401,16 @@ public class mapEditor extends SceneController {
                 "F2",
                 "F3");
 
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                mapWindow.setFitWidth(App.getPrimaryStage().getWidth() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinX() - 50);
-                mapWindow.setFitHeight(App.getPrimaryStage().getHeight() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinY() - 50);
-            }
-        });
+//        Platform.runLater(new Runnable() {
+//            @Override
+//            public void run() {
+//                mapWindow.setFitWidth(App.getPrimaryStage().getWidth() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinX() - 50);
+//                mapWindow.setFitHeight(App.getPrimaryStage().getHeight() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinY() - 50);
+//            }
+//        });
+
+        mapWindow.fitHeightProperty().bind(mapStack.heightProperty());
+        mapWindow.fitWidthProperty().bind(mapStack.widthProperty());
 
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override
@@ -396,13 +421,17 @@ public class mapEditor extends SceneController {
         mapWindow.setOnMouseMoved(eventHandler);
 
         App.getPrimaryStage().widthProperty().addListener((obs, oldVal, newVal) -> {
-            mapWindow.setFitWidth(App.getPrimaryStage().getWidth() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinX() - 50);
+            //mapWindow.setFitWidth(App.getPrimaryStage().getWidth() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinX() - 50);
             drawNodes();
             drawEdges();
         });
 
         App.getPrimaryStage().heightProperty().addListener((obs, oldVal, newVal) -> {
-            mapWindow.setFitHeight(App.getPrimaryStage().getHeight() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinY() - 50);
+            //mapWindow.setFitHeight(App.getPrimaryStage().getHeight() - mapStack.localToScene(mapStack.getBoundsInLocal()).getMinY() - 50);
+            drawNodes();
+            drawEdges();
+        });
+        App.getPrimaryStage().fullScreenProperty().addListener((obs, oldVal, newVal) -> {
             drawNodes();
             drawEdges();
         });
@@ -615,7 +644,7 @@ public class mapEditor extends SceneController {
                         newEdge.endXProperty().bind(mouseX);
                         newEdge.endYProperty().bind(mouseY);
                         newEdge.setStrokeWidth(5);
-                        newEdge.setStroke(Color.valueOf("#0F4B91"));
+                        newEdge.setStroke(Color.BLUE);
                         edgeToAdd = newEdge;
                         nodePane.getChildren().addAll(newEdge);
                         newEdge.toBack();
@@ -637,9 +666,9 @@ public class mapEditor extends SceneController {
         EventHandler<ActionEvent> cancelButton = new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if(!loadYesNoDialog(dialogPane,"Are you sure you want to cancel?").get()){
-                    return;
-                }
+//                if(!loadYesNoDialog(dialogPane,"Are you sure you want to cancel?").get()){
+//                    return;
+//                }
                 edgeInfoBox.setVisible(false);
                 nodeInfoBox.setVisible(false);
                 nodeInfoBox.toBack();
@@ -696,8 +725,8 @@ public class mapEditor extends SceneController {
     public void submitEdgeEdit(){
         EdgeSuper editedEdge = null;
         String selectedID;
-        if (!editor.checkInput(Arrays.asList(edgeIDField.getText(), startNodeID.getText(), endNodeID.getText()))) { // IF fields are blank, submit error
-            mapEditor.super.loadErrorDialog(dialogPane, "Please do not leave fields blank!");
+        if (!editor.checkInput(Arrays.asList(edgeIDField.getText(), startNodeID.getText(), endNodeID.getText()))) { // IF transportationMethodsTable are blank, submit error
+            mapEditor.super.loadErrorDialog(dialogPane, "Please do not leave transportationMethodsTable blank!");
         } else {
             EdgeSuper oldEdge = EdgeMapSuper.getMap().get(edgeIDField.getText());
             if (oldEdge != null) {
@@ -743,8 +772,8 @@ public class mapEditor extends SceneController {
                 longNameField.getText(),
                 shortNameField.getText(),
                 nodeIDField.getText(),
-                nodeTypeField.getText()))) { // IF fields are blank, submit error
-            loadErrorDialog(dialogPane, "Please do not leave fields blank!");
+                nodeTypeField.getText()))) { // IF transportationMethodsTable are blank, submit error
+            loadErrorDialog(dialogPane, "Please do not leave transportationMethodsTable blank!");
         } else if (nodeIDField.getLength() != 10) {
             loadErrorDialog(dialogPane, "Node IDs must be of length 10!");
         } else {
@@ -791,6 +820,10 @@ public class mapEditor extends SceneController {
         editing = false;
     }
 
+    /**
+     *
+     * @return true if input in edit transportationMethodsTable are valid
+     */
     public boolean checkInput(){
         return  editor.checkInput(Arrays.asList(xCoordField.getText(),
                 yCoordField.getText(),
@@ -872,6 +905,9 @@ public class mapEditor extends SceneController {
 
     }
 
+    /**
+     * selects floor from comboBox loads the map image
+     */
     public void selectFloor() {
         String floor = (String) floorSelector.getSelectionModel().getSelectedItem();
         System.out.println(floor);
@@ -903,6 +939,13 @@ public class mapEditor extends SceneController {
         super.back();
     }
 
+    /**
+     * sizes the map image
+     * @param img, the image object with the correct map image
+     * @param x, the x coord of the mouse
+     * @param y, the y coord of the mouse
+     * @param z, the Rectangle2D object for the image Viewport
+     */
     private void setZoom(Image img, double x, double y, Rectangle2D z) {
         noZoom = new Rectangle2D(0, 0, img.getWidth(), img.getHeight());
         zoomPort = new Rectangle2D(x, y, (double) .25 * img.getWidth(), (double) .25 * img.getHeight());
@@ -978,7 +1021,6 @@ public class mapEditor extends SceneController {
     }
 
     public void toAStar() {
-        AStar2 star = new AStar2();
         //pathToTake is used in the dialog box that keeps all the nodes that the user has to pass through
         StringBuilder pathToTake = new StringBuilder(new String());
         LinkedList<NodeSuper> stops = new LinkedList<>();
@@ -990,7 +1032,7 @@ public class mapEditor extends SceneController {
             pathToTake.append("Please select at least one node");
         } else {
 
-            LinkedList<String> path = star.multiStopRoute(stops);
+            LinkedList<String> path = App.getAlgoType().multiStopRoute(stops, "none");
             System.out.println(path);
             for (String str :
                     path) {
@@ -1028,11 +1070,17 @@ public class mapEditor extends SceneController {
 
     }
 
+    /**
+     * redraws all the nodes and edges
+     */
     public void resetMap(){
         drawNodes();
         drawEdges();
     }
 
+    /**
+     * draws all nodes on screen and creates node objects for each node
+     */
     public void drawNodes() {
         nodePane.getChildren().clear();
         nodes.clear();
@@ -1049,8 +1097,7 @@ public class mapEditor extends SceneController {
                     @Override
                     public void handle(MouseEvent e) {
                         nodeClicked = true;
-                        if(e.getButton().equals(MouseButton.PRIMARY)){
-                            if(addingEdge){
+                        if(e.getButton().equals(MouseButton.PRIMARY)){if(addingEdge){
                             connectNodes(e);
                         }else{
                             if (!dragged) {
@@ -1130,6 +1177,9 @@ public class mapEditor extends SceneController {
         }
     }
 
+    /**
+     * draws all edges on screen and creates edge objects
+     */
     private void drawEdges(){
         double xRatio = 5000 / mapWindow.getFitWidth();
         double yRatio = 3400 / mapWindow.getFitHeight();
@@ -1172,7 +1222,7 @@ public class mapEditor extends SceneController {
                     l.setStroke(Color.BLACK);
                 }
                 l.setStrokeWidth(2);
-                edges.put(e.edgeID, new edge(l, e.edgeID, start.getID(), end.getID()));
+                edges.put(e.getEdgeID(), new edge(l, e.getEdgeID(), start.getID(), end.getID()));
 
                 EventHandler<MouseEvent> highlight = new EventHandler<MouseEvent>() {
                     @Override
@@ -1219,6 +1269,10 @@ public class mapEditor extends SceneController {
 
     }
 
+    /**
+     * Legacy implementation
+     * @param node, corresponding node for the edges to be drawn
+     */
     private void drawEdges2(node node) {
         double xRatio = 5000 / mapWindow.getFitWidth();
         double yRatio = 3400 / mapWindow.getFitHeight();
@@ -1282,6 +1336,11 @@ public class mapEditor extends SceneController {
 
     }
 
+    /**
+     * make edge bold/unbold if the user mouses over the edge
+     * @param e, MouseEvent to get mouse data
+     * @param stroke, stroke to set the edge to
+     */
     public void mouseOverEdge(MouseEvent e, double stroke){
         Line src = (Line) e.getSource();
         Iterator<edge> iter = edges.values().iterator();
@@ -1293,6 +1352,11 @@ public class mapEditor extends SceneController {
         }
     }
 
+
+    /**
+     * change color of node if clicked on
+     * @param e, MouseEvent to get mouse data
+     */
     public void highlightNode(MouseEvent e) {
 
         edgeInfoBox.setVisible(false);
@@ -1334,6 +1398,10 @@ public class mapEditor extends SceneController {
         }
     }
 
+    /**
+     * selects the clicked on edge
+     * @param e, MouseEvent to get mouse data
+     */
     public void highlightEdge(MouseEvent e){
         edgeInfoBox.setVisible(true);
         nodeInfoBox.setVisible(false);
@@ -1357,7 +1425,7 @@ public class mapEditor extends SceneController {
                     return;
                 }
 
-                edgeIDField.setText(cur.edgeID);
+                edgeIDField.setText(cur.getEdgeID());
                 startNodeID.setText(cur.getStartingNode().replaceAll("\\s",""));
                 endNodeID.setText(cur.getEndingNode().replaceAll("\\s",""));
             }
@@ -1365,6 +1433,11 @@ public class mapEditor extends SceneController {
 
     }
 
+    /**
+     * Change size of node if moused over
+     * @param e, MouseEvent to get mouse data
+     * @param radius, new radius to set node to
+     */
     public void mouseOverNode(MouseEvent e, double radius) {
         Circle src = ((Circle) e.getSource());
         Iterator<node> iter = nodes.values().iterator();
@@ -1377,6 +1450,10 @@ public class mapEditor extends SceneController {
 
     }
 
+    /**
+     * connects two nodes with an edge
+     * @param e, MouseEvent to get mouse data
+     */
     public void connectNodes(MouseEvent e){
         System.out.println("connectNodes");
         Circle src = (Circle) e.getSource();
@@ -1427,5 +1504,35 @@ public class mapEditor extends SceneController {
         setZoom(src, curX * multi, curY * multi, zoomPort);
         //System.out.printf("X: %f\nY: %f\n\n",curX,curY);
 
+    }
+
+    public void gotoEdge(ActionEvent e){
+        super.changeSceneTo("edgesPage");
+    }
+
+    public void gotoNode(ActionEvent e){
+        super.changeSceneTo("nodePage");
+    }
+
+    public void downloadCSVs(ActionEvent e) {
+        String path = getPath();
+        if(path.equals("")){
+
+        }else{
+            File dst = new File(path + "\\bwMNodes.csv");
+            File dst2 = new File(path + "\\bwMEdges.csv");
+            try{
+                File source = new File("data/bwMNodes.csv");
+                File source2 = new File("data/bwMEdges.csv");
+                Files.copy(source.toPath(),dst.toPath(),REPLACE_EXISTING);
+                Files.copy(source2.toPath(),dst2.toPath(),REPLACE_EXISTING);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        }
+    }
+
+    public void changeToPathfind(ActionEvent e){
+        super.changeSceneTo("mapPage");
     }
 }

@@ -2,8 +2,14 @@ package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.*;
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.Services.ServiceMap;
+import edu.wpi.MochaManticores.Services.ServiceRequest;
+import edu.wpi.MochaManticores.Services.ServiceRequestType;
+import edu.wpi.MochaManticores.database.DatabaseManager;
+import edu.wpi.MochaManticores.database.sel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -14,6 +20,9 @@ public class FoodDelivery extends SceneController {
 
     @FXML
     private JFXComboBox<String> dietaryPreferences;
+
+    @FXML
+    private JFXTextArea allergiesField;
 
     @FXML
     private JFXComboBox<String> foodMenu;
@@ -39,9 +48,9 @@ public class FoodDelivery extends SceneController {
         back();
     }
 
-    public void helpButton(ActionEvent actionEvent){loadFullHelpDialogue();}
-
     private void loadHelpDialog(){
+        dialogPane.toFront();
+        dialogPane.setDisable(false);
         JFXDialogLayout message = new JFXDialogLayout();
         message.setMaxHeight(Region.USE_COMPUTED_SIZE);
         message.setMaxHeight(Region.USE_COMPUTED_SIZE);
@@ -53,10 +62,10 @@ public class FoodDelivery extends SceneController {
         hearder.setStyle("-fx-alignment: center");
         message.setHeading(hearder);
 
-        final Text body = new Text("Patient room: This is the room number given to the patient by the hospital.\n" +
-                "Current Room: is where the patient is currently staying until transportation out of the hospital.\n" +
-                "External Room: is the location where the patient is going to be transported to\n" +
-                "Transportation Method: This is a dropdown menu that you select which type of transportation the patient will take. ");
+        final Text body = new Text("Dietary preferences: Dropdown menu with options for food.\n" +
+                "Allergies: Indicate any allergies you may have with food or beverages.\n" +
+                "Assign to Employee: Assign an employee to deliver you the food\n" +
+                "Menu: This is the menu  ");
 
         body.setStyle("-fx-font-size: 40");
         body.setStyle("-fx-font-family: Roboto");
@@ -116,8 +125,12 @@ public class FoodDelivery extends SceneController {
 
 
     public void submitForm(ActionEvent e) {
-        // TODO Submit action
+        sel s = sel.FoodDelivery;
         // changeSceneTo(e, "mainMenu");
+        DatabaseManager.addRequest(s,
+                        new edu.wpi.MochaManticores.Services.FoodDelivery(
+                        "", "", false, dietaryPreferences.getSelectionModel().getSelectedItem(),
+                        allergiesField.getText(), foodMenu.getSelectionModel().getSelectedItem()));
         dialogPane.setVisible(true);
         loadDialog();
     }
@@ -159,4 +172,7 @@ public class FoodDelivery extends SceneController {
 
     }
 
+    public void helpButton(MouseEvent mouseEvent) {
+        loadHelpDialog();
+    }
 }

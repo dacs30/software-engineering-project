@@ -4,7 +4,11 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.Services.ExternalTransportation;
+import edu.wpi.MochaManticores.database.DatabaseManager;
+import edu.wpi.MochaManticores.database.sel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,14 +32,18 @@ public class extTransportationController extends SceneController {
     @FXML
     private ImageView backgroundIMG;
     @FXML
-    private ComboBox<String> transportationMethods;
-    @FXML
     private StackPane dialogPane;
     @FXML
     private JFXTextField empBox;
+    @FXML
+    private JFXTextField patientRoom, currentRoom, externalRoom;
+    @FXML
+    private ComboBox<String> transportationMethods;
 
     @FXML
     private void initialize() {
+
+
         double height = App.getPrimaryStage().getScene().getHeight();
         double width = App.getPrimaryStage().getScene().getWidth();
         backgroundIMG.setFitHeight(height);
@@ -54,13 +62,31 @@ public class extTransportationController extends SceneController {
         }
     }
 
-
-    public void backEvent(ActionEvent actionEvent) {
-        super.back();
-    }
-
     public void submitEvent(ActionEvent actionEvent) {
-        loadSubmitDialog();
+        if(!externalRoom.getText().isEmpty() && !currentRoom.getText().isEmpty() && !patientRoom.getText().isEmpty()){
+            sel s = sel.ExternalTransportation;
+            DatabaseManager.addRequest(s,
+                    new ExternalTransportation(
+                            "", "", false, patientRoom.getText(),
+                            currentRoom.getText(), externalRoom.getText(), transportationMethods.getValue()));
+            System.out.println("runned");
+        } else if (patientRoom.getText().isEmpty()){
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            patientRoom.getValidators().add(missingInput);
+            missingInput.setMessage("Patient room is required");
+            patientRoom.validate();
+        } else if (currentRoom.getText().isEmpty()){
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            currentRoom.getValidators().add(missingInput);
+            missingInput.setMessage("Current room is required");
+            currentRoom.validate();
+        } else if (externalRoom.getText().isEmpty()){
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            externalRoom.getValidators().add(missingInput);
+            missingInput.setMessage("External room is required");
+            externalRoom.validate();
+        }
+
     }
 
     public void helpButton(ActionEvent actionEvent){loadHelpDialogue();}
@@ -105,6 +131,7 @@ public class extTransportationController extends SceneController {
         dialog.show();
 
     }
+
     private void loadHelpDialogue() {
         dialogPane.toFront();
         loadDialog();
@@ -146,4 +173,5 @@ public class extTransportationController extends SceneController {
         message.setActions(ok);
         dialog.show();
     }
+
 }

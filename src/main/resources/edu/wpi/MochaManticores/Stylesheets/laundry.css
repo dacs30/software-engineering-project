@@ -1,0 +1,66 @@
+#formsGrid {
+    -fx-background-color: rgba(255, 255, 255, 0.75);
+    -fx-background-radius: 40;
+}
+
+#title {
+    -fx-text-fill: grey;
+}
+
+.label {
+    -fx-font-family: Roboto;
+    -fx-font-size: 60;
+    -fx-font-weight: bold;
+    -fx-text-fill: grey;
+}
+
+.jfx-text-field {
+    -fx-font-family: Roboto;
+    -fx-font-weight: bold;
+    -fx-text-fill: grey;
+    -fx-font-size: 20;
+    -fx-max-width: 300;
+}
+
+.jfx-button{
+    -fx-background-color: #0F4B91;
+    -fx-font-family: Roboto;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-font-size: 20;
+    -fx-border-radius: 40;
+    -fx-background-radius: 40;
+    transition: background-color 2s ease;
+}
+
+.jfx-combo-box {
+    -fx-prompt-text-fill: grey ;
+    -fx-background-color: rgba(186, 186, 186, 0.43);
+    -jfx-unfocus-color: transparent;
+    -fx-font-size: 20;
+}
+.jfx-combo-box .text-field:focused {
+    -fx-prompt-text-fill: transparent ;
+}
+
+.jfx-combo-box:hover{
+    -fx-effect: dropshadow( three-pass-box , rgba(2, 2, 2, 0.2), 20, 0.0 , 1 , 10);
+}
+
+#washLabel {
+    -fx-font-size: 30;
+}
+
+#laundry-Label {
+    -fx-font-size: 20;
+}
+
+#nameLabel {
+    -fx-background-color: #0F4B91;
+    -fx-font-family: Roboto;
+    -fx-text-fill: white;
+    -fx-font-size: 20;
+    -fx-border-radius: 20;
+    -fx-background-radius: 40;
+    transition: background-color 2s ease;
+}

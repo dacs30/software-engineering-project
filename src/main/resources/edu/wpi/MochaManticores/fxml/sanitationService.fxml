@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDialog?>
-<?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
@@ -14,18 +14,16 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../Stylesheets/sanitationService.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.sanitationServiceController">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@../Stylesheets/sanitationService.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.sanitationServiceController">
     <children>
-      <ImageView fx:id="backgroundIMG" fitHeight="800.0" fitWidth="1200.0" opacity="0.35" pickOnBounds="true">
+      <ImageView fx:id="backgroundIMG" fitHeight="800.0" fitWidth="1200.0" opacity="0.35" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../images/100909_00_BrighamWomens_BTM_N8_966x668.jpg" />
+            <Image url="@../images/cool-background.jpg" />
          </image>
       </ImageView>
       <GridPane fx:id="contentGrid" prefHeight="800.0" prefWidth="1202.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="184.0740509033203" minWidth="10.0" prefWidth="189.4073944091797" />
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="1037.25927734375" />
         </columnConstraints>
         <rowConstraints>
@@ -34,159 +32,60 @@
             <RowConstraints />
         </rowConstraints>
          <children>
-            <StackPane fx:id="dialogPane" prefHeight="800.0" prefWidth="1185.0" GridPane.columnIndex="1">
+            <StackPane fx:id="dialogPane" prefHeight="800.0" prefWidth="1185.0">
                <children>
                   <JFXDialog id="message" prefHeight="263.0" prefWidth="1119.0" />
                </children>
             </StackPane>
-            <StackPane fx:id="dialogPane1" prefHeight="800.0" prefWidth="1185.0" GridPane.columnIndex="1">
-               <children>
-                  <JFXDialog id="message" prefHeight="263.0" prefWidth="1119.0" />
-               </children>
-            </StackPane>
-            <GridPane maxHeight="700.0" maxWidth="1000.0" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #0F4B91;" GridPane.columnIndex="1" GridPane.valignment="CENTER">
+            <GridPane id="formsGrid" maxHeight="700.0" maxWidth="1000.0" prefHeight="700.0" prefWidth="1000.0">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="545.6666259765625" minWidth="10.0" prefWidth="190.33334350585938" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="991.0000610351562" minWidth="10.0" prefWidth="809.6666564941406" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" percentWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
-                  <RowConstraints maxHeight="76.33334350585938" minHeight="10.0" prefHeight="76.33334350585938" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="89.33332824707031" minHeight="10.0" prefHeight="75.66665649414062" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="85.33331298828125" minHeight="10.0" prefHeight="85.33331298828125" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="80.33331298828125" minHeight="10.0" prefHeight="58.666656494140625" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="119.66665649414062" minHeight="10.0" prefHeight="79.33334350585938" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="186.3333740234375" minHeight="10.0" prefHeight="113.33334350585938" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="147.6666259765625" minHeight="10.0" prefHeight="91.6666259765625" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="156.0" minHeight="10.0" prefHeight="83.3333740234375" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="236.51851654052734" minHeight="10.0" prefHeight="118.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="88.48149108886719" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="96.25924682617188" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="87.74075317382812" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="110.59262084960938" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="344.5185546875" minHeight="10.0" prefHeight="114.55560302734375" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="344.5185546875" minHeight="10.0" prefHeight="97.11114501953125" vgrow="SOMETIMES" />
               </rowConstraints>
-               <children>
-                  <JFXTextArea fx:id="description" maxHeight="-Infinity" maxWidth="513.0" minHeight="-Infinity" prefHeight="109.0" prefWidth="500.0" promptText="Detailed description of the incident" style="-fx-background-color: #0F4B91;" unFocusColor="#615858" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </JFXTextArea>
-                  <Label prefHeight="30.0" prefWidth="114.0" text="Description: " textFill="WHITE" translateY="-45.0" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-                  <JFXTextField fx:id="equipment" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="60.0" prefWidth="639.0" promptText="Mop, gloves, mask" style="-fx-background-color: #0F4B91;" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="type" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="60.0" prefWidth="639.0" promptText="Spill, room cleaning, etc." style="-fx-background-color: #0F4B91;" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="safetyHaz" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="60.0" prefWidth="637.0" promptText="Biohazard, Lots of foot traffic, etc." style="-fx-background-color: #0F4B91;" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXButton id="cancelButton" fx:id="cancelButton" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#back" text="CANCEL" translateX="50.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="7" GridPane.valignment="CENTER">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton fx:id="submitButton" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#submit" ripplerFill="BLACK" text="SUBMIT" translateX="260.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="7">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </JFXButton>
-                  <Label text="Location: " textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-                  <Label maxHeight="-Infinity" maxWidth="-Infinity" text="Safety Hazards: " textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-                  <Label text="Equipment Needed: " textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-                  <Label text="Sanitation Type: " textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-                    <Label id="sanitationServicesLabel" prefHeight="76.0" prefWidth="808.0" text=" Sanitation Service Request Form" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="1" GridPane.valignment="CENTER">
-                        <font>
-                            <Font name="Serif Regular" size="44.0" />
-                        </font>
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin>
-                    </Label>
-                  <JFXTextField fx:id="loc" maxHeight="-Infinity" maxWidth="511.0" minWidth="-Infinity" prefHeight="60.0" prefWidth="500.0" promptText="Room number, Hallway, Waiting Area, etc." style="-fx-background-color: #0F4B91;" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXButton id="helpBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#helpButton" prefHeight="54.0" prefWidth="80.0" text="HELP" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </JFXButton>
-                  <Label fx:id="empTitle" text="Assign to Employee: " textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-                  <JFXTextField fx:id="empBox" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-               </children>
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
                <effect>
-                  <DropShadow />
+                  <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
                </effect>
-            </GridPane>
-            <GridPane>
-              <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="BOTTOM" vgrow="SOMETIMES" />
-              </rowConstraints>
                <children>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/logo-small.png" />
-                     </image>
-                  </ImageView>
-                  <JFXButton id="backBtn" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#goBack" prefHeight="65.0" prefWidth="140.0" style="-fx-background-color: #0F4B91;" text="BACK" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets bottom="30.0" />
-                     </GridPane.margin>
-                  </JFXButton>
+                  <Label id="sanitationServiceTitleLabel" text="Sanitation Service" />
+                  <JFXTextField fx:id="loc" labelFloat="true" promptText="Location" GridPane.rowIndex="1" />
+                  <JFXTextField fx:id="safetyHaz" labelFloat="true" promptText="Safety Hazards" GridPane.rowIndex="2" />
+                  <JFXComboBox fx:id="typeComboBox" promptText="Sanitation Type" GridPane.rowIndex="3" />
+                  <GridPane GridPane.rowIndex="4">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label id="equipmentNeededLabel" text="Equipment needed" />
+                        <GridPane GridPane.rowIndex="1">
+                          <columnConstraints>
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="33.407470703125" minHeight="25.11114501953125" percentHeight="50.0" prefHeight="26.2962646484375" />
+                              <RowConstraints maxHeight="31.81488037109375" minHeight="1.370361328125" percentHeight="50.0" prefHeight="22.7037353515625" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <JFXCheckBox fx:id="mopNeeded" text="Mop" GridPane.rowIndex="1" />
+                              <JFXCheckBox fx:id="glovesNeeded" text="Gloves" translateX="-50.0" />
+                              <JFXCheckBox fx:id="maskNeeded" text="Mask" translateX="50.0" />
+                           </children>
+                        </GridPane>
+                     </children>
+                  </GridPane>
+                  <JFXTextField fx:id="description" labelFloat="true" promptText="Description" GridPane.rowIndex="5" />
+                  <JFXButton id="submitBtn" fx:id="submitButton" onAction="#submit" text="SUBMIT" GridPane.rowIndex="6" />
                </children>
             </GridPane>
          </children>
