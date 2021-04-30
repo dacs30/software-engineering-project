@@ -13,7 +13,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.input.MouseEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
@@ -28,6 +27,8 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.layout.VBox;
 import javafx.geometry.Pos;
 
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -35,6 +36,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+
 
 public class mapPage extends SceneController{
 
@@ -174,6 +176,8 @@ public class mapPage extends SceneController{
     Rectangle2D noZoom;
     Rectangle2D zoomPort;
 
+
+
     public void initialize() {
         double height = super.getHeight();
         double width = super.getWidth();
@@ -183,7 +187,25 @@ public class mapPage extends SceneController{
         mapStack.maxWidthProperty().bind(App.getPrimaryStage().widthProperty());
         mapStack.maxHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
+        tabPane.setOnDragDetected(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent event) {
+                /* drag was detected, start a drag-and-drop gesture*/
+                /* allow any transfer mode */
+                Dragboard db = tabPane.startDragAndDrop(TransferMode.ANY);
+
+                tabPane.relocate(event.getY(), event.getY());
+                /* Put a string on a dragboard */
+                ClipboardContent content = new ClipboardContent();
+                content.putString("hey");
+                db.setContent(content);
+
+                event.consume();
+            }
+        });
+
         mapWindow.setPreserveRatio(false);
+
+        //MouseDragEvent.
 
         floorSelector.setValue("F1");
 
