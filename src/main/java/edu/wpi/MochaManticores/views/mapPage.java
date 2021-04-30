@@ -7,8 +7,11 @@ import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.database.DatabaseManager;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
@@ -174,6 +177,9 @@ public class mapPage extends SceneController{
     Rectangle2D noZoom;
     Rectangle2D zoomPort;
 
+    private final DoubleProperty zoomProperty = new SimpleDoubleProperty(1.0d);
+    private final DoubleProperty deltaY = new SimpleDoubleProperty(0.0d);
+
     public void initialize() {
         double height = super.getHeight();
         double width = super.getWidth();
@@ -205,6 +211,20 @@ public class mapPage extends SceneController{
         mapScrollPane.setPannable(true);
         mapScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         mapScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+
+        PanAndZoomPane panAndZoomPane = new PanAndZoomPane();
+        zoomProperty.bind(panAndZoomPane.myScale);
+        deltaY.bind(panAndZoomPane.deltaY);
+        panAndZoomPane.getChildren().add(mapStack);
+
+        SceneGestures sceneGestures = new SceneGestures(panAndZoomPane);
+
+        mapScrollPane.setContent(panAndZoomPane);
+        panAndZoomPane.toBack();
+        mapScrollPane.addEventFilter( MouseEvent.MOUSE_CLICKED, sceneGestures.getOnMouseClickedEventHandler());
+        mapScrollPane.addEventFilter( MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
+        mapScrollPane.addEventFilter( MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
+        mapScrollPane.addEventFilter( ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
 
         mapWindow.fitWidthProperty().bind(mapStack.widthProperty());
         mapWindow.fitHeightProperty().bind(mapStack.heightProperty());
