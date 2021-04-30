@@ -12,6 +12,8 @@ import edu.wpi.MochaManticores.Services.ServiceRequest;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.LinkedList;
+
 public class DatabaseManager{
     private static Connection connection = null;
     private static EmployeeManager empManager = null;
@@ -201,6 +203,14 @@ public class DatabaseManager{
      */
     public static String getCSV_path(sel s){
         return getManager(s).getCSV_path();
+    }
+
+    /* function: getElementIDs()
+     * returns a linked list of strings that contains all node names
+     */
+    public static LinkedList<String> getElementIDs(){
+        //TODO abstract to work with all types
+        return getNodeManager().getElementIDs();
     }
 
     // ==== Employee specials ==== //

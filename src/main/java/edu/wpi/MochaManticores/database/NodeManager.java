@@ -7,6 +7,7 @@ import edu.wpi.MochaManticores.views.nodePage;
 import java.io.*;
 import java.sql.*;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 public class NodeManager extends Manager<NodeSuper>{
     private static String Node_csv_path = "data/MapMAllnodes.csv";
@@ -205,5 +206,14 @@ public class NodeManager extends Manager<NodeSuper>{
                     new VertexList(new HashMap<>()));
             addElement_map(node);
         }
+    }
+
+    public LinkedList<String> getElementIDs(){
+        LinkedList<String> idList = new LinkedList<String>();
+        for(NodeSuper node : MapSuper.getMap().values()){
+            idList.add(node.getID());
+        }
+
+        return idList;
     }
 }
