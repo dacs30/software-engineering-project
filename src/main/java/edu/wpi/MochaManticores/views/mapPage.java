@@ -206,21 +206,25 @@ public class mapPage extends SceneController{
         mapStack.maxWidthProperty().bind(App.getPrimaryStage().widthProperty());
         mapStack.maxHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
-        tabPane.setOnDragDetected(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent event) {
-                /* drag was detected, start a drag-and-drop gesture*/
-                /* allow any transfer mode */
-                Dragboard db = tabPane.startDragAndDrop(TransferMode.ANY);
+        tabPane.setOnMouseDragged(event -> {
+            tabPane.setManaged(false);
 
-                tabPane.relocate(event.getY(), event.getY());
-                /* Put a string on a dragboard */
-                ClipboardContent content = new ClipboardContent();
-                content.putString("hey");
-                db.setContent(content);
+            System.out.println(event.getSceneX());
 
+            if(event.getSceneX() > (contentPane.getWidth()*0.2) && event.getSceneX() < (contentPane.getWidth()*0.5)){
+                System.out.println(getWidth());
+                tabPane.setTranslateX(getWidth() * 0.9);
+                tabPane.setTranslateY(event.getY() + tabPane.getTranslateY() - 10  );
+            } else if (event.getSceneX() < (contentPane.getWidth()*0.8) && event.getSceneX() > (contentPane.getWidth()*0.5)) {
+                tabPane.setTranslateX(getWidth() * 0.1);
+                tabPane.setTranslateY(event.getY() + tabPane.getTranslateY() - 10  );
+            } else {
+                tabPane.setTranslateX(event.getX() + tabPane.getTranslateX() - tabPane.getWidth()/2);
+                tabPane.setTranslateY(event.getY() + tabPane.getTranslateY() - 10  );
                 event.consume();
             }
         });
+
 
         mapWindow.setPreserveRatio(false);
 
@@ -763,7 +767,7 @@ public class mapPage extends SceneController{
             }
 
             Line edge = new Line(curNode.getXcoord() / xRatio, curNode.getYcoord() / yRatio, endNode.getXcoord() / xRatio, endNode.getYcoord() / yRatio);
-            edge.setStrokeWidth(2);
+            edge.setStrokeWidth(4);
             if (curNode.getFloor().equals(selectedFloor)){
                 edge.setStroke(Color.BLACK);
             } else {
@@ -781,6 +785,7 @@ public class mapPage extends SceneController{
 
     public void highlightNode(MouseEvent e) {
         Circle src = ((Circle)e.getSource());
+        src.setFill(Color.valueOf("#0F4B91"));
 
         Iterator<node> iter = nodes.values().iterator();
 
