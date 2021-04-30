@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 public class DatabaseManager{
     private static Connection connection = null;
+    private static Mdb mdb = null;
     private static EmployeeManager empManager = null;
     private static NodeManager nodeManager = null;
     private static EdgeManager edgeManager = null;
@@ -39,7 +40,8 @@ public class DatabaseManager{
      */
     public static void startup(){
         try{
-            Mdb.databaseStartup();
+            getMdb().databaseStartup(false); // start with server connection
+
         }catch(InterruptedException | SQLException e){
             e.printStackTrace();
         }
@@ -50,7 +52,7 @@ public class DatabaseManager{
      *  @return void
      */
     public static void shutdown(){
-        Mdb.databaseShutdown();
+        getMdb().databaseShutdown();
     }
 
     // ==== Manager Methods === //
@@ -309,6 +311,13 @@ public class DatabaseManager{
 
     public static void setConnection(Connection connection) {
         DatabaseManager.connection = connection;
+    }
+
+    public static  Mdb getMdb(){
+        if(mdb == null){
+            mdb = new Mdb();
+        }
+        return mdb;
     }
 
     public static EmployeeManager getEmpManager() {
