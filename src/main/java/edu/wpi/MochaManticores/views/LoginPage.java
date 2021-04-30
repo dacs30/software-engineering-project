@@ -48,6 +48,9 @@ public class LoginPage extends SceneController{
     @FXML
     private JFXTextField employeeUsername;
 
+    @FXML
+    private JFXButton viewMapButton;
+
     public void initialize(){
         double height = super.getHeight();
         double width = super.getWidth();
@@ -197,5 +200,9 @@ public class LoginPage extends SceneController{
             employeeUsername.validate();
             employeePassword.validate();
         }
+    }
+
+    public void openMap(ActionEvent actionEvent) {
+        changeSceneTo("mapPage");
     }
 }
