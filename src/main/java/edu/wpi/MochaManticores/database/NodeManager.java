@@ -3,6 +3,7 @@ package edu.wpi.MochaManticores.database;
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import edu.wpi.MochaManticores.Nodes.*;
 import edu.wpi.MochaManticores.views.nodePage;
+import javafx.util.Pair;
 
 import java.io.*;
 import java.sql.*;
@@ -208,10 +209,10 @@ public class NodeManager extends Manager<NodeSuper>{
         }
     }
 
-    public LinkedList<String> getElementIDs(){
-        LinkedList<String> idList = new LinkedList<String>();
+    public LinkedList<Pair<String,String>> getElementIDs(){
+        LinkedList<Pair<String,String>> idList = new LinkedList<Pair<String,String>>();
         for(NodeSuper node : MapSuper.getMap().values()){
-            idList.add(node.getID());
+            idList.add(new Pair(node.getID(),node.getLongName()));
         }
 
         return idList;

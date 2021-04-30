@@ -8,6 +8,7 @@ import edu.wpi.MochaManticores.Nodes.EdgeSuper;
 import edu.wpi.MochaManticores.Services.SanitationServices;
 import edu.wpi.MochaManticores.Services.ServiceMap;
 import edu.wpi.MochaManticores.Services.ServiceRequest;
+import javafx.util.Pair;
 
 import java.io.FileNotFoundException;
 import java.sql.Connection;
@@ -208,7 +209,7 @@ public class DatabaseManager{
     /* function: getElementIDs()
      * returns a linked list of strings that contains all node names
      */
-    public static LinkedList<String> getElementIDs(){
+    public static LinkedList<Pair<String,String>> getElementIDs(){
         //TODO abstract to work with all types
         return getNodeManager().getElementIDs();
     }
