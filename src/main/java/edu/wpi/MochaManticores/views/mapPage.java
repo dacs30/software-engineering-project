@@ -61,6 +61,15 @@ public class mapPage extends SceneController{
         String nodeID;
         double xCoord;
         double yCoord;
+        boolean highlighted = false;
+
+        public boolean isHighlighted() {
+            return highlighted;
+        }
+
+        public void setHighlighted(boolean highlighted) {
+            this.highlighted = highlighted;
+        }
 
         public Circle getC() {
             return c;
@@ -103,7 +112,7 @@ public class mapPage extends SceneController{
 
         public void resetFill() {
             c.setFill(Color.WHITE);
-            c.setStrokeWidth(2);
+            c.setStrokeWidth(1);
             c.setStroke(Color.valueOf("#FF6B35"));
         }
     }
@@ -675,6 +684,7 @@ public class mapPage extends SceneController{
 
     public void clearLines(ActionEvent e){
         savedRoute.clear();
+        pitStops.clear();
         drawNodes();
         dirVBOX.getChildren().clear();
     }
@@ -687,8 +697,8 @@ public class mapPage extends SceneController{
         for (int i = 0; i < MapSuper.getMap().size(); i++) {
             NodeSuper n = mapIter.next();
             if (n.getFloor().equals(selectedFloor)) {
-                Circle spot = new Circle(n.getXcoord() / xRatio, n.getYcoord() / yRatio, 4, Color.WHITE);
-                spot.setStrokeWidth(2);
+                Circle spot = new Circle(n.getXcoord() / xRatio, n.getYcoord() / yRatio, 2, Color.WHITE);
+                spot.setStrokeWidth(1);
                 spot.setStroke(Color.valueOf("#FF6B35"));
                 EventHandler<MouseEvent> highlight = new EventHandler<MouseEvent>() {
                     @Override
@@ -699,13 +709,13 @@ public class mapPage extends SceneController{
                 EventHandler<MouseEvent> large = new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent e) {
-                        mouseOverNode(e,6);
+                        mouseOverNode(e,4);
                     }
                 };
                 EventHandler<MouseEvent> small = new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent e) {
-                        mouseOverNode(e,4);
+                        mouseOverNode(e,2);
                     }
                 };
                 spot.setOnMouseClicked(highlight);
@@ -727,7 +737,7 @@ public class mapPage extends SceneController{
             }
 
             Line edge = new Line(curNode.getXcoord() / xRatio, curNode.getYcoord() / yRatio, endNode.getXcoord() / xRatio, endNode.getYcoord() / yRatio);
-            edge.setStrokeWidth(4);
+            edge.setStrokeWidth(2);
             if (curNode.getFloor().equals(selectedFloor)){
                 edge.setStroke(Color.BLACK);
             } else {
@@ -745,15 +755,22 @@ public class mapPage extends SceneController{
 
     public void highlightNode(MouseEvent e) {
         Circle src = ((Circle)e.getSource());
-        src.setFill(Color.valueOf("#0F4B91"));
 
         Iterator<node> iter = nodes.values().iterator();
 
         for (int i = 0; i < nodes.size(); i++) {
             node n = iter.next();
             if (n.c.equals(src)) {
-                //n.c.setFill(Color.RED);
-                pitStops.add(n);
+                if (n.isHighlighted()){
+                    src.setFill(Color.WHITE);
+                    n.setHighlighted(false);
+                    pitStops.remove(n);
+                } else {
+                    src.setFill(Color.valueOf("#0F4B91"));
+                    n.setHighlighted(true);
+                    pitStops.add(n);
+
+                }
             }
         }
     }
