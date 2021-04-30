@@ -63,9 +63,13 @@ public class SceneGestures {
 
     private EventHandler<MouseEvent> onMouseDraggedEventHandler = new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
+            double xTranslate = sceneDragContext.translateAnchorX + event.getX() - sceneDragContext.mouseAnchorX;
+            double yTranslate = sceneDragContext.translateAnchorY + event.getY() - sceneDragContext.mouseAnchorY;
 
-            panAndZoomPane.setTranslateX(sceneDragContext.translateAnchorX + event.getX() - sceneDragContext.mouseAnchorX);
-            panAndZoomPane.setTranslateY(sceneDragContext.translateAnchorY + event.getY() - sceneDragContext.mouseAnchorY);
+            System.out.println(xTranslate + " || " + yTranslate);
+
+            panAndZoomPane.setTranslateX(xTranslate);
+            panAndZoomPane.setTranslateY(yTranslate);
 
             event.consume();
         }
