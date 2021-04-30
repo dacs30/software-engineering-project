@@ -165,14 +165,13 @@ public class mapPage extends SceneController{
     public void initialize() {
         double height = super.getHeight();
         double width = super.getWidth();
-        backgroundIMG.setFitHeight(height);
-        backgroundIMG.setFitWidth(width);
         contentPane.setPrefSize(width, height);
 
-        backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
-        backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
-
         mapWindow.setPreserveRatio(false);
+
+        floorSelector.setValue("F1");
+
+       loadF1();
 
         nearestLocationSelector.getItems().addAll("Bathroom", //REST
                                                             "Exit", //EXIT

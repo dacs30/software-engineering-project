@@ -12,12 +12,13 @@
 
 #patientIdLabel {
     -fx-font-family: Roboto;
-    -fx-font-size: 18;
+    -fx-font-size: 20;
 }
 
 .jfx-button{
     -fx-background-color: #0F4B91;
     -fx-font-family: Roboto;
+    -fx-font-weight: bold;
     -fx-text-fill: white;
     -fx-font-size: 20;
     -fx-border-radius: 40;
