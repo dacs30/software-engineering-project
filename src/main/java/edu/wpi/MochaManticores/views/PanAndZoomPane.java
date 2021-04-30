@@ -41,6 +41,9 @@ public class PanAndZoomPane extends Pane {
     public void setPivot( double x, double y, double scale) {
         // note: pivot value must be untransformed, i. e. without scaling
         // timeline that scales and moves the node
+        if (scale < 1.0d){
+            return;
+        }
         timeline.getKeyFrames().clear();
         timeline.getKeyFrames().addAll(
                 new KeyFrame(Duration.millis(200), new KeyValue(translateXProperty(), getTranslateX() - x)),

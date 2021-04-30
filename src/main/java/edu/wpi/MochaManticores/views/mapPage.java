@@ -7,8 +7,11 @@ import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.database.DatabaseManager;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
@@ -37,7 +40,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-
 public class mapPage extends SceneController{
 
     public void downloadCSVs(ActionEvent actionEvent) {
@@ -60,6 +62,15 @@ public class mapPage extends SceneController{
         String nodeID;
         double xCoord;
         double yCoord;
+        boolean highlighted = false;
+
+        public boolean isHighlighted() {
+            return highlighted;
+        }
+
+        public void setHighlighted(boolean highlighted) {
+            this.highlighted = highlighted;
+        }
 
         public Circle getC() {
             return c;
@@ -176,6 +187,9 @@ public class mapPage extends SceneController{
     Rectangle2D noZoom;
     Rectangle2D zoomPort;
 
+    private final DoubleProperty zoomProperty = new SimpleDoubleProperty(1.0d);
+    private final DoubleProperty deltaY = new SimpleDoubleProperty(0.0d);
+
 
 
     public void initialize() {
@@ -227,6 +241,20 @@ public class mapPage extends SceneController{
         mapScrollPane.setPannable(true);
         mapScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         mapScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+
+        PanAndZoomPane panAndZoomPane = new PanAndZoomPane();
+        zoomProperty.bind(panAndZoomPane.myScale);
+        deltaY.bind(panAndZoomPane.deltaY);
+        panAndZoomPane.getChildren().add(mapStack);
+
+        SceneGestures sceneGestures = new SceneGestures(panAndZoomPane);
+
+        mapScrollPane.setContent(panAndZoomPane);
+        panAndZoomPane.toBack();
+        mapScrollPane.addEventFilter( MouseEvent.MOUSE_CLICKED, sceneGestures.getOnMouseClickedEventHandler());
+        mapScrollPane.addEventFilter( MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
+        mapScrollPane.addEventFilter( MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
+        mapScrollPane.addEventFilter( ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
 
         mapWindow.fitWidthProperty().bind(mapStack.widthProperty());
         mapWindow.fitHeightProperty().bind(mapStack.heightProperty());
@@ -689,8 +717,8 @@ public class mapPage extends SceneController{
         for (int i = 0; i < MapSuper.getMap().size(); i++) {
             NodeSuper n = mapIter.next();
             if (n.getFloor().equals(selectedFloor)) {
-                Circle spot = new Circle(n.getXcoord() / xRatio, n.getYcoord() / yRatio, 4, Color.WHITE);
-                spot.setStrokeWidth(2);
+                Circle spot = new Circle(n.getXcoord() / xRatio, n.getYcoord() / yRatio, 2, Color.WHITE);
+                spot.setStrokeWidth(1);
                 spot.setStroke(Color.valueOf("#FF6B35"));
                 EventHandler<MouseEvent> highlight = new EventHandler<MouseEvent>() {
                     @Override
@@ -701,13 +729,13 @@ public class mapPage extends SceneController{
                 EventHandler<MouseEvent> large = new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent e) {
-                        mouseOverNode(e,6);
+                        mouseOverNode(e,4);
                     }
                 };
                 EventHandler<MouseEvent> small = new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent e) {
-                        mouseOverNode(e,4);
+                        mouseOverNode(e,2);
                     }
                 };
                 spot.setOnMouseClicked(highlight);
@@ -729,7 +757,7 @@ public class mapPage extends SceneController{
             }
 
             Line edge = new Line(curNode.getXcoord() / xRatio, curNode.getYcoord() / yRatio, endNode.getXcoord() / xRatio, endNode.getYcoord() / yRatio);
-            edge.setStrokeWidth(4);
+            edge.setStrokeWidth(2);
             if (curNode.getFloor().equals(selectedFloor)){
                 edge.setStroke(Color.BLACK);
             } else {
@@ -747,15 +775,22 @@ public class mapPage extends SceneController{
 
     public void highlightNode(MouseEvent e) {
         Circle src = ((Circle)e.getSource());
-        src.setFill(Color.valueOf("#0F4B91"));
 
         Iterator<node> iter = nodes.values().iterator();
 
         for (int i = 0; i < nodes.size(); i++) {
             node n = iter.next();
             if (n.c.equals(src)) {
-                //n.c.setFill(Color.RED);
-                pitStops.add(n);
+                if (n.isHighlighted()){
+                    src.setFill(Color.WHITE);
+                    n.setHighlighted(false);
+                    pitStops.remove(n);
+                } else {
+                    src.setFill(Color.valueOf("#0F4B91"));
+                    n.setHighlighted(true);
+                    pitStops.add(n);
+
+                }
             }
         }
     }
