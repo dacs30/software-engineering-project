@@ -156,6 +156,9 @@ public class mapPage extends SceneController{
     private JFXTextField fromLocation;
 
     @FXML
+    private ScrollPane mapScrollPane;
+
+    @FXML
     private JFXComboBox nearestLocationSelector;
 
     private final String location = "edu/wpi/MochaManticores/images/";
@@ -175,6 +178,10 @@ public class mapPage extends SceneController{
         double height = super.getHeight();
         double width = super.getWidth();
         contentPane.setPrefSize(width, height);
+        contentPane.maxWidthProperty().bind(App.getPrimaryStage().widthProperty());
+        contentPane.maxHeightProperty().bind(App.getPrimaryStage().heightProperty());
+        mapStack.maxWidthProperty().bind(App.getPrimaryStage().widthProperty());
+        mapStack.maxHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
         mapWindow.setPreserveRatio(false);
 
@@ -195,7 +202,9 @@ public class mapPage extends SceneController{
                 "F2",
                 "F3");
 
-        //loadL1();
+        mapScrollPane.setPannable(true);
+        mapScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        mapScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
         mapWindow.fitWidthProperty().bind(mapStack.widthProperty());
         mapWindow.fitHeightProperty().bind(mapStack.heightProperty());
