@@ -12,6 +12,8 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.control.TextField;
+import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
@@ -169,6 +171,9 @@ public class mapPage extends SceneController{
     private JFXTextField fromLocation;
 
     @FXML
+    private TextField testTextField;
+
+    @FXML
     private ScrollPane mapScrollPane;
 
     @FXML
@@ -224,6 +229,7 @@ public class mapPage extends SceneController{
         floorSelector.setValue("F1");
 
        loadF1();
+
 
         nearestLocationSelector.getItems().addAll("Bathroom", //REST
                                                             "Exit", //EXIT
