@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXDialog?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1207.0" stylesheets="@../Stylesheets/floral.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.FloralSceneController">
+  <children>
+      <StackPane fx:id="dialogPane" prefHeight="807.0" prefWidth="1309.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <JFXDialog id="message" />
+         </children></StackPane>
+      <ImageView fx:id="backgroundIMG" fitHeight="800.0" fitWidth="1217.0" opacity="0.5" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../images/cool-background.jpg" />
+         </image>
+      </ImageView>
+      <GridPane fx:id="contentGrid" prefHeight="800.0" prefWidth="1207.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <GridPane id="formsGrid" maxHeight="700.0" maxWidth="1000.0" prefHeight="700.0" prefWidth="1000.0">
+              <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="150.07406616210938" minHeight="10.0" prefHeight="125.77775573730469" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="419.2222442626953" minHeight="10.0" prefHeight="419.2222442626953" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <effect>
+                  <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
+               </effect>
+               <children>
+                  <Label id="floralDeliveryLabel" text="Floral Delivery" textFill="WHITE" />
+                  <GridPane GridPane.rowIndex="1">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <GridPane GridPane.rowIndex="2">
+                          <columnConstraints>
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <GridPane GridPane.rowIndex="1">
+                                <columnConstraints>
+                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <JFXRadioButton text="Tulip(Orange) $15" />
+                                    <JFXRadioButton text="Roses $25" GridPane.columnIndex="1" />
+                                    <JFXRadioButton text="Lilies $18" GridPane.columnIndex="2" />
+                                 </children>
+                              </GridPane>
+                              <Label id="flowerLabel" text="Type of flowers" textFill="WHITE" />
+                           </children>
+                        </GridPane>
+                        <JFXTextField fx:id="roomNumber" promptText="Room number" />
+                        <GridPane GridPane.rowIndex="3">
+                          <columnConstraints>
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <GridPane GridPane.rowIndex="1">
+                                <columnConstraints>
+                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <JFXRadioButton fx:id="blueVase" onAction="#checkVase" text="Blue" />
+                                    <JFXRadioButton fx:id="yellowVase" onAction="#checkVase" text="Yellow" GridPane.columnIndex="1" />
+                                    <JFXRadioButton fx:id="orangeVase" onAction="#checkVase" text="Orange" GridPane.columnIndex="2" />
+                                 </children>
+                              </GridPane>
+                              <Label id="vaseLabel" text="Vase options" textFill="WHITE" />
+                           </children>
+                        </GridPane>
+                        <JFXTextField fx:id="personalNote" promptText="Personalized note (optional)" GridPane.rowIndex="4" />
+                        <JFXTextField fx:id="empBox" promptText="Assign To Employee" GridPane.rowIndex="5" />
+                        <JFXDatePicker fx:id="deliveryDate" defaultColor="#0f4b91" promptText="Delivery Date" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
+                  <JFXButton id="submitBtn" onAction="#submitForm" text="SUBMIT" GridPane.rowIndex="2" />
+               </children>
+            </GridPane>
+         </children>
+      </GridPane>
+  </children>
+</AnchorPane>
