@@ -66,7 +66,7 @@ public class SceneGestures {
             double xTranslate = sceneDragContext.translateAnchorX + event.getX() - sceneDragContext.mouseAnchorX;
             double yTranslate = sceneDragContext.translateAnchorY + event.getY() - sceneDragContext.mouseAnchorY;
 
-            System.out.println(xTranslate + " || " + yTranslate);
+            //System.out.println(xTranslate + " || " + yTranslate);
 
             panAndZoomPane.setTranslateX(xTranslate);
             panAndZoomPane.setTranslateY(yTranslate);
