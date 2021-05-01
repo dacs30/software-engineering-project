@@ -1,5 +1,6 @@
 package edu.wpi.MochaManticores.views;
 
+import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.MochaManticores.Services.*;
 import edu.wpi.MochaManticores.database.DatabaseManager;
@@ -63,6 +64,8 @@ public class serviceManagerController extends SceneController {
     public TableColumn<md, String> MedicinePatientRoomColumn;
     public TableColumn<md, String> MedicineEmployeeColumn;
     public TableColumn<md, String> MedicineCompletedColumn;
+
+    public JFXTabPane serviceTabPane;
 
     public void initialize() {
         medicineTableSetUp();
@@ -397,7 +400,61 @@ public class serviceManagerController extends SceneController {
 
     }
 
-    public class md extends RecursiveTreeObject<md> {
+    public void completeService(ActionEvent e){
+        String tabName = serviceTabPane.getSelectionModel().selectedItemProperty().get().getText();
+        try{
+            service selected;
+            switch(tabName){
+                case "Medicine Delivery":
+                    selected = medicineDeliveryTable.getSelectionModel().getSelectedItem();
+                    ((md) selected).setCompleted(true);
+                    ((md) selected).getRef().setCompleted(true);
+                    buildMedicine("");
+                    break;
+                case "External Transport":
+                    selected = externalTable.getSelectionModel().getSelectedItem();
+                    ((et) selected).setCompleted(true);
+                    ((et) selected).getRef().setCompleted(true);
+                    buildExternal("");
+                    break;
+                case "Food Delivery":
+                    selected = foodDeliveryTable.getSelectionModel().getSelectedItem();
+                    ((fd) selected).setCompleted(true);
+                    ((fd) selected).getRef().setCompleted(true);
+                    buildFood("");
+                    break;
+                case "Sanitation":
+                    selected = sanitationTable.getSelectionModel().getSelectedItem();
+                    ((ss) selected).setCompleted(true);
+                    ((ss) selected).getRef().setCompleted(true);
+                    buildSanitation("");
+                    break;
+                case "Religious":
+                    selected = religionTable.getSelectionModel().getSelectedItem();
+                    ((rr) selected).setCompleted(true);
+                    ((rr) selected).getRef().setCompleted(true);
+                    buildReligion("");
+                    break;
+                case "Translator":
+                    selected = translatorTable.getSelectionModel().getSelectedItem();
+                    ((tl) selected).setCompleted(true);
+                    ((tl) selected).getRef().setCompleted(true);
+                    buildTranslate("");
+                case "COVID Survey":
+                    //TODO: add to DB
+                    break;
+                case "Internal Transport":
+                    //TODO: fix table issue
+                    break;
+                default:
+                    break;
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
+    public class md extends RecursiveTreeObject<md> implements service {
         edu.wpi.MochaManticores.Services.MedicineRequest ref;
         StringProperty typeMedicine;
         StringProperty currentFeeling;
@@ -484,7 +541,7 @@ public class serviceManagerController extends SceneController {
 
     }
 
-    public class et extends RecursiveTreeObject<et> {
+    public class et extends RecursiveTreeObject<et> implements service {
         edu.wpi.MochaManticores.Services.ExternalTransportation ref;
         StringProperty patientRoom;
         StringProperty currentRoom;
@@ -611,7 +668,7 @@ public class serviceManagerController extends SceneController {
         }
     }
 
-    public class fd extends RecursiveTreeObject<fd> {
+    public class fd extends RecursiveTreeObject<fd> implements service {
 
         edu.wpi.MochaManticores.Services.FoodDelivery ref;
         StringProperty dp;
@@ -672,7 +729,7 @@ public class serviceManagerController extends SceneController {
         }
     }
 
-    public class rr extends RecursiveTreeObject<rr> {
+    public class rr extends RecursiveTreeObject<rr> implements service {
 
         edu.wpi.MochaManticores.Services.ReligiousRequest ref;
         StringProperty reasonVisit;
@@ -748,7 +805,7 @@ public class serviceManagerController extends SceneController {
         }
     }
 
-    public class tl extends RecursiveTreeObject<tl> {
+    public class tl extends RecursiveTreeObject<tl> implements service {
         edu.wpi.MochaManticores.Services.LanguageInterpreterRequest ref;
         StringProperty room;
         StringProperty languageOne;
@@ -824,7 +881,7 @@ public class serviceManagerController extends SceneController {
         }
     }
 
-    public class ss extends RecursiveTreeObject<ss> {
+    public class ss extends RecursiveTreeObject<ss> implements service {
         edu.wpi.MochaManticores.Services.SanitationServices ref;
         StringProperty location;
         StringProperty safetyHazards;
@@ -921,84 +978,9 @@ public class serviceManagerController extends SceneController {
         }
     }
 
+    public interface service{
+
+    }
+
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//1000
