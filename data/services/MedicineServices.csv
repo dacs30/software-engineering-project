@@ -1,1 +1,3 @@
 REQUESTID,EMPID,COMPLETED,TYPEMEDICINE,CURRENTFEELING,ALLERGIES,PATIENTROOM,
+Med0,kushshah,false,Advil,Muscle pain,,none,
+Med1,Kush,false,Tylenol,Muscle pain,,None,
