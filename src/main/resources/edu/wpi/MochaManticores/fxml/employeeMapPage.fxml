@@ -8,6 +8,7 @@
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
@@ -407,6 +408,11 @@
                   <RowConstraints vgrow="ALWAYS" />
                </rowConstraints>
                <children>
+                  <ScrollPane fx:id="mapScrollPane" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </GridPane.margin>
+                  </ScrollPane>
                   <StackPane fx:id="mapStack" minHeight="0.0" minWidth="0.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <children>
                         <ImageView id="mapPane" fx:id="mapWindow" onMouseClicked="#drawCoord" pickOnBounds="true" preserveRatio="true" style="-fx-background-size: contain; -fx-background-repeat: no-repeat;" StackPane.alignment="TOP_LEFT">
@@ -417,7 +423,7 @@
                         <Pane fx:id="nodePane" StackPane.alignment="CENTER" />
                      </children>
                      <GridPane.margin>
-                        <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                      </GridPane.margin>
                   </StackPane>
                   <GridPane minHeight="-Infinity" prefHeight="126.0" prefWidth="913.0" GridPane.halignment="CENTER" GridPane.valignment="TOP">
@@ -522,6 +528,18 @@
                <VBox.margin>
                   <Insets />
                </VBox.margin>
+            </Group>
+            <Group fx:id="horizAlign">
+               <children>
+                  <Label text="Align Horizontal" />
+                  <Separator layoutY="17.0" prefWidth="200.0" style="-fx-background-color: GREY;" />
+               </children>
+            </Group>
+            <Group fx:id="vertAlign">
+               <children>
+                  <Label text="Align Vertical" />
+                  <Separator layoutY="17.0" prefWidth="200.0" style="-fx-background-color: GREY;" />
+               </children>
             </Group>
          </children>
       </VBox>

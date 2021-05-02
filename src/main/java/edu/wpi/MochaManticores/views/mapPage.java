@@ -32,12 +32,9 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import javafx.scene.layout.VBox;
 import javafx.geometry.Pos;
 import javafx.util.Duration;
 
@@ -224,6 +221,8 @@ public class mapPage extends SceneController{
         contentPane.maxHeightProperty().bind(App.getPrimaryStage().heightProperty());
         mapStack.maxWidthProperty().bind(App.getPrimaryStage().widthProperty());
         mapStack.maxHeightProperty().bind(App.getPrimaryStage().heightProperty());
+        //mapScrollPane.prefWidthProperty().bind(App.getPrimaryStage().widthProperty());
+        //GridPane.setHgrow(mapStack, Priority.ALWAYS);
 
         // event to drag the menu of the mapa around
         tabPane.setOnMouseDragged(event -> {
@@ -242,7 +241,7 @@ public class mapPage extends SceneController{
         tabPane.setOnMouseReleased(event -> {
 
             if (tabPane.getLayoutX() < App.getPrimaryStage().getWidth()/2){
-                ((GridPane)tabPane.getParent()).setHalignment(tabPane, HPos.LEFT);
+                GridPane.setHalignment(tabPane, HPos.LEFT);
                 Line line = new Line();
                 line.setStartX(event.getSceneX());
                 line.setStartY(event.getSceneY());
@@ -259,7 +258,7 @@ public class mapPage extends SceneController{
                 pathTransition.play();
 
             } else {
-                ((GridPane)tabPane.getParent()).setHalignment(tabPane, HPos.RIGHT);
+                GridPane.setHalignment(tabPane, HPos.RIGHT);
 
                 Line line = new Line();
                 line.setStartX(event.getSceneX());
@@ -328,8 +327,10 @@ public class mapPage extends SceneController{
         mapScrollPane.addEventFilter( MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
         mapScrollPane.addEventFilter( ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
 
-        mapWindow.fitWidthProperty().bind(mapStack.widthProperty());
-        mapWindow.fitHeightProperty().bind(mapStack.heightProperty());
+        //mapWindow.fitWidthProperty().bind(mapStack.widthProperty());
+        //mapWindow.fitHeightProperty().bind(mapStack.heightProperty());
+        mapWindow.fitWidthProperty().bind(mapScrollPane.widthProperty());
+        mapWindow.fitHeightProperty().bind(mapScrollPane.heightProperty());
         mapWindow.fitWidthProperty().addListener((obs, oldVal, newVal) -> {
             drawNodes();
         });
