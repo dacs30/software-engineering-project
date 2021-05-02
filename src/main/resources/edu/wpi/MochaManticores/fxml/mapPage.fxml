@@ -36,7 +36,7 @@
           <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="-Infinity" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints vgrow="ALWAYS" />
+          <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
         </rowConstraints>
          <children>
             <ScrollPane fx:id="mapScrollPane" prefHeight="200.0" prefWidth="200.0" />

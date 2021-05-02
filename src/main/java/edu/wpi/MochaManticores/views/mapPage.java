@@ -1,5 +1,7 @@
 package edu.wpi.MochaManticores.views;
 
+import com.gluonhq.charm.down.plugins.StatusBarService;
+import com.jfoenix.animation.alert.CenterTransition;
 import com.jfoenix.controls.*;
 import edu.wpi.MochaManticores.Algorithms.AStar2;
 import edu.wpi.MochaManticores.App;
@@ -7,20 +9,23 @@ import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.database.DatabaseManager;
+import javafx.animation.PathTransition;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
+import javafx.geometry.NodeOrientation;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TabPane;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.control.TextField;
 import javafx.scene.input.*;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.*;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
@@ -34,12 +39,14 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.layout.VBox;
 import javafx.geometry.Pos;
+import javafx.util.Duration;
 
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -205,7 +212,7 @@ public class mapPage extends SceneController{
     private AutoCompleteComboBoxListener autoCompleteComboBoxListener;
 
     public void completeSearch(){
-        
+
     }
 
 
@@ -218,6 +225,7 @@ public class mapPage extends SceneController{
         mapStack.maxWidthProperty().bind(App.getPrimaryStage().widthProperty());
         mapStack.maxHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
+        // event to drag the menu of the mapa around
         tabPane.setOnMouseDragged(event -> {
 
             tabPane.setManaged(false);
@@ -235,8 +243,44 @@ public class mapPage extends SceneController{
 
             if (tabPane.getLayoutX() < App.getPrimaryStage().getWidth()/2){
                 ((GridPane)tabPane.getParent()).setHalignment(tabPane, HPos.LEFT);
+                Line line = new Line();
+                line.setStartX(event.getSceneX());
+                line.setStartY(event.getSceneY());
+                line.setEndX(tabPane.getWidth()/2);
+                line.setEndY(event.getSceneY());
+
+                PathTransition pathTransition = new PathTransition();
+                pathTransition.setDuration(Duration.seconds(0.5));
+                pathTransition.setNode(tabPane);
+                pathTransition.setPath(line);
+
+                pathTransition.setCycleCount(1);
+
+                pathTransition.play();
+
             } else {
                 ((GridPane)tabPane.getParent()).setHalignment(tabPane, HPos.RIGHT);
+
+                Line line = new Line();
+                line.setStartX(event.getSceneX());
+                line.setStartY(event.getSceneY());
+                line.setEndX(tabPane.getBoundsInLocal().getMaxX() - tabPane.getWidth()/2);
+                line.setEndY(event.getSceneY());
+
+                Path path = new Path();
+
+                // setted to -event because I don't know
+                path.getElements().add(new MoveTo(-event.getX(), event.getSceneY()));
+                path.getElements().add(new LineTo(tabPane.getBoundsInLocal().getMaxX() - tabPane.getWidth()/2, event.getSceneY()));
+
+                PathTransition pathTransition = new PathTransition();
+                pathTransition.setDuration(Duration.seconds(0.5));
+                pathTransition.setNode(tabPane);
+                pathTransition.setPath(path);
+
+                pathTransition.setCycleCount(1);
+
+                pathTransition.play();
             }
             tabPane.setManaged(true);
             updateDeltas = true;
