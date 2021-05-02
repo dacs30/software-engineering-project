@@ -1,2 +1,4 @@
 REQUESTID,EMPID,COMPLETED,TYPEMEDICINE,CURRENTFEELING,ALLERGIES,PATIENTROOM,
 Med0,,false,Tylenol,Muscle pain,,hi,teast,
+Med1,,false,Advil,Muscle pain,,test,server,
+Med2,,false,Advil,Headache,,server,test,

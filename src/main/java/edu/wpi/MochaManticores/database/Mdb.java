@@ -4,7 +4,7 @@ package edu.wpi.MochaManticores.database;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Services.FloralDelivery;
 import edu.wpi.MochaManticores.Services.SanitationServices;
-import org.apache.derby.drda.NetworkServerControl;
+import org.apache.derby.drda.*;
 
 import javax.xml.crypto.Data;
 import java.io.FileNotFoundException;
@@ -417,6 +417,7 @@ public class Mdb extends Thread{
     function serverStartup()
     starts Mdatabase with a server connection
      */
+    // TODO update method for all connected databases using an observer model
     public void serverStartup() {
         System.out.println("-------Server-Client Apache Derby Connection--------");
         try {
