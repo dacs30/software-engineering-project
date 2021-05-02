@@ -10,6 +10,7 @@ import edu.wpi.MochaManticores.database.DatabaseManager;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
+import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.control.ScrollPane;
@@ -200,6 +201,12 @@ public class mapPage extends SceneController{
     private double dX;
     private double dY;
     private boolean updateDeltas = true;
+
+    private AutoCompleteComboBoxListener autoCompleteComboBoxListener;
+
+    public void completeSearch(){
+        
+    }
 
 
     public void initialize() {
