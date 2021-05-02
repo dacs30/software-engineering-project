@@ -10,6 +10,8 @@ import edu.wpi.MochaManticores.database.DatabaseManager;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.control.TextField;
@@ -195,6 +197,9 @@ public class mapPage extends SceneController{
     private final DoubleProperty zoomProperty = new SimpleDoubleProperty(1.0d);
     private final DoubleProperty deltaY = new SimpleDoubleProperty(0.0d);
 
+    private double dX;
+    private double dY;
+    private boolean updateDeltas = true;
 
 
     public void initialize() {
@@ -207,22 +212,28 @@ public class mapPage extends SceneController{
         mapStack.maxHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
         tabPane.setOnMouseDragged(event -> {
+
             tabPane.setManaged(false);
 
-            System.out.println(event.getSceneX());
-
-            if(event.getSceneX() > (contentPane.getWidth()*0.2) && event.getSceneX() < (contentPane.getWidth()*0.5)){
-                System.out.println(getWidth());
-                tabPane.setTranslateX(getWidth() * 0.9);
-                tabPane.setTranslateY(event.getY() + tabPane.getTranslateY() - 10  );
-            } else if (event.getSceneX() < (contentPane.getWidth()*0.8) && event.getSceneX() > (contentPane.getWidth()*0.5)) {
-                tabPane.setTranslateX(getWidth() * 0.1);
-                tabPane.setTranslateY(event.getY() + tabPane.getTranslateY() - 10  );
-            } else {
-                tabPane.setTranslateX(event.getX() + tabPane.getTranslateX() - tabPane.getWidth()/2);
-                tabPane.setTranslateY(event.getY() + tabPane.getTranslateY() - 10  );
-                event.consume();
+            if (updateDeltas){
+                dX = (event.getSceneX() - tabPane.getLayoutX());
+                dY = (event.getSceneY() - tabPane.getLayoutY());
+                updateDeltas = false;
             }
+
+            tabPane.relocate(event.getSceneX() - dX, event.getSceneY() - dY);
+
+        });
+        tabPane.setOnMouseReleased(event -> {
+
+            if (tabPane.getLayoutX() < App.getPrimaryStage().getWidth()/2){
+                ((GridPane)tabPane.getParent()).setHalignment(tabPane, HPos.LEFT);
+            } else {
+                ((GridPane)tabPane.getParent()).setHalignment(tabPane, HPos.RIGHT);
+            }
+            tabPane.setManaged(true);
+            updateDeltas = true;
+
         });
 
 
