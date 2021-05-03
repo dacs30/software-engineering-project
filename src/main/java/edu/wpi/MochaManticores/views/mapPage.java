@@ -13,11 +13,15 @@ import io.opencensus.trace.Link;
 import javafx.animation.PathTransition;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.geometry.NodeOrientation;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
+import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TabPane;
@@ -47,6 +51,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.geometry.Pos;
 import javafx.util.Duration;
+import javafx.util.Pair;
 
 import java.io.File;
 import java.io.IOException;
@@ -225,6 +230,33 @@ public class mapPage extends SceneController{
     private boolean updateDeltas = true;
     private boolean dragged = false;
 
+    private void createFilterListener(JFXComboBox comboBox) {
+
+        // Create the listener to filter the list as user enters search terms
+        FilteredList<String> filteredList = new FilteredList<>(comboBox.getItems());
+
+        // Add listener to our ComboBox textfield to filter the list
+        comboBox.getEditor().textProperty().addListener((observable, oldValue, newValue) ->
+                filteredList.setPredicate(item -> {
+
+                    // If the TextField is empty, return all items in the original list
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+
+                    // Check if the search term is contained anywhere in our list
+                    if (item.toLowerCase().contains(newValue.toLowerCase().trim())) {
+                        return true;
+                    }
+
+                    // No matches found
+                    return false;
+                }));
+
+        // Finally, let's add the filtered list to our ComboBox
+        comboBox.setItems(filteredList);
+
+    }
 
     public void initialize() {
         double height = super.getHeight();
@@ -333,13 +365,18 @@ public class mapPage extends SceneController{
         zoomProperty.bind(panAndZoomPane.myScale);
         deltaY.bind(panAndZoomPane.deltaY);
         panAndZoomPane.getChildren().add(mapStack);
-        AutoCompleteComboBoxListener fromListener = new AutoCompleteComboBoxListener(fromLocation);
+        //AutoCompleteComboBoxListener fromListener = new AutoCompleteComboBoxListener(fromLocation);
+//
+        //AutoCompleteComboBoxListener toListener = new AutoCompleteComboBoxListener(toLocation);
 
-        AutoCompleteComboBoxListener toListener = new AutoCompleteComboBoxListener(toLocation);
-
-
-        fromListener.toString();
-        toListener.toString();
+        fromLocation.setEditable(true);
+        //fromLocation.setOnKeyTyped(new AutoCompleteComboBoxListener<>(fromLocation));
+        ObservableList<String> items = FXCollections.observableArrayList();
+        DatabaseManager.getElementIDs().forEach(s -> {
+            items.add(s.toString());
+        });
+        fromLocation.setItems(items);
+        createFilterListener(fromLocation);
 
         SceneGestures sceneGestures = new SceneGestures(panAndZoomPane);
 
@@ -416,11 +453,6 @@ public class mapPage extends SceneController{
         });
 
 
-    }
-
-    public void clickedElement(node n){
-
-        pitStops.add(n);
     }
 
     private String getNodeType(){
