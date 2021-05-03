@@ -1,4 +1,2 @@
 REQUESTID,EMPID,COMPLETED,TYPEMEDICINE,CURRENTFEELING,ALLERGIES,PATIENTROOM,
 Med0,kushshah,false,Advil,Muscle pain,,none,
-Med1,Peter,false,Tylenol,Muscle pain,Other pain,,carrots,Au Bon Pain,
-Med2,,false,Tylenol,Muscle pain,,Carrots,Test Room,
