@@ -9,6 +9,7 @@ import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.database.DatabaseManager;
+import io.opencensus.trace.Link;
 import javafx.animation.PathTransition;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -17,6 +18,7 @@ import javafx.geometry.NodeOrientation;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
+import javafx.scene.Group;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TabPane;
 import javafx.scene.input.ScrollEvent;
@@ -51,9 +53,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.*;
 
 public class mapPage extends SceneController{
 
@@ -195,6 +195,15 @@ public class mapPage extends SceneController{
     @FXML
     private JFXComboBox nearestLocationSelector;
 
+    @FXML
+    private ScrollPane textFieldScrollPane;
+
+    @FXML
+    private VBox textFieldGroup;
+
+    @FXML
+    private HBox addField;
+
     private final String location = "edu/wpi/MochaManticores/images/";
 
     private String selectedFloor = "";
@@ -214,7 +223,7 @@ public class mapPage extends SceneController{
     private double dX;
     private double dY;
     private boolean updateDeltas = true;
-
+    private boolean dragged = false;
 
 
     public void initialize() {
@@ -240,53 +249,56 @@ public class mapPage extends SceneController{
             }
 
             tabPane.relocate(event.getSceneX() - dX, event.getSceneY() - dY);
+            dragged = true;
 
         });
         tabPane.setOnMouseReleased(event -> {
+            if (dragged) {
+                if (tabPane.getLayoutX() < App.getPrimaryStage().getWidth() / 2) {
+                    GridPane.setHalignment(tabPane, HPos.LEFT);
+                    Line line = new Line();
+                    line.setStartX(event.getSceneX());
+                    line.setStartY(event.getSceneY());
+                    line.setEndX(tabPane.getWidth() / 2);
+                    line.setEndY(event.getSceneY());
 
-            if (tabPane.getLayoutX() < App.getPrimaryStage().getWidth()/2){
-                GridPane.setHalignment(tabPane, HPos.LEFT);
-                Line line = new Line();
-                line.setStartX(event.getSceneX());
-                line.setStartY(event.getSceneY());
-                line.setEndX(tabPane.getWidth()/2);
-                line.setEndY(event.getSceneY());
+                    PathTransition pathTransition = new PathTransition();
+                    pathTransition.setDuration(Duration.seconds(0.5));
+                    pathTransition.setNode(tabPane);
+                    pathTransition.setPath(line);
 
-                PathTransition pathTransition = new PathTransition();
-                pathTransition.setDuration(Duration.seconds(0.5));
-                pathTransition.setNode(tabPane);
-                pathTransition.setPath(line);
+                    pathTransition.setCycleCount(1);
 
-                pathTransition.setCycleCount(1);
+                    pathTransition.play();
 
-                pathTransition.play();
+                } else {
+                    GridPane.setHalignment(tabPane, HPos.RIGHT);
 
-            } else {
-                GridPane.setHalignment(tabPane, HPos.RIGHT);
+                    Line line = new Line();
+                    line.setStartX(event.getSceneX());
+                    line.setStartY(event.getSceneY());
+                    line.setEndX(tabPane.getBoundsInLocal().getMaxX() - tabPane.getWidth() / 2);
+                    line.setEndY(event.getSceneY());
 
-                Line line = new Line();
-                line.setStartX(event.getSceneX());
-                line.setStartY(event.getSceneY());
-                line.setEndX(tabPane.getBoundsInLocal().getMaxX() - tabPane.getWidth()/2);
-                line.setEndY(event.getSceneY());
+                    Path path = new Path();
 
-                Path path = new Path();
+                    // setted to -event because I don't know
+                    path.getElements().add(new MoveTo(-event.getX(), event.getSceneY()));
+                    path.getElements().add(new LineTo(tabPane.getBoundsInLocal().getMaxX() - tabPane.getWidth() / 2, event.getSceneY()));
 
-                // setted to -event because I don't know
-                path.getElements().add(new MoveTo(-event.getX(), event.getSceneY()));
-                path.getElements().add(new LineTo(tabPane.getBoundsInLocal().getMaxX() - tabPane.getWidth()/2, event.getSceneY()));
+                    PathTransition pathTransition = new PathTransition();
+                    pathTransition.setDuration(Duration.seconds(0.5));
+                    pathTransition.setNode(tabPane);
+                    pathTransition.setPath(path);
 
-                PathTransition pathTransition = new PathTransition();
-                pathTransition.setDuration(Duration.seconds(0.5));
-                pathTransition.setNode(tabPane);
-                pathTransition.setPath(path);
+                    pathTransition.setCycleCount(1);
 
-                pathTransition.setCycleCount(1);
-
-                pathTransition.play();
+                    pathTransition.play();
+                }
+                tabPane.setManaged(true);
+                updateDeltas = true;
+                dragged = false;
             }
-            tabPane.setManaged(true);
-            updateDeltas = true;
 
         });
 
@@ -324,6 +336,7 @@ public class mapPage extends SceneController{
         AutoCompleteComboBoxListener fromListener = new AutoCompleteComboBoxListener(fromLocation);
 
         AutoCompleteComboBoxListener toListener = new AutoCompleteComboBoxListener(toLocation);
+
 
         fromListener.toString();
         toListener.toString();
@@ -391,10 +404,24 @@ public class mapPage extends SceneController{
         //Initializing the dialog pane
         dialogPane.toBack();
 
+        addField.setOnMouseClicked(event -> {
+            int ind = textFieldGroup.getChildren().indexOf(addField);
+            JFXComboBox toAdd = new JFXComboBox();
+            toAdd.promptTextProperty().set("Add Stop");
+            toAdd.setPrefWidth(275);
+            toAdd.maxWidthProperty().bind(toAdd.prefWidthProperty());
+            toAdd.minWidthProperty().bind(toAdd.prefWidthProperty());
+            AutoCompleteComboBoxListener listener = new AutoCompleteComboBoxListener(toAdd);
+            textFieldGroup.getChildren().add(ind, toAdd);
+        });
+
 
     }
 
+    public void clickedElement(node n){
 
+        pitStops.add(n);
+    }
 
     private String getNodeType(){
         String type = (String) nearestLocationSelector.getSelectionModel().getSelectedItem();

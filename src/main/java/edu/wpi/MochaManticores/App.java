@@ -99,9 +99,9 @@ public class App extends Application {
 
 
     App.primaryStage = primaryStage;
-    App.context = new GeoApiContext.Builder().apiKey("AIzaSyAMDVoCK3Gv78bS9Y9H98IbWeAHzPfqHAk").build();
+    //App.context = new GeoApiContext.Builder().apiKey("AIzaSyAMDVoCK3Gv78bS9Y9H98IbWeAHzPfqHAk").build();
 
-    GoogleMapsAPI api = new GoogleMapsAPI();
+    //GoogleMapsAPI api = new GoogleMapsAPI();
 
     try {
       Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("fxml/loadingPage.fxml")));

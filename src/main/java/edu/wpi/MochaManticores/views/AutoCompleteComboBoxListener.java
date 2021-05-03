@@ -69,7 +69,6 @@ public class AutoCompleteComboBoxListener<T> implements EventHandler<KeyEvent> {
                 || event.getCode() == KeyCode.END || event.getCode() == KeyCode.TAB) {
             return;
         }
-        DatabaseManager databaseManager = new DatabaseManager();
 
 
         ObservableList list = FXCollections.observableArrayList();
