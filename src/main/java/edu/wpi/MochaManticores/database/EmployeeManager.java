@@ -6,6 +6,7 @@ import edu.wpi.MochaManticores.Exceptions.InvalidPermissionsException;
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import java.io.*;
 import java.sql.*;
+import java.util.LinkedList;
 
 public class EmployeeManager extends Manager<Employee>{
     private static String Employee_csv_path = "data/bwMEmployees.csv";
@@ -50,7 +51,7 @@ public class EmployeeManager extends Manager<Employee>{
      */
     public void addElement(Employee employee){
         try{
-            String sql = "INSERT INTO EMPLOYEES (username, password, fisrtName, lastName, employeeType,ID, AdminLevel, covidStatus, parkingSpot) " +
+            String sql = "INSERT INTO EMPLOYEES (username, password, firstName, lastName, employeeType,ID, AdminLevel, covidStatus, parkingSpot) " +
                     "VALUES (?,?,?,?,?,?,?,?,?)";
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, employee.getUsername());
@@ -186,6 +187,21 @@ public class EmployeeManager extends Manager<Employee>{
         return emp;
     }
 
+    public LinkedList<String> getEmployeeNames() {
+        LinkedList<String> names = new LinkedList<>();
+        try {
+            String sql = "SELECT firstName, lastName FROM EMPLOYEES GROUP BY firstName, lastName";
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery(sql);
+            while (result.next()) {
+                String temp = result.getString(1) + " " + result.getString(2);
+                names.add(temp);
+            }
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+        return names;
+    }
     /*
     function: getCSV_path()
     getter for CSV_path
