@@ -32,8 +32,6 @@ public class App extends Application {
   private static PathPlanning algoType = new AStar2();
   private static String currentUsername;
 
-  public static Employee currentSessionUser = null;
-
   public static String getCurrentUsername() {
     return currentUsername;
   }
