@@ -47,8 +47,6 @@ public class TranslatorController extends SceneController{
         backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
         backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
-        dialogPane.setDisable(false);
-
     }
 
     public void cancelReq(ActionEvent actionEvent) {
