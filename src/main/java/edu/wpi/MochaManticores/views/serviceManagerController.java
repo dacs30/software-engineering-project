@@ -4,14 +4,18 @@ import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.MochaManticores.Services.*;
 import edu.wpi.MochaManticores.database.DatabaseManager;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import edu.wpi.MochaManticores.database.sel;
+import javafx.beans.property.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -26,27 +30,27 @@ public class serviceManagerController extends SceneController {
     public TableColumn<ss, String> equipmentNeededColumn;
     public TableColumn<ss, String> sanitationDescriptionColumn;
     public TableColumn<ss, String> sanitationEmployeeColumn;
-    public TableColumn<ss, String> sanitationCompletedColumn;
+    public TableColumn<ss, CheckBox> sanitationCompletedColumn;
 
     public TableView<tl> translatorTable;
     public TableColumn<tl, String> translateRoomColumn;
     public TableColumn<tl, String> languageOneColumn;
     public TableColumn<tl, String> languageTwoColumn;
     public TableColumn<tl, String> translateEmployeeColumn;
-    public TableColumn<tl, String> translateCompletedColumn
+    public TableColumn<tl, CheckBox> translateCompletedColumn
             ;
     public TableView<rr> religionTable;
     public TableColumn<rr, String> reasonVisitColumn;
     public TableColumn<rr, String> religionLocationColumn;
     public TableColumn<rr, String> typeSacredPersonColumn;
     public TableColumn<rr, String> religionEmployeeColumn;
-    public TableColumn<rr, String> religionCompletedColumn;
+    public TableColumn<rr, CheckBox> religionCompletedColumn;
 
     public TableView<fd> foodDeliveryTable;
     public TableColumn<fd, String> dietaryPrefColumn;
     public TableColumn<fd, String> FoodAllergiesColumn;
     public TableColumn<fd, String> FoodEmployeeColumn;
-    public TableColumn<fd, String> FoodCompletedColumn;
+    public TableColumn<fd, CheckBox> FoodCompletedColumn;
     public TableColumn<fd, String> menuOptionColumn;
 
     public TableView<et> externalTable;
@@ -55,7 +59,7 @@ public class serviceManagerController extends SceneController {
     public TableColumn<et, String> externalRoomColumn;
     public TableColumn<et, String> transportationMethodColumn;
     public TableColumn<et, String> ExternalEmployeeColumn;
-    public TableColumn<et, String> ExternalCompletedColumn;
+    public TableColumn<et, CheckBox> ExternalCompletedColumn;
 
     public TableView<md> medicineDeliveryTable;
     public TableColumn<md, String> typeMedicineColumn;
@@ -63,7 +67,16 @@ public class serviceManagerController extends SceneController {
     public TableColumn<md, String> MedicineAllergiesColumn;
     public TableColumn<md, String> MedicinePatientRoomColumn;
     public TableColumn<md, String> MedicineEmployeeColumn;
-    public TableColumn<md, String> MedicineCompletedColumn;
+    public TableColumn<md, CheckBox> MedicineCompletedColumn;
+
+    public TableView<it> internalTable;
+    public TableColumn<it, String> internalPatientIDTableColumn;
+    public TableColumn<it, String> internalNumStaffNeededTableColumn;
+    public TableColumn<it, String> internalDestinationTableColumn;
+    public TableColumn<it, String> internalTransportationMethodsTableColumn;
+    public TableColumn<it, String> internalEmployeeColumn;
+    public TableColumn<it, String> internalCompletedColumn;
+
 
     public JFXTabPane serviceTabPane;
 
@@ -74,6 +87,34 @@ public class serviceManagerController extends SceneController {
         religiousTableSetUp();
         translatorTableSetUp();
         sanitationTableSetUp();
+        //internalTableSetUp();
+    }
+
+    private void internalTableSetUp(){
+        internalPatientIDTableColumn = new TableColumn<it, String>("Patient");
+        internalPatientIDTableColumn.setMinWidth(100);
+        internalPatientIDTableColumn.setCellValueFactory(new PropertyValueFactory<it, String>("internalPatientIDTable"));
+
+        internalNumStaffNeededTableColumn = new TableColumn<it, String>("Number of Staff");
+        internalNumStaffNeededTableColumn.setMinWidth(100);
+        internalNumStaffNeededTableColumn.setCellValueFactory(new PropertyValueFactory<it, String>("internalNumStaffNeededTable"));
+
+        internalDestinationTableColumn = new TableColumn<it, String>("Destination");
+        internalDestinationTableColumn.setMinWidth(100);
+        internalDestinationTableColumn.setCellValueFactory(new PropertyValueFactory<it, String>("internalDestinationTable"));
+
+        internalTransportationMethodsTableColumn = new TableColumn<it, String>("Transportation Method");
+        internalTransportationMethodsTableColumn.setMinWidth(100);
+        internalTransportationMethodsTableColumn.setCellValueFactory(new PropertyValueFactory<it, String>("internalTransportationMethodsTable"));
+
+        internalEmployeeColumn = new TableColumn<it, String>("Employee");
+        internalEmployeeColumn.setMinWidth(100);
+        internalEmployeeColumn.setCellValueFactory(new PropertyValueFactory<it, String>("employee"));
+
+        internalCompletedColumn = new TableColumn<it, String>("Status");
+        internalCompletedColumn.setMinWidth(100);
+        internalCompletedColumn.setCellValueFactory(new PropertyValueFactory<it, String>("completed"));
+        buildInternal("");
     }
 
     private void medicineTableSetUp() {
@@ -97,9 +138,31 @@ public class serviceManagerController extends SceneController {
         MedicineEmployeeColumn.setMinWidth(100);
         MedicineEmployeeColumn.setCellValueFactory(new PropertyValueFactory<md, String>("employeeAssigned"));
 
-        MedicineCompletedColumn = new TableColumn<md, String>("Status");
+        MedicineCompletedColumn = new TableColumn<md, CheckBox>("Status");
         MedicineCompletedColumn.setMinWidth(100);
-        MedicineCompletedColumn.setCellValueFactory(new PropertyValueFactory<md, String>("completed"));
+//        MedicineCompletedColumn.setCellValueFactory(new PropertyValueFactory<md, String>("completed"));
+        MedicineCompletedColumn.setCellValueFactory(arg0 -> {
+            md user = arg0.getValue();
+
+            CheckBox checkBox = new CheckBox();
+
+            checkBox.selectedProperty().setValue(user.checkCompleted());
+
+
+
+            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+
+                setCompleteService(new_val, user);
+                //user.setCompleted(new_val);
+
+            });
+
+            return new SimpleObjectProperty<>(checkBox);
+
+        });
+
+//        MedicineCompletedColumn.setCellFactory(tc -> new CheckBoxTableCell<>());
+//        MedicineCompletedColumn.setOnEditStart(this::edit);
         buildMedicine("");
     }
 
@@ -134,9 +197,28 @@ public class serviceManagerController extends SceneController {
         //ExternalEmployeeColumn.setOnEditCommit(this::changeEmployee);
 
 
-        ExternalCompletedColumn = new TableColumn<et, String>("Completed");
+        ExternalCompletedColumn = new TableColumn<et, CheckBox>("Completed");
         ExternalCompletedColumn.setMinWidth(100);
-        ExternalCompletedColumn.setCellValueFactory(new PropertyValueFactory<et, String>("completed"));
+        //ExternalCompletedColumn.setCellValueFactory(new PropertyValueFactory<et, String>("completed"));
+        ExternalCompletedColumn.setCellValueFactory(arg0 -> {
+            et user = arg0.getValue();
+
+            CheckBox checkBox = new CheckBox();
+
+            checkBox.selectedProperty().setValue(user.checkCompleted());
+
+
+
+            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+
+                setCompleteService(new_val, user);
+                //user.setCompleted(new_val);
+
+            });
+
+            return new SimpleObjectProperty<>(checkBox);
+
+        });
         //ExternalCompletedColumn.setOnEditCommit(this::changeCompleted);
         buildExternal("");
     }
@@ -161,9 +243,28 @@ public class serviceManagerController extends SceneController {
         FoodEmployeeColumn.setMinWidth(100);
         FoodEmployeeColumn.setCellValueFactory(new PropertyValueFactory<fd, String>("employeeAssigned"));
 
-        FoodCompletedColumn = new TableColumn<fd, String>("Status");
+        FoodCompletedColumn = new TableColumn<fd, CheckBox>("Status");
         FoodCompletedColumn.setMinWidth(100);
-        FoodCompletedColumn.setCellValueFactory(new PropertyValueFactory<fd, String>("completed"));
+        //FoodCompletedColumn.setCellValueFactory(new PropertyValueFactory<fd, String>("completed"));
+        FoodCompletedColumn.setCellValueFactory(arg0 -> {
+            fd user = arg0.getValue();
+
+            CheckBox checkBox = new CheckBox();
+
+            checkBox.selectedProperty().setValue(user.checkCompleted());
+
+
+
+            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+
+                setCompleteService(new_val, user);
+                //user.setCompleted(new_val);
+
+            });
+
+            return new SimpleObjectProperty<>(checkBox);
+
+        });
         buildFood("");
     }
 
@@ -184,9 +285,30 @@ public class serviceManagerController extends SceneController {
         religionEmployeeColumn.setMinWidth(100);
         religionEmployeeColumn.setCellValueFactory(new PropertyValueFactory<rr, String>("employeeAssigned"));
 
-        religionCompletedColumn = new TableColumn<rr, String>("Completed");
+        religionCompletedColumn = new TableColumn<rr, CheckBox>("Completed");
         religionCompletedColumn.setMinWidth(100);
-        religionCompletedColumn.setCellValueFactory(new PropertyValueFactory<rr, String>("completed"));
+        //religionCompletedColumn.setCellValueFactory(new PropertyValueFactory<rr, String>("completed"));
+        religionCompletedColumn.setCellValueFactory(arg0 -> {
+            rr user = arg0.getValue();
+
+            CheckBox checkBox = new CheckBox();
+
+            checkBox.selectedProperty().setValue(user.checkCompleted());
+
+
+
+            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+
+                setCompleteService(new_val, user);
+                //user.setCompleted(new_val);
+
+            });
+
+            return new SimpleObjectProperty<>(checkBox);
+
+        });
+
+
         buildReligion("");
     }
 
@@ -207,9 +329,29 @@ public class serviceManagerController extends SceneController {
         translateEmployeeColumn.setMinWidth(100);
         translateEmployeeColumn.setCellValueFactory(new PropertyValueFactory<tl, String>("employeeAssigned"));
 
-        translateCompletedColumn = new TableColumn<tl, String>("Status");
+        translateCompletedColumn = new TableColumn<tl, CheckBox>("Status");
         translateCompletedColumn.setMinWidth(100);
-        translateCompletedColumn.setCellValueFactory(new PropertyValueFactory<tl, String>("completed"));
+       //translateCompletedColumn.setCellValueFactory(new PropertyValueFactory<tl, String>("completed"));
+        translateCompletedColumn.setCellValueFactory(arg0 -> {
+            tl user = arg0.getValue();
+
+            CheckBox checkBox = new CheckBox();
+
+            checkBox.selectedProperty().setValue(user.checkCompleted());
+
+
+
+            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+
+                setCompleteService(new_val, user);
+                //user.setCompleted(new_val);
+
+            });
+
+            return new SimpleObjectProperty<>(checkBox);
+
+        });
+
         buildTranslate("");
     }
 
@@ -239,10 +381,53 @@ public class serviceManagerController extends SceneController {
         sanitationEmployeeColumn.setMinWidth(100);
         sanitationEmployeeColumn.setCellValueFactory(new PropertyValueFactory<ss, String>("employeeAssigned"));
 
-        sanitationCompletedColumn = new TableColumn<ss, String>("Status");
+        sanitationCompletedColumn = new TableColumn<ss, CheckBox>("Status");
         sanitationCompletedColumn.setMinWidth(100);
-        sanitationCompletedColumn.setCellValueFactory(new PropertyValueFactory<ss, String>("completed"));
+        //sanitationCompletedColumn.setCellValueFactory(new PropertyValueFactory<ss, String>("completed"));
+        sanitationCompletedColumn.setCellValueFactory(arg0 -> {
+            ss user = arg0.getValue();
+
+            CheckBox checkBox = new CheckBox();
+
+            checkBox.selectedProperty().setValue(user.checkCompleted());
+
+
+
+            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+
+                setCompleteService(new_val, user);
+                //user.setCompleted(new_val);
+
+            });
+
+            return new SimpleObjectProperty<>(checkBox);
+
+        });
         buildSanitation("");
+    }
+
+    public ObservableList<it> buildInternal(String searchTerm){
+        ObservableList<it> tableRow = FXCollections.observableArrayList();
+        LinkedList<ServiceRequest> requests = DatabaseManager.getServiceMap().getServiceRequestsForType(ServiceRequestType.InternalTransportation);
+
+        for (ServiceRequest s : requests) {
+            it itToAdd = new it(s);
+            for (int i = 0; i < itToAdd.getFields().size(); i++) {
+                if (itToAdd.getFields().get(i).toLowerCase().equals(searchTerm) || searchTerm.equals("")) {
+                    tableRow.add(itToAdd);
+                    break;
+                }
+            }
+        }
+        internalTable.setItems(tableRow);
+        internalTable.getColumns().setAll(
+                internalPatientIDTableColumn,
+                internalNumStaffNeededTableColumn,
+                internalDestinationTableColumn,
+                internalTransportationMethodsTableColumn,
+                internalEmployeeColumn,
+                internalCompletedColumn);
+        return tableRow;
     }
 
     public ObservableList<ss> buildSanitation(String searchTerm) {
@@ -351,7 +536,7 @@ public class serviceManagerController extends SceneController {
         for (ServiceRequest s : requests) {
             et etToAdd = new et(s);
             for (int i = 0; i < etToAdd.getFields().size(); i++) {
-                if ((etToAdd.getFields().get(i).toLowerCase().equals(searchTerm) || searchTerm.equals(""))) {
+                if (etToAdd.getFields().get(i).toLowerCase().equals(searchTerm) || searchTerm.equals("")) {
                     tableRow.add(etToAdd);
                     break;
                 }
@@ -383,6 +568,7 @@ public class serviceManagerController extends SceneController {
             }
         }
         medicineDeliveryTable.setItems(tableRow);
+        medicineDeliveryTable.setEditable(true);
         medicineDeliveryTable.getColumns().setAll(
                 typeMedicineColumn,
                 currentFeelingColumn,
@@ -401,7 +587,9 @@ public class serviceManagerController extends SceneController {
     }
 
     public void completeService(ActionEvent e){
-        String tabName = serviceTabPane.getSelectionModel().selectedItemProperty().get().getText();
+        String tabName;
+        tabName = serviceTabPane.getSelectionModel().selectedItemProperty().get().getText();
+
         try{
             service selected;
             switch(tabName){
@@ -449,9 +637,67 @@ public class serviceManagerController extends SceneController {
                 default:
                     break;
             }
-        }catch(Exception ex){
-            ex.printStackTrace();
-        }
+        }catch(NullPointerException ignored){}
+    }
+
+    public void setCompleteService(boolean val, service selected){
+        String tabName;
+        tabName = serviceTabPane.getSelectionModel().selectedItemProperty().get().getText();
+
+        try{
+            //service selected;
+            switch(tabName){
+                case "Medicine Delivery":
+                    //selected = medicineDeliveryTable.getSelectionModel().getSelectedItem();
+                    ((md) selected).setCompleted(val);
+                    ((md) selected).getRef().setCompleted(val);
+                    DatabaseManager.modRequest(sel.Medicine, ((md) selected).getRef().getRequestID(), ((md) selected).getRef());
+                    buildMedicine("");
+                    break;
+                case "External Transport":
+                    //selected = externalTable.getSelectionModel().getSelectedItem();
+                    ((et) selected).setCompleted(val);
+                    ((et) selected).getRef().setCompleted(val);
+                    DatabaseManager.modRequest(sel.ExternalTransportation, ((et) selected).getRef().getRequestID(), ((et) selected).getRef());
+                    buildExternal("");
+                    break;
+                case "Food Delivery":
+                    //selected = foodDeliveryTable.getSelectionModel().getSelectedItem();
+                    ((fd) selected).setCompleted(val);
+                    ((fd) selected).getRef().setCompleted(val);
+                    DatabaseManager.modRequest(sel.FoodDelivery, ((fd) selected).getRef().getRequestID(), ((fd) selected).getRef());
+                    buildFood("");
+                    break;
+                case "Sanitation":
+                    //selected = sanitationTable.getSelectionModel().getSelectedItem();
+                    ((ss) selected).setCompleted(val);
+                    ((ss) selected).getRef().setCompleted(val);
+                    DatabaseManager.modRequest(sel.SanitationServices, ((ss) selected).getRef().getRequestID(), ((ss) selected).getRef());
+                    buildSanitation("");
+                    break;
+                case "Religious":
+                    //selected = religionTable.getSelectionModel().getSelectedItem();
+                    ((rr) selected).setCompleted(val);
+                    ((rr) selected).getRef().setCompleted(val);
+                    DatabaseManager.modRequest(sel.ReligiousRequest, ((rr) selected).getRef().getRequestID(), ((rr) selected).getRef());
+                    buildReligion("");
+                    break;
+                case "Translator":
+                    //selected = translatorTable.getSelectionModel().getSelectedItem();
+                    ((tl) selected).setCompleted(val);
+                    ((tl) selected).getRef().setCompleted(val);
+                    DatabaseManager.modRequest(sel.LanguageInterperter, ((tl) selected).getRef().getRequestID(), ((tl) selected).getRef());
+                    buildTranslate("");
+                case "COVID Survey":
+                    //TODO: add to DB
+                    break;
+                case "Internal Transport":
+                    //TODO: fix table issue
+                    break;
+                default:
+                    break;
+            }
+        }catch(NullPointerException ignored){}
     }
 
     public class md extends RecursiveTreeObject<md> implements service {
@@ -497,6 +743,9 @@ public class serviceManagerController extends SceneController {
             } else {
                 return "Open";
             }
+        }
+        public boolean checkCompleted(){
+            return completed;
         }
 
         public MedicineRequest getRef() {
@@ -550,7 +799,9 @@ public class serviceManagerController extends SceneController {
         StringProperty employeeAssigned;
         boolean completed;
         LinkedList<String> fields;
-
+        public boolean checkCompleted(){
+            return completed;
+        }
         public et(edu.wpi.MochaManticores.Services.ServiceRequest ref) {
             this.ref = (edu.wpi.MochaManticores.Services.ExternalTransportation) ref;
             patientRoom = new SimpleStringProperty(this.ref.getPatientRoom());
@@ -677,7 +928,9 @@ public class serviceManagerController extends SceneController {
         StringProperty employeeAssigned;
         boolean completed;
         LinkedList<String> fields;
-
+        public boolean checkCompleted(){
+            return completed;
+        }
         public fd(edu.wpi.MochaManticores.Services.ServiceRequest ref) {
             this.ref = (edu.wpi.MochaManticores.Services.FoodDelivery) ref;
             dp = new SimpleStringProperty(this.ref.getDietaryPreference());
@@ -738,7 +991,9 @@ public class serviceManagerController extends SceneController {
         StringProperty employeeAssigned;
         boolean completed;
         LinkedList<String> fields;
-
+        public boolean checkCompleted(){
+            return completed;
+        }
         public rr(edu.wpi.MochaManticores.Services.ServiceRequest ref) {
             this.ref = (edu.wpi.MochaManticores.Services.ReligiousRequest) ref;
             reasonVisit = new SimpleStringProperty(this.ref.getReasonVisit());
@@ -813,7 +1068,9 @@ public class serviceManagerController extends SceneController {
         StringProperty employeeAssigned;
         boolean completed;
         LinkedList<String> fields;
-
+        public boolean checkCompleted(){
+            return completed;
+        }
         public tl(edu.wpi.MochaManticores.Services.ServiceRequest ref) {
             this.ref = (edu.wpi.MochaManticores.Services.LanguageInterpreterRequest) ref;
             room = new SimpleStringProperty(this.ref.getRoom());
@@ -891,7 +1148,9 @@ public class serviceManagerController extends SceneController {
         StringProperty employeeAssigned;
         boolean completed;
         LinkedList<String> fields;
-
+        public boolean checkCompleted(){
+            return completed;
+        }
         public ss(edu.wpi.MochaManticores.Services.ServiceRequest ref) {
             this.ref = (edu.wpi.MochaManticores.Services.SanitationServices) ref;
             location = new SimpleStringProperty(this.ref.getLocation());
@@ -975,6 +1234,106 @@ public class serviceManagerController extends SceneController {
 
         public LinkedList<String> getFields() {
             return fields;
+        }
+    }
+
+    public class it extends RecursiveTreeObject<it> implements service{
+
+        edu.wpi.MochaManticores.Services.InternalTransportation ref;
+        StringProperty patientIDTable;
+        IntegerProperty numStaffNeededTable;
+        StringProperty destinationTable;
+        StringProperty transportationMethodsTable;
+        StringProperty employee;
+        boolean completed;
+        LinkedList<String> fields;
+        public boolean checkCompleted(){
+            return completed;
+        }
+        public void setCompleted(boolean completed) {
+            this.completed = completed;
+        }
+
+        public String getPatientIDTable() {
+            return patientIDTable.get();
+        }
+
+        public StringProperty patientIDTableProperty() {
+            return patientIDTable;
+        }
+
+        public int getNumStaffNeededTable() {
+            return numStaffNeededTable.get();
+        }
+
+        public IntegerProperty numStaffNeededTableProperty() {
+            return numStaffNeededTable;
+        }
+
+        public String getDestinationTable() {
+            return destinationTable.get();
+        }
+
+        public StringProperty destinationTableProperty() {
+            return destinationTable;
+        }
+
+        public String getTransportationMethodsTable() {
+            return transportationMethodsTable.get();
+        }
+
+        public StringProperty transportationMethodsTableProperty() {
+            return transportationMethodsTable;
+        }
+
+        public String getEmployee() {
+            return employee.get();
+        }
+
+        public StringProperty employeeProperty() {
+            return employee;
+        }
+
+        public String isCompleted() {
+            if (completed) {
+                return "Completed";
+            } else {
+                return "Open";
+            }
+        }
+
+        public it(edu.wpi.MochaManticores.Services.ServiceRequest ref){
+            this.ref = (edu.wpi.MochaManticores.Services.InternalTransportation) ref;
+            patientIDTable = new SimpleStringProperty(this.ref.getPatientID());
+            numStaffNeededTable = new SimpleIntegerProperty(this.ref.getNumStaffNeeded());
+            destinationTable = new SimpleStringProperty(this.ref.getDestination());
+            transportationMethodsTable = new SimpleStringProperty(this.ref.getTransportationMethod());
+            fields = new LinkedList<>(Arrays.asList(patientIDTable.get(), Integer.toString(numStaffNeededTable.get()),
+                    destinationTable.get(),transportationMethodsTable.get()));
+        }
+
+        public LinkedList<String> getFields() {
+            return fields;
+        }
+
+        public String getTransportationMethod(){
+            return transportationMethodsTable.get();
+        }
+
+        public edu.wpi.MochaManticores.Services.InternalTransportation getRef() {
+            return ref;
+        }
+
+        public String getPatientID(){
+            return patientIDTable.get();
+        }
+
+        public int getNumStaffNeeded(){
+            return numStaffNeededTable.get();
+        }
+
+        public String getDestination(){
+            return destinationTable.get();
         }
     }
 

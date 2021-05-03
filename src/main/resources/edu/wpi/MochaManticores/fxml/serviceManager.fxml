@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDialog?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import javafx.geometry.Insets?>
@@ -57,10 +56,7 @@
                         <Insets right="75.0" />
                      </GridPane.margin>
                   </ImageView>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0" GridPane.rowIndex="2">
-                     <children>
-                        <JFXButton id="submitBtn" onAction="#completeService" text="Complete" />
-                     </children></HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0" GridPane.rowIndex="2" />
                   <JFXTabPane fx:id="serviceTabPane" GridPane.rowIndex="1">
                      <tabs>
                         <Tab text="Medicine Delivery">
@@ -130,7 +126,7 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <TableView fx:id="medicineDeliveryTable3" layoutY="7.0" prefHeight="449.0" prefWidth="991.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <TableView fx:id="internalTable" layoutY="7.0" prefHeight="449.0" prefWidth="991.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                            </content>

@@ -128,23 +128,23 @@ public class InternalTransportationEmployee {
         }
 
         // Initializing the tables for the manager
-        patientIdColumn = new TableColumn<it, String>("Patient ID");
-        patientIdColumn.setPrefWidth(100);
-        patientIdColumn.setCellValueFactory(new PropertyValueFactory<it, String>("patientID"));
-
-        numStaffNeededColumn = new TableColumn<it, Integer>("Number of Staff Needed");
-        numStaffNeededColumn.setPrefWidth(100);
-        numStaffNeededColumn.setCellValueFactory(new PropertyValueFactory<it, Integer>("numStaffNeeded"));
-
-        destinationColumn = new TableColumn<it, String>("Destination Place");
-        destinationColumn.setPrefWidth(100);
-        destinationColumn.setCellValueFactory(new PropertyValueFactory<it, String>("transportationMethod"));
-
+//        patientIdColumn = new TableColumn<it, String>("Patient ID");
+//        patientIdColumn.setPrefWidth(100);
+//        patientIdColumn.setCellValueFactory(new PropertyValueFactory<it, String>("patientID"));
+//
+//        numStaffNeededColumn = new TableColumn<it, Integer>("Number of Staff Needed");
+//        numStaffNeededColumn.setPrefWidth(100);
+//        numStaffNeededColumn.setCellValueFactory(new PropertyValueFactory<it, Integer>("numStaffNeeded"));
+//
+//        destinationColumn = new TableColumn<it, String>("Destination Place");
+//        destinationColumn.setPrefWidth(100);
+//        destinationColumn.setCellValueFactory(new PropertyValueFactory<it, String>("transportationMethod"));
+//
         managerPage.setVisible(false);
         requestPage.setVisible(true);
         requestPage.toFront();
-
-        buildTable("");
+//
+//        buildTable("");
     }
 
     public void submitEvent(ActionEvent actionEvent) {
