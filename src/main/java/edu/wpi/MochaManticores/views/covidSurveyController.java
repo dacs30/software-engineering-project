@@ -44,6 +44,9 @@ public class covidSurveyController extends SceneController{
     private List<JFXCheckBox> covidContactAns;
 
     @FXML
+    private JFXComboBox<JFXCheckBox> symptoms;
+
+    @FXML
     private JFXCheckBox coughingBox;
     @FXML
     private JFXCheckBox fatigueBox;
@@ -93,6 +96,11 @@ public class covidSurveyController extends SceneController{
 
     @FXML
     private JFXButton submitBtn;
+    @FXML
+    private JFXButton yesBtn;
+    @FXML
+    private JFXButton noBtn;
+
 
     @FXML
     private void initialize() {
@@ -113,11 +121,21 @@ public class covidSurveyController extends SceneController{
         travelAns = Arrays.asList(yesTravelBox, noTravelBox);
         covidTestAns = Arrays.asList(yesCovidTestBox, noCovidTestBox);
 
+        symptoms.getItems().clear();
+        symptoms.getItems().addAll(coughingBox,fatigueBox,
+                headacheBox,congestionBox,
+                soreThroatBox,muscleAchesBox,
+                shortBreathBox,nauseaBox,
+                lossOfSmellTasteBox,palpitationsBox,feverChillsBox,diarrheaBox);
     }
 
     public void goBack(ActionEvent actionEvent) {
         back();
     }
+
+    public void yesEvent() { loadCOVIDPositiveDialog();}
+
+    public void noEvent() { loadNoDialog();}
 
     public void submitEvent(ActionEvent actionEvent) {
        /* if (!patientName.getText().isEmpty() && !dateOfBirthPicker.equals("")){
@@ -178,6 +196,76 @@ public class covidSurveyController extends SceneController{
 
             message.setActions(ok);
             dialog.show();
+    }
+    public void loadCOVIDPositiveDialog(){
+        dialogPane.toFront();
+        dialogPane.setDisable(false);
+        JFXDialogLayout message = new JFXDialogLayout();
+        message.setMaxHeight(Region.USE_PREF_SIZE);
+        message.setMaxHeight(Region.USE_PREF_SIZE);
+
+        final Text hearder = new Text("Your survey was submitted");
+        hearder.setStyle("-fx-font-weight: bold");
+        hearder.setStyle("-fx-font-size: 30");
+        hearder.setStyle("-fx-font-family: Roboto");
+        hearder.setStyle("-fx-alignment: center");
+        message.setHeading(hearder);
+
+        final Text body = new Text("When you plan to visit the hospital, please follow this path.");
+        body.setStyle("-fx-font-size: 15");
+        body.setStyle("-fx-font-family: Roboto");
+        body.setStyle("-fx-alignment: center");
+        message.setHeading(hearder);
+
+        message.setBody(body);
+        JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
+        JFXButton ok = new JFXButton("OK");
+        ok.setOnAction(event -> {
+            changeSceneTo("landingPage");
+        });
+
+        dialog.setOnDialogClosed(event -> {
+            dialogPane.toBack();
+            dialog.close();
+        });
+
+        message.setActions(ok);
+        dialog.show();
+    }
+    public void loadNoDialog(){
+        dialogPane.toFront();
+        dialogPane.setDisable(false);
+        JFXDialogLayout message = new JFXDialogLayout();
+        message.setMaxHeight(Region.USE_PREF_SIZE);
+        message.setMaxHeight(Region.USE_PREF_SIZE);
+
+        final Text hearder = new Text("Based off your answers");
+        hearder.setStyle("-fx-font-weight: bold");
+        hearder.setStyle("-fx-font-size: 30");
+        hearder.setStyle("-fx-font-family: Roboto");
+        hearder.setStyle("-fx-alignment: center");
+        message.setHeading(hearder);
+
+        final Text body = new Text("You may continue to fill out the rest of the survey.");
+        body.setStyle("-fx-font-size: 15");
+        body.setStyle("-fx-font-family: Roboto");
+        body.setStyle("-fx-alignment: center");
+        message.setHeading(hearder);
+
+        message.setBody(body);
+        JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
+        JFXButton ok = new JFXButton("OK");
+        ok.setOnAction(event -> {
+            changeSceneTo("landingPage");
+        });
+
+        dialog.setOnDialogClosed(event -> {
+            dialogPane.toBack();
+            dialog.close();
+        });
+
+        message.setActions(ok);
+        dialog.show();
     }
 
     public void setSingleSickAnswer(ActionEvent e){
