@@ -94,6 +94,8 @@ public class Mdb extends Thread{
                         " employeeType VARCHAR(21)," +
                         " ID INTEGER," +
                         " AdminLevel BOOLEAN," +
+                        " covidStatus BOOLEAN," +
+                        " parkingSpot VARCHAR (21)," +
                         " PRIMARY KEY (username))";
                 stmt.executeUpdate(sql);
                 DatabaseManager.getEmpManager().loadFromCSV();

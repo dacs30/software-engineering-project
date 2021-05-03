@@ -2,7 +2,7 @@ package edu.wpi.MochaManticores.database;
 
 public class Employee {
     //employee attributes
-    public enum employeeType {DEFAULT,JANITOR,DOCTOR,NURSE,FLORIST,CHEF,STAFF};
+    public enum employeeType {DEFAULT,JANITOR,DOCTOR,NURSE,FLORIST,CHEF,STAFF,PATIENT};
 
     private String username;
     private String password;
@@ -11,6 +11,8 @@ public class Employee {
     private employeeType type;
     private int ID;
     private boolean isAdmin;
+    private boolean covidStatus;
+    private String parkingSpace;
 
     public Employee () {}
 
@@ -33,6 +35,18 @@ public class Employee {
         this.type = getTypeFromString(type);
         this.ID = Integer.parseInt(ID);
         this.isAdmin = Boolean.parseBoolean(isAdmin);
+    }
+
+    public Employee(String username, String password, String firstName, String lastName, String type, String ID, String isAdmin, String covidStatus, String parkingSpace){
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.type = getTypeFromString(type);
+        this.ID = Integer.parseInt(ID);
+        this.isAdmin = Boolean.parseBoolean(isAdmin);
+        this.covidStatus = Boolean.parseBoolean(covidStatus);
+        this.parkingSpace = parkingSpace;
     }
 
     //GETTERS AND SETTERS
