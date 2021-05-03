@@ -73,7 +73,7 @@ public class SceneController{
         try {
             landingPageWindow.getChildren().clear();
         } catch (Exception e) {
-            //e.printStackTrace();
+            e.printStackTrace();
         }
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/" + scene + ".fxml")));
         landingPageWindow.getChildren().add(root);

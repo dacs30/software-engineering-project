@@ -1,9 +1,12 @@
 package edu.wpi.MochaManticores.messaging;
 
 public class Message {
+    enum msgType {DATAGRAB,UPDATE,MSGPOST};
+
     public String sender;
     public String target;
     public String body;
+    public enum
     private String delim = "[|]+";
 
     public Message(String sender, String target, String body){
@@ -21,6 +24,6 @@ public class Message {
     }
 
     public String toWriteFormat(){
-        return sender +"|"+target+"|"+body;
+        return sender +"|"+target+"|"+TYPE+"|"+body;
     }
 }
