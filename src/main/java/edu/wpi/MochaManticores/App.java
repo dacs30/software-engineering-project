@@ -14,6 +14,7 @@ import edu.wpi.MochaManticores.database.EmployeeManager;
 import edu.wpi.MochaManticores.database.Mdb;
 import edu.wpi.MochaManticores.database.NodeManager;
 import edu.wpi.MochaManticores.database.*;
+import edu.wpi.MochaManticores.messaging.messageClient;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -32,6 +33,7 @@ public class App extends Application {
   private static EmployeeManager employeeManager;
   private static PathPlanning algoType = new AStar2();
   private static String currentUsername;
+  private static messageClient messageclient = new messageClient();
 
 
   public static String getCurrentUsername() {

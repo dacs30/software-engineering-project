@@ -102,7 +102,7 @@ public class messageClient extends Application {
 
 
 
-    public static void main(String[] args){
+    public static void main(){
         // on startup check if there is an existing host
         try {
             Socket temp = new Socket(connectionUtil.host, connectionUtil.port);
@@ -110,7 +110,7 @@ public class messageClient extends Application {
             // no server, start server
             startServer();
         }
-        launch(args);
+        launch();
     }
 
 
