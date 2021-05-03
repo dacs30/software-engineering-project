@@ -24,7 +24,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class App extends Application {
-
   private static Stage primaryStage;
   private static int clearenceLevel;
   private static NodeManager nodeManager;
@@ -33,6 +32,7 @@ public class App extends Application {
   private static PathPlanning algoType = new AStar2();
   private static String currentUsername;
 
+  public static Employee currentSessionUser = null;
 
   public static String getCurrentUsername() {
     return currentUsername;

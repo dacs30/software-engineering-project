@@ -75,7 +75,6 @@ public class LoginPage extends SceneController{
 
     }
 
-
     public void loadEmergencyDialog(){
         JFXDialogLayout message = new JFXDialogLayout();
         message.setMaxHeight(Region.USE_PREF_SIZE);
