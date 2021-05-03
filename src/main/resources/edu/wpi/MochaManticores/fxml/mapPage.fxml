@@ -20,11 +20,11 @@
           <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="-Infinity" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints vgrow="ALWAYS" />
+          <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
         </rowConstraints>
          <children>
-            <ScrollPane fx:id="mapScrollPane" prefHeight="200.0" prefWidth="200.0" />
-            <StackPane fx:id="mapStack" minHeight="0.0" minWidth="0.0">
+            <ScrollPane fx:id="mapScrollPane" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
+            <StackPane fx:id="mapStack" minHeight="0.0" minWidth="0.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                <children>
                   <ImageView id="mapPane" fx:id="mapWindow" onMouseClicked="#drawCoord" pickOnBounds="true" preserveRatio="true" style="-fx-background-size: contain; -fx-background-repeat: no-repeat;" StackPane.alignment="CENTER">
                      <viewport>
