@@ -10,33 +10,24 @@ import edu.wpi.MochaManticores.database.DatabaseManager;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
-import javafx.fxml.Initializable;
-import javafx.geometry.HPos;
-import javafx.geometry.VPos;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.input.ScrollEvent;
-import javafx.scene.control.TextField;
-import javafx.scene.input.*;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import javafx.scene.layout.VBox;
-import javafx.geometry.Pos;
 
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -171,10 +162,13 @@ public class mapPage extends SceneController{
     private JFXScrollPane scrollPane;
 
     @FXML
-    private JFXTextField fromLocation;
+    private JFXComboBox fromLocation;
 
     @FXML
-    private TextField testTextField;
+    private JFXComboBox toLocation;
+
+    @FXML
+    private JFXButton routeExample;
 
     @FXML
     private ScrollPane mapScrollPane;
@@ -202,11 +196,6 @@ public class mapPage extends SceneController{
     private double dY;
     private boolean updateDeltas = true;
 
-    private AutoCompleteComboBoxListener autoCompleteComboBoxListener;
-
-    public void completeSearch(){
-        
-    }
 
 
     public void initialize() {
@@ -217,6 +206,7 @@ public class mapPage extends SceneController{
         contentPane.maxHeightProperty().bind(App.getPrimaryStage().heightProperty());
         mapStack.maxWidthProperty().bind(App.getPrimaryStage().widthProperty());
         mapStack.maxHeightProperty().bind(App.getPrimaryStage().heightProperty());
+
 
         tabPane.setOnMouseDragged(event -> {
 
@@ -274,6 +264,12 @@ public class mapPage extends SceneController{
         zoomProperty.bind(panAndZoomPane.myScale);
         deltaY.bind(panAndZoomPane.deltaY);
         panAndZoomPane.getChildren().add(mapStack);
+        AutoCompleteComboBoxListener fromListener = new AutoCompleteComboBoxListener(fromLocation);
+
+        AutoCompleteComboBoxListener toListener = new AutoCompleteComboBoxListener(toLocation);
+
+        fromListener.toString();
+        toListener.toString();
 
         SceneGestures sceneGestures = new SceneGestures(panAndZoomPane);
 
@@ -361,7 +357,7 @@ public class mapPage extends SceneController{
     public void toAStar() {
         AStar2 star = new AStar2();
         //pathToTake is used in the dialog box that keeps all the nodes that the user has to pass through
-        StringBuilder pathToTake = new StringBuilder("");
+        StringBuilder pathToTake = new StringBuilder();
         LinkedList<NodeSuper> stops = new LinkedList<>();
         for (mapPage.node n :
                 pitStops) {
@@ -498,7 +494,7 @@ public class mapPage extends SceneController{
         savedRoute.clear();
         dirVBOX.getChildren().clear();
         //pathToTake is used in the dialog box that keeps all the nodes that the user has to pass through
-        StringBuilder pathToTake = new StringBuilder("");
+        StringBuilder pathToTake = new StringBuilder();
         LinkedList<NodeSuper> stops = new LinkedList<>();
         if (pitStops.size() != 1){
             super.loadErrorDialog(dialogPane, "Must select only one node");
@@ -522,7 +518,7 @@ public class mapPage extends SceneController{
             }
 
         }
-        //CONDITION NEEDS TO BE INPUT HERE
+
         System.out.println(path);
         Label startLabel = new Label();
         String startID = path.removeFirst();
@@ -639,7 +635,7 @@ public class mapPage extends SceneController{
         savedRoute.clear();
         dirVBOX.getChildren().clear();
         //pathToTake is used in the dialog box that keeps all the nodes that the user has to pass through
-        StringBuilder pathToTake = new StringBuilder("");
+        StringBuilder pathToTake = new StringBuilder();
         LinkedList<NodeSuper> stops = new LinkedList<>();
         for (node n :
                 pitStops) {

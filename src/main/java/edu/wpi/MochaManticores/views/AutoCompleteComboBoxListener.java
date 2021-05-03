@@ -1,31 +1,27 @@
         package edu.wpi.MochaManticores.views;
 
         import com.jfoenix.controls.JFXComboBox;
-        import com.jfoenix.controls.JFXTextField;
         import edu.wpi.MochaManticores.database.DatabaseManager;
         import javafx.collections.FXCollections;
         import javafx.collections.ObservableList;
         import javafx.event.EventHandler;
-        import javafx.scene.control.ComboBox;
         import javafx.scene.input.KeyCode;
         import javafx.scene.input.KeyEvent;
         import javafx.util.Pair;
 
-        import java.util.Collection;
         import java.util.LinkedList;
-        import java.util.List;
 
 public class AutoCompleteComboBoxListener<T> implements EventHandler<KeyEvent> {
 
-    private JFXComboBox<String> comboBox;
-    private StringBuilder sb;
-    private ObservableList<T> data;
-    private boolean moveCaretToPos = false;
-    private int caretPos;
+    private final JFXComboBox<String> comboBox;
+    private final StringBuilder stringBuilder;
+    private final ObservableList<T> data;
+    private boolean moveLetterToPos = false;
+    private int letterPosition;
 
     public AutoCompleteComboBoxListener(final JFXComboBox comboBox) {
         this.comboBox =  comboBox;
-        sb = new StringBuilder();
+        stringBuilder = new StringBuilder();
         data = comboBox.getItems();
 
         this.comboBox.setEditable(true);
@@ -33,7 +29,7 @@ public class AutoCompleteComboBoxListener<T> implements EventHandler<KeyEvent> {
 
              @Override
             public void handle(KeyEvent t) {
-                 comboBox.setVisible(false);
+                 comboBox.hide();
               }
              });
         this.comboBox.setOnKeyReleased(AutoCompleteComboBoxListener.this);
@@ -50,22 +46,22 @@ public class AutoCompleteComboBoxListener<T> implements EventHandler<KeyEvent> {
             comboBox.getEditor().setText("");
             return;
         } else if (event.getCode() == KeyCode.UP) {
-            caretPos = -1;
-            moveCaret(comboBox.getEditor().getText().length());
+            letterPosition = -1;
+            moveLetter(comboBox.getEditor().getText().length());
             return;
         } else if (event.getCode() == KeyCode.DOWN) {
             if (!comboBox.isShowing()) {
                 comboBox.show();
             }
-            caretPos = -1;
-            moveCaret(comboBox.getEditor().getText().length());
+            letterPosition = -1;
+            moveLetter(comboBox.getEditor().getText().length());
             return;
         } else if (event.getCode() == KeyCode.BACK_SPACE) {
-            moveCaretToPos = true;
-            caretPos = comboBox.getEditor().getCaretPosition();
+            moveLetterToPos = true;
+            letterPosition = comboBox.getEditor().getCaretPosition();
         } else if (event.getCode() == KeyCode.DELETE) {
-            moveCaretToPos = true;
-            caretPos = comboBox.getEditor().getCaretPosition();
+            moveLetterToPos = true;
+            letterPosition = comboBox.getEditor().getCaretPosition();
         }
 
         if (event.getCode() == KeyCode.RIGHT || event.getCode() == KeyCode.LEFT
@@ -85,22 +81,22 @@ public class AutoCompleteComboBoxListener<T> implements EventHandler<KeyEvent> {
 
         comboBox.setItems(list);
         comboBox.getEditor().setText(t);
-        if (!moveCaretToPos) {
-            caretPos = -1;
+        if (!moveLetterToPos) {
+            letterPosition = -1;
         }
-        moveCaret(t.length());
+        moveLetter(t.length());
         if (!list.isEmpty()) {
            comboBox.show();
         }
     }
 
-    private void moveCaret(int textLength) {
-        if (caretPos == -1) {
+    private void moveLetter(int textLength) {
+        if (letterPosition == -1) {
             comboBox.getEditor().positionCaret(textLength);
         } else {
-            comboBox.getEditor().positionCaret(caretPos);
+            comboBox.getEditor().positionCaret(letterPosition);
         }
-        moveCaretToPos = false;
+        moveLetterToPos = false;
     }
 
     public void setValue(String value) {
