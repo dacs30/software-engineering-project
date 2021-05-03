@@ -1,1 +1,4 @@
 REQUESTID,EMPID,COMPLETED,LOCATION,SAFETYHAZARDS,SANITATIONTYPE,EQUIPMENTNEEDED,DESCRIPTION,
+SanSrv0,,false,Au Bon,Vaccine Spill,Spill,maskNeeded,gloveNeeded,
+SanSrv1,,false,vaccine,vaccine,Spill,mopNeeded,,
+SanSrv2,,false,test location ,test hazards,Room Cleaning,mopNeeded,,very gross,
