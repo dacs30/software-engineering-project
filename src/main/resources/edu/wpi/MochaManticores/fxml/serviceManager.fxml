@@ -3,7 +3,9 @@
 <?import com.jfoenix.controls.JFXDialog?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.DropShadow?>
@@ -164,5 +166,36 @@
             </GridPane>
          </children>
       </StackPane>
+      <VBox fx:id="contextBox" maxHeight="-Infinity" maxWidth="-Infinity" spacing="10.0" style="-fx-background-color: WHITE; -fx-border-color: BLACK; -fx-border-width: 3;">
+         <children>
+            <Group fx:id="completeEntry">
+               <children>
+                  <Label text="Complete Entry" />
+                  <Separator layoutY="17.0" prefWidth="200.0" style="-fx-background-color: GREY;" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Group>
+            <Group fx:id="progressEntry">
+               <children>
+                  <Label text="In Progress" />
+                  <Separator layoutY="17.0" prefWidth="200.0" style="-fx-background-color: GREY;" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Group>
+            <Group fx:id="deleteEntry">
+               <children>
+                  <Label text="Delete Entry" />
+                  <Separator layoutY="17.0" prefWidth="200.0" style="-fx-background-color: GREY;" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Group>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
