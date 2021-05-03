@@ -34,7 +34,7 @@ public class EmployeeManager extends Manager<Employee>{
                 if(line == null) break;
                 String[] row = line.split(CSVdelim);
 
-                Employee employee = new Employee(row[0],row[1],row[2], row[3],row[4],row[5],row[6]);
+                Employee employee = new Employee(row[0],row[1],row[2], row[3],row[4],row[5],row[6], row[7], row[8]);
                 addElement(employee);
 
             }
@@ -50,8 +50,8 @@ public class EmployeeManager extends Manager<Employee>{
      */
     public void addElement(Employee employee){
         try{
-            String sql = "INSERT INTO EMPLOYEES (username, password, fisrtName, lastName, employeeType,ID, AdminLevel) " +
-                    "VALUES (?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO EMPLOYEES (username, password, fisrtName, lastName, employeeType,ID, AdminLevel, covidStatus, parkingSpot) " +
+                    "VALUES (?,?,?,?,?,?,?,?,?)";
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, employee.getUsername());
             pstmt.setString(2, employee.getPassword());
@@ -60,6 +60,8 @@ public class EmployeeManager extends Manager<Employee>{
             pstmt.setString(5, Employee.getStringFromType(employee.getType()));
             pstmt.setInt(6, employee.getID());
             pstmt.setBoolean(7, employee.isAdmin());
+            pstmt.setBoolean(8, employee.isCovidStatus());
+            pstmt.setString(9, employee.getParkingSpace());
             pstmt.executeUpdate();
 
         } catch (SQLException throwables) {
@@ -135,7 +137,7 @@ public class EmployeeManager extends Manager<Employee>{
             }
 
             Employee employee = new Employee(result.getString(1), result.getString(2), result.getString(3),
-                    result.getString(4), result.getString(5), result.getString(6), result.getString(7));
+                    result.getString(4), result.getString(5), result.getString(6), result.getString(7), result.getString(8), result.getString(9));
             return employee;
         }catch(SQLException e){
             e.printStackTrace();
@@ -150,6 +152,10 @@ public class EmployeeManager extends Manager<Employee>{
      */
     public Employee checkEmployeeLogin(String username,String password) throws InvalidLoginException, InvalidElementException {
         Employee emp = getElement(username);
+
+        if(emp.getPassword() == null | emp.getPassword().equals("")){
+            return emp;
+        }
 
         //TODO passwords are currently stored in plain text
         if(!emp.getPassword().equals(password)){

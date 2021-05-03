@@ -106,6 +106,21 @@ public class Employee {
         isAdmin = admin;
     }
 
+    public boolean isCovidStatus() {
+        return covidStatus;
+    }
+
+    public void setCovidStatus(boolean covidStatus) {
+        this.covidStatus = covidStatus;
+    }
+
+    public String getParkingSpace() {
+        return parkingSpace;
+    }
+
+    public void setParkingSpace(String parkingSpace) {
+        this.parkingSpace = parkingSpace;
+    }
 
     public static employeeType getTypeFromString(String type){
         employeeType empType;
@@ -127,6 +142,9 @@ public class Employee {
                 break;
             case "STAFF":
                 empType = employeeType.STAFF;
+                break;
+            case "PATIENT":
+                empType = employeeType.PATIENT;
                 break;
             default:
                 empType = employeeType.DEFAULT;
@@ -156,6 +174,9 @@ public class Employee {
                 break;
             case STAFF:
                 empType = "STAFF";
+                break;
+            case PATIENT:
+                empType = "PATIENT";
                 break;
             default:
                 empType = "DEFAULT";
