@@ -1,2 +1,4 @@
 REQUESTID,EMPID,COMPLETED,PATIENTID,NUMSTAFFNEEDED,DESTINATION,TRANSPORTATIONMETHOD,
 INTtrans0,,false,asdfwe,2,Au Bon Pain,Wheelchair,
+INTtrans1,,false,patient,3,destination,Walker,
+INTtrans2,,false,patient32,2,internalDest,Walker,

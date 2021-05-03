@@ -188,13 +188,7 @@ public class sanitationServiceController extends SceneController {
 
     @FXML
     private void submit(ActionEvent e) {
-        JFXCheckBox source = (JFXCheckBox) e.getSource();
         StringBuilder equipmentNeeded = new StringBuilder();
-        for(JFXCheckBox button : equipment) {
-             if(!button.equals(source)) {
-                 button.setSelected(false);
-             }
-            }
         if(maskNeeded.isSelected()) {
             equipmentNeeded.append("maskNeeded,");
         }
