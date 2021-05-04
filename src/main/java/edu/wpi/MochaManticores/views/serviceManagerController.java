@@ -104,8 +104,24 @@ public class serviceManagerController extends SceneController {
     public TableColumn<it, String> internalNumStaffNeededTableColumn;
     public TableColumn<it, String> internalDestinationTableColumn;
     public TableColumn<it, String> internalTransportationMethodsTableColumn;
-    public TableColumn<it, String> internalEmployeeColumn;
-    public TableColumn<it, String> internalCompletedColumn;
+    public TableColumn<it, JFXComboBox> internalEmployeeColumn;
+    public TableColumn<it, JFXButton> internalCompletedColumn;
+
+    public TableView<cs> covidTable;
+    public TableColumn<cs, String> nameColumn;
+    public TableColumn<cs, String> DOBColumn;
+    public TableColumn<cs, String> sickColumn;
+    public TableColumn<cs, String> vaxxColumn;
+    public TableColumn<cs, String> travelColumn;
+    public TableColumn<cs, String> testColumn;
+
+    public TableView<er> emergencyTable;
+    public TableColumn<er,String>EmergencyNumPeopleNeededColumn;
+    public TableColumn<er,String>EmergencyLocationColumn;
+    public TableColumn<er,String>EmergencyGurneyColumn;
+    public TableColumn<er, JFXComboBox> EmergencyEmployeeColumn;
+    public TableColumn<er, JFXButton> EmergencyCompletedColumn;
+
 
     private EventHandler<MouseEvent> showBox = new EventHandler<MouseEvent>() {
         @Override
@@ -145,6 +161,146 @@ public class serviceManagerController extends SceneController {
         translatorTableSetUp();
         sanitationTableSetUp();
         internalTableSetUp();
+        covidTableSetUp();
+        emergencyTableSetUp();
+    }
+
+    private void emergencyTableSetUp(){
+
+        EmergencyNumPeopleNeededColumn = new TableColumn<er, String>("Staff needed");
+        EmergencyNumPeopleNeededColumn.setMinWidth(100);
+        EmergencyNumPeopleNeededColumn.setCellValueFactory(new PropertyValueFactory<er, String>("numPeopleNeeded"));
+
+        EmergencyLocationColumn = new TableColumn<er, String>("Location");
+        EmergencyLocationColumn.setMinWidth(100);
+        EmergencyLocationColumn.setCellValueFactory(new PropertyValueFactory<er, String>("location"));
+
+        EmergencyGurneyColumn = new TableColumn<er, String>("Gurney");
+        EmergencyGurneyColumn.setMinWidth(100);
+        EmergencyGurneyColumn.setCellValueFactory(new PropertyValueFactory<er, String>("gurney"));
+
+        EmergencyEmployeeColumn = new TableColumn<er, JFXComboBox>("Assigned To");
+        EmergencyEmployeeColumn.setMinWidth(100);
+        EmergencyEmployeeColumn.setCellValueFactory(arg0 -> {
+
+            serviceStatus stat;
+
+            er user = arg0.getValue();
+
+            CheckBox checkBox = new CheckBox();
+            JFXButton state = new JFXButton();
+
+            emps.setValue(user.getEmployee());
+
+            emps.getSelectionModel().selectedItemProperty().addListener((ov, old_val, new_val) -> {
+                String newEmp = emps.getSelectionModel().getSelectedItem();
+                user.getRef().setEmployee(newEmp);
+                DatabaseManager.modRequest(sel.Medicine,user.getRef().getRequestID(),user.getRef());
+            });
+
+//            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+//
+//                setCompleteService(new_val, user);
+//                //user.setCompleted(new_val);
+//
+//            });
+
+
+            return new SimpleObjectProperty<JFXComboBox>(emps);
+
+
+        });
+
+        EmergencyCompletedColumn = new TableColumn<er, JFXButton>("Status");
+        EmergencyCompletedColumn.setMinWidth(100);
+        EmergencyCompletedColumn.setCellValueFactory(arg0 -> {
+
+            serviceStatus stat;
+
+            er user = arg0.getValue();
+
+            CheckBox checkBox = new CheckBox();
+            JFXButton state = new JFXButton();
+
+
+
+            if(user.getEmployee().equals("")){
+                stat = serviceStatus.UNASSIGNED;
+                state.setStyle("-fx-background-color: #FF0000;");
+            }
+            if(user.isCompleted()){
+                stat = serviceStatus.COMPLETED;
+                state.setStyle("-fx-background-color: #00FF00;");
+            }else{
+                stat = serviceStatus.PROGRESS;
+                state.setStyle("-fx-background-color: #0000FF;");
+            }
+            state.setText(stat.name());
+            completeEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    setCompleteService(true,user);
+                    contextBox.setVisible(false);
+                    contextBox.toBack();
+                    completeEntry.setVisible(false);
+                    progressEntry.setVisible(false);
+                    deleteEntry.setVisible(false);
+                    setCompleteService(true,user);
+                }
+            });
+
+            progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    setCompleteService(false,user);
+                    contextBox.setVisible(false);
+                    contextBox.toBack();
+                    completeEntry.setVisible(false);
+                    progressEntry.setVisible(false);
+                    deleteEntry.setVisible(false);
+                    setCompleteService(false,user);
+                }
+            });
+
+            deleteEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    DatabaseManager.delElement(sel.Medicine,user.getRef().getRequestID());
+                    buildEmergency("");
+                    contextBox.setVisible(false);
+                    contextBox.toBack();
+                    completeEntry.setVisible(false);
+                    progressEntry.setVisible(false);
+                    deleteEntry.setVisible(false);
+                }
+            });
+
+            checkBox.selectedProperty().setValue(user.isCompleted());
+            state.setOnMouseClicked(showBox);
+
+
+
+//            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+//
+//                setCompleteService(new_val, user);
+//                //user.setCompleted(new_val);
+//
+//            });
+
+            return new SimpleObjectProperty<JFXButton>(state);
+
+
+        });
+
+
+        /*
+       EmergencyNumPeopleNeededColumn
+EmergencyLocationColumn
+EmergencyGurneyColumn
+EmergencyEmployeeColumn
+EmergencyCompletedColumn
+         */
+        buildEmergency("");
     }
 
     private void internalTableSetUp(){
@@ -164,13 +320,118 @@ public class serviceManagerController extends SceneController {
         internalTransportationMethodsTableColumn.setMinWidth(100);
         internalTransportationMethodsTableColumn.setCellValueFactory(new PropertyValueFactory<it, String>("internalTransportationMethodsTable"));
 
-        internalEmployeeColumn = new TableColumn<it, String>("Employee");
+        internalEmployeeColumn = new TableColumn<it, JFXComboBox>("Employee");
         internalEmployeeColumn.setMinWidth(100);
-        internalEmployeeColumn.setCellValueFactory(new PropertyValueFactory<it, String>("employee"));
+        internalEmployeeColumn.setCellValueFactory(arg0 -> {
 
-        internalCompletedColumn = new TableColumn<it, String>("Status");
+            serviceStatus stat;
+
+            it user = arg0.getValue();
+
+            CheckBox checkBox = new CheckBox();
+            JFXButton state = new JFXButton();
+
+            emps.setValue(user.getEmployee());
+
+            emps.getSelectionModel().selectedItemProperty().addListener((ov, old_val, new_val) -> {
+                String newEmp = emps.getSelectionModel().getSelectedItem();
+                user.getRef().setEmployee(newEmp);
+                DatabaseManager.modRequest(sel.Medicine,user.getRef().getRequestID(),user.getRef());
+            });
+
+//            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+//
+//                setCompleteService(new_val, user);
+//                //user.setCompleted(new_val);
+//
+//            });
+
+
+            return new SimpleObjectProperty<JFXComboBox>(emps);
+
+
+        });
+
+        internalCompletedColumn = new TableColumn<it, JFXButton>("Status");
         internalCompletedColumn.setMinWidth(100);
-        internalCompletedColumn.setCellValueFactory(new PropertyValueFactory<it, String>("completed"));
+        internalCompletedColumn.setCellValueFactory(arg0 -> {
+
+            serviceStatus stat;
+
+            it user = arg0.getValue();
+
+            CheckBox checkBox = new CheckBox();
+            JFXButton state = new JFXButton();
+
+
+
+            if(user.getEmployee().equals("")){
+                stat = serviceStatus.UNASSIGNED;
+                state.setStyle("-fx-background-color: #FF0000;");
+            }
+            if(user.checkCompleted()){
+                stat = serviceStatus.COMPLETED;
+                state.setStyle("-fx-background-color: #00FF00;");
+            }else{
+                stat = serviceStatus.PROGRESS;
+                state.setStyle("-fx-background-color: #0000FF;");
+            }
+            state.setText(stat.name());
+            completeEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    setCompleteService(true,user);
+                    contextBox.setVisible(false);
+                    contextBox.toBack();
+                    completeEntry.setVisible(false);
+                    progressEntry.setVisible(false);
+                    deleteEntry.setVisible(false);
+                    setCompleteService(true,user);
+                }
+            });
+
+            progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    setCompleteService(false,user);
+                    contextBox.setVisible(false);
+                    contextBox.toBack();
+                    completeEntry.setVisible(false);
+                    progressEntry.setVisible(false);
+                    deleteEntry.setVisible(false);
+                    setCompleteService(false,user);
+                }
+            });
+
+            deleteEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    DatabaseManager.delElement(sel.Medicine,user.getRef().getRequestID());
+                    buildMedicine("");
+                    contextBox.setVisible(false);
+                    contextBox.toBack();
+                    completeEntry.setVisible(false);
+                    progressEntry.setVisible(false);
+                    deleteEntry.setVisible(false);
+                }
+            });
+
+            checkBox.selectedProperty().setValue(user.checkCompleted());
+            state.setOnMouseClicked(showBox);
+
+
+
+//            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+//
+//                setCompleteService(new_val, user);
+//                //user.setCompleted(new_val);
+//
+//            });
+
+            return new SimpleObjectProperty<JFXButton>(state);
+
+
+        });
         buildInternal("");
     }
 
@@ -1079,6 +1340,80 @@ public class serviceManagerController extends SceneController {
         buildSanitation("");
     }
 
+    private void covidTableSetUp(){
+        nameColumn = new TableColumn<cs, String>("Name");
+        nameColumn.setMinWidth(100);
+        nameColumn.setCellValueFactory(new PropertyValueFactory<cs, String>("name"));
+
+        DOBColumn = new TableColumn<cs, String>("DOB");
+        DOBColumn.setMinWidth(100);
+        DOBColumn.setCellValueFactory(new PropertyValueFactory<cs, String>("DOB"));
+
+        sickColumn = new TableColumn<cs, String>("Sick");
+        sickColumn.setMinWidth(100);
+        sickColumn.setCellValueFactory(new PropertyValueFactory<cs, String>("Is Sick"));
+
+        vaxxColumn = new TableColumn<cs, String>("Is Vaccinated");
+        vaxxColumn.setMinWidth(100);
+        vaxxColumn.setCellValueFactory(new PropertyValueFactory<cs, String>("vaxx"));
+
+        travelColumn = new TableColumn<cs, String>("has Traveled");
+        travelColumn.setMinWidth(100);
+        travelColumn.setCellValueFactory(new PropertyValueFactory<cs, String>("travel"));
+
+        testColumn = new TableColumn<cs, String>("Tested");
+        testColumn.setMinWidth(100);
+        testColumn.setCellValueFactory(new PropertyValueFactory<cs, String>("test"));
+        buildCovid("");
+    }
+
+    public ObservableList<er> buildEmergency(String searchTerm){
+        ObservableList<er> tableRow = FXCollections.observableArrayList();
+        LinkedList<ServiceRequest> requests = DatabaseManager.getServiceMap().getServiceRequestsForType(ServiceRequestType.Emergency);
+
+        for (ServiceRequest s : requests) {
+            er erToAdd = new er(s);
+            for (int i = 0; i < erToAdd.getFields().size(); i++) {
+                if (erToAdd.getFields().get(i).toLowerCase().equals(searchTerm) || searchTerm.equals("")) {
+                    tableRow.add(erToAdd);
+                    break;
+                }
+            }
+        }
+        emergencyTable.setItems(tableRow);
+        emergencyTable.getColumns().setAll(
+                EmergencyNumPeopleNeededColumn,
+                EmergencyLocationColumn,
+                EmergencyGurneyColumn,
+                EmergencyEmployeeColumn,
+                EmergencyCompletedColumn);
+        return tableRow;
+    }
+
+    public ObservableList<cs> buildCovid(String searchTerm){
+        ObservableList<cs> tableRow = FXCollections.observableArrayList();
+        LinkedList<ServiceRequest> requests = DatabaseManager.getServiceMap().getServiceRequestsForType(ServiceRequestType.COVID);
+
+        for (ServiceRequest s : requests) {
+            cs csToAdd = new cs(s);
+            for (int i = 0; i < csToAdd.getFields().size(); i++) {
+                if (csToAdd.getFields().get(i).toLowerCase().equals(searchTerm) || searchTerm.equals("")) {
+                    tableRow.add(csToAdd);
+                    break;
+                }
+            }
+        }
+        covidTable.setItems(tableRow);
+        covidTable.getColumns().setAll(
+                nameColumn,
+                DOBColumn,
+                sickColumn,
+                vaxxColumn,
+                travelColumn,
+                testColumn);
+        return tableRow;
+    }
+
     public ObservableList<it> buildInternal(String searchTerm){
         ObservableList<it> tableRow = FXCollections.observableArrayList();
         LinkedList<ServiceRequest> requests = DatabaseManager.getServiceMap().getServiceRequestsForType(ServiceRequestType.InternalTransportation);
@@ -1953,6 +2288,122 @@ public class serviceManagerController extends SceneController {
 
         public String getDestination(){
             return destinationTable.get();
+        }
+    }
+
+    public class cs extends RecursiveTreeObject<cs> implements service{
+        public StringProperty name;
+        public StringProperty DOB;
+        public boolean sick;
+        public boolean vaxx;
+        public boolean travel;
+        public boolean test;
+        public boolean contact;
+        public StringProperty Symptoms;
+        public boolean admit;
+        public COVIDsurvey ref;
+        LinkedList<String> fields;
+
+        public cs(edu.wpi.MochaManticores.Services.ServiceRequest ref){
+            this.ref = (COVIDsurvey) ref;
+            name = new SimpleStringProperty(((COVIDsurvey) ref).getName());
+            DOB = new SimpleStringProperty(((COVIDsurvey) ref).getDOB());
+            sick = ((COVIDsurvey) ref).isSick();
+            vaxx = ((COVIDsurvey) ref).isVaxx();
+            travel = ((COVIDsurvey) ref).isTravel();
+            test = ((COVIDsurvey) ref).isTest();
+            contact = ((COVIDsurvey) ref).isContact();
+            Symptoms = new SimpleStringProperty(((COVIDsurvey) ref).getSymptoms());
+            admit = ((COVIDsurvey) ref).isAdmit();
+            fields = new LinkedList<>(Arrays.asList(
+                    name.get(),
+                    DOB.get(),
+                    String.valueOf(sick),
+                    String.valueOf(vaxx),
+                    String.valueOf(travel),
+                    String.valueOf(test),
+                    String.valueOf(contact),
+                    Symptoms.get(),
+                    String.valueOf(admit)));
+        }
+
+        public LinkedList<String> getFields() {
+            return fields;
+        }
+    }
+
+    public class er extends RecursiveTreeObject<er> implements service{
+        public StringProperty numPeopleNeeded;
+        public StringProperty location;
+        public StringProperty gurney;
+        public StringProperty employee;
+        public EmergencyRequest ref;
+        public boolean completed;
+        public LinkedList<String> fields;
+
+        public er(ServiceRequest ref){
+            this.ref = (EmergencyRequest) ref;
+            numPeopleNeeded = new SimpleStringProperty(String.valueOf(((EmergencyRequest) ref).getNumPeopleNeeded()));
+            location = new SimpleStringProperty(((EmergencyRequest) ref).getLocation());
+            gurney = new SimpleStringProperty(String.valueOf(((EmergencyRequest) ref).isGurney()));
+            employee = new SimpleStringProperty(ref.getEmployee());
+            completed = false;
+            fields = new LinkedList<String>(
+                    Arrays.asList(numPeopleNeeded.get(),
+                            location.get(),
+                            gurney.get()));
+        }
+
+        public LinkedList<String> getFields() {
+            return fields;
+        }
+
+        public String getNumPeopleNeeded() {
+            return numPeopleNeeded.get();
+        }
+
+        public StringProperty numPeopleNeededProperty() {
+            return numPeopleNeeded;
+        }
+
+        public String getLocation() {
+            return location.get();
+        }
+
+        public StringProperty locationProperty() {
+            return location;
+        }
+
+        public String getGurney() {
+            return gurney.get();
+        }
+
+        public StringProperty gurneyProperty() {
+            return gurney;
+        }
+
+        public String getEmployee() {
+            return employee.get();
+        }
+
+        public StringProperty employeeProperty() {
+            return employee;
+        }
+
+        public EmergencyRequest getRef() {
+            return ref;
+        }
+
+        public boolean isCompleted() {
+            return completed;
+        }
+
+        public void setEmployee(String employee) {
+            this.employee.set(employee);
+        }
+
+        public void setCompleted(boolean completed) {
+            this.completed = completed;
         }
     }
 
