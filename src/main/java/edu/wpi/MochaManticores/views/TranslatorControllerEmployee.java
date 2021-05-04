@@ -208,7 +208,7 @@ public class TranslatorControllerEmployee extends SceneController{
         managerPage.toFront();
     }
 
-    
+
 
     public void helpButton(javafx.scene.input.MouseEvent mouseEvent) {
         loadHelpDialog();
