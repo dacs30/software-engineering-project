@@ -4,7 +4,6 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDialog?>
 <?import com.jfoenix.controls.JFXTextArea?>
-<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
@@ -37,7 +36,7 @@
       </StackPane>
       <StackPane prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <GridPane id="formsGrid" fx:id="requestPage" maxHeight="700.0" maxWidth="1000.0" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../Stylesheets/foodDelivery.css" visible="false">
+            <GridPane id="formsGrid" fx:id="requestPage" maxHeight="700.0" maxWidth="1000.0" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../Stylesheets/foodDelivery.css">
                <columnConstraints>
                   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                </columnConstraints>
@@ -51,8 +50,8 @@
                </rowConstraints>
                <children>
                   <JFXComboBox fx:id="dietaryPreferences" focusColor="WHITE" promptText="Dietary Preferences" unFocusColor="WHITE" GridPane.rowIndex="1" />
-                  <JFXComboBox fx:id="foodMenu" focusColor="WHITE" promptText="Menu" stylesheets="@../Stylesheets/foodDelivery.css" unFocusColor="WHITE" GridPane.rowIndex="4" />
-                  <JFXTextField fx:id="empBox" focusColor="#bababa" labelFloat="true" maxHeight="-Infinity" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="800.0" promptText="Assign To Employee" stylesheets="@../Stylesheets/foodDelivery.css" GridPane.rowIndex="3" />
+                  <JFXComboBox fx:id="foodMenu" focusColor="WHITE" prefWidth="400.0" promptText="Menu" stylesheets="@../Stylesheets/foodDelivery.css" unFocusColor="WHITE" GridPane.rowIndex="3" />
+                  <JFXComboBox fx:id="employeeAssigned" prefWidth="400.0" promptText="Assign to employee" GridPane.rowIndex="4" />
                   <Label id="foodDeliveryTitleLabel" stylesheets="@../stylesheets.css" text="Food Delivery" textFill="WHITE" />
                   <JFXTextArea id="allergiesPrompt" fx:id="allergiesField" focusColor="WHITE" labelFloat="true" promptText="Allergies" style="-fx-font-weight: bold;" stylesheets="@../Stylesheets/foodDelivery.css" unFocusColor="WHITE" GridPane.rowIndex="2">
                      <opaqueInsets>
@@ -84,7 +83,7 @@
                   <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
                </effect>
             </GridPane>
-            <GridPane id="formsGrid" fx:id="managerPage" maxHeight="700.0" maxWidth="1000.0" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../Stylesheets/foodDelivery.css">
+            <GridPane id="formsGrid" fx:id="managerPage" maxHeight="700.0" maxWidth="1000.0" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../Stylesheets/foodDelivery.css" visible="false">
               <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
@@ -110,7 +109,6 @@
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0" GridPane.rowIndex="2">
                      <children>
                         <JFXButton id="submitBtn" onAction="#changeToRequest" text="CREATE A REQUEST" />
-                        <JFXButton id="submitBtn" onAction="#completeService" text="Complete" />
                      </children>
                   </HBox>
                </children>

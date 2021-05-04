@@ -39,8 +39,9 @@ public class FoodDelivery extends SceneController {
     @FXML
     private JFXButton backBtn;
 
+
     @FXML
-    private JFXTextField empBox;
+    private JFXComboBox employeeAssigned;
 
 
     @FXML
@@ -116,9 +117,6 @@ public class FoodDelivery extends SceneController {
         foodMenu.getItems().clear();
         foodMenu.getItems().addAll("Menu 0", "Menu 1", "Menu 2", "Menu 3");
 
-        if(App.getClearenceLevel()<=0){
-            empBox.setVisible(false);
-        }
 
         //dialogPane.setDisable(false);
     }

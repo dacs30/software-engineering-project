@@ -23,6 +23,7 @@ public class LaundryFormController {
     @FXML
     private ImageView backgroundIMG;
 
+
     public void initialize(){
         double height = App.getPrimaryStage().getScene().getHeight();
         double width = App.getPrimaryStage().getScene().getWidth();

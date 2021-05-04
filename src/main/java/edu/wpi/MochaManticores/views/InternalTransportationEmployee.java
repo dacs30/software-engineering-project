@@ -1,5 +1,6 @@
 package edu.wpi.MochaManticores.views;
 
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.MochaManticores.App;
@@ -13,12 +14,11 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -36,7 +36,10 @@ public class InternalTransportationEmployee {
         IntegerProperty numStaffNeededTable;
         StringProperty destinationTable;
         StringProperty transportationMethodsTable;
+        @FXML
+        JFXComboBox employeeAssigned;
         LinkedList<String> fields;
+
 
         public it(edu.wpi.MochaManticores.Services.ServiceRequest ref){
             this.ref = (edu.wpi.MochaManticores.Services.InternalTransportation) ref;
@@ -73,6 +76,9 @@ public class InternalTransportationEmployee {
         }
     }
 
+    ObservableList<String> typeOfTransportList = FXCollections
+            .observableArrayList("Wheelchair","Walker","Medical Bed");
+
     @FXML
     private ImageView backgroundIMG;
 
@@ -92,21 +98,43 @@ public class InternalTransportationEmployee {
     private TableView<it> internalTransportationTable;
 
     @FXML
-    private GridPane managerPage;
+    private TableView<it> externalTable;
+
+    @FXML
+    private JFXComboBox employeeAssigned;
 
     @FXML
     private GridPane requestPage;
 
-    public TableColumn<it, String> patientIdColumn;
+    @FXML
+    private GridPane managerPage;
 
-    public TableColumn<it, Integer> numStaffNeededColumn;
+    private void createFilterListener(JFXComboBox comboBox) {
 
-    public TableColumn<it, String> destinationColumn;
+        // Create the listener to filter the list as user enters search terms
+        FilteredList<String> filteredList = new FilteredList<>(comboBox.getItems());
 
-    public TableColumn<it, String> transportationMethodColumn;
+        // Add listener to our ComboBox textfield to filter the list
+        comboBox.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            comboBox.show();
+            filteredList.setPredicate(item -> {
 
-    ObservableList<String> typeOfTransportList = FXCollections
-            .observableArrayList("Wheelchair","Walker","Medical Bed");
+
+                // If the TextField is empty, return all items in the original list
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                // Check if the search term is contained anywhere in our list
+                return item.toLowerCase().contains(newValue.toLowerCase().trim());
+
+            });
+        });
+
+        // Finally, let's add the filtered list to our ComboBox
+        comboBox.setItems(filteredList);
+
+    }
 
     @FXML
     private void initialize() {
@@ -119,6 +147,17 @@ public class InternalTransportationEmployee {
         backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
         backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
+        //externalTable.setEditable(true);
+
+        this.employeeAssigned.setEditable(true);
+        //fromLocation.setOnKeyTyped(new AutoCompleteComboBoxListener<>(fromLocation));
+        ObservableList<String> items = FXCollections.observableArrayList();
+        DatabaseManager.getEmployeeNames().forEach(s -> {
+            items.add(s.substring(s.indexOf(" ")));
+        });
+        employeeAssigned.setItems(items);
+        createFilterListener(employeeAssigned);
+
         transportComboBox.setItems(typeOfTransportList);
 
         dialogPane.toBack();
@@ -128,23 +167,23 @@ public class InternalTransportationEmployee {
         }
 
         // Initializing the tables for the manager
-        patientIdColumn = new TableColumn<it, String>("Patient ID");
-        patientIdColumn.setPrefWidth(100);
-        patientIdColumn.setCellValueFactory(new PropertyValueFactory<it, String>("patientID"));
-
-        numStaffNeededColumn = new TableColumn<it, Integer>("Number of Staff Needed");
-        numStaffNeededColumn.setPrefWidth(100);
-        numStaffNeededColumn.setCellValueFactory(new PropertyValueFactory<it, Integer>("numStaffNeeded"));
-
-        destinationColumn = new TableColumn<it, String>("Destination Place");
-        destinationColumn.setPrefWidth(100);
-        destinationColumn.setCellValueFactory(new PropertyValueFactory<it, String>("transportationMethod"));
-
-        managerPage.setVisible(false);
-        requestPage.setVisible(true);
-        requestPage.toFront();
-
-        buildTable("");
+//        patientIdColumn = new TableColumn<it, String>("Patient ID");
+//        patientIdColumn.setPrefWidth(100);
+//        patientIdColumn.setCellValueFactory(new PropertyValueFactory<it, String>("patientID"));
+//
+//        numStaffNeededColumn = new TableColumn<it, Integer>("Number of Staff Needed");
+//        numStaffNeededColumn.setPrefWidth(100);
+//        numStaffNeededColumn.setCellValueFactory(new PropertyValueFactory<it, Integer>("numStaffNeeded"));
+//
+//        destinationColumn = new TableColumn<it, String>("Destination Place");
+//        destinationColumn.setPrefWidth(100);
+//        destinationColumn.setCellValueFactory(new PropertyValueFactory<it, String>("transportationMethod"));
+//
+       // managerPage.setVisible(false);
+       // requestPage.setVisible(true);
+      //  requestPage.toFront();
+//
+//        buildTable("");
     }
 
     public void submitEvent(ActionEvent actionEvent) {
@@ -153,7 +192,7 @@ public class InternalTransportationEmployee {
             sel s = sel.InternalTransportation;
             DatabaseManager.addRequest(s, new edu.wpi.MochaManticores.Services.InternalTransportation(
                     "",
-                    empBox.getText(),
+                    employeeAssigned.getEditor().getText(),
                     false,
                     patientID.getText(),
                     Integer.parseInt(numberOfStaff.getText()),
@@ -183,8 +222,8 @@ public class InternalTransportationEmployee {
             }
         }
         internalTransportationTable.setItems(tableRow);
-        internalTransportationTable.getColumns().setAll(patientIdColumn,numStaffNeededColumn,
-                destinationColumn,transportationMethodColumn);
+        //internalTransportationTable.getColumns().setAll(patientIdColumn,numStaffNeededColumn,
+          //      destinationColumn,transportationMethodColumn);
 
         return tableRow;
     }

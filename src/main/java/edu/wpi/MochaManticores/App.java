@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Objects;
 
+import com.google.maps.GeoApiContext;
 import edu.wpi.MochaManticores.Algorithms.AStar2;
 import edu.wpi.MochaManticores.Algorithms.PathPlanning;
 import edu.wpi.MochaManticores.Services.ServiceMap;
@@ -24,6 +25,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class App extends Application {
+
   private static Stage primaryStage;
   private static int clearenceLevel;
   private static NodeManager nodeManager;
@@ -31,6 +33,11 @@ public class App extends Application {
   private static EmployeeManager employeeManager;
   private static PathPlanning algoType = new AStar2();
   private static String currentUsername;
+  private static GeoApiContext context;
+
+  public static GeoApiContext getContext() {
+    return context;
+  }
 
   public static String getCurrentUsername() {
     return currentUsername;
@@ -92,6 +99,10 @@ public class App extends Application {
 
 
     App.primaryStage = primaryStage;
+    //App.context = new GeoApiContext.Builder().apiKey("AIzaSyAMDVoCK3Gv78bS9Y9H98IbWeAHzPfqHAk").build();
+
+    //GoogleMapsAPI api = new GoogleMapsAPI();
+
     try {
       Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("fxml/loadingPage.fxml")));
       Scene scene = new Scene(root);
@@ -109,6 +120,7 @@ public class App extends Application {
       e.printStackTrace();
       Platform.exit();
     }
+
   }
 
   public static Stage getPrimaryStage(){

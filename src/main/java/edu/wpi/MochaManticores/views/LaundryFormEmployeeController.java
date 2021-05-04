@@ -1,9 +1,11 @@
 package edu.wpi.MochaManticores.views;
 
-import com.jfoenix.controls.*;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.database.DatabaseManager;
-import edu.wpi.MochaManticores.database.sel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -15,36 +17,34 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
-public class TranslatorControllerEmployee extends SceneController{
-
-
-    ObservableList<String> availableLanguages = FXCollections
-            .observableArrayList("English","Spanish","Mandarin");
+public class LaundryFormEmployeeController {
 
     @FXML
-    private JFXTextField roomNumber;
-    @FXML
-    private JFXComboBox languageOne;
-    @FXML
-    private JFXComboBox languageTwo;
+    private GridPane managerPage;
 
     @FXML
-    private JFXComboBox employeeAssigned;
+    private GridPane requestPage;
 
     @FXML
-    private JFXTextField empBox;
+    private JFXComboBox<String> soil;
+
+    @FXML
+    private JFXComboBox<String> wTemp;
+
+
+    @FXML
+    private JFXComboBox<String> dTemp;
+
     @FXML
     private StackPane dialogPane;
+    @FXML
+    private GridPane contentGrid;
 
     @FXML
     private ImageView backgroundIMG;
 
-
     @FXML
-    private GridPane requestPage;
-    @FXML
-    private GridPane managerPage;
-
+    private JFXComboBox employeeAssigned;
 
     private void createFilterListener(JFXComboBox comboBox) {
 
@@ -84,42 +84,35 @@ public class TranslatorControllerEmployee extends SceneController{
         employeeAssigned.setItems(items);
         createFilterListener(employeeAssigned);
 
-
         double height = App.getPrimaryStage().getScene().getHeight();
         double width = App.getPrimaryStage().getScene().getWidth();
         backgroundIMG.setFitHeight(height);
         backgroundIMG.setFitWidth(width);
+        contentGrid.setPrefSize(width, height);
 
         backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
         backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
 
-        languageOne.setItems(availableLanguages);
-        languageTwo.setItems(availableLanguages);
+        soil.getItems().clear();
+        soil.getItems().addAll("Light", "Medium", "Heavy");
+
+        wTemp.getItems().clear();
+        wTemp.getItems().addAll("Hot", "Warm", "Cold");
+
+        dTemp.getItems().clear();
+        dTemp.getItems().addAll("High", "Medium", "Low", "Delicate", "No Heat");
+    }
+        public void helpButton(ActionEvent actionEvent){loadHelpDialogue();}
+
+    public void changeToRequest(ActionEvent actionEvent) {
+        requestPage.setVisible(true);
+        managerPage.setVisible(false);
+        requestPage.toFront();
     }
 
 
-
-    public void cancelReq(ActionEvent actionEvent) {
-        back();
-    }
-
-    public void submitReq(ActionEvent actionEvent) {
-        sel s = sel.LanguageInterperter;
-        // changeSceneTo(e, "mainMenu");
-        DatabaseManager.addRequest(s,
-                new edu.wpi.MochaManticores.Services.LanguageInterpreterRequest(
-                        "", "", false, roomNumber.getText(),
-                        languageOne.getSelectionModel().getSelectedItem().toString(),
-                        languageTwo.getSelectionModel().getSelectedItem().toString()));
-//        dialogPane.setVisible(true);
-//        loadDialog();
-//        back();
-    }
-
-    private void loadHelpDialog(){
-        dialogPane.toFront();
-        dialogPane.setDisable(false);
+    private void loadDialog(){
         JFXDialogLayout message = new JFXDialogLayout();
         message.setMaxHeight(Region.USE_COMPUTED_SIZE);
         message.setMaxHeight(Region.USE_COMPUTED_SIZE);
@@ -131,9 +124,10 @@ public class TranslatorControllerEmployee extends SceneController{
         hearder.setStyle("-fx-alignment: center");
         message.setHeading(hearder);
 
-        final Text body = new Text("Room Number: Room that you are currently in.\n" +
-                "Language One: Language that you speak\n" +
-                "Language Two: Language you need translated\n");
+        final Text body = new Text("Patient room: This is the room number given to the patient by the hospital.\n" +
+                "Current Room: is where the patient is currently staying until transportation out of the hospital.\n" +
+                "External Room: is the location where the patient is going to be transported to\n" +
+                "Transportation Method: This is a dropdown menu that you select which type of transportation the patient will take. ");
 
         body.setStyle("-fx-font-size: 40");
         body.setStyle("-fx-font-family: Roboto");
@@ -159,48 +153,49 @@ public class TranslatorControllerEmployee extends SceneController{
 
     }
 
-    public void loadDialog() {
-        //TODO Center the text of it.
+    private void loadHelpDialogue() {
+        dialogPane.toFront();
+        loadDialog();
+    }
 
+    public void loadSubmitDialog(){
+        //TODO Center the text of it.
         dialogPane.toFront();
         dialogPane.setDisable(false);
         JFXDialogLayout message = new JFXDialogLayout();
         message.setMaxHeight(Region.USE_PREF_SIZE);
         message.setMaxHeight(Region.USE_PREF_SIZE);
 
-        final Text hearder = new Text("Submited");
+        final Text hearder = new Text("Your request was submited");
         hearder.setStyle("-fx-font-weight: bold");
         hearder.setStyle("-fx-font-size: 30");
         hearder.setStyle("-fx-font-family: Roboto");
         hearder.setStyle("-fx-alignment: center");
         message.setHeading(hearder);
 
-        final Text body = new Text("Time estimated:");
+        final Text body = new Text("Estimated time for arrival: ");
         body.setStyle("-fx-font-size: 15");
         body.setStyle("-fx-font-family: Roboto");
         body.setStyle("-fx-alignment: center");
         message.setHeading(hearder);
 
         message.setBody(body);
-        JFXDialog dialog = new JFXDialog(dialogPane, message, JFXDialog.DialogTransition.CENTER);
-        JFXButton exit = new JFXButton("OK!");
-        exit.setOnAction(event -> {
-            back();
-        });
-        dialog.setOnDialogClosed(event -> {
-            dialogPane.setDisable(true);
+        JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
+        JFXButton ok = new JFXButton("OK");
+        ok.setOnAction(event -> {
             dialogPane.toBack();
         });
-        message.setActions(exit);
+
+        dialog.setOnDialogClosed(event -> {
+            dialogPane.toBack();
+            dialog.close();
+        });
+
+        message.setActions(ok);
         dialog.show();
-
     }
 
-    public void changeToRequest(ActionEvent actionEvent) {
-        requestPage.setVisible(true);
-        managerPage.setVisible(false);
-        requestPage.toFront();
-    }
+
 
     public void changeManagerTable(ActionEvent actionEvent) {
         requestPage.setVisible(false);
@@ -209,8 +204,4 @@ public class TranslatorControllerEmployee extends SceneController{
     }
 
 
-
-    public void helpButton(javafx.scene.input.MouseEvent mouseEvent) {
-        loadHelpDialog();
-    }
 }

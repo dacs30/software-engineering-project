@@ -35,4 +35,34 @@
 * I tried a popup/dialog concept let me know what you guys think
     * I wanted to mess with an auto dismissing confirmation popup, and I think  
     Danilo is looking into something similar so maybe we can collaborate on that
-    * I tried to keep scenes to a minimum by using the visibility parameter      
+    * I tried to keep scenes to a minimum by using the visibility parameter  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

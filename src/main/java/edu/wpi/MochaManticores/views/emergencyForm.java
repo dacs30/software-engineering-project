@@ -1,9 +1,13 @@
 package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.Services.EmergencyRequest;
+import edu.wpi.MochaManticores.database.DatabaseManager;
+import edu.wpi.MochaManticores.database.sel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -26,6 +30,9 @@ public class emergencyForm extends SceneController {
     @FXML
     private StackPane dialogPane;
 
+    @FXML
+    private JFXCheckBox gurney;
+
     public void initialize() {
         double height = super.getHeight();
         double width = super.getWidth();
@@ -45,6 +52,12 @@ public class emergencyForm extends SceneController {
     }
 
     public void submitEmergency(ActionEvent actionEvent) {
+        DatabaseManager.addRequest(sel.Emergency, new EmergencyRequest("",
+                "",
+                false,
+                (Integer) numPeople.getSelectionModel().getSelectedItem(),
+                roomNumber.getText(),
+                gurney.isSelected()));
         loadSubmitDialog();
     }
 
