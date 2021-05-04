@@ -87,6 +87,10 @@ public class covidSurveyController extends SceneController{
 
     @FXML
     private StackPane dialogPane;
+    @FXML
+    private JFXDialog yesNoDialog;
+    @FXML
+    private JFXDialog submitDialog;
 
     @FXML
     private ImageView backgroundIMG;
@@ -101,6 +105,11 @@ public class covidSurveyController extends SceneController{
     @FXML
     private JFXButton noBtn;
 
+    @FXML
+    private GridPane yesNoQuestion;
+    @FXML
+    private GridPane covidForm;
+
 
     @FXML
     private void initialize() {
@@ -114,6 +123,11 @@ public class covidSurveyController extends SceneController{
         backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
         System.out.println(width);
+
+        //yesNoQuestion.toFront();
+        covidForm.setOnMouseClicked(event -> {
+            System.out.println("Hi");
+        });
 
         sickAns = Arrays.asList(yesSickCB, noSickCB);
         vaccineAns = Arrays.asList(yesVaccinatedCB, noVaccinatedCB);
@@ -169,7 +183,7 @@ public class covidSurveyController extends SceneController{
             message.setMaxHeight(Region.USE_PREF_SIZE);
             message.setMaxHeight(Region.USE_PREF_SIZE);
 
-            final Text hearder = new Text("Your survey was submited");
+            final Text hearder = new Text("Your survey was submitted");
             hearder.setStyle("-fx-font-weight: bold");
             hearder.setStyle("-fx-font-size: 30");
             hearder.setStyle("-fx-font-family: Roboto");
@@ -183,19 +197,19 @@ public class covidSurveyController extends SceneController{
             message.setHeading(hearder);
 
             message.setBody(body);
-            JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
+            JFXDialog finalDialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
             JFXButton ok = new JFXButton("OK");
             ok.setOnAction(event -> {
                 changeSceneTo("landingPage");
             });
 
-            dialog.setOnDialogClosed(event -> {
+            finalDialog.setOnDialogClosed(event -> {
                 dialogPane.toBack();
-                dialog.close();
+                finalDialog.close();
             });
 
             message.setActions(ok);
-            dialog.show();
+            finalDialog.show();
     }
     public void loadCOVIDPositiveDialog(){
         dialogPane.toFront();
@@ -221,6 +235,8 @@ public class covidSurveyController extends SceneController{
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
         JFXButton ok = new JFXButton("OK");
         ok.setOnAction(event -> {
+            dialogPane.toBack();
+            dialog.close();
             changeSceneTo("landingPage");
         });
 
@@ -256,12 +272,18 @@ public class covidSurveyController extends SceneController{
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
         JFXButton ok = new JFXButton("OK");
         ok.setOnAction(event -> {
-            changeSceneTo("landingPage");
+            dialog.close();
+            contentGrid.toBack();
+            yesNoQuestion.toBack();
+            yesNoQuestion.setVisible(false);
+            covidForm.toFront();
+            covidForm.setVisible(true);
+            contentGrid.toFront();
         });
 
         dialog.setOnDialogClosed(event -> {
             dialogPane.toBack();
-            dialog.close();
+
         });
 
         message.setActions(ok);

@@ -24,233 +24,224 @@
             <Image url="@../images/cool-background.jpg" />
          </image>
       </ImageView>
-      <StackPane fx:id="dialogPane" layoutX="10.0" layoutY="10.0" prefHeight="800.0" prefWidth="1200.0">
+      <StackPane fx:id="dialogPane" layoutX="10.0" layoutY="10.0" prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <JFXDialog id="message" />
-         </children>
-      </StackPane>
-      <GridPane fx:id="contentGrid" alignment="CENTER" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../Stylesheets/covidSurvey.css">
-        <columnConstraints>
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <GridPane id="formSquare" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../Stylesheets/covidSurvey.css" visible="false">
+            <JFXDialog />
+            <GridPane fx:id="contentGrid" alignment="CENTER" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../Stylesheets/covidSurvey.css">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
               </rowConstraints>
-               <GridPane.margin>
-                  <Insets bottom="50.0" left="100.0" right="100.0" top="50.0" />
-               </GridPane.margin>
                <children>
-                  <Label id="title" text="Pre-Screening Covid-19 Survey" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <GridPane GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <GridPane id="formSquare" fx:id="yesNoQuestion" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../Stylesheets/covidSurvey.css">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
                      <children>
-                        <Label text="Patient Name:" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <JFXTextField focusColor="#0f4b91" maxWidth="-Infinity" prefWidth="300.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                           <padding>
-                              <Insets left="50.0" right="50.0" />
-                           </padding>
-                        </JFXTextField>
+                        <Label id="title" text="Pre-Screening Covid-19 Survey" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <GridPane GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label text="Patient Name:" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                              <JFXTextField focusColor="#0f4b91" maxWidth="-Infinity" prefWidth="300.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                 <padding>
+                                    <Insets left="50.0" right="50.0" />
+                                 </padding>
+                              </JFXTextField>
+                           </children>
+                        </GridPane>
+                        <GridPane GridPane.rowIndex="2">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label text="Have you been clinically diagnosed with COVID-19?" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                              <JFXButton fx:id="noBtn" buttonType="RAISED" onAction="#noEvent" prefHeight="60.0" prefWidth="150.0" stylesheets="@../Stylesheets/covidSurvey.css" text="NO" translateX="100.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                              <JFXButton fx:id="yesBtn" buttonType="RAISED" onAction="#yesEvent" prefHeight="60.0" prefWidth="150.0" stylesheets="@../Stylesheets/covidSurvey.css" text="YES" translateX="-100.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                           </children>
+                        </GridPane>
                      </children>
+                     <effect>
+                        <DropShadow color="#00000033" height="125.0" radius="68.25" width="150.0" />
+                     </effect>
                   </GridPane>
-                  <GridPane GridPane.rowIndex="2">
+                  <GridPane id="formSquare" fx:id="covidForm" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../Stylesheets/covidSurvey.css" visible="false">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label text="Patient Date Of Birth:" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <JFXDatePicker defaultColor="#0f4b91" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <Label id="title" text="Pre-Screening Covid-19 Survey" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <GridPane GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Patient Name:" translateX="50.0" />
+                              <JFXTextField focusColor="#0f4b91" maxWidth="-Infinity" prefWidth="360.0" translateX="140.0">
+                                 <padding>
+                                    <Insets left="50.0" />
+                                 </padding>
+                              </JFXTextField>
+                           </children>
+                        </GridPane>
+                        <GridPane GridPane.rowIndex="2">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Patient Date Of Birth:" translateX="50.0" />
+                              <JFXDatePicker defaultColor="#0f4b91" prefWidth="300.0" translateX="210.0">
+                                 <padding>
+                                    <Insets left="50.0" />
+                                 </padding>
+                              </JFXDatePicker>
+                           </children>
+                        </GridPane>
+                        <GridPane GridPane.rowIndex="3">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label text="Are you feeling sick today?:" translateX="50.0" />
+                              <JFXCheckBox fx:id="yesSickCB" checkedColor="#0f4b91" onAction="#setSingleSickAnswer" text="Yes" translateX="-150.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                              <JFXCheckBox fx:id="noSickCB" checkedColor="#0f4b91" onAction="#setSingleSickAnswer" text="No" translateX="-75.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                           </children>
+                        </GridPane>
+                        <GridPane GridPane.rowIndex="6">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label text="Are you fully vaccinated against COVID-19?" translateX="50.0" />
+                              <JFXCheckBox fx:id="yesVaccinatedCB" checkedColor="#0f4b91" onAction="#setSingleVaccineAnswer" text="Yes" translateX="5.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                              <JFXCheckBox fx:id="noVaccinatedCB" checkedColor="#0f4b91" onAction="#setSingleVaccineAnswer" text="No" translateX="80.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                           </children>
+                        </GridPane>
+                        <GridPane GridPane.rowIndex="7">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label text="Have you been in contact with anyone confirmed to be COVID-19 positive?" translateX="50.0" />
+                              <JFXCheckBox fx:id="yesContactCovidCB" checkedColor="#0f4b91" onAction="#setSingleCovidContactAnswer" text="Yes" translateX="-175.0" GridPane.halignment="RIGHT" />
+                              <JFXCheckBox fx:id="noContactCovidCB" checkedColor="#0f4b91" onAction="#setSingleCovidContactAnswer" text="No" translateX="-100.0" GridPane.halignment="RIGHT" />
+                           </children>
+                        </GridPane>
+                        <GridPane prefHeight="82.0" prefWidth="1000.0" GridPane.rowIndex="8">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label text="Have you experienced any of the following symptoms in the past 48 hours:" translateX="50.0" />
+                              <JFXCheckBox checkedColor="#0f4b91" text="Congestion" translateX="-50.0" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                              <JFXCheckBox checkedColor="#0f4b91" prefWidth="100.0" text="Sorethroat" translateX="60.0" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                              <JFXCheckBox checkedColor="#0f4b91" prefWidth="100.0" text="Headache" translateX="-155.0" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                              <JFXCheckBox checkedColor="#0f4b91" prefWidth="100.0" text="Muscle Aches" translateX="175.0" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                              <JFXCheckBox checkedColor="#0f4b91" text="Fatigue" translateX="-250.0" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                              <JFXCheckBox checkedColor="#0f4b91" prefWidth="100.0" text="Shortness of Breath" translateX="320.0" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                              <JFXCheckBox checkedColor="#0f4b91" prefWidth="100.0" text="Coughing" translateX="-345.0" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                              <JFXCheckBox checkedColor="#0f4b91" prefWidth="100.0" text="Palpitations" translateX="45.0" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                              <JFXCheckBox checkedColor="#0f4b91" prefWidth="100.0" text="Fever/Chills" translateX="160.0" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                              <JFXCheckBox checkedColor="#0f4b91" prefWidth="100.0" text="Loss of Taste/Smell" translateX="-100.0" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                              <JFXCheckBox checkedColor="#0f4b91" prefWidth="100.0" text="Nausea/Vomiting" translateX="-260.0" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                              <JFXCheckBox checkedColor="#0f4b91" prefWidth="100.0" text="Diarrhea" translateX="270.0" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                              <JFXComboBox fx:id="symptoms" focusColor="#0f4b91" prefWidth="175.0" translateX="-50.0" GridPane.halignment="RIGHT" />
+                           </children>
+                        </GridPane>
+                        <GridPane GridPane.rowIndex="5">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label text="Have you traveled in the past 14 days?" translateX="50.0" />
+                              <JFXCheckBox fx:id="yesTravelBox" checkedColor="#0f4b91" onAction="#setSingleTravelAnswer" text="Yes" translateX="-40.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                              <JFXCheckBox fx:id="noTravelBox" checkedColor="#0f4b91" onAction="#setSingleTravelAnswer" text="No" translateX="35.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                           </children>
+                        </GridPane>
+                        <GridPane GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label text="Are you here to take a COVID-19 test?" translateX="50.0" />
+                              <JFXCheckBox fx:id="yesCovidTestBox" checkedColor="#0f4b91" onAction="#setSingleCovidTestAnswer" text="Yes" translateX="-40.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                              <JFXCheckBox fx:id="noCovidTestBox" checkedColor="#0f4b91" onAction="#setSingleCovidTestAnswer" text="No" translateX="35.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                           </children>
+                        </GridPane>
+                        <GridPane GridPane.rowIndex="9">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <JFXButton fx:id="submitBtn" buttonType="RAISED" onAction="#submitEvent" prefHeight="60.0" prefWidth="150.0" stylesheets="@../Stylesheets/covidSurvey.css" text="Submit" translateY="-5.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                           </children>
+                        </GridPane>
                      </children>
-                  </GridPane>
-                  <GridPane GridPane.rowIndex="3">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <Label text="Are you feeling sick today?:" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <JFXCheckBox fx:id="yesSickCB" checkedColor="#0f4b91" onAction="#setSingleSickAnswer" text="Yes" translateX="-50.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <JFXCheckBox fx:id="noSickCB" checkedColor="#0f4b91" onAction="#setSingleSickAnswer" text="No" translateX="50.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                     </children>
-                  </GridPane>
-                  <GridPane GridPane.rowIndex="4">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <Label text="Are you fully vaccinated against COVID-19?" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <JFXCheckBox fx:id="yesVaccinatedCB" checkedColor="#0f4b91" onAction="#setSingleVaccineAnswer" text="Yes" translateX="-50.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <JFXCheckBox fx:id="noVaccinatedCB" checkedColor="#0f4b91" onAction="#setSingleVaccineAnswer" text="No" translateX="50.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                     </children>
-                  </GridPane>
-                  <GridPane GridPane.rowIndex="5">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <Label text="Have you been in contact with anyone confirmed to be COVID-19 positive?" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <JFXCheckBox fx:id="yesContactCovidCB" checkedColor="#0f4b91" onAction="#setSingleCovidContactAnswer" text="Yes" translateX="-50.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <JFXCheckBox fx:id="noContactCovidCB" checkedColor="#0f4b91" onAction="#setSingleCovidContactAnswer" text="No" translateX="50.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                     </children>
-                  </GridPane>
-                  <GridPane prefHeight="82.0" prefWidth="1000.0" GridPane.rowIndex="6">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <Label text="Have you experienced any of the following symptoms in the past 48 hours:" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <JFXCheckBox checkedColor="#0f4b91" text="Congestion" translateX="-50.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <JFXCheckBox checkedColor="#0f4b91" prefWidth="100.0" text="Sorethroat" translateX="60.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <JFXCheckBox checkedColor="#0f4b91" prefWidth="100.0" text="Headache" translateX="-155.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                        <JFXCheckBox checkedColor="#0f4b91" prefWidth="100.0" text="Muscle Aches" translateX="175.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                        <JFXCheckBox checkedColor="#0f4b91" text="Fatigue" translateX="-250.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                        <JFXCheckBox checkedColor="#0f4b91" prefWidth="100.0" text="Shortness of Breath" translateX="320.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                        <JFXCheckBox checkedColor="#0f4b91" prefWidth="100.0" text="Coughing" translateX="-345.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                        <JFXCheckBox checkedColor="#0f4b91" prefWidth="100.0" text="Palpitations" translateX="45.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                        <JFXCheckBox checkedColor="#0f4b91" prefWidth="100.0" text="Fever/Chills" translateX="160.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                        <JFXCheckBox checkedColor="#0f4b91" prefWidth="100.0" text="Loss of Taste/Smell" translateX="-100.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                        <JFXCheckBox checkedColor="#0f4b91" prefWidth="100.0" text="Nausea/Vomiting" translateX="-260.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                        <JFXCheckBox checkedColor="#0f4b91" prefWidth="100.0" text="Diarrhea" translateX="270.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                        <JFXComboBox fx:id="symptoms" focusColor="#0f4b91" prefWidth="250.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                     </children>
-                  </GridPane>
-                  <GridPane GridPane.rowIndex="7">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <Label text="Have you traveled in the past 14 days?" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <JFXCheckBox fx:id="yesTravelBox" checkedColor="#0f4b91" onAction="#setSingleTravelAnswer" text="Yes" translateX="-50.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <JFXCheckBox fx:id="noTravelBox" checkedColor="#0f4b91" onAction="#setSingleTravelAnswer" text="No" translateX="50.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                     </children>
-                  </GridPane>
-                  <GridPane GridPane.rowIndex="8">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <Label text="Are you here to take a COVID-19 test?" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <JFXCheckBox fx:id="yesCovidTestBox" checkedColor="#0f4b91" onAction="#setSingleCovidTestAnswer" text="Yes" translateX="-50.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <JFXCheckBox fx:id="noCovidTestBox" checkedColor="#0f4b91" onAction="#setSingleCovidTestAnswer" text="No" translateX="50.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                     </children>
-                  </GridPane>
-                  <GridPane GridPane.rowIndex="9">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <JFXButton fx:id="submitBtn" buttonType="RAISED" onAction="#submitEvent" prefHeight="60.0" prefWidth="150.0" stylesheets="@../Stylesheets/covidSurvey.css" text="Submit" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                     </children>
-                  </GridPane>
-               </children>
-               <effect>
-                  <DropShadow color="#00000033" height="125.0" radius="68.25" width="150.0" />
-               </effect>
-            </GridPane>
-            <GridPane id="formSquare" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../Stylesheets/covidSurvey.css">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <Label id="title" text="Pre-Screening Covid-19 Survey" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <GridPane GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <Label text="Patient Name:" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <JFXTextField focusColor="#0f4b91" maxWidth="-Infinity" prefWidth="300.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
-                           <padding>
-                              <Insets left="50.0" right="50.0" />
-                           </padding>
-                        </JFXTextField>
-                     </children>
-                  </GridPane>
-                  <GridPane GridPane.rowIndex="2">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <Label text="Have you been clinically diagnosed with COVID-19?" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <JFXButton fx:id="noBtn" buttonType="RAISED" onAction="#noEvent" prefHeight="60.0" prefWidth="150.0" stylesheets="@../Stylesheets/covidSurvey.css" text="NO" translateX="100.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-                        <JFXButton fx:id="yesBtn" buttonType="RAISED" onAction="#yesEvent" prefHeight="60.0" prefWidth="150.0" stylesheets="@../Stylesheets/covidSurvey.css" text="YES" translateX="-100.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-                     </children>
+                     <effect>
+                        <DropShadow color="#00000033" height="125.0" radius="68.25" width="150.0" />
+                     </effect>
                   </GridPane>
                </children>
-               <effect>
-                  <DropShadow color="#00000033" height="125.0" radius="68.25" width="150.0" />
-               </effect>
-               <GridPane.margin>
-                  <Insets bottom="50.0" left="100.0" right="100.0" top="50.0" />
-               </GridPane.margin>
             </GridPane>
          </children>
-      </GridPane>
+      </StackPane>
    </children>
 </AnchorPane>
