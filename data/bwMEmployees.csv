@@ -1,5 +1,4 @@
 USERNAME,PASSWORD,FIRSTNAME,LASTNAME,EMPLOYEETYPE,ID,ADMINLEVEL,COVIDSTATUS,PARKINGSPOT,
+admin,admin,admin,admin,DEFAULT,0,true,false,test,
 svadlamudi,testPass,Sai,Vadlamudi,DEFAULT,0,true,false,test,
 sai,,sai,sai,PATIENT,0,false,false,Parking,
-admin,admin,admin,admin,DEFAULT,0,true,false,test,
-kushshah,123,Kush,Shah,DEFAULT,0,false,false,null,
