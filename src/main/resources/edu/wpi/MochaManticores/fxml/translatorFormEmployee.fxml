@@ -5,8 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.TranslatorControllerEmployee">
    <children>
@@ -58,6 +57,14 @@
                         <JFXButton id="submitBtn" onAction="#changeManagerTable" text="MANAGER TABLE" />
                      </children>
                   </HBox>
+                  <ImageView fitHeight="150.0" fitWidth="40.0" onMouseClicked="#helpButton" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
+                     <image>
+                        <Image url="@../images/hepIcon.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets right="50.0" />
+                     </GridPane.margin>
+                  </ImageView>
                </children>
                <effect>
                   <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />

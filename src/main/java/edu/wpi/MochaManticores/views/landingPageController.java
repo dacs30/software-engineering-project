@@ -1,32 +1,20 @@
 package edu.wpi.MochaManticores.views;
 
-import com.jfoenix.controls.*;
-import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import edu.wpi.MochaManticores.App;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.input.ScrollEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
-import javafx.scene.input.MouseEvent;
-
-
 import java.io.IOException;
-import java.net.URL;
-import java.util.Collection;
 import java.util.Objects;
 
 public class landingPageController extends SceneController {
@@ -452,8 +440,12 @@ public class landingPageController extends SceneController {
     scenesPane.getChildren().removeAll(scenesPane.getChildren());
 
     // sets parent to be the file to be loaded
-    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(
-            "/edu/wpi/MochaManticores/fxml/laundryForm.fxml")));
+    Parent root;
+    if(App.getClearenceLevel() == 1){
+      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/laundryFormEmployee.fxml")));
+    }else{
+      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/laundryForm.fxml")));
+    }
 
     // change the colors of the old selected page back to the default
     currentVbox.setStyle("-fx-background-radius: 0;");
