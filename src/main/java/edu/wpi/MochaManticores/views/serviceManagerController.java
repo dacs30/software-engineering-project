@@ -67,8 +67,8 @@ public class serviceManagerController extends SceneController {
     public TableColumn<tl, String> languageOneColumn;
     public TableColumn<tl, String> languageTwoColumn;
     public TableColumn<tl, JFXComboBox> translateEmployeeColumn;
-    public TableColumn<tl, JFXButton> translateCompletedColumn
-            ;
+    public TableColumn<tl, JFXButton> translateCompletedColumn;
+
     public TableView<rr> religionTable;
     public TableColumn<rr, String> reasonVisitColumn;
     public TableColumn<rr, String> religionLocationColumn;
@@ -144,7 +144,7 @@ public class serviceManagerController extends SceneController {
         religiousTableSetUp();
         translatorTableSetUp();
         sanitationTableSetUp();
-        //internalTableSetUp();
+        internalTableSetUp();
     }
 
     private void internalTableSetUp(){
@@ -1257,60 +1257,6 @@ public class serviceManagerController extends SceneController {
 
         //TODO:make dialog
 
-    }
-
-    public void completeService(ActionEvent e){
-        String tabName;
-        tabName = serviceTabPane.getSelectionModel().selectedItemProperty().get().getText();
-
-        try{
-            service selected;
-            switch(tabName){
-                case "Medicine Delivery":
-                    selected = medicineDeliveryTable.getSelectionModel().getSelectedItem();
-                    ((md) selected).setCompleted(true);
-                    ((md) selected).getRef().setCompleted(true);
-                    buildMedicine("");
-                    break;
-                case "External Transport":
-                    selected = externalTable.getSelectionModel().getSelectedItem();
-                    ((et) selected).setCompleted(true);
-                    ((et) selected).getRef().setCompleted(true);
-                    buildExternal("");
-                    break;
-                case "Food Delivery":
-                    selected = foodDeliveryTable.getSelectionModel().getSelectedItem();
-                    ((fd) selected).setCompleted(true);
-                    ((fd) selected).getRef().setCompleted(true);
-                    buildFood("");
-                    break;
-                case "Sanitation":
-                    selected = sanitationTable.getSelectionModel().getSelectedItem();
-                    ((ss) selected).setCompleted(true);
-                    ((ss) selected).getRef().setCompleted(true);
-                    buildSanitation("");
-                    break;
-                case "Religious":
-                    selected = religionTable.getSelectionModel().getSelectedItem();
-                    ((rr) selected).setCompleted(true);
-                    ((rr) selected).getRef().setCompleted(true);
-                    buildReligion("");
-                    break;
-                case "Translator":
-                    selected = translatorTable.getSelectionModel().getSelectedItem();
-                    ((tl) selected).setCompleted(true);
-                    ((tl) selected).getRef().setCompleted(true);
-                    buildTranslate("");
-                case "COVID Survey":
-                    //TODO: add to DB
-                    break;
-                case "Internal Transport":
-                    //TODO: fix table issue
-                    break;
-                default:
-                    break;
-            }
-        }catch(NullPointerException ignored){}
     }
 
     public void setCompleteService(boolean val, service selected){
