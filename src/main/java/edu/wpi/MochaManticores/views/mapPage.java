@@ -52,6 +52,7 @@ import javafx.geometry.Pos;
 import javafx.util.Duration;
 import javafx.util.Pair;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -463,8 +464,8 @@ public class mapPage extends SceneController{
 
         addField.setOnMouseClicked(event -> {
             int ind = textFieldGroup.getChildren().indexOf(fromLocation);
-            JFXComboBox toAdd = new JFXComboBox();
-            toAdd.promptTextProperty().set("Add Stop");
+            Label toAdd = new Label();
+            toAdd.setText("Add Stop");
             toAdd.setPrefWidth(300);
             toAdd.maxWidthProperty().bind(toAdd.prefWidthProperty());
             toAdd.minWidthProperty().bind(toAdd.prefWidthProperty());
