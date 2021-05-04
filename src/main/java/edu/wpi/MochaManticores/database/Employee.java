@@ -16,7 +16,8 @@ public class Employee {
 
     public Employee () {}
 
-    public Employee (String username, String password, String firstName, String lastName, employeeType type, int ID, boolean isAdmin){
+    public Employee (String username, String password, String firstName, String lastName, employeeType type, int ID, boolean isAdmin,
+                     boolean covidStatus, String parkingSpace){
         this.username = username;
         this.password = password;
         this.firstName = firstName;
@@ -24,6 +25,8 @@ public class Employee {
         this.type = type;
         this.ID = ID;
         this.isAdmin = isAdmin;
+        this.covidStatus = covidStatus;
+        this.parkingSpace = parkingSpace;
     }
 
     // String only constructor

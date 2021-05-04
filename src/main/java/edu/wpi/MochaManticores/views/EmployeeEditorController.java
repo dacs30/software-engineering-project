@@ -80,7 +80,9 @@ public class EmployeeEditorController extends  SceneController{
                         loggedIn.getLastName(),
                         loggedIn.getType(),
                         loggedIn.getID(),
-                        loggedIn.isAdmin()));
+                        loggedIn.isAdmin(),
+                        loggedIn.isCovidStatus(),
+                        loggedIn.getParkingSpace()));
         App.setCurrentUsername(null);
         changeSceneTo("loginPage");
 
