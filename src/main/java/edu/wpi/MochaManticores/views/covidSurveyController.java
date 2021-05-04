@@ -10,6 +10,7 @@ import edu.wpi.MochaManticores.database.sel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
@@ -155,6 +156,8 @@ public class covidSurveyController extends SceneController{
                 "Palpitations",
                 "Fever/Chills",
                 "Diarrhea");
+        symptoms.setVisibleRowCount(5);
+        symptoms.setPromptText("-Select A Symptom-");
 
     }
 
@@ -178,7 +181,7 @@ public class covidSurveyController extends SceneController{
             sel s = sel.InternalTransportation;
             //TODO change to real employee
             COVIDsurvey covid = new COVIDsurvey("","employee",false,App.getCurrentUsername(),dateOfBirthPicker.getValue().toString(),
-                    check(sickAns),check(vaccineAns),check(travelAns),check(covidTestAns),check(covidContactAns),"SYMTOMS",true);
+                    check(sickAns),check(vaccineAns),check(travelAns),check(covidTestAns),check(covidContactAns),symptoms.getValue(),true);
 
             DatabaseManager.addRequest(sel.COVID,covid);
 
