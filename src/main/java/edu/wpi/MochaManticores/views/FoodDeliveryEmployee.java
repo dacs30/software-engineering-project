@@ -114,11 +114,8 @@ public class FoodDeliveryEmployee {
     private GridPane managerPage;
 
     public TableColumn<fd, String> dietaryPref;
-
     public TableColumn<fd, String> allergies;
-
     public TableColumn<fd, String> employee;
-
     public TableColumn<fd, String> completed;
 
     @FXML

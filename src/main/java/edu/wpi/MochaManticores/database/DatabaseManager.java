@@ -8,10 +8,13 @@ import edu.wpi.MochaManticores.Nodes.EdgeSuper;
 import edu.wpi.MochaManticores.Services.SanitationServices;
 import edu.wpi.MochaManticores.Services.ServiceMap;
 import edu.wpi.MochaManticores.Services.ServiceRequest;
+import javafx.util.Pair;
 
 import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.LinkedList;
+
 public class DatabaseManager{
     private static Connection connection = null;
     private static EmployeeManager empManager = null;
@@ -28,6 +31,7 @@ public class DatabaseManager{
     private static MedicineRequestManager medicineRequestManager = null;
     private static LaundryManager laundryManager = null;
     private static LanguageInterpreterManager languageInterpreterManager = null;
+    private static COVIDmanager coviDmanager = null;
 
     private static ServiceMap serviceMap = null;
 
@@ -203,6 +207,14 @@ public class DatabaseManager{
         return getManager(s).getCSV_path();
     }
 
+    /* function: getElementIDs()
+     * returns a linked list of strings that contains all node names
+     */
+    public static LinkedList<Pair<String,String>> getElementIDs(){
+        //TODO abstract to work with all types
+        return getNodeManager().getElementIDs();
+    }
+
     // ==== Employee specials ==== //
 
     /*  function:  checkEmployeeLogin()
@@ -254,6 +266,8 @@ public class DatabaseManager{
                 return getMedicineRequestManager();
             case Laundry:
                 return getLaundryManager();
+            case COVID:
+                return getCOVIDManager();
             default:
                 System.out.println("No Manager Found");
                 return null;
@@ -407,6 +421,13 @@ public class DatabaseManager{
             languageInterpreterManager = new LanguageInterpreterManager(connection, null);
         }
         return languageInterpreterManager;
+    }
+
+    public static COVIDmanager getCOVIDManager() {
+        if(coviDmanager == null){
+            coviDmanager = new COVIDmanager(connection, null);
+        }
+        return coviDmanager;
     }
 
 

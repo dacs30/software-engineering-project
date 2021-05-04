@@ -48,6 +48,9 @@ public class LoginPage extends SceneController{
     @FXML
     private JFXTextField employeeUsername;
 
+    @FXML
+    private JFXButton viewMapButton;
+
     public void initialize(){
         double height = super.getHeight();
         double width = super.getWidth();
@@ -71,7 +74,6 @@ public class LoginPage extends SceneController{
         employeePassword.setOnKeyTyped(enter);
 
     }
-
 
     public void loadEmergencyDialog(){
         JFXDialogLayout message = new JFXDialogLayout();
@@ -150,6 +152,10 @@ public class LoginPage extends SceneController{
     }
 
     public void onMouseClickedContinue(ActionEvent e) {
+        //ensure patient id is entered
+        //save the patient id as App.setCurrentUsername
+        //if there is no employee with that username then create it
+
         App.setClearenceLevel(0);
         if (IDField.getText().equals("")){
             App.setCurrentUsername("Guest");
@@ -197,5 +203,9 @@ public class LoginPage extends SceneController{
             employeeUsername.validate();
             employeePassword.validate();
         }
+    }
+
+    public void openMap(ActionEvent actionEvent) {
+        changeSceneTo("mapPage");
     }
 }

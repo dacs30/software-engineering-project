@@ -1,20 +1,19 @@
 package edu.wpi.MochaManticores.database;
 
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
-import edu.wpi.MochaManticores.Services.FoodDelivery;
-import edu.wpi.MochaManticores.Services.InternalTransportation;
+import edu.wpi.MochaManticores.Services.COVIDsurvey;
 import edu.wpi.MochaManticores.Services.ServiceRequestType;
 
 import java.io.*;
 import java.sql.*;
 
-public class IntTransportManager extends Manager<InternalTransportation> {
-    private static String csv_path = "data/services/IntTransport.csv";
+public class COVIDmanager extends Manager<COVIDsurvey> {
+    private static String csv_path = "data/services/COVIDsurvey.csv";
     private static Connection connection = null;
     private static final String CSVdelim = ",";
-    private static final ServiceRequestType type = ServiceRequestType.InternalTransportation;
+    private static final ServiceRequestType type = ServiceRequestType.COVID;
 
-    IntTransportManager(Connection connection, String csv_path){
+    COVIDmanager(Connection connection, String csv_path){
         this.connection = connection;
         if(csv_path != null){
             this.csv_path = csv_path;
@@ -33,9 +32,9 @@ public class IntTransportManager extends Manager<InternalTransportation> {
                 if(line == null) break;
                 String[] row = line.split(CSVdelim);
 
-                InternalTransportation temp = new InternalTransportation(
-                        "",row[1],Boolean.parseBoolean(row[2]),
-                        row[3],Integer.parseInt(row[4]),row[5],row[6]);
+                COVIDsurvey temp = new COVIDsurvey(row[0],row[1],Boolean.parseBoolean(row[2]),row[3],row[4],
+                        Boolean.parseBoolean(row[5]),Boolean.parseBoolean(row[6]),Boolean.parseBoolean(row[7]),
+                        Boolean.parseBoolean(row[8]),Boolean.parseBoolean(row[9]),row[10],Boolean.parseBoolean(row[11]));
                 addElement(temp);
             }
         } catch (IOException e){
@@ -44,32 +43,37 @@ public class IntTransportManager extends Manager<InternalTransportation> {
     }
 
     @Override
-    void addElement(InternalTransportation temp) {
+    void addElement(COVIDsurvey temp) {
         temp.setRequestID(temp.generateRequestID(this.type));
         addElement_db(temp);
         addElement_map(temp);
     }
 
-    void addElement_db(InternalTransportation temp) {
-
+    void addElement_db(COVIDsurvey temp) {
         try {
-            String sql = "INSERT INTO INTTRANSPORT (RequestID, EmpID, completed, patientID, numStaffNeeded, Destination, TransportationMethod) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO COVID (RequestID, Employee, Completed, NAME, DOB, SICK, VAXX, TRAVEL, TEST, CONATACT, SYMPTOMS, ADMIT) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, temp.getRequestID());
             pstmt.setString(2, temp.getEmployee());
             pstmt.setBoolean(3, temp.getCompleted());
-            pstmt.setString(4,temp.getPatientID());
-            pstmt.setInt(5, temp.getNumStaffNeeded());
-            pstmt.setString(6, temp.getDestination());
-            pstmt.setString(7, temp.getTransportationMethod());
+            pstmt.setString(4,temp.getName());
+            pstmt.setString(5, temp.getDOB());
+            pstmt.setBoolean(6, temp.isSick());
+            pstmt.setBoolean(7, temp.isVaxx());
+            pstmt.setBoolean(8, temp.isTravel());
+            pstmt.setBoolean(9, temp.isTest());
+            pstmt.setBoolean(10, temp.isContact());
+            pstmt.setString(11, temp.getSymptoms());
+            pstmt.setBoolean(12,temp.isAdmit());
+
             pstmt.executeUpdate();
         }catch(SQLException e){
             e.printStackTrace();
         }
     }
 
-    void addElement_map(InternalTransportation temp) {
+    void addElement_map(COVIDsurvey temp) {
         if(!DatabaseManager.getServiceMap().containsRequest(this.type, temp.RequestID)) {
             DatabaseManager.getServiceMap().addRequest(this.type,temp);
         }
@@ -81,7 +85,7 @@ public class IntTransportManager extends Manager<InternalTransportation> {
     @Override
     void delElement(String ID) throws SQLException {
         //remove node from database
-        PreparedStatement pstmt = connection.prepareStatement("DELETE FROM INTTRANSPORT WHERE RequestID=?");
+        PreparedStatement pstmt = connection.prepareStatement("DELETE FROM COVID WHERE RequestID=?");
         pstmt.setString(1, ID);
         pstmt.executeUpdate();
 
@@ -90,7 +94,7 @@ public class IntTransportManager extends Manager<InternalTransportation> {
     }
 
     @Override
-    void modElement(String ID, InternalTransportation temp) throws SQLException {
+    void modElement(String ID, COVIDsurvey temp) throws SQLException {
         delElement(ID);
         addElement(temp);
     }
@@ -100,7 +104,7 @@ public class IntTransportManager extends Manager<InternalTransportation> {
         PrintWriter pw = new PrintWriter(new File(csv_path));
         StringBuilder sb = new StringBuilder();
 
-        String sql = "SELECT * FROM INTTRANSPORT";
+        String sql = "SELECT * FROM COVID";
         Statement stmt = connection.createStatement();
         ResultSet results = stmt.executeQuery(sql);
         ResultSetMetaData rsmd = results.getMetaData();
@@ -124,10 +128,10 @@ public class IntTransportManager extends Manager<InternalTransportation> {
     }
 
     @Override
-    InternalTransportation getElement(String ID) throws InvalidElementException {
+    COVIDsurvey getElement(String ID) throws InvalidElementException {
         // unlike employeeManager, we get nodes from the map so that they include neighbors
         if(DatabaseManager.getServiceMap().containsRequest(this.type,ID)){
-            return (InternalTransportation) DatabaseManager.getServiceMap().getRequest(type,ID); //TODO DOES THIS CAST BREAK THINGS
+            return (COVIDsurvey) DatabaseManager.getServiceMap().getRequest(type,ID); //TODO DOES THIS CAST BREAK THINGS
         }else{
             throw new InvalidElementException();
         }
@@ -145,20 +149,19 @@ public class IntTransportManager extends Manager<InternalTransportation> {
 
     @Override
     void cleanTable() throws SQLException {
-        // not implemented
+
     }
 
     public void updateElementMap() throws SQLException {
-        String sql = "SELECT * FROM INTTRANSPORT";
+        String sql = "SELECT * FROM COVID";
         Statement stmt = connection.createStatement();
-        ResultSet result = stmt.executeQuery(sql);
-        while (result.next()) {
-            InternalTransportation temp = new InternalTransportation(result.getString(1),result.getString(2),
-                    Boolean.parseBoolean(result.getString(3)), result.getString(4),
-                    Integer.parseInt(result.getString(5)), result.getString(6),
-                    result.getString(7));
+        ResultSet row = stmt.executeQuery(sql);
+        while (row.next()) {
+            COVIDsurvey temp = new COVIDsurvey(row.getString(1),row.getString(2),Boolean.parseBoolean(row.getString(3)),
+                    row.getString(4),row.getString(5), Boolean.parseBoolean(row.getString(6)),Boolean.parseBoolean(row.getString(7)),
+                    Boolean.parseBoolean(row.getString(8)), Boolean.parseBoolean(row.getString(9)),Boolean.parseBoolean(row.getString(10)),
+                    row.getString(11),Boolean.parseBoolean(row.getString(12)));
             addElement_map(temp);
         }
     }
-
 }

@@ -188,7 +188,7 @@
                         <Label id="cardLabel" text="MAP EDITOR" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
-                  <GridPane id="card" onMouseClicked="#goToMedicineDelivery" prefWidth="200.0">
+                  <GridPane id="card" onMouseClicked="#goToManager" prefWidth="200.0">
                      <columnConstraints>
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                      </columnConstraints>
@@ -203,7 +203,7 @@
                         <Insets bottom="30.0" top="40.0" />
                      </HBox.margin>
                      <children>
-                        <Label id="cardLabelMedicineDelivery" text="MEDICINE DELIVERY MANAGER" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1" />
+                        <Label id="cardLabelMedicineDelivery" text="Manage Services" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1" />
                         <ImageView fitHeight="150.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/pillIcon.png" />

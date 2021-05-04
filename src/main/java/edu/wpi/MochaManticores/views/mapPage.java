@@ -7,13 +7,20 @@ import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.database.DatabaseManager;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
+import javafx.fxml.Initializable;
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.ScrollEvent;
+import javafx.scene.control.TextField;
+import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.input.MouseEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
@@ -28,6 +35,8 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.layout.VBox;
 import javafx.geometry.Pos;
 
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -58,6 +67,15 @@ public class mapPage extends SceneController{
         String nodeID;
         double xCoord;
         double yCoord;
+        boolean highlighted = false;
+
+        public boolean isHighlighted() {
+            return highlighted;
+        }
+
+        public void setHighlighted(boolean highlighted) {
+            this.highlighted = highlighted;
+        }
 
         public Circle getC() {
             return c;
@@ -147,6 +165,21 @@ public class mapPage extends SceneController{
     private StackPane dialogPane;
 
     @FXML
+    private JFXTabPane tabPane;
+
+    @FXML
+    private JFXScrollPane scrollPane;
+
+    @FXML
+    private JFXTextField fromLocation;
+
+    @FXML
+    private TextField testTextField;
+
+    @FXML
+    private ScrollPane mapScrollPane;
+
+    @FXML
     private JFXComboBox nearestLocationSelector;
 
     private final String location = "edu/wpi/MochaManticores/images/";
@@ -162,17 +195,63 @@ public class mapPage extends SceneController{
     Rectangle2D noZoom;
     Rectangle2D zoomPort;
 
+    private final DoubleProperty zoomProperty = new SimpleDoubleProperty(1.0d);
+    private final DoubleProperty deltaY = new SimpleDoubleProperty(0.0d);
+
+    private double dX;
+    private double dY;
+    private boolean updateDeltas = true;
+
+    private AutoCompleteComboBoxListener autoCompleteComboBoxListener;
+
+    public void completeSearch(){
+        
+    }
+
+
     public void initialize() {
         double height = super.getHeight();
         double width = super.getWidth();
-        backgroundIMG.setFitHeight(height);
-        backgroundIMG.setFitWidth(width);
         contentPane.setPrefSize(width, height);
+        contentPane.maxWidthProperty().bind(App.getPrimaryStage().widthProperty());
+        contentPane.maxHeightProperty().bind(App.getPrimaryStage().heightProperty());
+        mapStack.maxWidthProperty().bind(App.getPrimaryStage().widthProperty());
+        mapStack.maxHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
-        backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
-        backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
+        tabPane.setOnMouseDragged(event -> {
+
+            tabPane.setManaged(false);
+
+            if (updateDeltas){
+                dX = (event.getSceneX() - tabPane.getLayoutX());
+                dY = (event.getSceneY() - tabPane.getLayoutY());
+                updateDeltas = false;
+            }
+
+            tabPane.relocate(event.getSceneX() - dX, event.getSceneY() - dY);
+
+        });
+        tabPane.setOnMouseReleased(event -> {
+
+            if (tabPane.getLayoutX() < App.getPrimaryStage().getWidth()/2){
+                ((GridPane)tabPane.getParent()).setHalignment(tabPane, HPos.LEFT);
+            } else {
+                ((GridPane)tabPane.getParent()).setHalignment(tabPane, HPos.RIGHT);
+            }
+            tabPane.setManaged(true);
+            updateDeltas = true;
+
+        });
+
 
         mapWindow.setPreserveRatio(false);
+
+        //MouseDragEvent.
+
+        floorSelector.setValue("F1");
+
+       loadF1();
+
 
         nearestLocationSelector.getItems().addAll("Bathroom", //REST
                                                             "Exit", //EXIT
@@ -187,7 +266,23 @@ public class mapPage extends SceneController{
                 "F2",
                 "F3");
 
-        //loadL1();
+        mapScrollPane.setPannable(true);
+        mapScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        mapScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+
+        PanAndZoomPane panAndZoomPane = new PanAndZoomPane();
+        zoomProperty.bind(panAndZoomPane.myScale);
+        deltaY.bind(panAndZoomPane.deltaY);
+        panAndZoomPane.getChildren().add(mapStack);
+
+        SceneGestures sceneGestures = new SceneGestures(panAndZoomPane);
+
+        mapScrollPane.setContent(panAndZoomPane);
+        panAndZoomPane.toBack();
+        mapScrollPane.addEventFilter( MouseEvent.MOUSE_CLICKED, sceneGestures.getOnMouseClickedEventHandler());
+        mapScrollPane.addEventFilter( MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
+        mapScrollPane.addEventFilter( MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
+        mapScrollPane.addEventFilter( ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
 
         mapWindow.fitWidthProperty().bind(mapStack.widthProperty());
         mapWindow.fitHeightProperty().bind(mapStack.heightProperty());
@@ -243,6 +338,8 @@ public class mapPage extends SceneController{
 
 
     }
+
+
 
     private String getNodeType(){
         String type = (String) nearestLocationSelector.getSelectionModel().getSelectedItem();
@@ -648,8 +745,8 @@ public class mapPage extends SceneController{
         for (int i = 0; i < MapSuper.getMap().size(); i++) {
             NodeSuper n = mapIter.next();
             if (n.getFloor().equals(selectedFloor)) {
-                Circle spot = new Circle(n.getXcoord() / xRatio, n.getYcoord() / yRatio, 4, Color.WHITE);
-                spot.setStrokeWidth(2);
+                Circle spot = new Circle(n.getXcoord() / xRatio, n.getYcoord() / yRatio, 2, Color.WHITE);
+                spot.setStrokeWidth(1);
                 spot.setStroke(Color.valueOf("#FF6B35"));
                 EventHandler<MouseEvent> highlight = new EventHandler<MouseEvent>() {
                     @Override
@@ -660,13 +757,13 @@ public class mapPage extends SceneController{
                 EventHandler<MouseEvent> large = new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent e) {
-                        mouseOverNode(e,6);
+                        mouseOverNode(e,4);
                     }
                 };
                 EventHandler<MouseEvent> small = new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent e) {
-                        mouseOverNode(e,4);
+                        mouseOverNode(e,2);
                     }
                 };
                 spot.setOnMouseClicked(highlight);
@@ -713,8 +810,16 @@ public class mapPage extends SceneController{
         for (int i = 0; i < nodes.size(); i++) {
             node n = iter.next();
             if (n.c.equals(src)) {
-                //n.c.setFill(Color.RED);
-                pitStops.add(n);
+                if (n.isHighlighted()){
+                    src.setFill(Color.WHITE);
+                    n.setHighlighted(false);
+                    pitStops.remove(n);
+                } else {
+                    src.setFill(Color.valueOf("#0F4B91"));
+                    n.setHighlighted(true);
+                    pitStops.add(n);
+
+                }
             }
         }
     }

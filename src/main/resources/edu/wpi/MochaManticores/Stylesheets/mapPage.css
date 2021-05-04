@@ -10,9 +10,17 @@
 }
 
 #mapTopBar{
-    -fx-background-color: rgba(255, 255, 255, 0.75);
+    -fx-background-color: transparent;
+}
+
+#scrollpane > .viewport {
+    -fx-background-color: transparent;
 }
 
 #scrollpane {
+    -fx-background-color: rgba(255, 255, 255, 0.75);
+}
+
+#tabPane {
     -fx-background-color: rgba(255, 255, 255, 0.75);
 }
