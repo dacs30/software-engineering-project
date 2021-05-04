@@ -10,9 +10,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
 import javax.swing.*;
+import java.awt.event.KeyEvent;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Iterator;
 
 public class messageClient extends SceneController {
     @FXML
@@ -27,6 +30,7 @@ public class messageClient extends SceneController {
     // Connection
     Socket socket = null;
     DataOutputStream output = null;
+    clientReader reader = null;
     //user data
     public String user = App.getCurrentUsername();
 
@@ -52,8 +56,8 @@ public class messageClient extends SceneController {
             output = new DataOutputStream(socket.getOutputStream());
 
             //create a thread in order to read message from server continuously
-            clientReader task = new clientReader(socket, this);
-            Thread thread = new Thread(task);
+            reader = new clientReader(socket, this, App.getCurrentUsername());
+            Thread thread = new Thread(reader);
             thread.start();
 
             //send a data grab request
@@ -63,6 +67,34 @@ public class messageClient extends SceneController {
 
         } catch (IOException ex) {
             textField.appendText(ex.toString() + '\n');
+        }
+    }
+
+    public void loadConversation(String target) {
+        textField.clear();
+        if (reader.messageHistory.containsKey(tgt.getText())) {
+            for (Message m : reader.messageHistory.get(target)) {
+                Platform.runLater(() -> {
+                    textField.appendText("[" + m.sender + "]" + " [" + m.target + "] " + m.body + "\n");
+                });
+            }
+        }
+    }
+
+
+    public void updateScreen() {
+        if (reader.messageHistory.containsKey(tgt.getText())) {
+            loadConversation(tgt.getText());
+        } else {
+            textField.clear();
+            Platform.runLater(() -> {
+                textField.appendText(user + "'s current conversations: \n");
+            });
+            for (String name : reader.messageHistory.keySet()) {
+                Platform.runLater(() -> {
+                    textField.appendText(name + "\n");
+                });
+            }
         }
     }
 
@@ -78,6 +110,11 @@ public class messageClient extends SceneController {
 
             //format into msg type
             Message msg = new Message(user, target, message);
+
+            //load the convo of who we are sending to
+            loadConversation(target);
+
+
             output.writeUTF(msg.toWriteFormat());
             output.flush();
 

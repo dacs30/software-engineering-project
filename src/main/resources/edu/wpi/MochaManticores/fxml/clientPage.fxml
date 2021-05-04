@@ -50,7 +50,7 @@
                            <HBox.margin>
                               <Insets right="50.0" />
                            </HBox.margin></JFXButton>
-                         <TextField fx:id="tgt" promptText="Target" />
+                         <TextField fx:id="tgt" onKeyReleased="#updateScreen" promptText="Target" />
                          <TextField fx:id="msgs" prefHeight="45.0" prefWidth="368.0" promptText="Message">
                            <opaqueInsets>
                               <Insets left="25.0" right="25.0" />
