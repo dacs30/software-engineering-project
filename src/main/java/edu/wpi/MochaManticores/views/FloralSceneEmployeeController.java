@@ -2,6 +2,7 @@ package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Services.FloralDelivery;
 import edu.wpi.MochaManticores.Services.ServiceRequest;
@@ -17,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
@@ -106,6 +108,10 @@ public class FloralSceneEmployeeController extends SceneController {
             return typeFlower.get();
         }
 
+        public String getEmployeeAssigned() {
+            return employeeAssigned.getValue().toString();
+        }
+
 
         public void setPatientRoom(String patientRoom) {
             this.roomNumber.set(patientRoom);
@@ -191,13 +197,13 @@ public class FloralSceneEmployeeController extends SceneController {
             }
 
             floralDeliveryTable.setItems(tableRow);
-            //floralDeliveryTable.getColumns().setAll(
-                  //  roomNumber,
-                    //  deliveryDate,
-                 //   flowerSelected,
-                   // vaseSelected,
-                    //employeeAssigned,
-                    //completedColumn);
+            floralDeliveryTable.getColumns().setAll(
+            //        roomNumber,
+              //      deliveryDate,
+                //    flowerSelected,
+                  //  vaseSelected,
+                    //empBox,
+                    completedColumn);
             return tableRow;
 
         }
@@ -230,6 +236,7 @@ public class FloralSceneEmployeeController extends SceneController {
         public TableColumn<FloralSceneEmployeeController.fs, String> completedColumn;
         @FXML
         JFXComboBox employeeAssigned;
+
 
 
         public fs(edu.wpi.MochaManticores.Services.ServiceRequest ref) {
@@ -279,17 +286,40 @@ public class FloralSceneEmployeeController extends SceneController {
 
     }
 
-    @FXML
-    private void initialize() {
-        employeeAssigned.setEditable(true);
-        //fromLocation.setOnKeyTyped(new AutoCompleteComboBoxListener<>(fromLocation));
-        ObservableList<String> items = FXCollections.observableArrayList();
-        DatabaseManager.getEmployeeNames().forEach(s -> {
-            items.add(s.substring(s.indexOf(" ")));
-        });
-        employeeAssigned.setItems(items);
-        createFilterListener(employeeAssigned);
+        @FXML
+        private void initialize() {
+            patientRoomColumn = new TableColumn<FloralSceneEmployeeController.fs, String>("Medicine Type");
+            patientRoomColumn.setMinWidth(100);
+            patientRoomColumn.setCellValueFactory(new PropertyValueFactory<FloralSceneEmployeeController.fs, String>("typeMedicine"));
 
+            deliveryDateColumn = new TableColumn<FloralSceneEmployeeController.fs, String>("Feeling");
+            deliveryDateColumn.setMinWidth(100);
+            deliveryDateColumn.setCellValueFactory(new PropertyValueFactory<FloralSceneEmployeeController.fs, String>("currentFeeling"));
+
+            personalNoteColumn = new TableColumn<FloralSceneEmployeeController.fs, String>("Allergies");
+            personalNoteColumn.setMinWidth(100);
+            personalNoteColumn.setCellValueFactory(new PropertyValueFactory<FloralSceneEmployeeController.fs, String>("allergies"));
+
+            typeFlowerColumn = new TableColumn<FloralSceneEmployeeController.fs, String>("Room");
+            typeFlowerColumn.setMinWidth(100);
+            typeFlowerColumn.setCellValueFactory(new PropertyValueFactory<FloralSceneEmployeeController.fs, String>("patientRoom"));
+
+            employeeAssigned.setEditable(true);
+            //fromLocation.setOnKeyTyped(new AutoCompleteComboBoxListener<>(fromLocation));
+            ObservableList<String> items = FXCollections.observableArrayList();
+            DatabaseManager.getEmployeeNames().forEach(s -> {
+                items.add(s.substring(s.indexOf(" ")));
+            });
+            employeeAssigned.setItems(items);
+            createFilterListener(employeeAssigned);
+
+            employeeColumn = new TableColumn<FloralSceneEmployeeController.fs, JFXComboBox>("Assigned To");
+            employeeColumn.setMinWidth(100);
+            employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employeeAssigned"));
+
+            completedColumn = new TableColumn<FloralSceneEmployeeController.fs, String>("Status");
+            completedColumn.setMinWidth(100);
+            completedColumn.setCellValueFactory(new PropertyValueFactory<FloralSceneEmployeeController.fs, String>("completed"));
 
             double height = App.getPrimaryStage().getScene().getHeight();
             double width = App.getPrimaryStage().getScene().getWidth();
@@ -349,12 +379,6 @@ public class FloralSceneEmployeeController extends SceneController {
 
             message.setActions(ok);
             dialog.show();
-        }
-
-        public void changeToRequest(ActionEvent actionEvent) {
-            requestPage.setVisible(true);
-            managerPage.setVisible(false);
-            requestPage.toFront();
         }
 
         public void helpButton(ActionEvent actionEvent) {
@@ -431,11 +455,28 @@ public class FloralSceneEmployeeController extends SceneController {
         StringBuilder vaseSelected = new StringBuilder();
 
 
-    public void changeManagerTable(ActionEvent actionEvent) {
-        requestPage.setVisible(false);
-        managerPage.setVisible(true);
-        managerPage.toFront();
-    }
+        public void checkVase(ActionEvent e) {
+            JFXRadioButton source = (JFXRadioButton) e.getSource();
+            for (JFXRadioButton button : vases) {
+                if (!button.equals(source)) {
+                    button.setSelected(false);
+                }
+            }
+            if (blueVase.isSelected()) {
+                vaseSelected.append("blueVase,");
+            }
+            if (orangeVase.isSelected()) {
+                vaseSelected.append("orangeVase,");
+            }
+            if (yellowVase.isSelected()) {
+                vaseSelected.append("yellowVase,");
+            }
+        }
+        public void changeManagerTable(ActionEvent actionEvent) {
+            requestPage.setVisible(false);
+            managerPage.setVisible(true);
+            managerPage.toFront();
+        }
 
 
 
@@ -453,12 +494,12 @@ public class FloralSceneEmployeeController extends SceneController {
                                 employeeAssigned.getValue().toString()));
 
             } else if (roomNumber.getValue().isEmpty()) {
-              //  RequiredFieldValidator missingInput = new RequiredFieldValidator();
+                RequiredFieldValidator missingInput = new RequiredFieldValidator();
                 //roomNumber.getValue().getValidators().add(missingInput);
                 //missingInput.setMessage("Patient room is required");
                // roomNumber.validate();
             } else if (deliveryDate.getValue().isEmpty()) {
-               // RequiredFieldValidator missingInput = new RequiredFieldValidator();
+                RequiredFieldValidator missingInput = new RequiredFieldValidator();
                 //deliveryDate.getValidators().add(missingInput);
                 //missingInput.setMessage("Delivery date is required");
                 //deliveryDate.validate();
@@ -471,6 +512,5 @@ public class FloralSceneEmployeeController extends SceneController {
             }
         }
     }
-
 
 }

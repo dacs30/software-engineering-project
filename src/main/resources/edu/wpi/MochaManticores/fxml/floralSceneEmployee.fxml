@@ -108,8 +108,8 @@
                            </children>
                         </GridPane>
                         <JFXTextField fx:id="personalNote" promptText="Personalized note (optional)" GridPane.rowIndex="4" />
-                        <JFXComboBox fx:id="employeeAssigned" prefHeight="44.0" prefWidth="400.0" promptText="Assign to employee" unFocusColor="#676767" GridPane.rowIndex="5" />
-                        <JFXDatePicker fx:id="deliveryDate" defaultColor="#0f4b91" prefWidth="400.0" promptText="Delivery Date" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                        <JFXDatePicker fx:id="deliveryDate" defaultColor="#0f4b91" promptText="Delivery Date" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                        <JFXComboBox fx:id="employeeAssigned" prefWidth="400.0" promptText="Assign to Employee" GridPane.rowIndex="5" />
                      </children>
                   </GridPane>
                   <JFXButton id="submitBtn" onAction="#submitForm" text="SUBMIT" GridPane.rowIndex="2" />
