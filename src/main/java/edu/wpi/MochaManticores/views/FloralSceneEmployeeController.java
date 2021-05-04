@@ -5,7 +5,6 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Services.FloralDelivery;
-import edu.wpi.MochaManticores.Services.MedicineRequest;
 import edu.wpi.MochaManticores.Services.ServiceRequest;
 import edu.wpi.MochaManticores.Services.ServiceRequestType;
 import edu.wpi.MochaManticores.database.DatabaseManager;
@@ -65,7 +64,7 @@ public class FloralSceneEmployeeController extends SceneController {
     private StackPane dialogPane;
 
     @FXML
-    private JFXTextField empBox;
+    private JFXComboBox empBox;
 
     public class fs extends RecursiveTreeObject<fs> {
         edu.wpi.MochaManticores.Services.FloralDelivery ref;
@@ -193,7 +192,7 @@ public class FloralSceneEmployeeController extends SceneController {
 
             floralDeliveryTable.setItems(tableRow);
             floralDeliveryTable.getColumns().setAll(
-            //        roomNumber,
+              //       roomNumber,
               //      deliveryDate,
                 //    flowerSelected,
                   //  vaseSelected,
@@ -438,14 +437,14 @@ public class FloralSceneEmployeeController extends SceneController {
             if (!roomNumber.getValue().isEmpty() && !deliveryDate.equals("") &&
                     (tulip.isSelected() || rose.isSelected() | lilie.isSelected()) &&
                     (blueVase.isSelected() || orangeVase.isSelected() || yellowVase.isSelected()) &&
-                    !empBox.getText().isEmpty()) {
+                    !empBox.getValue().toString().isEmpty()) {
                 sel s = sel.FloralDelivery;
                 DatabaseManager.addRequest(s,
                         new FloralDelivery(
                                 "", "", false, roomNumber.getValue(),
                                 deliveryDate.getValue(), flowerSelected.toString(),
                                 vaseSelected.toString(),
-                                empBox.getText()));
+                                empBox.getValue().toString()));
 
             } else if (roomNumber.getValue().isEmpty()) {
                 RequiredFieldValidator missingInput = new RequiredFieldValidator();
@@ -457,7 +456,7 @@ public class FloralSceneEmployeeController extends SceneController {
                 //deliveryDate.getValidators().add(missingInput);
                 //missingInput.setMessage("Delivery date is required");
                 //deliveryDate.validate();
-            } else if (empBox.getText().isEmpty()) {
+            } else if (empBox.getValue().toString().isEmpty()) {
                 //RequiredFieldValidator missingInput = new RequiredFieldValidator();
                 //empBox.getValidators().add(missingInput);
                 //missingInput.setMessage("Employee must be assigned");
