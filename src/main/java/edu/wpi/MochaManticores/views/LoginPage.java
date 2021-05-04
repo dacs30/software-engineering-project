@@ -154,7 +154,7 @@ public class LoginPage extends SceneController{
         if (IDField.getText().equals("")){
             App.setCurrentUsername("Guest");
         } else {
-            App.setCurrentUsername("Patient: " + IDField.getText());
+            App.setCurrentUsername(IDField.getText());
         }
         changeSceneTo("landingPage");
     }

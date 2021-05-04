@@ -28,11 +28,17 @@ public class serverConnection implements Runnable {
 
             while(true){
                 Message msg = new Message(inputStream.readUTF());
-                //TODO handle message types
-                //NAME POST -> set serverConnection name
-                //DATA GRAB -> return a full hashmap of relevant data
-                //MSG POST -> post a message to server
-                server.broadcast(msg);
+                switch (msg.TYPE){
+                    case MSGPOST:
+                        server.msgpost(msg);
+                        break;
+                    case UPDATE:
+                        //TODO
+                        break;
+                    case DATAGRAB:
+                        server.datagrab(msg);
+                        break;
+                }
             }
 
         } catch (IOException e) {

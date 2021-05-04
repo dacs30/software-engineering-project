@@ -30,9 +30,16 @@ public class messageServer implements Runnable{
         }
     }
 
-    public void broadcast(Message msg) {
+    public void msgpost(Message msg) {
         for(serverConnection connect : this.connectionsList){
             connect.sendMessage(msg);
+        }
+    }
+
+    public void datagrab(Message msg) {
+        for(serverConnection connect : this.connectionsList){
+
+
         }
     }
 

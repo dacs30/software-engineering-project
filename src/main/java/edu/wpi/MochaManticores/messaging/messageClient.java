@@ -58,7 +58,7 @@ public class messageClient extends SceneController {
             thread.start();
 
             //send a data grab request
-            Message dataGrab = new Message(user, "dataGrab", "null");
+            Message dataGrab = new Message(user, "dataGrab", "null", Message.msgType.DATAGRAB);
             output.writeUTF(dataGrab.toWriteFormat());
             output.flush();
 
