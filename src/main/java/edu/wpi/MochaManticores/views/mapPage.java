@@ -216,6 +216,9 @@ public class mapPage extends SceneController{
     @FXML
     private AnchorPane paneContainingTabPane;
 
+    @FXML
+    private HBox toHBOX;
+
     private final String location = "edu/wpi/MochaManticores/images/";
 
     private String selectedFloor = "";
@@ -240,9 +243,7 @@ public class mapPage extends SceneController{
     private LinkedList<Label> fields = new LinkedList<>();
     private int fieldIndex = 0;
 
-    /*private void createFilterListener(JFXComboBox comboBox) {
-
-
+    /*
     private void createFilterListener(JFXComboBox comboBox) {
 
         // Create the listener to filter the list as user enters search terms
@@ -400,6 +401,7 @@ public class mapPage extends SceneController{
             items2.add(s.toString());
         });
         toLocation.setItems(items2);
+        createFilterListener(toLocation);
         createFilterListener(fromLocation);
 */
 
@@ -478,18 +480,18 @@ public class mapPage extends SceneController{
     }
 
     private int addPitstopField(){
-        int ind = textFieldGroup.getChildren().indexOf(addField);
+        int ind = textFieldGroup.getChildren().indexOf(toHBOX);
 
         HBox cont = new HBox();
-        JFXComboBox toAdd = new JFXComboBox();
-        Label del = new Label("-");
-        toAdd.setPromptText("Add Stop");
-        toAdd.setPrefWidth(250);
+        Label toAdd = new Label();
+        toAdd.setPrefWidth(300);
         toAdd.maxWidthProperty().bind(toAdd.prefWidthProperty());
         toAdd.minWidthProperty().bind(toAdd.prefWidthProperty());
-        del.setStyle("-fx-border-color: black");
-        del.setStyle("-fx-border-width: 3");
-        del.setStyle("-fx-font-size: 40");
+
+        Image img = new Image("/edu/wpi/MochaManticores/images/removeIcon.png");
+        ImageView minusImage = new ImageView(img);
+        minusImage.setFitWidth(30);
+        minusImage.setPreserveRatio(true);
 
         cont.getChildren().addAll(toAdd, del);
 
@@ -726,6 +728,7 @@ public class mapPage extends SceneController{
             n.resetFill();
         }
         pitStops = new LinkedList<>();
+        updateFields();
 
         drawNodes();
 
@@ -867,6 +870,7 @@ public class mapPage extends SceneController{
                 n.resetFill();
             }
             pitStops = new LinkedList<>();
+            updateFields();
         }
 
         drawNodes();
@@ -907,7 +911,9 @@ public class mapPage extends SceneController{
 
     public void clearLines(ActionEvent e){
         savedRoute.clear();
+        pitStops.clear();
         drawNodes();
+        updateFields();
         dirVBOX.getChildren().clear();
     }
 
@@ -994,25 +1000,52 @@ public class mapPage extends SceneController{
                     src.setFill(Color.valueOf("#0F4B91"));
                     n.setHighlighted(true);
                     pitStops.add(n);
+                    //if (fieldIndex >= fields.size()){
+                    //    fieldIndex = addPitstopField();
+                    //}
+                    //try {
+                    //    fields.get(fieldIndex).getEditor().setText(DatabaseManager.getNode(n.getNodeID()).getLongName());
+                    //} catch (InvalidElementException invalidElementException) {
+                    //    invalidElementException.printStackTrace();
+                    //}
+                    //fieldIndex++;
 
                 }
+                updateFields();
             }
         }
     }
 
     public void updateFields(){
-        if (pitStops.size() > fields.size()){
-            for (int i = 0; i < pitStops.size() - fields.size(); i++){
+        if (pitStops.size() > fields.size()) {
+            System.out.println("stops > fields");
+            for (int i = 0; i < pitStops.size() - fields.size(); i++) {
                 addPitstopField();
             }
         } else if (pitStops.size() < fields.size()){
-            for (int i = 1; i < fields.size() - pitStops.size(); i++){
-                textFieldGroup.getChildren().remove(());
+            System.out.println("stops < fields");
+            for (int i = 0; i < fields.size() - pitStops.size(); i++) {
+                if (fields.size() > 2){
+                    removePitstopField();
+                }
+
             }
         }
-        for (int i = 0; i < pitStops.size(); i++){
-
+        for (Label f : fields){
+            f.setText("");
         }
+        fields.get(0).setText("Starting Location");
+        fields.get(fields.size()-1).setText("Ending Location");
+        for (int i = 0; i < pitStops.size(); i++){
+            fields.get(i).setText(pitStops.get(i).getNodeID());
+        }
+
+    }
+
+    private void removePitstopField() {
+        fields.remove(1);
+        textFieldGroup.getChildren().remove(1);
+
     }
 
     public void mouseOverNode(MouseEvent e, double radius){
