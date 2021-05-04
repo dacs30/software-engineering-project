@@ -1,6 +1,7 @@
 package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import edu.wpi.MochaManticores.App;
@@ -14,6 +15,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
 public class emergencyFormEmployee extends SceneController {
+
+    @FXML
+    private JFXComboBox<String> employeeAssigned;
 
     @FXML
     private ComboBox numPeople;
