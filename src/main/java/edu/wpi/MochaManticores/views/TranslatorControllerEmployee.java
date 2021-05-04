@@ -1,29 +1,21 @@
 package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.*;
-import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import edu.wpi.MochaManticores.Services.LanguageInterpreterRequest;
-import edu.wpi.MochaManticores.Services.ServiceRequest;
-import edu.wpi.MochaManticores.Services.ServiceRequestType;
+import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.sel;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
-import java.util.Arrays;
-import java.util.LinkedList;
+import java.awt.event.MouseEvent;
 
 public class TranslatorControllerEmployee extends SceneController{
 
@@ -39,20 +31,69 @@ public class TranslatorControllerEmployee extends SceneController{
     private JFXComboBox languageTwo;
 
     @FXML
+    private JFXComboBox employeeAssigned;
+
+    @FXML
     private JFXTextField empBox;
     @FXML
     private StackPane dialogPane;
 
+    @FXML
+    private ImageView backgroundIMG;
+
 
     @FXML
     private GridPane requestPage;
-
     @FXML
     private GridPane managerPage;
 
 
+    private void createFilterListener(JFXComboBox comboBox) {
+
+        // Create the listener to filter the list as user enters search terms
+        FilteredList<String> filteredList = new FilteredList<>(comboBox.getItems());
+
+        // Add listener to our ComboBox textfield to filter the list
+        comboBox.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            comboBox.show();
+            filteredList.setPredicate(item -> {
+
+
+                // If the TextField is empty, return all items in the original list
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                // Check if the search term is contained anywhere in our list
+                return item.toLowerCase().contains(newValue.toLowerCase().trim());
+
+            });
+        });
+
+        // Finally, let's add the filtered list to our ComboBox
+        comboBox.setItems(filteredList);
+
+    }
+
     @FXML
     private void initialize() {
+        employeeAssigned.setEditable(true);
+        //fromLocation.setOnKeyTyped(new AutoCompleteComboBoxListener<>(fromLocation));
+        ObservableList<String> items = FXCollections.observableArrayList();
+        DatabaseManager.getEmployeeNames().forEach(s -> {
+            items.add(s.substring(s.indexOf(" ")));
+        });
+        employeeAssigned.setItems(items);
+        createFilterListener(employeeAssigned);
+
+
+        double height = App.getPrimaryStage().getScene().getHeight();
+        double width = App.getPrimaryStage().getScene().getWidth();
+        backgroundIMG.setFitHeight(height);
+        backgroundIMG.setFitWidth(width);
+
+        backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
+        backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
 
         languageOne.setItems(availableLanguages);
@@ -160,7 +201,15 @@ public class TranslatorControllerEmployee extends SceneController{
     public void changeToRequest(ActionEvent actionEvent) {
         requestPage.setVisible(true);
         managerPage.setVisible(false);
+        requestPage.toFront();
     }
+
+    public void changeManagerTable(ActionEvent actionEvent) {
+        requestPage.setVisible(false);
+        managerPage.setVisible(true);
+        managerPage.toFront();
+    }
+
 
 
     public void helpButton(MouseEvent mouseEvent) {

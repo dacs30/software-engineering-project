@@ -89,7 +89,6 @@
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0" GridPane.rowIndex="2">
                      <children>
                         <JFXButton id="submitBtn" onAction="#changeToRequest" text="CREATE A REQUEST" />
-                        <JFXButton id="submitBtn" onAction="#completeService" text="Complete" />
                      </children>
                   </HBox>
                </children>

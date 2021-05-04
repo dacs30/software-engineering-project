@@ -1,25 +1,17 @@
 package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.*;
-import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.MochaManticores.App;
-import edu.wpi.MochaManticores.Services.SanitationServices;
-import edu.wpi.MochaManticores.Services.ServiceRequest;
-import edu.wpi.MochaManticores.Services.ServiceRequestType;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.sel;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
@@ -27,7 +19,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 public class sanitationServiceControllerEmployee extends SceneController {
@@ -83,8 +74,6 @@ public class sanitationServiceControllerEmployee extends SceneController {
     @FXML
     private Label empTitle;
 
-    @FXML
-    private JFXButton backBtn;
 
     @FXML
     private GridPane requestPage;
@@ -92,14 +81,47 @@ public class sanitationServiceControllerEmployee extends SceneController {
     @FXML
     private GridPane managerPage;
 
+    @FXML
+    private JFXComboBox employeeAssigned;
+
+    private void createFilterListener(JFXComboBox comboBox) {
+
+        // Create the listener to filter the list as user enters search terms
+        FilteredList<String> filteredList = new FilteredList<>(comboBox.getItems());
+
+        // Add listener to our ComboBox textfield to filter the list
+        comboBox.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            comboBox.show();
+            filteredList.setPredicate(item -> {
 
 
+                // If the TextField is empty, return all items in the original list
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
 
+                // Check if the search term is contained anywhere in our list
+                return item.toLowerCase().contains(newValue.toLowerCase().trim());
 
+            });
+        });
 
+        // Finally, let's add the filtered list to our ComboBox
+        comboBox.setItems(filteredList);
+
+    }
 
     @FXML
-    private void initialize(){
+    private void initialize() {
+        employeeAssigned.setEditable(true);
+        //fromLocation.setOnKeyTyped(new AutoCompleteComboBoxListener<>(fromLocation));
+        ObservableList<String> items = FXCollections.observableArrayList();
+        DatabaseManager.getEmployeeNames().forEach(s -> {
+            items.add(s.substring(s.indexOf(" ")));
+        });
+        employeeAssigned.setItems(items);
+        createFilterListener(employeeAssigned);
+
 
         double height = App.getPrimaryStage().getScene().getHeight();
         double width = App.getPrimaryStage().getScene().getWidth();
@@ -210,6 +232,12 @@ public class sanitationServiceControllerEmployee extends SceneController {
     public void changeToRequest(ActionEvent actionEvent) {
         requestPage.setVisible(true);
         managerPage.setVisible(false);
+        requestPage.toFront();
+    }
+    public void changeManagerTable(ActionEvent actionEvent){
+        managerPage.setVisible(true);
+        requestPage.setVisible(false);
+        managerPage.toFront();
     }
 
 

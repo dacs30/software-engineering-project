@@ -1,23 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXDialog?>
-<?import com.jfoenix.controls.JFXTextArea?>
-<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
 <AnchorPane prefHeight="800.0" prefWidth="1207.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.FoodDelivery">
    <children>
       <ImageView fx:id="backgroundIMG" fitHeight="800.0" fitWidth="1207.0" opacity="0.5" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -49,7 +39,6 @@
                   <RowConstraints maxHeight="118.66668701171875" minHeight="10.0" prefHeight="118.66668701171875" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="124.33331298828125" minHeight="10.0" prefHeight="92.33331298828125" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="161.33331298828125" minHeight="10.0" prefHeight="137.33331298828125" valignment="CENTER" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="170.66668701171875" minHeight="10.0" prefHeight="145.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="102.33331298828125" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="90.66668701171875" minHeight="10.0" prefHeight="90.66668701171875" vgrow="SOMETIMES" />
               </rowConstraints>
@@ -58,9 +47,8 @@
                </effect>
                <children>
                   <JFXComboBox fx:id="dietaryPreferences" focusColor="WHITE" promptText="Dietary Preferences" unFocusColor="WHITE" GridPane.rowIndex="1" />
-                  <JFXComboBox fx:id="foodMenu" focusColor="WHITE" promptText="Menu" stylesheets="@../Stylesheets/foodDelivery.css" unFocusColor="WHITE" GridPane.rowIndex="4" />
-                  <JFXButton id="submitBtn" onAction="#submitForm" text="SUBMIT" GridPane.rowIndex="5" />
-                  <JFXTextField fx:id="empBox" focusColor="#bababa" labelFloat="true" maxHeight="-Infinity" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="800.0" promptText="Assign To Employee" stylesheets="@../Stylesheets/foodDelivery.css" GridPane.rowIndex="3" />
+                  <JFXComboBox fx:id="foodMenu" focusColor="WHITE" promptText="Menu" stylesheets="@../Stylesheets/foodDelivery.css" unFocusColor="WHITE" GridPane.rowIndex="3" />
+                  <JFXButton id="submitBtn" onAction="#submitForm" text="SUBMIT" GridPane.rowIndex="4" />
                   <Label id="foodDeliveryTitleLabel" stylesheets="@../stylesheets.css" text="Food Delivery" textFill="WHITE" />
                   <JFXTextArea id="allergiesPrompt" fx:id="allergiesField" focusColor="WHITE" labelFloat="true" promptText="Allergies" style="-fx-font-weight: bold;" stylesheets="@../Stylesheets/foodDelivery.css" unFocusColor="WHITE" GridPane.rowIndex="2">
                      <opaqueInsets>

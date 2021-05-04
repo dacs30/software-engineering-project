@@ -1,33 +1,21 @@
 package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.*;
-import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.MochaManticores.App;
-import edu.wpi.MochaManticores.Services.ExternalTransportation;
-import edu.wpi.MochaManticores.Services.ServiceRequest;
-import edu.wpi.MochaManticores.Services.ServiceRequestType;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.sel;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
-
-import java.util.Arrays;
-import java.util.LinkedList;
 
 public class extTransportationControllerEmployee extends SceneController {
 
@@ -172,6 +160,7 @@ public class extTransportationControllerEmployee extends SceneController {
     public void changeToRequest(ActionEvent actionEvent) {
         requestPage.setVisible(true);
         managerPage.setVisible(false);
+        requestPage.toFront();
     }
 
 
@@ -257,5 +246,14 @@ public class extTransportationControllerEmployee extends SceneController {
         message.setActions(ok);
         dialog.show();
     }
+
+
+
+    public void changeManagerTable(ActionEvent actionEvent) {
+        requestPage.setVisible(false);
+        managerPage.setVisible(true);
+        managerPage.toFront();
+    }
+
 
 }
