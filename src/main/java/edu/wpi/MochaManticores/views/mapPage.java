@@ -13,6 +13,8 @@ import io.opencensus.trace.Link;
 import javafx.animation.PathTransition;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -397,11 +399,13 @@ public class mapPage extends SceneController{
             items2.add(s.toString());
         });
         toLocation.setItems(items2);
-        createFilterListener(fromLocation);
+        createFilterListener(toLocation);
 
         fields.add(fromLocation);fields.add(toLocation);
 
+        toLocation.getEditor().textProperty().addListener(onComboBoxSelected);
 
+        fromLocation.getEditor().textProperty().addListener(onComboBoxSelected);
 
         SceneGestures sceneGestures = new SceneGestures(panAndZoomPane);
 
@@ -473,6 +477,41 @@ public class mapPage extends SceneController{
 
     }
 
+    ChangeListener onComboBoxSelected = (observable, oldValue, newValue) -> {
+        System.out.println("IN LISTENER");
+        String searchTerm = ((String) newValue).toLowerCase();
+        LinkedList<Pair<String, String>> l = DatabaseManager.getElementIDs();
+        ObservableList<Pair<String, String>> ids =  FXCollections.observableArrayList();
+        for (Pair<String, String> p : l){
+            ids.add(p);
+        }
+        FilteredList<Pair<String, String>> filtered = new FilteredList<Pair<String, String>>(ids);
+        filtered.setPredicate(item -> {
+            if (item.getValue().toLowerCase().contains(searchTerm) || item.getKey().toLowerCase().contains(searchTerm)){
+                return true;
+            } else {
+                return false;
+            }
+        });
+        if (filtered.size() == 1){
+            node n = nodes.get(filtered.get(0).getKey());
+
+            if (n==null){
+                return;
+            }
+            n.c.setFill(Color.valueOf("#0F4B91"));
+            n.setHighlighted(true);
+
+            if (!pitStops.contains(n)){
+                pitStops.add(n);
+            }
+            //updateFields();
+
+        }else{
+            return;
+        }
+    };
+
     private int addPitstopField(){
         int ind = textFieldGroup.getChildren().indexOf(addField);
 
@@ -495,6 +534,8 @@ public class mapPage extends SceneController{
         });
         toAdd.setItems(items);
         toAdd.setEditable(true);
+
+        toAdd.getEditor().textProperty().addListener(onComboBoxSelected);
 
         del.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -723,6 +764,7 @@ public class mapPage extends SceneController{
             n.resetFill();
         }
         pitStops = new LinkedList<>();
+        updateFields();
 
         drawNodes();
 
@@ -864,6 +906,7 @@ public class mapPage extends SceneController{
                 n.resetFill();
             }
             pitStops = new LinkedList<>();
+            updateFields();
         }
 
         drawNodes();
@@ -904,7 +947,9 @@ public class mapPage extends SceneController{
 
     public void clearLines(ActionEvent e){
         savedRoute.clear();
+        pitStops.clear();
         drawNodes();
+        updateFields();
         dirVBOX.getChildren().clear();
     }
 
@@ -991,34 +1036,46 @@ public class mapPage extends SceneController{
                     src.setFill(Color.valueOf("#0F4B91"));
                     n.setHighlighted(true);
                     pitStops.add(n);
-                    if (fieldIndex >= fields.size()){
-                        fieldIndex = addPitstopField();
-                    }
-                    try {
-                        fields.get(fieldIndex).getEditor().setText(DatabaseManager.getNode(n.getNodeID()).getLongName());
-                    } catch (InvalidElementException invalidElementException) {
-                        invalidElementException.printStackTrace();
-                    }
-                    fieldIndex++;
 
                 }
+                updateFields();
             }
         }
     }
 
     public void updateFields(){
-        if (pitStops.size() > fields.size()){
-            for (int i = 0; i < pitStops.size() - fields.size(); i++){
+        if (pitStops.size() > fields.size()) {
+            System.out.println("stops > fields");
+            for (int i = 0; i < pitStops.size() - fields.size(); i++) {
                 addPitstopField();
             }
         } else if (pitStops.size() < fields.size()){
-            for (int i = 1; i < fields.size() - pitStops.size(); i++){
-                textFieldGroup.getChildren().remove(());
+            System.out.println("stops < fields");
+            for (int i = 0; i < fields.size() - pitStops.size(); i++) {
+                if (fields.size() > 2){
+                    removePitstopField();
+                }
+
             }
         }
-        for (int i = 0; i < pitStops.size(); i++){
-
+        for (JFXComboBox f : fields){
+            f.getEditor().setText("");
         }
+        fields.get(0).setPromptText("Starting Location");
+        fields.get(fields.size()-1).setPromptText("Ending Location");
+        for (int i = 0; i < pitStops.size(); i++){
+            fields.get(i).getEditor().setText(pitStops.get(i).getNodeID());
+            if (i > 0 && i < fields.size()) {
+                fields.get(i).setPromptText("");
+            }
+        }
+
+    }
+
+    private void removePitstopField() {
+        fields.remove(1);
+        textFieldGroup.getChildren().remove(1);
+
     }
 
     public void mouseOverNode(MouseEvent e, double radius){
