@@ -22,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.apache.derby.iapi.db.Database;
 
 public class App extends Application {
   private static Stage primaryStage;
@@ -85,6 +86,8 @@ public class App extends Application {
     System.out.println("Starting Up");
     System.out.println("Starting Database");
     DatabaseManager.startup();
+
+    System.out.println(DatabaseManager.getEmpManager().getEmployeeNames());
   }
 
   @Override
