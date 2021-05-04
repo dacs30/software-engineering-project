@@ -20,7 +20,7 @@ public class EmployeeManager extends Manager<Employee>{
         }
     }
 
-    /*
+    /**
      function loadFromCSV()
      load elements from the CSV
      */
@@ -45,7 +45,7 @@ public class EmployeeManager extends Manager<Employee>{
     }
 
     //TODO add exceptions for duplicate username handling
-    /*
+    /**
     function: addElement(Employee)
     add element to database
      */
@@ -71,7 +71,7 @@ public class EmployeeManager extends Manager<Employee>{
     }
 
     //TODO safe deletes, better handing of execptions
-    /*
+    /**
     function: delElement(s)
     deletes element of given ID string
      */
@@ -82,7 +82,7 @@ public class EmployeeManager extends Manager<Employee>{
     }
 
     //TODO add functionality to check if editedEmployee is valid before deleting old value
-    /*
+    /**
     function: modElement(s,edgeSuper)
     modifies element of ID s to become element EdgeSuper
      */
@@ -91,7 +91,7 @@ public class EmployeeManager extends Manager<Employee>{
         addElement(editedEmployee);
     }
 
-    /*
+    /**
     function: saveElements()
     saves elements to given CSV file
      */
@@ -122,7 +122,7 @@ public class EmployeeManager extends Manager<Employee>{
         pw.close();
     }
 
-    /*
+    /**
     function: getElement()
     returns employee object, specified by ID
      */
@@ -146,7 +146,7 @@ public class EmployeeManager extends Manager<Employee>{
         return null;
     }
 
-    /*
+    /**
      function:  checkEmployeeLogin()
      checks user password and clearance, throws invalid login if pass is wrong, throws invalid element if user doesnt exist
      @return Employee
@@ -167,7 +167,7 @@ public class EmployeeManager extends Manager<Employee>{
         return emp;
     }
 
-    /*
+    /**
      function:  checkAdminLogin()
      checks user password and clearance, throws invalid login if pass is wrong, throws invalid element if user doesnt exist,
      Throws invalid permissions if user is not an admin
@@ -187,6 +187,11 @@ public class EmployeeManager extends Manager<Employee>{
         return emp;
     }
 
+    /**
+     * function: getEmployeeNames()
+     * gives back a list of all employees in database
+     * @return a LinkedList of Strings containing employee names
+     */
     public LinkedList<String> getEmployeeNames() {
         LinkedList<String> names = new LinkedList<>();
         try {
@@ -202,7 +207,7 @@ public class EmployeeManager extends Manager<Employee>{
         }
         return names;
     }
-    /*
+    /**
     function: getCSV_path()
     getter for CSV_path
     return string
@@ -211,7 +216,7 @@ public class EmployeeManager extends Manager<Employee>{
         return Employee_csv_path;
     }
 
-    /*
+    /**
     function setCSV_path()
     setter for CSV_path
      */
@@ -219,7 +224,7 @@ public class EmployeeManager extends Manager<Employee>{
         Employee_csv_path = employee_csv_path;
     }
 
-    /*
+    /**
     function: cleanTable()
     saves and empties database table
      */
