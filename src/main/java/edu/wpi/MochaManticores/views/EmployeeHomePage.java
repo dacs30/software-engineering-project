@@ -72,6 +72,10 @@ public class EmployeeHomePage extends SceneController {
         super.changeWindowTo("covidSurvey");
     }
 
+    public void goToChatPage(MouseEvent mouseEvent) throws IOException {
+        super.changeWindowTo("clientPage");
+    }
+
     public void goToMapEditor(MouseEvent mouseEvent) {
         changeSceneTo("employeeMapPage");
     }

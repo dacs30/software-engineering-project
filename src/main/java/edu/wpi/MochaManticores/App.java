@@ -2,26 +2,25 @@ package edu.wpi.MochaManticores;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.Socket;
 import java.sql.SQLException;
 import java.util.Objects;
 
 import com.google.maps.GeoApiContext;
 import edu.wpi.MochaManticores.Algorithms.AStar2;
 import edu.wpi.MochaManticores.Algorithms.PathPlanning;
-import edu.wpi.MochaManticores.Services.ServiceMap;
-import edu.wpi.MochaManticores.Services.ServiceRequest;
 import edu.wpi.MochaManticores.database.EdgeManager;
 import edu.wpi.MochaManticores.database.EmployeeManager;
-import edu.wpi.MochaManticores.database.Mdb;
 import edu.wpi.MochaManticores.database.NodeManager;
 import edu.wpi.MochaManticores.database.*;
+import edu.wpi.MochaManticores.messaging.connectionUtil;
+import edu.wpi.MochaManticores.messaging.messageServer;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -92,6 +91,7 @@ public class App extends Application {
     System.out.println("Starting Up");
     System.out.println("Starting Database");
     DatabaseManager.startup();
+    startServer();
   }
 
   @Override
@@ -127,6 +127,18 @@ public class App extends Application {
     return primaryStage;
   }
 
+
+  public static void startServer(){
+    try {
+      Socket socket = new Socket(connectionUtil.host, connectionUtil.port);
+      socket.close();
+    }catch(IOException e){
+      // no server, start server
+      messageServer server = new messageServer();
+      Thread serverThread = new Thread(server);
+      serverThread.start();
+    }
+  }
 
   @Override
   public void stop() {

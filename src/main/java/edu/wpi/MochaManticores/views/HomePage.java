@@ -33,6 +33,9 @@ public class HomePage extends SceneController{
     public void goToCovidSurvey(MouseEvent mouseEvent) throws IOException {
         super.changeWindowTo("covidSurvey");
     }
+    public void goToChatPage(MouseEvent mouseEvent) throws IOException {
+        super.changeWindowTo("clientPage");
+    }
     public void goToMapPage(MouseEvent mouseEvent){
         super.changeSceneTo("mapPage");
     }
