@@ -80,9 +80,9 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <JFXRadioButton text="Tulip(Orange) $15" />
-                                    <JFXRadioButton text="Roses $25" GridPane.columnIndex="1" />
-                                    <JFXRadioButton text="Lilies $18" GridPane.columnIndex="2" />
+                                    <JFXRadioButton fx:id="tulip" onAction="#checkFlowers" text="Tulip(Orange) $15" />
+                                    <JFXRadioButton fx:id="rose" onAction="#checkFlowers" text="Roses $25" GridPane.columnIndex="1" />
+                                    <JFXRadioButton fx:id="lilie" onAction="#checkFlowers" text="Lilies $18" GridPane.columnIndex="2" />
                                  </children>
                               </GridPane>
                               <Label id="flowerLabel" text="Type of flowers" textFill="WHITE" />

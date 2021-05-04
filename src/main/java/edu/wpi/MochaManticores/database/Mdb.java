@@ -89,11 +89,13 @@ public class Mdb extends Thread{
                 sql = "CREATE TABLE EMPLOYEES" +
                         "(username VARCHAR(21) not NULL, " +
                         " password VARCHAR(21), " +
-                        " fisrtName VARCHAR(21), " +
+                        " firstName VARCHAR(21), " +
                         " lastName VARCHAR(21), " +
                         " employeeType VARCHAR(21)," +
                         " ID INTEGER," +
                         " AdminLevel BOOLEAN," +
+                        " covidStatus BOOLEAN," +
+                        " parkingSpot VARCHAR (21)," +
                         " PRIMARY KEY (username))";
                 stmt.executeUpdate(sql);
                 DatabaseManager.getEmpManager().loadFromCSV();
@@ -376,6 +378,38 @@ public class Mdb extends Thread{
         }
     }
 
+    public static void CovidSurveyStartup() throws SQLException {
+        Statement stmt = connection.createStatement();
+        try {
+            ResultSet rs = meta.getTables(null, "APP", "EMPLOYEES", null);
+            rs = meta.getTables(null, "APP", "COVID", null);
+            if(!rs.next()) {
+                String sql;
+                System.out.println("Creating COVID survey response Table");
+                sql = "CREATE TABLE COVID" +
+                        "(RequestID VARCHAR(40) not NULL, " +
+                        "EmpID VARCHAR(30)," +
+                        "completed BOOLEAN," +
+                        "name VARCHAR(30)," +
+                        "DOB VARCHAR(10)," +
+                        "SICK BOOLEAN," +
+                        "VAXX BOOLEAN," +
+                        "TRAVEL BOOLEAN," +
+                        "TEST BOOLEAN," +
+                        "CONATACT BOOLEAN," +
+                        "SYMPTOMS VARCHAR(150)," +
+                        "ADMIT BOOLEAN," +
+                        " PRIMARY KEY (RequestID))";
+                stmt.executeUpdate(sql);
+                //DatabaseManager.getCOVIDManager().loadFromCSV();
+            }else{
+                //DatabaseManager.getCOVIDManager().updateElementMap();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
 
 
 
@@ -505,11 +539,19 @@ public class Mdb extends Thread{
                     throwables.printStackTrace();
                 }
             });
+            Thread COVIDthread = new Thread(() -> {
+                try {
+                    CovidSurveyStartup();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            });
 
 
             nodeThread.start();
             edgeThread.start();
             employeeThread.start();
+
 
             EXTtransportThread.start();
             FloralDeliveryThread.start();
@@ -521,6 +563,7 @@ public class Mdb extends Thread{
             LanguageInterpreterThread.start();
             LaundryThread.start();
             MedicineThread.start();
+            COVIDthread.start();
 
 
 
@@ -538,6 +581,7 @@ public class Mdb extends Thread{
             LanguageInterpreterThread.join();
             LaundryThread.join();
             MedicineThread.join();
+            COVIDthread.join();
 
             // updates the hm here because the data doesnt exist if we do it in the threads, where is map super created?
             DatabaseManager.getNodeManager().updateElementMap();

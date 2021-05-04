@@ -50,7 +50,7 @@
 
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0" GridPane.rowIndex="2">
                             <children>
-                                <JFXTextField fx:id="roomIDbox" labelFloat="true" promptText="Room Number">
+                                <JFXTextField fx:id="roomIDBox" labelFloat="true" promptText="Room Number">
                                     <padding>
                                         <Insets left="0" right="0" />
                                     </padding>

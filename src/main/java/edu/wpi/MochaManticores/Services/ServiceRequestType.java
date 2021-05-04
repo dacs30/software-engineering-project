@@ -10,8 +10,5 @@ public enum ServiceRequestType {
     ReligiousRequest,
     LanguageInterperter,
     Medicine,
-    Laundry;
-
-    public class MedicineDelivery {
-    }
-}
+    Laundry,
+    COVID}

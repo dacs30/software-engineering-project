@@ -2,7 +2,7 @@ package edu.wpi.MochaManticores.database;
 
 public class Employee {
     //employee attributes
-    public enum employeeType {DEFAULT,JANITOR,DOCTOR,NURSE,FLORIST,CHEF,STAFF};
+    public enum employeeType {DEFAULT,JANITOR,DOCTOR,NURSE,FLORIST,CHEF,STAFF,PATIENT};
 
     private String username;
     private String password;
@@ -11,10 +11,13 @@ public class Employee {
     private employeeType type;
     private int ID;
     private boolean isAdmin;
+    private boolean covidStatus;
+    private String parkingSpace;
 
     public Employee () {}
 
-    public Employee (String username, String password, String firstName, String lastName, employeeType type, int ID, boolean isAdmin){
+    public Employee (String username, String password, String firstName, String lastName, employeeType type, int ID, boolean isAdmin,
+                     boolean covidStatus, String parkingSpace){
         this.username = username;
         this.password = password;
         this.firstName = firstName;
@@ -22,6 +25,8 @@ public class Employee {
         this.type = type;
         this.ID = ID;
         this.isAdmin = isAdmin;
+        this.covidStatus = covidStatus;
+        this.parkingSpace = parkingSpace;
     }
 
     // String only constructor
@@ -33,6 +38,18 @@ public class Employee {
         this.type = getTypeFromString(type);
         this.ID = Integer.parseInt(ID);
         this.isAdmin = Boolean.parseBoolean(isAdmin);
+    }
+
+    public Employee(String username, String password, String firstName, String lastName, String type, String ID, String isAdmin, String covidStatus, String parkingSpace){
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.type = getTypeFromString(type);
+        this.ID = Integer.parseInt(ID);
+        this.isAdmin = Boolean.parseBoolean(isAdmin);
+        this.covidStatus = Boolean.parseBoolean(covidStatus);
+        this.parkingSpace = parkingSpace;
     }
 
     //GETTERS AND SETTERS
@@ -92,6 +109,21 @@ public class Employee {
         isAdmin = admin;
     }
 
+    public boolean isCovidStatus() {
+        return covidStatus;
+    }
+
+    public void setCovidStatus(boolean covidStatus) {
+        this.covidStatus = covidStatus;
+    }
+
+    public String getParkingSpace() {
+        return parkingSpace;
+    }
+
+    public void setParkingSpace(String parkingSpace) {
+        this.parkingSpace = parkingSpace;
+    }
 
     public static employeeType getTypeFromString(String type){
         employeeType empType;
@@ -113,6 +145,9 @@ public class Employee {
                 break;
             case "STAFF":
                 empType = employeeType.STAFF;
+                break;
+            case "PATIENT":
+                empType = employeeType.PATIENT;
                 break;
             default:
                 empType = employeeType.DEFAULT;
@@ -142,6 +177,9 @@ public class Employee {
                 break;
             case STAFF:
                 empType = "STAFF";
+                break;
+            case PATIENT:
+                empType = "PATIENT";
                 break;
             default:
                 empType = "DEFAULT";

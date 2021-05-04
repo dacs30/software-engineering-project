@@ -6,6 +6,7 @@ import edu.wpi.MochaManticores.Exceptions.InvalidPermissionsException;
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import java.io.*;
 import java.sql.*;
+import java.util.LinkedList;
 
 public class EmployeeManager extends Manager<Employee>{
     private static String Employee_csv_path = "data/bwMEmployees.csv";
@@ -19,7 +20,7 @@ public class EmployeeManager extends Manager<Employee>{
         }
     }
 
-    /*
+    /**
      function loadFromCSV()
      load elements from the CSV
      */
@@ -34,7 +35,7 @@ public class EmployeeManager extends Manager<Employee>{
                 if(line == null) break;
                 String[] row = line.split(CSVdelim);
 
-                Employee employee = new Employee(row[0],row[1],row[2], row[3],row[4],row[5],row[6]);
+                Employee employee = new Employee(row[0],row[1],row[2], row[3],row[4],row[5],row[6], row[7], row[8]);
                 addElement(employee);
 
             }
@@ -44,14 +45,14 @@ public class EmployeeManager extends Manager<Employee>{
     }
 
     //TODO add exceptions for duplicate username handling
-    /*
+    /**
     function: addElement(Employee)
     add element to database
      */
     public void addElement(Employee employee){
         try{
-            String sql = "INSERT INTO EMPLOYEES (username, password, fisrtName, lastName, employeeType,ID, AdminLevel) " +
-                    "VALUES (?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO EMPLOYEES (username, password, firstName, lastName, employeeType,ID, AdminLevel, covidStatus, parkingSpot) " +
+                    "VALUES (?,?,?,?,?,?,?,?,?)";
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, employee.getUsername());
             pstmt.setString(2, employee.getPassword());
@@ -60,6 +61,8 @@ public class EmployeeManager extends Manager<Employee>{
             pstmt.setString(5, Employee.getStringFromType(employee.getType()));
             pstmt.setInt(6, employee.getID());
             pstmt.setBoolean(7, employee.isAdmin());
+            pstmt.setBoolean(8, employee.isCovidStatus());
+            pstmt.setString(9, employee.getParkingSpace());
             pstmt.executeUpdate();
 
         } catch (SQLException throwables) {
@@ -68,7 +71,7 @@ public class EmployeeManager extends Manager<Employee>{
     }
 
     //TODO safe deletes, better handing of execptions
-    /*
+    /**
     function: delElement(s)
     deletes element of given ID string
      */
@@ -79,7 +82,7 @@ public class EmployeeManager extends Manager<Employee>{
     }
 
     //TODO add functionality to check if editedEmployee is valid before deleting old value
-    /*
+    /**
     function: modElement(s,edgeSuper)
     modifies element of ID s to become element EdgeSuper
      */
@@ -88,7 +91,7 @@ public class EmployeeManager extends Manager<Employee>{
         addElement(editedEmployee);
     }
 
-    /*
+    /**
     function: saveElements()
     saves elements to given CSV file
      */
@@ -119,7 +122,7 @@ public class EmployeeManager extends Manager<Employee>{
         pw.close();
     }
 
-    /*
+    /**
     function: getElement()
     returns employee object, specified by ID
      */
@@ -135,7 +138,7 @@ public class EmployeeManager extends Manager<Employee>{
             }
 
             Employee employee = new Employee(result.getString(1), result.getString(2), result.getString(3),
-                    result.getString(4), result.getString(5), result.getString(6), result.getString(7));
+                    result.getString(4), result.getString(5), result.getString(6), result.getString(7), result.getString(8), result.getString(9));
             return employee;
         }catch(SQLException e){
             e.printStackTrace();
@@ -143,13 +146,17 @@ public class EmployeeManager extends Manager<Employee>{
         return null;
     }
 
-    /*
+    /**
      function:  checkEmployeeLogin()
      checks user password and clearance, throws invalid login if pass is wrong, throws invalid element if user doesnt exist
      @return Employee
      */
     public Employee checkEmployeeLogin(String username,String password) throws InvalidLoginException, InvalidElementException {
         Employee emp = getElement(username);
+
+        if(emp.getPassword() == null | emp.getPassword().equals("")){
+            return emp;
+        }
 
         //TODO passwords are currently stored in plain text
         if(!emp.getPassword().equals(password)){
@@ -160,7 +167,7 @@ public class EmployeeManager extends Manager<Employee>{
         return emp;
     }
 
-    /*
+    /**
      function:  checkAdminLogin()
      checks user password and clearance, throws invalid login if pass is wrong, throws invalid element if user doesnt exist,
      Throws invalid permissions if user is not an admin
@@ -180,7 +187,27 @@ public class EmployeeManager extends Manager<Employee>{
         return emp;
     }
 
-    /*
+    /**
+     * function: getEmployeeNames()
+     * gives back a list of all employees in database
+     * @return a LinkedList of Strings containing employee names
+     */
+    public LinkedList<String> getEmployeeNames() {
+        LinkedList<String> names = new LinkedList<>();
+        try {
+            String sql = "SELECT firstName, lastName FROM EMPLOYEES GROUP BY firstName, lastName";
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery(sql);
+            while (result.next()) {
+                String temp = result.getString(1) + " " + result.getString(2);
+                names.add(temp);
+            }
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+        return names;
+    }
+    /**
     function: getCSV_path()
     getter for CSV_path
     return string
@@ -189,7 +216,7 @@ public class EmployeeManager extends Manager<Employee>{
         return Employee_csv_path;
     }
 
-    /*
+    /**
     function setCSV_path()
     setter for CSV_path
      */
@@ -197,7 +224,7 @@ public class EmployeeManager extends Manager<Employee>{
         Employee_csv_path = employee_csv_path;
     }
 
-    /*
+    /**
     function: cleanTable()
     saves and empties database table
      */

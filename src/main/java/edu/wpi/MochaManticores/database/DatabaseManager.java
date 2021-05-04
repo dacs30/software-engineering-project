@@ -31,6 +31,7 @@ public class DatabaseManager{
     private static MedicineRequestManager medicineRequestManager = null;
     private static LaundryManager laundryManager = null;
     private static LanguageInterpreterManager languageInterpreterManager = null;
+    private static COVIDmanager coviDmanager = null;
 
     private static ServiceMap serviceMap = null;
 
@@ -265,6 +266,8 @@ public class DatabaseManager{
                 return getMedicineRequestManager();
             case Laundry:
                 return getLaundryManager();
+            case COVID:
+                return getCOVIDManager();
             default:
                 System.out.println("No Manager Found");
                 return null;
@@ -418,6 +421,13 @@ public class DatabaseManager{
             languageInterpreterManager = new LanguageInterpreterManager(connection, null);
         }
         return languageInterpreterManager;
+    }
+
+    public static COVIDmanager getCOVIDManager() {
+        if(coviDmanager == null){
+            coviDmanager = new COVIDmanager(connection, null);
+        }
+        return coviDmanager;
     }
 
 
