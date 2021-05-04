@@ -1,12 +1,12 @@
 .jfx-button{
-    -fx-background-color: white;
+    -fx-background-color: #0F4B91;
     -fx-font-family: Roboto;
     -fx-font-weight: bold;
-    -fx-text-fill: grey;
-    -fx-font-size: 15;
+    -fx-text-fill: white;
+    -fx-font-size: 20;
     -fx-border-radius: 40;
     -fx-background-radius: 40;
-    transition: background-color 2s ease;
+    transition: background-color 10s ease;
 }
 
 #mapTopBar{
@@ -19,11 +19,14 @@
 
 .scroll-pane {
     -fx-background-color: transparent;
+    -fx-text-alignment: center;
 }
 
 #tabPane .tab-selected-line {
-    /*-fx-background-color: #0059A9;*/
-    -fx-background-color: transparent;
+    -fx-background-color: #0059A9;
+    -fx-max-width: 20;
+    -fx-pref-width: 3;
+    /*-fx-background-color: transparent;*/
 }
 #tabPane .tab-selected-color {
     /*-fx-background-color: #0059A9;*/
@@ -31,16 +34,20 @@
 }
 #tabPane .headers-region {
     -fx-background-color: transparent;
-    -fx-effect: none;
 }
 #tabPane .depth-container {
     -fx-effect: null;
 }
 #tabPane .tab-label {
-    -fx-text-fill: black;
+    -fx-text-fill: grey;
+}
+#tabPane .tab:selected .tab-label {
+    -fx-text-fill: #494949;
 }
 #tabPane .tab-header-background {
-    -fx-background-color: rgba(255, 255, 255, 0.75);
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-background-radius: 40 40 0 0;
+    -fx-border-radius: 40;
 }
 #tabPane .control-buttons-tab{
     -fx-background-color: rgba(255, 255, 255, 0.75);
@@ -48,10 +55,17 @@
 #tabPane .control-buttons-tab .tab-down-button{
     -fx-background-color: #0059A9 ;
 }
+#tabPane .depth-container .tab-header-area {
+    -fx-padding: 0 0 0 0;
+}
+#tabPane .tab {
+    -fx-padding:0 0 0 130;
+}
 #tabPane{
     -fx-background-color: rgba(255, 255, 255, 0.90);
     -fx-background-radius: 40;
     -fx-border-radius: 40;
+    -jfx-disable-animation: true;
 }
 #tabsPaneAnchor {
     /*-fx-background-color: rgba(255, 255, 255, 0.01);*/
@@ -59,10 +73,12 @@
     -fx-border-radius: 40;
     -fx-fill: transparent;
 }
-
+#tabPane .tab-header-area .jfx-rippler{
+    -jfx-rippler-fill: none;
+}
 #tabPane .label {
-    -fx-border-color: black;
-    -fx-text-fill: black;
+    -fx-border-color: grey;
+    -fx-text-fill: grey;
     -fx-border-width: 3;
     -fx-border-radius: 40;
     -fx-font-size: 40;
@@ -72,7 +88,6 @@
     -fx-min-width: 35;
     -fx-text-alignment: center;
 }
-
 #insideTabPaneAnchor {
     -fx-background-radius: 40;
     -fx-border-radius: 40;

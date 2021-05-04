@@ -462,14 +462,31 @@ public class mapPage extends SceneController{
         dialogPane.toBack();
 
         addField.setOnMouseClicked(event -> {
-            int ind = textFieldGroup.getChildren().indexOf(addField);
+            int ind = textFieldGroup.getChildren().indexOf(fromLocation);
             JFXComboBox toAdd = new JFXComboBox();
             toAdd.promptTextProperty().set("Add Stop");
-            toAdd.setPrefWidth(275);
+            toAdd.setPrefWidth(300);
             toAdd.maxWidthProperty().bind(toAdd.prefWidthProperty());
             toAdd.minWidthProperty().bind(toAdd.prefWidthProperty());
-            AutoCompleteComboBoxListener listener = new AutoCompleteComboBoxListener(toAdd);
-            textFieldGroup.getChildren().add(ind, toAdd);
+
+            HBox hbox = new HBox();
+
+            hbox.getChildren().add(toAdd);
+
+            Image img = new Image("/edu/wpi/MochaManticores/images/removeIcon.png");
+            ImageView minusImage = new ImageView(img);
+            minusImage.setFitWidth(30);
+            minusImage.setPreserveRatio(true);
+
+            hbox.getChildren().add(minusImage);
+
+            minusImage.setOnMouseClicked(e -> {
+                textFieldGroup.getChildren().remove(ind + 1);
+            });
+
+            hbox.setAlignment(Pos.CENTER_LEFT);
+
+            textFieldGroup.getChildren().add(ind + 1, hbox);
         });
 
 
@@ -710,7 +727,7 @@ public class mapPage extends SceneController{
     }
 
     public void loadL1() {
-        locationTitle.setText("Lower Level 1");
+        //locationTitle.setText("Lower Level 1");
         setSelectedFloor("L1");
         setZoom(new Image(location + "00_thelowerlevel1.png"), 0, 0, noZoom);
         drawNodes();
@@ -718,7 +735,7 @@ public class mapPage extends SceneController{
     }
 
     public void loadL2() {
-        locationTitle.setText("Lower Level 2");
+        //locationTitle.setText("Lower Level 2");
         setSelectedFloor("L2");
 
         setZoom(new Image(location + "00_thelowerlevel2.png"), 0, 0, noZoom);
@@ -727,7 +744,7 @@ public class mapPage extends SceneController{
     }
 
     public void loadGround() {
-        locationTitle.setText("Ground Floor");
+        //locationTitle.setText("Ground Floor");
         setSelectedFloor("G");
 
         setZoom(new Image(location + "00_thegroundfloor.png"), 0, 0, noZoom);
@@ -736,7 +753,7 @@ public class mapPage extends SceneController{
     }
 
     public void loadF1() {
-        locationTitle.setText("Floor 1");
+        //locationTitle.setText("Floor 1");
         setSelectedFloor("1");
 
         setZoom(new Image(location + "01_thefirstfloor.png"), 0, 0, noZoom);
@@ -745,7 +762,7 @@ public class mapPage extends SceneController{
     }
 
     public void loadF2() {
-        locationTitle.setText("Floor 2");
+        //locationTitle.setText("Floor 2");
         setSelectedFloor("2");
 
 
@@ -755,7 +772,7 @@ public class mapPage extends SceneController{
     }
 
     public void loadF3() {
-        locationTitle.setText("Floor 3");
+        //locationTitle.setText("Floor 3");
         setSelectedFloor("L3");
 
         setZoom(new Image(location + "03_thethirdfloor.png"), 0, 0, noZoom);
