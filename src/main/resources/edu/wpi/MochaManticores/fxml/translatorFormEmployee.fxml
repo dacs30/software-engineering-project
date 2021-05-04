@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.TranslatorControllerEmployee">
    <children>
       <ImageView fx:id="backgroundIMG" fitHeight="800.0" fitWidth="1207.0" layoutX="20.0" layoutY="20.0" opacity="0.5" pickOnBounds="true">
@@ -43,6 +34,7 @@
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <JFXTextField fx:id="roomNumber" focusColor="#0f4c91" promptText="Room" stylesheets="@../Stylesheets/translatorSheet.css" unFocusColor="#104d8f">
@@ -56,6 +48,7 @@
                               <JFXComboBox id="dropDown" fx:id="languageTwo" focusColor="#ffffff00" prefWidth="150.0" promptText="Language 2" stylesheets="@../Stylesheets/translatorSheet.css" />
                            </children>
                         </HBox>
+                        <JFXComboBox fx:id="employeeAssigned" prefHeight="44.0" prefWidth="400.0" promptText="Assign to employee" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0" stylesheets="@../Stylesheets/medicineDelivery.css" GridPane.rowIndex="2">
@@ -64,6 +57,14 @@
                         <JFXButton id="submitBtn" onAction="#changeManagerTable" text="MANAGER TABLE" />
                      </children>
                   </HBox>
+                  <ImageView fitHeight="150.0" fitWidth="40.0" onMouseClicked="#helpButton" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
+                     <image>
+                        <Image url="@../images/hepIcon.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets right="50.0" />
+                     </GridPane.margin>
+                  </ImageView>
                </children>
                <effect>
                   <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
@@ -95,7 +96,6 @@
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0" GridPane.rowIndex="2">
                      <children>
                         <JFXButton id="submitBtn" onAction="#changeToRequest" text="CREATE A REQUEST" />
-                        <JFXButton id="submitBtn" onAction="#completeService" text="Complete" />
                      </children>
                   </HBox>
                </children>

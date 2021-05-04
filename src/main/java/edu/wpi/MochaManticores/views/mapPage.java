@@ -13,8 +13,6 @@ import io.opencensus.trace.Link;
 import javafx.animation.PathTransition;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -239,9 +237,6 @@ public class mapPage extends SceneController{
     private boolean updateDeltas = true;
     private boolean dragged = false;
 
-    private LinkedList<JFXComboBox> fields = new LinkedList<>();
-    private int fieldIndex = 0;
-
     private void createFilterListener(JFXComboBox comboBox) {
 
         // Create the listener to filter the list as user enters search terms
@@ -399,13 +394,9 @@ public class mapPage extends SceneController{
             items2.add(s.toString());
         });
         toLocation.setItems(items2);
-        createFilterListener(toLocation);
+        createFilterListener(fromLocation);
 
-        fields.add(fromLocation);fields.add(toLocation);
 
-        toLocation.getEditor().textProperty().addListener(onComboBoxSelected);
-
-        fromLocation.getEditor().textProperty().addListener(onComboBoxSelected);
 
         SceneGestures sceneGestures = new SceneGestures(panAndZoomPane);
 
@@ -471,86 +462,34 @@ public class mapPage extends SceneController{
         dialogPane.toBack();
 
         addField.setOnMouseClicked(event -> {
-            addPitstopField();
+            int ind = textFieldGroup.getChildren().indexOf(fromLocation);
+            JFXComboBox toAdd = new JFXComboBox();
+            toAdd.promptTextProperty().set("Add Stop");
+            toAdd.setPrefWidth(300);
+            toAdd.maxWidthProperty().bind(toAdd.prefWidthProperty());
+            toAdd.minWidthProperty().bind(toAdd.prefWidthProperty());
+
+            HBox hbox = new HBox();
+
+            hbox.getChildren().add(toAdd);
+
+            Image img = new Image("/edu/wpi/MochaManticores/images/removeIcon.png");
+            ImageView minusImage = new ImageView(img);
+            minusImage.setFitWidth(30);
+            minusImage.setPreserveRatio(true);
+
+            hbox.getChildren().add(minusImage);
+
+            minusImage.setOnMouseClicked(e -> {
+                textFieldGroup.getChildren().remove(ind + 1);
+            });
+
+            hbox.setAlignment(Pos.CENTER_LEFT);
+
+            textFieldGroup.getChildren().add(ind + 1, hbox);
         });
 
 
-    }
-
-    ChangeListener onComboBoxSelected = (observable, oldValue, newValue) -> {
-        System.out.println("IN LISTENER");
-        String searchTerm = ((String) newValue).toLowerCase();
-        LinkedList<Pair<String, String>> l = DatabaseManager.getElementIDs();
-        ObservableList<Pair<String, String>> ids =  FXCollections.observableArrayList();
-        for (Pair<String, String> p : l){
-            ids.add(p);
-        }
-        FilteredList<Pair<String, String>> filtered = new FilteredList<Pair<String, String>>(ids);
-        filtered.setPredicate(item -> {
-            if (item.getValue().toLowerCase().contains(searchTerm) || item.getKey().toLowerCase().contains(searchTerm)){
-                return true;
-            } else {
-                return false;
-            }
-        });
-        if (filtered.size() == 1){
-            node n = nodes.get(filtered.get(0).getKey());
-
-            if (n==null){
-                return;
-            }
-            n.c.setFill(Color.valueOf("#0F4B91"));
-            n.setHighlighted(true);
-
-            if (!pitStops.contains(n)){
-                pitStops.add(n);
-            }
-            //updateFields();
-
-        }else{
-            return;
-        }
-    };
-
-    private int addPitstopField(){
-        int ind = textFieldGroup.getChildren().indexOf(addField);
-
-        HBox cont = new HBox();
-        JFXComboBox toAdd = new JFXComboBox();
-        Label del = new Label("-");
-        toAdd.setPromptText("Add Stop");
-        toAdd.setPrefWidth(250);
-        toAdd.maxWidthProperty().bind(toAdd.prefWidthProperty());
-        toAdd.minWidthProperty().bind(toAdd.prefWidthProperty());
-        del.setStyle("-fx-border-color: black");
-        del.setStyle("-fx-border-width: 3");
-        del.setStyle("-fx-font-size: 40");
-
-        cont.getChildren().addAll(toAdd, del);
-
-        ObservableList<String> items = FXCollections.observableArrayList();
-        DatabaseManager.getElementIDs().forEach(s -> {
-            items.add(s.toString());
-        });
-        toAdd.setItems(items);
-        toAdd.setEditable(true);
-
-        toAdd.getEditor().textProperty().addListener(onComboBoxSelected);
-
-        del.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                textFieldGroup.getChildren().remove(cont);
-            }
-        });
-
-        cont.setSpacing(10);
-
-        createFilterListener(toAdd);
-        textFieldGroup.getChildren().add(ind, cont);
-        fields.add(fields.indexOf(toLocation), toAdd);
-
-        return fields.indexOf(toAdd);
     }
 
     private String getNodeType(){
@@ -764,7 +703,6 @@ public class mapPage extends SceneController{
             n.resetFill();
         }
         pitStops = new LinkedList<>();
-        updateFields();
 
         drawNodes();
 
@@ -789,7 +727,7 @@ public class mapPage extends SceneController{
     }
 
     public void loadL1() {
-        locationTitle.setText("Lower Level 1");
+        //locationTitle.setText("Lower Level 1");
         setSelectedFloor("L1");
         setZoom(new Image(location + "00_thelowerlevel1.png"), 0, 0, noZoom);
         drawNodes();
@@ -797,7 +735,7 @@ public class mapPage extends SceneController{
     }
 
     public void loadL2() {
-        locationTitle.setText("Lower Level 2");
+        //locationTitle.setText("Lower Level 2");
         setSelectedFloor("L2");
 
         setZoom(new Image(location + "00_thelowerlevel2.png"), 0, 0, noZoom);
@@ -806,7 +744,7 @@ public class mapPage extends SceneController{
     }
 
     public void loadGround() {
-        locationTitle.setText("Ground Floor");
+        //locationTitle.setText("Ground Floor");
         setSelectedFloor("G");
 
         setZoom(new Image(location + "00_thegroundfloor.png"), 0, 0, noZoom);
@@ -815,7 +753,7 @@ public class mapPage extends SceneController{
     }
 
     public void loadF1() {
-        locationTitle.setText("Floor 1");
+        //locationTitle.setText("Floor 1");
         setSelectedFloor("1");
 
         setZoom(new Image(location + "01_thefirstfloor.png"), 0, 0, noZoom);
@@ -824,7 +762,7 @@ public class mapPage extends SceneController{
     }
 
     public void loadF2() {
-        locationTitle.setText("Floor 2");
+        //locationTitle.setText("Floor 2");
         setSelectedFloor("2");
 
 
@@ -834,7 +772,7 @@ public class mapPage extends SceneController{
     }
 
     public void loadF3() {
-        locationTitle.setText("Floor 3");
+        //locationTitle.setText("Floor 3");
         setSelectedFloor("L3");
 
         setZoom(new Image(location + "03_thethirdfloor.png"), 0, 0, noZoom);
@@ -906,7 +844,6 @@ public class mapPage extends SceneController{
                 n.resetFill();
             }
             pitStops = new LinkedList<>();
-            updateFields();
         }
 
         drawNodes();
@@ -947,9 +884,7 @@ public class mapPage extends SceneController{
 
     public void clearLines(ActionEvent e){
         savedRoute.clear();
-        pitStops.clear();
         drawNodes();
-        updateFields();
         dirVBOX.getChildren().clear();
     }
 
@@ -1006,7 +941,6 @@ public class mapPage extends SceneController{
                 edge.setStroke(Color.BLACK);
             } else {
                 edge.setStroke(Color.GREY);
-                edge.getStrokeDashArray().addAll(5d, 15d);
             }
 
             lines.add(edge);
@@ -1030,7 +964,6 @@ public class mapPage extends SceneController{
                 if (n.isHighlighted()){
                     src.setFill(Color.WHITE);
                     n.setHighlighted(false);
-
                     pitStops.remove(n);
                 } else {
                     src.setFill(Color.valueOf("#0F4B91"));
@@ -1038,44 +971,8 @@ public class mapPage extends SceneController{
                     pitStops.add(n);
 
                 }
-                updateFields();
             }
         }
-    }
-
-    public void updateFields(){
-        if (pitStops.size() > fields.size()) {
-            System.out.println("stops > fields");
-            for (int i = 0; i < pitStops.size() - fields.size(); i++) {
-                addPitstopField();
-            }
-        } else if (pitStops.size() < fields.size()){
-            System.out.println("stops < fields");
-            for (int i = 0; i < fields.size() - pitStops.size(); i++) {
-                if (fields.size() > 2){
-                    removePitstopField();
-                }
-
-            }
-        }
-        for (JFXComboBox f : fields){
-            f.getEditor().setText("");
-        }
-        fields.get(0).setPromptText("Starting Location");
-        fields.get(fields.size()-1).setPromptText("Ending Location");
-        for (int i = 0; i < pitStops.size(); i++){
-            fields.get(i).getEditor().setText(pitStops.get(i).getNodeID());
-            if (i > 0 && i < fields.size()) {
-                fields.get(i).setPromptText("");
-            }
-        }
-
-    }
-
-    private void removePitstopField() {
-        fields.remove(1);
-        textFieldGroup.getChildren().remove(1);
-
     }
 
     public void mouseOverNode(MouseEvent e, double radius){
