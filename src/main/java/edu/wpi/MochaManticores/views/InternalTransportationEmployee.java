@@ -99,25 +99,33 @@ public class InternalTransportationEmployee {
     @FXML
     private JFXComboBox employeeAssigned;
 
+    @FXML
+    private GridPane requestPage;
+
+    @FXML
+    private GridPane managerPage;
+
     private void createFilterListener(JFXComboBox comboBox) {
 
         // Create the listener to filter the list as user enters search terms
         FilteredList<String> filteredList = new FilteredList<>(comboBox.getItems());
 
         // Add listener to our ComboBox textfield to filter the list
-        comboBox.getEditor().textProperty().addListener((observable, oldValue, newValue) ->
-                filteredList.setPredicate(item -> {
+        comboBox.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            comboBox.show();
+            filteredList.setPredicate(item -> {
 
-                    // If the TextField is empty, return all items in the original list
-                    if (newValue == null || newValue.isEmpty()) {
-                        return true;
-                    }
 
-                    // Check if the search term is contained anywhere in our list
-                    return item.toLowerCase().contains(newValue.toLowerCase().trim());
+                // If the TextField is empty, return all items in the original list
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
 
-                    // No matches found
-                }));
+                // Check if the search term is contained anywhere in our list
+                return item.toLowerCase().contains(newValue.toLowerCase().trim());
+
+            });
+        });
 
         // Finally, let's add the filtered list to our ComboBox
         comboBox.setItems(filteredList);
@@ -217,15 +225,15 @@ public class InternalTransportationEmployee {
     }
 
     public void changeToRequest(ActionEvent actionEvent) {
-        //requestPage.setVisible(true);
-        //managerPage.setVisible(false);
-        //requestPage.toFront();
+        requestPage.setVisible(true);
+        managerPage.setVisible(false);
+        requestPage.toFront();
     }
 
     public void changeManagerTable(ActionEvent actionEvent) {
-        //requestPage.setVisible(false);
-        //managerPage.setVisible(true);
-        //managerPage.toFront();
+        requestPage.setVisible(false);
+        managerPage.setVisible(true);
+        managerPage.toFront();
     }
 
 }

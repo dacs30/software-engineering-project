@@ -1,28 +1,19 @@
 package edu.wpi.MochaManticores.views;
 
-import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Services.ReligiousRequest;
-import edu.wpi.MochaManticores.Services.ServiceRequest;
-import edu.wpi.MochaManticores.Services.ServiceRequestType;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.sel;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-
-import java.util.Arrays;
-import java.util.LinkedList;
 
 
 public class ReligiousRequestControllerEmployee extends SceneController{
@@ -35,11 +26,10 @@ public class ReligiousRequestControllerEmployee extends SceneController{
     private GridPane managerPage;
 
     @FXML
-    private JFXTextField empBox;
-
-    @FXML
     private JFXTextField reasonBox;
 
+    @FXML
+    private ImageView backgroundIMG;
     @FXML
     private JFXTextField roomIDbox;
 
@@ -54,16 +44,54 @@ public class ReligiousRequestControllerEmployee extends SceneController{
     private GridPane formSquare;
 
     @FXML
-    private JFXButton submitBTN;
-    @FXML
-    private JFXButton cancelBTN;
+    private JFXComboBox employeeAssigned;
 
-    public void initialize() {
+    private void createFilterListener(JFXComboBox comboBox) {
+
+        // Create the listener to filter the list as user enters search terms
+        FilteredList<String> filteredList = new FilteredList<>(comboBox.getItems());
+
+        // Add listener to our ComboBox textfield to filter the list
+        comboBox.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            comboBox.show();
+            filteredList.setPredicate(item -> {
+
+
+                // If the TextField is empty, return all items in the original list
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                // Check if the search term is contained anywhere in our list
+                return item.toLowerCase().contains(newValue.toLowerCase().trim());
+
+            });
+        });
+
+        // Finally, let's add the filtered list to our ComboBox
+        comboBox.setItems(filteredList);
+
+    }
+
+    @FXML
+    private void initialize() {
+        employeeAssigned.setEditable(true);
+        //fromLocation.setOnKeyTyped(new AutoCompleteComboBoxListener<>(fromLocation));
+        ObservableList<String> items = FXCollections.observableArrayList();
+        DatabaseManager.getEmployeeNames().forEach(s -> {
+            items.add(s.substring(s.indexOf(" ")));
+        });
+        employeeAssigned.setItems(items);
+        createFilterListener(employeeAssigned);
 
 
         double height = App.getPrimaryStage().getScene().getHeight();
         double width = App.getPrimaryStage().getScene().getWidth();
-        //backgroundGrid.setPrefSize(width, height);
+        backgroundIMG.setFitHeight(height);
+        backgroundIMG.setFitWidth(width);
+
+        backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
+        backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
         TypeOfSacredPerson.setItems(TypeOfSacredPersons);
 
@@ -95,11 +123,20 @@ public class ReligiousRequestControllerEmployee extends SceneController{
         sel s = sel.ReligiousRequest;
         DatabaseManager.addRequest(s,
                 new ReligiousRequest("",
-                        empBox.getText(),
+                        employeeAssigned.getValue().toString(),
                         false,
                         reasonBox.getText(),
                         roomIDbox.getText(),
                         TypeOfSacredPerson.getSelectionModel().getSelectedItem()));
+    }
+
+    public void changeManagerTable(ActionEvent actionEvent) {
+        requestPage.setVisible(true);
+        managerPage.setVisible(false);
+    }
+
+    public void completeService(ActionEvent actionEvent) {
+
     }
 }
 
