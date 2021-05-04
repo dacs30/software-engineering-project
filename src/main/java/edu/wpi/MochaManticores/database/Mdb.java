@@ -380,7 +380,7 @@ public class Mdb extends Thread{
         }
     }
 
-    public static void CovidSurveyStartup() throws SQLException {
+    public void CovidSurveyStartup() throws SQLException {
         Statement stmt = connection.createStatement();
         try {
             ResultSet rs = meta.getTables(null, "APP", "EMPLOYEES", null);
