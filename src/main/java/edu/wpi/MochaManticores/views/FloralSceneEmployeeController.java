@@ -70,8 +70,6 @@ public class FloralSceneEmployeeController extends SceneController {
     @FXML
     private GridPane managerPage;
 
-    @FXML
-    private JFXComboBox employeeAssigned;
 
     public class fs extends RecursiveTreeObject<fs> {
         edu.wpi.MochaManticores.Services.FloralDelivery ref;
@@ -108,9 +106,6 @@ public class FloralSceneEmployeeController extends SceneController {
             return typeFlower.get();
         }
 
-        public String getEmployeeAssigned() {
-            return employeeAssigned.getValue().toString();
-        }
 
 
         public void setPatientRoom(String patientRoom) {
@@ -136,8 +131,8 @@ public class FloralSceneEmployeeController extends SceneController {
 
         }
 
-        public void setEmployeeAssigned(JFXComboBox employeeAssigned) {
-            this.employeeAssigned.setValue(employeeAssigned);
+        public void setEmployeeAssigned(JFXComboBox comboBox) {
+            this.employeeAssigned.setValue(comboBox);
             generateFields();
 
         }
@@ -148,7 +143,7 @@ public class FloralSceneEmployeeController extends SceneController {
 
         }
         @FXML
-        private TableView<FloralSceneEmployeeController.fs> externalTable;
+        private TableView<fs> externalTable;
 
         public void changePatientRoom(TableColumn.CellEditEvent editEvent){
             FloralSceneEmployeeController.fs selectedRow = externalTable.getSelectionModel().getSelectedItem();
@@ -302,10 +297,9 @@ public class FloralSceneEmployeeController extends SceneController {
 
             typeFlowerColumn = new TableColumn<FloralSceneEmployeeController.fs, String>("Room");
             typeFlowerColumn.setMinWidth(100);
-            typeFlowerColumn.setCellValueFactory(new PropertyValueFactory<FloralSceneEmployeeController.fs, String>("patientRoom"));
+            typeFlowerColumn.setCellValueFactory(new PropertyValueFactory<fs, String>("patientRoom"));
 
             employeeAssigned.setEditable(true);
-            //fromLocation.setOnKeyTyped(new AutoCompleteComboBoxListener<>(fromLocation));
             ObservableList<String> items = FXCollections.observableArrayList();
             DatabaseManager.getEmployeeNames().forEach(s -> {
                 items.add(s.substring(s.indexOf(" ")));
