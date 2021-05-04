@@ -1,4 +1,2 @@
 REQUESTID,EMPID,COMPLETED,DIETARYPREFERENCES,ALLERGIES,MENU,
-FOOD0,,false,Vegetarian,test,Menu 1,
-FOOD1,,false,null,ajdsnjsa,null,
-FOOD2,,false,Vegan,nut,Menu 0,
+FOOD0, sai,false,Vegan,Fish,Menu 1,
