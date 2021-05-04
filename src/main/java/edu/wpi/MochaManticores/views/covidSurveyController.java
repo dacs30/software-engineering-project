@@ -3,15 +3,23 @@ package edu.wpi.MochaManticores.views;
 import com.jfoenix.controls.*;
 import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.Services.COVIDsurvey;
 import edu.wpi.MochaManticores.database.DatabaseManager;
+import edu.wpi.MochaManticores.database.Employee;
 import edu.wpi.MochaManticores.database.sel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.image.ImageView;
+
+import javax.xml.crypto.Data;
 import java.util.Arrays;
 import java.util.List;
 
@@ -44,7 +52,7 @@ public class covidSurveyController extends SceneController{
     private List<JFXCheckBox> covidContactAns;
 
     @FXML
-    private JFXComboBox<JFXCheckBox> symptoms;
+    private JFXComboBox<String> symptoms;
 
     @FXML
     private JFXCheckBox coughingBox;
@@ -87,6 +95,10 @@ public class covidSurveyController extends SceneController{
 
     @FXML
     private StackPane dialogPane;
+    @FXML
+    private JFXDialog yesNoDialog;
+    @FXML
+    private JFXDialog submitDialog;
 
     @FXML
     private ImageView backgroundIMG;
@@ -100,6 +112,11 @@ public class covidSurveyController extends SceneController{
     private JFXButton yesBtn;
     @FXML
     private JFXButton noBtn;
+
+    @FXML
+    private GridPane yesNoQuestion;
+    @FXML
+    private GridPane covidForm;
 
 
     @FXML
@@ -115,6 +132,11 @@ public class covidSurveyController extends SceneController{
 
         System.out.println(width);
 
+        //yesNoQuestion.toFront();
+        //covidForm.setOnMouseClicked(event -> {
+        //    System.out.println("Hi");
+        //});
+
         sickAns = Arrays.asList(yesSickCB, noSickCB);
         vaccineAns = Arrays.asList(yesVaccinatedCB, noVaccinatedCB);
         covidContactAns = Arrays.asList(yesContactCovidCB, noContactCovidCB);
@@ -122,11 +144,29 @@ public class covidSurveyController extends SceneController{
         covidTestAns = Arrays.asList(yesCovidTestBox, noCovidTestBox);
 
         symptoms.getItems().clear();
-        symptoms.getItems().addAll(coughingBox,fatigueBox,
-                headacheBox,congestionBox,
-                soreThroatBox,muscleAchesBox,
-                shortBreathBox,nauseaBox,
-                lossOfSmellTasteBox,palpitationsBox,feverChillsBox,diarrheaBox);
+        symptoms.getItems().addAll("Coughing",
+                "Fatigue",
+                "Headache",
+                "Congestion",
+                "Sorethroat",
+                "Muscle Aches",
+                "Shortness of Breath",
+                "Nausea/Vomiting",
+                "Loss Of Smell or Taste",
+                "Palpitations",
+                "Fever/Chills",
+                "Diarrhea",
+                "None of the Above");
+        symptoms.setVisibleRowCount(5);
+        symptoms.setPromptText("-Select A Symptom-");
+
+    }
+
+    private boolean check(List<JFXCheckBox> list){
+        if(list.get(0).isSelected()){
+            return true;
+        }
+        return false;
     }
 
     public void goBack(ActionEvent actionEvent) {
@@ -138,28 +178,26 @@ public class covidSurveyController extends SceneController{
     public void noEvent() { loadNoDialog();}
 
     public void submitEvent(ActionEvent actionEvent) {
-       /* if (!patientName.getText().isEmpty() && !dateOfBirthPicker.equals("")){
+       if (!patientName.getText().isEmpty() && !dateOfBirthPicker.equals("")){
             sel s = sel.InternalTransportation;
-            DatabaseManager.addRequest(s, new edu.wpi.MochaManticores.Services.CovidSurvey(
-                    "",
-                    "",
-                    false,
-                    patientName.getText(),
-                    dateOfBirthPicker.getValue()
-            ));
-            System.out.println("Adds to database");
+            //TODO change to real employee
+            COVIDsurvey covid = new COVIDsurvey("","employee",false,App.getCurrentUsername(),dateOfBirthPicker.getValue().toString(),
+                    check(sickAns),check(vaccineAns),check(travelAns),check(covidTestAns),check(covidContactAns),symptoms.getValue(),true);
+
+            DatabaseManager.addRequest(sel.COVID,covid);
+
         } else if (patientName.getText().isEmpty()){
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
             patientName.getValidators().add(missingInput);
-            missingInput.setMessage("Location is required");
+            missingInput.setMessage("Name is required");
             patientName.validate();
         } else if (dateOfBirthPicker.equals("")){
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
             dateOfBirthPicker.getValidators().add(missingInput);
-            missingInput.setMessage("Safety Hazards are required");
+            missingInput.setMessage("Date of Birth is required");
             dateOfBirthPicker.validate();
-        } */
-            loadSubmitDialog();
+        }
+       loadSubmitDialog();
     }
 
     public void loadSubmitDialog(){
@@ -169,7 +207,7 @@ public class covidSurveyController extends SceneController{
             message.setMaxHeight(Region.USE_PREF_SIZE);
             message.setMaxHeight(Region.USE_PREF_SIZE);
 
-            final Text hearder = new Text("Your survey was submited");
+            final Text hearder = new Text("Your survey was submitted");
             hearder.setStyle("-fx-font-weight: bold");
             hearder.setStyle("-fx-font-size: 30");
             hearder.setStyle("-fx-font-family: Roboto");
@@ -183,19 +221,19 @@ public class covidSurveyController extends SceneController{
             message.setHeading(hearder);
 
             message.setBody(body);
-            JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
+            JFXDialog finalDialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
             JFXButton ok = new JFXButton("OK");
             ok.setOnAction(event -> {
                 changeSceneTo("landingPage");
             });
 
-            dialog.setOnDialogClosed(event -> {
+            finalDialog.setOnDialogClosed(event -> {
                 dialogPane.toBack();
-                dialog.close();
+                finalDialog.close();
             });
 
             message.setActions(ok);
-            dialog.show();
+            finalDialog.show();
     }
     public void loadCOVIDPositiveDialog(){
         dialogPane.toFront();
@@ -211,16 +249,28 @@ public class covidSurveyController extends SceneController{
         hearder.setStyle("-fx-alignment: center");
         message.setHeading(hearder);
 
-        final Text body = new Text("When you plan to visit the hospital, please follow this path.");
+        final Text body = new Text("When you plan to visit the hospital, please follow this path. Take a photo or screenshot if needed.");
         body.setStyle("-fx-font-size: 15");
         body.setStyle("-fx-font-family: Roboto");
         body.setStyle("-fx-alignment: center");
         message.setHeading(hearder);
 
-        message.setBody(body);
+        Image img = new Image("edu/wpi/MochaManticores/images/EmergencyPath.jpg");
+        final ImageView mapImage = new ImageView(img);
+        mapImage.setFitWidth(900);
+        mapImage.setFitHeight(500);
+
+        VBox vbox = new VBox();
+        vbox.setAlignment(Pos.CENTER);
+        vbox.getChildren().add(mapImage);
+        vbox.getChildren().add(body);
+        message.setBody(vbox);
+
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
         JFXButton ok = new JFXButton("OK");
         ok.setOnAction(event -> {
+            dialogPane.toBack();
+            dialog.close();
             changeSceneTo("landingPage");
         });
 
@@ -228,6 +278,15 @@ public class covidSurveyController extends SceneController{
             dialogPane.toBack();
             dialog.close();
         });
+
+        try { //TODO add this to covid table editor
+            Employee temp = DatabaseManager.getEmpManager().getElement(App.getCurrentUsername());
+            temp.setCovidStatus(true);
+            DatabaseManager.getEmpManager().modElement(App.getCurrentUsername(), temp);
+        }catch(Exception e){
+            e.printStackTrace();
+            System.out.println("no user to edit info of");
+        }
 
         message.setActions(ok);
         dialog.show();
@@ -256,12 +315,17 @@ public class covidSurveyController extends SceneController{
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
         JFXButton ok = new JFXButton("OK");
         ok.setOnAction(event -> {
-            changeSceneTo("landingPage");
+            dialog.toBack();
+            dialog.setVisible(false);
+            covidForm.toFront();
+            yesNoQuestion.toBack();
+            yesNoQuestion.setVisible(false);
+            covidForm.setVisible(true);
+            contentGrid.toFront();
         });
 
         dialog.setOnDialogClosed(event -> {
             dialogPane.toBack();
-            dialog.close();
         });
 
         message.setActions(ok);

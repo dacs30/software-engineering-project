@@ -53,7 +53,7 @@ public class IntTransportManager extends Manager<InternalTransportation> {
     void addElement_db(InternalTransportation temp) {
 
         try {
-            String sql = "INSERT INTO INTTRANSPORT (RequestID, Employee, completed, patientID, numStaffNeeded, Destination, TransportationMethod) " +
+            String sql = "INSERT INTO INTTRANSPORT (RequestID, EmpID, completed, patientID, numStaffNeeded, Destination, TransportationMethod) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, temp.getRequestID());

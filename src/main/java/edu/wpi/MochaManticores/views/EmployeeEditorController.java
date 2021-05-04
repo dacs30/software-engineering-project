@@ -1,7 +1,6 @@
 package edu.wpi.MochaManticores.views;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
@@ -9,10 +8,9 @@ import edu.wpi.MochaManticores.Exceptions.InvalidLoginException;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.Employee;
 import edu.wpi.MochaManticores.database.EmployeeManager;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-
-import java.awt.event.ActionEvent;
 
 public class EmployeeEditorController extends  SceneController{
 
@@ -26,63 +24,147 @@ public class EmployeeEditorController extends  SceneController{
     private JFXTextField newPass;
 
     @FXML
-    private Label user;
+    private JFXTextField first;
+
+    @FXML
+    private JFXTextField last;
+
+    @FXML
+    private JFXButton userButton;
+
+    @FXML
+    private JFXComboBox typePicker;
+
+    @FXML
+    private JFXToggleButton adminToggle;
 
 
-    public void initialize(){
-        user.setText("Username: "+App.getCurrentUsername());
+    @FXML
+    private Label title;
+
+    boolean adding;
+
+
+    public void initialize() throws InvalidElementException {
+        Employee selected = DatabaseManager.getEmpManager().getElement(App.getCurrentUsername());
+        boolean admin = selected.isAdmin();
+        if(!admin){
+            adminToggle.setDisable(true);
+            typePicker.setDisable(true);
+        }
+        adminToggle.setSelected(admin);
+        first.setText(selected.getFirstName());
+        last.setText(selected.getLastName());
+
+        typePicker.getItems().clear();
+        typePicker.getItems().addAll(Employee.employeeType.values());
+        typePicker.getSelectionModel().select(selected.getType());
+
 
     }
 
-
-
-
-    public void cancel(javafx.event.ActionEvent actionEvent) {
+    public void cancel(ActionEvent actionEvent) {
         back();
     }
 
-    public void submitForm(javafx.event.ActionEvent actionEvent) throws InvalidElementException {
+    public void submitForm(ActionEvent actionEvent) throws InvalidElementException {
+        if(!adding){
+            String username;
+            String pass;
+            Employee loggedIn;
 
-        String username;
-        String pass;
-        Employee loggedIn;
+            loggedIn = DatabaseManager.getEmployee(App.getCurrentUsername());
 
-        loggedIn = DatabaseManager.getEmployee(App.getCurrentUsername());
+            if (newUser.getText().equals("")) {
+                username = loggedIn.getUsername();
+            } else {
+                username = newUser.getText();
+            }
 
-        if(newUser.getText().equals("")){
-            username = loggedIn.getUsername();
-        }else{
-            username = newUser.getText();
+            if (newPass.getText().equals("")) {
+                pass = loggedIn.getPassword();
+            } else {
+                pass = newPass.getText();
+            }
+
+            try {
+                DatabaseManager.checkEmployeeLogin(loggedIn.getUsername(), oldPass.getText());
+            } catch (InvalidLoginException | InvalidElementException invalidLoginException) {
+                newUser.setText("");
+                oldPass.setText("");
+                newPass.setText("");
+                RequiredFieldValidator wrongCreditals = new RequiredFieldValidator();
+                oldPass.getValidators().add(wrongCreditals);
+                wrongCreditals.setMessage("Wrong password");
+                oldPass.validate();
+                return;
+            }
+            DatabaseManager.modEmployee(loggedIn.getUsername(),
+                    new Employee(username,
+                            pass,
+                            first.getText(),
+                            last.getText(),
+                            (Employee.employeeType) typePicker.getSelectionModel().getSelectedItem(),
+                            loggedIn.getID(),
+                            adminToggle.isSelected(),
+                            loggedIn.isCovidStatus(),
+                            loggedIn.getParkingSpace()));
+            App.setCurrentUsername(null);
+            changeSceneTo("loginPage");
+        }else {
+            String username;
+            String password;
+            Employee toAdd = null;
+            try {
+                DatabaseManager.getEmpManager().getElement(newUser.getText());
+                newUser.setText("");
+                RequiredFieldValidator userTaken = new RequiredFieldValidator();
+                newUser.getValidators().add(userTaken);
+                userTaken.setMessage("User already in system");
+                oldPass.setText("");
+                newPass.setText("");
+                newUser.validate();
+                return;
+            } catch (InvalidElementException ex) {
+                username = newUser.getText();
+                password = oldPass.getText();
+                if (!password.equals(newPass.getText())) {
+                    newUser.setText("");
+                    RequiredFieldValidator passwordMismatch = new RequiredFieldValidator();
+                    oldPass.getValidators().add(passwordMismatch);
+                    passwordMismatch.setMessage("Passwords do not match");
+                    oldPass.setText("");
+                    newPass.setText("");
+                    oldPass.validate();
+                    return;
+                }
+                toAdd = new Employee(
+                        username,
+                        password,
+                        first.getText(),
+                        last.getText(),
+                        (Employee.employeeType) typePicker.getSelectionModel().getSelectedItem(),
+                        0,
+                        adminToggle.isSelected(),
+                        false,
+                        null);
+                DatabaseManager.addEmployee(toAdd);
+                back();
+            }
         }
+    }
 
-        if(newPass.getText().equals("")){
-            pass = loggedIn.getPassword();
-        }else{
-            pass = newPass.getText();
-        }
-
-        try{
-            DatabaseManager.checkEmployeeLogin(loggedIn.getUsername(), oldPass.getText());
-        } catch (InvalidLoginException | InvalidElementException invalidLoginException) {
-            newUser.setText("");
-            oldPass.setText("");
-            newPass.setText("");
-            RequiredFieldValidator wrongCreditals = new RequiredFieldValidator();
-            oldPass.getValidators().add(wrongCreditals);
-            wrongCreditals.setMessage("Wrong password");
-            oldPass.validate();
-            return;
-        }
-        DatabaseManager.modEmployee(loggedIn.getUsername(),
-                new Employee(username,
-                        pass,
-                        loggedIn.getFirstName(),
-                        loggedIn.getLastName(),
-                        loggedIn.getType(),
-                        loggedIn.getID(),
-                        loggedIn.isAdmin()));
-        App.setCurrentUsername(null);
-        changeSceneTo("loginPage");
-
+    public void addUser(ActionEvent e){
+        title.setText("Add Employee");
+        first.setText("");
+        last.setText("");
+        userButton.setVisible(false);
+        userButton.setDisable(true);
+        adding = true;
+        newUser.setPromptText("Username");
+        oldPass.setPromptText("Password");
+        newPass.setPromptText("Confirm Password");
+        typePicker.getSelectionModel().select(Employee.employeeType.DEFAULT);
+        adminToggle.setSelected(false);
     }
 }

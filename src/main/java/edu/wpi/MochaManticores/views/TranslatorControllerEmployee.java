@@ -1,107 +1,22 @@
 package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.*;
-import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import edu.wpi.MochaManticores.Services.LanguageInterpreterRequest;
-import edu.wpi.MochaManticores.Services.ServiceRequest;
-import edu.wpi.MochaManticores.Services.ServiceRequestType;
+import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.sel;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-
 public class TranslatorControllerEmployee extends SceneController{
 
-    public class tl extends RecursiveTreeObject<tl>{
-        edu.wpi.MochaManticores.Services.LanguageInterpreterRequest ref;
-        StringProperty room;
-        StringProperty languageOne;
-        StringProperty languageTwo;
-        StringProperty employeeAssigned;
-        boolean completed;
-        LinkedList<String> fields;
-
-        public tl(edu.wpi.MochaManticores.Services.ServiceRequest ref){
-            this.ref = (edu.wpi.MochaManticores.Services.LanguageInterpreterRequest) ref;
-            room = new SimpleStringProperty(this.ref.getRoom());
-            languageOne = new SimpleStringProperty(this.ref.getLanguageOne());
-            languageTwo = new SimpleStringProperty(this.ref.getLanguageTwo());
-            employeeAssigned = new SimpleStringProperty(this.ref.getEmployee());
-            completed = this.ref.getCompleted();
-            fields = new LinkedList<>(Arrays.asList(
-                    room.get(),
-                    languageOne.get(),
-                    languageTwo.get()));
-        }
-
-
-        public void setCompleted(boolean completed) {
-            this.completed = completed;
-        }
-
-        public LanguageInterpreterRequest getRef() {
-            return ref;
-        }
-
-        public String getRoom() {
-            return room.get();
-        }
-
-        public StringProperty roomProperty() {
-            return room;
-        }
-
-        public String getLanguageOne() {
-            return languageOne.get();
-        }
-
-        public StringProperty languageOneProperty() {
-            return languageOne;
-        }
-
-        public String getLanguageTwo() {
-            return languageTwo.get();
-        }
-
-        public StringProperty languageTwoProperty() {
-            return languageTwo;
-        }
-
-        public String getEmployeeAssigned() {
-            return employeeAssigned.get();
-        }
-
-        public StringProperty employeeAssignedProperty() {
-            return employeeAssigned;
-        }
-
-        public String isCompleted() {
-            if(completed){
-                return "Completed";
-            }else{
-                return "Open";
-            }
-        }
-
-        public LinkedList<String> getFields() {
-            return fields;
-        }
-    }
 
     ObservableList<String> availableLanguages = FXCollections
             .observableArrayList("English","Spanish","Mandarin");
@@ -114,47 +29,69 @@ public class TranslatorControllerEmployee extends SceneController{
     private JFXComboBox languageTwo;
 
     @FXML
+    private JFXComboBox employeeAssigned;
+
+    @FXML
     private JFXTextField empBox;
     @FXML
     private StackPane dialogPane;
 
-    public TableView<tl> translatorTable;
+    @FXML
+    private ImageView backgroundIMG;
 
-    public TableColumn<tl, String> roomColumn;
-    public TableColumn<tl, String> languageOneColumn;
-    public TableColumn<tl, String> languageTwoColumn;
-    public TableColumn<tl, String> employeeAssignedColumn;
-    public TableColumn<tl, String> completedColumn;
 
     @FXML
     private GridPane requestPage;
-
     @FXML
     private GridPane managerPage;
 
 
+    private void createFilterListener(JFXComboBox comboBox) {
+
+        // Create the listener to filter the list as user enters search terms
+        FilteredList<String> filteredList = new FilteredList<>(comboBox.getItems());
+
+        // Add listener to our ComboBox textfield to filter the list
+        comboBox.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            comboBox.show();
+            filteredList.setPredicate(item -> {
+
+
+                // If the TextField is empty, return all items in the original list
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                // Check if the search term is contained anywhere in our list
+                return item.toLowerCase().contains(newValue.toLowerCase().trim());
+
+            });
+        });
+
+        // Finally, let's add the filtered list to our ComboBox
+        comboBox.setItems(filteredList);
+
+    }
+
     @FXML
     private void initialize() {
+        employeeAssigned.setEditable(true);
+        //fromLocation.setOnKeyTyped(new AutoCompleteComboBoxListener<>(fromLocation));
+        ObservableList<String> items = FXCollections.observableArrayList();
+        DatabaseManager.getEmployeeNames().forEach(s -> {
+            items.add(s.substring(s.indexOf(" ")));
+        });
+        employeeAssigned.setItems(items);
+        createFilterListener(employeeAssigned);
 
-        roomColumn = new TableColumn<tl,String>("Room");
-        roomColumn.setMinWidth(100);
-        roomColumn.setCellValueFactory(new PropertyValueFactory<tl, String>("room"));
 
-        languageOneColumn = new TableColumn<tl,String>("Room");
-        languageOneColumn.setMinWidth(100);
-        languageOneColumn.setCellValueFactory(new PropertyValueFactory<tl, String>("languageOne"));
+        double height = App.getPrimaryStage().getScene().getHeight();
+        double width = App.getPrimaryStage().getScene().getWidth();
+        backgroundIMG.setFitHeight(height);
+        backgroundIMG.setFitWidth(width);
 
-        languageOneColumn = new TableColumn<tl,String>("Room");
-        languageOneColumn.setMinWidth(100);
-        languageOneColumn.setCellValueFactory(new PropertyValueFactory<tl, String>("languageTwo"));
-
-        employeeAssignedColumn = new TableColumn<tl, String>("Assigned To");
-        employeeAssignedColumn.setMinWidth(100);
-        employeeAssignedColumn.setCellValueFactory(new PropertyValueFactory<tl, String>("employeeAssigned"));
-
-        completedColumn = new TableColumn<tl, String>("Status");
-        completedColumn.setMinWidth(100);
-        completedColumn.setCellValueFactory(new PropertyValueFactory<tl, String>("completed"));
+        backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
+        backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
 
         languageOne.setItems(availableLanguages);
@@ -162,29 +99,6 @@ public class TranslatorControllerEmployee extends SceneController{
     }
 
 
-    private ObservableList<tl> buildTable(String searchTerm){
-        ObservableList<tl> tableRow = FXCollections.observableArrayList();
-        LinkedList<ServiceRequest> requests = DatabaseManager.getServiceMap().getServiceRequestsForType(ServiceRequestType.LanguageInterperter);
-
-        for(ServiceRequest s : requests){
-            tl tlToAdd = new tl(s);
-            for (int i = 0; i < tlToAdd.getFields().size(); i++) {
-                if(tlToAdd.getFields().get(i).toLowerCase().equals(searchTerm) || searchTerm.equals("")){
-                    tableRow.add(tlToAdd);
-                    break;
-                }
-            }
-        }
-        translatorTable.setItems(tableRow);
-        translatorTable.getColumns().setAll(
-                roomColumn,
-                languageOneColumn,
-                languageTwoColumn,
-                employeeAssignedColumn,
-                completedColumn);
-        return tableRow;
-
-    }
 
     public void cancelReq(ActionEvent actionEvent) {
         back();
@@ -285,23 +199,18 @@ public class TranslatorControllerEmployee extends SceneController{
     public void changeToRequest(ActionEvent actionEvent) {
         requestPage.setVisible(true);
         managerPage.setVisible(false);
+        requestPage.toFront();
     }
 
     public void changeManagerTable(ActionEvent actionEvent) {
-        buildTable("");
         requestPage.setVisible(false);
         managerPage.setVisible(true);
+        managerPage.toFront();
     }
 
-    public void completeService(ActionEvent e){
-        tl selection = translatorTable.getSelectionModel().getSelectedItem();
-        selection.setCompleted(true);
-        selection.getRef().setCompleted(true);
-        buildTable("");
-    }
 
-    public void helpButton(MouseEvent mouseEvent) {
+
+    public void helpButton(javafx.scene.input.MouseEvent mouseEvent) {
         loadHelpDialog();
     }
-
 }

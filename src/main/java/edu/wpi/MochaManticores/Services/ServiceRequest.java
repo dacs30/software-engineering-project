@@ -67,6 +67,8 @@ public abstract class ServiceRequest {
                 return "Med"+num;
             case Laundry:
                 return "Laund"+num;
+            case COVID:
+                return "COVID"+num;
         }
         return "";
     }

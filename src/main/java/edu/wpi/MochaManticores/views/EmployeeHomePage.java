@@ -62,8 +62,8 @@ public class EmployeeHomePage extends SceneController {
         });
 
     }
-    public void goToMedicineDelivery(MouseEvent mouseEvent) throws IOException {
-        super.changeWindowTo("medicineDeliveryEmployee");
+    public void goToManager(MouseEvent mouseEvent) throws IOException {
+        super.changeWindowTo("serviceManager");
     }
     public void goToInternalTransportation(MouseEvent mouseEvent) throws IOException {
         super.changeWindowTo("internalTransportation"); }

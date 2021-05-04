@@ -8,9 +8,11 @@ import edu.wpi.MochaManticores.Nodes.EdgeMapSuper;
 import edu.wpi.MochaManticores.Nodes.EdgeSuper;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
+import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.EdgeManager;
 import edu.wpi.MochaManticores.database.Mdb;
 import javafx.application.Platform;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -21,11 +23,13 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -91,6 +95,12 @@ public class mapEditor extends SceneController {
 
     @FXML
     public Group deleteEdge;
+
+    @FXML
+    private Group horizAlign;
+
+    @FXML
+    private Group vertAlign;
 
     @FXML
     private JFXTextField nodeTypeField;
@@ -288,7 +298,7 @@ public class mapEditor extends SceneController {
     /**
      * Used as input for A*
      */
-    private LinkedList<node> pitStops = new LinkedList<>();
+    private LinkedList<node> selectedNodes = new LinkedList<>();
 
     @FXML
     private ImageView backgroundIMG;
@@ -346,6 +356,8 @@ public class mapEditor extends SceneController {
     private JFXButton cancelChanges1;
     @FXML
     private VBox defaultBox;
+    @FXML
+    private ScrollPane mapScrollPane;
 
     private SimpleDoubleProperty mouseX = new SimpleDoubleProperty();
     private SimpleDoubleProperty mouseY  = new SimpleDoubleProperty();
@@ -371,6 +383,9 @@ public class mapEditor extends SceneController {
     Rectangle2D noZoom;
 
     Rectangle2D zoomPort;
+
+    private final DoubleProperty zoomProperty = new SimpleDoubleProperty(1.0d);
+    private final DoubleProperty deltaY = new SimpleDoubleProperty(0.0d);
 
     /**
      * initializes the scene with the following eventHandlers:
@@ -409,8 +424,30 @@ public class mapEditor extends SceneController {
 //            }
 //        });
 
-        mapWindow.fitHeightProperty().bind(mapStack.heightProperty());
-        mapWindow.fitWidthProperty().bind(mapStack.widthProperty());
+        mapScrollPane.setPannable(true);
+        mapScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        mapScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+
+        PanAndZoomPane panAndZoomPane = new PanAndZoomPane();
+        zoomProperty.bind(panAndZoomPane.myScale);
+        deltaY.bind(panAndZoomPane.deltaY);
+        panAndZoomPane.getChildren().add(mapStack);
+
+        SceneGestures sceneGestures = new SceneGestures(panAndZoomPane);
+
+        mapScrollPane.setContent(panAndZoomPane);
+        panAndZoomPane.toBack();
+        mapScrollPane.addEventFilter( MouseEvent.MOUSE_CLICKED, sceneGestures.getOnMouseClickedEventHandler());
+        mapScrollPane.addEventFilter( MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
+//        mapScrollPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, event -> {
+//            if (!editing) {
+//                sceneGestures.getOnMouseDraggedEventHandler().handle(event);
+//            }
+//        });
+        mapScrollPane.addEventFilter( ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
+
+        mapWindow.fitWidthProperty().bind(mapScrollPane.widthProperty());
+        mapWindow.fitHeightProperty().bind(mapScrollPane.heightProperty());
 
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override
@@ -463,6 +500,8 @@ public class mapEditor extends SceneController {
         deleteNode.managedProperty().bind(deleteNode.visibleProperty());
         addEdge.managedProperty().bind(addEdge.visibleProperty());
         deleteEdge.managedProperty().bind(deleteEdge.visibleProperty());
+        horizAlign.managedProperty().bind(horizAlign.visibleProperty());
+        vertAlign.managedProperty().bind(vertAlign.visibleProperty());
 
         addNode.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -513,6 +552,9 @@ public class mapEditor extends SceneController {
                             deleteNode.setVisible(true);
                             addEdge.setVisible(true);
                             deleteEdge.setVisible(false);
+                            horizAlign.setVisible(true);
+                            vertAlign.setVisible(true);
+
 
                             contextBox.relocate(e.getSceneX(), e.getSceneY());
                         }
@@ -652,6 +694,42 @@ public class mapEditor extends SceneController {
                 }
             }
         });
+        horizAlign.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                double sum = 0;
+                System.out.println(selectedNodes);
+                for (node n : selectedNodes){
+                    sum += n.getNodeRef().getYcoord();
+                }
+                double avg = sum / selectedNodes.size();
+                for (node n : selectedNodes){
+                    n.getNodeRef().setCoords((int)n.getNodeRef().getXcoord(), (int)avg);
+                    DatabaseManager.modNode(n.getNodeID(), n.getNodeRef());
+                }
+                drawNodes();
+                drawEdges();
+                selectedNodes.clear();
+            }
+        });
+        vertAlign.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                double sum = 0;
+                System.out.println(selectedNodes);
+                for (node n : selectedNodes){
+                    sum += n.getNodeRef().getXcoord();
+                }
+                double avg = sum / selectedNodes.size();
+                for (node n : selectedNodes){
+                    n.getNodeRef().setCoords((int)avg, (int)n.getNodeRef().getYcoord());
+                    DatabaseManager.modNode(n.getNodeID(), n.getNodeRef());
+                }
+                drawNodes();
+                drawEdges();
+                selectedNodes.clear();
+            }
+        });
 
         EventHandler<MouseEvent> mouseMoved = new EventHandler<MouseEvent>() {
             @Override
@@ -698,6 +776,8 @@ public class mapEditor extends SceneController {
                     deleteNode.setVisible(false);
                     addEdge.setVisible(false);
                     deleteEdge.setVisible(false);
+                    horizAlign.setVisible(false);
+                    vertAlign.setVisible(false);
 
                     contextBox.relocate(event.getSceneX(), event.getSceneY());
                     newCoords[0] = event.getX(); newCoords[1] = event.getY();
@@ -1020,56 +1100,6 @@ public class mapEditor extends SceneController {
         System.out.printf("(%f,%f)\n", e.getX() * xRatio, e.getY() * yRatio);
     }
 
-    public void toAStar() {
-        //pathToTake is used in the dialog box that keeps all the nodes that the user has to pass through
-        StringBuilder pathToTake = new StringBuilder(new String());
-        LinkedList<NodeSuper> stops = new LinkedList<>();
-        for (node n :
-                pitStops) {
-            stops.add(MapSuper.getMap().get(n.nodeID));
-        }
-        if (pitStops.isEmpty()) {
-            pathToTake.append("Please select at least one node");
-        } else {
-
-            LinkedList<String> path = App.getAlgoType().multiStopRoute(stops, "none");
-            System.out.println(path);
-            for (String str :
-                    path) {
-                System.out.printf("\n%s\n|\n", MapSuper.getMap().get(str).getLongName());
-                pathToTake.append(MapSuper.getMap().get(str).getLongName()).append("\n|\n");//appending the paths
-            }
-            LinkedList<Line> lines = new LinkedList();
-
-            for (int i = 0; i < path.size(); i++) {
-                try {
-                    node start = nodes.get(path.get(i));
-                    node end = nodes.get(path.get(i + 1));
-                    double startX = start.xCoord;
-                    double startY = start.yCoord;
-                    double endX = end.xCoord;
-                    double endY = end.yCoord;
-                    Line l = new Line(startX, startY, endX, endY);
-                    l.setStroke(Color.BLACK);
-                    l.setStrokeWidth(5);
-                    lines.add(l);
-                } catch (Exception e) {
-                    System.out.println("Got here");
-                }
-
-            }
-            nodePane.getChildren().addAll(lines);
-            for (node n :
-                    pitStops) {
-                n.resetFill();
-            }
-            pitStops = new LinkedList<>();
-        }
-
-        loadDialog(pathToTake); // calling the dialog pane with the path
-
-    }
-
     /**
      * redraws all the nodes and edges
      */
@@ -1097,15 +1127,16 @@ public class mapEditor extends SceneController {
                     @Override
                     public void handle(MouseEvent e) {
                         nodeClicked = true;
-                        if(e.getButton().equals(MouseButton.PRIMARY)){if(addingEdge){
-                            connectNodes(e);
-                        }else{
-                            if (!dragged) {
-                                highlightNode(e);
-                            } else {
-                                dragged = !dragged;
+                        if(e.getButton().equals(MouseButton.PRIMARY)){
+                            if(addingEdge){
+                                connectNodes(e);
+                            }else{
+                                if (!dragged) {
+                                    highlightNode(e);
+                                } else {
+                                    dragged = !dragged;
+                                }
                             }
-                        }
                         } else if (e.getButton() == MouseButton.SECONDARY){
                             contextBox.toFront();
                             contextBox.setVisible(true);
@@ -1113,6 +1144,8 @@ public class mapEditor extends SceneController {
                             deleteNode.setVisible(true);
                             addEdge.setVisible(true);
                             deleteEdge.setVisible(false);
+                            horizAlign.setVisible(true);
+                            vertAlign.setVisible(true);
 
                             contextBox.relocate(e.getSceneX(), e.getSceneY());
 
@@ -1237,6 +1270,8 @@ public class mapEditor extends SceneController {
                             deleteNode.setVisible(false);
                             addEdge.setVisible(false);
                             deleteEdge.setVisible(true);
+                            horizAlign.setVisible(false);
+                            vertAlign.setVisible(false);
 
                             prevLine = (Node) e.getSource();
 
@@ -1308,6 +1343,8 @@ public class mapEditor extends SceneController {
                         deleteNode.setVisible(false);
                         addEdge.setVisible(false);
                         deleteEdge.setVisible(true);
+                        horizAlign.setVisible(false);
+                        vertAlign.setVisible(false);
 
                         contextBox.relocate(e.getSceneX(), e.getSceneY());
                     }
@@ -1381,6 +1418,12 @@ public class mapEditor extends SceneController {
             node n = iter.next();
             if (n.c.equals(src)) {
 
+                if (n.isHighlighted()){
+                    selectedNodes.remove(n);
+                } else {
+                    selectedNodes.add(n);
+                }
+
                 nodeIDField.setText(n.getNodeID());
                 xCoordField.setText(Integer.toString(n.getNodeRef().getXcoord()));
                 yCoordField.setText(Integer.toString(n.getNodeRef().getYcoord()));
@@ -1393,7 +1436,6 @@ public class mapEditor extends SceneController {
 
                 stashedChanges.add(n);
 
-                pitStops.add(n);
             }
         }
     }
@@ -1476,12 +1518,6 @@ public class mapEditor extends SceneController {
         startNodeID.setText(start.getNodeID().replaceAll("\\s",""));
         endNodeID.setText(end.getNodeID().replaceAll("\\s",""));
         addingEdge = !addingEdge;
-    }
-
-    @FXML
-    public void goToRouteExample(ActionEvent e) {
-        drawNodes();
-        toAStar();
     }
 
     public void zoomImg(MouseEvent e) {

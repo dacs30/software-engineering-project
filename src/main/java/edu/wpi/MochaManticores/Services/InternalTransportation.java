@@ -19,7 +19,6 @@ public class InternalTransportation extends ServiceRequest {
     }
 
 
-
     public String getPatientID() {
         return patientID;
     }
