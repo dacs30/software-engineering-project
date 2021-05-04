@@ -152,6 +152,10 @@ public class LoginPage extends SceneController{
     }
 
     public void onMouseClickedContinue(ActionEvent e) {
+        //ensure patient id is entered
+        //save the patient id as App.setCurrentUsername
+        //if there is no employee with that username then create it
+
         App.setClearenceLevel(0);
         if (IDField.getText().equals("")){
             App.setCurrentUsername("Guest");

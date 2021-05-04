@@ -89,7 +89,7 @@ public class Mdb extends Thread{
                 sql = "CREATE TABLE EMPLOYEES" +
                         "(username VARCHAR(21) not NULL, " +
                         " password VARCHAR(21), " +
-                        " fisrtName VARCHAR(21), " +
+                        " firstName VARCHAR(21), " +
                         " lastName VARCHAR(21), " +
                         " employeeType VARCHAR(21)," +
                         " ID INTEGER," +
