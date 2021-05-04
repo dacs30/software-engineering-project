@@ -31,144 +31,10 @@ import java.util.LinkedList;
 
 public class extTransportationControllerEmployee extends SceneController {
 
-    public class et extends RecursiveTreeObject<et> {
-        edu.wpi.MochaManticores.Services.ExternalTransportation ref;
-        StringProperty patientRoom;
-        StringProperty currentRoom;
-        StringProperty externalRoom;
-        StringProperty transportationMethod;
-        @FXML
-        JFXComboBox employeeAssigned;
-        boolean completed;
-        LinkedList<String> fields;
-
-        public void setPatientRoom(String patientRoom) {
-            this.patientRoom.set(patientRoom);
-            generateFields();
-        }
-
-        public void setCurrentRoom(String currentRoom) {
-            this.currentRoom.set(currentRoom);
-            generateFields();
-
-        }
-
-        public void setExternalRoom(String externalRoom) {
-            this.externalRoom.set(externalRoom);
-            generateFields();
-
-        }
-
-        public void setTransportationMethod(String transportationMethod) {
-            this.transportationMethod.set(transportationMethod);
-            generateFields();
-
-        }
-
-        public void setEmployeeAssigned(JFXComboBox employeeAssigned) {
-            this.employeeAssigned.setValue(employeeAssigned);
-            generateFields();
-
-        }
-
-        public void setCompleted(boolean completed) {
-            this.completed = completed;
-            generateFields();
-
-        }
-
-        public et(edu.wpi.MochaManticores.Services.ServiceRequest ref){
-            this.ref = (edu.wpi.MochaManticores.Services.ExternalTransportation) ref;
-            patientRoom = new SimpleStringProperty(this.ref.getPatientRoom());
-            currentRoom = new SimpleStringProperty(this.ref.getCurrentRoom());
-            externalRoom = new SimpleStringProperty(this.ref.getExternalRoom());
-            transportationMethod = new SimpleStringProperty(this.ref.getTransportationMethod());
-
-            completed = this.ref.getCompleted();
-            fields = new LinkedList<>(Arrays.asList(
-                    patientRoom.get(),
-                    currentRoom.get(),
-                    externalRoom.get(),
-                    transportationMethod.get(),
-                    employeeAssigned.getValue().toString()));
-        }
-
-        public void generateFields(){
-            fields = new LinkedList<>(Arrays.asList(
-                    patientRoom.get(),
-                    currentRoom.get(),
-                    externalRoom.get(),
-                    transportationMethod.get(),
-                    employeeAssigned.getValue().toString()));
-        }
-
-        public ExternalTransportation getRef() {
-            return ref;
-        }
-
-        public String getPatientRoom() {
-            return patientRoom.get();
-        }
-
-        public StringProperty patientRoomProperty() {
-            return patientRoom;
-        }
-
-        public String getCurrentRoom() {
-            return currentRoom.get();
-        }
-
-        public StringProperty currentRoomProperty() {
-            return currentRoom;
-        }
-
-        public String getExternalRoom() {
-            return externalRoom.get();
-        }
-
-        public StringProperty externalRoomProperty() {
-            return externalRoom;
-        }
-
-        public String getTransportationMethod() {
-            return transportationMethod.get();
-        }
-
-        public StringProperty transportationMethodProperty() {
-            return transportationMethod;
-        }
-
-        @FXML
-        public JFXComboBox getEmployeeAssigned() {
-            return (JFXComboBox)employeeAssigned.getValue();
-        }
-
-        public JFXComboBox employeeAssignedProperty() {
-            return employeeAssigned;
-        }
-
-        public String isCompleted() {
-            if(completed){
-                return "Completed";
-            }else{
-                return "Open";
-            }
-        }
-
-        public LinkedList<String> getFields() {
-            return fields;
-        }
-    }
 
     ObservableList<String> transportationMethod = FXCollections.observableArrayList("Ambulance", "Helicopter", "Plane");
 
 
-    public TableColumn<et, String> patientRoomColumn;
-    public TableColumn<et, String> currentRoomColumn;
-    public TableColumn<et, String> externalRoomColumn;
-    public TableColumn<et, String> transportationMethodColumn;
-    public TableColumn<et, JFXComboBox> employeeColumn;
-    public TableColumn<et, String> completedColumn;
 
     @FXML
     private GridPane contentGrid;
@@ -190,8 +56,7 @@ public class extTransportationControllerEmployee extends SceneController {
     @FXML
     private ComboBox<String> transportationMethods;
 
-    @FXML
-    private TableView<et> externalTable;
+
 
     @FXML
     private JFXComboBox employeeAssigned;
@@ -223,51 +88,7 @@ public class extTransportationControllerEmployee extends SceneController {
 
     @FXML
     private void initialize() {
-
-
-
-
-        patientRoomColumn = new TableColumn<et, String>("Patient Room");
-        patientRoomColumn.setMinWidth(100);
-        patientRoomColumn.setCellValueFactory(new PropertyValueFactory<et, String>("patientRoom"));
-        patientRoomColumn.setOnEditCommit(this::changePatientRoom);
-
-
-
-        currentRoomColumn = new TableColumn<et, String>("Current Room");
-        currentRoomColumn.setMinWidth(100);
-        currentRoomColumn.setCellValueFactory(new PropertyValueFactory<et, String>("currentRoom"));
-        currentRoomColumn.setOnEditCommit(this::changeCurrentRoom);
-
-
-
-        externalRoomColumn = new TableColumn<et, String>("External Room");
-        externalRoomColumn.setMinWidth(100);
-        externalRoomColumn.setCellValueFactory(new PropertyValueFactory<et, String>("externalRoom"));
-        externalRoomColumn.setOnEditCommit(this::changeExternalRoom);
-
-
-        transportationMethodColumn = new TableColumn<et, String>("Transportation Method");
-        transportationMethodColumn.setMinWidth(100);
-        transportationMethodColumn.setCellValueFactory(new PropertyValueFactory<et, String>("transportationMethod"));
-        transportationMethodColumn.setOnEditCommit(this::changeTransport);
-
-
-        employeeColumn = new TableColumn<et, JFXComboBox>("Employee");
-        employeeColumn.setMinWidth(100);
-        employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employeeAssigned"));
-        employeeColumn.setOnEditCommit(this::changeEmployee);
-
-
-        completedColumn = new TableColumn<et, String>("Completed");
-        completedColumn.setMinWidth(100);
-        completedColumn.setCellValueFactory(new PropertyValueFactory<>("completed"));
-        completedColumn.setOnEditCommit(this::changeCompleted);
-
-
-        externalTable.setEditable(true);
-
-            this.employeeAssigned.setEditable(true);
+        employeeAssigned.setEditable(true);
         //fromLocation.setOnKeyTyped(new AutoCompleteComboBoxListener<>(fromLocation));
         ObservableList<String> items = FXCollections.observableArrayList();
         DatabaseManager.getEmployeeNames().forEach(s -> {
@@ -295,7 +116,6 @@ public class extTransportationControllerEmployee extends SceneController {
 
         changeToRequest(null);
 
-        buildTable("",false);
 
 //        externalTable.getSelectionModel().cellSelectionEnabledProperty().set(true);
 //        patientRoomColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -307,67 +127,8 @@ public class extTransportationControllerEmployee extends SceneController {
 //        completedColumn.setCellFactory(TextFieldTableCell.forTableColumn());
     }
 
-    public void changePatientRoom(TableColumn.CellEditEvent editEvent){
-        et selectedRow = externalTable.getSelectionModel().getSelectedItem();
-        selectedRow.setPatientRoom(editEvent.getNewValue().toString());
-    }
-
-    public void changeCurrentRoom(TableColumn.CellEditEvent editEvent){
-        et selectedRow = externalTable.getSelectionModel().getSelectedItem();
-        selectedRow.setCurrentRoom(editEvent.getNewValue().toString());
-    }
-    public void changeExternalRoom(TableColumn.CellEditEvent editEvent){
-        et selectedRow = externalTable.getSelectionModel().getSelectedItem();
-        selectedRow.setExternalRoom(editEvent.getNewValue().toString());
-    }
-    public void changeTransport(TableColumn.CellEditEvent editEvent){
-        et selectedRow = externalTable.getSelectionModel().getSelectedItem();
-        selectedRow.setTransportationMethod(editEvent.getNewValue().toString());
-    }
-    public void changeEmployee(TableColumn.CellEditEvent editEvent){
-        et selectedRow = externalTable.getSelectionModel().getSelectedItem();
-        //selectedRow.setEmployeeAssigned(editEvent.getNewValue().toString());
-    }
-    public void changeCompleted(TableColumn.CellEditEvent editEvent){
-        et selectedRow = externalTable.getSelectionModel().getSelectedItem();
-        if((editEvent.getNewValue().toString()).equals("Open")){
-            selectedRow.setCompleted(false);
-        }else if((editEvent.getNewValue().toString()).equals("Closed")){
-            selectedRow.setCompleted(true);
-        }
-
-    }
 
 
-
-    public ObservableList<et> buildTable(String searchTerm, boolean showCompleted){
-
-
-
-        ObservableList<et> tableRow = FXCollections.observableArrayList();
-        LinkedList<ServiceRequest> requests = DatabaseManager.getServiceMap().getServiceRequestsForType(ServiceRequestType.ExternalTransportation);
-
-        for(ServiceRequest s : requests){
-            et etToAdd = new et(s);
-            for (int i = 0; i < etToAdd.getFields().size(); i++) {
-                if((etToAdd.getFields().get(i).toLowerCase().equals(searchTerm) || searchTerm.equals(""))){
-                        tableRow.add(etToAdd);
-                        break;
-                }
-            }
-        }
-
-        externalTable.setItems(tableRow);
-        externalTable.getColumns().setAll(
-                patientRoomColumn,
-                currentRoomColumn,
-                externalRoomColumn,
-                transportationMethodColumn,
-                employeeColumn,
-                completedColumn);
-        return  tableRow;
-
-    }
 
 
     public void submitEvent(ActionEvent actionEvent) {
@@ -376,7 +137,7 @@ public class extTransportationControllerEmployee extends SceneController {
             DatabaseManager.addRequest(s,
                     new edu.wpi.MochaManticores.Services.ExternalTransportation(
                             "",
-                            empBox.getText(),
+                            employeeAssigned.getEditor().getText(),
                             false,
                             patientRoom.getText(),
                             currentRoom.getText(),
@@ -411,11 +172,6 @@ public class extTransportationControllerEmployee extends SceneController {
         managerPage.setVisible(false);
     }
 
-    public void changeManagerTable(ActionEvent actionEvent) {
-        buildTable("",true);
-        requestPage.setVisible(false);
-        managerPage.setVisible(true);
-    }
 
     private void loadDialog(){
         JFXDialogLayout message = new JFXDialogLayout();
@@ -461,13 +217,6 @@ public class extTransportationControllerEmployee extends SceneController {
     private void loadHelpDialogue() {
         dialogPane.toFront();
         loadDialog();
-    }
-
-    public void completeService(ActionEvent e){
-        et selection = externalTable.getSelectionModel().getSelectedItem();
-        selection.setCompleted(true);
-        selection.getRef().setCompleted(true);
-        buildTable("",true);
     }
 
     public void loadSubmitDialog(){

@@ -1,6 +1,8 @@
 package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.MochaManticores.Services.*;
@@ -14,6 +16,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -21,6 +24,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -33,6 +37,9 @@ import java.util.LinkedList;
 public class serviceManagerController extends SceneController {
 
     @FXML
+    private AnchorPane mainPane;
+
+    @FXML
     private VBox contextBox;
 
     @FXML
@@ -43,6 +50,8 @@ public class serviceManagerController extends SceneController {
 
     @FXML
     private Group deleteEntry;
+
+    private JFXComboBox<String> emps = new JFXComboBox<>();
     
     public TableView<ss> sanitationTable;
     public TableColumn<ss, String> sanitationLocationColumn;
@@ -50,27 +59,27 @@ public class serviceManagerController extends SceneController {
     public TableColumn<ss, String> sanitationTypeColumn;
     public TableColumn<ss, String> equipmentNeededColumn;
     public TableColumn<ss, String> sanitationDescriptionColumn;
-    public TableColumn<ss, String> sanitationEmployeeColumn;
+    public TableColumn<ss, JFXComboBox> sanitationEmployeeColumn;
     public TableColumn<ss, JFXButton> sanitationCompletedColumn;
 
     public TableView<tl> translatorTable;
     public TableColumn<tl, String> translateRoomColumn;
     public TableColumn<tl, String> languageOneColumn;
     public TableColumn<tl, String> languageTwoColumn;
-    public TableColumn<tl, String> translateEmployeeColumn;
+    public TableColumn<tl, JFXComboBox> translateEmployeeColumn;
     public TableColumn<tl, JFXButton> translateCompletedColumn
             ;
     public TableView<rr> religionTable;
     public TableColumn<rr, String> reasonVisitColumn;
     public TableColumn<rr, String> religionLocationColumn;
     public TableColumn<rr, String> typeSacredPersonColumn;
-    public TableColumn<rr, String> religionEmployeeColumn;
+    public TableColumn<rr, JFXComboBox> religionEmployeeColumn;
     public TableColumn<rr, JFXButton> religionCompletedColumn;
 
     public TableView<fd> foodDeliveryTable;
     public TableColumn<fd, String> dietaryPrefColumn;
     public TableColumn<fd, String> FoodAllergiesColumn;
-    public TableColumn<fd, String> FoodEmployeeColumn;
+    public TableColumn<fd, JFXComboBox> FoodEmployeeColumn;
     public TableColumn<fd, JFXButton> FoodCompletedColumn;
     public TableColumn<fd, String> menuOptionColumn;
 
@@ -79,7 +88,7 @@ public class serviceManagerController extends SceneController {
     public TableColumn<et, String> currentRoomColumn;
     public TableColumn<et, String> externalRoomColumn;
     public TableColumn<et, String> transportationMethodColumn;
-    public TableColumn<et, String> ExternalEmployeeColumn;
+    public TableColumn<et, JFXComboBox> ExternalEmployeeColumn;
     public TableColumn<et, JFXButton> ExternalCompletedColumn;
 
     public TableView<md> medicineDeliveryTable;
@@ -87,7 +96,7 @@ public class serviceManagerController extends SceneController {
     public TableColumn<md, String> currentFeelingColumn;
     public TableColumn<md, String> MedicineAllergiesColumn;
     public TableColumn<md, String> MedicinePatientRoomColumn;
-    public TableColumn<md, String> MedicineEmployeeColumn;
+    public TableColumn<md, JFXComboBox> MedicineEmployeeColumn;
     public TableColumn<md, JFXButton> MedicineCompletedColumn;
 
     public TableView<it> internalTable;
@@ -98,12 +107,36 @@ public class serviceManagerController extends SceneController {
     public TableColumn<it, String> internalEmployeeColumn;
     public TableColumn<it, String> internalCompletedColumn;
 
+    private EventHandler<MouseEvent> showBox = new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+            contextBox.setVisible(true);
+            contextBox.toFront();
+            completeEntry.setVisible(true);
+            progressEntry.setVisible(true);
+            deleteEntry.setVisible(true);
+
+
+            Point2D p = new Point2D(event.getSceneX(), event.getSceneY());
+            p = mainPane.sceneToLocal(p);
+            contextBox.relocate(p.getX(), p.getY());
+        }
+    };
+
 
     public JFXTabPane serviceTabPane;
 
     public void initialize() {
         contextBox.setVisible(false);
         contextBox.toBack();
+
+        emps.setEditable(true);
+
+        ObservableList<String> people = FXCollections.observableArrayList();
+        DatabaseManager.getEmployeeNames().forEach(s -> {
+            people.add(s.substring(s.indexOf(" ")));
+        });
+        emps.setItems(people);
 
         medicineTableSetUp();
         externalTableSetUp();
@@ -158,13 +191,40 @@ public class serviceManagerController extends SceneController {
         MedicinePatientRoomColumn.setMinWidth(100);
         MedicinePatientRoomColumn.setCellValueFactory(new PropertyValueFactory<md, String>("patientRoom"));
 
-        MedicineEmployeeColumn = new TableColumn<md, String>("Assigned To");
+        MedicineEmployeeColumn = new TableColumn<md, JFXComboBox>("Assigned To");
         MedicineEmployeeColumn.setMinWidth(100);
-        MedicineEmployeeColumn.setCellValueFactory(new PropertyValueFactory<md, String>("employeeAssigned"));
+        MedicineEmployeeColumn.setCellValueFactory(arg0 -> {
+
+            serviceStatus stat;
+
+            md user = arg0.getValue();
+
+            CheckBox checkBox = new CheckBox();
+            JFXButton state = new JFXButton();
+
+            emps.setValue(user.employeeAssigned.get());
+
+            emps.getSelectionModel().selectedItemProperty().addListener((ov, old_val, new_val) -> {
+                String newEmp = emps.getSelectionModel().getSelectedItem();
+                user.getRef().setEmployee(newEmp);
+                DatabaseManager.modRequest(sel.Medicine,user.getRef().getRequestID(),user.getRef());
+            });
+
+//            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+//
+//                setCompleteService(new_val, user);
+//                //user.setCompleted(new_val);
+//
+//            });
+
+
+            return new SimpleObjectProperty<JFXComboBox>(emps);
+
+
+        });
 
         MedicineCompletedColumn = new TableColumn<md, JFXButton>("Status");
         MedicineCompletedColumn.setMinWidth(100);
-//        MedicineCompletedColumn.setCellValueFactory(new PropertyValueFactory<md, String>("completed"));
         MedicineCompletedColumn.setCellValueFactory(arg0 -> {
 
             serviceStatus stat;
@@ -197,6 +257,7 @@ public class serviceManagerController extends SceneController {
                     completeEntry.setVisible(false);
                     progressEntry.setVisible(false);
                     deleteEntry.setVisible(false);
+                    setCompleteService(true,user);
                 }
             });
 
@@ -209,6 +270,7 @@ public class serviceManagerController extends SceneController {
                     completeEntry.setVisible(false);
                     progressEntry.setVisible(false);
                     deleteEntry.setVisible(false);
+                    setCompleteService(false,user);
                 }
             });
 
@@ -226,17 +288,8 @@ public class serviceManagerController extends SceneController {
             });
 
             checkBox.selectedProperty().setValue(user.checkCompleted());
-            state.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    contextBox.setVisible(true);
-                    contextBox.toFront();
-                    completeEntry.setVisible(true);
-                    progressEntry.setVisible(true);
-                    deleteEntry.setVisible(true);
-                    contextBox.relocate(event.getSceneX(),event.getSceneY());
-                }
-            });
+            state.setOnMouseClicked(showBox);
+
 
 
 //            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
@@ -281,9 +334,37 @@ public class serviceManagerController extends SceneController {
         //transportationMethodColumn.setOnEditCommit(this::changeTransport);
 
 
-        ExternalEmployeeColumn = new TableColumn<et, String>("Employee");
+        ExternalEmployeeColumn = new TableColumn<et, JFXComboBox>("Employee");
         ExternalEmployeeColumn.setMinWidth(100);
-        ExternalEmployeeColumn.setCellValueFactory(new PropertyValueFactory<et, String>("employeeAssigned"));
+        ExternalEmployeeColumn.setCellValueFactory(arg0 -> {
+
+            serviceStatus stat;
+
+            et user = arg0.getValue();
+
+            CheckBox checkBox = new CheckBox();
+            JFXButton state = new JFXButton();
+
+            emps.setValue(user.employeeAssigned.get());
+
+            emps.getSelectionModel().selectedItemProperty().addListener((ov, old_val, new_val) -> {
+                String newEmp = emps.getSelectionModel().getSelectedItem();
+                user.getRef().setEmployee(newEmp);
+                DatabaseManager.modRequest(sel.Medicine,user.getRef().getRequestID(),user.getRef());
+            });
+
+//            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+//
+//                setCompleteService(new_val, user);
+//                //user.setCompleted(new_val);
+//
+//            });
+
+
+            return new SimpleObjectProperty<JFXComboBox>(emps);
+
+
+        });
         //ExternalEmployeeColumn.setOnEditCommit(this::changeEmployee);
 
 
@@ -341,6 +422,7 @@ public class serviceManagerController extends SceneController {
                     completeEntry.setVisible(false);
                     progressEntry.setVisible(false);
                     deleteEntry.setVisible(false);
+                    setCompleteService(true,user);
                 }
             });
 
@@ -353,6 +435,7 @@ public class serviceManagerController extends SceneController {
                     completeEntry.setVisible(false);
                     progressEntry.setVisible(false);
                     deleteEntry.setVisible(false);
+                    setCompleteService(false,user);
                 }
             });
 
@@ -370,17 +453,7 @@ public class serviceManagerController extends SceneController {
             });
 
             checkBox.selectedProperty().setValue(user.checkCompleted());
-            state.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    contextBox.setVisible(true);
-                    contextBox.toFront();
-                    completeEntry.setVisible(true);
-                    progressEntry.setVisible(true);
-                    deleteEntry.setVisible(true);
-                    contextBox.relocate(event.getSceneX(),event.getSceneY());
-                }
-            });
+            state.setOnMouseClicked(showBox);
 
 
 //            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
@@ -414,9 +487,37 @@ public class serviceManagerController extends SceneController {
         menuOptionColumn.setCellValueFactory(new PropertyValueFactory<fd, String>("Menu"));
         //menuOption.setPrefWidth(foodDeliveryTable.getPrefWidth()/3);
 
-        FoodEmployeeColumn = new TableColumn<fd, String>("Employee");
+        FoodEmployeeColumn = new TableColumn<fd, JFXComboBox>("Employee");
         FoodEmployeeColumn.setMinWidth(100);
-        FoodEmployeeColumn.setCellValueFactory(new PropertyValueFactory<fd, String>("employeeAssigned"));
+        FoodEmployeeColumn.setCellValueFactory(arg0 -> {
+
+            serviceStatus stat;
+
+            fd user = arg0.getValue();
+
+            CheckBox checkBox = new CheckBox();
+            JFXButton state = new JFXButton();
+
+            emps.setValue(user.employeeAssigned.get());
+
+            emps.getSelectionModel().selectedItemProperty().addListener((ov, old_val, new_val) -> {
+                String newEmp = emps.getSelectionModel().getSelectedItem();
+                user.getRef().setEmployee(newEmp);
+                DatabaseManager.modRequest(sel.FoodDelivery,user.getRef().getRequestID(),user.getRef());
+            });
+
+//            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+//
+//                setCompleteService(new_val, user);
+//                //user.setCompleted(new_val);
+//
+//            });
+
+
+            return new SimpleObjectProperty<JFXComboBox>(emps);
+
+
+        });
 
         FoodCompletedColumn = new TableColumn<fd, JFXButton>("Status");
         FoodCompletedColumn.setMinWidth(100);
@@ -463,7 +564,7 @@ public class serviceManagerController extends SceneController {
                 state.setStyle("-fx-background-color: #0000FF;");
             }
             //state.setStyle("-fx-text-fill: #FFFFFF;");
-            state.setStyle("-fx-font-weight: bolder;");
+            //state.setStyle("-fx-font-weight: bolder;");
             state.setText(stat.name());
 
             completeEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -475,6 +576,7 @@ public class serviceManagerController extends SceneController {
                     completeEntry.setVisible(false);
                     progressEntry.setVisible(false);
                     deleteEntry.setVisible(false);
+                    setCompleteService(true,user);
                 }
             });
 
@@ -487,6 +589,7 @@ public class serviceManagerController extends SceneController {
                     completeEntry.setVisible(false);
                     progressEntry.setVisible(false);
                     deleteEntry.setVisible(false);
+                    setCompleteService(false,user);
                 }
             });
 
@@ -500,21 +603,12 @@ public class serviceManagerController extends SceneController {
                     completeEntry.setVisible(false);
                     progressEntry.setVisible(false);
                     deleteEntry.setVisible(false);
+                    buildFood("");
                 }
             });
 
             checkBox.selectedProperty().setValue(user.checkCompleted());
-            state.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    contextBox.setVisible(true);
-                    contextBox.toFront();
-                    completeEntry.setVisible(true);
-                    progressEntry.setVisible(true);
-                    deleteEntry.setVisible(true);
-                    contextBox.relocate(event.getSceneX(),event.getSceneY());
-                }
-            });
+            state.setOnMouseClicked(showBox);
 
 
 //            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
@@ -544,9 +638,37 @@ public class serviceManagerController extends SceneController {
         typeSacredPersonColumn.setMinWidth(100);
         typeSacredPersonColumn.setCellValueFactory(new PropertyValueFactory<rr, String>("typeSacredPerson"));
 
-        religionEmployeeColumn = new TableColumn<rr, String>("Employee Assigned");
+        religionEmployeeColumn = new TableColumn<rr, JFXComboBox>("Employee Assigned");
         religionEmployeeColumn.setMinWidth(100);
-        religionEmployeeColumn.setCellValueFactory(new PropertyValueFactory<rr, String>("employeeAssigned"));
+        religionEmployeeColumn.setCellValueFactory(arg0 -> {
+
+            serviceStatus stat;
+
+            rr user = arg0.getValue();
+
+            CheckBox checkBox = new CheckBox();
+            JFXButton state = new JFXButton();
+
+            emps.setValue(user.employeeAssigned.get());
+
+            emps.getSelectionModel().selectedItemProperty().addListener((ov, old_val, new_val) -> {
+                String newEmp = emps.getSelectionModel().getSelectedItem();
+                user.getRef().setEmployee(newEmp);
+                DatabaseManager.modRequest(sel.Medicine,user.getRef().getRequestID(),user.getRef());
+            });
+
+//            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+//
+//                setCompleteService(new_val, user);
+//                //user.setCompleted(new_val);
+//
+//            });
+
+
+            return new SimpleObjectProperty<JFXComboBox>(emps);
+
+
+        });
 
         religionCompletedColumn = new TableColumn<rr, JFXButton>("Completed");
         religionCompletedColumn.setMinWidth(100);
@@ -602,6 +724,7 @@ public class serviceManagerController extends SceneController {
                     completeEntry.setVisible(false);
                     progressEntry.setVisible(false);
                     deleteEntry.setVisible(false);
+                    setCompleteService(true,user);
                 }
             });
 
@@ -614,6 +737,7 @@ public class serviceManagerController extends SceneController {
                     completeEntry.setVisible(false);
                     progressEntry.setVisible(false);
                     deleteEntry.setVisible(false);
+                    setCompleteService(false,user);
                 }
             });
 
@@ -631,17 +755,7 @@ public class serviceManagerController extends SceneController {
             });
 
             checkBox.selectedProperty().setValue(user.checkCompleted());
-            state.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    contextBox.setVisible(true);
-                    contextBox.toFront();
-                    completeEntry.setVisible(true);
-                    progressEntry.setVisible(true);
-                    deleteEntry.setVisible(true);
-                    contextBox.relocate(event.getSceneX(),event.getSceneY());
-                }
-            });
+            state.setOnMouseClicked(showBox);
 
 
 //            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
@@ -673,9 +787,37 @@ public class serviceManagerController extends SceneController {
         languageTwoColumn.setMinWidth(100);
         languageTwoColumn.setCellValueFactory(new PropertyValueFactory<tl, String>("languageTwo"));
 
-        translateEmployeeColumn = new TableColumn<tl, String>("Assigned To");
+        translateEmployeeColumn = new TableColumn<tl, JFXComboBox>("Assigned To");
         translateEmployeeColumn.setMinWidth(100);
-        translateEmployeeColumn.setCellValueFactory(new PropertyValueFactory<tl, String>("employeeAssigned"));
+        translateEmployeeColumn.setCellValueFactory(arg0 -> {
+
+            serviceStatus stat;
+
+            tl user = arg0.getValue();
+
+            CheckBox checkBox = new CheckBox();
+            JFXButton state = new JFXButton();
+
+            emps.setValue(user.employeeAssigned.get());
+
+            emps.getSelectionModel().selectedItemProperty().addListener((ov, old_val, new_val) -> {
+                String newEmp = emps.getSelectionModel().getSelectedItem();
+                user.getRef().setEmployee(newEmp);
+                DatabaseManager.modRequest(sel.Medicine,user.getRef().getRequestID(),user.getRef());
+            });
+
+//            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+//
+//                setCompleteService(new_val, user);
+//                //user.setCompleted(new_val);
+//
+//            });
+
+
+            return new SimpleObjectProperty<JFXComboBox>(emps);
+
+
+        });
 
         translateCompletedColumn = new TableColumn<tl, JFXButton>("Status");
         translateCompletedColumn.setMinWidth(100);
@@ -731,6 +873,7 @@ public class serviceManagerController extends SceneController {
                     completeEntry.setVisible(false);
                     progressEntry.setVisible(false);
                     deleteEntry.setVisible(false);
+                    setCompleteService(true,user);
                 }
             });
 
@@ -743,6 +886,7 @@ public class serviceManagerController extends SceneController {
                     completeEntry.setVisible(false);
                     progressEntry.setVisible(false);
                     deleteEntry.setVisible(false);
+                    setCompleteService(false,user);
                 }
             });
 
@@ -760,17 +904,7 @@ public class serviceManagerController extends SceneController {
             });
 
             checkBox.selectedProperty().setValue(user.checkCompleted());
-            state.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    contextBox.setVisible(true);
-                    contextBox.toFront();
-                    completeEntry.setVisible(true);
-                    progressEntry.setVisible(true);
-                    deleteEntry.setVisible(true);
-                    contextBox.relocate(event.getSceneX(),event.getSceneY());
-                }
-            });
+            state.setOnMouseClicked(showBox);
 
 
 //            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
@@ -810,9 +944,37 @@ public class serviceManagerController extends SceneController {
         sanitationDescriptionColumn.setMinWidth(100);
         sanitationDescriptionColumn.setCellValueFactory(new PropertyValueFactory<ss, String>("description"));
 
-        sanitationEmployeeColumn = new TableColumn<ss, String>("Employee");
+        sanitationEmployeeColumn = new TableColumn<ss, JFXComboBox>("Employee");
         sanitationEmployeeColumn.setMinWidth(100);
-        sanitationEmployeeColumn.setCellValueFactory(new PropertyValueFactory<ss, String>("employeeAssigned"));
+        sanitationEmployeeColumn.setCellValueFactory(arg0 -> {
+
+            serviceStatus stat;
+
+            ss user = arg0.getValue();
+
+            CheckBox checkBox = new CheckBox();
+            JFXButton state = new JFXButton();
+
+            emps.setValue(user.employeeAssigned.get());
+
+            emps.getSelectionModel().selectedItemProperty().addListener((ov, old_val, new_val) -> {
+                String newEmp = emps.getSelectionModel().getSelectedItem();
+                user.getRef().setEmployee(newEmp);
+                DatabaseManager.modRequest(sel.Medicine,user.getRef().getRequestID(),user.getRef());
+            });
+
+//            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+//
+//                setCompleteService(new_val, user);
+//                //user.setCompleted(new_val);
+//
+//            });
+
+
+            return new SimpleObjectProperty<JFXComboBox>(emps);
+
+
+        });
 
         sanitationCompletedColumn = new TableColumn<ss, JFXButton>("Status");
         sanitationCompletedColumn.setMinWidth(100);
@@ -868,6 +1030,7 @@ public class serviceManagerController extends SceneController {
                     completeEntry.setVisible(false);
                     progressEntry.setVisible(false);
                     deleteEntry.setVisible(false);
+                    setCompleteService(true,user);
                 }
             });
 
@@ -880,6 +1043,7 @@ public class serviceManagerController extends SceneController {
                     completeEntry.setVisible(false);
                     progressEntry.setVisible(false);
                     deleteEntry.setVisible(false);
+                    setCompleteService(false,user);
                 }
             });
 
@@ -897,17 +1061,7 @@ public class serviceManagerController extends SceneController {
             });
 
             checkBox.selectedProperty().setValue(user.checkCompleted());
-            state.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    contextBox.setVisible(true);
-                    contextBox.toFront();
-                    completeEntry.setVisible(true);
-                    progressEntry.setVisible(true);
-                    deleteEntry.setVisible(true);
-                    contextBox.relocate(event.getSceneX(),event.getSceneY());
-                }
-            });
+            state.setOnMouseClicked(showBox);
 
 
 //            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {

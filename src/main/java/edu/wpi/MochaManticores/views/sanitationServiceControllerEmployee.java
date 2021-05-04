@@ -32,102 +32,6 @@ import java.util.List;
 
 public class sanitationServiceControllerEmployee extends SceneController {
 
-    public class ss extends RecursiveTreeObject<ss>{
-        edu.wpi.MochaManticores.Services.SanitationServices ref;
-        StringProperty location;
-        StringProperty safetyHazards;
-        StringProperty sanitationType;
-        StringProperty equipmentNeeded;
-        StringProperty description;
-        StringProperty employeeAssigned;
-        boolean completed;
-        LinkedList<String> fields;
-
-        public ss(edu.wpi.MochaManticores.Services.ServiceRequest ref){
-            this.ref = (edu.wpi.MochaManticores.Services.SanitationServices) ref;
-            location = new SimpleStringProperty(this.ref.getLocation());
-            safetyHazards = new SimpleStringProperty(this.ref.getSafetyHazards());
-            sanitationType = new SimpleStringProperty(this.ref.getSanitationType());
-            equipmentNeeded = new SimpleStringProperty(this.ref.getEquipmentNeeded());
-            description = new SimpleStringProperty(this.ref.getDescription());
-            employeeAssigned = new SimpleStringProperty(this.ref.getEmployee());
-            completed = this.ref.getCompleted();
-            fields = new LinkedList<>(Arrays.asList(
-                    location.get(),
-                    safetyHazards.get(),
-                    sanitationType.get(),
-                    equipmentNeeded.get(),
-                    description.get()));
-        }
-
-        public void setCompleted(boolean completed) {
-            this.completed = completed;
-        }
-
-        public SanitationServices getRef() {
-            return ref;
-        }
-
-        public String getLocation() {
-            return location.get();
-        }
-
-        public StringProperty locationProperty() {
-            return location;
-        }
-
-        public String getSafetyHazards() {
-            return safetyHazards.get();
-        }
-
-        public StringProperty safetyHazardsProperty() {
-            return safetyHazards;
-        }
-
-        public String getSanitationType() {
-            return sanitationType.get();
-        }
-
-        public StringProperty sanitationTypeProperty() {
-            return sanitationType;
-        }
-
-        public String getEquipmentNeeded() {
-            return equipmentNeeded.get();
-        }
-
-        public StringProperty equipmentNeededProperty() {
-            return equipmentNeeded;
-        }
-
-        public String getDescription() {
-            return description.get();
-        }
-
-        public StringProperty descriptionProperty() {
-            return description;
-        }
-
-        public String getEmployeeAssigned() {
-            return employeeAssigned.get();
-        }
-
-        public StringProperty employeeAssignedProperty() {
-            return employeeAssigned;
-        }
-
-        public String isCompleted() {
-            if(completed){
-                return "Completed";
-            }else{
-                return "Open";
-            }
-        }
-
-        public LinkedList<String> getFields() {
-            return fields;
-        }
-    }
 
     ObservableList<String> sanitationType = FXCollections.observableArrayList("Room Cleaning","Spill");
 
@@ -188,15 +92,6 @@ public class sanitationServiceControllerEmployee extends SceneController {
     @FXML
     private GridPane managerPage;
 
-    public TableView<ss> sanitationTable;
-
-    public TableColumn<ss, String> locationColumn;
-    public TableColumn<ss, String> safetyHazardsColumn;
-    public TableColumn<ss, String> sanitationTypeColumn;
-    public TableColumn<ss, String> equipmentNeededColumn;
-    public TableColumn<ss, String> descriptionColumn;
-    public TableColumn<ss, String> employeeAssignedColumn;
-    public TableColumn<ss, String> completedColumn;
 
 
 
@@ -205,36 +100,6 @@ public class sanitationServiceControllerEmployee extends SceneController {
 
     @FXML
     private void initialize(){
-
-        locationColumn = new TableColumn<ss, String>("Location");
-        locationColumn.setMinWidth(100);
-        locationColumn.setCellValueFactory(new PropertyValueFactory<ss, String>("location"));
-
-
-        safetyHazardsColumn = new TableColumn<ss, String>("Safety Hazards");
-        safetyHazardsColumn.setMinWidth(100);
-        safetyHazardsColumn.setCellValueFactory(new PropertyValueFactory<ss, String>("safetyHazards"));
-
-        sanitationTypeColumn = new TableColumn<ss, String>("Type");
-        sanitationTypeColumn.setMinWidth(100);
-        sanitationTypeColumn.setCellValueFactory(new PropertyValueFactory<ss, String>("sanitationType"));
-
-        equipmentNeededColumn = new TableColumn<ss, String>("Equipment Needed");
-        equipmentNeededColumn.setMinWidth(100);
-        equipmentNeededColumn.setCellValueFactory(new PropertyValueFactory<ss, String>("equipmentNeeded"));
-
-        descriptionColumn = new TableColumn<ss, String>("Description");
-        descriptionColumn.setMinWidth(100);
-        descriptionColumn.setCellValueFactory(new PropertyValueFactory<ss, String>("description"));
-
-        employeeAssignedColumn = new TableColumn<ss, String>("Employee");
-        employeeAssignedColumn.setMinWidth(100);
-        employeeAssignedColumn.setCellValueFactory(new PropertyValueFactory<ss, String>("employeeAssigned"));
-
-        completedColumn = new TableColumn<ss, String>("Status");
-        completedColumn.setMinWidth(100);
-        completedColumn.setCellValueFactory(new PropertyValueFactory<ss, String>("completed"));
-
 
         double height = App.getPrimaryStage().getScene().getHeight();
         double width = App.getPrimaryStage().getScene().getWidth();
@@ -251,31 +116,6 @@ public class sanitationServiceControllerEmployee extends SceneController {
 
     }
 
-    private ObservableList<ss> buildTable(String searchTerm){
-        ObservableList<ss> tableRow = FXCollections.observableArrayList();
-        LinkedList<ServiceRequest> requests = DatabaseManager.getServiceMap().getServiceRequestsForType(ServiceRequestType.SanitationServices);
-
-        for(ServiceRequest s : requests){
-            ss ssToAdd = new ss(s);
-            for (int i = 0; i < ssToAdd.getFields().size(); i++) {
-                if(ssToAdd.getFields().get(i).toLowerCase().equals(searchTerm) || searchTerm.equals("")){
-                    tableRow.add(ssToAdd);
-                    break;
-                }
-            }
-        }
-        sanitationTable.setItems(tableRow);
-        sanitationTable.getColumns().setAll(
-                locationColumn,
-                safetyHazardsColumn,
-                sanitationTypeColumn,
-                equipmentNeededColumn,
-                descriptionColumn,
-                employeeAssignedColumn,
-                completedColumn);
-        return tableRow;
-
-    }
 
     public void helpButton(ActionEvent actionEvent){loadHelpDialogue();}
 
@@ -372,18 +212,6 @@ public class sanitationServiceControllerEmployee extends SceneController {
         managerPage.setVisible(false);
     }
 
-    public void changeManagerTable(ActionEvent actionEvent) {
-        buildTable("");
-        requestPage.setVisible(false);
-        managerPage.setVisible(true);
-    }
-
-    public void completeService(ActionEvent e){
-        ss selection = sanitationTable.getSelectionModel().getSelectedItem();
-        selection.setCompleted(true);
-        selection.getRef().setCompleted(true);
-        buildTable("");
-    }
 
     @FXML
     private void submit(ActionEvent e) {
