@@ -29,49 +29,6 @@ import java.util.LinkedList;
 
 public class InternalTransportationEmployee {
 
-    public class it extends RecursiveTreeObject<it> {
-
-        edu.wpi.MochaManticores.Services.InternalTransportation ref;
-        StringProperty patientIDTable;
-        IntegerProperty numStaffNeededTable;
-        StringProperty destinationTable;
-        StringProperty transportationMethodsTable;
-        LinkedList<String> fields;
-
-        public it(edu.wpi.MochaManticores.Services.ServiceRequest ref){
-            this.ref = (edu.wpi.MochaManticores.Services.InternalTransportation) ref;
-            patientIDTable = new SimpleStringProperty(this.ref.getPatientID());
-            numStaffNeededTable = new SimpleIntegerProperty(this.ref.getNumStaffNeeded());
-            destinationTable = new SimpleStringProperty(this.ref.getDestination());
-            transportationMethodsTable = new SimpleStringProperty(this.ref.getTransportationMethod());
-            fields = new LinkedList<>(Arrays.asList(patientIDTable.get(), Integer.toString(numStaffNeededTable.get()),
-                    destinationTable.get(),transportationMethodsTable.get()));
-        }
-
-        public LinkedList<String> getFields() {
-            return fields;
-        }
-
-        public String getTransportationMethod(){
-            return transportationMethodsTable.get();
-        }
-
-        public edu.wpi.MochaManticores.Services.InternalTransportation getRef() {
-            return ref;
-        }
-
-        public String getPatientID(){
-            return patientIDTable.get();
-        }
-
-        public int getNumStaffNeeded(){
-            return numStaffNeededTable.get();
-        }
-
-        public String getDestination(){
-            return destinationTable.get();
-        }
-    }
 
     @FXML
     private ImageView backgroundIMG;
@@ -88,8 +45,6 @@ public class InternalTransportationEmployee {
     @FXML
     private ComboBox<String> transportComboBox;
 
-    @FXML
-    private TableView<it> internalTransportationTable;
 
     @FXML
     private GridPane managerPage;
@@ -97,13 +52,6 @@ public class InternalTransportationEmployee {
     @FXML
     private GridPane requestPage;
 
-    public TableColumn<it, String> patientIdColumn;
-
-    public TableColumn<it, Integer> numStaffNeededColumn;
-
-    public TableColumn<it, String> destinationColumn;
-
-    public TableColumn<it, String> transportationMethodColumn;
 
     ObservableList<String> typeOfTransportList = FXCollections
             .observableArrayList("Wheelchair","Walker","Medical Bed");
@@ -127,19 +75,6 @@ public class InternalTransportationEmployee {
             empBox.setVisible(false);
         }
 
-        // Initializing the tables for the manager
-//        patientIdColumn = new TableColumn<it, String>("Patient ID");
-//        patientIdColumn.setPrefWidth(100);
-//        patientIdColumn.setCellValueFactory(new PropertyValueFactory<it, String>("patientID"));
-//
-//        numStaffNeededColumn = new TableColumn<it, Integer>("Number of Staff Needed");
-//        numStaffNeededColumn.setPrefWidth(100);
-//        numStaffNeededColumn.setCellValueFactory(new PropertyValueFactory<it, Integer>("numStaffNeeded"));
-//
-//        destinationColumn = new TableColumn<it, String>("Destination Place");
-//        destinationColumn.setPrefWidth(100);
-//        destinationColumn.setCellValueFactory(new PropertyValueFactory<it, String>("transportationMethod"));
-//
         managerPage.setVisible(false);
         requestPage.setVisible(true);
         requestPage.toFront();
@@ -167,38 +102,11 @@ public class InternalTransportationEmployee {
     public void openHelp(MouseEvent mouseEvent) {
     }
 
-    private ObservableList<it> buildTable(String searchTerm) {
-        ObservableList<it> tableRow = FXCollections.observableArrayList();
-
-        LinkedList<ServiceRequest> requests = DatabaseManager.getServiceMap().getServiceRequestsForType(ServiceRequestType.InternalTransportation);
-
-        for (ServiceRequest s : requests) {
-            it itToAdd = new it(s);
-            for (int i = 0; i < itToAdd.getFields().size(); i++){
-                if(itToAdd.getFields().get(i).toLowerCase().equals(searchTerm) || searchTerm.equals("")){
-                    //System.out.println(i + " " + itToAdd.getDietaryPreference());
-                    tableRow.add(itToAdd);
-                    break;
-                }
-            }
-        }
-        internalTransportationTable.setItems(tableRow);
-        internalTransportationTable.getColumns().setAll(patientIdColumn,numStaffNeededColumn,
-                destinationColumn,transportationMethodColumn);
-
-        return tableRow;
-    }
-
     public void changeToRequest(ActionEvent actionEvent) {
         requestPage.setVisible(true);
         managerPage.setVisible(false);
         requestPage.toFront();
     }
 
-    public void changeManagerTable(ActionEvent actionEvent) {
-        requestPage.setVisible(false);
-        managerPage.setVisible(true);
-        managerPage.toFront();
-    }
 
 }

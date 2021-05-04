@@ -255,7 +255,7 @@ public class mapPage extends SceneController{
                     return item.toLowerCase().contains(newValue.toLowerCase().trim());
 
                     // No matches found
-                    return false;
+                    //return false;
                 }));
 
         // Finally, let's add the filtered list to our ComboBox
