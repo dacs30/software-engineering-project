@@ -15,9 +15,9 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -36,7 +36,8 @@ public class MedicineDeliveryEmployee {
         StringProperty currentFeeling;
         StringProperty allergies;
         StringProperty patientRoom;
-        StringProperty employeeAssigned;
+        @FXML
+        JFXComboBox employeeAssigned;
         boolean completed;
         LinkedList<String> fields;
 
@@ -50,7 +51,6 @@ public class MedicineDeliveryEmployee {
             currentFeeling = new SimpleStringProperty(this.ref.getCurrentFeeling());
             allergies = new SimpleStringProperty(this.ref.getAllergies());
             patientRoom = new SimpleStringProperty(this.ref.getPatientRoom());
-            employeeAssigned = new SimpleStringProperty(this.ref.getEmployee());
             completed = this.ref.getCompleted();
             fields = new LinkedList<>(Arrays.asList(
                     typeMedicine.get(),
@@ -59,11 +59,11 @@ public class MedicineDeliveryEmployee {
                     patientRoom.get()));
         }
 
-        public String getEmployeeAssigned() {
-            return employeeAssigned.get();
+        public JFXComboBox getEmployeeAssigned() {
+            return (JFXComboBox)employeeAssigned.getValue();
         }
 
-        public StringProperty employeeAssignedProperty() {
+        public JFXComboBox employeeAssignedProperty() {
             return employeeAssigned;
         }
 
@@ -121,7 +121,7 @@ public class MedicineDeliveryEmployee {
     public TableColumn<md, String> currentFeelingColumn;
     public TableColumn<md, String> allergiesColumn;
     public TableColumn<md, String> patientRoomColumn;
-    public TableColumn<md, String> employeeColumn;
+    public TableColumn<md, JFXComboBox> employeeColumn;
     public TableColumn<md, String> completedColumn;
 
     @FXML
@@ -140,6 +140,9 @@ public class MedicineDeliveryEmployee {
     private JFXComboBox<String> medicineCombo;
 
     @FXML
+    private TableView<MedicineDeliveryEmployee.md> medicineDeliveryTable;
+
+    @FXML
     private JFXCheckBox checkBox0, checkBox1, checkBox2, checkBox3, checkBox4, checkBox5;
 
     @FXML
@@ -152,12 +155,35 @@ public class MedicineDeliveryEmployee {
     private JFXTextField empBox;
 
     @FXML
-    private TableView<md> medicineDeliveryTable;
+    private JFXComboBox employeeAssigned;
 
-    public void initialize() {
-        typeMedicineColumn = new TableColumn<md, String>("Medicine Type");
-        typeMedicineColumn.setMinWidth(100);
-        typeMedicineColumn.setCellValueFactory(new PropertyValueFactory<md, String>("typeMedicine"));
+    private void createFilterListener(JFXComboBox comboBox) {
+
+        // Create the listener to filter the list as user enters search terms
+        FilteredList<String> filteredList = new FilteredList<>(comboBox.getItems());
+
+        // Add listener to our ComboBox textfield to filter the list
+        comboBox.getEditor().textProperty().addListener((observable, oldValue, newValue) ->
+                filteredList.setPredicate(item -> {
+
+                    // If the TextField is empty, return all items in the original list
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+
+                    // Check if the search term is contained anywhere in our list
+                    return item.toLowerCase().contains(newValue.toLowerCase().trim());
+
+                    // No matches found
+                }));
+
+        // Finally, let's add the filtered list to our ComboBox
+        comboBox.setItems(filteredList);
+
+    }
+
+    @FXML
+    private void initialize() {
 
         currentFeelingColumn = new TableColumn<md, String>("Feeling");
         currentFeelingColumn.setMinWidth(100);
@@ -171,9 +197,9 @@ public class MedicineDeliveryEmployee {
         patientRoomColumn.setMinWidth(100);
         patientRoomColumn.setCellValueFactory(new PropertyValueFactory<md, String>("patientRoom"));
 
-        employeeColumn = new TableColumn<md, String>("Assigned To");
+        employeeColumn = new TableColumn<md, JFXComboBox>("Assigned To");
         employeeColumn.setMinWidth(100);
-        employeeColumn.setCellValueFactory(new PropertyValueFactory<md, String>("employeeAssigned"));
+        employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employeeAssigned"));
 
         completedColumn = new TableColumn<md, String>("Status");
         completedColumn.setMinWidth(100);
@@ -187,6 +213,15 @@ public class MedicineDeliveryEmployee {
 
         backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
         backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
+
+        this.employeeAssigned.setEditable(true);
+        //fromLocation.setOnKeyTyped(new AutoCompleteComboBoxListener<>(fromLocation));
+        ObservableList<String> items = FXCollections.observableArrayList();
+        DatabaseManager.getEmployeeNames().forEach(s -> {
+            items.add(s.substring(s.indexOf(" ")));
+        });
+        employeeAssigned.setItems(items);
+        createFilterListener(employeeAssigned);
 
         medicineCombo.getItems().clear();
         medicineCombo.getItems().addAll("Advil", "Tylenol", "Aspirin");

@@ -108,7 +108,7 @@
                            </children>
                         </GridPane>
                         <JFXTextField fx:id="personalNote" promptText="Personalized note (optional)" GridPane.rowIndex="4" />
-                        <JFXComboBox fx:id="employeeAssigned" prefWidth="400.0" promptText="Assign to employee" GridPane.rowIndex="5" />
+                        <JFXComboBox fx:id="employeeAssigned" prefHeight="44.0" prefWidth="433.0" promptText="Assign to employee" GridPane.rowIndex="5" />
                         <JFXDatePicker fx:id="deliveryDate" defaultColor="#0f4b91" promptText="Delivery Date" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
