@@ -35,6 +35,8 @@ import javafx.scene.shape.*;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
+import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -43,8 +45,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
+import javafx.scene.shape.*;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.geometry.Pos;
@@ -56,7 +57,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 public class mapPage extends SceneController{
 
@@ -249,9 +252,7 @@ public class mapPage extends SceneController{
                     }
 
                     // Check if the search term is contained anywhere in our list
-                    if (item.toLowerCase().contains(newValue.toLowerCase().trim())) {
-                        return true;
-                    }
+                    return item.toLowerCase().contains(newValue.toLowerCase().trim());
 
                     // No matches found
                     return false;
@@ -272,8 +273,6 @@ public class mapPage extends SceneController{
         mapStack.maxHeightProperty().bind(App.getPrimaryStage().heightProperty());
         //mapScrollPane.prefWidthProperty().bind(App.getPrimaryStage().widthProperty());
         //GridPane.setHgrow(mapStack, Priority.ALWAYS);
-
-        paneContainingTabPane.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
 
         // event to drag the menu of the mapa around
         tabPane.setOnMouseDragged(event -> {
@@ -343,6 +342,7 @@ public class mapPage extends SceneController{
 
         });
 
+
         mapWindow.setPreserveRatio(false);
 
         //MouseDragEvent.
@@ -385,6 +385,17 @@ public class mapPage extends SceneController{
         });
         fromLocation.setItems(items);
         createFilterListener(fromLocation);
+
+        toLocation.setEditable(true);
+        //fromLocation.setOnKeyTyped(new AutoCompleteComboBoxListener<>(fromLocation));
+        ObservableList<String> items2 = FXCollections.observableArrayList();
+        DatabaseManager.getElementIDs().forEach(s -> {
+            items2.add(s.toString());
+        });
+        toLocation.setItems(items2);
+        createFilterListener(fromLocation);
+
+
 
         SceneGestures sceneGestures = new SceneGestures(panAndZoomPane);
 

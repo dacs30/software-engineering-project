@@ -5,19 +5,17 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.MochaManticores.App;
-import edu.wpi.MochaManticores.Nodes.MapSuper;
-import edu.wpi.MochaManticores.Nodes.NodeSuper;
-import edu.wpi.MochaManticores.Services.*;
+import edu.wpi.MochaManticores.Services.ServiceRequest;
+import edu.wpi.MochaManticores.Services.ServiceRequestType;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.sel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import edu.wpi.MochaManticores.Services.ServiceMap;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -25,7 +23,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedList;
 
 public class FoodDeliveryEmployee {
 
@@ -35,15 +34,16 @@ public class FoodDeliveryEmployee {
         StringProperty dp;
         StringProperty a;
         StringProperty menu;
-        StringProperty employeeAssigned;
+        @FXML
+        JFXComboBox employeeAssigned;
         boolean completed;
         LinkedList<String> fields;
 
         public String getEmployeeAssigned() {
-            return employeeAssigned.get();
+            return employeeAssigned.getValue().toString();
         }
 
-        public StringProperty employeeAssignedProperty() {
+        public JFXComboBox employeeAssignedProperty() {
             return employeeAssigned;
         }
 
@@ -64,7 +64,6 @@ public class FoodDeliveryEmployee {
                 dp = new SimpleStringProperty(this.ref.getDietaryPreference());
                 a = new SimpleStringProperty(this.ref.getAllergies());
                 menu = new SimpleStringProperty(this.ref.getMenu());
-                employeeAssigned = new SimpleStringProperty(this.ref.getEmployee());
                 completed = this.ref.getCompleted();
                 fields = new LinkedList<>(Arrays.asList(dp.get(),a.get(),menu.get()));
         }
@@ -115,9 +114,36 @@ public class FoodDeliveryEmployee {
 
     public TableColumn<fd, String> dietaryPref;
     public TableColumn<fd, String> allergies;
-    public TableColumn<fd, String> employee;
+    public TableColumn<fd, JFXComboBox> employee;
     public TableColumn<fd, String> completed;
 
+    @FXML
+    private JFXComboBox employeeAssigned;
+
+    private void createFilterListener(JFXComboBox comboBox) {
+
+        // Create the listener to filter the list as user enters search terms
+        FilteredList<String> filteredList = new FilteredList<>(comboBox.getItems());
+
+        // Add listener to our ComboBox textfield to filter the list
+        comboBox.getEditor().textProperty().addListener((observable, oldValue, newValue) ->
+                filteredList.setPredicate(item -> {
+
+                    // If the TextField is empty, return all items in the original list
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+
+                    // Check if the search term is contained anywhere in our list
+                    return item.toLowerCase().contains(newValue.toLowerCase().trim());
+
+                    // No matches found
+                }));
+
+        // Finally, let's add the filtered list to our ComboBox
+        comboBox.setItems(filteredList);
+
+    }
     @FXML
     private JFXComboBox<String> foodMenu;
 
@@ -151,15 +177,24 @@ public class FoodDeliveryEmployee {
         menuOption.setCellValueFactory(new PropertyValueFactory<fd, String>("Menu"));
         //menuOption.setPrefWidth(foodDeliveryTable.getPrefWidth()/3);
 
-        employee = new TableColumn<fd, String>("Employee");
+        employee = new TableColumn<fd, JFXComboBox>("Employee");
         employee.setMinWidth(100);
-        employee.setCellValueFactory(new PropertyValueFactory<fd, String>("employeeAssigned"));
+        employee.setCellValueFactory(new PropertyValueFactory<>("employeeAssigned"));
 
         completed = new TableColumn<fd, String>("Status");
         completed.setMinWidth(100);
         completed.setCellValueFactory(new PropertyValueFactory<fd, String>("completed"));
 
-        // TODO add combox values
+
+        this.employeeAssigned.setEditable(true);
+        //fromLocation.setOnKeyTyped(new AutoCompleteComboBoxListener<>(fromLocation));
+        ObservableList<String> items = FXCollections.observableArrayList();
+        DatabaseManager.getEmployeeNames().forEach(s -> {
+            items.add(s.substring(s.indexOf(" ")));
+        });
+        employeeAssigned.setItems(items);
+        createFilterListener(employeeAssigned);
+
 
         dietaryPreferences.getItems().clear();
         dietaryPreferences.getItems().addAll("Vegan", "Vegetarian", "Gluten Free");

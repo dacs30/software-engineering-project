@@ -3,7 +3,9 @@ package edu.wpi.MochaManticores.views;
 import com.jfoenix.controls.*;
 import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import edu.wpi.MochaManticores.database.DatabaseManager;
+import edu.wpi.MochaManticores.database.Employee;
 import edu.wpi.MochaManticores.database.Mdb;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -74,7 +76,6 @@ public class LoginPage extends SceneController{
         employeePassword.setOnKeyTyped(enter);
 
     }
-
 
     public void loadEmergencyDialog(){
         JFXDialogLayout message = new JFXDialogLayout();
@@ -152,12 +153,24 @@ public class LoginPage extends SceneController{
         dialog.show();
     }
 
-    public void onMouseClickedContinue(ActionEvent e) {
+    public void onMouseClickedContinue(ActionEvent e) throws InvalidElementException {
+        //ensure patient id is entered
+        //save the patient id as App.setCurrentUsername
+        //if there is no employee with that username then create it
+
         App.setClearenceLevel(0);
         if (IDField.getText().equals("")){
             App.setCurrentUsername("Guest");
         } else {
-            App.setCurrentUsername("Patient: " + IDField.getText());
+            //create employee here
+            Employee employee = new Employee(IDField.getText(), "", IDField.getText(), IDField.getText(), Employee.employeeType.PATIENT,
+                    0, false, false, "Parking");
+            try {
+                DatabaseManager.getEmpManager().getElement(IDField.getText());
+            } catch (Exception exception) {
+                DatabaseManager.getEmpManager().addElement(employee);
+            }
+            App.setCurrentUsername(IDField.getText());
         }
         changeSceneTo("landingPage");
     }

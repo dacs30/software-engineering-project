@@ -1,9 +1,6 @@
 package edu.wpi.MochaManticores.views;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.MochaManticores.App;
@@ -16,16 +13,14 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -42,7 +37,8 @@ public class extTransportationControllerEmployee extends SceneController {
         StringProperty currentRoom;
         StringProperty externalRoom;
         StringProperty transportationMethod;
-        StringProperty employeeAssigned;
+        @FXML
+        JFXComboBox employeeAssigned;
         boolean completed;
         LinkedList<String> fields;
 
@@ -69,8 +65,8 @@ public class extTransportationControllerEmployee extends SceneController {
 
         }
 
-        public void setEmployeeAssigned(String employeeAssigned) {
-            this.employeeAssigned.set(employeeAssigned);
+        public void setEmployeeAssigned(JFXComboBox employeeAssigned) {
+            this.employeeAssigned.setValue(employeeAssigned);
             generateFields();
 
         }
@@ -87,14 +83,14 @@ public class extTransportationControllerEmployee extends SceneController {
             currentRoom = new SimpleStringProperty(this.ref.getCurrentRoom());
             externalRoom = new SimpleStringProperty(this.ref.getExternalRoom());
             transportationMethod = new SimpleStringProperty(this.ref.getTransportationMethod());
-            employeeAssigned = new SimpleStringProperty(this.ref.getEmployee());
+
             completed = this.ref.getCompleted();
             fields = new LinkedList<>(Arrays.asList(
                     patientRoom.get(),
                     currentRoom.get(),
                     externalRoom.get(),
                     transportationMethod.get(),
-                    employeeAssigned.get()));
+                    employeeAssigned.getValue().toString()));
         }
 
         public void generateFields(){
@@ -103,7 +99,7 @@ public class extTransportationControllerEmployee extends SceneController {
                     currentRoom.get(),
                     externalRoom.get(),
                     transportationMethod.get(),
-                    employeeAssigned.get()));
+                    employeeAssigned.getValue().toString()));
         }
 
         public ExternalTransportation getRef() {
@@ -142,11 +138,12 @@ public class extTransportationControllerEmployee extends SceneController {
             return transportationMethod;
         }
 
-        public String getEmployeeAssigned() {
-            return employeeAssigned.get();
+        @FXML
+        public JFXComboBox getEmployeeAssigned() {
+            return (JFXComboBox)employeeAssigned.getValue();
         }
 
-        public StringProperty employeeAssignedProperty() {
+        public JFXComboBox employeeAssignedProperty() {
             return employeeAssigned;
         }
 
@@ -170,7 +167,7 @@ public class extTransportationControllerEmployee extends SceneController {
     public TableColumn<et, String> currentRoomColumn;
     public TableColumn<et, String> externalRoomColumn;
     public TableColumn<et, String> transportationMethodColumn;
-    public TableColumn<et, String> employeeColumn;
+    public TableColumn<et, JFXComboBox> employeeColumn;
     public TableColumn<et, String> completedColumn;
 
     @FXML
@@ -195,6 +192,34 @@ public class extTransportationControllerEmployee extends SceneController {
 
     @FXML
     private TableView<et> externalTable;
+
+    @FXML
+    private JFXComboBox employeeAssigned;
+
+    private void createFilterListener(JFXComboBox comboBox) {
+
+        // Create the listener to filter the list as user enters search terms
+        FilteredList<String> filteredList = new FilteredList<>(comboBox.getItems());
+
+        // Add listener to our ComboBox textfield to filter the list
+        comboBox.getEditor().textProperty().addListener((observable, oldValue, newValue) ->
+                filteredList.setPredicate(item -> {
+
+                    // If the TextField is empty, return all items in the original list
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+
+                    // Check if the search term is contained anywhere in our list
+                    return item.toLowerCase().contains(newValue.toLowerCase().trim());
+
+                    // No matches found
+                }));
+
+        // Finally, let's add the filtered list to our ComboBox
+        comboBox.setItems(filteredList);
+
+    }
 
     @FXML
     private void initialize() {
@@ -228,19 +253,28 @@ public class extTransportationControllerEmployee extends SceneController {
         transportationMethodColumn.setOnEditCommit(this::changeTransport);
 
 
-        employeeColumn = new TableColumn<et, String>("Employee");
+        employeeColumn = new TableColumn<et, JFXComboBox>("Employee");
         employeeColumn.setMinWidth(100);
-        employeeColumn.setCellValueFactory(new PropertyValueFactory<et, String>("employeeAssigned"));
+        employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employeeAssigned"));
         employeeColumn.setOnEditCommit(this::changeEmployee);
 
 
         completedColumn = new TableColumn<et, String>("Completed");
         completedColumn.setMinWidth(100);
-        completedColumn.setCellValueFactory(new PropertyValueFactory<et, String>("completed"));
+        completedColumn.setCellValueFactory(new PropertyValueFactory<>("completed"));
         completedColumn.setOnEditCommit(this::changeCompleted);
 
 
         externalTable.setEditable(true);
+
+            this.employeeAssigned.setEditable(true);
+        //fromLocation.setOnKeyTyped(new AutoCompleteComboBoxListener<>(fromLocation));
+        ObservableList<String> items = FXCollections.observableArrayList();
+        DatabaseManager.getEmployeeNames().forEach(s -> {
+            items.add(s.substring(s.indexOf(" ")));
+        });
+        employeeAssigned.setItems(items);
+        createFilterListener(employeeAssigned);
 
 
         double height = App.getPrimaryStage().getScene().getHeight();
@@ -292,7 +326,7 @@ public class extTransportationControllerEmployee extends SceneController {
     }
     public void changeEmployee(TableColumn.CellEditEvent editEvent){
         et selectedRow = externalTable.getSelectionModel().getSelectedItem();
-        selectedRow.setEmployeeAssigned(editEvent.getNewValue().toString());
+        //selectedRow.setEmployeeAssigned(editEvent.getNewValue().toString());
     }
     public void changeCompleted(TableColumn.CellEditEvent editEvent){
         et selectedRow = externalTable.getSelectionModel().getSelectedItem();

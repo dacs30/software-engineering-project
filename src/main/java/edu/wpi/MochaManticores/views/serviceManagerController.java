@@ -1,5 +1,6 @@
 package edu.wpi.MochaManticores.views;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.MochaManticores.Services.*;
@@ -11,10 +12,18 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.scene.Group;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
 import java.util.Arrays;
@@ -22,6 +31,18 @@ import java.util.LinkedList;
 
 
 public class serviceManagerController extends SceneController {
+
+    @FXML
+    private VBox contextBox;
+
+    @FXML
+    private Group completeEntry;
+
+    @FXML
+    private Group progressEntry;
+
+    @FXML
+    private Group deleteEntry;
     
     public TableView<ss> sanitationTable;
     public TableColumn<ss, String> sanitationLocationColumn;
@@ -30,27 +51,27 @@ public class serviceManagerController extends SceneController {
     public TableColumn<ss, String> equipmentNeededColumn;
     public TableColumn<ss, String> sanitationDescriptionColumn;
     public TableColumn<ss, String> sanitationEmployeeColumn;
-    public TableColumn<ss, CheckBox> sanitationCompletedColumn;
+    public TableColumn<ss, JFXButton> sanitationCompletedColumn;
 
     public TableView<tl> translatorTable;
     public TableColumn<tl, String> translateRoomColumn;
     public TableColumn<tl, String> languageOneColumn;
     public TableColumn<tl, String> languageTwoColumn;
     public TableColumn<tl, String> translateEmployeeColumn;
-    public TableColumn<tl, CheckBox> translateCompletedColumn
+    public TableColumn<tl, JFXButton> translateCompletedColumn
             ;
     public TableView<rr> religionTable;
     public TableColumn<rr, String> reasonVisitColumn;
     public TableColumn<rr, String> religionLocationColumn;
     public TableColumn<rr, String> typeSacredPersonColumn;
     public TableColumn<rr, String> religionEmployeeColumn;
-    public TableColumn<rr, CheckBox> religionCompletedColumn;
+    public TableColumn<rr, JFXButton> religionCompletedColumn;
 
     public TableView<fd> foodDeliveryTable;
     public TableColumn<fd, String> dietaryPrefColumn;
     public TableColumn<fd, String> FoodAllergiesColumn;
     public TableColumn<fd, String> FoodEmployeeColumn;
-    public TableColumn<fd, CheckBox> FoodCompletedColumn;
+    public TableColumn<fd, JFXButton> FoodCompletedColumn;
     public TableColumn<fd, String> menuOptionColumn;
 
     public TableView<et> externalTable;
@@ -59,7 +80,7 @@ public class serviceManagerController extends SceneController {
     public TableColumn<et, String> externalRoomColumn;
     public TableColumn<et, String> transportationMethodColumn;
     public TableColumn<et, String> ExternalEmployeeColumn;
-    public TableColumn<et, CheckBox> ExternalCompletedColumn;
+    public TableColumn<et, JFXButton> ExternalCompletedColumn;
 
     public TableView<md> medicineDeliveryTable;
     public TableColumn<md, String> typeMedicineColumn;
@@ -67,7 +88,7 @@ public class serviceManagerController extends SceneController {
     public TableColumn<md, String> MedicineAllergiesColumn;
     public TableColumn<md, String> MedicinePatientRoomColumn;
     public TableColumn<md, String> MedicineEmployeeColumn;
-    public TableColumn<md, CheckBox> MedicineCompletedColumn;
+    public TableColumn<md, JFXButton> MedicineCompletedColumn;
 
     public TableView<it> internalTable;
     public TableColumn<it, String> internalPatientIDTableColumn;
@@ -81,6 +102,9 @@ public class serviceManagerController extends SceneController {
     public JFXTabPane serviceTabPane;
 
     public void initialize() {
+        contextBox.setVisible(false);
+        contextBox.toBack();
+
         medicineTableSetUp();
         externalTableSetUp();
         foodTableSetUp();
@@ -138,26 +162,92 @@ public class serviceManagerController extends SceneController {
         MedicineEmployeeColumn.setMinWidth(100);
         MedicineEmployeeColumn.setCellValueFactory(new PropertyValueFactory<md, String>("employeeAssigned"));
 
-        MedicineCompletedColumn = new TableColumn<md, CheckBox>("Status");
+        MedicineCompletedColumn = new TableColumn<md, JFXButton>("Status");
         MedicineCompletedColumn.setMinWidth(100);
 //        MedicineCompletedColumn.setCellValueFactory(new PropertyValueFactory<md, String>("completed"));
         MedicineCompletedColumn.setCellValueFactory(arg0 -> {
+
+            serviceStatus stat;
+
             md user = arg0.getValue();
 
             CheckBox checkBox = new CheckBox();
-
-            checkBox.selectedProperty().setValue(user.checkCompleted());
-
+            JFXButton state = new JFXButton();
 
 
-            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
 
-                setCompleteService(new_val, user);
-                //user.setCompleted(new_val);
-
+            if(user.getEmployeeAssigned().equals("")){
+                stat = serviceStatus.UNASSIGNED;
+                state.setStyle("-fx-background-color: #FF0000;");
+            }
+            if(user.checkCompleted()){
+                stat = serviceStatus.COMPLETED;
+                state.setStyle("-fx-background-color: #00FF00;");
+            }else{
+                stat = serviceStatus.PROGRESS;
+                state.setStyle("-fx-background-color: #0000FF;");
+            }
+            state.setText(stat.name());
+            completeEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    setCompleteService(true,user);
+                    contextBox.setVisible(false);
+                    contextBox.toBack();
+                    completeEntry.setVisible(false);
+                    progressEntry.setVisible(false);
+                    deleteEntry.setVisible(false);
+                }
             });
 
-            return new SimpleObjectProperty<>(checkBox);
+            progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    setCompleteService(false,user);
+                    contextBox.setVisible(false);
+                    contextBox.toBack();
+                    completeEntry.setVisible(false);
+                    progressEntry.setVisible(false);
+                    deleteEntry.setVisible(false);
+                }
+            });
+
+            deleteEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    DatabaseManager.delElement(sel.Medicine,user.getRef().getRequestID());
+                    buildMedicine("");
+                    contextBox.setVisible(false);
+                    contextBox.toBack();
+                    completeEntry.setVisible(false);
+                    progressEntry.setVisible(false);
+                    deleteEntry.setVisible(false);
+                }
+            });
+
+            checkBox.selectedProperty().setValue(user.checkCompleted());
+            state.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    contextBox.setVisible(true);
+                    contextBox.toFront();
+                    completeEntry.setVisible(true);
+                    progressEntry.setVisible(true);
+                    deleteEntry.setVisible(true);
+                    contextBox.relocate(event.getSceneX(),event.getSceneY());
+                }
+            });
+
+
+//            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+//
+//                setCompleteService(new_val, user);
+//                //user.setCompleted(new_val);
+//
+//            });
+
+            return new SimpleObjectProperty<JFXButton>(state);
+
 
         });
 
@@ -197,26 +287,111 @@ public class serviceManagerController extends SceneController {
         //ExternalEmployeeColumn.setOnEditCommit(this::changeEmployee);
 
 
-        ExternalCompletedColumn = new TableColumn<et, CheckBox>("Completed");
+        ExternalCompletedColumn = new TableColumn<et, JFXButton>("Completed");
         ExternalCompletedColumn.setMinWidth(100);
         //ExternalCompletedColumn.setCellValueFactory(new PropertyValueFactory<et, String>("completed"));
+//        ExternalCompletedColumn.setCellValueFactory(arg0 -> {
+//            et user = arg0.getValue();
+//
+//            CheckBox checkBox = new CheckBox();
+//
+//            checkBox.selectedProperty().setValue(user.checkCompleted());
+//
+//
+//
+//            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+//
+//                setCompleteService(new_val, user);
+//                //user.setCompleted(new_val);
+//
+//            });
+//
+//            return new SimpleObjectProperty<>(checkBox);
+//
+//        });
         ExternalCompletedColumn.setCellValueFactory(arg0 -> {
+
+            serviceStatus stat;
+
             et user = arg0.getValue();
 
             CheckBox checkBox = new CheckBox();
-
-            checkBox.selectedProperty().setValue(user.checkCompleted());
-
+            JFXButton state = new JFXButton();
 
 
-            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
 
-                setCompleteService(new_val, user);
-                //user.setCompleted(new_val);
-
+            if(user.getEmployeeAssigned().equals("")){
+                stat = serviceStatus.UNASSIGNED;
+                state.setStyle("-fx-background-color: #FF0000;");
+            }
+            if(user.checkCompleted()){
+                stat = serviceStatus.COMPLETED;
+                state.setStyle("-fx-background-color: #00FF00;");
+            }else{
+                stat = serviceStatus.PROGRESS;
+                state.setStyle("-fx-background-color: #0000FF;");
+            }
+            state.setText(stat.name());
+            completeEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    setCompleteService(true,user);
+                    contextBox.setVisible(false);
+                    contextBox.toBack();
+                    completeEntry.setVisible(false);
+                    progressEntry.setVisible(false);
+                    deleteEntry.setVisible(false);
+                }
             });
 
-            return new SimpleObjectProperty<>(checkBox);
+            progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    setCompleteService(false,user);
+                    contextBox.setVisible(false);
+                    contextBox.toBack();
+                    completeEntry.setVisible(false);
+                    progressEntry.setVisible(false);
+                    deleteEntry.setVisible(false);
+                }
+            });
+
+            deleteEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    DatabaseManager.delElement(sel.ExternalTransportation,user.getRef().getRequestID());
+                    buildMedicine("");
+                    contextBox.setVisible(false);
+                    contextBox.toBack();
+                    completeEntry.setVisible(false);
+                    progressEntry.setVisible(false);
+                    deleteEntry.setVisible(false);
+                }
+            });
+
+            checkBox.selectedProperty().setValue(user.checkCompleted());
+            state.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    contextBox.setVisible(true);
+                    contextBox.toFront();
+                    completeEntry.setVisible(true);
+                    progressEntry.setVisible(true);
+                    deleteEntry.setVisible(true);
+                    contextBox.relocate(event.getSceneX(),event.getSceneY());
+                }
+            });
+
+
+//            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+//
+//                setCompleteService(new_val, user);
+//                //user.setCompleted(new_val);
+//
+//            });
+
+            return new SimpleObjectProperty<JFXButton>(state);
+
 
         });
         //ExternalCompletedColumn.setOnEditCommit(this::changeCompleted);
@@ -243,26 +418,114 @@ public class serviceManagerController extends SceneController {
         FoodEmployeeColumn.setMinWidth(100);
         FoodEmployeeColumn.setCellValueFactory(new PropertyValueFactory<fd, String>("employeeAssigned"));
 
-        FoodCompletedColumn = new TableColumn<fd, CheckBox>("Status");
+        FoodCompletedColumn = new TableColumn<fd, JFXButton>("Status");
         FoodCompletedColumn.setMinWidth(100);
         //FoodCompletedColumn.setCellValueFactory(new PropertyValueFactory<fd, String>("completed"));
+//        FoodCompletedColumn.setCellValueFactory(arg0 -> {
+//            fd user = arg0.getValue();
+//
+//            CheckBox checkBox = new CheckBox();
+//
+//            checkBox.selectedProperty().setValue(user.checkCompleted());
+//
+//
+//
+//            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+//
+//                setCompleteService(new_val, user);
+//                //user.setCompleted(new_val);
+//
+//            });
+//
+//            return new SimpleObjectProperty<>(checkBox);
+//
+//        });
         FoodCompletedColumn.setCellValueFactory(arg0 -> {
+
+            serviceStatus stat;
+
             fd user = arg0.getValue();
 
             CheckBox checkBox = new CheckBox();
-
-            checkBox.selectedProperty().setValue(user.checkCompleted());
-
+            JFXButton state = new JFXButton();
 
 
-            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
 
-                setCompleteService(new_val, user);
-                //user.setCompleted(new_val);
+            if(user.getEmployeeAssigned().equals("")){
+                stat = serviceStatus.UNASSIGNED;
+                state.setStyle("-fx-background-color: #FF0000;");
+            }
+            if(user.checkCompleted()){
+                stat = serviceStatus.COMPLETED;
+                state.setStyle("-fx-background-color: #00FF00;");
+            }else{
+                stat = serviceStatus.PROGRESS;
+                state.setStyle("-fx-background-color: #0000FF;");
+            }
+            //state.setStyle("-fx-text-fill: #FFFFFF;");
+            state.setStyle("-fx-font-weight: bolder;");
+            state.setText(stat.name());
 
+            completeEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    setCompleteService(true,user);
+                    contextBox.setVisible(false);
+                    contextBox.toBack();
+                    completeEntry.setVisible(false);
+                    progressEntry.setVisible(false);
+                    deleteEntry.setVisible(false);
+                }
             });
 
-            return new SimpleObjectProperty<>(checkBox);
+            progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    setCompleteService(false,user);
+                    contextBox.setVisible(false);
+                    contextBox.toBack();
+                    completeEntry.setVisible(false);
+                    progressEntry.setVisible(false);
+                    deleteEntry.setVisible(false);
+                }
+            });
+
+            deleteEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    DatabaseManager.delElement(sel.FoodDelivery,user.getRef().getRequestID());
+                    buildMedicine("");
+                    contextBox.setVisible(false);
+                    contextBox.toBack();
+                    completeEntry.setVisible(false);
+                    progressEntry.setVisible(false);
+                    deleteEntry.setVisible(false);
+                }
+            });
+
+            checkBox.selectedProperty().setValue(user.checkCompleted());
+            state.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    contextBox.setVisible(true);
+                    contextBox.toFront();
+                    completeEntry.setVisible(true);
+                    progressEntry.setVisible(true);
+                    deleteEntry.setVisible(true);
+                    contextBox.relocate(event.getSceneX(),event.getSceneY());
+                }
+            });
+
+
+//            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+//
+//                setCompleteService(new_val, user);
+//                //user.setCompleted(new_val);
+//
+//            });
+
+            return new SimpleObjectProperty<JFXButton>(state);
+
 
         });
         buildFood("");
@@ -285,26 +548,111 @@ public class serviceManagerController extends SceneController {
         religionEmployeeColumn.setMinWidth(100);
         religionEmployeeColumn.setCellValueFactory(new PropertyValueFactory<rr, String>("employeeAssigned"));
 
-        religionCompletedColumn = new TableColumn<rr, CheckBox>("Completed");
+        religionCompletedColumn = new TableColumn<rr, JFXButton>("Completed");
         religionCompletedColumn.setMinWidth(100);
         //religionCompletedColumn.setCellValueFactory(new PropertyValueFactory<rr, String>("completed"));
+//        religionCompletedColumn.setCellValueFactory(arg0 -> {
+//            rr user = arg0.getValue();
+//
+//            CheckBox checkBox = new CheckBox();
+//
+//            checkBox.selectedProperty().setValue(user.checkCompleted());
+//
+//
+//
+//            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+//
+//                setCompleteService(new_val, user);
+//                //user.setCompleted(new_val);
+//
+//            });
+//
+//            return new SimpleObjectProperty<>(checkBox);
+//
+//        });
         religionCompletedColumn.setCellValueFactory(arg0 -> {
+
+            serviceStatus stat;
+
             rr user = arg0.getValue();
 
             CheckBox checkBox = new CheckBox();
-
-            checkBox.selectedProperty().setValue(user.checkCompleted());
-
+            JFXButton state = new JFXButton();
 
 
-            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
 
-                setCompleteService(new_val, user);
-                //user.setCompleted(new_val);
-
+            if(user.getEmployeeAssigned().equals("")){
+                stat = serviceStatus.UNASSIGNED;
+                state.setStyle("-fx-background-color: #FF0000;");
+            }
+            if(user.checkCompleted()){
+                stat = serviceStatus.COMPLETED;
+                state.setStyle("-fx-background-color: #00FF00;");
+            }else{
+                stat = serviceStatus.PROGRESS;
+                state.setStyle("-fx-background-color: #0000FF;");
+            }
+            state.setText(stat.name());
+            completeEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    setCompleteService(true,user);
+                    contextBox.setVisible(false);
+                    contextBox.toBack();
+                    completeEntry.setVisible(false);
+                    progressEntry.setVisible(false);
+                    deleteEntry.setVisible(false);
+                }
             });
 
-            return new SimpleObjectProperty<>(checkBox);
+            progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    setCompleteService(false,user);
+                    contextBox.setVisible(false);
+                    contextBox.toBack();
+                    completeEntry.setVisible(false);
+                    progressEntry.setVisible(false);
+                    deleteEntry.setVisible(false);
+                }
+            });
+
+            deleteEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    DatabaseManager.delElement(sel.ReligiousRequest,user.getRef().getRequestID());
+                    buildMedicine("");
+                    contextBox.setVisible(false);
+                    contextBox.toBack();
+                    completeEntry.setVisible(false);
+                    progressEntry.setVisible(false);
+                    deleteEntry.setVisible(false);
+                }
+            });
+
+            checkBox.selectedProperty().setValue(user.checkCompleted());
+            state.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    contextBox.setVisible(true);
+                    contextBox.toFront();
+                    completeEntry.setVisible(true);
+                    progressEntry.setVisible(true);
+                    deleteEntry.setVisible(true);
+                    contextBox.relocate(event.getSceneX(),event.getSceneY());
+                }
+            });
+
+
+//            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+//
+//                setCompleteService(new_val, user);
+//                //user.setCompleted(new_val);
+//
+//            });
+
+            return new SimpleObjectProperty<JFXButton>(state);
+
 
         });
 
@@ -329,26 +677,111 @@ public class serviceManagerController extends SceneController {
         translateEmployeeColumn.setMinWidth(100);
         translateEmployeeColumn.setCellValueFactory(new PropertyValueFactory<tl, String>("employeeAssigned"));
 
-        translateCompletedColumn = new TableColumn<tl, CheckBox>("Status");
+        translateCompletedColumn = new TableColumn<tl, JFXButton>("Status");
         translateCompletedColumn.setMinWidth(100);
        //translateCompletedColumn.setCellValueFactory(new PropertyValueFactory<tl, String>("completed"));
+//        translateCompletedColumn.setCellValueFactory(arg0 -> {
+//            tl user = arg0.getValue();
+//
+//            CheckBox checkBox = new CheckBox();
+//
+//            checkBox.selectedProperty().setValue(user.checkCompleted());
+//
+//
+//
+//            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+//
+//                setCompleteService(new_val, user);
+//                //user.setCompleted(new_val);
+//
+//            });
+//
+//            return new SimpleObjectProperty<>(checkBox);
+//
+//        });
         translateCompletedColumn.setCellValueFactory(arg0 -> {
+
+            serviceStatus stat;
+
             tl user = arg0.getValue();
 
             CheckBox checkBox = new CheckBox();
-
-            checkBox.selectedProperty().setValue(user.checkCompleted());
-
+            JFXButton state = new JFXButton();
 
 
-            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
 
-                setCompleteService(new_val, user);
-                //user.setCompleted(new_val);
-
+            if(user.getEmployeeAssigned().equals("")){
+                stat = serviceStatus.UNASSIGNED;
+                state.setStyle("-fx-background-color: #FF0000;");
+            }
+            if(user.checkCompleted()){
+                stat = serviceStatus.COMPLETED;
+                state.setStyle("-fx-background-color: #00FF00;");
+            }else{
+                stat = serviceStatus.PROGRESS;
+                state.setStyle("-fx-background-color: #0000FF;");
+            }
+            state.setText(stat.name());
+            completeEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    setCompleteService(true,user);
+                    contextBox.setVisible(false);
+                    contextBox.toBack();
+                    completeEntry.setVisible(false);
+                    progressEntry.setVisible(false);
+                    deleteEntry.setVisible(false);
+                }
             });
 
-            return new SimpleObjectProperty<>(checkBox);
+            progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    setCompleteService(false,user);
+                    contextBox.setVisible(false);
+                    contextBox.toBack();
+                    completeEntry.setVisible(false);
+                    progressEntry.setVisible(false);
+                    deleteEntry.setVisible(false);
+                }
+            });
+
+            deleteEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    DatabaseManager.delElement(sel.LanguageInterperter,user.getRef().getRequestID());
+                    buildMedicine("");
+                    contextBox.setVisible(false);
+                    contextBox.toBack();
+                    completeEntry.setVisible(false);
+                    progressEntry.setVisible(false);
+                    deleteEntry.setVisible(false);
+                }
+            });
+
+            checkBox.selectedProperty().setValue(user.checkCompleted());
+            state.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    contextBox.setVisible(true);
+                    contextBox.toFront();
+                    completeEntry.setVisible(true);
+                    progressEntry.setVisible(true);
+                    deleteEntry.setVisible(true);
+                    contextBox.relocate(event.getSceneX(),event.getSceneY());
+                }
+            });
+
+
+//            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+//
+//                setCompleteService(new_val, user);
+//                //user.setCompleted(new_val);
+//
+//            });
+
+            return new SimpleObjectProperty<JFXButton>(state);
+
 
         });
 
@@ -381,28 +814,114 @@ public class serviceManagerController extends SceneController {
         sanitationEmployeeColumn.setMinWidth(100);
         sanitationEmployeeColumn.setCellValueFactory(new PropertyValueFactory<ss, String>("employeeAssigned"));
 
-        sanitationCompletedColumn = new TableColumn<ss, CheckBox>("Status");
+        sanitationCompletedColumn = new TableColumn<ss, JFXButton>("Status");
         sanitationCompletedColumn.setMinWidth(100);
         //sanitationCompletedColumn.setCellValueFactory(new PropertyValueFactory<ss, String>("completed"));
+//        sanitationCompletedColumn.setCellValueFactory(arg0 -> {
+//            ss user = arg0.getValue();
+//
+//            CheckBox checkBox = new CheckBox();
+//
+//            checkBox.selectedProperty().setValue(user.checkCompleted());
+//
+//
+//
+//            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+//
+//                setCompleteService(new_val, user);
+//                //user.setCompleted(new_val);
+//
+//            });
+//
+//            return new SimpleObjectProperty<>(checkBox);
+//
+//        });
         sanitationCompletedColumn.setCellValueFactory(arg0 -> {
+
+            serviceStatus stat;
+
             ss user = arg0.getValue();
 
             CheckBox checkBox = new CheckBox();
-
-            checkBox.selectedProperty().setValue(user.checkCompleted());
-
+            JFXButton state = new JFXButton();
 
 
-            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
 
-                setCompleteService(new_val, user);
-                //user.setCompleted(new_val);
-
+            if(user.getEmployeeAssigned().equals("")){
+                stat = serviceStatus.UNASSIGNED;
+                state.setStyle("-fx-background-color: #FF0000;");
+            }
+            if(user.checkCompleted()){
+                stat = serviceStatus.COMPLETED;
+                state.setStyle("-fx-background-color: #00FF00;");
+            }else{
+                stat = serviceStatus.PROGRESS;
+                state.setStyle("-fx-background-color: #0000FF;");
+            }
+            state.setText(stat.name());
+            completeEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    setCompleteService(true,user);
+                    contextBox.setVisible(false);
+                    contextBox.toBack();
+                    completeEntry.setVisible(false);
+                    progressEntry.setVisible(false);
+                    deleteEntry.setVisible(false);
+                }
             });
 
-            return new SimpleObjectProperty<>(checkBox);
+            progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    setCompleteService(false,user);
+                    contextBox.setVisible(false);
+                    contextBox.toBack();
+                    completeEntry.setVisible(false);
+                    progressEntry.setVisible(false);
+                    deleteEntry.setVisible(false);
+                }
+            });
+
+            deleteEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    DatabaseManager.delElement(sel.SanitationServices,user.getRef().getRequestID());
+                    buildMedicine("");
+                    contextBox.setVisible(false);
+                    contextBox.toBack();
+                    completeEntry.setVisible(false);
+                    progressEntry.setVisible(false);
+                    deleteEntry.setVisible(false);
+                }
+            });
+
+            checkBox.selectedProperty().setValue(user.checkCompleted());
+            state.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    contextBox.setVisible(true);
+                    contextBox.toFront();
+                    completeEntry.setVisible(true);
+                    progressEntry.setVisible(true);
+                    deleteEntry.setVisible(true);
+                    contextBox.relocate(event.getSceneX(),event.getSceneY());
+                }
+            });
+
+
+//            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+//
+//                setCompleteService(new_val, user);
+//                //user.setCompleted(new_val);
+//
+//            });
+
+            return new SimpleObjectProperty<JFXButton>(state);
+
 
         });
+
         buildSanitation("");
     }
 
@@ -1339,6 +1858,12 @@ public class serviceManagerController extends SceneController {
 
     public interface service{
 
+    }
+
+    public enum serviceStatus{
+        COMPLETED,
+        PROGRESS,
+        UNASSIGNED;
     }
 
 

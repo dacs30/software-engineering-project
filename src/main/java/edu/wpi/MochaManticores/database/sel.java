@@ -10,4 +10,6 @@ public enum sel {NODE,EDGE,EMPLOYEE,
     ReligiousRequest,
     LanguageInterperter,
     Medicine,
-    Laundry}
+    Laundry,
+    COVID
+}
