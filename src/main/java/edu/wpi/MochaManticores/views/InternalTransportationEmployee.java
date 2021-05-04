@@ -1,5 +1,6 @@
 package edu.wpi.MochaManticores.views;
 
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.MochaManticores.App;
@@ -13,12 +14,11 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -36,6 +36,8 @@ public class InternalTransportationEmployee {
         IntegerProperty numStaffNeededTable;
         StringProperty destinationTable;
         StringProperty transportationMethodsTable;
+        @FXML
+        JFXComboBox employeeAssigned;
         LinkedList<String> fields;
 
         public it(edu.wpi.MochaManticores.Services.ServiceRequest ref){
@@ -92,21 +94,35 @@ public class InternalTransportationEmployee {
     private TableView<it> internalTransportationTable;
 
     @FXML
-    private GridPane managerPage;
+    private TableView<it> externalTable;
 
     @FXML
-    private GridPane requestPage;
+    private JFXComboBox employeeAssigned;
 
-    public TableColumn<it, String> patientIdColumn;
+    private void createFilterListener(JFXComboBox comboBox) {
 
-    public TableColumn<it, Integer> numStaffNeededColumn;
+        // Create the listener to filter the list as user enters search terms
+        FilteredList<String> filteredList = new FilteredList<>(comboBox.getItems());
 
-    public TableColumn<it, String> destinationColumn;
+        // Add listener to our ComboBox textfield to filter the list
+        comboBox.getEditor().textProperty().addListener((observable, oldValue, newValue) ->
+                filteredList.setPredicate(item -> {
 
-    public TableColumn<it, String> transportationMethodColumn;
+                    // If the TextField is empty, return all items in the original list
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
 
-    ObservableList<String> typeOfTransportList = FXCollections
-            .observableArrayList("Wheelchair","Walker","Medical Bed");
+                    // Check if the search term is contained anywhere in our list
+                    return item.toLowerCase().contains(newValue.toLowerCase().trim());
+
+                    // No matches found
+                }));
+
+        // Finally, let's add the filtered list to our ComboBox
+        comboBox.setItems(filteredList);
+
+    }
 
     @FXML
     private void initialize() {
@@ -119,7 +135,18 @@ public class InternalTransportationEmployee {
         backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
         backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
-        transportComboBox.setItems(typeOfTransportList);
+        //externalTable.setEditable(true);
+
+        this.employeeAssigned.setEditable(true);
+        //fromLocation.setOnKeyTyped(new AutoCompleteComboBoxListener<>(fromLocation));
+        ObservableList<String> items = FXCollections.observableArrayList();
+        DatabaseManager.getEmployeeNames().forEach(s -> {
+            items.add(s.substring(s.indexOf(" ")));
+        });
+        employeeAssigned.setItems(items);
+        createFilterListener(employeeAssigned);
+
+        //transportComboBox.setItems(typeOfTransportList);
 
         dialogPane.toBack();
 
@@ -140,9 +167,9 @@ public class InternalTransportationEmployee {
 //        destinationColumn.setPrefWidth(100);
 //        destinationColumn.setCellValueFactory(new PropertyValueFactory<it, String>("transportationMethod"));
 //
-        managerPage.setVisible(false);
-        requestPage.setVisible(true);
-        requestPage.toFront();
+       // managerPage.setVisible(false);
+       // requestPage.setVisible(true);
+      //  requestPage.toFront();
 //
 //        buildTable("");
     }
@@ -183,22 +210,22 @@ public class InternalTransportationEmployee {
             }
         }
         internalTransportationTable.setItems(tableRow);
-        internalTransportationTable.getColumns().setAll(patientIdColumn,numStaffNeededColumn,
-                destinationColumn,transportationMethodColumn);
+        //internalTransportationTable.getColumns().setAll(patientIdColumn,numStaffNeededColumn,
+          //      destinationColumn,transportationMethodColumn);
 
         return tableRow;
     }
 
     public void changeToRequest(ActionEvent actionEvent) {
-        requestPage.setVisible(true);
-        managerPage.setVisible(false);
-        requestPage.toFront();
+        //requestPage.setVisible(true);
+        //managerPage.setVisible(false);
+        //requestPage.toFront();
     }
 
     public void changeManagerTable(ActionEvent actionEvent) {
-        requestPage.setVisible(false);
-        managerPage.setVisible(true);
-        managerPage.toFront();
+        //requestPage.setVisible(false);
+        //managerPage.setVisible(true);
+        //managerPage.toFront();
     }
 
 }
