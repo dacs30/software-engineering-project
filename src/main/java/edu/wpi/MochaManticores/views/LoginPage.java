@@ -162,15 +162,16 @@ public class LoginPage extends SceneController{
         if (IDField.getText().equals("")){
             App.setCurrentUsername("Guest");
         } else {
-            //create employee here
-            Employee employee = new Employee(IDField.getText(), "", IDField.getText(), IDField.getText(), Employee.employeeType.PATIENT,
-                    0, false, false, "Parking");
-            try {
-                DatabaseManager.getEmpManager().getElement(IDField.getText());
-            } catch (Exception exception) {
-                DatabaseManager.getEmpManager().addElement(employee);
-            }
             App.setCurrentUsername(IDField.getText());
+        }
+
+        //create employee here
+        Employee employee = new Employee(IDField.getText(), "", IDField.getText(), IDField.getText(), Employee.employeeType.PATIENT,
+                0, false, false, "Parking");
+        try {
+            DatabaseManager.getEmpManager().getElement(IDField.getText());
+        } catch (Exception exception) {
+            DatabaseManager.getEmpManager().addElement(employee);
         }
         changeSceneTo("landingPage");
     }
