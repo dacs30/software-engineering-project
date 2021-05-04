@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDialog?>
 <?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
@@ -90,13 +91,13 @@
                                                    <content>
                                                       <VBox fx:id="textFieldGroup" alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="99.0" prefWidth="365.0" spacing="30.0">
                                                          <children>
-                                                            <JFXComboBox fx:id="fromLocation" prefHeight="25.0" prefWidth="300.0" promptText="From">
+                                                            <JFXTextField fx:id="fromLocation" maxWidth="-Infinity" prefHeight="25.0" prefWidth="300.0" promptText="From">
                                                                <VBox.margin>
                                                                   <Insets right="35.0" />
-                                                               </VBox.margin></JFXComboBox>
+                                                               </VBox.margin></JFXTextField>
                                                             <HBox prefHeight="34.0" prefWidth="300.0">
                                                                <children>
-                                                                  <JFXComboBox fx:id="toLocation" labelFloat="true" prefHeight="25.0" prefWidth="300.0" promptText="To" />
+                                                                  <JFXTextField fx:id="toLocation" labelFloat="true" prefHeight="25.0" prefWidth="300.0" promptText="To" />
                                                                   <HBox fx:id="addField">
                                                                      <children>
                                                                         <ImageView fitHeight="32.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">

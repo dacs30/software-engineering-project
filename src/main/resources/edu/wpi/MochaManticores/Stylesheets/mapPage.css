@@ -77,16 +77,8 @@
     -jfx-rippler-fill: none;
 }
 #tabPane .label {
-    -fx-border-color: grey;
     -fx-text-fill: grey;
-    -fx-border-width: 3;
-    -fx-border-radius: 40;
-    -fx-font-size: 40;
-    -fx-pref-height: 35;
-    -fx-max-height: 35;
-    -fx-min-height: 35;
-    -fx-min-width: 35;
-    -fx-text-alignment: center;
+    -fx-font-size: 20;
 }
 #insideTabPaneAnchor {
     -fx-background-radius: 40;

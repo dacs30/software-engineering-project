@@ -187,10 +187,10 @@ public class mapPage extends SceneController{
     private JFXScrollPane scrollPane;
 
     @FXML
-    private JFXComboBox fromLocation;
+    private Label fromLocation;
 
     @FXML
-    private JFXComboBox toLocation;
+    private Label toLocation;
 
     @FXML
     private JFXButton routeExample;
@@ -237,8 +237,11 @@ public class mapPage extends SceneController{
     private boolean updateDeltas = true;
     private boolean dragged = false;
 
-    private LinkedList<JFXComboBox> fields = new LinkedList<>();
+    private LinkedList<Label> fields = new LinkedList<>();
     private int fieldIndex = 0;
+
+    /*private void createFilterListener(JFXComboBox comboBox) {
+
 
     private void createFilterListener(JFXComboBox comboBox) {
 
@@ -265,7 +268,7 @@ public class mapPage extends SceneController{
         // Finally, let's add the filtered list to our ComboBox
         comboBox.setItems(filteredList);
 
-    }
+    }*/
 
     public void initialize() {
         double height = super.getHeight();
@@ -381,7 +384,7 @@ public class mapPage extends SceneController{
 //
         //AutoCompleteComboBoxListener toListener = new AutoCompleteComboBoxListener(toLocation);
 
-        fromLocation.setEditable(true);
+        /*fromLocation.setEditable(true);
         //fromLocation.setOnKeyTyped(new AutoCompleteComboBoxListener<>(fromLocation));
         ObservableList<String> items = FXCollections.observableArrayList();
         DatabaseManager.getElementIDs().forEach(s -> {
@@ -398,6 +401,7 @@ public class mapPage extends SceneController{
         });
         toLocation.setItems(items2);
         createFilterListener(fromLocation);
+*/
 
         fields.add(fromLocation);fields.add(toLocation);
 
@@ -505,7 +509,6 @@ public class mapPage extends SceneController{
 
         cont.setSpacing(10);
 
-        createFilterListener(toAdd);
         textFieldGroup.getChildren().add(ind, cont);
         fields.add(fields.indexOf(toLocation), toAdd);
 
@@ -747,7 +750,7 @@ public class mapPage extends SceneController{
     }
 
     public void loadL1() {
-        locationTitle.setText("Lower Level 1");
+        //locationTitle.setText("Lower Level 1");
         setSelectedFloor("L1");
         setZoom(new Image(location + "00_thelowerlevel1.png"), 0, 0, noZoom);
         drawNodes();
@@ -755,7 +758,7 @@ public class mapPage extends SceneController{
     }
 
     public void loadL2() {
-        locationTitle.setText("Lower Level 2");
+        //locationTitle.setText("Lower Level 2");
         setSelectedFloor("L2");
 
         setZoom(new Image(location + "00_thelowerlevel2.png"), 0, 0, noZoom);
@@ -764,7 +767,7 @@ public class mapPage extends SceneController{
     }
 
     public void loadGround() {
-        locationTitle.setText("Ground Floor");
+        //locationTitle.setText("Ground Floor");
         setSelectedFloor("G");
 
         setZoom(new Image(location + "00_thegroundfloor.png"), 0, 0, noZoom);
@@ -773,7 +776,7 @@ public class mapPage extends SceneController{
     }
 
     public void loadF1() {
-        locationTitle.setText("Floor 1");
+        //locationTitle.setText("Floor 1");
         setSelectedFloor("1");
 
         setZoom(new Image(location + "01_thefirstfloor.png"), 0, 0, noZoom);
@@ -782,7 +785,7 @@ public class mapPage extends SceneController{
     }
 
     public void loadF2() {
-        locationTitle.setText("Floor 2");
+        //locationTitle.setText("Floor 2");
         setSelectedFloor("2");
 
 
@@ -792,7 +795,7 @@ public class mapPage extends SceneController{
     }
 
     public void loadF3() {
-        locationTitle.setText("Floor 3");
+        //locationTitle.setText("Floor 3");
         setSelectedFloor("L3");
 
         setZoom(new Image(location + "03_thethirdfloor.png"), 0, 0, noZoom);
@@ -991,15 +994,6 @@ public class mapPage extends SceneController{
                     src.setFill(Color.valueOf("#0F4B91"));
                     n.setHighlighted(true);
                     pitStops.add(n);
-                    if (fieldIndex >= fields.size()){
-                        fieldIndex = addPitstopField();
-                    }
-                    try {
-                        fields.get(fieldIndex).getEditor().setText(DatabaseManager.getNode(n.getNodeID()).getLongName());
-                    } catch (InvalidElementException invalidElementException) {
-                        invalidElementException.printStackTrace();
-                    }
-                    fieldIndex++;
 
                 }
             }
