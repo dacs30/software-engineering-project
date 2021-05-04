@@ -1,7 +1,5 @@
 package edu.wpi.MochaManticores.views;
 
-import com.gluonhq.charm.down.plugins.StatusBarService;
-import com.jfoenix.animation.alert.CenterTransition;
 import com.jfoenix.controls.*;
 import edu.wpi.MochaManticores.Algorithms.AStar2;
 import edu.wpi.MochaManticores.App;
@@ -9,7 +7,6 @@ import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.database.DatabaseManager;
-import io.opencensus.trace.Link;
 import javafx.animation.PathTransition;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -17,21 +14,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
-import javafx.geometry.NodeOrientation;
-import javafx.fxml.Initializable;
-import javafx.geometry.HPos;
-import javafx.geometry.VPos;
-import javafx.scene.Cursor;
-import javafx.scene.Group;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TabPane;
-import javafx.scene.input.ScrollEvent;
-import javafx.scene.control.TextField;
-import javafx.scene.input.*;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.*;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
@@ -45,20 +27,18 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
+import javafx.scene.shape.*;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import javafx.geometry.Pos;
 import javafx.util.Duration;
-import javafx.util.Pair;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 public class mapPage extends SceneController{
 
@@ -245,12 +225,9 @@ public class mapPage extends SceneController{
                     }
 
                     // Check if the search term is contained anywhere in our list
-                    if (item.toLowerCase().contains(newValue.toLowerCase().trim())) {
-                        return true;
-                    }
+                    return item.toLowerCase().contains(newValue.toLowerCase().trim());
 
                     // No matches found
-                    return false;
                 }));
 
         // Finally, let's add the filtered list to our ComboBox
@@ -377,6 +354,17 @@ public class mapPage extends SceneController{
         });
         fromLocation.setItems(items);
         createFilterListener(fromLocation);
+
+        toLocation.setEditable(true);
+        //fromLocation.setOnKeyTyped(new AutoCompleteComboBoxListener<>(fromLocation));
+        ObservableList<String> items2 = FXCollections.observableArrayList();
+        DatabaseManager.getElementIDs().forEach(s -> {
+            items2.add(s.toString());
+        });
+        toLocation.setItems(items2);
+        createFilterListener(fromLocation);
+
+
 
         SceneGestures sceneGestures = new SceneGestures(panAndZoomPane);
 

@@ -3,9 +3,8 @@ package edu.wpi.MochaManticores.database;
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import edu.wpi.MochaManticores.Exceptions.InvalidLoginException;
 import edu.wpi.MochaManticores.Exceptions.InvalidPermissionsException;
-import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.Nodes.EdgeSuper;
-import edu.wpi.MochaManticores.Services.SanitationServices;
+import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.Services.ServiceMap;
 import edu.wpi.MochaManticores.Services.ServiceRequest;
 import javafx.util.Pair;
@@ -90,7 +89,7 @@ public class DatabaseManager{
      */
     public static void addNode(NodeSuper node){
         getNodeManager().addElement(node);
-    };
+    }
 
     /*  function: addEdge()
      *  adds an Edge to the database and EdgeMapSuper()
@@ -98,7 +97,7 @@ public class DatabaseManager{
      */
     public static void addEdge(EdgeSuper edge){
         getEdgeManager().addElement(edge);
-    };
+    }
 
     /*  function: addEmployee()
      *  adds an employee to the database
@@ -106,7 +105,7 @@ public class DatabaseManager{
      */
     public static void addEmployee(Employee employee){
         getEmpManager().addElement(employee);
-    };
+    }
 
     /*  function: addElement()
      *  deletes a selected element with a given ID
@@ -215,6 +214,7 @@ public class DatabaseManager{
         return getNodeManager().getElementIDs();
     }
 
+
     // ==== Employee specials ==== //
 
     /*  function:  checkEmployeeLogin()
@@ -223,6 +223,14 @@ public class DatabaseManager{
      */
     public static Employee checkEmployeeLogin(String usr, String pass) throws InvalidLoginException, InvalidElementException {
         return getEmpManager().checkEmployeeLogin(usr,pass);
+    }
+
+    /* function: getEmployeeNamesList()
+     * returns a linked list of strings that contains all employee names
+     */
+    public static LinkedList<String> getEmployeeNames(){
+        //TODO abstract to work with all types
+        return getEmpManager().getEmployeeNames();
     }
 
     /*  function:  checkAdminLogin()
