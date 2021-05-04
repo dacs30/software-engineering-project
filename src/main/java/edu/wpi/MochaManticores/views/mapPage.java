@@ -17,14 +17,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
-import javafx.geometry.NodeOrientation;
+import javafx.event.Event;
+import javafx.geometry.*;
 import javafx.fxml.Initializable;
-import javafx.geometry.HPos;
-import javafx.geometry.VPos;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TabPane;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.control.TextField;
 import javafx.scene.input.*;
@@ -35,8 +35,6 @@ import javafx.scene.shape.*;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
-import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -209,6 +207,12 @@ public class mapPage extends SceneController{
     @FXML
     private HBox addField;
 
+    @FXML
+    private AnchorPane tabPaneAnchor;
+
+    @FXML
+    private AnchorPane paneContainingTabPane;
+
     private final String location = "edu/wpi/MochaManticores/images/";
 
     private String selectedFloor = "";
@@ -269,34 +273,39 @@ public class mapPage extends SceneController{
         //mapScrollPane.prefWidthProperty().bind(App.getPrimaryStage().widthProperty());
         //GridPane.setHgrow(mapStack, Priority.ALWAYS);
 
+        paneContainingTabPane.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
+
         // event to drag the menu of the mapa around
         tabPane.setOnMouseDragged(event -> {
 
-            tabPane.setManaged(false);
+            System.out.println("hey");
+
+            paneContainingTabPane.setManaged(false);
 
             if (updateDeltas){
-                dX = (event.getSceneX() - tabPane.getLayoutX());
-                dY = (event.getSceneY() - tabPane.getLayoutY());
+                dX = (event.getSceneX() - paneContainingTabPane.getLayoutX());
+                dY = (event.getSceneY() - paneContainingTabPane.getLayoutY());
                 updateDeltas = false;
             }
 
-            tabPane.relocate(event.getSceneX() - dX, event.getSceneY() - dY);
+            paneContainingTabPane.relocate(event.getSceneX() - dX, event.getSceneY() - dY);
             dragged = true;
 
         });
+
         tabPane.setOnMouseReleased(event -> {
             if (dragged) {
-                if (tabPane.getLayoutX() < App.getPrimaryStage().getWidth() / 2) {
-                    GridPane.setHalignment(tabPane, HPos.LEFT);
+                if (paneContainingTabPane.getLayoutX() < App.getPrimaryStage().getWidth() / 2) {
+                    GridPane.setHalignment(paneContainingTabPane, HPos.LEFT);
                     Line line = new Line();
                     line.setStartX(event.getSceneX());
                     line.setStartY(event.getSceneY());
-                    line.setEndX(tabPane.getWidth() / 2);
+                    line.setEndX(paneContainingTabPane.getWidth() / 2);
                     line.setEndY(event.getSceneY());
 
                     PathTransition pathTransition = new PathTransition();
                     pathTransition.setDuration(Duration.seconds(0.5));
-                    pathTransition.setNode(tabPane);
+                    pathTransition.setNode(paneContainingTabPane);
                     pathTransition.setPath(line);
 
                     pathTransition.setCycleCount(1);
@@ -304,36 +313,35 @@ public class mapPage extends SceneController{
                     pathTransition.play();
 
                 } else {
-                    GridPane.setHalignment(tabPane, HPos.RIGHT);
+                    GridPane.setHalignment(paneContainingTabPane, HPos.RIGHT);
 
                     Line line = new Line();
                     line.setStartX(event.getSceneX());
                     line.setStartY(event.getSceneY());
-                    line.setEndX(tabPane.getBoundsInLocal().getMaxX() - tabPane.getWidth() / 2);
+                    line.setEndX(paneContainingTabPane.getBoundsInLocal().getMaxX() - paneContainingTabPane.getWidth() / 2);
                     line.setEndY(event.getSceneY());
 
                     Path path = new Path();
 
                     // setted to -event because I don't know
                     path.getElements().add(new MoveTo(-event.getX(), event.getSceneY()));
-                    path.getElements().add(new LineTo(tabPane.getBoundsInLocal().getMaxX() - tabPane.getWidth() / 2, event.getSceneY()));
+                    path.getElements().add(new LineTo(paneContainingTabPane.getBoundsInLocal().getMaxX() - 35 - paneContainingTabPane.getWidth() / 2, event.getSceneY()));
 
                     PathTransition pathTransition = new PathTransition();
                     pathTransition.setDuration(Duration.seconds(0.5));
-                    pathTransition.setNode(tabPane);
+                    pathTransition.setNode(paneContainingTabPane);
                     pathTransition.setPath(path);
 
                     pathTransition.setCycleCount(1);
 
                     pathTransition.play();
                 }
-                tabPane.setManaged(true);
+                paneContainingTabPane.setManaged(true);
                 updateDeltas = true;
                 dragged = false;
             }
 
         });
-
 
         mapWindow.setPreserveRatio(false);
 

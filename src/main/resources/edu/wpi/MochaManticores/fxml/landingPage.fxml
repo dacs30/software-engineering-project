@@ -248,7 +248,7 @@
                   </ScrollPane>
                </children>
             </GridPane>
-            <AnchorPane fx:id="scenesPane" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" />
+            <AnchorPane fx:id="scenesPane" GridPane.columnIndex="1" />
          </children>
       </GridPane>
    </children>

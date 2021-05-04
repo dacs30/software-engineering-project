@@ -507,10 +507,10 @@ public class landingPageController extends SceneController {
       super.changeSceneTo("mapPage");
     }
 
-    //    // removes the children so you don't end up with weird scenes one over the other
+//        // removes the children so you don't end up with weird scenes one over the other
 //    scenesPane.getChildren().removeAll(scenesPane.getChildren());
 //
-//    Parent root = null;
+//    Parent root;
 //
 //    // if it is an employee the page page is different
 //    if(App.getClearenceLevel() == 1){
@@ -530,13 +530,17 @@ public class landingPageController extends SceneController {
 //    // gives the selected properties for the new selected page
 //    mapSidePane.setStyle("-fx-background-radius: 20;");
 //    mapSidePane.setStyle("-fx-background-color: rgba(15,75,145,0.29);");
+
+//    scenesPane.prefHeightProperty().bind(root.getScene().heightProperty());
+//    scenesPane.prefWidthProperty().bind(root.getScene().widthProperty().subtract(sidePanel.widthProperty()));
+//
 //
 //    // adds the selected page to the scenesPane so it can be displayed
-//    scenesPane.maxHeight(App.getPrimaryStage().getHeight());
-//    scenesPane.maxWidth(App.getPrimaryStage().getWidth()-currentVbox.getWidth());
-//    root.maxHeight(App.getPrimaryStage().getHeight());
-//    root.maxWidth(App.getPrimaryStage().getWidth()-currentVbox.getWidth());
-//    scenesPane.getChildren().add(root);
+//    scenesPane.maxHeightProperty().bind(App.getPrimaryStage().heightProperty());
+//    scenesPane.maxWidthProperty().bind(App.getPrimaryStage().widthProperty().subtract(sidePanel.widthProperty()));
+//    GridPane.setVgrow(scenesPane, Priority.ALWAYS);
+
+    //scenesPane.getChildren().add(root);
 
   }
 

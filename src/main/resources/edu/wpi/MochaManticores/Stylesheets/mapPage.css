@@ -13,14 +13,53 @@
     -fx-background-color: transparent;
 }
 
-#scrollpane > .viewport {
+.scroll-pane > .viewport {
     -fx-background-color: transparent;
 }
 
-#scrollpane {
-    -fx-background-color: rgba(255, 255, 255, 0.75);
+.scroll-pane {
+    -fx-background-color: transparent;
 }
 
-#tabPane {
+#tabPane .tab-selected-line {
+    /*-fx-background-color: #0059A9;*/
+    -fx-background-color: transparent;
+}
+#tabPane .tab-selected-color {
+    /*-fx-background-color: #0059A9;*/
     -fx-background-color: rgba(255, 255, 255, 0.75);
+}
+#tabPane .headers-region {
+    -fx-background-color: transparent;
+    -fx-effect: none;
+}
+#tabPane .depth-container {
+    -fx-effect: null;
+}
+#tabPane .tab-label {
+    -fx-text-fill: black;
+}
+#tabPane .tab-header-background {
+    -fx-background-color: rgba(255, 255, 255, 0.75);
+}
+#tabPane .control-buttons-tab{
+    -fx-background-color: rgba(255, 255, 255, 0.75);
+}
+#tabPane .control-buttons-tab .tab-down-button{
+    -fx-background-color: #0059A9 ;
+}
+#tabPane{
+    -fx-background-color: rgba(255, 255, 255, 0.90);
+    -fx-background-radius: 40;
+    -fx-border-radius: 40;
+}
+#tabsPaneAnchor {
+    /*-fx-background-color: rgba(255, 255, 255, 0.01);*/
+    -fx-background-radius: 40;
+    -fx-border-radius: 40;
+    -fx-fill: transparent;
+}
+#insideTabPaneAnchor {
+    -fx-background-radius: 40;
+    -fx-border-radius: 40;
 }
