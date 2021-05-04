@@ -59,6 +59,20 @@
     -fx-border-radius: 40;
     -fx-fill: transparent;
 }
+
+#tabPane .label {
+    -fx-border-color: black;
+    -fx-text-fill: black;
+    -fx-border-width: 3;
+    -fx-border-radius: 40;
+    -fx-font-size: 40;
+    -fx-pref-height: 35;
+    -fx-max-height: 35;
+    -fx-min-height: 35;
+    -fx-min-width: 35;
+    -fx-text-alignment: center;
+}
+
 #insideTabPaneAnchor {
     -fx-background-radius: 40;
     -fx-border-radius: 40;

@@ -112,7 +112,7 @@
                                                    <content>
                                                       <VBox fx:id="textFieldGroup" alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="300.0" spacing="10.0">
                                                          <children>
-                                                            <JFXComboBox fx:id="fromLocation" prefHeight="25.0" prefWidth="275.0" promptText="From" />
+                                                            <JFXComboBox fx:id="fromLocation" prefHeight="25.0" prefWidth="302.0" promptText="From" />
                                                             <HBox fx:id="addField">
                                                                <children>
                                                                   <ImageView fitHeight="32.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
@@ -122,7 +122,7 @@
                                                                   </ImageView>
                                                                </children>
                                                             </HBox>
-                                                            <JFXComboBox fx:id="toLocation" labelFloat="true" prefHeight="25.0" prefWidth="275.0" promptText="To" />
+                                                            <JFXComboBox fx:id="toLocation" labelFloat="true" prefHeight="25.0" prefWidth="300.0" promptText="To" />
                                                          </children>
                                                          <padding>
                                                             <Insets bottom="10.0" />
