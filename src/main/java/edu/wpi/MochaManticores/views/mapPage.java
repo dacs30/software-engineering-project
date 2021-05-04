@@ -1,5 +1,7 @@
 package edu.wpi.MochaManticores.views;
 
+import com.gluonhq.charm.down.plugins.StatusBarService;
+import com.jfoenix.animation.alert.CenterTransition;
 import com.jfoenix.controls.*;
 import edu.wpi.MochaManticores.Algorithms.AStar2;
 import edu.wpi.MochaManticores.App;
@@ -7,39 +9,53 @@ import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.database.DatabaseManager;
+import io.opencensus.trace.Link;
+import javafx.animation.PathTransition;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.geometry.*;
 import javafx.fxml.Initializable;
-import javafx.geometry.HPos;
-import javafx.geometry.VPos;
+import javafx.scene.Cursor;
+import javafx.scene.Group;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TabPane;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.control.TextField;
 import javafx.scene.input.*;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.*;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Line;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.*;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import javafx.scene.layout.VBox;
 import javafx.geometry.Pos;
+import javafx.util.Duration;
+import javafx.util.Pair;
 
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -171,16 +187,37 @@ public class mapPage extends SceneController{
     private JFXScrollPane scrollPane;
 
     @FXML
-    private JFXTextField fromLocation;
+    private Label fromLocation;
 
     @FXML
-    private TextField testTextField;
+    private Label toLocation;
+
+    @FXML
+    private JFXButton routeExample;
 
     @FXML
     private ScrollPane mapScrollPane;
 
     @FXML
     private JFXComboBox nearestLocationSelector;
+
+    @FXML
+    private ScrollPane textFieldScrollPane;
+
+    @FXML
+    private VBox textFieldGroup;
+
+    @FXML
+    private HBox addField;
+
+    @FXML
+    private AnchorPane tabPaneAnchor;
+
+    @FXML
+    private AnchorPane paneContainingTabPane;
+
+    @FXML
+    private HBox toHBOX;
 
     private final String location = "edu/wpi/MochaManticores/images/";
 
@@ -201,13 +238,38 @@ public class mapPage extends SceneController{
     private double dX;
     private double dY;
     private boolean updateDeltas = true;
+    private boolean dragged = false;
 
-    private AutoCompleteComboBoxListener autoCompleteComboBoxListener;
+    private LinkedList<Label> fields = new LinkedList<>();
+    private int fieldIndex = 0;
 
-    public void completeSearch(){
-        
-    }
+    /*
+    private void createFilterListener(JFXComboBox comboBox) {
 
+        // Create the listener to filter the list as user enters search terms
+        FilteredList<String> filteredList = new FilteredList<>(comboBox.getItems());
+
+        // Add listener to our ComboBox textfield to filter the list
+        comboBox.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            comboBox.show();
+            filteredList.setPredicate(item -> {
+
+
+                // If the TextField is empty, return all items in the original list
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                // Check if the search term is contained anywhere in our list
+                return item.toLowerCase().contains(newValue.toLowerCase().trim());
+
+            });
+        });
+
+        // Finally, let's add the filtered list to our ComboBox
+        comboBox.setItems(filteredList);
+
+    }*/
 
     public void initialize() {
         double height = super.getHeight();
@@ -217,29 +279,74 @@ public class mapPage extends SceneController{
         contentPane.maxHeightProperty().bind(App.getPrimaryStage().heightProperty());
         mapStack.maxWidthProperty().bind(App.getPrimaryStage().widthProperty());
         mapStack.maxHeightProperty().bind(App.getPrimaryStage().heightProperty());
+        //mapScrollPane.prefWidthProperty().bind(App.getPrimaryStage().widthProperty());
+        //GridPane.setHgrow(mapStack, Priority.ALWAYS);
 
+        // event to drag the menu of the mapa around
         tabPane.setOnMouseDragged(event -> {
 
-            tabPane.setManaged(false);
+            System.out.println("hey");
+
+            paneContainingTabPane.setManaged(false);
 
             if (updateDeltas){
-                dX = (event.getSceneX() - tabPane.getLayoutX());
-                dY = (event.getSceneY() - tabPane.getLayoutY());
+                dX = (event.getSceneX() - paneContainingTabPane.getLayoutX());
+                dY = (event.getSceneY() - paneContainingTabPane.getLayoutY());
                 updateDeltas = false;
             }
 
-            tabPane.relocate(event.getSceneX() - dX, event.getSceneY() - dY);
+            paneContainingTabPane.relocate(event.getSceneX() - dX, event.getSceneY() - dY);
+            dragged = true;
 
         });
-        tabPane.setOnMouseReleased(event -> {
 
-            if (tabPane.getLayoutX() < App.getPrimaryStage().getWidth()/2){
-                ((GridPane)tabPane.getParent()).setHalignment(tabPane, HPos.LEFT);
-            } else {
-                ((GridPane)tabPane.getParent()).setHalignment(tabPane, HPos.RIGHT);
+        tabPane.setOnMouseReleased(event -> {
+            if (dragged) {
+                if (paneContainingTabPane.getLayoutX() < App.getPrimaryStage().getWidth() / 2) {
+                    GridPane.setHalignment(paneContainingTabPane, HPos.LEFT);
+                    Line line = new Line();
+                    line.setStartX(event.getSceneX());
+                    line.setStartY(event.getSceneY());
+                    line.setEndX(paneContainingTabPane.getWidth() / 2);
+                    line.setEndY(event.getSceneY());
+
+                    PathTransition pathTransition = new PathTransition();
+                    pathTransition.setDuration(Duration.seconds(0.5));
+                    pathTransition.setNode(paneContainingTabPane);
+                    pathTransition.setPath(line);
+
+                    pathTransition.setCycleCount(1);
+
+                    pathTransition.play();
+
+                } else {
+                    GridPane.setHalignment(paneContainingTabPane, HPos.RIGHT);
+
+                    Line line = new Line();
+                    line.setStartX(event.getSceneX());
+                    line.setStartY(event.getSceneY());
+                    line.setEndX(paneContainingTabPane.getBoundsInLocal().getMaxX() - paneContainingTabPane.getWidth() / 2);
+                    line.setEndY(event.getSceneY());
+
+                    Path path = new Path();
+
+                    // setted to -event because I don't know
+                    path.getElements().add(new MoveTo(-event.getX(), event.getSceneY()));
+                    path.getElements().add(new LineTo(paneContainingTabPane.getBoundsInLocal().getMaxX() - 35 - paneContainingTabPane.getWidth() / 2, event.getSceneY()));
+
+                    PathTransition pathTransition = new PathTransition();
+                    pathTransition.setDuration(Duration.seconds(0.5));
+                    pathTransition.setNode(paneContainingTabPane);
+                    pathTransition.setPath(path);
+
+                    pathTransition.setCycleCount(1);
+
+                    pathTransition.play();
+                }
+                paneContainingTabPane.setManaged(true);
+                updateDeltas = true;
+                dragged = false;
             }
-            tabPane.setManaged(true);
-            updateDeltas = true;
 
         });
 
@@ -274,6 +381,33 @@ public class mapPage extends SceneController{
         zoomProperty.bind(panAndZoomPane.myScale);
         deltaY.bind(panAndZoomPane.deltaY);
         panAndZoomPane.getChildren().add(mapStack);
+        //AutoCompleteComboBoxListener fromListener = new AutoCompleteComboBoxListener(fromLocation);
+//
+        //AutoCompleteComboBoxListener toListener = new AutoCompleteComboBoxListener(toLocation);
+
+        /*fromLocation.setEditable(true);
+        //fromLocation.setOnKeyTyped(new AutoCompleteComboBoxListener<>(fromLocation));
+        ObservableList<String> items = FXCollections.observableArrayList();
+        DatabaseManager.getElementIDs().forEach(s -> {
+            items.add(s.toString());
+        });
+        fromLocation.setItems(items);
+        createFilterListener(fromLocation);
+
+        toLocation.setEditable(true);
+        //fromLocation.setOnKeyTyped(new AutoCompleteComboBoxListener<>(fromLocation));
+        ObservableList<String> items2 = FXCollections.observableArrayList();
+        DatabaseManager.getElementIDs().forEach(s -> {
+            items2.add(s.toString());
+        });
+        toLocation.setItems(items2);
+        createFilterListener(toLocation);
+        createFilterListener(fromLocation);
+*/
+
+        fields.add(fromLocation);fields.add(toLocation);
+
+
 
         SceneGestures sceneGestures = new SceneGestures(panAndZoomPane);
 
@@ -284,8 +418,10 @@ public class mapPage extends SceneController{
         mapScrollPane.addEventFilter( MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
         mapScrollPane.addEventFilter( ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
 
-        mapWindow.fitWidthProperty().bind(mapStack.widthProperty());
-        mapWindow.fitHeightProperty().bind(mapStack.heightProperty());
+        //mapWindow.fitWidthProperty().bind(mapStack.widthProperty());
+        //mapWindow.fitHeightProperty().bind(mapStack.heightProperty());
+        mapWindow.fitWidthProperty().bind(mapScrollPane.widthProperty());
+        mapWindow.fitHeightProperty().bind(mapScrollPane.heightProperty());
         mapWindow.fitWidthProperty().addListener((obs, oldVal, newVal) -> {
             drawNodes();
         });
@@ -336,10 +472,53 @@ public class mapPage extends SceneController{
         //Initializing the dialog pane
         dialogPane.toBack();
 
+        addField.setOnMouseClicked(event -> {
+            addPitstopField();
+        });
+
 
     }
 
+    private int addPitstopField(){
+        int ind = textFieldGroup.getChildren().indexOf(toHBOX);
 
+        HBox cont = new HBox();
+        Label toAdd = new Label();
+        toAdd.setPrefWidth(300);
+        toAdd.maxWidthProperty().bind(toAdd.prefWidthProperty());
+        toAdd.minWidthProperty().bind(toAdd.prefWidthProperty());
+
+        Image img = new Image("/edu/wpi/MochaManticores/images/removeIcon.png");
+        ImageView minusImage = new ImageView(img);
+        minusImage.setFitWidth(30);
+        minusImage.setPreserveRatio(true);
+
+        cont.getChildren().addAll(toAdd, minusImage);
+
+        cont.setAlignment(Pos.CENTER_LEFT);
+
+        ObservableList<String> items = FXCollections.observableArrayList();
+        DatabaseManager.getElementIDs().forEach(s -> {
+            items.add(s.toString());
+        });
+
+        minusImage.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+                textFieldGroup.getChildren().remove(cont);
+                pitStops.remove(nodes.get(toAdd.getText()));
+                updateFields();
+            }
+        });
+
+        cont.setSpacing(10);
+
+        textFieldGroup.getChildren().add(ind, cont);
+        fields.add(fields.indexOf(toLocation), toAdd);
+
+        return fields.indexOf(toAdd);
+    }
 
     private String getNodeType(){
         String type = (String) nearestLocationSelector.getSelectionModel().getSelectedItem();
@@ -361,7 +540,7 @@ public class mapPage extends SceneController{
     public void toAStar() {
         AStar2 star = new AStar2();
         //pathToTake is used in the dialog box that keeps all the nodes that the user has to pass through
-        StringBuilder pathToTake = new StringBuilder("");
+        StringBuilder pathToTake = new StringBuilder();
         LinkedList<NodeSuper> stops = new LinkedList<>();
         for (mapPage.node n :
                 pitStops) {
@@ -498,7 +677,7 @@ public class mapPage extends SceneController{
         savedRoute.clear();
         dirVBOX.getChildren().clear();
         //pathToTake is used in the dialog box that keeps all the nodes that the user has to pass through
-        StringBuilder pathToTake = new StringBuilder("");
+        StringBuilder pathToTake = new StringBuilder();
         LinkedList<NodeSuper> stops = new LinkedList<>();
         if (pitStops.size() != 1){
             super.loadErrorDialog(dialogPane, "Must select only one node");
@@ -522,7 +701,7 @@ public class mapPage extends SceneController{
             }
 
         }
-        //CONDITION NEEDS TO BE INPUT HERE
+
         System.out.println(path);
         Label startLabel = new Label();
         String startID = path.removeFirst();
@@ -552,6 +731,7 @@ public class mapPage extends SceneController{
             n.resetFill();
         }
         pitStops = new LinkedList<>();
+        updateFields();
 
         drawNodes();
 
@@ -576,7 +756,7 @@ public class mapPage extends SceneController{
     }
 
     public void loadL1() {
-        locationTitle.setText("Lower Level 1");
+        //locationTitle.setText("Lower Level 1");
         setSelectedFloor("L1");
         setZoom(new Image(location + "00_thelowerlevel1.png"), 0, 0, noZoom);
         drawNodes();
@@ -584,7 +764,7 @@ public class mapPage extends SceneController{
     }
 
     public void loadL2() {
-        locationTitle.setText("Lower Level 2");
+        //locationTitle.setText("Lower Level 2");
         setSelectedFloor("L2");
 
         setZoom(new Image(location + "00_thelowerlevel2.png"), 0, 0, noZoom);
@@ -593,7 +773,7 @@ public class mapPage extends SceneController{
     }
 
     public void loadGround() {
-        locationTitle.setText("Ground Floor");
+        //locationTitle.setText("Ground Floor");
         setSelectedFloor("G");
 
         setZoom(new Image(location + "00_thegroundfloor.png"), 0, 0, noZoom);
@@ -602,7 +782,7 @@ public class mapPage extends SceneController{
     }
 
     public void loadF1() {
-        locationTitle.setText("Floor 1");
+        //locationTitle.setText("Floor 1");
         setSelectedFloor("1");
 
         setZoom(new Image(location + "01_thefirstfloor.png"), 0, 0, noZoom);
@@ -611,7 +791,7 @@ public class mapPage extends SceneController{
     }
 
     public void loadF2() {
-        locationTitle.setText("Floor 2");
+        //locationTitle.setText("Floor 2");
         setSelectedFloor("2");
 
 
@@ -621,7 +801,7 @@ public class mapPage extends SceneController{
     }
 
     public void loadF3() {
-        locationTitle.setText("Floor 3");
+        //locationTitle.setText("Floor 3");
         setSelectedFloor("L3");
 
         setZoom(new Image(location + "03_thethirdfloor.png"), 0, 0, noZoom);
@@ -639,7 +819,7 @@ public class mapPage extends SceneController{
         savedRoute.clear();
         dirVBOX.getChildren().clear();
         //pathToTake is used in the dialog box that keeps all the nodes that the user has to pass through
-        StringBuilder pathToTake = new StringBuilder("");
+        StringBuilder pathToTake = new StringBuilder();
         LinkedList<NodeSuper> stops = new LinkedList<>();
         for (node n :
                 pitStops) {
@@ -693,6 +873,7 @@ public class mapPage extends SceneController{
                 n.resetFill();
             }
             pitStops = new LinkedList<>();
+            updateFields();
         }
 
         drawNodes();
@@ -733,7 +914,9 @@ public class mapPage extends SceneController{
 
     public void clearLines(ActionEvent e){
         savedRoute.clear();
+        pitStops.clear();
         drawNodes();
+        updateFields();
         dirVBOX.getChildren().clear();
     }
 
@@ -790,6 +973,7 @@ public class mapPage extends SceneController{
                 edge.setStroke(Color.BLACK);
             } else {
                 edge.setStroke(Color.GREY);
+                edge.getStrokeDashArray().addAll(5d, 15d);
             }
 
             lines.add(edge);
@@ -813,15 +997,58 @@ public class mapPage extends SceneController{
                 if (n.isHighlighted()){
                     src.setFill(Color.WHITE);
                     n.setHighlighted(false);
+
                     pitStops.remove(n);
                 } else {
                     src.setFill(Color.valueOf("#0F4B91"));
                     n.setHighlighted(true);
                     pitStops.add(n);
+                    //if (fieldIndex >= fields.size()){
+                    //    fieldIndex = addPitstopField();
+                    //}
+                    //try {
+                    //    fields.get(fieldIndex).getEditor().setText(DatabaseManager.getNode(n.getNodeID()).getLongName());
+                    //} catch (InvalidElementException invalidElementException) {
+                    //    invalidElementException.printStackTrace();
+                    //}
+                    //fieldIndex++;
 
                 }
+                updateFields();
             }
         }
+    }
+
+    public void updateFields(){
+        if (pitStops.size() > fields.size()) {
+            System.out.println("stops > fields");
+            for (int i = 0; i < pitStops.size() - fields.size(); i++) {
+                addPitstopField();
+            }
+        } else if (pitStops.size() < fields.size()){
+            System.out.println("stops < fields");
+            for (int i = 0; i < fields.size() - pitStops.size(); i++) {
+                if (fields.size() > 2){
+                    removePitstopField();
+                }
+
+            }
+        }
+        for (Label f : fields){
+            f.setText("");
+        }
+        fields.get(0).setText("Starting Location");
+        fields.get(fields.size()-1).setText("Ending Location");
+        for (int i = 0; i < pitStops.size(); i++){
+            fields.get(i).setText(pitStops.get(i).getNodeID());
+        }
+
+    }
+
+    private void removePitstopField() {
+        fields.remove(1);
+        textFieldGroup.getChildren().remove(1);
+
     }
 
     public void mouseOverNode(MouseEvent e, double radius){

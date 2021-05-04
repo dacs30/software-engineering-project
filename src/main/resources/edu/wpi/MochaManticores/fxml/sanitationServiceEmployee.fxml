@@ -1,23 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXCheckBox?>
-<?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXDialog?>
-<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-
+<?import javafx.scene.layout.*?>
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@../Stylesheets/sanitationService.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.sanitationServiceControllerEmployee">
     <children>
       <ImageView fx:id="backgroundIMG" fitHeight="800.0" fitWidth="1200.0" opacity="0.35" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -42,6 +32,7 @@
                   <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="96.25924682617188" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="87.74075317382812" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="110.59262084960938" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="344.5185546875" minHeight="10.0" prefHeight="114.55560302734375" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="344.5185546875" minHeight="10.0" prefHeight="114.55560302734375" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="344.5185546875" minHeight="10.0" prefHeight="97.11114501953125" vgrow="SOMETIMES" />
               </rowConstraints>
@@ -72,20 +63,24 @@
                               <RowConstraints maxHeight="31.81488037109375" minHeight="1.370361328125" percentHeight="50.0" prefHeight="22.7037353515625" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <JFXCheckBox fx:id="mopNeeded" text="Mop" GridPane.rowIndex="1" />
-                              <JFXCheckBox fx:id="glovesNeeded" text="Gloves" translateX="-50.0" />
-                              <JFXCheckBox fx:id="maskNeeded" text="Mask" translateX="50.0" />
+                              <JFXCheckBox fx:id="mopNeeded" text="Mop">
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin></JFXCheckBox>
+                              <JFXCheckBox fx:id="glovesNeeded" text="Gloves" translateX="-120.0" />
+                              <JFXCheckBox fx:id="maskNeeded" text="Mask" translateX="120.0" />
                            </children>
                         </GridPane>
                      </children>
                   </GridPane>
                   <JFXTextField fx:id="description" labelFloat="true" promptText="Description" GridPane.rowIndex="5" />
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0" GridPane.rowIndex="6">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0" GridPane.rowIndex="7">
                      <children>
                         <JFXButton id="submitBtn" fx:id="submitButton" onAction="#submit" text="SUBMIT" />
                         <JFXButton id="submitBtn" fx:id="gotoManager" onAction="#changeManagerTable" text="MANAGER TABLE" />
                      </children>
                   </HBox>
+                  <JFXComboBox fx:id="employeeAssigned" prefWidth="400.0" promptText="Assign to employee" GridPane.rowIndex="6" />
                </children>
             </GridPane>
             <GridPane id="formsGrid" fx:id="managerPage" maxHeight="700.0" maxWidth="1000.0" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../Stylesheets/foodDelivery.css" visible="false">
@@ -114,7 +109,6 @@
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0" GridPane.rowIndex="2">
                      <children>
                         <JFXButton id="submitBtn" onAction="#changeToRequest" text="CREATE A REQUEST" />
-                        <JFXButton id="submitBtn" onAction="#completeService" text="Complete" />
                      </children>
                   </HBox>
                </children>

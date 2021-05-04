@@ -10,6 +10,21 @@
     -fx-font-weight: bold;
 }
 
+.jfx-combo-box {
+    -fx-prompt-text-fill: grey ;
+    -fx-background-color: rgba(186, 186, 186, 0.43);
+    -jfx-unfocus-color: transparent;
+    -fx-font-size: 20;
+}
+
+.jfx-combo-box .text-field:focused {
+    -fx-prompt-text-fill: transparent ;
+}
+
+.jfx-combo-box:hover{
+    -fx-effect: dropshadow( three-pass-box , rgba(2, 2, 2, 0.2), 20, 0.0 , 1 , 10);
+}
+
 #floralDeliveryLabel {
     -fx-text-fill: grey;
     -fx-font-weight: bold;
