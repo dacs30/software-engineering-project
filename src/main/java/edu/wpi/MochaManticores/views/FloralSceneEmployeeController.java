@@ -5,7 +5,6 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Services.FloralDelivery;
-import edu.wpi.MochaManticores.Services.MedicineRequest;
 import edu.wpi.MochaManticores.Services.ServiceRequest;
 import edu.wpi.MochaManticores.Services.ServiceRequestType;
 import edu.wpi.MochaManticores.database.DatabaseManager;
@@ -239,6 +238,7 @@ public class FloralSceneEmployeeController extends SceneController {
         JFXComboBox employeeAssigned;
 
 
+
         public fs(edu.wpi.MochaManticores.Services.ServiceRequest ref) {
             this.ref = (edu.wpi.MochaManticores.Services.FloralDelivery) ref;
             roomNumber = new SimpleStringProperty(this.ref.getRoomNumber());
@@ -313,9 +313,9 @@ public class FloralSceneEmployeeController extends SceneController {
             employeeAssigned.setItems(items);
             createFilterListener(employeeAssigned);
 
-            employeeColumn = new TableColumn<FloralSceneEmployeeController.fs, String>("Assigned To");
+            employeeColumn = new TableColumn<FloralSceneEmployeeController.fs, JFXComboBox>("Assigned To");
             employeeColumn.setMinWidth(100);
-            employeeColumn.setCellValueFactory(new PropertyValueFactory<FloralSceneEmployeeController.fs, String>("employeeAssigned"));
+            employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employeeAssigned"));
 
             completedColumn = new TableColumn<FloralSceneEmployeeController.fs, String>("Status");
             completedColumn.setMinWidth(100);
@@ -335,7 +335,7 @@ public class FloralSceneEmployeeController extends SceneController {
             vases = Arrays.asList(blueVase, yellowVase, orangeVase);
 
             if (App.getClearenceLevel() <= 0) {
-                empBox.setVisible(false);
+                employeeAssigned.setVisible(false);
             }
         }
 
@@ -503,7 +503,7 @@ public class FloralSceneEmployeeController extends SceneController {
                 //deliveryDate.getValidators().add(missingInput);
                 //missingInput.setMessage("Delivery date is required");
                 //deliveryDate.validate();
-            } else if (empBox.getText().isEmpty()) {
+            } else if (employeeAssigned.getValue().toString().isEmpty()) {
                 //RequiredFieldValidator missingInput = new RequiredFieldValidator();
                 //empBox.getValidators().add(missingInput);
                 //missingInput.setMessage("Employee must be assigned");
