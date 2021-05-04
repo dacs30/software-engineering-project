@@ -39,8 +39,8 @@
                </rowConstraints>
                <children>
                   <JFXComboBox fx:id="dietaryPreferences" focusColor="WHITE" promptText="Dietary Preferences" unFocusColor="WHITE" GridPane.rowIndex="1" />
-                  <JFXComboBox fx:id="foodMenu" focusColor="WHITE" promptText="Menu" stylesheets="@../Stylesheets/foodDelivery.css" unFocusColor="WHITE" GridPane.rowIndex="4" />
-                  <JFXComboBox fx:id="employeeAssigned" prefWidth="400.0" promptText="Assign to employee" GridPane.rowIndex="3" />
+                  <JFXComboBox fx:id="foodMenu" focusColor="WHITE" prefWidth="400.0" promptText="Menu" stylesheets="@../Stylesheets/foodDelivery.css" unFocusColor="WHITE" GridPane.rowIndex="3" />
+                  <JFXComboBox fx:id="employeeAssigned" prefWidth="400.0" promptText="Assign to employee" GridPane.rowIndex="4" />
                   <Label id="foodDeliveryTitleLabel" stylesheets="@../stylesheets.css" text="Food Delivery" textFill="WHITE" />
                   <JFXTextArea id="allergiesPrompt" fx:id="allergiesField" focusColor="WHITE" labelFloat="true" promptText="Allergies" style="-fx-font-weight: bold;" stylesheets="@../Stylesheets/foodDelivery.css" unFocusColor="WHITE" GridPane.rowIndex="2">
                      <opaqueInsets>

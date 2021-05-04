@@ -101,7 +101,7 @@ public class extTransportationControllerEmployee extends SceneController {
         dialogPane.setDisable(false);
 
         if(App.getClearenceLevel()<=0){
-            empBox.setVisible(false);
+            employeeAssigned.setVisible(false);
         }
 
         changeToRequest(null);

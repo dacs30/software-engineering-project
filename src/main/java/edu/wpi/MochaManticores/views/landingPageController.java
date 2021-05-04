@@ -47,13 +47,15 @@ public class landingPageController extends SceneController {
   private HBox medicineDeliverySidePanel;
 
   @FXML
+  private HBox floralSceneSidePanel;
+
+  @FXML
   private HBox internalTransportationSidePanel;
 
   @FXML
   private HBox externalTransportationSidePanel;
 
-  @FXML
-  private HBox shoppingSideMenu;
+
 
   @FXML
   private HBox surveySideMenu;
@@ -118,7 +120,7 @@ public class landingPageController extends SceneController {
 
       // add the hbox of the services
       services.getChildren().addAll(menuSidePane, foodDeliverySidePanel, medicineDeliverySidePanel,
-              internalTransportationSidePanel, externalTransportationSidePanel,shoppingSideMenu,sanitationSideMenu,
+              internalTransportationSidePanel, externalTransportationSidePanel,floralSceneSidePanel,sanitationSideMenu,
               surveySideMenu,mapSidePane,religionSidePane, laundrySidePane,translatorSidePane);
 
 
@@ -243,6 +245,7 @@ public class landingPageController extends SceneController {
     scenesPane.getChildren().add(root);
   }
 
+
   public void renderMedicineDelivery(MouseEvent mouseEvent) throws IOException {
     // removes the children so you don't end up with weird scenes one over the other
     scenesPane.getChildren().removeAll(scenesPane.getChildren());
@@ -270,6 +273,36 @@ public class landingPageController extends SceneController {
     // adds the selected page to the scenesPane so it can be displayed
     scenesPane.getChildren().add(root);
   }
+
+  public void renderFloralScene(MouseEvent mouseEvent) throws IOException {
+    // removes the children so you don't end up with weird scenes one over the other
+    scenesPane.getChildren().removeAll(scenesPane.getChildren());
+    Parent root;
+    if(App.getClearenceLevel() ==1){
+      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/floralSceneEmployee.fxml")));
+
+    }else{
+      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/floralScene.fxml")));
+    }
+    // sets parent to be the file to be loaded
+
+
+    // change the colors of the old selected page back to the default
+    currentVbox.setStyle("-fx-background-radius: 0;");
+    currentVbox.setStyle("-fx-background-color:  #E9E9E9");
+
+    // changes the currentbox
+    currentVbox = floralSceneSidePanel;
+
+    // gives the selected properties for the new selected page
+    floralSceneSidePanel.setStyle("-fx-background-radius: 20;");
+    floralSceneSidePanel.setStyle("-fx-background-color: rgba(15,75,145,0.29);");
+
+    // adds the selected page to the scenesPane so it can be displayed
+    scenesPane.getChildren().add(root);
+  }
+
+
 
   public void renderInternalTransportation(MouseEvent mouseEvent) throws IOException {
     // removes the children so you don't end up with weird scenes one over the other
@@ -349,28 +382,7 @@ public class landingPageController extends SceneController {
     scenesPane.getChildren().add(root);
   }
 
-  //TODO Fix to actually render shopping menu
-  public void renderShopping(MouseEvent mouseEvent) throws IOException {
-    // removes the children so you don't end up with weird scenes one over the other
-    scenesPane.getChildren().removeAll(scenesPane.getChildren());
 
-    // sets parent to be the file to be loaded
-    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/floralScene.fxml")));
-
-    // change the colors of the old selected page back to the default
-    currentVbox.setStyle("-fx-background-radius: 0;");
-    currentVbox.setStyle("-fx-background-color:  #E9E9E9");
-
-    // changes the currentbox
-    currentVbox = shoppingSideMenu;
-
-    // gives the selected properties for the new selected page
-    shoppingSideMenu.setStyle("-fx-background-radius: 20;");
-    shoppingSideMenu.setStyle("-fx-background-color: rgba(15,75,145,0.29);");
-
-    // adds the selected page to the scenesPane so it can be displayed
-    scenesPane.getChildren().add(root);
-  }
 
   public void renderSanitationServices(MouseEvent mouseEvent) throws IOException {
 

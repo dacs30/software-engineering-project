@@ -51,7 +51,7 @@
                         <JFXTextField fx:id="patientRoom" promptText="Patient Room" stylesheets="@../Stylesheets/externalTransportation.css" />
                         <JFXTextField fx:id="currentRoom" promptText="Current Room" stylesheets="@../Stylesheets/externalTransportation.css" GridPane.rowIndex="1" />
                         <JFXTextField fx:id="externalRoom" promptText="External Room" stylesheets="@../Stylesheets/externalTransportation.css" GridPane.rowIndex="2" />
-                        <JFXComboBox fx:id="transportationMethods" promptText="Select transportation method" GridPane.rowIndex="3" />
+                        <JFXComboBox fx:id="transportationMethods" prefWidth="400.0" promptText="Select transportation method" GridPane.rowIndex="3" />
                         <JFXComboBox fx:id="employeeAssigned" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="400.0" promptText="Assign an employee" GridPane.rowIndex="4" />
                      </children>
                   </GridPane>
