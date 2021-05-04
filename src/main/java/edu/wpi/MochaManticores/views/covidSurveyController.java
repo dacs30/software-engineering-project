@@ -133,9 +133,9 @@ public class covidSurveyController extends SceneController{
         System.out.println(width);
 
         //yesNoQuestion.toFront();
-        covidForm.setOnMouseClicked(event -> {
-            System.out.println("Hi");
-        });
+        //covidForm.setOnMouseClicked(event -> {
+        //    System.out.println("Hi");
+        //});
 
         sickAns = Arrays.asList(yesSickCB, noSickCB);
         vaccineAns = Arrays.asList(yesVaccinatedCB, noVaccinatedCB);
@@ -155,7 +155,8 @@ public class covidSurveyController extends SceneController{
                 "Loss Of Smell or Taste",
                 "Palpitations",
                 "Fever/Chills",
-                "Diarrhea");
+                "Diarrhea",
+                "None of the Above");
         symptoms.setVisibleRowCount(5);
         symptoms.setPromptText("-Select A Symptom-");
 
