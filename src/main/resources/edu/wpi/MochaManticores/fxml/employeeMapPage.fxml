@@ -50,8 +50,8 @@
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="NEVER" />
-                  <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="NEVER" />
-                  <RowConstraints vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="61.1851806640625" minHeight="-Infinity" prefHeight="57.62959289550781" vgrow="NEVER" />
+                  <RowConstraints maxHeight="661.4814910888672" minHeight="650.8148193359375" prefHeight="654.3704071044922" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="-Infinity" vgrow="NEVER" />
                </rowConstraints>
                <children>
@@ -63,7 +63,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </GridPane.margin>
                   </ImageView>
-                  <VBox fx:id="nodeInfoBox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-background-color: #0f4b91;" visible="false" GridPane.rowIndex="2">
+                  <VBox id="vbox" fx:id="nodeInfoBox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" visible="false" GridPane.rowIndex="2">
                      <children>
                         <Label text="Selected Node" textFill="WHITE">
                            <font>
@@ -253,12 +253,12 @@
                         </HBox>
                         <HBox alignment="CENTER" spacing="15.0">
                            <children>
-                              <JFXButton fx:id="nodeSubmit" buttonType="RAISED" style="-fx-background-color: WHITE;" text="Submit">
+                              <JFXButton fx:id="nodeSubmit" buttonType="RAISED" text="Submit">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </JFXButton>
-                              <JFXButton fx:id="cancelChanges1" buttonType="RAISED" style="-fx-background-color: WHITE;" text="Cancel">
+                              <JFXButton fx:id="cancelChanges1" buttonType="RAISED" text="Cancel">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -272,8 +272,11 @@
                      <padding>
                         <Insets bottom="10.0" />
                      </padding>
+                     <effect>
+                        <DropShadow color="#00000061" height="80.0" radius="39.5" width="80.0" />
+                     </effect>
                   </VBox>
-                  <VBox fx:id="edgeInfoBox" alignment="TOP_CENTER" layoutX="25.0" layoutY="216.0" spacing="25.0" style="-fx-background-color: #0f4b91;" visible="false" GridPane.rowIndex="2">
+                  <VBox id="vbox" fx:id="edgeInfoBox" alignment="TOP_CENTER" layoutX="25.0" layoutY="216.0" spacing="25.0" visible="false" GridPane.rowIndex="2">
                      <children>
                         <Label text="Selected Edge" textFill="WHITE">
                            <font>
@@ -354,12 +357,12 @@
                         </HBox>
                         <HBox alignment="CENTER" spacing="15.0">
                            <children>
-                              <JFXButton fx:id="edgeSubmit" buttonType="RAISED" style="-fx-background-color: WHITE;" text="Submit">
+                              <JFXButton fx:id="edgeSubmit" buttonType="RAISED" text="Submit">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </JFXButton>
-                              <JFXButton fx:id="cancelChanges" buttonType="RAISED" style="-fx-background-color: WHITE;" text="Cancel">
+                              <JFXButton fx:id="cancelChanges" buttonType="RAISED" text="Cancel">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -373,10 +376,13 @@
                      <padding>
                         <Insets bottom="5.0" />
                      </padding>
+                     <effect>
+                        <DropShadow color="#00000061" height="80.0" radius="39.5" width="80.0" />
+                     </effect>
                   </VBox>
-                  <VBox fx:id="defaultBox" alignment="CENTER" spacing="25.0" style="-fx-background-color: #0f4b91;" GridPane.rowIndex="2">
+                  <VBox id="vbox" fx:id="defaultBox" alignment="CENTER" spacing="25.0" GridPane.rowIndex="2">
                      <children>
-                        <Label alignment="CENTER" graphicTextGap="6.0" text="Select a node or edge to begin editing" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                        <Label id="selectNodePrompt" alignment="CENTER" graphicTextGap="6.0" text="Select a node or edge to begin editing" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                            <font>
                               <Font size="36.0" />
                            </font>
@@ -391,10 +397,13 @@
                      <GridPane.margin>
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                      </GridPane.margin>
+                     <effect>
+                        <DropShadow color="#0000009a" height="80.0" radius="39.5" width="80.0" />
+                     </effect>
                   </VBox>
-                  <JFXComboBox fx:id="floorSelector" focusColor="WHITE" onAction="#selectFloor" promptText="Select Floor" style="-fx-background-color: lightgrey;" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
+                  <JFXComboBox fx:id="floorSelector" focusColor="WHITE" onAction="#selectFloor" promptText="Select Floor" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
                      <GridPane.margin>
-                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                        <Insets />
                      </GridPane.margin>
                   </JFXComboBox>
                </children>
@@ -404,27 +413,33 @@
                   <ColumnConstraints hgrow="SOMETIMES" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints vgrow="NEVER" />
-                  <RowConstraints vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="119.48149108886719" minHeight="110.59257507324219" prefHeight="110.59257507324219" vgrow="NEVER" />
+                  <RowConstraints maxHeight="699.4074249267578" minHeight="690.5185089111328" prefHeight="699.4074249267578" vgrow="ALWAYS" />
                </rowConstraints>
                <children>
-                  <ScrollPane fx:id="mapScrollPane" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                  <ScrollPane id="scrollMapPane" fx:id="mapScrollPane" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                      </GridPane.margin>
+                     <effect>
+                        <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
+                     </effect>
                   </ScrollPane>
-                  <StackPane fx:id="mapStack" minHeight="0.0" minWidth="0.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <StackPane id="stackPane" fx:id="mapStack" minHeight="0.0" minWidth="0.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <children>
                         <ImageView id="mapPane" fx:id="mapWindow" onMouseClicked="#drawCoord" pickOnBounds="true" preserveRatio="true" style="-fx-background-size: contain; -fx-background-repeat: no-repeat;" StackPane.alignment="TOP_LEFT">
                            <viewport>
                               <Rectangle2D />
                            </viewport>
                         </ImageView>
-                        <Pane fx:id="nodePane" StackPane.alignment="CENTER" />
+                        <Pane id="mapPane" fx:id="nodePane" prefHeight="654.0" prefWidth="696.0" StackPane.alignment="CENTER" />
                      </children>
                      <GridPane.margin>
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                      </GridPane.margin>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
                   </StackPane>
                   <GridPane minHeight="-Infinity" prefHeight="126.0" prefWidth="913.0" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                     <columnConstraints>
@@ -432,10 +447,9 @@
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints vgrow="SOMETIMES" />
-                      <RowConstraints vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <GridPane GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                        <GridPane GridPane.halignment="CENTER">
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="174.333251953125" minWidth="10.0" prefWidth="120.6666259765625" />
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="244.3333740234375" minWidth="10.0" prefWidth="208.3333740234375" />
@@ -447,27 +461,27 @@
                               <RowConstraints vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <JFXButton id="getPathBtn" fx:id="routeExample" buttonType="RAISED" onAction="#changeToPathfind" prefHeight="50.0" prefWidth="175.0" style="-fx-background-color: white; -fx-border-radius: 15;" stylesheets="@../Stylesheets/employeeMapPage.css" text="Pathfinding" translateY="-10.0" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                              <JFXButton id="getPathBtn" fx:id="routeExample" buttonType="RAISED" onAction="#changeToPathfind" prefHeight="50.0" prefWidth="175.0" stylesheets="@../Stylesheets/employeeMapPage.css" text="Pathfinding" translateY="-10.0" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </JFXButton>
-                              <JFXButton id="editEdgesBtn" fx:id="edgeButton" alignment="CENTER" buttonType="RAISED" onAction="#gotoEdge" prefHeight="50.0" prefWidth="175.0" style="-fx-background-color: white;" text="Edit Edges" textAlignment="CENTER" translateY="-10.0" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+                              <JFXButton id="editEdgesBtn" fx:id="edgeButton" alignment="CENTER" buttonType="RAISED" onAction="#gotoEdge" prefHeight="50.0" prefWidth="175.0" text="Edit Edges" textAlignment="CENTER" translateY="-10.0" GridPane.columnIndex="3" GridPane.halignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="36.0" />
                                  </font>
                               </JFXButton>
-                              <JFXButton id="downloadCSVBtn" fx:id="downloadButton" buttonType="RAISED" onAction="#downloadCSVs" prefHeight="50.0" prefWidth="175.0" style="-fx-background-color: white;" text="Download File" translateY="-10.0" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                              <JFXButton id="downloadCSVBtn" fx:id="downloadButton" buttonType="RAISED" onAction="#downloadCSVs" prefHeight="50.0" prefWidth="175.0" text="Download File" translateY="-10.0" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="36.0" />
                                  </font>
                               </JFXButton>
-                              <JFXButton id="editNodeBtn" fx:id="nodeButton" buttonType="RAISED" onAction="#gotoNode" prefHeight="50.0" prefWidth="175.0" style="-fx-background-color: white;" text="Edit Nodes" translateY="-10.0" GridPane.columnIndex="4" GridPane.halignment="CENTER">
+                              <JFXButton id="editNodeBtn" fx:id="nodeButton" buttonType="RAISED" onAction="#gotoNode" prefHeight="50.0" prefWidth="175.0" text="Edit Nodes" translateY="-10.0" GridPane.columnIndex="4" GridPane.halignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="36.0" />
                                  </font>
                               </JFXButton>
-                              <JFXButton id="backBtn" fx:id="backButton" buttonType="RAISED" onAction="#back" prefHeight="50.0" prefWidth="125.0" style="-fx-background-color: white; -fx-background-radius: 40; -fx-border-radius: 40;" text="Back" translateY="-10.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                              <JFXButton id="backBtn" fx:id="backButton" buttonType="RAISED" onAction="#back" prefHeight="50.0" prefWidth="125.0" stylesheets="@../Stylesheets/employeeMapPage.css" text="Back" translateY="-10.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -477,17 +491,9 @@
                               </JFXButton>
                            </children>
                         </GridPane>
-                        <Label fx:id="locationTitle" alignment="CENTER" text="Select a Floor from the left" textAlignment="CENTER" GridPane.halignment="CENTER">
-                           <font>
-                              <Font size="28.0" />
-                           </font>
-                        </Label>
                      </children>
                   </GridPane>
                </children>
-               <effect>
-                  <DropShadow />
-               </effect>
             </GridPane>
          </children>
       </GridPane>

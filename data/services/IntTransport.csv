@@ -1,3 +1,1 @@
 REQUESTID,EMPID,COMPLETED,PATIENTID,NUMSTAFFNEEDED,DESTINATION,TRANSPORTATIONMETHOD,
-INTtrans0, Vadlamudi,false,100,2,there,Wheelchair,
-INTtrans1, Vadlamudi,false,100,2,there,Wheelchair,
