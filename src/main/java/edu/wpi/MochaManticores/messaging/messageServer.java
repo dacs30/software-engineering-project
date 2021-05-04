@@ -10,6 +10,7 @@ import java.util.List;
 public class messageServer implements Runnable{
     List<serverConnection> connectionsList = new ArrayList<>();
     HashMap<String, LinkedList<Message>> messageHistory = new HashMap<>();
+    boolean run = true;
     //TODO database refreshing
 
     @Override
@@ -19,7 +20,7 @@ public class messageServer implements Runnable{
             ServerSocket serverSocket = new ServerSocket(connectionUtil.port);
 
             // add client loop
-            while (true) {
+            while (run) {
                 Socket socket = serverSocket.accept();
                 serverConnection connection = new serverConnection(socket, this);
                 connectionsList.add(connection);
