@@ -479,7 +479,7 @@ public class mapPage extends SceneController{
         HBox cont = new HBox();
         JFXComboBox toAdd = new JFXComboBox();
         Label del = new Label("-");
-        toAdd.promptTextProperty().set("Add Stop");
+        toAdd.setPromptText("Add Stop");
         toAdd.setPrefWidth(250);
         toAdd.maxWidthProperty().bind(toAdd.prefWidthProperty());
         toAdd.minWidthProperty().bind(toAdd.prefWidthProperty());
@@ -495,7 +495,6 @@ public class mapPage extends SceneController{
         });
         toAdd.setItems(items);
         toAdd.setEditable(true);
-        toAdd.setLabelFloat(true);
 
         del.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -503,6 +502,8 @@ public class mapPage extends SceneController{
                 textFieldGroup.getChildren().remove(cont);
             }
         });
+
+        cont.setSpacing(10);
 
         createFilterListener(toAdd);
         textFieldGroup.getChildren().add(ind, cont);
@@ -1002,6 +1003,21 @@ public class mapPage extends SceneController{
 
                 }
             }
+        }
+    }
+
+    public void updateFields(){
+        if (pitStops.size() > fields.size()){
+            for (int i = 0; i < pitStops.size() - fields.size(); i++){
+                addPitstopField();
+            }
+        } else if (pitStops.size() < fields.size()){
+            for (int i = 1; i < fields.size() - pitStops.size(); i++){
+                textFieldGroup.getChildren().remove(());
+            }
+        }
+        for (int i = 0; i < pitStops.size(); i++){
+
         }
     }
 
