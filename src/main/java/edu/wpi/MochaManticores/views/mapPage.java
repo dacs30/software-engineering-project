@@ -188,10 +188,10 @@ public class mapPage extends SceneController{
     private JFXScrollPane scrollPane;
 
     @FXML
-    private JFXComboBox fromLocation;
+    private JFXTextField fromLocation;
 
     @FXML
-    private JFXComboBox toLocation;
+    private JFXTextField toLocation;
 
     @FXML
     private JFXButton routeExample;
@@ -238,7 +238,7 @@ public class mapPage extends SceneController{
     private boolean updateDeltas = true;
     private boolean dragged = false;
 
-    private void createFilterListener(JFXComboBox comboBox) {
+    /*private void createFilterListener(JFXComboBox comboBox) {
 
         // Create the listener to filter the list as user enters search terms
         FilteredList<String> filteredList = new FilteredList<>(comboBox.getItems());
@@ -263,7 +263,7 @@ public class mapPage extends SceneController{
         // Finally, let's add the filtered list to our ComboBox
         comboBox.setItems(filteredList);
 
-    }
+    }*/
 
     public void initialize() {
         double height = super.getHeight();
@@ -379,7 +379,7 @@ public class mapPage extends SceneController{
 //
         //AutoCompleteComboBoxListener toListener = new AutoCompleteComboBoxListener(toLocation);
 
-        fromLocation.setEditable(true);
+        /*fromLocation.setEditable(true);
         //fromLocation.setOnKeyTyped(new AutoCompleteComboBoxListener<>(fromLocation));
         ObservableList<String> items = FXCollections.observableArrayList();
         DatabaseManager.getElementIDs().forEach(s -> {
@@ -396,7 +396,7 @@ public class mapPage extends SceneController{
         });
         toLocation.setItems(items2);
         createFilterListener(fromLocation);
-
+*/
 
 
         SceneGestures sceneGestures = new SceneGestures(panAndZoomPane);
