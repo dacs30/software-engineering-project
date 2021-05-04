@@ -13,8 +13,6 @@ public class clientReader implements Runnable{
     public clientReader(Socket socket, messageClient client){
         this.client = client;
         this.socket = socket;
-        //send name post
-        //send data grab
     }
 
     @Override
@@ -31,14 +29,8 @@ public class clientReader implements Runnable{
     }
 
     public void postMessage(Message msg){
-        if(msg.target.equals(client.user)){
-            //if the target is equal to the client user
-            //TODO add to complex data structure
-            //TODO switch statement to control various message types
-            //append message to GUI
-            Platform.runLater(() -> {
-                client.textField.appendText("[" + msg.sender + "]" + " [" + msg.target + "] " + msg.body + "\n");
-            });
-        }
+        Platform.runLater(() -> {
+            client.textField.appendText("[" + msg.sender + "]" + " [" + msg.target + "] " + msg.body + "\n");
+        });
     }
 }

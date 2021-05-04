@@ -117,9 +117,11 @@ public class App extends Application {
     return primaryStage;
   }
 
+
   public static void startServer(){
     try {
       Socket socket = new Socket(connectionUtil.host, connectionUtil.port);
+      socket.close();
     }catch(IOException e){
       // no server, start server
       messageServer server = new messageServer();

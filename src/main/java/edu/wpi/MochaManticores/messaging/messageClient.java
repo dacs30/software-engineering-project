@@ -31,18 +31,17 @@ public class messageClient extends SceneController {
     public String user = App.getCurrentUsername();
 
     public void initialize(){
-        //TODO replace GUI with a hashtable visualization
+        //TODO update GUI to include tabs
 
-        //TODO name post operations
-
-        //TODO complex/ high volume data transfer
 
         try {
             // on startup check if there is an existing host
             try {
                 socket = new Socket(connectionUtil.host, connectionUtil.port);
             }catch(IOException e){
+                socket.close();
                 textField.appendText(e.toString() + '\n');
+                return;
             }
 
 
@@ -79,13 +78,6 @@ public class messageClient extends SceneController {
 
             //format into msg type
             Message msg = new Message(user, target, message);
-
-            //post on local gui
-            Platform.runLater(() -> {
-                //display the message in the textarea
-                textField.appendText("[" + msg.sender + "]" + " [" + msg.target + "] " + msg.body + "\n");
-            });
-
             output.writeUTF(msg.toWriteFormat());
             output.flush();
 

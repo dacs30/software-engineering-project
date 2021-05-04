@@ -36,13 +36,14 @@ public class serverConnection implements Runnable {
                         //TODO
                         break;
                     case DATAGRAB:
+                        user = msg.sender;
                         server.datagrab(msg);
                         break;
                 }
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 
@@ -56,6 +57,10 @@ public class serverConnection implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public String getUser(){
+        return this.user;
     }
 
 }

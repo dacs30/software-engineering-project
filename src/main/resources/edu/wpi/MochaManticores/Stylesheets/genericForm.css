@@ -40,3 +40,12 @@
     -fx-border-radius: 40;
     -fx-background-radius: 40;
 }
+
+#textArea{
+    -fx-font-size: 30;
+    -fx-font-family: Roboto;
+    -fx-effect: dropshadow( three-pass-box , rgba(2, 2, 2, 0.2), 20, 0.0 , 1 , 10);
+    -fx-background-color: rgba(180, 178, 178, 0.15);
+    -fx-highlight-fill: rgb(191, 3, 3);
+
+}
