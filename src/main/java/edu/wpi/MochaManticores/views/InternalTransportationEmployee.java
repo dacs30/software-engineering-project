@@ -40,6 +40,7 @@ public class InternalTransportationEmployee {
         JFXComboBox employeeAssigned;
         LinkedList<String> fields;
 
+
         public it(edu.wpi.MochaManticores.Services.ServiceRequest ref){
             this.ref = (edu.wpi.MochaManticores.Services.InternalTransportation) ref;
             patientIDTable = new SimpleStringProperty(this.ref.getPatientID());
@@ -74,6 +75,9 @@ public class InternalTransportationEmployee {
             return destinationTable.get();
         }
     }
+
+    ObservableList<String> typeOfTransportList = FXCollections
+            .observableArrayList("Wheelchair","Walker","Medical Bed");
 
     @FXML
     private ImageView backgroundIMG;
@@ -154,7 +158,7 @@ public class InternalTransportationEmployee {
         employeeAssigned.setItems(items);
         createFilterListener(employeeAssigned);
 
-        //transportComboBox.setItems(typeOfTransportList);
+        transportComboBox.setItems(typeOfTransportList);
 
         dialogPane.toBack();
 
@@ -188,7 +192,7 @@ public class InternalTransportationEmployee {
             sel s = sel.InternalTransportation;
             DatabaseManager.addRequest(s, new edu.wpi.MochaManticores.Services.InternalTransportation(
                     "",
-                    empBox.getText(),
+                    employeeAssigned.getEditor().getText(),
                     false,
                     patientID.getText(),
                     Integer.parseInt(numberOfStaff.getText()),

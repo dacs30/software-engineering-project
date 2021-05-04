@@ -306,19 +306,19 @@ EmergencyCompletedColumn
     private void internalTableSetUp(){
         internalPatientIDTableColumn = new TableColumn<it, String>("Patient");
         internalPatientIDTableColumn.setMinWidth(100);
-        internalPatientIDTableColumn.setCellValueFactory(new PropertyValueFactory<it, String>("internalPatientIDTable"));
+        internalPatientIDTableColumn.setCellValueFactory(new PropertyValueFactory<it, String>("PatientIDTable"));
 
         internalNumStaffNeededTableColumn = new TableColumn<it, String>("Number of Staff");
         internalNumStaffNeededTableColumn.setMinWidth(100);
-        internalNumStaffNeededTableColumn.setCellValueFactory(new PropertyValueFactory<it, String>("internalNumStaffNeededTable"));
+        internalNumStaffNeededTableColumn.setCellValueFactory(new PropertyValueFactory<it, String>("NumStaffNeededTable"));
 
         internalDestinationTableColumn = new TableColumn<it, String>("Destination");
         internalDestinationTableColumn.setMinWidth(100);
-        internalDestinationTableColumn.setCellValueFactory(new PropertyValueFactory<it, String>("internalDestinationTable"));
+        internalDestinationTableColumn.setCellValueFactory(new PropertyValueFactory<it, String>("DestinationTable"));
 
         internalTransportationMethodsTableColumn = new TableColumn<it, String>("Transportation Method");
         internalTransportationMethodsTableColumn.setMinWidth(100);
-        internalTransportationMethodsTableColumn.setCellValueFactory(new PropertyValueFactory<it, String>("internalTransportationMethodsTable"));
+        internalTransportationMethodsTableColumn.setCellValueFactory(new PropertyValueFactory<it, String>("TransportationMethodsTable"));
 
         internalEmployeeColumn = new TableColumn<it, JFXComboBox>("Employee");
         internalEmployeeColumn.setMinWidth(100);
@@ -336,7 +336,7 @@ EmergencyCompletedColumn
             emps.getSelectionModel().selectedItemProperty().addListener((ov, old_val, new_val) -> {
                 String newEmp = emps.getSelectionModel().getSelectedItem();
                 user.getRef().setEmployee(newEmp);
-                DatabaseManager.modRequest(sel.Medicine,user.getRef().getRequestID(),user.getRef());
+                DatabaseManager.modRequest(sel.InternalTransportation,user.getRef().getRequestID(),user.getRef());
             });
 
 //            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
@@ -380,6 +380,7 @@ EmergencyCompletedColumn
             completeEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
+                    System.out.println("Complete");
                     setCompleteService(true,user);
                     contextBox.setVisible(false);
                     contextBox.toBack();
@@ -2262,6 +2263,7 @@ EmergencyCompletedColumn
             numStaffNeededTable = new SimpleIntegerProperty(this.ref.getNumStaffNeeded());
             destinationTable = new SimpleStringProperty(this.ref.getDestination());
             transportationMethodsTable = new SimpleStringProperty(this.ref.getTransportationMethod());
+            employee = new SimpleStringProperty(ref.getEmployee());
             fields = new LinkedList<>(Arrays.asList(patientIDTable.get(), Integer.toString(numStaffNeededTable.get()),
                     destinationTable.get(),transportationMethodsTable.get()));
         }
