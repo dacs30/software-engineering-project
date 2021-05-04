@@ -51,7 +51,7 @@ public class COVIDmanager extends Manager<COVIDsurvey> {
 
     void addElement_db(COVIDsurvey temp) {
         try {
-            String sql = "INSERT INTO COVID (RequestID, Employee, Completed, NAME, DOB, SICK, VAXX, TRAVEL, TEST, CONATACT, SYMPTOMS, ADMIT) " +
+            String sql = "INSERT INTO COVID (RequestID, EmpID, Completed, NAME, DOB, SICK, VAXX, TRAVEL, TEST, CONATACT, SYMPTOMS, ADMIT) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, temp.getRequestID());

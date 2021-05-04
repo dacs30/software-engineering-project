@@ -16,8 +16,9 @@ public class COVIDsurvey extends ServiceRequest{
                        boolean travel, boolean test, boolean contact,
                        String Symptoms, boolean admit){
         super(employee, completed, RequestID);
+
         if(RequestID.equals("")){
-            this.RequestID = generateRequestID(ServiceRequestType.Emergency);
+            this.RequestID = generateRequestID(ServiceRequestType.COVID);
         }
 
         this.name = name;

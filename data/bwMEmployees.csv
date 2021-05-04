@@ -2,3 +2,5 @@ USERNAME,PASSWORD,FIRSTNAME,LASTNAME,EMPLOYEETYPE,ID,ADMINLEVEL,COVIDSTATUS,PARK
 admin,admin,admin,admin,DEFAULT,0,true,false,test,
 svadlamudi,testPass,Sai,Vadlamudi,DEFAULT,0,true,false,test,
 sai,,sai,sai,PATIENT,0,false,false,Parking,
+hii,,hii,hii,PATIENT,0,false,false,Parking,
+usr,,usr,usr,PATIENT,0,false,false,Parking,

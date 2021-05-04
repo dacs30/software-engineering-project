@@ -401,9 +401,9 @@ public class Mdb extends Thread{
                         "ADMIT BOOLEAN," +
                         " PRIMARY KEY (RequestID))";
                 stmt.executeUpdate(sql);
-                //DatabaseManager.getCOVIDManager().loadFromCSV();
+                DatabaseManager.getCOVIDManager().loadFromCSV();
             }else{
-                //DatabaseManager.getCOVIDManager().updateElementMap();
+                DatabaseManager.getCOVIDManager().updateElementMap();
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

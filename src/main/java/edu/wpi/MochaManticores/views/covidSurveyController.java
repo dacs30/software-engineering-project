@@ -3,7 +3,9 @@ package edu.wpi.MochaManticores.views;
 import com.jfoenix.controls.*;
 import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.Services.COVIDsurvey;
 import edu.wpi.MochaManticores.database.DatabaseManager;
+import edu.wpi.MochaManticores.database.Employee;
 import edu.wpi.MochaManticores.database.sel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +14,8 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.scene.image.ImageView;
+
+import javax.xml.crypto.Data;
 import java.util.Arrays;
 import java.util.List;
 
@@ -143,6 +147,13 @@ public class covidSurveyController extends SceneController{
                 lossOfSmellTasteBox,palpitationsBox,feverChillsBox,diarrheaBox);
     }
 
+    private boolean check(List<JFXCheckBox> list){
+        if(list.get(0).isSelected()){
+            return true;
+        }
+        return false;
+    }
+
     public void goBack(ActionEvent actionEvent) {
         back();
     }
@@ -152,16 +163,14 @@ public class covidSurveyController extends SceneController{
     public void noEvent() { loadNoDialog();}
 
     public void submitEvent(ActionEvent actionEvent) {
-       /* if (!patientName.getText().isEmpty() && !dateOfBirthPicker.equals("")){
+       if (!patientName.getText().isEmpty() && !dateOfBirthPicker.equals("")){
             sel s = sel.InternalTransportation;
-            DatabaseManager.addRequest(s, new edu.wpi.MochaManticores.Services.CovidSurvey(
-                    "",
-                    "",
-                    false,
-                    patientName.getText(),
-                    dateOfBirthPicker.getValue()
-            ));
-            System.out.println("Adds to database");
+            //TODO change to real employee
+            COVIDsurvey covid = new COVIDsurvey("","employee",false,App.getCurrentUsername(),dateOfBirthPicker.getValue().toString(),
+                    check(sickAns),check(vaccineAns),check(travelAns),check(covidTestAns),check(covidContactAns),"SYMTOMS",true);
+
+            DatabaseManager.addRequest(sel.COVID,covid);
+
         } else if (patientName.getText().isEmpty()){
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
             patientName.getValidators().add(missingInput);
@@ -172,8 +181,8 @@ public class covidSurveyController extends SceneController{
             dateOfBirthPicker.getValidators().add(missingInput);
             missingInput.setMessage("Safety Hazards are required");
             dateOfBirthPicker.validate();
-        } */
-            loadSubmitDialog();
+        }
+       loadSubmitDialog();
     }
 
     public void loadSubmitDialog(){
@@ -244,6 +253,15 @@ public class covidSurveyController extends SceneController{
             dialogPane.toBack();
             dialog.close();
         });
+
+        try { //TODO add this to covid table editor
+            Employee temp = DatabaseManager.getEmpManager().getElement(App.getCurrentUsername());
+            temp.setCovidStatus(true);
+            DatabaseManager.getEmpManager().modElement(App.getCurrentUsername(), temp);
+        }catch(Exception e){
+            e.printStackTrace();
+            System.out.println("no user to edit info of");
+        }
 
         message.setActions(ok);
         dialog.show();
