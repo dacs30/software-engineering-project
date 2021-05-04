@@ -18,7 +18,6 @@ import javafx.scene.layout.GridPane;
 public class FoodDeliveryEmployee {
 
 
-
     @FXML
     private GridPane contentGrid;
 
