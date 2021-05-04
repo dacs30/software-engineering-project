@@ -9,9 +9,12 @@ import edu.wpi.MochaManticores.database.Employee;
 import edu.wpi.MochaManticores.database.sel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.image.ImageView;
 
@@ -48,7 +51,7 @@ public class covidSurveyController extends SceneController{
     private List<JFXCheckBox> covidContactAns;
 
     @FXML
-    private JFXComboBox<JFXCheckBox> symptoms;
+    private JFXComboBox<String> symptoms;
 
     @FXML
     private JFXCheckBox coughingBox;
@@ -140,11 +143,19 @@ public class covidSurveyController extends SceneController{
         covidTestAns = Arrays.asList(yesCovidTestBox, noCovidTestBox);
 
         symptoms.getItems().clear();
-        symptoms.getItems().addAll(coughingBox,fatigueBox,
-                headacheBox,congestionBox,
-                soreThroatBox,muscleAchesBox,
-                shortBreathBox,nauseaBox,
-                lossOfSmellTasteBox,palpitationsBox,feverChillsBox,diarrheaBox);
+        symptoms.getItems().addAll("Coughing",
+                "Fatigue",
+                "Headache",
+                "Congestion",
+                "Sorethroat",
+                "Muscle Aches",
+                "Shortness of Breath",
+                "Nausea/Vomiting",
+                "Loss Of Smell or Taste",
+                "Palpitations",
+                "Fever/Chills",
+                "Diarrhea");
+
     }
 
     private boolean check(List<JFXCheckBox> list){
@@ -174,12 +185,12 @@ public class covidSurveyController extends SceneController{
         } else if (patientName.getText().isEmpty()){
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
             patientName.getValidators().add(missingInput);
-            missingInput.setMessage("Location is required");
+            missingInput.setMessage("Name is required");
             patientName.validate();
         } else if (dateOfBirthPicker.equals("")){
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
             dateOfBirthPicker.getValidators().add(missingInput);
-            missingInput.setMessage("Safety Hazards are required");
+            missingInput.setMessage("Date of Birth is required");
             dateOfBirthPicker.validate();
         }
        loadSubmitDialog();
@@ -234,13 +245,23 @@ public class covidSurveyController extends SceneController{
         hearder.setStyle("-fx-alignment: center");
         message.setHeading(hearder);
 
-        final Text body = new Text("When you plan to visit the hospital, please follow this path.");
+        final Text body = new Text("When you plan to visit the hospital, please follow this path. Take a photo or screenshot if needed.");
         body.setStyle("-fx-font-size: 15");
         body.setStyle("-fx-font-family: Roboto");
         body.setStyle("-fx-alignment: center");
         message.setHeading(hearder);
 
-        message.setBody(body);
+        Image img = new Image("edu/wpi/MochaManticores/images/EmergencyPath.jpg");
+        final ImageView mapImage = new ImageView(img);
+        mapImage.setFitWidth(900);
+        mapImage.setFitHeight(500);
+
+        VBox vbox = new VBox();
+        vbox.setAlignment(Pos.CENTER);
+        vbox.getChildren().add(mapImage);
+        vbox.getChildren().add(body);
+        message.setBody(vbox);
+
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
         JFXButton ok = new JFXButton("OK");
         ok.setOnAction(event -> {
@@ -290,18 +311,17 @@ public class covidSurveyController extends SceneController{
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
         JFXButton ok = new JFXButton("OK");
         ok.setOnAction(event -> {
-            dialog.close();
-            contentGrid.toBack();
+            dialog.toBack();
+            dialog.setVisible(false);
+            covidForm.toFront();
             yesNoQuestion.toBack();
             yesNoQuestion.setVisible(false);
-            covidForm.toFront();
             covidForm.setVisible(true);
             contentGrid.toFront();
         });
 
         dialog.setOnDialogClosed(event -> {
             dialogPane.toBack();
-
         });
 
         message.setActions(ok);

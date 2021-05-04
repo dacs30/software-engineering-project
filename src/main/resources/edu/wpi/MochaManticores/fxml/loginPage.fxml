@@ -165,7 +165,7 @@
                               <JFXButton onAction="#changeToStaffLogin" text="Log in as a staff" GridPane.rowIndex="3" />
                            </children>
                         </GridPane>
-                        <Label id="patientIdLabel" text="Enter the your Patient ID or the Partient ID of the person you are visiting" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1">
+                        <Label id="patientIdLabel" text="Enter the your Patient ID or the Patient ID of the person you are visiting" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
