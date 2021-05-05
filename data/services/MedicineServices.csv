@@ -1,3 +1,2 @@
 REQUESTID,EMPID,COMPLETED,TYPEMEDICINE,CURRENTFEELING,ALLERGIES,PATIENTROOM,
-Med0,,false,Tylenol,Headache,,NullPointers,
 Med0,kushshah,false,Advil,Muscle pain,,none,

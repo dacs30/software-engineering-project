@@ -56,6 +56,8 @@ public class landingPageController extends SceneController {
   private HBox externalTransportationSidePanel;
 
 
+  @FXML
+  private HBox servicesBox;
 
   @FXML
   private HBox surveySideMenu;
@@ -119,9 +121,9 @@ public class landingPageController extends SceneController {
       VBox services = new VBox();
 
       // add the hbox of the services
-      services.getChildren().addAll(menuSidePane, foodDeliverySidePanel, medicineDeliverySidePanel,
+      services.getChildren().addAll(menuSidePane,mapSidePane, servicesBox, foodDeliverySidePanel, medicineDeliverySidePanel,
               internalTransportationSidePanel, externalTransportationSidePanel,floralSceneSidePanel,sanitationSideMenu,
-              surveySideMenu,mapSidePane,religionSidePane, laundrySidePane,translatorSidePane);
+              surveySideMenu,religionSidePane, laundrySidePane,translatorSidePane);
 
 
       services.setMaxWidth(Region.USE_COMPUTED_SIZE);

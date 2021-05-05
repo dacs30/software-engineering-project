@@ -2,12 +2,14 @@ package edu.wpi.MochaManticores.messaging;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.views.SceneController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -23,9 +25,11 @@ public class messageClient extends SceneController {
     @FXML
     private JFXButton sendBTN;
     @FXML
-    private TextField tgt;
+    private JFXTextField tgt;
     @FXML
-    private TextField msgs;
+    private JFXTextField msgs;
+    @FXML
+    private ImageView backgroundIMG;
 
     // Connection
     Socket socket = null;
@@ -37,6 +41,13 @@ public class messageClient extends SceneController {
     public void initialize(){
         //TODO update GUI to include tabs
 
+        double height = App.getPrimaryStage().getScene().getHeight();
+        double width = App.getPrimaryStage().getScene().getWidth();
+        backgroundIMG.setFitHeight(height);
+        backgroundIMG.setFitWidth(width);
+
+        backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
+        backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
         try {
             // on startup check if there is an existing host
