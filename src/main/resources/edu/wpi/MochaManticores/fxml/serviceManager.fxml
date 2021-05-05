@@ -110,7 +110,7 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <TableView fx:id="medicineDeliveryTable4" layoutY="7.0" prefHeight="449.0" prefWidth="991.0" stylesheets="@../jfx-tree-table-view.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <TableView fx:id="floralTable" layoutY="7.0" prefHeight="449.0" prefWidth="991.0" stylesheets="@../jfx-tree-table-view.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                            </content>
@@ -146,7 +146,7 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <TableView fx:id="medicineDeliveryTable6" layoutY="7.0" prefHeight="449.0" prefWidth="991.0" stylesheets="@../jfx-tree-table-view.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <TableView fx:id="laundryTable" layoutY="7.0" prefHeight="449.0" prefWidth="991.0" stylesheets="@../jfx-tree-table-view.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                            </content>
