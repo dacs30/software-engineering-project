@@ -2,6 +2,7 @@ package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.JFXComboBox;
 import edu.wpi.MochaManticores.Algorithms.AStar2;
+import edu.wpi.MochaManticores.Exceptions.DestinationNotAccessibleException;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import javafx.collections.FXCollections;
@@ -64,17 +65,20 @@ public class RouteExample extends SceneController {
                 NodeSuper end = node;
                 stops.addLast(end);
             }
+        }
+        try {
+            LinkedList<String> path = star.multiStopRoute(stops, "none"); //ADD CONDITION FOR PATHING
+            if (path != null) {
+                System.out.println("Path found:");
             }
-
-        LinkedList<String> path = star.multiStopRoute(stops, "none"); //ADD CONDITION FOR PATHING
-        if(path != null){
-            System.out.println("Path found:");
+            for (String str :
+                    path) {
+                pathField.setText(pathField.getText() + "\n" + str + "\n|\n");
+            }
+            pathField.setText(pathField.getText() + "\nEND");
+        } catch (DestinationNotAccessibleException destinationNotAccessibleException){
+            String error = "Destination not accessible";
         }
-        for (String str :
-                path) {
-            pathField.setText(pathField.getText()+"\n"+str+"\n|\n");
-        }
-            pathField.setText(pathField.getText()+"\nEND");
     }
 
     public void back(){

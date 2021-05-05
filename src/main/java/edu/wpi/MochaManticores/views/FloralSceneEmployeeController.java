@@ -287,11 +287,14 @@ public class FloralSceneEmployeeController extends SceneController {
                     !employeeAssigned.getValue().toString().isEmpty()) {
                 sel s = sel.FloralDelivery;
                 DatabaseManager.addRequest(s,
-                        new FloralDelivery(
-                                "", "", false, roomNumber.getText(),
-                                deliveryDate.getValue().toString(), flowerSelected.toString(),
+                        new FloralDelivery("",
+                                employeeAssigned.getEditor().getText(),
+                                false,
+                                roomNumber.getText(),
+                                deliveryDate.getValue().toString(),
+                                flowerSelected.toString(),
                                 vaseSelected.toString(),
-                                employeeAssigned.getValue().toString()));
+                                personalNote.getText()));
 
             } else if (roomNumber.getText().isEmpty()) {
                 RequiredFieldValidator missingInput = new RequiredFieldValidator();
