@@ -153,4 +153,215 @@ public class GBF implements PathPlanning{
         //return true if one of the neighbors is the target, false otherwise
         return located;
     }
+
+    public LinkedList<LinkedList<String>> pathToText(LinkedList<String> path){
+        LinkedList<LinkedList<String>> pathAsText = new LinkedList<>();
+        if (path.isEmpty()){
+            return pathAsText;
+        } else  if (path.size() == 1){
+            LinkedList<String> leg1 = new LinkedList<>();
+            leg1.add("Floor: " + nodes.get(path.getFirst()).getFloor());
+            leg1.add("You are at " + nodes.get(path.getFirst()).getLongName());
+            pathAsText.add(leg1);
+            return pathAsText;
+        }
+        int x = 0;
+        int y = 0;
+        int lx = 0;
+        int ly = 0;
+        boolean up = true;
+        boolean stairs = true;
+        while (path.size() > 1){
+            pathAsText.add(new LinkedList<>());
+            pathAsText.getLast().add("Floor: " + nodes.get(path.getFirst()).getFloor());
+
+            while (nodes.get(path.getFirst()).getFloor().equals(nodes.get(path.get(1)).getFloor()) && path.size() > 1){
+
+                x = nodes.get(path.get(1)).getXcoord() - nodes.get(path.getFirst()).getXcoord();
+                y = nodes.get(path.get(1)).getYcoord() - nodes.get(path.getFirst()).getYcoord();
+
+                if (x > 0){
+                    x = 1;
+                } else if(x < 0){
+                    x = -1;
+                } else {
+                    x = 0;
+                }
+                if (y > 0){
+                    y = 1;
+                } else if(y < 0){
+                    y = -1;
+                } else {
+                    y = 0;
+                }
+
+                if (lx == 0 && ly ==0){
+                    lx = x;
+                    ly = y;
+                }
+                if (x != lx || y != ly){
+                    pathAsText.getLast().add("Head straight until you reach " + nodes.get(path.getFirst()).getLongName());
+                    if (isLeft(nodes.get(path.getFirst()).getID(), nodes.get(path.get(1)).getID(), lx, ly)){
+                        pathAsText.getLast().add("Then turn left");
+                    }else if (isRight(nodes.get(path.getFirst()).getID(), nodes.get(path.get(1)).getID(), lx, ly)){
+                        pathAsText.getLast().add("Then turn right");
+                    }
+
+                }
+
+                path.removeFirst();
+            }
+            if(path.size() > 1) {
+                up = floorCMP(nodes.get(path.getFirst()).getFloor(), nodes.get(path.get(1)).getFloor());
+                stairs = nodes.get(path.getFirst()).getType().equals("STAI");
+                if (up) {
+                    if (stairs) {
+                        pathAsText.getLast().add("Take the stairs up to floor " + nodes.get(path.get(1)).getFloor());
+                    } else {
+                        pathAsText.getLast().add("Take the elevator up to floor " + nodes.get(path.get(1)).getFloor());
+                    }
+                } else {
+                    if (stairs) {
+                        pathAsText.getLast().add("Take the stairs down to floor " + nodes.get(path.get(1)).getFloor());
+                    } else {
+                        pathAsText.getLast().add("Take the elevator down to floor " + nodes.get(path.get(1)).getFloor());
+                    }
+                }
+                path.removeFirst();
+                lx = 0;
+                ly = 0;
+            }
+
+        }
+        if (!pathAsText.getLast().getLast().equals("Head straight until you reach " + nodes.get(path.getFirst()).getLongName())){
+            pathAsText.getLast().add("Head straight until you reach " + nodes.get(path.getFirst()).getLongName());
+        }
+
+        return pathAsText;
+    }
+
+    /**
+     * function: floorCMP()
+     * usage: determines whether traversing floors in a direction is up or down
+     * inputs: curF the id of the current floor, nextF the id of the next floor
+     * returns: true if up, false if down
+     */
+
+    public boolean floorCMP(String curF, String nextF){
+        int ffirst;
+        int fsecond;
+        if (curF.equals("L2")){
+            ffirst = 1;
+        } else if (curF.equals("L1")){
+            ffirst = 2;
+        } else {
+            ffirst = Integer.parseInt(curF) + 2;
+        }
+        if (nextF.equals("L2")){
+            fsecond = 1;
+        } else if (nextF.equals("L1")){
+            fsecond = 2;
+        } else {
+            fsecond = Integer.parseInt(nextF) + 2;
+        }
+        return ffirst < fsecond;
+    }
+
+    /**
+     *  function: isLeft()
+     *  usage: determines if a node represents a left turn
+     *  inputs: curr the id of the current NodeSuper, n the id of the next NodeSuper, x either 1, 0, or -1 based on if
+     *          the current direction being traveled has an increasing, unchanging or decreasing xcoordinate, y either 1, 0, or
+     *          -1 based on if the current direction being traveled has an increasing, unchanging or decreasing ycoordinate
+     *  returns: true if turning towards the next node is a left turn
+     */
+
+    public boolean isLeft(String curr, String n, int x, int y){
+
+        int xn = nodes.get(n).getXcoord() - nodes.get(curr).getXcoord();
+        int yn = nodes.get(n).getYcoord() - nodes.get(curr).getYcoord();
+
+        if (xn > 0){
+            xn = 1;
+        } else if(xn < 0){
+            xn = -1;
+        } else {
+            xn = 0;
+        }
+        if (yn > 0){
+            yn = 1;
+        } else if(yn < 0){
+            yn = -1;
+        } else {
+            yn = 0;
+        }
+
+        if (x == 1 && y == 0){
+            return yn == 1;
+        } else if (x == 1 && y == 1){
+            return (xn == 0 && yn == 1) || (xn == -1 && yn == 1) || (xn == -1 && yn == 0);
+        } else if (x == 0 && y == 1){
+            return xn == -1;
+        } else if (x == -1 && y == 1){
+            return (xn == 0 && yn == -1) || (xn == -1 && yn == -1) || (xn == -1 && yn == 0);
+        } else if (x == -1 && y == 0){
+            return yn == -1;
+        } else if (x == -1 && y == -1){
+            return (xn == 0 && yn == -1) || (xn == 1 && yn == -1) || (xn == 1 && yn == 0);
+        } else if (x == 0 && y == -1){
+            return xn == 1;
+        } else if (x == 1 && y == -1){
+            return (xn == 1 && yn == 0) || (xn == 1 && yn == 1) || (xn == 0 && yn == 1);
+        }
+        return false;
+    }
+
+    /**
+     *  function: is Right()
+     *  usage: determines if a node represents a right turn
+     *  inputs: curr the id of the current NodeSuper, n the id of the next NodeSuper, x either 1, 0, or -1 based on if
+     *          the current direction being traveled has an increasing, unchanging or decreasing xcoordinate, y either 1, 0, or
+     *          -1 based on if the current direction being traveled has an increasing, unchanging or decreasing ycoordinate
+     *  returns: true if turning towards the next node is a right turn
+     */
+
+    public boolean isRight(String curr, String n, int x, int y){
+
+        int xn = nodes.get(n).getXcoord() - nodes.get(curr).getXcoord();
+        int yn = nodes.get(n).getYcoord() - nodes.get(curr).getYcoord();
+
+        if (xn > 0){
+            xn = 1;
+        } else if(xn < 0){
+            xn = -1;
+        } else {
+            xn = 0;
+        }
+        if (yn > 0){
+            yn = 1;
+        } else if(yn < 0){
+            yn = -1;
+        } else {
+            yn = 0;
+        }
+
+        if (x == 1 && y == 0){
+            return yn == -1;
+        } else if (x == 1 && y == 1){
+            return (xn == 0 && yn == -1) || (xn == -1 && yn == -1) || (xn == 1 && yn == 0);
+        } else if (x == 0 && y == 1){
+            return xn == 1;
+        } else if (x == -1 && y == 1){
+            return (xn == 0 && yn == 1) || (xn == 1 && yn == 1) || (xn == 1 && yn == 0);
+        } else if (x == -1 && y == 0){
+            return yn == 1;
+        } else if (x == -1 && y == -1){
+            return (xn == 0 && yn == 1) || (xn == -1 && yn == 1) || (xn == -1 && yn == 0);
+        } else if (x == 0 && y == -1){
+            return xn == -1;
+        } else if (x == 1 && y == -1){
+            return (xn == -1 && yn == 0) || (xn == -1 && yn == -1) || (xn == 0 && yn == -1);
+        }
+        return false;
+    }
 }

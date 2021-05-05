@@ -29,4 +29,6 @@ public interface PathPlanning {
      * @return a LinkedList of Strings containing the IDs of the nodes from the first node to the target
      */
     LinkedList<String> findRoute(NodeSuper start, NodeSuper target) throws DestinationNotAccessibleException;
+
+    LinkedList<LinkedList<String>> pathToText(LinkedList<String> path);
 }

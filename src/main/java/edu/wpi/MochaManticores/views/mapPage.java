@@ -5,6 +5,7 @@ import com.jfoenix.animation.alert.CenterTransition;
 import com.jfoenix.controls.*;
 import edu.wpi.MochaManticores.Algorithms.AStar2;
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.Exceptions.DestinationNotAccessibleException;
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
@@ -52,6 +53,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.geometry.Pos;
 import javafx.util.Duration;
 import javafx.util.Pair;
+import sun.security.krb5.internal.crypto.Des;
 
 import java.io.File;
 import java.io.IOException;
@@ -538,7 +540,7 @@ public class mapPage extends SceneController{
         }
     }
 
-    public void toAStar() {
+    public void toAStar() throws DestinationNotAccessibleException{
         AStar2 star = new AStar2();
         //pathToTake is used in the dialog box that keeps all the nodes that the user has to pass through
         StringBuilder pathToTake = new StringBuilder();
@@ -672,7 +674,7 @@ public class mapPage extends SceneController{
 
     }
 
-    public void findNearestLocation(ActionEvent e) throws InvalidElementException {
+    public void findNearestLocation(ActionEvent e) throws InvalidElementException, DestinationNotAccessibleException {
         AStar2 star = new AStar2();
 
         savedRoute.clear();
@@ -816,7 +818,7 @@ public class mapPage extends SceneController{
         System.out.printf("(%f,%f)\n", e.getX() * xRatio, e.getY() * yRatio);
     }
 
-    public void findPath() throws InvalidElementException {
+    public void findPath() throws InvalidElementException, DestinationNotAccessibleException {
         savedRoute.clear();
         dirVBOX.getChildren().clear();
         //pathToTake is used in the dialog box that keeps all the nodes that the user has to pass through
@@ -856,18 +858,25 @@ public class mapPage extends SceneController{
             String endID = path.removeLast();
             endLabel.setText(DatabaseManager.getNode(endID).getLongName());
             endLabel.setTextFill(Color.RED);
-            dirVBOX.getChildren().add(startLabel);
+//            dirVBOX.getChildren().add(startLabel);
             for (String str :
                     path) {
                 savedRoute.add(str);
-                Label p = new Label();
-                p.setText(DatabaseManager.getNode(str).getLongName());
-                dirVBOX.getChildren().add(p);
+//                Label p = new Label();
+//                p.setText(DatabaseManager.getNode(str).getLongName());
+//                dirVBOX.getChildren().add(p);
 //                System.out.printf("\n%s\n|\n", DatabaseManager.getNode(str).getLongName());
 //                pathToTake.append(DatabaseManager.getNode(str).getLongName()).append("\n|\n");//appending the paths
             }
             savedRoute.add(endID);
-            dirVBOX.getChildren().add(endLabel);
+//            dirVBOX.getChildren().add(endLabel);
+            for (LinkedList<String> floor : App.getAlgoType().pathToText(path)){
+                for (String s : floor){
+                    Label p = new Label();
+                    p.setText(s);
+                    dirVBOX.getChildren().add(p);
+                }
+            }
 
             for (node n :
                     pitStops) {
@@ -1069,7 +1078,7 @@ public class mapPage extends SceneController{
         drawNodes();
         try {
             findPath();
-        } catch (InvalidElementException invalidElementException) {
+        } catch (InvalidElementException | DestinationNotAccessibleException invalidElementException) {
             invalidElementException.printStackTrace();
         }
     }

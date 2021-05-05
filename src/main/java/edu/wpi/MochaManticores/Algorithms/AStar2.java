@@ -280,7 +280,7 @@ public class AStar2 implements PathPlanning{
             pathAsText.add(new LinkedList<>());
             pathAsText.getLast().add("Floor: " + nodes.get(path.getFirst()).getFloor());
 
-            while (nodes.get(path.getFirst()).getFloor().equals(nodes.get(path.get(1)).getFloor()) && path.size() > 1){
+            while (path.size() > 1 && nodes.get(path.getFirst()).getFloor().equals(nodes.get(path.get(1)).getFloor())){
 
                 x = nodes.get(path.get(1)).getXcoord() - nodes.get(path.getFirst()).getXcoord();
                 y = nodes.get(path.get(1)).getYcoord() - nodes.get(path.getFirst()).getYcoord();
