@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <AnchorPane stylesheets="@../Stylesheets/homePage.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.HomePage">
    <children>
       <ImageView fx:id="backgroundIMG" fitHeight="800.0" fitWidth="1200.0" opacity="0.75" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -27,7 +21,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <GridPane id="card" fx:id="gridSurvey" maxWidth="-Infinity" onMouseClicked="#goToCovidSurvey" prefWidth="800.0">
+            <GridPane id="card" fx:id="gridSurvey" maxWidth="-Infinity" onMouseClicked="#goToCovidSurvey" prefWidth="900.0">
               <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -36,7 +30,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="BOTTOM" vgrow="SOMETIMES" />
               </rowConstraints>
                <GridPane.margin>
-                  <Insets left="200.0" right="200.0" top="100.0" />
+                  <Insets top="60.0" />
                </GridPane.margin>
                <effect>
                   <DropShadow color="#000000a8" height="84.3" radius="42.32" width="86.98" />
@@ -82,7 +76,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <GridPane id="card" maxWidth="-Infinity" onMouseClicked="#goToChatPage" prefWidth="800.0">
+                  <GridPane id="card" maxWidth="-Infinity" onMouseClicked="#goToChatPage" prefWidth="900.0">
                      <columnConstraints>
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -91,7 +85,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <GridPane.margin>
-                        <Insets bottom="50.0" left="200.0" right="200.0" top="50.0" />
+                        <Insets bottom="30.0" top="30.0" />
                      </GridPane.margin>
                      <effect>
                         <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
@@ -106,7 +100,7 @@
                               <RowConstraints maxHeight="99.0" minHeight="10.0" prefHeight="99.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <Label id="covidDescription" text="Check our new chat" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1" />
+                              <Label id="covidDescription" text="Check out our new Chat Bot! " textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1" />
                               <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                                  <children>
                                     <Label id="covidLabel" text="CONTACT US" />
@@ -123,9 +117,9 @@
                   </GridPane>
                </children>
             </GridPane>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0" GridPane.rowIndex="1">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0" GridPane.rowIndex="1">
                <children>
-                  <GridPane id="card" onMouseClicked="#goToMapPage">
+                  <GridPane id="card" onMouseClicked="#goToMapPage" prefWidth="267.0">
                     <columnConstraints>
                       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
                     </columnConstraints>
@@ -148,7 +142,7 @@
                         <Label id="cardLabel" text="MAP" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
-                  <GridPane id="card" onMouseClicked="#goToMedicineOrder" prefWidth="200.0">
+                  <GridPane id="card" onMouseClicked="#goToMedicineOrder" prefWidth="267.0">
                      <columnConstraints>
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                      </columnConstraints>
@@ -171,7 +165,7 @@
                         </ImageView>
                      </children>
                   </GridPane>
-                  <GridPane id="card" onMouseClicked="#goToInternalTransport" prefWidth="200.0">
+                  <GridPane id="card" onMouseClicked="#goToInternalTransport" prefWidth="267.0">
                      <columnConstraints>
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                      </columnConstraints>
