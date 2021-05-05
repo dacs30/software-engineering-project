@@ -345,12 +345,6 @@ public class AStar2 implements PathPlanning{
         return pathAsText;
     }
 
-    public void getDirection(String current, String next){
-        NodeSuper curNode  = nodes.get(current);
-        NodeSuper nextNode = nodes.get(next);
-
-    }
-
     public boolean floorCMP(String curF, String nextF){
         int ffirst;
         int fsecond;
