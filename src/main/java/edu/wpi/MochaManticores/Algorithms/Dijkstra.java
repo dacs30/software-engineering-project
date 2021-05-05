@@ -175,7 +175,7 @@ public class Dijkstra implements PathPlanning{
         } else  if (path.size() == 1){
             LinkedList<String> leg1 = new LinkedList<>();
             leg1.add("Floor: " + nodes.get(path.getFirst()).getFloor());
-            leg1.add("You are at " + nodes.get(path.getFirst()).getLongName());
+            leg1.add("You are at " + nodes.get(path.getFirst()).getShortName());
             pathAsText.add(leg1);
             return pathAsText;
         }
@@ -214,7 +214,7 @@ public class Dijkstra implements PathPlanning{
                     ly = y;
                 }
                 if (x != lx || y != ly){
-                    pathAsText.getLast().add("Head straight until you reach " + nodes.get(path.getFirst()).getLongName());
+                    pathAsText.getLast().add("Head straight until you reach " + nodes.get(path.getFirst()).getShortName());
                     if (isLeft(nodes.get(path.getFirst()).getID(), nodes.get(path.get(1)).getID(), lx, ly)){
                         pathAsText.getLast().add("Then turn left");
                     }else if (isRight(nodes.get(path.getFirst()).getID(), nodes.get(path.get(1)).getID(), lx, ly)){
@@ -247,8 +247,8 @@ public class Dijkstra implements PathPlanning{
             }
 
         }
-        if (!pathAsText.getLast().getLast().equals("Head straight until you reach " + nodes.get(path.getFirst()).getLongName())){
-            pathAsText.getLast().add("Head straight until you reach " + nodes.get(path.getFirst()).getLongName());
+        if (!pathAsText.getLast().getLast().equals("Head straight until you reach " + nodes.get(path.getFirst()).getShortName())){
+            pathAsText.getLast().add("Head straight until you reach " + nodes.get(path.getFirst()).getShortName());
         }
 
         return pathAsText;

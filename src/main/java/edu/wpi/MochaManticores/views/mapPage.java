@@ -1,7 +1,5 @@
 package edu.wpi.MochaManticores.views;
 
-import com.gluonhq.charm.down.plugins.StatusBarService;
-import com.jfoenix.animation.alert.CenterTransition;
 import com.jfoenix.controls.*;
 import edu.wpi.MochaManticores.Algorithms.AStar2;
 import edu.wpi.MochaManticores.App;
@@ -11,28 +9,16 @@ import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.Employee;
-import io.opencensus.trace.Link;
 import javafx.animation.PathTransition;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.geometry.*;
-import javafx.fxml.Initializable;
-import javafx.scene.Cursor;
-import javafx.scene.Group;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TabPane;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.control.TextField;
-import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.*;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -40,25 +26,16 @@ import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import javafx.geometry.Pos;
 import javafx.util.Duration;
-import javafx.util.Pair;
-import sun.security.krb5.internal.crypto.Des;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -511,7 +488,7 @@ public class mapPage extends SceneController{
 
                 textFieldGroup.getChildren().remove(cont);
                 pitStops.remove(nodes.get(toAdd.getText()));
-                updateFields();
+                //updateFields();
             }
         });
 
@@ -859,8 +836,7 @@ public class mapPage extends SceneController{
             endLabel.setText(DatabaseManager.getNode(endID).getLongName());
             endLabel.setTextFill(Color.RED);
 //            dirVBOX.getChildren().add(startLabel);
-            for (String str :
-                    path) {
+            for (String str : path) {
                 savedRoute.add(str);
 //                Label p = new Label();
 //                p.setText(DatabaseManager.getNode(str).getLongName());
@@ -873,13 +849,90 @@ public class mapPage extends SceneController{
             for (LinkedList<String> floor : App.getAlgoType().pathToText(path)){
                 for (String s : floor){
                     Label p = new Label();
-                    p.setText(s);
-                    dirVBOX.getChildren().add(p);
+                    if(s.contains("Take the stairs up to floor ")){
+                        HBox hbox = new HBox();
+                        Image img = new Image("/edu/wpi/MochaManticores/images/stairs-up.png");
+                        ImageView stairs = new ImageView(img);
+                        stairs.setFitWidth(22);
+                        stairs.setPreserveRatio(true);
+                        p.setText(s);
+                        hbox.getChildren().add(stairs);
+                        hbox.getChildren().add(p);
+                        hbox.setAlignment(Pos.CENTER_LEFT);
+                        dirVBOX.getChildren().add(hbox);
+                    } else if(s.contains("Take the elevator up to floor ")){
+                        HBox hbox = new HBox();
+                        Image img = new Image("/edu/wpi/MochaManticores/images/elevator.png");
+                        ImageView elevator = new ImageView(img);
+                        elevator.setFitWidth(22);
+                        elevator.setPreserveRatio(true);
+                        p.setText(s);
+                        hbox.getChildren().add(elevator);
+                        hbox.getChildren().add(p);
+                        hbox.setAlignment(Pos.CENTER_LEFT);
+                        dirVBOX.getChildren().add(hbox);
+                    } else if(s.contains("Take the stairs down to floor ")){
+                        HBox hbox = new HBox();
+                        Image img = new Image("/edu/wpi/MochaManticores/images/stairs-down.png");
+                        ImageView stairs = new ImageView(img);
+                        stairs.setFitWidth(22);
+                        stairs.setPreserveRatio(true);
+                        p.setText(s);
+                        hbox.getChildren().add(stairs);
+                        hbox.getChildren().add(p);
+                        hbox.setAlignment(Pos.CENTER_LEFT);
+                        dirVBOX.getChildren().add(hbox);
+                    } else if(s.contains("Take the elevator down to floor ")){
+                        HBox hbox = new HBox();
+                        Image img = new Image("/edu/wpi/MochaManticores/images/elevator.png");
+                        ImageView elevator = new ImageView(img);
+                        elevator.setFitWidth(22);
+                        elevator.setPreserveRatio(true);
+                        p.setText(s);
+                        hbox.getChildren().add(elevator);
+                        hbox.getChildren().add(p);
+                        hbox.setAlignment(Pos.CENTER_LEFT);
+                        dirVBOX.getChildren().add(hbox);
+                    } else if(s.contains("Head straight until you reach ")){
+                        HBox hbox = new HBox();
+                        Image img = new Image("/edu/wpi/MochaManticores/images/up-arrow.png");
+                        ImageView arrowUp = new ImageView(img);
+                        arrowUp.setFitWidth(22);
+                        arrowUp.setPreserveRatio(true);
+                        p.setText(s);
+                        hbox.getChildren().add(arrowUp);
+                        hbox.getChildren().add(p);
+                        hbox.setAlignment(Pos.CENTER_LEFT);
+                        dirVBOX.getChildren().add(hbox);
+                    } else if(s.contains("Then turn left")){
+                        HBox hbox = new HBox();
+                        Image img = new Image("/edu/wpi/MochaManticores/images/up-arrow.png");
+                        ImageView arrowUp = new ImageView(img);
+                        arrowUp.setPreserveRatio(true);
+                        arrowUp.setRotate(-90);
+                        arrowUp.setFitWidth(22);
+                        p.setText(s);
+                        hbox.getChildren().add(arrowUp);
+                        hbox.getChildren().add(p);
+                        hbox.setAlignment(Pos.CENTER_LEFT);
+                        dirVBOX.getChildren().add(hbox);
+                    } else if(s.contains("Then turn right")){
+                        HBox hbox = new HBox();
+                        Image img = new Image("/edu/wpi/MochaManticores/images/up-arrow.png");
+                        ImageView arrowUp = new ImageView(img);
+                        arrowUp.setPreserveRatio(true);
+                        arrowUp.setRotate(90);
+                        arrowUp.setFitWidth(22);
+                        p.setText(s);
+                        hbox.getChildren().add(arrowUp);
+                        hbox.getChildren().add(p);
+                        hbox.setAlignment(Pos.CENTER_LEFT);
+                        dirVBOX.getChildren().add(hbox);
+                    }
                 }
             }
 
-            for (node n :
-                    pitStops) {
+            for (node n : pitStops) {
                 n.resetFill();
             }
             pitStops = new LinkedList<>();

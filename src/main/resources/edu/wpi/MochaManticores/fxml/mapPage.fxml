@@ -80,13 +80,13 @@
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                       </columnConstraints>
                                       <rowConstraints>
-                                        <RowConstraints vgrow="SOMETIMES" />
-                                        <RowConstraints maxHeight="224.48150634765625" minHeight="10.0" prefHeight="156.33331298828125" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="424.14813232421875" minHeight="299.11114501953125" prefHeight="299.11114501953125" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="263.88885498046875" minHeight="10.0" prefHeight="263.88885498046875" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
                                           <VBox alignment="CENTER" prefHeight="431.0" prefWidth="486.0" spacing="30.0">
                                              <children>
-                                                <JFXComboBox fx:id="floorSelector" focusColor="WHITE" onAction="#selectFloor" prefHeight="50.0" prefWidth="115.0" promptText="Select Floor" style="-fx-background-color: WHITE;" unFocusColor="WHITE" />
+                                                <JFXComboBox fx:id="floorSelector" focusColor="#ffffff00" onAction="#selectFloor" prefHeight="44.0" prefWidth="162.0" promptText="Select Floor" unFocusColor="#ffffff00" />
                                                 <ScrollPane fx:id="textFieldScrollPane" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="141.0" prefWidth="365.0">
                                                    <content>
                                                       <VBox fx:id="textFieldGroup" alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="99.0" prefWidth="365.0" spacing="30.0">
@@ -139,38 +139,33 @@
                                                       </JFXButton>
                                                    </children>
                                                 </HBox>
-                                                <JFXButton onMouseClicked="#saveUserParking" text="Save Parking" />
                                              </children>
                                              <GridPane.margin>
                                                 <Insets top="20.0" />
                                              </GridPane.margin>
                                           </VBox>
-                                          <ScrollPane id="scrollpane" fx:id="directionPane" prefHeight="200.0" prefWidth="200.0" stylesheets="@../Stylesheets/mapPage.css" GridPane.rowIndex="1" />
+                                          <ScrollPane id="scrollpane" fx:id="directionPane" prefHeight="200.0" prefWidth="200.0" stylesheets="@../Stylesheets/mapPage.css" GridPane.rowIndex="1">
+                                             <GridPane.margin>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" />
+                                             </GridPane.margin></ScrollPane>
                                        </children>
                                     </GridPane>
                                  </children>
                               </AnchorPane>
                           </content>
                         </Tab>
-                        <Tab text="Tab">
+                        <Tab text="Path Finding Settings">
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                      <columnConstraints>
-                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                      </columnConstraints>
-                                      <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                      </rowConstraints>
+                                    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="80.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
+                                          <JFXButton onAction="#findNearestLocation" prefHeight="55.0" prefWidth="176.0" text="Find Nearest" />
+                                          <JFXComboBox fx:id="nearestLocationSelector" focusColor="BLACK" promptText="Select Location" style="-fx-background-color: WHITE;" />
+                                          <JFXButton onMouseClicked="#saveUserParking" text="Save Parking" />
                                           <JFXToggleButton fx:id="pathHandicap" text="Handicap" />
-                                          <JFXComboBox fx:id="nearestLocationSelector" focusColor="BLACK" promptText="Select Location" style="-fx-background-color: WHITE;" GridPane.rowIndex="2" />
-                                          <JFXButton onAction="#findNearestLocation" prefHeight="55.0" prefWidth="140.0" text="Find Nearest" GridPane.rowIndex="1" />
                                        </children>
-                                    </GridPane>
+                                    </VBox>
                                  </children>
                               </AnchorPane>
                           </content>
