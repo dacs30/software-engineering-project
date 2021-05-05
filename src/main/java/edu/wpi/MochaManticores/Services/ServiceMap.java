@@ -23,6 +23,7 @@ public class ServiceMap {
         //adds a hashmap to key if there is no linked list already there
         myMap.computeIfAbsent(type, k -> new HashMap<String,ServiceRequest>());
         myMap.get(type).put(request.getRequestID(), request);
+        maxMap.put(type, maxMap.get(type) + 1);
     }
 
     /**
@@ -63,6 +64,6 @@ public class ServiceMap {
     }
 
     public int getSize(ServiceRequestType type){
-        return myMap.get(type).size();
+        return maxMap.get(type);
     }
 }

@@ -32,7 +32,7 @@ public class COVIDmanager extends Manager<COVIDsurvey> {
                 if(line == null) break;
                 String[] row = line.split(CSVdelim);
 
-                COVIDsurvey temp = new COVIDsurvey(row[0],row[1],Boolean.parseBoolean(row[2]),row[3],row[4],
+                COVIDsurvey temp = new COVIDsurvey("",row[1],Boolean.parseBoolean(row[2]),row[3],row[4],
                         Boolean.parseBoolean(row[5]),Boolean.parseBoolean(row[6]),Boolean.parseBoolean(row[7]),
                         Boolean.parseBoolean(row[8]),Boolean.parseBoolean(row[9]),row[10],Boolean.parseBoolean(row[11]));
                 addElement(temp);

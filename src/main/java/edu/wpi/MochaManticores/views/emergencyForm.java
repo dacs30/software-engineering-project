@@ -55,7 +55,7 @@ public class emergencyForm extends SceneController {
         DatabaseManager.addRequest(sel.Emergency, new EmergencyRequest("",
                 "",
                 false,
-                (Integer) numPeople.getSelectionModel().getSelectedItem(),
+                Integer.parseInt((String) numPeople.getSelectionModel().getSelectedItem()),
                 roomNumber.getText(),
                 gurney.isSelected()));
         loadSubmitDialog();

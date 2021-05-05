@@ -182,14 +182,14 @@
             </AnchorPane>
          </children>
       </GridPane>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="130.0" spacing="10.0">
          <children>
             <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/logo-small.png" />
                </image>
             </ImageView>
-            <JFXButton buttonType="RAISED" onAction="#back" prefHeight="51.0" prefWidth="88.0" style="-fx-background-radius: 40; -fx-border-radius: 40;" text="Back">
+            <JFXButton buttonType="RAISED" onAction="#back" prefHeight="51.0" prefWidth="93.0" style="-fx-background-radius: 40; -fx-border-radius: 40;" text="Back">
                <font>
                   <Font size="18.0" />
                </font>
@@ -199,5 +199,38 @@
             <Insets left="30.0" />
          </padding>
       </VBox>
+      <GridPane alignment="BOTTOM_LEFT" style="-fx-background-color: white; -fx-background-radius: 20;" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="225.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="NEVER" maxWidth="181.0" minWidth="10.0" prefWidth="89.0" />
+            <ColumnConstraints hgrow="NEVER" maxWidth="120.0" minWidth="10.0" prefWidth="111.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+        </rowConstraints>
+         <children>
+            <Label alignment="CENTER" text="Legend" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </Label>
+            <Label text="Current Floor" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Label text="Other Floors" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <Label text="________" underline="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+               <font>
+                  <Font name="Times New Roman Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label text="_ _ _ _ _ _ _" textFill="#868686" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </GridPane>
    </children>
 </AnchorPane>

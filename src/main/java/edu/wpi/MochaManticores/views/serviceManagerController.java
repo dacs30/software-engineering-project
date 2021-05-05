@@ -153,24 +153,29 @@ public class serviceManagerController extends SceneController {
     public TableColumn<fs, JFXComboBox> floralEmployeeColumn;
     public TableColumn<fs, JFXButton> floralCompletedColumn;
 
-
+    public service serviceToEdit;
 
     private EventHandler<MouseEvent> showBox = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-            contextBox.setVisible(true);
-            contextBox.setDisable(false);
-            contextBox.toFront();
-            completeEntry.setVisible(true);
-            progressEntry.setVisible(true);
-            deleteEntry.setVisible(true);
 
-
-            Point2D p = new Point2D(event.getSceneX(), event.getSceneY());
-            p = mainPane.sceneToLocal(p);
-            contextBox.relocate(p.getX(), p.getY());
         }
     };
+
+    private void showboxMethod(MouseEvent e, service row){
+        contextBox.setVisible(true);
+        contextBox.setDisable(false);
+        contextBox.toFront();
+        completeEntry.setVisible(true);
+        progressEntry.setVisible(true);
+        deleteEntry.setVisible(true);
+
+
+        Point2D p = new Point2D(e.getSceneX(), e.getSceneY());
+        p = mainPane.sceneToLocal(p);
+        contextBox.relocate(p.getX(), p.getY());
+        serviceToEdit = row;
+    }
 
 
     public JFXTabPane serviceTabPane;
@@ -300,7 +305,7 @@ public class serviceManagerController extends SceneController {
                             completeEntry.setVisible(false);
                             progressEntry.setVisible(false);
                             deleteEntry.setVisible(false);
-                            setCompleteService(false,user);
+                            setCompleteService(false,serviceToEdit);
                         }
                     });
 
@@ -462,13 +467,13 @@ floralCompletedColumn
                     progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent event) {
-                            setCompleteService(false,user);
+                            setCompleteService(false,serviceToEdit);
                             contextBox.setVisible(false);
                             contextBox.toBack();
                             completeEntry.setVisible(false);
                             progressEntry.setVisible(false);
                             deleteEntry.setVisible(false);
-                            setCompleteService(false,user);
+                            setCompleteService(false,serviceToEdit);
                         }
                     });
 
@@ -634,13 +639,13 @@ laundryCompletedColumn
             progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    setCompleteService(false,user);
+                    setCompleteService(false,serviceToEdit);
                     contextBox.setVisible(false);
                     contextBox.toBack();
                     completeEntry.setVisible(false);
                     progressEntry.setVisible(false);
                     deleteEntry.setVisible(false);
-                    setCompleteService(false,user);
+                    setCompleteService(false,serviceToEdit);
                 }
             });
 
@@ -790,7 +795,7 @@ EmergencyCompletedColumn
                     completeEntry.setVisible(false);
                     progressEntry.setVisible(false);
                     deleteEntry.setVisible(false);
-                    setCompleteService(false,user);
+                    setCompleteService(false,serviceToEdit);
                 }
             });
 
@@ -892,11 +897,11 @@ EmergencyCompletedColumn
 
         MedicineCompletedColumn = new TableColumn<md, JFXButton>("Status");
         MedicineCompletedColumn.setMinWidth(100);
-        MedicineCompletedColumn.setCellValueFactory(arg0 -> {
+        MedicineCompletedColumn.setCellValueFactory(row -> {
 
             serviceStatus stat;
 
-            md user = arg0.getValue();
+            md user = row.getValue();
 
             CheckBox checkBox = new CheckBox();
             JFXButton state = new JFXButton();
@@ -904,31 +909,31 @@ EmergencyCompletedColumn
             serviceTabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->{
                 if(newValue.getText().equals("Medicine Delivery")){
                     completeEntry.setOnMouseClicked(event -> {
+                        System.out.println(user.patientRoom.get());
                         contextBox.setVisible(false);
                         contextBox.toBack();
                         completeEntry.setVisible(false);
                         progressEntry.setVisible(false);
                         deleteEntry.setVisible(false);
-                        setCompleteService(true,user);
+                        setCompleteService(true,serviceToEdit);
                     });
 
                     progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent event) {
-                            setCompleteService(false,user);
                             contextBox.setVisible(false);
                             contextBox.toBack();
                             completeEntry.setVisible(false);
                             progressEntry.setVisible(false);
                             deleteEntry.setVisible(false);
-                            setCompleteService(false,user);
+                            setCompleteService(false,serviceToEdit);
                         }
                     });
 
                     deleteEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent event) {
-                            DatabaseManager.delElement(sel.Medicine,user.getRef().getRequestID());
+                            DatabaseManager.delElement(sel.Medicine,((md)serviceToEdit).getRef().getRequestID());
                             buildMedicine("");
                             contextBox.setVisible(false);
                             contextBox.toBack();
@@ -956,7 +961,18 @@ EmergencyCompletedColumn
 
 
             checkBox.selectedProperty().setValue(user.checkCompleted());
-            state.setOnMouseClicked(showBox);
+//            state.setOnMouseClicked(new EventHandler<MouseEvent>(){
+//                @Override
+//                public void handle(MouseEvent e){
+//                    System.out.println(user.patientRoom.get());
+//                }
+//            });
+            state.setOnMouseClicked(new EventHandler<MouseEvent>(){
+                @Override
+                public void handle(MouseEvent e){
+                    showboxMethod(e, user);
+                }
+            });
 
 
 //            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
@@ -1070,7 +1086,7 @@ EmergencyCompletedColumn
                             completeEntry.setVisible(false);
                             progressEntry.setVisible(false);
                             deleteEntry.setVisible(false);
-                            setCompleteService(false,user);
+                            setCompleteService(false,serviceToEdit);
                         }
                     });
 
@@ -1235,13 +1251,13 @@ EmergencyCompletedColumn
             progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    setCompleteService(false,user);
+                    setCompleteService(false,serviceToEdit);
                     contextBox.setVisible(false);
                     contextBox.toBack();
                     completeEntry.setVisible(false);
                     progressEntry.setVisible(false);
                     deleteEntry.setVisible(false);
-                    setCompleteService(false,user);
+                    setCompleteService(false,serviceToEdit);
                 }
             });
 
@@ -1393,13 +1409,13 @@ EmergencyCompletedColumn
             progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    setCompleteService(false,user);
+                    setCompleteService(false,serviceToEdit);
                     contextBox.setVisible(false);
                     contextBox.toBack();
                     completeEntry.setVisible(false);
                     progressEntry.setVisible(false);
                     deleteEntry.setVisible(false);
-                    setCompleteService(false,user);
+                    setCompleteService(false,serviceToEdit);
                 }
             });
 
@@ -1555,13 +1571,13 @@ EmergencyCompletedColumn
             progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    setCompleteService(false,user);
+                    setCompleteService(false,serviceToEdit);
                     contextBox.setVisible(false);
                     contextBox.toBack();
                     completeEntry.setVisible(false);
                     progressEntry.setVisible(false);
                     deleteEntry.setVisible(false);
-                    setCompleteService(false,user);
+                    setCompleteService(false,serviceToEdit);
                 }
             });
 
@@ -1722,13 +1738,13 @@ EmergencyCompletedColumn
             progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    setCompleteService(false,user);
+                    setCompleteService(false,serviceToEdit);
                     contextBox.setVisible(false);
                     contextBox.toBack();
                     completeEntry.setVisible(false);
                     progressEntry.setVisible(false);
                     deleteEntry.setVisible(false);
-                    setCompleteService(false,user);
+                    setCompleteService(false,serviceToEdit);
                 }
             });
 
@@ -1898,14 +1914,14 @@ EmergencyCompletedColumn
             progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    setCompleteService(false,user);
+                    setCompleteService(false,serviceToEdit);
                     contextBox.setVisible(false);
                     contextBox.setDisable(true);
                     contextBox.toBack();
                     completeEntry.setVisible(false);
                     progressEntry.setVisible(false);
                     deleteEntry.setVisible(false);
-                    setCompleteService(false,user);
+                    setCompleteService(false,serviceToEdit);
                 }
             });
 
