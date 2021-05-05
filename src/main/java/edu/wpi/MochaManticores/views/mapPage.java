@@ -1103,6 +1103,8 @@ public class mapPage extends SceneController{
                 temp.setParkingSpace(nodeID);
                 DatabaseManager.modEmployee(temp.getUsername(), temp);
 
+                loadYesNoDialog(dialogPane, "Parking Spot: " + nodeID + " saved to your user!");
+
                 System.out.println(temp.getUsername() + "parking space has been set to: " + nodeID);
             }
         }catch(InvalidElementException e){
