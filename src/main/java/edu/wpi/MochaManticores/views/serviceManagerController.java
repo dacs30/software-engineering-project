@@ -164,6 +164,11 @@ public class serviceManagerController extends SceneController {
 
 
 
+        mainPane.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
+            contextBox.setVisible(false);
+            covidContext.setVisible(false);
+        });
+
         medicineTableSetUp();
         externalTableSetUp();
         foodTableSetUp();
