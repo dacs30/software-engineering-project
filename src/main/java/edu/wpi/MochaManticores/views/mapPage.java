@@ -159,6 +159,9 @@ public class mapPage extends SceneController{
     private GridPane innerMapGrid;
 
     @FXML
+    private JFXButton parkingButton;
+
+    @FXML
     private ScrollPane directionPane;
 
     @FXML
@@ -276,6 +279,9 @@ public class mapPage extends SceneController{
 
         if(user.isCovidStatus()){
             MapSuper.getMap().get("FEXIT00201").setCovid(true);
+        }
+        if(!user.getParkingSpace().equals("Parking")){
+            parkingButton.setText("My spot");
         }
         //mapScrollPane.prefWidthProperty().bind(App.getPrimaryStage().widthProperty());
         //GridPane.setHgrow(mapStack, Priority.ALWAYS);
@@ -1184,7 +1190,20 @@ public class mapPage extends SceneController{
         //System.out.printf("X: %f\nY: %f\n\n",curX,curY);
 
     }
-    public void saveUserParking(){
+    public void saveUserParking() throws InvalidElementException, DestinationNotAccessibleException {
+        if(parkingButton.getText().equals("My spot") && !DatabaseManager.getEmployee(App.getCurrentUsername()).getParkingSpace().equals("Parking")){
+            Iterator<node> mapIter = nodes.values().iterator();
+            node n = null;
+            for (int i = 0; i < nodes.size(); i++) {
+                n = mapIter.next();
+                if(n.getNodeID().equals(DatabaseManager.getEmployee(App.getCurrentUsername()).getParkingSpace())){
+                    break;
+                }
+            }
+            pitStops.add(n);
+            findPath();
+            return;
+        }
         try {
             Employee temp = DatabaseManager.getEmployee(App.getCurrentUsername());
             String nodeID = pitStops.getLast().getNodeID();
@@ -1195,6 +1214,7 @@ public class mapPage extends SceneController{
                 loadYesNoDialog(dialogPane, "Parking Spot: " + nodeID + " saved to your user!");
 
                 System.out.println(temp.getUsername() + "parking space has been set to: " + nodeID);
+                parkingButton.setText("My spot");
             }
         }catch(InvalidElementException e){
             System.out.println("no user in database to save parking info to");

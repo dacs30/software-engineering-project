@@ -162,7 +162,7 @@
                                        <children>
                                           <JFXButton onAction="#findNearestLocation" prefHeight="55.0" prefWidth="176.0" text="Find Nearest" />
                                           <JFXComboBox fx:id="nearestLocationSelector" focusColor="BLACK" promptText="Select Location" style="-fx-background-color: WHITE;" />
-                                          <JFXButton onMouseClicked="#saveUserParking" text="Save Parking" />
+                                          <JFXButton fx:id="parkingButton" onMouseClicked="#saveUserParking" text="Save Parking" />
                                           <JFXToggleButton fx:id="pathHandicap" text="Handicap" />
                                        </children>
                                     </VBox>
