@@ -78,9 +78,7 @@ public class ReligiousRequestControllerEmployee extends SceneController{
         employeeAssigned.setEditable(true);
         //fromLocation.setOnKeyTyped(new AutoCompleteComboBoxListener<>(fromLocation));
         ObservableList<String> items = FXCollections.observableArrayList();
-        DatabaseManager.getEmployeeNames().forEach(s -> {
-            items.add(s.substring(s.indexOf(" ")));
-        });
+        items.addAll(DatabaseManager.getEmpManager().getEmployeeNames());
         employeeAssigned.setItems(items);
         createFilterListener(employeeAssigned);
 
