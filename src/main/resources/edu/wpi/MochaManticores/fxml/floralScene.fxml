@@ -70,9 +70,9 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <JFXRadioButton fx:id="tulip" onAction="#checkFlowers" text="Tulip(Orange) $15" />
-                                    <JFXRadioButton fx:id="rose" onAction="#checkFlowers" text="Roses $25" GridPane.columnIndex="1" />
-                                    <JFXRadioButton fx:id="lilie" onAction="#checkFlowers" text="Lilies $18" GridPane.columnIndex="2" />
+                                    <JFXRadioButton fx:id="tulip" onAction="#checkFlowers" text="Tulip(Orange) $15" GridPane.halignment="RIGHT" />
+                                    <JFXRadioButton fx:id="rose" onAction="#checkFlowers" text="Roses $25" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                                    <JFXRadioButton fx:id="lilie" onAction="#checkFlowers" text="Lilies $18" GridPane.columnIndex="2" GridPane.halignment="LEFT" />
                                  </children>
                               </GridPane>
                               <Label id="flowerLabel" text="Type of flowers" textFill="WHITE" />
@@ -98,16 +98,16 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <JFXRadioButton fx:id="blueVase" onAction="#checkVase" text="Blue" />
-                                    <JFXRadioButton fx:id="yellowVase" onAction="#checkVase" text="Yellow" GridPane.columnIndex="1" />
-                                    <JFXRadioButton fx:id="orangeVase" onAction="#checkVase" text="Orange" GridPane.columnIndex="2" />
+                                    <JFXRadioButton fx:id="blueVase" onAction="#checkVase" text="Blue" translateX="-72.0" GridPane.halignment="RIGHT" />
+                                    <JFXRadioButton fx:id="yellowVase" onAction="#checkVase" text="Yellow" translateX="-10.0" GridPane.columnIndex="1" />
+                                    <JFXRadioButton fx:id="orangeVase" onAction="#checkVase" text="Orange" translateX="3.0" GridPane.columnIndex="2" GridPane.halignment="LEFT" />
                                  </children>
                               </GridPane>
                               <Label id="vaseLabel" text="Vase options" textFill="WHITE" />
                            </children>
                         </GridPane>
                         <JFXTextField fx:id="personalNote" promptText="Personalized note (optional)" GridPane.rowIndex="4" />
-                        <JFXDatePicker fx:id="deliveryDate" defaultColor="#0f4b91" promptText="Delivery Date" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                        <JFXDatePicker fx:id="deliveryDate" defaultColor="#0f4b91" prefWidth="400.0" promptText="Delivery Date" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                   <JFXButton id="submitBtn" onAction="#submitForm" text="SUBMIT" GridPane.rowIndex="2" />
