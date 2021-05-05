@@ -114,9 +114,7 @@ public class FloralSceneEmployeeController extends SceneController {
 
             employeeAssigned.setEditable(true);
             ObservableList<String> items = FXCollections.observableArrayList();
-            DatabaseManager.getEmployeeNames().forEach(s -> {
-                items.add(s.substring(s.indexOf(" ")));
-            });
+            items.addAll(DatabaseManager.getEmpManager().getEmployeeNames());
             employeeAssigned.setItems(items);
             createFilterListener(employeeAssigned);
 
@@ -253,8 +251,8 @@ public class FloralSceneEmployeeController extends SceneController {
             }
         }
 
-        StringBuilder vaseSelected = new StringBuilder();
 
+    StringBuilder vaseSelected = new StringBuilder();
 
         public void checkVase(ActionEvent e) {
             JFXRadioButton source = (JFXRadioButton) e.getSource();

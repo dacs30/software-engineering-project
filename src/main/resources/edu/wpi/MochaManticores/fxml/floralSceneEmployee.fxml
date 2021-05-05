@@ -122,7 +122,7 @@
                         <JFXComboBox fx:id="employeeAssigned" prefWidth="400.0" promptText="Assign to Employee" GridPane.rowIndex="5" />
                      </children>
                   </GridPane>
-                  <JFXButton id="submitBtn" onAction="#submitForm" text="SUBMIT" GridPane.rowIndex="2" />
+                  <JFXButton id="submitBtn" fx:id="submitBtn" onAction="#submitForm" text="SUBMIT" GridPane.rowIndex="2" />
                </children>
             </GridPane>
          </children>
