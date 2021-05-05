@@ -87,15 +87,15 @@
                                     <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                  </columnConstraints>
                                  <rowConstraints>
-                                    <RowConstraints maxHeight="112.037109375" minHeight="10.0" prefHeight="112.037109375" vgrow="SOMETIMES" />
-                                    <RowConstraints maxHeight="99.0" minHeight="10.0" prefHeight="53.962890625" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="168.99993896484375" minHeight="10.0" prefHeight="141.6666259765625" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="99.0" minHeight="10.0" prefHeight="70.3333740234375" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
                                     <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="0.0" spacing="30.0">
                                        <children>
-                                          <ImageView fitHeight="150.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="164.0" fitWidth="232.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../images/contact.png" />
+                                                <Image url="@../images/urban-urban-line.png" />
                                              </image>
                                           </ImageView>
                                        </children>
@@ -191,8 +191,8 @@
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                      </columnConstraints>
                      <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="123.33331298828125" minHeight="10.0" prefHeight="123.33331298828125" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="103.0" minHeight="10.0" prefHeight="66.66668701171875" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <effect>
                         <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
@@ -202,9 +202,9 @@
                      </HBox.margin>
                      <children>
                         <Label id="cardLabelMedicineDelivery" text="MANAGE SERVICES" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1" />
-                        <ImageView fitHeight="150.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="129.0" fitWidth="168.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/pillIcon.png" />
+                              <Image url="@../images/urban-842.png" />
                            </image>
                         </ImageView>
                      </children>
@@ -225,9 +225,9 @@
                      </HBox.margin>
                      <children>
                         <Label id="cardLabelInternalTransportation" prefHeight="60.0" prefWidth="293.0" text=" INTERNAL TRANSPORTATION MANAGER" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1" />
-                        <ImageView fitHeight="150.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="82.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/wheelChair.png" />
+                              <Image url="@../images/urban-wheelchair.png" />
                            </image>
                         </ImageView>
                      </children>
