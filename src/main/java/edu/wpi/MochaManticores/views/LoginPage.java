@@ -166,10 +166,10 @@ public class LoginPage extends SceneController{
         }
 
         //create employee here
-        Employee employee = new Employee(IDField.getText(), "", IDField.getText(), IDField.getText(), Employee.employeeType.PATIENT,
+        Employee employee = new Employee(App.getCurrentUsername(), "", IDField.getText(), IDField.getText(), Employee.employeeType.PATIENT,
                 0, false, false, "Parking");
         try {
-            DatabaseManager.getEmpManager().getElement(IDField.getText());
+            DatabaseManager.getEmpManager().getElement(App.getCurrentUsername());
         } catch (Exception exception) {
             DatabaseManager.getEmpManager().addElement(employee);
         }
