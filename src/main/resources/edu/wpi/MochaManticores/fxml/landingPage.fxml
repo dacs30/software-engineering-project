@@ -243,7 +243,7 @@
                         <Label fx:id="greetingLabel" text="Hello, USERNAME" />
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                            <children>
-                              <JFXButton alignment="TOP_LEFT" buttonType="RAISED" contentDisplay="CENTER" style="-fx-background-color: #0F4B91;" text="Log out" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
+                              <JFXButton alignment="TOP_LEFT" buttonType="RAISED" contentDisplay="CENTER" onAction="#logOut" style="-fx-background-color: #0F4B91;" text="Log out" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
                               <JFXButton fx:id="userButton" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" style="-fx-background-color: #0F4B91;" text="User settings" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
                            </children>
                         </HBox>
