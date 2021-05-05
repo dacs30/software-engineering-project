@@ -4,6 +4,7 @@ import com.jfoenix.controls.*;
 import edu.wpi.MochaManticores.Algorithms.AStar2;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Editors.mapEdit;
+import edu.wpi.MochaManticores.Exceptions.DestinationNotAccessibleException;
 import edu.wpi.MochaManticores.Nodes.EdgeMapSuper;
 import edu.wpi.MochaManticores.Nodes.EdgeSuper;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
@@ -1031,39 +1032,42 @@ public class mapEditor extends SceneController {
         if (pitStops.isEmpty()) {
             pathToTake.append("Please select at least one node");
         } else {
-
-            LinkedList<String> path = App.getAlgoType().multiStopRoute(stops, "none");
-            System.out.println(path);
-            for (String str :
-                    path) {
-                System.out.printf("\n%s\n|\n", MapSuper.getMap().get(str).getLongName());
-                pathToTake.append(MapSuper.getMap().get(str).getLongName()).append("\n|\n");//appending the paths
-            }
-            LinkedList<Line> lines = new LinkedList();
-
-            for (int i = 0; i < path.size(); i++) {
-                try {
-                    node start = nodes.get(path.get(i));
-                    node end = nodes.get(path.get(i + 1));
-                    double startX = start.xCoord;
-                    double startY = start.yCoord;
-                    double endX = end.xCoord;
-                    double endY = end.yCoord;
-                    Line l = new Line(startX, startY, endX, endY);
-                    l.setStroke(Color.BLACK);
-                    l.setStrokeWidth(5);
-                    lines.add(l);
-                } catch (Exception e) {
-                    System.out.println("Got here");
+            try {
+                LinkedList<String> path = App.getAlgoType().multiStopRoute(stops, "none");
+                System.out.println(path);
+                for (String str :
+                         path) {
+                     System.out.printf("\n%s\n|\n", MapSuper.getMap().get(str).getLongName());
+                    pathToTake.append(MapSuper.getMap().get(str).getLongName()).append("\n|\n");//appending the paths
                 }
+                LinkedList<Line> lines = new LinkedList();
 
+                for (int i = 0; i < path.size(); i++) {
+                    try {
+                        node start = nodes.get(path.get(i));
+                        node end = nodes.get(path.get(i + 1));
+                        double startX = start.xCoord;
+                        double startY = start.yCoord;
+                        double endX = end.xCoord;
+                        double endY = end.yCoord;
+                        Line l = new Line(startX, startY, endX, endY);
+                        l.setStroke(Color.BLACK);
+                        l.setStrokeWidth(5);
+                        lines.add(l);
+                    } catch (Exception e) {
+                        System.out.println("Got here");
+                    }
+
+                }
+                nodePane.getChildren().addAll(lines);
+                for (node n :
+                        pitStops) {
+                    n.resetFill();
+                }
+                pitStops = new LinkedList<>();
+            } catch (DestinationNotAccessibleException destinationNotAccessibleException){
+                String e = "Destination not accessible";
             }
-            nodePane.getChildren().addAll(lines);
-            for (node n :
-                    pitStops) {
-                n.resetFill();
-            }
-            pitStops = new LinkedList<>();
         }
 
         loadDialog(pathToTake); // calling the dialog pane with the path

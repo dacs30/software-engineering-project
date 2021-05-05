@@ -1,5 +1,6 @@
 package edu.wpi.MochaManticores.Algorithms;
 
+import edu.wpi.MochaManticores.Exceptions.DestinationNotAccessibleException;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 
 import java.util.LinkedList;
@@ -18,7 +19,7 @@ public interface PathPlanning {
      * @param condition condition code for the path "publicOnly, handicap, none, publicHandicap"
      * @return path LinkedList containing all node IDs in the route
      */
-    LinkedList<String> multiStopRoute(LinkedList<NodeSuper> stops, String condition);
+    LinkedList<String> multiStopRoute(LinkedList<NodeSuper> stops, String condition) throws DestinationNotAccessibleException;
 
     /**
      * method: findRoute()
@@ -27,5 +28,5 @@ public interface PathPlanning {
      * @param target the node to search for
      * @return a LinkedList of Strings containing the IDs of the nodes from the first node to the target
      */
-    LinkedList<String> findRoute(NodeSuper start, NodeSuper target);
+    LinkedList<String> findRoute(NodeSuper start, NodeSuper target) throws DestinationNotAccessibleException;
 }

@@ -3,6 +3,7 @@ package edu.wpi.MochaManticores.views;
 import com.jfoenix.controls.*;
 import edu.wpi.MochaManticores.Algorithms.AStar2;
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.Exceptions.DestinationNotAccessibleException;
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
@@ -273,52 +274,55 @@ public class mapPage extends SceneController{
         if (pitStops.isEmpty()) {
             pathToTake.append("Please select at least one node");
         } else {
-
-            LinkedList<String> path = star.multiStopRoute(stops,pathToTake.toString());
-            System.out.println(path);
-            Label startLabel = new Label();
-            Label endLabel = new Label();
-            startLabel.setText(path.removeFirst());
-            startLabel.setTextFill(Color.GREEN);
-            endLabel.setText(path.removeLast());
-            endLabel.setTextFill(Color.RED);
-            dirVBOX.getChildren().add(startLabel);
-            for (String str :
-                    path) {
-                Label p = new Label();
-                p.setText(str);
-                dirVBOX.getChildren().add(p);
+            try {
+                LinkedList<String> path = star.multiStopRoute(stops, pathToTake.toString());
+                System.out.println(path);
+                Label startLabel = new Label();
+                Label endLabel = new Label();
+                startLabel.setText(path.removeFirst());
+                startLabel.setTextFill(Color.GREEN);
+                endLabel.setText(path.removeLast());
+                endLabel.setTextFill(Color.RED);
+                dirVBOX.getChildren().add(startLabel);
+                for (String str :
+                        path) {
+                    Label p = new Label();
+                    p.setText(str);
+                    dirVBOX.getChildren().add(p);
 //                System.out.printf("\n%s\n|\n", MapSuper.getMap().get(str).getLongName());
 //                pathToTake.append(MapSuper.getMap().get(str).getLongName()).append("\n|\n");//appending the paths
-            }
-            dirVBOX.getChildren().add(endLabel);
-            directionPane.setContent(dirVBOX);
-            directionPane.setFitToWidth(true);
-            LinkedList<Line> lines = new LinkedList();
-
-            for (int i = 0; i < path.size(); i++) {
-                try {
-                    mapPage.node start = nodes.get(path.get(i));
-                    mapPage.node end = nodes.get(path.get(i + 1));
-                    double startX = start.xCoord;
-                    double startY = start.yCoord;
-                    double endX = end.xCoord;
-                    double endY = end.yCoord;
-                    Line l = new Line(startX, startY, endX, endY);
-                    l.setStroke(Color.BLACK);
-                    l.setStrokeWidth(5);
-                    lines.add(l);
-                } catch (Exception e) {
-                    System.out.println("Got here");
                 }
+                dirVBOX.getChildren().add(endLabel);
+                directionPane.setContent(dirVBOX);
+                directionPane.setFitToWidth(true);
+                LinkedList<Line> lines = new LinkedList();
 
+                for (int i = 0; i < path.size(); i++) {
+                    try {
+                        mapPage.node start = nodes.get(path.get(i));
+                        mapPage.node end = nodes.get(path.get(i + 1));
+                        double startX = start.xCoord;
+                        double startY = start.yCoord;
+                        double endX = end.xCoord;
+                        double endY = end.yCoord;
+                        Line l = new Line(startX, startY, endX, endY);
+                        l.setStroke(Color.BLACK);
+                        l.setStrokeWidth(5);
+                        lines.add(l);
+                    } catch (Exception e) {
+                        System.out.println("Got here");
+                    }
+
+                }
+                nodePane.getChildren().addAll(lines);
+                for (mapPage.node n :
+                        pitStops) {
+                    n.resetFill();
+                }
+                pitStops = new LinkedList<>();
+            }catch (DestinationNotAccessibleException destinationNotAccessibleException){
+                String error = "Destination not accessible";
             }
-            nodePane.getChildren().addAll(lines);
-            for (mapPage.node n :
-                    pitStops) {
-                n.resetFill();
-            }
-            pitStops = new LinkedList<>();
         }
 
         //loadDialog(pathToTake); // calling the dialog pane with the path
@@ -403,22 +407,22 @@ public class mapPage extends SceneController{
         //pathToTake is used in the dialog box that keeps all the nodes that the user has to pass through
         StringBuilder pathToTake = new StringBuilder("");
         LinkedList<NodeSuper> stops = new LinkedList<>();
-        if (pitStops.size() != 1){
+        if (pitStops.size() != 1) {
             super.loadErrorDialog(dialogPane, "Must select only one node");
             return;
         }
-
+        try{
         LinkedList<String> path;
         NodeSuper ns = null;
         ns = DatabaseManager.getNode(pitStops.get(0).getNodeID());
-        if (!pathHandicap.isSelected()){
-            if (App.getClearenceLevel() >= 1){
+        if (!pathHandicap.isSelected()) {
+            if (App.getClearenceLevel() >= 1) {
                 path = star.findNearest(ns, getNodeType(), "none");
             } else {
                 path = star.findNearest(ns, getNodeType(), "publicOnly");
             }
         } else {
-            if (App.getClearenceLevel() >= 1){
+            if (App.getClearenceLevel() >= 1) {
                 path = star.findNearest(ns, getNodeType(), "handicap");
             } else {
                 path = star.findNearest(ns, getNodeType(), "publicHandicap");
@@ -460,6 +464,9 @@ public class mapPage extends SceneController{
 
         directionPane.setContent(dirVBOX);
         //loadDialog(pathToTake); // calling the dialog pane with the path
+        }catch (DestinationNotAccessibleException destinationNotAccessibleException){
+        String error = "Destination not accessible";
+        }
     }
 
     public void back(ActionEvent e) {
@@ -551,51 +558,55 @@ public class mapPage extends SceneController{
         if (pitStops.isEmpty()) {
             pathToTake.append("Please select at least one node");
         } else {
-            LinkedList<String> path;
-            if (!pathHandicap.isSelected()){
-                if (App.getClearenceLevel() >= 1){
-                    path = App.getAlgoType().multiStopRoute(stops, "none");
+            try{
+                LinkedList<String> path;
+                if (!pathHandicap.isSelected()) {
+                    if (App.getClearenceLevel() >= 1) {
+                        path = App.getAlgoType().multiStopRoute(stops, "none");
+                    } else {
+                        path = App.getAlgoType().multiStopRoute(stops, "publicOnly");
+                    }
                 } else {
-                    path = App.getAlgoType().multiStopRoute(stops, "publicOnly");
-                }
-            } else {
-                if (App.getClearenceLevel() >= 1){
-                    path = App.getAlgoType().multiStopRoute(stops, "handicap");
-                } else {
-                    path = App.getAlgoType().multiStopRoute(stops, "publicHandicap");
-                }
+                    if (App.getClearenceLevel() >= 1) {
+                        path = App.getAlgoType().multiStopRoute(stops, "handicap");
+                    } else {
+                        path = App.getAlgoType().multiStopRoute(stops, "publicHandicap");
+                    }
 
-            }
-             //CONDITION NEEDS TO BE INPUT HERE
-            System.out.println(path);
-            Label startLabel = new Label();
-            String startID = path.removeFirst();
-            startLabel.setText(DatabaseManager.getNode(startID).getLongName());
-            savedRoute.add(startID);
-            startLabel.setTextFill(Color.GREEN);
-            startLabel.setAlignment(Pos.CENTER);
-            Label endLabel = new Label();
-            String endID = path.removeLast();
-            endLabel.setText(DatabaseManager.getNode(endID).getLongName());
-            endLabel.setTextFill(Color.RED);
-            dirVBOX.getChildren().add(startLabel);
-            for (String str :
-                    path) {
-                savedRoute.add(str);
-                Label p = new Label();
-                p.setText(DatabaseManager.getNode(str).getLongName());
-                dirVBOX.getChildren().add(p);
+                }
+                //CONDITION NEEDS TO BE INPUT HERE
+                System.out.println(path);
+                Label startLabel = new Label();
+                String startID = path.removeFirst();
+                startLabel.setText(DatabaseManager.getNode(startID).getLongName());
+                savedRoute.add(startID);
+                startLabel.setTextFill(Color.GREEN);
+                startLabel.setAlignment(Pos.CENTER);
+                Label endLabel = new Label();
+                String endID = path.removeLast();
+                endLabel.setText(DatabaseManager.getNode(endID).getLongName());
+                endLabel.setTextFill(Color.RED);
+                dirVBOX.getChildren().add(startLabel);
+                for (String str :
+                        path) {
+                    savedRoute.add(str);
+                    Label p = new Label();
+                    p.setText(DatabaseManager.getNode(str).getLongName());
+                    dirVBOX.getChildren().add(p);
 //                System.out.printf("\n%s\n|\n", DatabaseManager.getNode(str).getLongName());
 //                pathToTake.append(DatabaseManager.getNode(str).getLongName()).append("\n|\n");//appending the paths
-            }
-            savedRoute.add(endID);
-            dirVBOX.getChildren().add(endLabel);
+                }
+                savedRoute.add(endID);
+                dirVBOX.getChildren().add(endLabel);
 
-            for (node n :
-                    pitStops) {
-                n.resetFill();
+                for (node n :
+                        pitStops) {
+                    n.resetFill();
+                }
+                pitStops = new LinkedList<>();
+            }catch (DestinationNotAccessibleException destinationNotAccessibleException){
+                String e = "Destination not accessible";
             }
-            pitStops = new LinkedList<>();
         }
 
         drawNodes();
