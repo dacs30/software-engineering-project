@@ -1,1 +1,4 @@
 REQUESTID,EMPID,COMPLETED,PATIENTROOM,CURRENTROOM,EXTERNALROOM,TRANSPORTATIONMETHOD,
+EXTtrans0,test,false,test,test,test,Ambulance,
+EXTtrans1,test,false,101,100,99,Helicopter,
+EXTtrans2,emp,false,101,100,99,Ambulance,

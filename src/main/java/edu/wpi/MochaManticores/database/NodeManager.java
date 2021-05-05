@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 public class NodeManager extends Manager<NodeSuper>{
-    private static String Node_csv_path = "data/MapMAllnodes.csv";
+    private static String Node_csv_path = "data/MapMallnodes.csv";
     private static Connection connection = null;
     private static final String CSVdelim = ",";
 

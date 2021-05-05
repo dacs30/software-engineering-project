@@ -158,7 +158,7 @@ public class EmployeeLogin extends SceneController{
         // error if fail
         try {
             DatabaseManager.checkEmployeeLogin(empUserName.getText(), empPassword.getText());
-            changeSceneTo("staffMainMenu");
+            changeSceneTo("landingPage");
         } catch (Exception e) {
             // popup the error dialog
             dialogPane.toFront();
