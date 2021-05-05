@@ -134,6 +134,26 @@ public class serviceManagerController extends SceneController {
     public TableColumn<er, JFXComboBox> EmergencyEmployeeColumn;
     public TableColumn<er, JFXButton> EmergencyCompletedColumn;
 
+    public TableView<ls> laundryTable;
+    public TableColumn<ls, String> LaundryNameColumn;
+    public TableColumn<ls, String> LaundrySoilLevelColumn;
+    public TableColumn<ls, String> LaundryDelicatesColumn;
+    public TableColumn<ls, String> LaundryWashCycleTemperatureColumn;
+    public TableColumn<ls, String> LaundryDryCycleTemperatureColumn;
+    public TableColumn<ls, String> LaundryDryCycleNumberColumn;
+    public TableColumn<ls, JFXComboBox> laundryEmployeeColumn;
+    public TableColumn<ls, JFXButton> laundryCompletedColumn;
+
+    public TableView<fs> floralTable;
+    public TableColumn<fs, String> floralRoomNumberColumn;
+    public TableColumn<fs, String> floralDeliveryChoiceColumn;
+    public TableColumn<fs, String> floralTypeOfFlowersColumn;
+    public TableColumn<fs, String> floralVaseOptionsColumn;
+    public TableColumn<fs, String> floralPersonalizedNoteColumn;
+    public TableColumn<fs, JFXComboBox> floralEmployeeColumn;
+    public TableColumn<fs, JFXButton> floralCompletedColumn;
+
+
 
     private EventHandler<MouseEvent> showBox = new EventHandler<MouseEvent>() {
         @Override
@@ -178,6 +198,340 @@ public class serviceManagerController extends SceneController {
         internalTableSetUp();
         covidTableSetUp();
         emergencyTableSetUp();
+        laundryTableSetUp();
+        floralTableSetUp();
+    }
+
+    private void floralTableSetUp(){
+        floralRoomNumberColumn = new TableColumn<fs, String>("Room");
+        floralRoomNumberColumn.setMinWidth(100);
+        floralRoomNumberColumn.setCellValueFactory(new PropertyValueFactory<fs, String>("roomNumber"));
+
+        floralDeliveryChoiceColumn = new TableColumn<fs, String>("Delivery Choice");
+        floralDeliveryChoiceColumn.setMinWidth(100);
+        floralDeliveryChoiceColumn.setCellValueFactory(new PropertyValueFactory<fs, String>("deliveryChoice"));
+
+        floralTypeOfFlowersColumn = new TableColumn<fs, String>("Type Of Flowers");
+        floralTypeOfFlowersColumn.setMinWidth(100);
+        floralTypeOfFlowersColumn.setCellValueFactory(new PropertyValueFactory<fs, String>("typeOfFlowers"));
+
+        floralVaseOptionsColumn = new TableColumn<fs, String>("Vase Options");
+        floralVaseOptionsColumn.setMinWidth(100);
+        floralVaseOptionsColumn.setCellValueFactory(new PropertyValueFactory<fs, String>("vaseOptions"));
+
+        floralPersonalizedNoteColumn = new TableColumn<fs, String>("Personalized Note");
+        floralPersonalizedNoteColumn.setMinWidth(100);
+        floralPersonalizedNoteColumn.setCellValueFactory(new PropertyValueFactory<fs, String>("personalizedNote"));
+
+        floralEmployeeColumn = new TableColumn<fs, JFXComboBox>("Assigned To");
+        floralEmployeeColumn.setMinWidth(100);
+        floralEmployeeColumn.setCellValueFactory(arg0 -> {
+            JFXComboBox<String> emps = new JFXComboBox<>();
+            emps.setEditable(true);
+
+            ObservableList<String> people = FXCollections.observableArrayList();
+            DatabaseManager.getEmployeeNames().forEach(s -> {
+                people.add(s.substring(s.indexOf(" ")));
+            });
+            people.add("");
+            emps.setItems(people);
+            serviceStatus stat;
+
+            fs user = arg0.getValue();
+
+            CheckBox checkBox = new CheckBox();
+            JFXButton state = new JFXButton();
+
+//            if(user.getEmployeeAssigned().equals("")){
+//                emps.setValue("Unassigned");
+//            }else{
+            emps.setValue(user.getEmployee());
+            //}
+
+
+            emps.getSelectionModel().selectedItemProperty().addListener((ov, old_val, new_val) -> {
+                String newEmp = emps.getSelectionModel().getSelectedItem();
+                user.getRef().setEmployee(newEmp);
+                user.getRef().setCompleted(false);
+                DatabaseManager.modRequest(sel.Medicine,user.getRef().getRequestID(),user.getRef());
+                buildFloral("");
+            });
+
+//            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+//
+//                setCompleteService(new_val, user);
+//                //user.setCompleted(new_val);
+//
+//            });
+
+
+            return new SimpleObjectProperty<JFXComboBox>(emps);
+
+
+        });
+
+        floralCompletedColumn = new TableColumn<fs, JFXButton>("Status");
+        floralCompletedColumn.setMinWidth(100);
+        floralCompletedColumn.setCellValueFactory(arg0 -> {
+
+            serviceStatus stat;
+
+            fs user = arg0.getValue();
+
+            CheckBox checkBox = new CheckBox();
+            JFXButton state = new JFXButton();
+
+            serviceTabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->{
+                if(newValue.getText().equals("Floral Delivery")){
+                    completeEntry.setOnMouseClicked(event -> {
+                        contextBox.setVisible(false);
+                        contextBox.toBack();
+                        completeEntry.setVisible(false);
+                        progressEntry.setVisible(false);
+                        deleteEntry.setVisible(false);
+                        setCompleteService(true,user);
+                    });
+
+                    progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            contextBox.setVisible(false);
+                            contextBox.toBack();
+                            completeEntry.setVisible(false);
+                            progressEntry.setVisible(false);
+                            deleteEntry.setVisible(false);
+                            setCompleteService(false,user);
+                        }
+                    });
+
+                    deleteEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            DatabaseManager.delElement(sel.FloralDelivery,user.getRef().getRequestID());
+                            buildLaundry("");
+                            contextBox.setVisible(false);
+                            contextBox.toBack();
+                            completeEntry.setVisible(false);
+                            progressEntry.setVisible(false);
+                            deleteEntry.setVisible(false);
+                        }
+                    });
+                }
+            });
+
+            if(user.getEmployee().equals("")){
+                stat = serviceStatus.UNASSIGNED;
+                state.setStyle("-fx-background-color: #FF0000;");
+            }else{
+                if(user.isCompleted()){
+                    stat = serviceStatus.COMPLETED;
+                    state.setStyle("-fx-background-color: #00FF00;");
+                }else{
+                    stat = serviceStatus.PROGRESS;
+                    state.setStyle("-fx-background-color: #0f4b91;");
+                }
+            }
+            state.setText(stat.name());
+
+
+            checkBox.selectedProperty().setValue(user.isCompleted());
+            state.setOnMouseClicked(showBox);
+
+
+//            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+//
+//                setCompleteService(new_val, user);
+//                //user.setCompleted(new_val);
+//
+//            });
+            buildFloral("");
+            return new SimpleObjectProperty<JFXButton>(state);
+
+
+        });
+
+        /*
+        floralRoomNumberColumn
+floralDeliveryChoiceColumn
+floralTypeOfFlowersColumn
+floralVaseOptionsColumn
+floralPersonalizedNoteColumn
+floralEmployeeColumn
+floralCompletedColumn
+
+
+
+         */
+        buildFloral("");
+    }
+
+    private void laundryTableSetUp(){
+        LaundryNameColumn = new TableColumn<ls, String>("Name");
+        LaundryNameColumn.setMinWidth(100);
+        LaundryNameColumn.setCellValueFactory(new PropertyValueFactory<ls, String>("name"));
+
+        LaundrySoilLevelColumn = new TableColumn<ls, String>("Soil level");
+        LaundrySoilLevelColumn.setMinWidth(100);
+        LaundrySoilLevelColumn.setCellValueFactory(new PropertyValueFactory<ls, String>("soilLevel"));
+
+        LaundryDelicatesColumn = new TableColumn<ls, String>("Delicates");
+        LaundryDelicatesColumn.setMinWidth(100);
+        LaundryDelicatesColumn.setCellValueFactory(new PropertyValueFactory<ls, String>("delicates"));
+
+        LaundryWashCycleTemperatureColumn = new TableColumn<ls, String>("Wash Cycle Temperature");
+        LaundryWashCycleTemperatureColumn.setMinWidth(100);
+        LaundryWashCycleTemperatureColumn.setCellValueFactory(new PropertyValueFactory<ls, String>("washCycleTemperature"));
+
+        LaundryDryCycleTemperatureColumn = new TableColumn<ls, String>("Dry Cycle Temperature");
+        LaundryDryCycleTemperatureColumn.setMinWidth(100);
+        LaundryDryCycleTemperatureColumn.setCellValueFactory(new PropertyValueFactory<ls, String>("dryCycleTemperature"));
+
+        LaundryDryCycleNumberColumn = new TableColumn<ls, String>("Dry Cycle Number");
+        LaundryDryCycleNumberColumn.setMinWidth(100);
+        LaundryDryCycleNumberColumn.setCellValueFactory(new PropertyValueFactory<ls, String>("dryCycleNumber"));
+
+        laundryEmployeeColumn = new TableColumn<ls, JFXComboBox>("Assigned To");
+        laundryEmployeeColumn.setMinWidth(100);
+        laundryEmployeeColumn.setCellValueFactory(arg0 -> {
+            JFXComboBox<String> emps = new JFXComboBox<>();
+            emps.setEditable(true);
+
+            ObservableList<String> people = FXCollections.observableArrayList();
+            DatabaseManager.getEmployeeNames().forEach(s -> {
+                people.add(s.substring(s.indexOf(" ")));
+            });
+            people.add("");
+            emps.setItems(people);
+            serviceStatus stat;
+
+            ls user = arg0.getValue();
+
+            CheckBox checkBox = new CheckBox();
+            JFXButton state = new JFXButton();
+
+//            if(user.getEmployeeAssigned().equals("")){
+//                emps.setValue("Unassigned");
+//            }else{
+            emps.setValue(user.getEmployee());
+            //}
+
+
+            emps.getSelectionModel().selectedItemProperty().addListener((ov, old_val, new_val) -> {
+                String newEmp = emps.getSelectionModel().getSelectedItem();
+                user.getRef().setEmployee(newEmp);
+                user.getRef().setCompleted(false);
+                DatabaseManager.modRequest(sel.Medicine,user.getRef().getRequestID(),user.getRef());
+                buildLaundry("");
+            });
+
+//            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+//
+//                setCompleteService(new_val, user);
+//                //user.setCompleted(new_val);
+//
+//            });
+
+
+            return new SimpleObjectProperty<JFXComboBox>(emps);
+
+
+        });
+
+        laundryCompletedColumn = new TableColumn<ls, JFXButton>("Status");
+        laundryCompletedColumn.setMinWidth(100);
+        laundryCompletedColumn.setCellValueFactory(arg0 -> {
+
+            serviceStatus stat;
+
+            ls user = arg0.getValue();
+
+            CheckBox checkBox = new CheckBox();
+            JFXButton state = new JFXButton();
+
+            serviceTabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->{
+                if(newValue.getText().equals("Laundry")){
+                    completeEntry.setOnMouseClicked(event -> {
+                        contextBox.setVisible(false);
+                        contextBox.toBack();
+                        completeEntry.setVisible(false);
+                        progressEntry.setVisible(false);
+                        deleteEntry.setVisible(false);
+                        setCompleteService(true,user);
+                    });
+
+                    progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            setCompleteService(false,user);
+                            contextBox.setVisible(false);
+                            contextBox.toBack();
+                            completeEntry.setVisible(false);
+                            progressEntry.setVisible(false);
+                            deleteEntry.setVisible(false);
+                            setCompleteService(false,user);
+                        }
+                    });
+
+                    deleteEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            DatabaseManager.delElement(sel.Medicine,user.getRef().getRequestID());
+                            buildLaundry("");
+                            contextBox.setVisible(false);
+                            contextBox.toBack();
+                            completeEntry.setVisible(false);
+                            progressEntry.setVisible(false);
+                            deleteEntry.setVisible(false);
+                        }
+                    });
+                }
+            });
+
+            if(user.getEmployee().equals("")){
+                stat = serviceStatus.UNASSIGNED;
+                state.setStyle("-fx-background-color: #FF0000;");
+            }else{
+                if(user.isCompleted()){
+                    stat = serviceStatus.COMPLETED;
+                    state.setStyle("-fx-background-color: #00FF00;");
+                }else{
+                    stat = serviceStatus.PROGRESS;
+                    state.setStyle("-fx-background-color: #0f4b91;");
+                }
+            }
+            state.setText(stat.name());
+
+
+            checkBox.selectedProperty().setValue(user.isCompleted());
+            state.setOnMouseClicked(showBox);
+
+
+//            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+//
+//                setCompleteService(new_val, user);
+//                //user.setCompleted(new_val);
+//
+//            });
+            buildLaundry("");
+            return new SimpleObjectProperty<JFXButton>(state);
+
+
+        });
+        buildLaundry("");
+
+        /*
+        LaundryNameColumn
+LaundrySoilLevelColumn
+LaundryDelicatesColumn
+LaundryWashCycleTemperatureColumn
+LaundryDryCycleTemperatureColumn
+LaundryDryCycleNumberColumn
+laundryEmployeeColumn
+laundryCompletedColumn
+
+
+
+         */
     }
 
     private void emergencyTableSetUp(){
@@ -1589,6 +1943,57 @@ EmergencyCompletedColumn
         buildCovid("");
     }
 
+    public ObservableList<fs> buildFloral(String searchTerm){
+        ObservableList<fs> tableRow = FXCollections.observableArrayList();
+        LinkedList<ServiceRequest> requests = DatabaseManager.getServiceMap().getServiceRequestsForType(ServiceRequestType.FloralDelivery);
+
+        for (ServiceRequest s : requests) {
+            fs fsToAdd = new fs(s);
+            for (int i = 0; i < fsToAdd.getFields().size(); i++) {
+                if (fsToAdd.getFields().get(i).toLowerCase().equals(searchTerm) || searchTerm.equals("")) {
+                    tableRow.add(fsToAdd);
+                    break;
+                }
+            }
+        }
+        floralTable.setItems(tableRow);
+        floralTable.getColumns().setAll(
+                floralRoomNumberColumn,
+                floralDeliveryChoiceColumn,
+                floralTypeOfFlowersColumn,
+                floralVaseOptionsColumn,
+                floralPersonalizedNoteColumn,
+                floralEmployeeColumn,
+                floralCompletedColumn);
+        return tableRow;
+    }
+
+    public ObservableList<ls> buildLaundry(String searchTerm){
+        ObservableList<ls> tableRow = FXCollections.observableArrayList();
+        LinkedList<ServiceRequest> requests = DatabaseManager.getServiceMap().getServiceRequestsForType(ServiceRequestType.Laundry);
+
+        for (ServiceRequest s : requests) {
+            ls lsToAdd = new ls(s);
+            for (int i = 0; i < lsToAdd.getFields().size(); i++) {
+                if (lsToAdd.getFields().get(i).toLowerCase().equals(searchTerm) || searchTerm.equals("")) {
+                    tableRow.add(lsToAdd);
+                    break;
+                }
+            }
+        }
+        laundryTable.setItems(tableRow);
+        laundryTable.getColumns().setAll(
+                LaundryNameColumn,
+                LaundrySoilLevelColumn,
+                LaundryDelicatesColumn,
+                LaundryWashCycleTemperatureColumn,
+                LaundryDryCycleTemperatureColumn,
+                LaundryDryCycleNumberColumn,
+                laundryEmployeeColumn,
+                laundryCompletedColumn);
+        return tableRow;
+    }
+
     public ObservableList<er> buildEmergency(String searchTerm){
         ObservableList<er> tableRow = FXCollections.observableArrayList();
         LinkedList<ServiceRequest> requests = DatabaseManager.getServiceMap().getServiceRequestsForType(ServiceRequestType.Emergency);
@@ -1880,6 +2285,11 @@ EmergencyCompletedColumn
                     DatabaseManager.modRequest(sel.COVID,((it) selected).getRef().getRequestID(), ((it)selected).getRef());
                     buildInternal("");
                     break;
+                case "Laundry":
+                    ((ls) selected).setCompleted(val);
+                    ((ls) selected).getRef().setCompleted(val);
+                    DatabaseManager.modRequest(sel.Laundry,((ls) selected).getRef().getRequestID(), ((ls)selected).getRef());
+                    buildLaundry("");
                 default:
                     break;
             }
@@ -2700,6 +3110,215 @@ EmergencyCompletedColumn
 
         public void setCompleted(boolean completed) {
             this.completed = completed;
+        }
+    }
+
+    public class ls extends RecursiveTreeObject<ls> implements service{
+
+        public LaundryRequest ref;
+        public StringProperty name;
+        public StringProperty soilLevel;
+        public StringProperty delicates;
+        public StringProperty washCycleTemperature;
+        public StringProperty dryCycleTemperature;
+        public StringProperty dryCycleNumber;
+        public StringProperty employee;
+        public boolean completed;
+        LinkedList<String> fields;
+
+        public void setCompleted(boolean completed) {
+            this.completed = completed;
+        }
+
+        public void setEmployee(String employee) {
+            this.employee.set(employee);
+        }
+
+        public LaundryRequest getRef() {
+            return ref;
+        }
+
+        public String getName() {
+            return name.get();
+        }
+
+        public StringProperty nameProperty() {
+            return name;
+        }
+
+        public String getSoilLevel() {
+            return soilLevel.get();
+        }
+
+        public StringProperty soilLevelProperty() {
+            return soilLevel;
+        }
+
+        public String getDelicates() {
+            return delicates.get();
+        }
+
+        public StringProperty delicatesProperty() {
+            return delicates;
+        }
+
+        public String getWashCycleTemperature() {
+            return washCycleTemperature.get();
+        }
+
+        public StringProperty washCycleTemperatureProperty() {
+            return washCycleTemperature;
+        }
+
+        public String getDryCycleTemperature() {
+            return dryCycleTemperature.get();
+        }
+
+        public StringProperty dryCycleTemperatureProperty() {
+            return dryCycleTemperature;
+        }
+
+        public String getDryCycleNumber() {
+            return dryCycleNumber.get();
+        }
+
+        public StringProperty dryCycleNumberProperty() {
+            return dryCycleNumber;
+        }
+
+        public String getEmployee() {
+            return employee.get();
+        }
+
+        public StringProperty employeeProperty() {
+            return employee;
+        }
+
+        public boolean isCompleted() {
+            return completed;
+        }
+
+        public LinkedList<String> getFields() {
+            return fields;
+        }
+
+        public ls(ServiceRequest ref){
+            this.ref = (LaundryRequest) ref;
+            name = new SimpleStringProperty(((LaundryRequest) ref).getName());
+            soilLevel = new SimpleStringProperty(((LaundryRequest) ref).getSoilLevel());
+            delicates = new SimpleStringProperty(String.valueOf(((LaundryRequest) ref).isDelicates()));
+            washCycleTemperature = new SimpleStringProperty(((LaundryRequest) ref).getWashCycleTemperature());
+            dryCycleTemperature = new SimpleStringProperty(((LaundryRequest) ref).getDryCycleTemperature());
+            dryCycleNumber = new SimpleStringProperty(String.valueOf(((LaundryRequest) ref).getDryCycleNumber()));
+            completed = ref.getCompleted();
+            employee = new SimpleStringProperty(ref.getEmployee());
+            fields = new LinkedList<>(Arrays.asList(
+                    name.get(),
+                    soilLevel.get(),
+                    delicates.get(),
+                    washCycleTemperature.get(),
+                    dryCycleTemperature.get(),
+                    dryCycleNumber.get()
+            ));
+
+        }
+    }
+
+    public class fs extends RecursiveTreeObject<fs> implements service{
+        FloralDelivery ref;
+        StringProperty roomNumber;
+        StringProperty deliveryChoice;
+        StringProperty typeOfFlowers;
+        StringProperty vaseOptions;
+        StringProperty personalizedNote;
+        StringProperty employee;
+        boolean completed;
+        LinkedList<String> fields;
+
+        public fs(ServiceRequest ref){
+            this.ref = (FloralDelivery) ref;
+            roomNumber = new SimpleStringProperty(((FloralDelivery) ref).getRoomNumber());
+            deliveryChoice = new SimpleStringProperty(((FloralDelivery) ref).getDeliveryChoice());
+            typeOfFlowers = new SimpleStringProperty(((FloralDelivery) ref).getTypeOfFlowers());
+            vaseOptions = new SimpleStringProperty(((FloralDelivery) ref).getVaseOptions());
+            personalizedNote = new SimpleStringProperty(((FloralDelivery) ref).getPersonalizedNote());
+            employee = new SimpleStringProperty(ref.getEmployee());
+            completed = false;
+            fields = new LinkedList<String>(
+                    Arrays.asList(
+                            roomNumber.get(),
+                            deliveryChoice.get(),
+                            typeOfFlowers.get(),
+                            vaseOptions.get(),
+                            personalizedNote.get()));
+        }
+
+        public void setEmployee(String employee) {
+            this.employee.set(employee);
+        }
+
+        public void setCompleted(boolean completed) {
+            this.completed = completed;
+        }
+
+        public FloralDelivery getRef() {
+            return ref;
+        }
+
+        public String getRoomNumber() {
+            return roomNumber.get();
+        }
+
+        public StringProperty roomNumberProperty() {
+            return roomNumber;
+        }
+
+        public String getDeliveryChoice() {
+            return deliveryChoice.get();
+        }
+
+        public StringProperty deliveryChoiceProperty() {
+            return deliveryChoice;
+        }
+
+        public String getTypeOfFlowers() {
+            return typeOfFlowers.get();
+        }
+
+        public StringProperty typeOfFlowersProperty() {
+            return typeOfFlowers;
+        }
+
+        public String getVaseOptions() {
+            return vaseOptions.get();
+        }
+
+        public StringProperty vaseOptionsProperty() {
+            return vaseOptions;
+        }
+
+        public String getPersonalizedNote() {
+            return personalizedNote.get();
+        }
+
+        public StringProperty personalizedNoteProperty() {
+            return personalizedNote;
+        }
+
+        public String getEmployee() {
+            return employee.get();
+        }
+
+        public StringProperty employeeProperty() {
+            return employee;
+        }
+
+        public boolean isCompleted() {
+            return completed;
+        }
+
+        public LinkedList<String> getFields() {
+            return fields;
         }
     }
 
