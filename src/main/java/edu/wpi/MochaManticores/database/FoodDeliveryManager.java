@@ -89,7 +89,12 @@ public class FoodDeliveryManager extends Manager<FoodDelivery> {
 
     @Override
     void modElement(String ID, FoodDelivery temp) throws SQLException {
-        delElement(ID);
+        try {
+            delElement(ID);
+        }
+        catch (SQLException e) {
+            System.out.println(e);
+        }
         addElement(temp);
     }
 
