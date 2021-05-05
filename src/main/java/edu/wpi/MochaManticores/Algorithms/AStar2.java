@@ -345,6 +345,13 @@ public class AStar2 implements PathPlanning{
         return pathAsText;
     }
 
+    /**
+     * function: floorCMP()
+     * usage: determines whether traversing floors in a direction is up or down
+     * inputs: curF the id of the current floor, nextF the id of the next floor
+     * returns: true if up, false if down
+     */
+
     public boolean floorCMP(String curF, String nextF){
         int ffirst;
         int fsecond;
@@ -362,7 +369,7 @@ public class AStar2 implements PathPlanning{
         } else {
             fsecond = Integer.parseInt(nextF) + 2;
         }
-        return ffirst > fsecond;
+        return ffirst < fsecond;
     }
 
     /**
