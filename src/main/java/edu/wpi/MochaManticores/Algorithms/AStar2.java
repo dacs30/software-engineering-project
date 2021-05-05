@@ -121,6 +121,16 @@ public class AStar2 implements PathPlanning{
             //Tests whether or not a node is accessible to the user
             boolean isAccessible = false;
             switch(this.condition) {
+                case "covid":
+                    if(!neighbor.isRestricted() && !neighbor.isCovid()){
+                        isAccessible = true;
+                    }
+                    break;
+                case "covidHandicap":
+                    if(!neighbor.isRestricted() && !neighbor.isCovid() && neighbor.isHandicap()){
+                        isAccessible = true;
+                    }
+                    break;
                 case "none":
                     isAccessible = true;
                     break;
@@ -133,6 +143,7 @@ public class AStar2 implements PathPlanning{
                 case "publicHandicap":
                     if(neighbor.isHandicap() && !neighbor.isRestricted()) {isAccessible = true;}
                     break;
+
             }
 
             //If the node is accessible, continue

@@ -477,8 +477,7 @@ public class mapEditor extends SceneController {
             drawEdges();
         });
 
-        drawNodes();
-        drawEdges();
+
 
         // Setting button handlers
         EventHandler<ActionEvent> handleSubmitNode = new EventHandler<ActionEvent>() {
@@ -801,6 +800,8 @@ public class mapEditor extends SceneController {
         //Initializing the dialog pane
         dialogPane.toBack();
 
+        drawNodes();
+        drawEdges();
 //        floorSelector.getSelectionModel().select(3);
 //        loadF1();
 

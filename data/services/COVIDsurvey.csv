@@ -1,1 +1,3 @@
 REQUESTID,EMPID,COMPLETED,NAME,DOB,SICK,VAXX,TRAVEL,TEST,CONATACT,SYMPTOMS,ADMIT,
+COVID3,employee,true,kush,1991-05-15,false,true,false,false,false,None of the Above,false,
+COVID5,employee,true,admin,2021-05-15,false,true,false,false,false,None of the Above,true,

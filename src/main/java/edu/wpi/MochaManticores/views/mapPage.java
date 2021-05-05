@@ -9,6 +9,7 @@ import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.Employee;
+import edu.wpi.MochaManticores.database.NodeManager;
 import javafx.animation.PathTransition;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -42,6 +43,9 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 public class mapPage extends SceneController{
+
+    public mapPage() throws InvalidElementException {
+    }
 
     public void downloadCSVs(ActionEvent actionEvent) {
         String path = getPath();
@@ -114,7 +118,7 @@ public class mapPage extends SceneController{
 
         public void resetFill() {
             c.setFill(Color.WHITE);
-            c.setStrokeWidth(2);
+            c.setStrokeWidth(3);
             c.setStroke(Color.valueOf("#FF6B35"));
         }
     }
@@ -196,6 +200,8 @@ public class mapPage extends SceneController{
     @FXML
     private AnchorPane paneContainingTabPane;
 
+    Employee user;
+
     @FXML
     private HBox toHBOX;
 
@@ -251,7 +257,7 @@ public class mapPage extends SceneController{
 
     }*/
 
-    public void initialize() {
+    public void initialize() throws InvalidElementException {
         double height = super.getHeight();
         double width = super.getWidth();
         contentPane.setPrefSize(width, height);
@@ -259,6 +265,18 @@ public class mapPage extends SceneController{
         contentPane.maxHeightProperty().bind(App.getPrimaryStage().heightProperty());
         mapStack.maxWidthProperty().bind(App.getPrimaryStage().widthProperty());
         mapStack.maxHeightProperty().bind(App.getPrimaryStage().heightProperty());
+
+        try{
+            user = DatabaseManager.getEmployee(App.getCurrentUsername());
+        }catch(InvalidElementException ex){
+            App.setCurrentUsername("Guest");
+            user = DatabaseManager.getEmployee(App.getCurrentUsername());
+        }
+
+
+        if(user.isCovidStatus()){
+            MapSuper.getMap().get("FEXIT00201").setCovid(true);
+        }
         //mapScrollPane.prefWidthProperty().bind(App.getPrimaryStage().widthProperty());
         //GridPane.setHgrow(mapStack, Priority.ALWAYS);
 
@@ -809,19 +827,28 @@ public class mapPage extends SceneController{
             pathToTake.append("Please select at least one node");
         } else {
             LinkedList<String> path;
-            if (!pathHandicap.isSelected()){
-                if (App.getClearenceLevel() >= 1){
-                    path = App.getAlgoType().multiStopRoute(stops, "none");
-                } else {
-                    path = App.getAlgoType().multiStopRoute(stops, "publicOnly");
+            if(DatabaseManager.getEmployee(App.getCurrentUsername()).isCovidStatus()){
+                if(pathHandicap.isSelected()){
+                    path = App.getAlgoType().multiStopRoute(stops, "covidHandicap");
+                }else {
+                    path = App.getAlgoType().multiStopRoute(stops, "covid");
                 }
-            } else {
-                if (App.getClearenceLevel() >= 1){
-                    path = App.getAlgoType().multiStopRoute(stops, "handicap");
+            }
+            else {
+                if (!pathHandicap.isSelected()) {
+                    if (App.getClearenceLevel() >= 1) {
+                        path = App.getAlgoType().multiStopRoute(stops, "none");
+                    } else {
+                        path = App.getAlgoType().multiStopRoute(stops, "publicOnly");
+                    }
                 } else {
-                    path = App.getAlgoType().multiStopRoute(stops, "publicHandicap");
-                }
+                    if (App.getClearenceLevel() >= 1) {
+                        path = App.getAlgoType().multiStopRoute(stops, "handicap");
+                    } else {
+                        path = App.getAlgoType().multiStopRoute(stops, "publicHandicap");
+                    }
 
+                }
             }
              //CONDITION NEEDS TO BE INPUT HERE
             System.out.println(path);
@@ -991,7 +1018,7 @@ public class mapPage extends SceneController{
         for (int i = 0; i < MapSuper.getMap().size(); i++) {
             NodeSuper n = mapIter.next();
             if (n.getFloor().equals(selectedFloor)) {
-                Circle spot = new Circle(n.getXcoord() / xRatio, n.getYcoord() / yRatio, 2, Color.WHITE);
+                Circle spot = new Circle(n.getXcoord() / xRatio, n.getYcoord() / yRatio, 3, Color.WHITE);
                 spot.setStrokeWidth(1);
                 spot.setStroke(Color.valueOf("#FF6B35"));
                 EventHandler<MouseEvent> highlight = new EventHandler<MouseEvent>() {
@@ -1009,7 +1036,7 @@ public class mapPage extends SceneController{
                 EventHandler<MouseEvent> small = new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent e) {
-                        mouseOverNode(e,2);
+                        mouseOverNode(e,3);
                     }
                 };
                 spot.setOnMouseClicked(highlight);
