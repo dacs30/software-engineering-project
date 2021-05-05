@@ -9,6 +9,7 @@ import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.database.DatabaseManager;
+import edu.wpi.MochaManticores.database.Employee;
 import io.opencensus.trace.Link;
 import javafx.animation.PathTransition;
 import javafx.beans.property.DoubleProperty;
@@ -1093,5 +1094,21 @@ public class mapPage extends SceneController{
         setZoom(src, curX * multi, curY * multi, zoomPort);
         //System.out.printf("X: %f\nY: %f\n\n",curX,curY);
 
+    }
+    public void saveUserParking(){
+        try {
+            Employee temp = DatabaseManager.getEmployee(App.getCurrentUsername());
+            String nodeID = pitStops.getLast().getNodeID();
+            if(DatabaseManager.getNode(nodeID).getType().equals("PARK")) {
+                temp.setParkingSpace(nodeID);
+                DatabaseManager.modEmployee(temp.getUsername(), temp);
+
+                loadYesNoDialog(dialogPane, "Parking Spot: " + nodeID + " saved to your user!");
+
+                System.out.println(temp.getUsername() + "parking space has been set to: " + nodeID);
+            }
+        }catch(InvalidElementException e){
+            System.out.println("no user in database to save parking info to");
+        }
     }
 }

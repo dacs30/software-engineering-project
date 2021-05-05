@@ -79,9 +79,6 @@ public class FloralSceneController extends SceneController {
     vases = Arrays.asList(blueVase, yellowVase, orangeVase);
     flowers = Arrays.asList(tulip, rose, lilie);
 
-    if (App.getClearenceLevel() <= 0) {
-      empBox.setVisible(false);
-    }
   }
 
   public void submitForm(ActionEvent actionEvent) {
@@ -223,11 +220,11 @@ public class FloralSceneController extends SceneController {
     if (!roomNumber.getText().isEmpty() && !deliveryDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).equals("") &&
             (tulip.isSelected() || rose.isSelected() | lilie.isSelected()) &&
             (blueVase.isSelected() || orangeVase.isSelected() || yellowVase.isSelected()) &&
-            (!empBox.getText().isEmpty() || App.getClearenceLevel() == 0)) {
+            App.getClearenceLevel() == 0) {
       sel s = sel.FloralDelivery;
       DatabaseManager.addRequest(s,
               new FloralDelivery(
-                      "", empBox.getText(), false, roomNumber.getText(),
+                      "", "", false, roomNumber.getText(),
                       deliveryDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")), flowerSelected.toString(),
                       vaseSelected.toString(),
                       personalNote.getText()));

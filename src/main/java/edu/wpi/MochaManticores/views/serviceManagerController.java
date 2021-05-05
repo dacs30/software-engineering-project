@@ -60,7 +60,7 @@ public class serviceManagerController extends SceneController {
     @FXML
     private Group restricted;
 
-    private JFXComboBox<String> emps = new JFXComboBox<>();
+
     
     public TableView<ss> sanitationTable;
     public TableColumn<ss, String> sanitationLocationColumn;
@@ -162,14 +162,7 @@ public class serviceManagerController extends SceneController {
         covidContext.setVisible(false);
         covidContext.toBack();
 
-        emps.setEditable(true);
 
-        ObservableList<String> people = FXCollections.observableArrayList();
-        DatabaseManager.getEmployeeNames().forEach(s -> {
-            people.add(s.substring(s.indexOf(" ")));
-        });
-        people.add("");
-        emps.setItems(people);
 
         medicineTableSetUp();
         externalTableSetUp();
@@ -200,12 +193,24 @@ public class serviceManagerController extends SceneController {
         EmergencyEmployeeColumn.setMinWidth(100);
         EmergencyEmployeeColumn.setCellValueFactory(arg0 -> {
 
+            JFXComboBox<String> emps = new JFXComboBox<>();
+            emps.setEditable(true);
+
+            ObservableList<String> people = FXCollections.observableArrayList();
+            DatabaseManager.getEmployeeNames().forEach(s -> {
+                people.add(s.substring(s.indexOf(" ")));
+            });
+            people.add("");
+            emps.setItems(people);
+
             serviceStatus stat;
 
             er user = arg0.getValue();
 
             CheckBox checkBox = new CheckBox();
             JFXButton state = new JFXButton();
+
+
 
             emps.setValue(user.getEmployee());
 
@@ -341,7 +346,15 @@ EmergencyCompletedColumn
         internalEmployeeColumn = new TableColumn<it, JFXComboBox>("Employee");
         internalEmployeeColumn.setMinWidth(100);
         internalEmployeeColumn.setCellValueFactory(arg0 -> {
+            JFXComboBox<String> emps = new JFXComboBox<>();
+            emps.setEditable(true);
 
+            ObservableList<String> people = FXCollections.observableArrayList();
+            DatabaseManager.getEmployeeNames().forEach(s -> {
+                people.add(s.substring(s.indexOf(" ")));
+            });
+            people.add("");
+            emps.setItems(people);
             serviceStatus stat;
 
             it user = arg0.getValue();
@@ -474,7 +487,15 @@ EmergencyCompletedColumn
         MedicineEmployeeColumn = new TableColumn<md, JFXComboBox>("Assigned To");
         MedicineEmployeeColumn.setMinWidth(100);
         MedicineEmployeeColumn.setCellValueFactory(arg0 -> {
+            JFXComboBox<String> emps = new JFXComboBox<>();
+            emps.setEditable(true);
 
+            ObservableList<String> people = FXCollections.observableArrayList();
+            DatabaseManager.getEmployeeNames().forEach(s -> {
+                people.add(s.substring(s.indexOf(" ")));
+            });
+            people.add("");
+            emps.setItems(people);
             serviceStatus stat;
 
             md user = arg0.getValue();
@@ -521,7 +542,44 @@ EmergencyCompletedColumn
             CheckBox checkBox = new CheckBox();
             JFXButton state = new JFXButton();
 
+            serviceTabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->{
+                if(newValue.getText().equals("Medicine Delivery")){
+                    completeEntry.setOnMouseClicked(event -> {
+                        contextBox.setVisible(false);
+                        contextBox.toBack();
+                        completeEntry.setVisible(false);
+                        progressEntry.setVisible(false);
+                        deleteEntry.setVisible(false);
+                        setCompleteService(true,user);
+                    });
 
+                    progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            setCompleteService(false,user);
+                            contextBox.setVisible(false);
+                            contextBox.toBack();
+                            completeEntry.setVisible(false);
+                            progressEntry.setVisible(false);
+                            deleteEntry.setVisible(false);
+                            setCompleteService(false,user);
+                        }
+                    });
+
+                    deleteEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            DatabaseManager.delElement(sel.Medicine,user.getRef().getRequestID());
+                            buildMedicine("");
+                            contextBox.setVisible(false);
+                            contextBox.toBack();
+                            completeEntry.setVisible(false);
+                            progressEntry.setVisible(false);
+                            deleteEntry.setVisible(false);
+                        }
+                    });
+                }
+            });
 
             if(user.getEmployeeAssigned().equals("")){
                 stat = serviceStatus.UNASSIGNED;
@@ -536,47 +594,10 @@ EmergencyCompletedColumn
                 }
             }
             state.setText(stat.name());
-            completeEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    contextBox.setVisible(false);
-                    contextBox.toBack();
-                    completeEntry.setVisible(false);
-                    progressEntry.setVisible(false);
-                    deleteEntry.setVisible(false);
-                    setCompleteService(true,user);
-                }
-            });
 
-            progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    setCompleteService(false,user);
-                    contextBox.setVisible(false);
-                    contextBox.toBack();
-                    completeEntry.setVisible(false);
-                    progressEntry.setVisible(false);
-                    deleteEntry.setVisible(false);
-                    setCompleteService(false,user);
-                }
-            });
-
-            deleteEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    DatabaseManager.delElement(sel.Medicine,user.getRef().getRequestID());
-                    buildMedicine("");
-                    contextBox.setVisible(false);
-                    contextBox.toBack();
-                    completeEntry.setVisible(false);
-                    progressEntry.setVisible(false);
-                    deleteEntry.setVisible(false);
-                }
-            });
 
             checkBox.selectedProperty().setValue(user.checkCompleted());
             state.setOnMouseClicked(showBox);
-
 
 
 //            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
@@ -620,7 +641,15 @@ EmergencyCompletedColumn
         ExternalEmployeeColumn = new TableColumn<et, JFXComboBox>("Employee");
         ExternalEmployeeColumn.setMinWidth(100);
         ExternalEmployeeColumn.setCellValueFactory(arg0 -> {
+            JFXComboBox<String> emps = new JFXComboBox<>();
+            emps.setEditable(true);
 
+            ObservableList<String> people = FXCollections.observableArrayList();
+            DatabaseManager.getEmployeeNames().forEach(s -> {
+                people.add(s.substring(s.indexOf(" ")));
+            });
+            people.add("");
+            emps.setItems(people);
             serviceStatus stat;
 
             et user = arg0.getValue();
@@ -653,26 +682,6 @@ EmergencyCompletedColumn
 
         ExternalCompletedColumn = new TableColumn<et, JFXButton>("Completed");
         ExternalCompletedColumn.setMinWidth(100);
-        //ExternalCompletedColumn.setCellValueFactory(new PropertyValueFactory<et, String>("completed"));
-//        ExternalCompletedColumn.setCellValueFactory(arg0 -> {
-//            et user = arg0.getValue();
-//
-//            CheckBox checkBox = new CheckBox();
-//
-//            checkBox.selectedProperty().setValue(user.checkCompleted());
-//
-//
-//
-//            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
-//
-//                setCompleteService(new_val, user);
-//                //user.setCompleted(new_val);
-//
-//            });
-//
-//            return new SimpleObjectProperty<>(checkBox);
-//
-//        });
         ExternalCompletedColumn.setCellValueFactory(arg0 -> {
 
             serviceStatus stat;
@@ -683,7 +692,43 @@ EmergencyCompletedColumn
             JFXButton state = new JFXButton();
 
 
+            serviceTabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->{
+                if(newValue.getText().equals("External Transport")){
+                    completeEntry.setOnMouseClicked(event -> {
+                        contextBox.setVisible(false);
+                        contextBox.toBack();
+                        completeEntry.setVisible(false);
+                        progressEntry.setVisible(false);
+                        deleteEntry.setVisible(false);
+                        setCompleteService(true,user);
+                    });
 
+                    progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            contextBox.setVisible(false);
+                            contextBox.toBack();
+                            completeEntry.setVisible(false);
+                            progressEntry.setVisible(false);
+                            deleteEntry.setVisible(false);
+                            setCompleteService(false,user);
+                        }
+                    });
+
+                    deleteEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            DatabaseManager.delElement(sel.Medicine,user.getRef().getRequestID());
+                            buildMedicine("");
+                            contextBox.setVisible(false);
+                            contextBox.toBack();
+                            completeEntry.setVisible(false);
+                            progressEntry.setVisible(false);
+                            deleteEntry.setVisible(false);
+                        }
+                    });
+                }
+            });
             if(user.getEmployeeAssigned().equals("")){
                 stat = serviceStatus.UNASSIGNED;
                 state.setStyle("-fx-background-color: #FF0000;");
@@ -697,55 +742,10 @@ EmergencyCompletedColumn
                 }
             }
             state.setText(stat.name());
-            completeEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    setCompleteService(true,user);
-                    contextBox.setVisible(false);
-                    contextBox.toBack();
-                    completeEntry.setVisible(false);
-                    progressEntry.setVisible(false);
-                    deleteEntry.setVisible(false);
-                    setCompleteService(true,user);
-                }
-            });
-
-            progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    setCompleteService(false,user);
-                    contextBox.setVisible(false);
-                    contextBox.toBack();
-                    completeEntry.setVisible(false);
-                    progressEntry.setVisible(false);
-                    deleteEntry.setVisible(false);
-                    setCompleteService(false,user);
-                }
-            });
-
-            deleteEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    DatabaseManager.delElement(sel.ExternalTransportation,user.getRef().getRequestID());
-                    buildExternal("");
-                    contextBox.setVisible(false);
-                    contextBox.toBack();
-                    completeEntry.setVisible(false);
-                    progressEntry.setVisible(false);
-                    deleteEntry.setVisible(false);
-                }
-            });
 
             checkBox.selectedProperty().setValue(user.checkCompleted());
             state.setOnMouseClicked(showBox);
 
-
-//            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
-//
-//                setCompleteService(new_val, user);
-//                //user.setCompleted(new_val);
-//
-//            });
 
             return new SimpleObjectProperty<JFXButton>(state);
 
@@ -773,7 +773,15 @@ EmergencyCompletedColumn
         FoodEmployeeColumn = new TableColumn<fd, JFXComboBox>("Employee");
         FoodEmployeeColumn.setMinWidth(100);
         FoodEmployeeColumn.setCellValueFactory(arg0 -> {
+            JFXComboBox<String> emps = new JFXComboBox<>();
+            emps.setEditable(true);
 
+            ObservableList<String> people = FXCollections.observableArrayList();
+            DatabaseManager.getEmployeeNames().forEach(s -> {
+                people.add(s.substring(s.indexOf(" ")));
+            });
+            people.add("");
+            emps.setItems(people);
             serviceStatus stat;
 
             fd user = arg0.getValue();
@@ -926,7 +934,15 @@ EmergencyCompletedColumn
         religionEmployeeColumn = new TableColumn<rr, JFXComboBox>("Employee Assigned");
         religionEmployeeColumn.setMinWidth(100);
         religionEmployeeColumn.setCellValueFactory(arg0 -> {
+            JFXComboBox<String> emps = new JFXComboBox<>();
+            emps.setEditable(true);
 
+            ObservableList<String> people = FXCollections.observableArrayList();
+            DatabaseManager.getEmployeeNames().forEach(s -> {
+                people.add(s.substring(s.indexOf(" ")));
+            });
+            people.add("");
+            emps.setItems(people);
             serviceStatus stat;
 
             rr user = arg0.getValue();
@@ -1077,7 +1093,15 @@ EmergencyCompletedColumn
         translateEmployeeColumn = new TableColumn<tl, JFXComboBox>("Assigned To");
         translateEmployeeColumn.setMinWidth(100);
         translateEmployeeColumn.setCellValueFactory(arg0 -> {
+            JFXComboBox<String> emps = new JFXComboBox<>();
+            emps.setEditable(true);
 
+            ObservableList<String> people = FXCollections.observableArrayList();
+            DatabaseManager.getEmployeeNames().forEach(s -> {
+                people.add(s.substring(s.indexOf(" ")));
+            });
+            people.add("");
+            emps.setItems(people);
             serviceStatus stat;
 
             tl user = arg0.getValue();
@@ -1239,7 +1263,15 @@ EmergencyCompletedColumn
         sanitationEmployeeColumn = new TableColumn<ss, JFXComboBox>("Employee");
         sanitationEmployeeColumn.setMinWidth(100);
         sanitationEmployeeColumn.setCellValueFactory(arg0 -> {
+            JFXComboBox<String> emps = new JFXComboBox<>();
+            emps.setEditable(true);
 
+            ObservableList<String> people = FXCollections.observableArrayList();
+            DatabaseManager.getEmployeeNames().forEach(s -> {
+                people.add(s.substring(s.indexOf(" ")));
+            });
+            people.add("");
+            emps.setItems(people);
             serviceStatus stat;
 
             ss user = arg0.getValue();
