@@ -1,11 +1,10 @@
 package edu.wpi.MochaManticores.views;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.*;
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.Services.LaundryRequest;
 import edu.wpi.MochaManticores.database.DatabaseManager;
+import edu.wpi.MochaManticores.database.sel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -25,15 +24,24 @@ public class LaundryFormEmployeeController {
     @FXML
     private GridPane requestPage;
 
-    @FXML
-    private JFXComboBox<String> soil;
 
     @FXML
-    private JFXComboBox<String> wTemp;
-
+    private JFXTextField nameField;
 
     @FXML
-    private JFXComboBox<String> dTemp;
+    private JFXComboBox<String> soilLevel;
+
+    @FXML
+    private JFXComboBox<String> washTemp;
+
+    @FXML
+    private JFXComboBox<String> dryTemp;
+
+    @FXML
+    private JFXTextField dryCycles;
+
+    @FXML
+    private JFXToggleButton delicateToggle;
 
     @FXML
     private StackPane dialogPane;
@@ -92,21 +100,35 @@ public class LaundryFormEmployeeController {
         backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
 
-        soil.getItems().clear();
-        soil.getItems().addAll("Light", "Medium", "Heavy");
+        soilLevel.getItems().clear();
+        soilLevel.getItems().addAll("Light", "Medium", "Heavy");
 
-        wTemp.getItems().clear();
-        wTemp.getItems().addAll("Hot", "Warm", "Cold");
+        washTemp.getItems().clear();
+        washTemp.getItems().addAll("Hot", "Warm", "Cold");
 
-        dTemp.getItems().clear();
-        dTemp.getItems().addAll("High", "Medium", "Low", "Delicate", "No Heat");
+        dryTemp.getItems().clear();
+        dryTemp.getItems().addAll("High", "Medium", "Low", "Delicate", "No Heat");
     }
-        public void helpButton(ActionEvent actionEvent){loadHelpDialogue();}
+
+    public void helpButton(ActionEvent actionEvent){loadHelpDialogue();}
 
     public void changeToRequest(ActionEvent actionEvent) {
         requestPage.setVisible(true);
         managerPage.setVisible(false);
         requestPage.toFront();
+    }
+
+    public void submit(ActionEvent e){
+        DatabaseManager.addRequest(sel.Laundry,
+                new LaundryRequest("",
+                        employeeAssigned.getEditor().getText(),
+                        false
+                        ,nameField.getText(),
+                        soilLevel.getSelectionModel().getSelectedItem(),
+                        delicateToggle.isSelected(),
+                        washTemp.getSelectionModel().getSelectedItem(),
+                        dryTemp.getSelectionModel().getSelectedItem(),
+                        Integer.parseInt(dryCycles.getText())));
     }
 
 
