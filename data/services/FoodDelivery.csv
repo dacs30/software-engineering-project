@@ -1,3 +1,2 @@
 REQUESTID,EMPID,COMPLETED,DIETARYPREFERENCES,ALLERGIES,MENU,
-FOOD0,,false,Vegetarian,food,null,
-FOOD1,emp,false,Vegan,;akjd'PA,Menu 1,
+FOOD0, admin,true,Vegetarian,NullPointers,Menu 1,
