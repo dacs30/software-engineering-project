@@ -1,5 +1,1 @@
 REQUESTID,EMPID,COMPLETED,DIETARYPREFERENCES,ALLERGIES,MENU,
-FOOD0,,false,Vegetarian,food,null,
-FOOD1,emp,false,Vegan,;akjd'PA,Menu 1,
-FOOD2,,false,Vegan,msgs test,Menu 1,
-FOOD3,,false,Gluten Free,msgs,Menu 1,

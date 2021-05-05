@@ -406,8 +406,12 @@ public class mapEditor extends SceneController {
 
         mapWindow.setPreserveRatio(false);
 
+        floorSelector.setValue("F1");
 
-        //loadL1();
+        selectFloor();
+
+
+        loadF1();
 
         floorSelector.getItems().addAll("LL1",
                 "LL2",
@@ -934,7 +938,6 @@ public class mapEditor extends SceneController {
         vbox.setMaxHeight(Region.USE_COMPUTED_SIZE);
         vbox.setMaxWidth(Region.USE_COMPUTED_SIZE);
 
-
         Text header = new Text("Path created");
         header.setStyle("-fx-font-weight: bold");
         header.setStyle("-fx-font-size: 30");
@@ -1035,7 +1038,7 @@ public class mapEditor extends SceneController {
     }
 
     public void loadL1() {
-        locationTitle.setText("Lower Level 1");
+        //locationTitle.setText("Lower Level 1");
         setSelectedFloor("L1");
         setZoom(new Image(location + "00_thelowerlevel1.png"), 0, 0, noZoom);
         drawNodes();
@@ -1044,7 +1047,7 @@ public class mapEditor extends SceneController {
     }
 
     public void loadL2() {
-        locationTitle.setText("Lower Level 2");
+        //locationTitle.setText("Lower Level 2");
         setSelectedFloor("L2");
 
         setZoom(new Image(location + "00_thelowerlevel2.png"), 0, 0, noZoom);
@@ -1054,7 +1057,7 @@ public class mapEditor extends SceneController {
     }
 
     public void loadGround() {
-        locationTitle.setText("Ground Floor");
+        //locationTitle.setText("Ground Floor");
         setSelectedFloor("G");
 
         setZoom(new Image(location + "00_thegroundfloor.png"), 0, 0, noZoom);
@@ -1064,7 +1067,7 @@ public class mapEditor extends SceneController {
     }
 
     public void loadF1() {
-        locationTitle.setText("Floor 1");
+        //locationTitle.setText("Floor 1");
         setSelectedFloor("1");
 
         setZoom(new Image(location + "01_thefirstfloor.png"), 0, 0, noZoom);
@@ -1074,7 +1077,7 @@ public class mapEditor extends SceneController {
     }
 
     public void loadF2() {
-        locationTitle.setText("Floor 2");
+        //locationTitle.setText("Floor 2");
         setSelectedFloor("2");
 
 
@@ -1085,7 +1088,7 @@ public class mapEditor extends SceneController {
     }
 
     public void loadF3() {
-        locationTitle.setText("Floor 3");
+        //locationTitle.setText("Floor 3");
         setSelectedFloor("L3");
 
         setZoom(new Image(location + "03_thethirdfloor.png"), 0, 0, noZoom);

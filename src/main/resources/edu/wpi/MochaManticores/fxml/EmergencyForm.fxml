@@ -108,7 +108,7 @@
                               <JFXTextField fx:id="roomNumber" focusColor="WHITE" labelFloat="true" promptText="Room number or name" GridPane.rowIndex="1" />
                            </children>
                         </GridPane>
-                        <JFXCheckBox fx:id="gurney" checkedColor="#0f4b91" text="Gurney" textFill="WHITE" unCheckedColor="WHITE" GridPane.rowIndex="2" />
+                        <JFXCheckBox checkedColor="#0f4b91" text="Gurney" textFill="WHITE" unCheckedColor="WHITE" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                   <JFXButton id="submitBtn" onAction="#submitEmergency" text="SUBMIT" GridPane.rowIndex="2" />

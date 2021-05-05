@@ -51,6 +51,15 @@ public class serviceManagerController extends SceneController {
     @FXML
     private Group deleteEntry;
 
+    @FXML
+    private VBox covidContext;
+
+    @FXML
+    private Group admitted;
+
+    @FXML
+    private Group restricted;
+
     private JFXComboBox<String> emps = new JFXComboBox<>();
     
     public TableView<ss> sanitationTable;
@@ -113,7 +122,10 @@ public class serviceManagerController extends SceneController {
     public TableColumn<cs, String> sickColumn;
     public TableColumn<cs, String> vaxxColumn;
     public TableColumn<cs, String> travelColumn;
+    public TableColumn<cs, String> contactColumn;
+    public TableColumn<cs, JFXButton> admitColumn;
     public TableColumn<cs, String> testColumn;
+    public TableColumn<cs, JFXButton> CovidCompleteColumn;
 
     public TableView<er> emergencyTable;
     public TableColumn<er,String>EmergencyNumPeopleNeededColumn;
@@ -127,6 +139,7 @@ public class serviceManagerController extends SceneController {
         @Override
         public void handle(MouseEvent event) {
             contextBox.setVisible(true);
+            contextBox.setDisable(false);
             contextBox.toFront();
             completeEntry.setVisible(true);
             progressEntry.setVisible(true);
@@ -146,12 +159,16 @@ public class serviceManagerController extends SceneController {
         contextBox.setVisible(false);
         contextBox.toBack();
 
+        covidContext.setVisible(false);
+        covidContext.toBack();
+
         emps.setEditable(true);
 
         ObservableList<String> people = FXCollections.observableArrayList();
         DatabaseManager.getEmployeeNames().forEach(s -> {
             people.add(s.substring(s.indexOf(" ")));
         });
+        people.add("");
         emps.setItems(people);
 
         medicineTableSetUp();
@@ -196,6 +213,7 @@ public class serviceManagerController extends SceneController {
                 String newEmp = emps.getSelectionModel().getSelectedItem();
                 user.getRef().setEmployee(newEmp);
                 DatabaseManager.modRequest(sel.Medicine,user.getRef().getRequestID(),user.getRef());
+                buildEmergency("");
             });
 
 //            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
@@ -227,19 +245,19 @@ public class serviceManagerController extends SceneController {
             if(user.getEmployee().equals("")){
                 stat = serviceStatus.UNASSIGNED;
                 state.setStyle("-fx-background-color: #FF0000;");
-            }
-            if(user.isCompleted()){
-                stat = serviceStatus.COMPLETED;
-                state.setStyle("-fx-background-color: #00FF00;");
             }else{
-                stat = serviceStatus.PROGRESS;
-                state.setStyle("-fx-background-color: #0000FF;");
+                if(user.isCompleted()){
+                    stat = serviceStatus.COMPLETED;
+                    state.setStyle("-fx-background-color: #00FF00;");
+                }else{
+                    stat = serviceStatus.PROGRESS;
+                    state.setStyle("-fx-background-color: #0f4b91;");
+                }
             }
             state.setText(stat.name());
             completeEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    setCompleteService(true,user);
                     contextBox.setVisible(false);
                     contextBox.toBack();
                     completeEntry.setVisible(false);
@@ -265,7 +283,7 @@ public class serviceManagerController extends SceneController {
             deleteEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    DatabaseManager.delElement(sel.Medicine,user.getRef().getRequestID());
+                    DatabaseManager.delElement(sel.Emergency,user.getRef().getRequestID());
                     buildEmergency("");
                     contextBox.setVisible(false);
                     contextBox.toBack();
@@ -337,6 +355,7 @@ EmergencyCompletedColumn
                 String newEmp = emps.getSelectionModel().getSelectedItem();
                 user.getRef().setEmployee(newEmp);
                 DatabaseManager.modRequest(sel.InternalTransportation,user.getRef().getRequestID(),user.getRef());
+                buildInternal("");
             });
 
 //            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
@@ -368,20 +387,20 @@ EmergencyCompletedColumn
             if(user.getEmployee().equals("")){
                 stat = serviceStatus.UNASSIGNED;
                 state.setStyle("-fx-background-color: #FF0000;");
-            }
-            if(user.checkCompleted()){
-                stat = serviceStatus.COMPLETED;
-                state.setStyle("-fx-background-color: #00FF00;");
             }else{
-                stat = serviceStatus.PROGRESS;
-                state.setStyle("-fx-background-color: #0000FF;");
+                if(user.checkCompleted()){
+                    stat = serviceStatus.COMPLETED;
+                    state.setStyle("-fx-background-color: #00FF00;");
+                }else{
+                    stat = serviceStatus.PROGRESS;
+                    state.setStyle("-fx-background-color: #0f4b91;");
+                }
             }
             state.setText(stat.name());
             completeEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
                     System.out.println("Complete");
-                    setCompleteService(true,user);
                     contextBox.setVisible(false);
                     contextBox.toBack();
                     completeEntry.setVisible(false);
@@ -394,7 +413,6 @@ EmergencyCompletedColumn
             progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    setCompleteService(false,user);
                     contextBox.setVisible(false);
                     contextBox.toBack();
                     completeEntry.setVisible(false);
@@ -407,8 +425,8 @@ EmergencyCompletedColumn
             deleteEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    DatabaseManager.delElement(sel.Medicine,user.getRef().getRequestID());
-                    buildMedicine("");
+                    DatabaseManager.delElement(sel.InternalTransportation,user.getRef().getRequestID());
+                    buildInternal("");
                     contextBox.setVisible(false);
                     contextBox.toBack();
                     completeEntry.setVisible(false);
@@ -464,12 +482,19 @@ EmergencyCompletedColumn
             CheckBox checkBox = new CheckBox();
             JFXButton state = new JFXButton();
 
-            emps.setValue(user.employeeAssigned.get());
+//            if(user.getEmployeeAssigned().equals("")){
+//                emps.setValue("Unassigned");
+//            }else{
+                emps.setValue(user.employeeAssigned.get());
+            //}
+
 
             emps.getSelectionModel().selectedItemProperty().addListener((ov, old_val, new_val) -> {
                 String newEmp = emps.getSelectionModel().getSelectedItem();
                 user.getRef().setEmployee(newEmp);
+                user.getRef().setCompleted(false);
                 DatabaseManager.modRequest(sel.Medicine,user.getRef().getRequestID(),user.getRef());
+                buildMedicine("");
             });
 
 //            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
@@ -501,19 +526,19 @@ EmergencyCompletedColumn
             if(user.getEmployeeAssigned().equals("")){
                 stat = serviceStatus.UNASSIGNED;
                 state.setStyle("-fx-background-color: #FF0000;");
-            }
-            if(user.checkCompleted()){
-                stat = serviceStatus.COMPLETED;
-                state.setStyle("-fx-background-color: #00FF00;");
             }else{
-                stat = serviceStatus.PROGRESS;
-                state.setStyle("-fx-background-color: #0000FF;");
+                if(user.checkCompleted()){
+                    stat = serviceStatus.COMPLETED;
+                    state.setStyle("-fx-background-color: #00FF00;");
+                }else{
+                    stat = serviceStatus.PROGRESS;
+                    state.setStyle("-fx-background-color: #0f4b91;");
+                }
             }
             state.setText(stat.name());
             completeEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    setCompleteService(true,user);
                     contextBox.setVisible(false);
                     contextBox.toBack();
                     completeEntry.setVisible(false);
@@ -575,25 +600,21 @@ EmergencyCompletedColumn
         ExternalPatientRoomColumn = new TableColumn<et, String>("Patient Room");
         ExternalPatientRoomColumn.setMinWidth(100);
         ExternalPatientRoomColumn.setCellValueFactory(new PropertyValueFactory<et, String>("patientRoom"));
-        //ExternalPatientRoomColumn.setOnEditCommit(this::changePatientRoom);
 
 
         currentRoomColumn = new TableColumn<et, String>("Current Room");
         currentRoomColumn.setMinWidth(100);
         currentRoomColumn.setCellValueFactory(new PropertyValueFactory<et, String>("currentRoom"));
-        //currentRoomColumn.setOnEditCommit(this::changeCurrentRoom);
 
 
         externalRoomColumn = new TableColumn<et, String>("External Room");
         externalRoomColumn.setMinWidth(100);
         externalRoomColumn.setCellValueFactory(new PropertyValueFactory<et, String>("externalRoom"));
-        //externalRoomColumn.setOnEditCommit(this::changeExternalRoom);
 
 
         transportationMethodColumn = new TableColumn<et, String>("Transportation Method");
         transportationMethodColumn.setMinWidth(100);
         transportationMethodColumn.setCellValueFactory(new PropertyValueFactory<et, String>("transportationMethod"));
-        //transportationMethodColumn.setOnEditCommit(this::changeTransport);
 
 
         ExternalEmployeeColumn = new TableColumn<et, JFXComboBox>("Employee");
@@ -612,7 +633,8 @@ EmergencyCompletedColumn
             emps.getSelectionModel().selectedItemProperty().addListener((ov, old_val, new_val) -> {
                 String newEmp = emps.getSelectionModel().getSelectedItem();
                 user.getRef().setEmployee(newEmp);
-                DatabaseManager.modRequest(sel.Medicine,user.getRef().getRequestID(),user.getRef());
+                DatabaseManager.modRequest(sel.ExternalTransportation,user.getRef().getRequestID(),user.getRef());
+                buildExternal("");
             });
 
 //            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
@@ -627,7 +649,6 @@ EmergencyCompletedColumn
 
 
         });
-        //ExternalEmployeeColumn.setOnEditCommit(this::changeEmployee);
 
 
         ExternalCompletedColumn = new TableColumn<et, JFXButton>("Completed");
@@ -666,13 +687,14 @@ EmergencyCompletedColumn
             if(user.getEmployeeAssigned().equals("")){
                 stat = serviceStatus.UNASSIGNED;
                 state.setStyle("-fx-background-color: #FF0000;");
-            }
-            if(user.checkCompleted()){
-                stat = serviceStatus.COMPLETED;
-                state.setStyle("-fx-background-color: #00FF00;");
             }else{
-                stat = serviceStatus.PROGRESS;
-                state.setStyle("-fx-background-color: #0000FF;");
+                if(user.checkCompleted()){
+                    stat = serviceStatus.COMPLETED;
+                    state.setStyle("-fx-background-color: #00FF00;");
+                }else{
+                    stat = serviceStatus.PROGRESS;
+                    state.setStyle("-fx-background-color: #0f4b91;");
+                }
             }
             state.setText(stat.name());
             completeEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -705,7 +727,7 @@ EmergencyCompletedColumn
                 @Override
                 public void handle(MouseEvent event) {
                     DatabaseManager.delElement(sel.ExternalTransportation,user.getRef().getRequestID());
-                    buildMedicine("");
+                    buildExternal("");
                     contextBox.setVisible(false);
                     contextBox.toBack();
                     completeEntry.setVisible(false);
@@ -729,7 +751,6 @@ EmergencyCompletedColumn
 
 
         });
-        //ExternalCompletedColumn.setOnEditCommit(this::changeCompleted);
         buildExternal("");
     }
 
@@ -766,6 +787,7 @@ EmergencyCompletedColumn
                 String newEmp = emps.getSelectionModel().getSelectedItem();
                 user.getRef().setEmployee(newEmp);
                 DatabaseManager.modRequest(sel.FoodDelivery,user.getRef().getRequestID(),user.getRef());
+                buildFood("");
             });
 
 //            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
@@ -817,13 +839,14 @@ EmergencyCompletedColumn
             if(user.getEmployeeAssigned().equals("")){
                 stat = serviceStatus.UNASSIGNED;
                 state.setStyle("-fx-background-color: #FF0000;");
-            }
-            if(user.checkCompleted()){
-                stat = serviceStatus.COMPLETED;
-                state.setStyle("-fx-background-color: #00FF00;");
             }else{
-                stat = serviceStatus.PROGRESS;
-                state.setStyle("-fx-background-color: #0000FF;");
+                if(user.checkCompleted()){
+                    stat = serviceStatus.COMPLETED;
+                    state.setStyle("-fx-background-color: #00FF00;");
+                }else{
+                    stat = serviceStatus.PROGRESS;
+                    state.setStyle("-fx-background-color: #0f4b91;");
+                }
             }
             //state.setStyle("-fx-text-fill: #FFFFFF;");
             //state.setStyle("-fx-font-weight: bolder;");
@@ -859,7 +882,7 @@ EmergencyCompletedColumn
                 @Override
                 public void handle(MouseEvent event) {
                     DatabaseManager.delElement(sel.FoodDelivery,user.getRef().getRequestID());
-                    buildMedicine("");
+                    buildFood("");
                     contextBox.setVisible(false);
                     contextBox.toBack();
                     completeEntry.setVisible(false);
@@ -916,7 +939,8 @@ EmergencyCompletedColumn
             emps.getSelectionModel().selectedItemProperty().addListener((ov, old_val, new_val) -> {
                 String newEmp = emps.getSelectionModel().getSelectedItem();
                 user.getRef().setEmployee(newEmp);
-                DatabaseManager.modRequest(sel.Medicine,user.getRef().getRequestID(),user.getRef());
+                DatabaseManager.modRequest(sel.ReligiousRequest,user.getRef().getRequestID(),user.getRef());
+                buildReligion("");
             });
 
 //            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
@@ -968,13 +992,14 @@ EmergencyCompletedColumn
             if(user.getEmployeeAssigned().equals("")){
                 stat = serviceStatus.UNASSIGNED;
                 state.setStyle("-fx-background-color: #FF0000;");
-            }
-            if(user.checkCompleted()){
-                stat = serviceStatus.COMPLETED;
-                state.setStyle("-fx-background-color: #00FF00;");
             }else{
-                stat = serviceStatus.PROGRESS;
-                state.setStyle("-fx-background-color: #0000FF;");
+                if(user.checkCompleted()){
+                    stat = serviceStatus.COMPLETED;
+                    state.setStyle("-fx-background-color: #00FF00;");
+                }else{
+                    stat = serviceStatus.PROGRESS;
+                    state.setStyle("-fx-background-color: #0f4b91;");
+                }
             }
             state.setText(stat.name());
             completeEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -1007,7 +1032,7 @@ EmergencyCompletedColumn
                 @Override
                 public void handle(MouseEvent event) {
                     DatabaseManager.delElement(sel.ReligiousRequest,user.getRef().getRequestID());
-                    buildMedicine("");
+                    buildReligion("");
                     contextBox.setVisible(false);
                     contextBox.toBack();
                     completeEntry.setVisible(false);
@@ -1060,12 +1085,16 @@ EmergencyCompletedColumn
             CheckBox checkBox = new CheckBox();
             JFXButton state = new JFXButton();
 
+            if(user.employeeAssigned.get().equals("")){
+
+            }
             emps.setValue(user.employeeAssigned.get());
 
             emps.getSelectionModel().selectedItemProperty().addListener((ov, old_val, new_val) -> {
                 String newEmp = emps.getSelectionModel().getSelectedItem();
                 user.getRef().setEmployee(newEmp);
-                DatabaseManager.modRequest(sel.Medicine,user.getRef().getRequestID(),user.getRef());
+                DatabaseManager.modRequest(sel.LanguageInterperter,user.getRef().getRequestID(),user.getRef());
+                buildTranslate("");
             });
 
 //            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
@@ -1117,13 +1146,14 @@ EmergencyCompletedColumn
             if(user.getEmployeeAssigned().equals("")){
                 stat = serviceStatus.UNASSIGNED;
                 state.setStyle("-fx-background-color: #FF0000;");
-            }
-            if(user.checkCompleted()){
-                stat = serviceStatus.COMPLETED;
-                state.setStyle("-fx-background-color: #00FF00;");
             }else{
-                stat = serviceStatus.PROGRESS;
-                state.setStyle("-fx-background-color: #0000FF;");
+                if(user.checkCompleted()){
+                    stat = serviceStatus.COMPLETED;
+                    state.setStyle("-fx-background-color: #00FF00;");
+                }else{
+                    stat = serviceStatus.PROGRESS;
+                    state.setStyle("-fx-background-color: #0f4b91;");
+                }
             }
             state.setText(stat.name());
             completeEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -1156,7 +1186,7 @@ EmergencyCompletedColumn
                 @Override
                 public void handle(MouseEvent event) {
                     DatabaseManager.delElement(sel.LanguageInterperter,user.getRef().getRequestID());
-                    buildMedicine("");
+                    buildTranslate("");
                     contextBox.setVisible(false);
                     contextBox.toBack();
                     completeEntry.setVisible(false);
@@ -1222,7 +1252,8 @@ EmergencyCompletedColumn
             emps.getSelectionModel().selectedItemProperty().addListener((ov, old_val, new_val) -> {
                 String newEmp = emps.getSelectionModel().getSelectedItem();
                 user.getRef().setEmployee(newEmp);
-                DatabaseManager.modRequest(sel.Medicine,user.getRef().getRequestID(),user.getRef());
+                DatabaseManager.modRequest(sel.SanitationServices,user.getRef().getRequestID(),user.getRef());
+                buildSanitation("");
             });
 
 //            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
@@ -1274,13 +1305,14 @@ EmergencyCompletedColumn
             if(user.getEmployeeAssigned().equals("")){
                 stat = serviceStatus.UNASSIGNED;
                 state.setStyle("-fx-background-color: #FF0000;");
-            }
-            if(user.checkCompleted()){
-                stat = serviceStatus.COMPLETED;
-                state.setStyle("-fx-background-color: #00FF00;");
             }else{
-                stat = serviceStatus.PROGRESS;
-                state.setStyle("-fx-background-color: #0000FF;");
+                if(user.checkCompleted()){
+                    stat = serviceStatus.COMPLETED;
+                    state.setStyle("-fx-background-color: #00FF00;");
+                }else{
+                    stat = serviceStatus.PROGRESS;
+                    state.setStyle("-fx-background-color: #0f4b91;");
+                }
             }
             state.setText(stat.name());
             completeEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -1313,7 +1345,7 @@ EmergencyCompletedColumn
                 @Override
                 public void handle(MouseEvent event) {
                     DatabaseManager.delElement(sel.SanitationServices,user.getRef().getRequestID());
-                    buildMedicine("");
+                    buildSanitation("");
                     contextBox.setVisible(false);
                     contextBox.toBack();
                     completeEntry.setVisible(false);
@@ -1350,9 +1382,9 @@ EmergencyCompletedColumn
         DOBColumn.setMinWidth(100);
         DOBColumn.setCellValueFactory(new PropertyValueFactory<cs, String>("DOB"));
 
-        sickColumn = new TableColumn<cs, String>("Sick");
+        sickColumn = new TableColumn<cs, String>("Is Sick");
         sickColumn.setMinWidth(100);
-        sickColumn.setCellValueFactory(new PropertyValueFactory<cs, String>("Is Sick"));
+        sickColumn.setCellValueFactory(new PropertyValueFactory<cs, String>("sick"));
 
         vaxxColumn = new TableColumn<cs, String>("Is Vaccinated");
         vaxxColumn.setMinWidth(100);
@@ -1365,6 +1397,158 @@ EmergencyCompletedColumn
         testColumn = new TableColumn<cs, String>("Tested");
         testColumn.setMinWidth(100);
         testColumn.setCellValueFactory(new PropertyValueFactory<cs, String>("test"));
+
+        contactColumn = new TableColumn<cs, String>("Contact");
+        contactColumn.setMinWidth(100);
+        contactColumn.setCellValueFactory(new PropertyValueFactory<cs, String>("contact"));
+
+        admitColumn = new TableColumn<cs, JFXButton>("Admitted");
+        admitColumn.setMaxWidth(100);
+        admitColumn.setCellValueFactory(arg0 -> {
+
+            covidStatus stat;
+
+            cs user = arg0.getValue();
+
+            CheckBox checkBox = new CheckBox();
+            JFXButton state = new JFXButton();
+
+
+
+            if(user.isAdmit()){
+                stat = covidStatus.ADMIT;
+                state.setStyle("-fx-background-color: #00FF00;");
+            }else{
+                stat = covidStatus.RESTRICTED;
+                state.setStyle("-fx-background-color: #FF0000;");
+            }
+            state.setText(stat.name());
+            admitted.setOnMouseClicked(event -> {
+                setCompleteService(true,user);
+                covidContext.setVisible(false);
+                covidContext.setDisable(true);
+                covidContext.toBack();
+
+                user.getRef().setAdmit(true);
+                DatabaseManager.modRequest(sel.COVID,user.getRef().getRequestID(),user.getRef());
+                buildCovid("");
+            });
+
+            restricted.setOnMouseClicked(event -> {
+                setCompleteService(true,user);
+                covidContext.setVisible(false);
+                covidContext.setDisable(true);
+                covidContext.toBack();
+
+                user.getRef().setAdmit(false);
+                DatabaseManager.modRequest(sel.COVID,user.getRef().getRequestID(),user.getRef());
+                buildCovid("");
+            });
+
+            checkBox.selectedProperty().setValue(user.isCompleted());
+            state.setOnMouseClicked(e -> {
+                covidContext.setVisible(true);
+                covidContext.setDisable(false);
+                covidContext.toFront();
+
+                Point2D p = new Point2D(e.getSceneX(), e.getSceneY());
+                p = mainPane.sceneToLocal(p);
+                covidContext.relocate(p.getX(), p.getY());
+            });
+
+
+//            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+//
+//                setCompleteService(new_val, user);
+//                //user.setCompleted(new_val);
+//
+//            });
+
+            return new SimpleObjectProperty<JFXButton>(state);
+
+
+        });
+
+        CovidCompleteColumn = new TableColumn<cs, JFXButton>("Completed");
+        CovidCompleteColumn.setMaxWidth(100);
+        CovidCompleteColumn.setCellValueFactory(arg0 -> {
+
+
+            serviceStatus stat;
+
+            cs user = arg0.getValue();
+
+            CheckBox checkBox = new CheckBox();
+            JFXButton state = new JFXButton();
+
+
+
+            if(user.isCompleted()){
+                stat = serviceStatus.COMPLETED;
+                state.setStyle("-fx-background-color: #00FF00;");
+            }else{
+                stat = serviceStatus.PROGRESS;
+                state.setStyle("-fx-background-color: #0f4b91;");
+            }
+            state.setText(stat.name());
+            completeEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    contextBox.setVisible(false);
+                    contextBox.setDisable(true);
+                    contextBox.toBack();
+                    completeEntry.setVisible(false);
+                    progressEntry.setVisible(false);
+                    deleteEntry.setVisible(false);
+                    setCompleteService(true,user);
+                }
+            });
+
+            progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    setCompleteService(false,user);
+                    contextBox.setVisible(false);
+                    contextBox.setDisable(true);
+                    contextBox.toBack();
+                    completeEntry.setVisible(false);
+                    progressEntry.setVisible(false);
+                    deleteEntry.setVisible(false);
+                    setCompleteService(false,user);
+                }
+            });
+
+            deleteEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    DatabaseManager.delElement(sel.COVID,user.ref.getRequestID());
+                    buildCovid("");
+                    contextBox.setVisible(false);
+                    contextBox.setDisable(true);
+                    contextBox.toBack();
+                    completeEntry.setVisible(false);
+                    progressEntry.setVisible(false);
+                    deleteEntry.setVisible(false);
+                }
+            });
+
+            checkBox.selectedProperty().setValue(user.isCompleted());
+            state.setOnMouseClicked(showBox);
+
+
+//            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+//
+//                setCompleteService(new_val, user);
+//                //user.setCompleted(new_val);
+//
+//            });
+
+            return new SimpleObjectProperty<JFXButton>(state);
+
+
+        });
+
+
         buildCovid("");
     }
 
@@ -1411,7 +1595,10 @@ EmergencyCompletedColumn
                 sickColumn,
                 vaxxColumn,
                 travelColumn,
-                testColumn);
+                contactColumn,
+                testColumn,
+                admitColumn,
+                CovidCompleteColumn);
         return tableRow;
     }
 
@@ -1644,10 +1831,17 @@ EmergencyCompletedColumn
                     DatabaseManager.modRequest(sel.LanguageInterperter, ((tl) selected).getRef().getRequestID(), ((tl) selected).getRef());
                     buildTranslate("");
                 case "COVID Survey":
+                    ((cs) selected).setCompleted(val);
+                    ((cs) selected).getRef().setCompleted(val);
+                    DatabaseManager.modRequest(sel.COVID,((cs) selected).getRef().getRequestID(), ((cs)selected).getRef());
+                    buildCovid("");
                     //TODO: add to DB
                     break;
                 case "Internal Transport":
-                    //TODO: fix table issue
+                    ((it) selected).setCompleted(val);
+                    ((it) selected).getRef().setCompleted(val);
+                    DatabaseManager.modRequest(sel.COVID,((it) selected).getRef().getRequestID(), ((it)selected).getRef());
+                    buildInternal("");
                     break;
                 default:
                     break;
@@ -2209,6 +2403,7 @@ EmergencyCompletedColumn
             this.completed = completed;
         }
 
+
         public String getPatientIDTable() {
             return patientIDTable.get();
         }
@@ -2303,8 +2498,21 @@ EmergencyCompletedColumn
         public boolean contact;
         public StringProperty Symptoms;
         public boolean admit;
+        public boolean completed;
         public COVIDsurvey ref;
         LinkedList<String> fields;
+
+        public COVIDsurvey getRef() {
+            return ref;
+        }
+
+        public boolean isCompleted() {
+            return completed;
+        }
+
+        public void setCompleted(boolean completed) {
+            this.completed = completed;
+        }
 
         public cs(edu.wpi.MochaManticores.Services.ServiceRequest ref){
             this.ref = (COVIDsurvey) ref;
@@ -2317,6 +2525,7 @@ EmergencyCompletedColumn
             contact = ((COVIDsurvey) ref).isContact();
             Symptoms = new SimpleStringProperty(((COVIDsurvey) ref).getSymptoms());
             admit = ((COVIDsurvey) ref).isAdmit();
+            completed = ref.getCompleted();
             fields = new LinkedList<>(Arrays.asList(
                     name.get(),
                     DOB.get(),
@@ -2327,6 +2536,54 @@ EmergencyCompletedColumn
                     String.valueOf(contact),
                     Symptoms.get(),
                     String.valueOf(admit)));
+        }
+
+        public String getName() {
+            return name.get();
+        }
+
+        public StringProperty nameProperty() {
+            return name;
+        }
+
+        public String getDOB() {
+            return DOB.get();
+        }
+
+        public StringProperty DOBProperty() {
+            return DOB;
+        }
+
+        public boolean isSick() {
+            return sick;
+        }
+
+        public boolean isVaxx() {
+            return vaxx;
+        }
+
+        public boolean isTravel() {
+            return travel;
+        }
+
+        public boolean isTest() {
+            return test;
+        }
+
+        public boolean isContact() {
+            return contact;
+        }
+
+        public String getSymptoms() {
+            return Symptoms.get();
+        }
+
+        public StringProperty symptomsProperty() {
+            return Symptoms;
+        }
+
+        public boolean isAdmit() {
+            return admit;
         }
 
         public LinkedList<String> getFields() {
@@ -2417,6 +2674,11 @@ EmergencyCompletedColumn
         COMPLETED,
         PROGRESS,
         UNASSIGNED;
+    }
+
+    public enum covidStatus{
+        ADMIT,
+        RESTRICTED
     }
 
 

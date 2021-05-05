@@ -1,7 +1,9 @@
-#backBtn {
+.button {
     -fx-background-color: #0F4B91;
     -fx-font-family: Roboto;
-    -fx-font-size: 30;
+    -fx-background-radius: 40;
+    -fx-font-size: 15;
+    -fx-text-fill: white;
     -fx-font-weight: bold;
 }
 

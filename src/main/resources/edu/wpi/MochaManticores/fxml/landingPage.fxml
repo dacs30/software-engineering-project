@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
 <AnchorPane id="outerContainer" fx:id="outerPane" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../Stylesheets/landingPage.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.landingPageController">
    <children>
       <HBox fx:id="menuSidePane" alignment="CENTER_LEFT" onMouseClicked="#renderMenu" spacing="10.0" style="-fx-background-color: #E9E9E9;">
@@ -68,6 +77,14 @@
             <Insets bottom="10.0" left="20.0" top="10.0" />
          </padding>
       </HBox>
+      <HBox fx:id="servicesBox" alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" spacing="10.0" style="-fx-background-color: #E9E9E9;">
+         <children>
+            <Label id="menuSideBarLabel" prefHeight="48.0" prefWidth="153.0" stylesheets="@../Stylesheets/landingPage.css" text="Services" wrapText="true" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="20.0" top="10.0" />
+         </padding>
+      </HBox>
       <HBox fx:id="mapSidePane" alignment="CENTER_LEFT" onMouseClicked="#renderMapEditor" spacing="10.0" style="-fx-background-color: #E9E9E9;">
          <children>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
@@ -81,7 +98,7 @@
             <Insets />
          </opaqueInsets>
          <padding>
-            <Insets left="20.0" />
+            <Insets bottom="10.0" left="20.0" top="10.0" />
          </padding>
       </HBox>
       <HBox fx:id="foodDeliverySidePanel" alignment="CENTER_LEFT" onMouseClicked="#renderFoodDelivery" spacing="10.0" style="-fx-background-color: #E9E9E9;">
@@ -97,7 +114,7 @@
             <Insets />
          </opaqueInsets>
          <padding>
-            <Insets left="20.0" />
+            <Insets bottom="10.0" left="20.0" top="10.0" />
          </padding>
       </HBox>
       <HBox fx:id="medicineDeliverySidePanel" alignment="CENTER_LEFT" onMouseClicked="#renderMedicineDelivery" spacing="10.0" style="-fx-background-color: #E9E9E9;">
@@ -110,7 +127,7 @@
             <Label id="menuSideBarLabel" prefHeight="44.0" prefWidth="68.0" stylesheets="@../Stylesheets/landingPage.css" text="Medicine Delivery" wrapText="true" />
          </children>
          <padding>
-            <Insets left="20.0" />
+            <Insets bottom="10.0" left="20.0" top="10.0" />
          </padding>
       </HBox>
       <HBox fx:id="internalTransportationSidePanel" alignment="CENTER_LEFT" onMouseClicked="#renderInternalTransportation" spacing="10.0" style="-fx-background-color: #E9E9E9;">
@@ -123,10 +140,10 @@
             <Label id="menuSideBarLabel" prefHeight="48.0" prefWidth="153.0" stylesheets="@../Stylesheets/landingPage.css" text="Internal   Transportation" wrapText="true" />
          </children>
          <padding>
-            <Insets left="20.0" />
+            <Insets bottom="10.0" left="20.0" top="10.0" />
          </padding>
       </HBox>
-      <HBox fx:id="externalTransportationSidePanel" alignment="CENTER_LEFT" onMouseClicked="#renderExternalTransportation" prefHeight="48.0" prefWidth="241.0" spacing="10.0" style="-fx-background-color: #E9E9E9;">
+      <HBox fx:id="externalTransportationSidePanel" alignment="CENTER_LEFT" onMouseClicked="#renderExternalTransportation" spacing="10.0" style="-fx-background-color: #E9E9E9;">
          <children>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -136,7 +153,7 @@
             <Label id="menuSideBarLabel" prefHeight="48.0" prefWidth="153.0" stylesheets="@../Stylesheets/landingPage.css" text="External Transportation" wrapText="true" />
          </children>
          <padding>
-            <Insets left="20.0" />
+            <Insets bottom="10.0" left="20.0" top="10.0" />
          </padding>
       </HBox>
       <HBox fx:id="floralSceneSidePanel" alignment="CENTER_LEFT" onMouseClicked="#renderFloralScene" spacing="10.0" style="-fx-background-color: #E9E9E9;">
@@ -149,7 +166,7 @@
             <Label id="menuSideBarLabel" prefHeight="48.0" prefWidth="153.0" stylesheets="@../Stylesheets/landingPage.css" text="Floral Delivery" wrapText="true" />
          </children>
          <padding>
-            <Insets left="20.0" />
+            <Insets bottom="10.0" left="20.0" top="10.0" />
          </padding>
       </HBox>
       <HBox fx:id="sanitationSideMenu" alignment="CENTER_LEFT" onMouseClicked="#renderSanitationServices" spacing="10.0" style="-fx-background-color: #E9E9E9;">
@@ -162,7 +179,7 @@
             <Label id="menuSideBarLabel" prefHeight="48.0" prefWidth="153.0" stylesheets="@../Stylesheets/landingPage.css" text="Sanitation" wrapText="true" />
          </children>
          <padding>
-            <Insets left="20.0" />
+            <Insets bottom="10.0" left="20.0" top="10.0" />
          </padding>
       </HBox>
       <HBox fx:id="surveySideMenu" alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" onMouseClicked="#renderCovidSurvey" spacing="10.0" style="-fx-background-color: #E9E9E9;">
@@ -175,7 +192,7 @@
             <Label id="menuSideBarLabel" prefHeight="48.0" prefWidth="153.0" stylesheets="@../Stylesheets/landingPage.css" text="Covid Survey" wrapText="true" />
          </children>
          <padding>
-            <Insets left="20.0" />
+            <Insets bottom="10.0" left="20.0" top="10.0" />
          </padding>
       </HBox>
       <StackPane fx:id="dialogPane" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -195,8 +212,8 @@
               </columnConstraints>
               <rowConstraints>
                   <RowConstraints maxHeight="234.0" minHeight="89.0" percentHeight="15.0" prefHeight="106.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="180.0" minHeight="10.0" percentHeight="10.0" prefHeight="163.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="1.7976931348623157E308" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="180.0" minHeight="10.0" percentHeight="10.0" prefHeight="96.88888549804688" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="493.77777099609375" prefHeight="503.1111145019531" vgrow="ALWAYS" />
                   <RowConstraints maxHeight="534.9629821777344" percentHeight="10.0" vgrow="NEVER" />
               </rowConstraints>
                <children>
@@ -226,8 +243,8 @@
                         <Label fx:id="greetingLabel" text="Hello, USERNAME" />
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                            <children>
-                              <JFXButton alignment="TOP_LEFT" buttonType="RAISED" contentDisplay="CENTER" onAction="#logOut" prefHeight="16.0" prefWidth="59.0" style="-fx-background-color: #0F4B91;" text="Log out" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
-                              <JFXButton fx:id="userButton" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#userSettings" prefHeight="25.0" prefWidth="85.0" style="-fx-background-color: #0F4B91;" text="User settings" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
+                              <JFXButton alignment="TOP_LEFT" buttonType="RAISED" contentDisplay="CENTER" style="-fx-background-color: #0F4B91;" text="Log out" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
+                              <JFXButton fx:id="userButton" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" style="-fx-background-color: #0F4B91;" text="User settings" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
                            </children>
                         </HBox>
                      </children>

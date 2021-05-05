@@ -19,7 +19,7 @@ public class TranslatorControllerEmployee extends SceneController{
 
 
     ObservableList<String> availableLanguages = FXCollections
-            .observableArrayList("English","Spanish","Mandarin");
+            .observableArrayList("English","Spanish","Mandarin","Russian");
 
     @FXML
     private JFXTextField roomNumber;

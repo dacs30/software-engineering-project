@@ -119,7 +119,7 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <TableView fx:id="covidTable" layoutY="7.0" prefHeight="449.0" prefWidth="991.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <TableView fx:id="covidTable" layoutY="7.0" prefHeight="449.0" prefWidth="991.0" stylesheets="@../jfx-tree-table-view.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                            </content>
@@ -128,7 +128,7 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <TableView fx:id="internalTable" layoutY="7.0" prefHeight="449.0" prefWidth="991.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <TableView fx:id="internalTable" layoutY="7.0" prefHeight="449.0" prefWidth="991.0" stylesheets="@../jfx-tree-table-view.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                            </content>
@@ -137,7 +137,7 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <TableView fx:id="emergencyTable" layoutY="7.0" prefHeight="449.0" prefWidth="991.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <TableView fx:id="emergencyTable" layoutY="7.0" prefHeight="449.0" prefWidth="991.0" stylesheets="@../jfx-tree-table-view.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                            </content>
@@ -146,7 +146,7 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <TableView fx:id="medicineDeliveryTable6" layoutY="7.0" prefHeight="449.0" prefWidth="991.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <TableView fx:id="medicineDeliveryTable6" layoutY="7.0" prefHeight="449.0" prefWidth="991.0" stylesheets="@../jfx-tree-table-view.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                            </content>
@@ -155,7 +155,7 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <TableView fx:id="medicineDeliveryTable4" layoutY="7.0" prefHeight="449.0" prefWidth="991.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <TableView fx:id="medicineDeliveryTable4" layoutY="7.0" prefHeight="449.0" prefWidth="991.0" stylesheets="@../jfx-tree-table-view.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                            </content>
@@ -189,6 +189,28 @@
             <Group fx:id="deleteEntry">
                <children>
                   <Label text="Delete Entry" />
+                  <Separator layoutY="17.0" prefWidth="200.0" style="-fx-background-color: GREY;" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Group>
+         </children>
+      </VBox>
+      <VBox fx:id="covidContext" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" spacing="10.0" style="-fx-background-color: WHITE; -fx-border-color: BLACK; -fx-border-width: 3;">
+         <children>
+            <Group fx:id="admitted">
+               <children>
+                  <Label text="Admitted" />
+                  <Separator layoutY="17.0" prefWidth="200.0" style="-fx-background-color: GREY;" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Group>
+            <Group fx:id="restricted">
+               <children>
+                  <Label text="Restricted" />
                   <Separator layoutY="17.0" prefWidth="200.0" style="-fx-background-color: GREY;" />
                </children>
                <VBox.margin>

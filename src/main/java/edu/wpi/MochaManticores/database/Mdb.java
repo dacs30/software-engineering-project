@@ -4,6 +4,7 @@ package edu.wpi.MochaManticores.database;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Services.FloralDelivery;
 import edu.wpi.MochaManticores.Services.SanitationServices;
+import org.apache.derby.drda.*;
 
 import javax.xml.crypto.Data;
 import java.io.FileNotFoundException;
@@ -13,14 +14,15 @@ import java.util.Scanner;
 
 public class Mdb extends Thread{
 
-    private static DatabaseMetaData meta;
-    private static Connection connection = null;
-    public static String JDBC_URL = "jdbc:derby:Mdatabase;create=true";
+    private DatabaseMetaData meta;
+    private Connection connection = null;
+    public String JDBC_EMBED = "jdbc:derby:Mdatabase;create=true";
+    public String JDBC_SERVER = "jdbc:derby://localhost:1527/Mdatabase;create=true";
 
     /* function nodeStartup()
      * creates the node table if it does not already exist, then populates the table and map
      */
-    public static void nodeStartup() throws SQLException {
+    public void nodeStartup() throws SQLException {
         Statement stmt = connection.createStatement();
         //create data tables
         try {
@@ -51,7 +53,7 @@ public class Mdb extends Thread{
     /* function edgeStartup()
      * creates the edge table if it does not already exist, then populates the table and map
      */
-    public static void edgeStartup() throws SQLException {
+    public void edgeStartup() throws SQLException {
         Statement stmt = connection.createStatement();
         try {
             ResultSet rs = meta.getTables(null, "APP", "EDGES", null);
@@ -78,7 +80,7 @@ public class Mdb extends Thread{
     /* function employeeStartup()
      * creates the employee table if it does not already exist, then populates the table
      */
-    public static void employeeStartup() throws SQLException {
+    public void employeeStartup() throws SQLException {
         Statement stmt = connection.createStatement();
         try {
             ResultSet rs = meta.getTables(null, "APP", "EMPLOYEES", null);
@@ -108,7 +110,7 @@ public class Mdb extends Thread{
         }
     }
 
-    public static void EXTtransportStartup() throws SQLException {
+    public void EXTtransportStartup() throws SQLException {
         Statement stmt = connection.createStatement();
         try {
             ResultSet rs = meta.getTables(null, "APP", "EMPLOYEES", null);
@@ -135,7 +137,7 @@ public class Mdb extends Thread{
         }
     }
 
-    public static void FloralDeliveryStartup() throws SQLException {
+    public void FloralDeliveryStartup() throws SQLException {
         Statement stmt = connection.createStatement();
         try {
             ResultSet rs = meta.getTables(null, "APP", "EMPLOYEES", null);
@@ -163,7 +165,7 @@ public class Mdb extends Thread{
         }
     }
 
-    public static void FoodDeliveryStartup() throws SQLException {
+    public void FoodDeliveryStartup() throws SQLException {
         Statement stmt = connection.createStatement();
         try {
             ResultSet rs = meta.getTables(null, "APP", "EMPLOYEES", null);
@@ -189,7 +191,7 @@ public class Mdb extends Thread{
         }
     }
 
-    public static void InternalTransportationStartup() throws SQLException {
+    public void InternalTransportationStartup() throws SQLException {
         Statement stmt = connection.createStatement();
         try {
             ResultSet rs = meta.getTables(null, "APP", "EMPLOYEES", null);
@@ -216,7 +218,7 @@ public class Mdb extends Thread{
         }
     }
 
-    public static void SanitationServicesStartup() throws SQLException {
+    public void SanitationServicesStartup() throws SQLException {
         Statement stmt = connection.createStatement();
         try {
             ResultSet rs = meta.getTables(null, "APP", "EMPLOYEES", null);
@@ -244,7 +246,7 @@ public class Mdb extends Thread{
         }
     }
 
-    public static void EmergencyRequestStartup() throws SQLException {
+    public void EmergencyRequestStartup() throws SQLException {
         Statement stmt = connection.createStatement();
         try {
             ResultSet rs = meta.getTables(null, "APP", "EMPLOYEES", null);
@@ -270,7 +272,7 @@ public class Mdb extends Thread{
         }
     }
 
-    public static void ReligiousRequestStartup() throws SQLException {
+    public void ReligiousRequestStartup() throws SQLException {
         Statement stmt = connection.createStatement();
         try {
             ResultSet rs = meta.getTables(null, "APP", "EMPLOYEES", null);
@@ -296,7 +298,7 @@ public class Mdb extends Thread{
         }
     }
 
-    public static void MedicineRequestStartup() throws SQLException {
+    public void MedicineRequestStartup() throws SQLException {
         Statement stmt = connection.createStatement();
         try {
             ResultSet rs = meta.getTables(null, "APP", "EMPLOYEES", null);
@@ -323,7 +325,7 @@ public class Mdb extends Thread{
         }
     }
 
-    public static void LaundryRequestStartup() throws SQLException {
+    public void LaundryRequestStartup() throws SQLException {
         Statement stmt = connection.createStatement();
         try {
             ResultSet rs = meta.getTables(null, "APP", "EMPLOYEES", null);
@@ -352,7 +354,7 @@ public class Mdb extends Thread{
         }
     }
 
-    public static void LanguageInterpreterStartup() throws SQLException {
+    public void LanguageInterpreterStartup() throws SQLException {
         Statement stmt = connection.createStatement();
         try {
             ResultSet rs = meta.getTables(null, "APP", "EMPLOYEES", null);
@@ -378,7 +380,7 @@ public class Mdb extends Thread{
         }
     }
 
-    public static void CovidSurveyStartup() throws SQLException {
+    public void CovidSurveyStartup() throws SQLException {
         Statement stmt = connection.createStatement();
         try {
             ResultSet rs = meta.getTables(null, "APP", "EMPLOYEES", null);
@@ -412,11 +414,11 @@ public class Mdb extends Thread{
 
 
 
-
-    /* function databaseStartup()
-     * creates database connection and calls startup threads
+    /*
+    function embedded startup()
+    starts the embedded database connection
      */
-    public static void databaseStartup() throws InterruptedException, SQLException {
+    public void embeddedStartup(){
         System.out.println("-------Embedded Apache Derby Connection Testing --------");
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
@@ -435,7 +437,7 @@ public class Mdb extends Thread{
         connection = null;
 
         try {
-            connection = DriverManager.getConnection(JDBC_URL);
+            connection = DriverManager.getConnection(JDBC_EMBED);
             DatabaseManager.setConnection(connection);
             meta = connection.getMetaData();
         } catch (SQLException e) {
@@ -443,7 +445,59 @@ public class Mdb extends Thread{
             e.printStackTrace();
             return;
         }
+    }
 
+    /*
+    function serverStartup()
+    starts Mdatabase with a server connection
+     */
+    // TODO update method for all connected databases using an observer model
+    public void serverStartup() {
+        System.out.println("-------Server-Client Apache Derby Connection--------");
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Apache Derby Driver not found. Add the classpath to your module.");
+            System.out.println("For IntelliJ do the following:");
+            System.out.println("File | Project Structure, Modules, Dependency tab");
+            System.out.println("Add by clicking on the green plus icon on the right of the window");
+            System.out.println("Select JARs or directories. Go to the folder where the database JAR is located");
+            System.out.println("Click OK, now you can compile your program and run it.");
+            e.printStackTrace();
+            return;
+        }
+
+        // start network server
+        try {
+            NetworkServerControl server = new NetworkServerControl();
+            server.start(null);
+            } catch (Exception e) {
+                e.printStackTrace();
+        }
+
+        System.out.println("Apache Derby driver registered!\n");
+        connection = null;
+
+        try {
+            connection = DriverManager.getConnection(JDBC_SERVER);
+            DatabaseManager.setConnection(connection);
+            meta = connection.getMetaData();
+        } catch (SQLException e) {
+            System.out.println("Connection failed. Check output console.");
+            e.printStackTrace();
+            return;
+        }
+    }
+
+    /* function databaseStartup()
+     * creates database connection and calls startup threads
+     */
+    public void databaseStartup(boolean embedded) throws InterruptedException, SQLException {
+        if(embedded){
+            embeddedStartup();
+        }else{
+            serverStartup();
+        }
         //create hashmaps here
         DatabaseManager.getServiceMap();
 
@@ -592,7 +646,7 @@ public class Mdb extends Thread{
     /* function databaseShutdown()
      * clears connection and saves the tables.
      */
-    public static void databaseShutdown(){
+    public void databaseShutdown(){
         try {
             for(sel s : sel.values()){
                 DatabaseManager.getManager(s).saveElements();

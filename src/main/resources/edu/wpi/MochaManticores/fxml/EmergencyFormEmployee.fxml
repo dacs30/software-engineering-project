@@ -80,6 +80,7 @@
                       <RowConstraints maxHeight="177.66665649414062" minHeight="10.0" prefHeight="171.14816284179688" valignment="CENTER" vgrow="SOMETIMES" />
                       <RowConstraints maxHeight="182.14822387695312" minHeight="10.0" prefHeight="127.85183715820312" valignment="CENTER" vgrow="SOMETIMES" />
                       <RowConstraints maxHeight="123.07403564453125" minHeight="10.0" prefHeight="89.33331298828125" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="123.07403564453125" minHeight="10.0" prefHeight="89.33331298828125" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <GridPane>
@@ -108,7 +109,8 @@
                               <JFXTextField fx:id="roomNumber" focusColor="WHITE" labelFloat="true" promptText="Room number or name" GridPane.rowIndex="1" />
                            </children>
                         </GridPane>
-                        <JFXCheckBox checkedColor="#0f4b91" text="Gurney" textFill="WHITE" unCheckedColor="WHITE" GridPane.rowIndex="2" />
+                        <JFXCheckBox fx:id="gurney" checkedColor="#0f4b91" text="Gurney" textFill="WHITE" unCheckedColor="WHITE" GridPane.rowIndex="2" />
+                        <JFXComboBox fx:id="employeeAssigned" prefWidth="400.0" promptText="Assign to employee" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
                   <JFXButton id="submitBtn" onAction="#submitEmergency" text="SUBMIT" GridPane.rowIndex="2" />
