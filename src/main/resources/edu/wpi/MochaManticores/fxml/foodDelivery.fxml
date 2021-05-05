@@ -4,7 +4,6 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDialog?>
 <?import com.jfoenix.controls.JFXTextArea?>
-<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
@@ -49,7 +48,6 @@
                   <RowConstraints maxHeight="118.66668701171875" minHeight="10.0" prefHeight="118.66668701171875" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="124.33331298828125" minHeight="10.0" prefHeight="92.33331298828125" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="161.33331298828125" minHeight="10.0" prefHeight="137.33331298828125" valignment="CENTER" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="170.66668701171875" minHeight="10.0" prefHeight="145.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="102.33331298828125" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="90.66668701171875" minHeight="10.0" prefHeight="90.66668701171875" vgrow="SOMETIMES" />
               </rowConstraints>
@@ -57,12 +55,11 @@
                   <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
                </effect>
                <children>
-                  <JFXComboBox fx:id="dietaryPreferences" focusColor="WHITE" promptText="Dietary Preferences" unFocusColor="WHITE" GridPane.rowIndex="1" />
-                  <JFXComboBox fx:id="foodMenu" focusColor="WHITE" promptText="Menu" stylesheets="@../Stylesheets/foodDelivery.css" unFocusColor="WHITE" GridPane.rowIndex="4" />
-                  <JFXButton id="submitBtn" onAction="#submitForm" text="SUBMIT" GridPane.rowIndex="5" />
-                  <JFXTextField fx:id="empBox" focusColor="#bababa" labelFloat="true" maxHeight="-Infinity" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="800.0" promptText="Assign To Employee" stylesheets="@../Stylesheets/foodDelivery.css" GridPane.rowIndex="3" />
+                  <JFXComboBox fx:id="dietaryPreferences" focusColor="WHITE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="250.0" promptText="Dietary Preferences" unFocusColor="WHITE" GridPane.rowIndex="1" />
+                  <JFXComboBox fx:id="foodMenu" focusColor="WHITE" prefWidth="250.0" promptText="Menu" stylesheets="@../Stylesheets/foodDelivery.css" unFocusColor="WHITE" GridPane.rowIndex="2" />
+                  <JFXButton id="submitBtn" onAction="#submitForm" text="SUBMIT" GridPane.rowIndex="4" />
                   <Label id="foodDeliveryTitleLabel" stylesheets="@../stylesheets.css" text="Food Delivery" textFill="WHITE" />
-                  <JFXTextArea id="allergiesPrompt" fx:id="allergiesField" focusColor="WHITE" labelFloat="true" promptText="Allergies" style="-fx-font-weight: bold;" stylesheets="@../Stylesheets/foodDelivery.css" unFocusColor="WHITE" GridPane.rowIndex="2">
+                  <JFXTextArea id="allergiesPrompt" fx:id="allergiesField" focusColor="WHITE" labelFloat="true" promptText="Allergies" style="-fx-font-weight: bold;" stylesheets="@../Stylesheets/foodDelivery.css" unFocusColor="WHITE" GridPane.rowIndex="3">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>

@@ -33,16 +33,6 @@ public class mapEdit {
         return true;
     }
 
-    public Connection getConnection() throws SQLException {
-        try {
-            return DriverManager.getConnection(Mdb.JDBC_URL);
-        } catch (SQLException sqlException) {
-            System.out.println("Connection failed. Check output console.");
-            sqlException.printStackTrace();
-            throw new SQLException();
-        }
-    }
-
     public String getPath() {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         File selectedDirectory = directoryChooser.showDialog(App.getPrimaryStage());

@@ -3,17 +3,20 @@ package edu.wpi.MochaManticores.database;
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import edu.wpi.MochaManticores.Exceptions.InvalidLoginException;
 import edu.wpi.MochaManticores.Exceptions.InvalidPermissionsException;
-import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.Nodes.EdgeSuper;
-import edu.wpi.MochaManticores.Services.SanitationServices;
+import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.Services.ServiceMap;
 import edu.wpi.MochaManticores.Services.ServiceRequest;
+import javafx.util.Pair;
 
 import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.LinkedList;
+
 public class DatabaseManager{
     private static Connection connection = null;
+    private static Mdb mdb = null;
     private static EmployeeManager empManager = null;
     private static NodeManager nodeManager = null;
     private static EdgeManager edgeManager = null;
@@ -28,6 +31,7 @@ public class DatabaseManager{
     private static MedicineRequestManager medicineRequestManager = null;
     private static LaundryManager laundryManager = null;
     private static LanguageInterpreterManager languageInterpreterManager = null;
+    private static COVIDmanager coviDmanager = null;
 
     private static ServiceMap serviceMap = null;
 
@@ -39,7 +43,8 @@ public class DatabaseManager{
      */
     public static void startup(){
         try{
-            Mdb.databaseStartup();
+            getMdb().databaseStartup(false); // start with server connection
+
         }catch(InterruptedException | SQLException e){
             e.printStackTrace();
         }
@@ -50,7 +55,7 @@ public class DatabaseManager{
      *  @return void
      */
     public static void shutdown(){
-        Mdb.databaseShutdown();
+        getMdb().databaseShutdown();
     }
 
     // ==== Manager Methods === //
@@ -86,7 +91,7 @@ public class DatabaseManager{
      */
     public static void addNode(NodeSuper node){
         getNodeManager().addElement(node);
-    };
+    }
 
     /*  function: addEdge()
      *  adds an Edge to the database and EdgeMapSuper()
@@ -94,7 +99,7 @@ public class DatabaseManager{
      */
     public static void addEdge(EdgeSuper edge){
         getEdgeManager().addElement(edge);
-    };
+    }
 
     /*  function: addEmployee()
      *  adds an employee to the database
@@ -102,7 +107,7 @@ public class DatabaseManager{
      */
     public static void addEmployee(Employee employee){
         getEmpManager().addElement(employee);
-    };
+    }
 
     /*  function: addElement()
      *  deletes a selected element with a given ID
@@ -203,6 +208,15 @@ public class DatabaseManager{
         return getManager(s).getCSV_path();
     }
 
+    /* function: getElementIDs()
+     * returns a linked list of strings that contains all node names
+     */
+    public static LinkedList<Pair<String,String>> getElementIDs(){
+        //TODO abstract to work with all types
+        return getNodeManager().getElementIDs();
+    }
+
+
     // ==== Employee specials ==== //
 
     /*  function:  checkEmployeeLogin()
@@ -211,6 +225,14 @@ public class DatabaseManager{
      */
     public static Employee checkEmployeeLogin(String usr, String pass) throws InvalidLoginException, InvalidElementException {
         return getEmpManager().checkEmployeeLogin(usr,pass);
+    }
+
+    /* function: getEmployeeNamesList()
+     * returns a linked list of strings that contains all employee names
+     */
+    public static LinkedList<String> getEmployeeNames(){
+        //TODO abstract to work with all types
+        return getEmpManager().getEmployeeNames();
     }
 
     /*  function:  checkAdminLogin()
@@ -254,6 +276,8 @@ public class DatabaseManager{
                 return getMedicineRequestManager();
             case Laundry:
                 return getLaundryManager();
+            case COVID:
+                return getCOVIDManager();
             default:
                 System.out.println("No Manager Found");
                 return null;
@@ -309,6 +333,13 @@ public class DatabaseManager{
 
     public static void setConnection(Connection connection) {
         DatabaseManager.connection = connection;
+    }
+
+    public static  Mdb getMdb(){
+        if(mdb == null){
+            mdb = new Mdb();
+        }
+        return mdb;
     }
 
     public static EmployeeManager getEmpManager() {
@@ -407,6 +438,13 @@ public class DatabaseManager{
             languageInterpreterManager = new LanguageInterpreterManager(connection, null);
         }
         return languageInterpreterManager;
+    }
+
+    public static COVIDmanager getCOVIDManager() {
+        if(coviDmanager == null){
+            coviDmanager = new COVIDmanager(connection, null);
+        }
+        return coviDmanager;
     }
 
 

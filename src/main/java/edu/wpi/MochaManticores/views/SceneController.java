@@ -73,7 +73,7 @@ public class SceneController{
         try {
             landingPageWindow.getChildren().clear();
         } catch (Exception e) {
-            //e.printStackTrace();
+            e.printStackTrace();
         }
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/" + scene + ".fxml")));
         landingPageWindow.getChildren().add(root);
@@ -195,16 +195,6 @@ public class SceneController{
 
         message.setActions(exit);
         dialog.show();
-    }
-
-    public Connection getConnection() throws SQLException {
-        try {
-            return DriverManager.getConnection(Mdb.JDBC_URL);
-        } catch (SQLException sqlException) {
-            System.out.println("Connection failed. Check output console.");
-            sqlException.printStackTrace();
-            throw new SQLException();
-        }
     }
 
     public String getPath() {

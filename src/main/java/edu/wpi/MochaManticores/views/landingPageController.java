@@ -1,32 +1,20 @@
 package edu.wpi.MochaManticores.views;
 
-import com.jfoenix.controls.*;
-import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import edu.wpi.MochaManticores.App;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.input.ScrollEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
-import javafx.scene.input.MouseEvent;
-
-
 import java.io.IOException;
-import java.net.URL;
-import java.util.Collection;
 import java.util.Objects;
 
 public class landingPageController extends SceneController {
@@ -59,13 +47,17 @@ public class landingPageController extends SceneController {
   private HBox medicineDeliverySidePanel;
 
   @FXML
+  private HBox floralSceneSidePanel;
+
+  @FXML
   private HBox internalTransportationSidePanel;
 
   @FXML
   private HBox externalTransportationSidePanel;
 
+
   @FXML
-  private HBox shoppingSideMenu;
+  private HBox servicesBox;
 
   @FXML
   private HBox surveySideMenu;
@@ -129,9 +121,9 @@ public class landingPageController extends SceneController {
       VBox services = new VBox();
 
       // add the hbox of the services
-      services.getChildren().addAll(menuSidePane, foodDeliverySidePanel, medicineDeliverySidePanel,
-              internalTransportationSidePanel, externalTransportationSidePanel,shoppingSideMenu,sanitationSideMenu,
-              surveySideMenu,mapSidePane,religionSidePane, laundrySidePane,translatorSidePane);
+      services.getChildren().addAll(menuSidePane,mapSidePane, servicesBox, foodDeliverySidePanel, medicineDeliverySidePanel,
+              internalTransportationSidePanel, externalTransportationSidePanel,floralSceneSidePanel,sanitationSideMenu,
+              surveySideMenu,religionSidePane, laundrySidePane,translatorSidePane);
 
 
       services.setMaxWidth(Region.USE_COMPUTED_SIZE);
@@ -255,6 +247,7 @@ public class landingPageController extends SceneController {
     scenesPane.getChildren().add(root);
   }
 
+
   public void renderMedicineDelivery(MouseEvent mouseEvent) throws IOException {
     // removes the children so you don't end up with weird scenes one over the other
     scenesPane.getChildren().removeAll(scenesPane.getChildren());
@@ -282,6 +275,36 @@ public class landingPageController extends SceneController {
     // adds the selected page to the scenesPane so it can be displayed
     scenesPane.getChildren().add(root);
   }
+
+  public void renderFloralScene(MouseEvent mouseEvent) throws IOException {
+    // removes the children so you don't end up with weird scenes one over the other
+    scenesPane.getChildren().removeAll(scenesPane.getChildren());
+    Parent root;
+    if(App.getClearenceLevel() ==1){
+      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/floralSceneEmployee.fxml")));
+
+    }else{
+      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/floralScene.fxml")));
+    }
+    // sets parent to be the file to be loaded
+
+
+    // change the colors of the old selected page back to the default
+    currentVbox.setStyle("-fx-background-radius: 0;");
+    currentVbox.setStyle("-fx-background-color:  #E9E9E9");
+
+    // changes the currentbox
+    currentVbox = floralSceneSidePanel;
+
+    // gives the selected properties for the new selected page
+    floralSceneSidePanel.setStyle("-fx-background-radius: 20;");
+    floralSceneSidePanel.setStyle("-fx-background-color: rgba(15,75,145,0.29);");
+
+    // adds the selected page to the scenesPane so it can be displayed
+    scenesPane.getChildren().add(root);
+  }
+
+
 
   public void renderInternalTransportation(MouseEvent mouseEvent) throws IOException {
     // removes the children so you don't end up with weird scenes one over the other
@@ -361,28 +384,7 @@ public class landingPageController extends SceneController {
     scenesPane.getChildren().add(root);
   }
 
-  //TODO Fix to actually render shopping menu
-  public void renderShopping(MouseEvent mouseEvent) throws IOException {
-    // removes the children so you don't end up with weird scenes one over the other
-    scenesPane.getChildren().removeAll(scenesPane.getChildren());
 
-    // sets parent to be the file to be loaded
-    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/floralScene.fxml")));
-
-    // change the colors of the old selected page back to the default
-    currentVbox.setStyle("-fx-background-radius: 0;");
-    currentVbox.setStyle("-fx-background-color:  #E9E9E9");
-
-    // changes the currentbox
-    currentVbox = shoppingSideMenu;
-
-    // gives the selected properties for the new selected page
-    shoppingSideMenu.setStyle("-fx-background-radius: 20;");
-    shoppingSideMenu.setStyle("-fx-background-color: rgba(15,75,145,0.29);");
-
-    // adds the selected page to the scenesPane so it can be displayed
-    scenesPane.getChildren().add(root);
-  }
 
   public void renderSanitationServices(MouseEvent mouseEvent) throws IOException {
 
@@ -452,8 +454,12 @@ public class landingPageController extends SceneController {
     scenesPane.getChildren().removeAll(scenesPane.getChildren());
 
     // sets parent to be the file to be loaded
-    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(
-            "/edu/wpi/MochaManticores/fxml/laundryForm.fxml")));
+    Parent root;
+    if(App.getClearenceLevel() == 1){
+      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/laundryFormEmployee.fxml")));
+    }else{
+      root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/laundryForm.fxml")));
+    }
 
     // change the colors of the old selected page back to the default
     currentVbox.setStyle("-fx-background-radius: 0;");
@@ -507,10 +513,10 @@ public class landingPageController extends SceneController {
       super.changeSceneTo("mapPage");
     }
 
-    //    // removes the children so you don't end up with weird scenes one over the other
+//        // removes the children so you don't end up with weird scenes one over the other
 //    scenesPane.getChildren().removeAll(scenesPane.getChildren());
 //
-//    Parent root = null;
+//    Parent root;
 //
 //    // if it is an employee the page page is different
 //    if(App.getClearenceLevel() == 1){
@@ -530,13 +536,17 @@ public class landingPageController extends SceneController {
 //    // gives the selected properties for the new selected page
 //    mapSidePane.setStyle("-fx-background-radius: 20;");
 //    mapSidePane.setStyle("-fx-background-color: rgba(15,75,145,0.29);");
+
+//    scenesPane.prefHeightProperty().bind(root.getScene().heightProperty());
+//    scenesPane.prefWidthProperty().bind(root.getScene().widthProperty().subtract(sidePanel.widthProperty()));
+//
 //
 //    // adds the selected page to the scenesPane so it can be displayed
-//    scenesPane.maxHeight(App.getPrimaryStage().getHeight());
-//    scenesPane.maxWidth(App.getPrimaryStage().getWidth()-currentVbox.getWidth());
-//    root.maxHeight(App.getPrimaryStage().getHeight());
-//    root.maxWidth(App.getPrimaryStage().getWidth()-currentVbox.getWidth());
-//    scenesPane.getChildren().add(root);
+//    scenesPane.maxHeightProperty().bind(App.getPrimaryStage().heightProperty());
+//    scenesPane.maxWidthProperty().bind(App.getPrimaryStage().widthProperty().subtract(sidePanel.widthProperty()));
+//    GridPane.setVgrow(scenesPane, Priority.ALWAYS);
+
+    //scenesPane.getChildren().add(root);
 
   }
 

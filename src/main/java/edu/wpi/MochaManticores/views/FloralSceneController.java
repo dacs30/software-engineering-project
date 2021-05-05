@@ -15,6 +15,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,11 +29,11 @@ public class FloralSceneController extends SceneController {
   private JFXTextField personalNote;
 
   @FXML
-  private JFXCheckBox tulip;
+  private JFXRadioButton tulip;
   @FXML
-  private JFXCheckBox rose;
+  private JFXRadioButton rose;
   @FXML
-  private JFXCheckBox lilie;
+  private JFXRadioButton lilie;
 
   @FXML
   private JFXRadioButton blueVase;
@@ -76,10 +77,8 @@ public class FloralSceneController extends SceneController {
     backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
     vases = Arrays.asList(blueVase, yellowVase, orangeVase);
+    flowers = Arrays.asList(tulip, rose, lilie);
 
-    if (App.getClearenceLevel() <= 0) {
-      empBox.setVisible(false);
-    }
   }
 
   public void submitForm(ActionEvent actionEvent) {
@@ -178,20 +177,21 @@ public class FloralSceneController extends SceneController {
   StringBuilder flowerSelected = new StringBuilder();
 
   public void checkFlowers(ActionEvent e) {
+    flowerSelected = new StringBuilder();
     JFXRadioButton source = (JFXRadioButton) e.getSource();
-    for (JFXRadioButton button : vases) {
+    for (JFXRadioButton button : flowers) {
       if (!button.equals(source)) {
         button.setSelected(false);
       }
     }
-    if (blueVase.isSelected()) {
-      flowerSelected.append("Rose,");
+    if (rose.isSelected()) {
+      flowerSelected.append("Rose");
     }
-    if (orangeVase.isSelected()) {
-      flowerSelected.append("Tulip,");
+    if (tulip.isSelected()) {
+      flowerSelected.append("Tulip");
     }
-    if (yellowVase.isSelected()) {
-      flowerSelected.append("Lilie,");
+    if (lilie.isSelected()) {
+      flowerSelected.append("Lilie");
     }
   }
 
@@ -206,28 +206,28 @@ public class FloralSceneController extends SceneController {
       }
     }
     if (blueVase.isSelected()) {
-      vaseSelected.append("blueVase,");
+      vaseSelected.append("blueVase");
     }
     if (orangeVase.isSelected()) {
-      vaseSelected.append("orangeVase,");
+      vaseSelected.append("orangeVase");
     }
     if (yellowVase.isSelected()) {
-      vaseSelected.append("yellowVase,");
+      vaseSelected.append("yellowVase");
     }
   }
 
   public void submitEvent(ActionEvent actionEvent) {
-    if (!roomNumber.getText().isEmpty() && !deliveryDate.equals("") &&
+    if (!roomNumber.getText().isEmpty() && !deliveryDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).equals("") &&
             (tulip.isSelected() || rose.isSelected() | lilie.isSelected()) &&
             (blueVase.isSelected() || orangeVase.isSelected() || yellowVase.isSelected()) &&
-            !empBox.getText().isEmpty()) {
-      sel s = sel.ExternalTransportation;
+            App.getClearenceLevel() == 0) {
+      sel s = sel.FloralDelivery;
       DatabaseManager.addRequest(s,
               new FloralDelivery(
                       "", "", false, roomNumber.getText(),
-                      deliveryDate.getId(), flowerSelected.toString(),
+                      deliveryDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")), flowerSelected.toString(),
                       vaseSelected.toString(),
-                      empBox.getText()));
+                      personalNote.getText()));
 
     } else if (roomNumber.getText().isEmpty()) {
       RequiredFieldValidator missingInput = new RequiredFieldValidator();

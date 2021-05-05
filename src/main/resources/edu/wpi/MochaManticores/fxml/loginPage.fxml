@@ -111,10 +111,10 @@
                       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints maxHeight="259.25927734375" minHeight="10.0" prefHeight="226.1111297607422" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="194.0740509033203" minHeight="10.0" prefHeight="118.14816284179688" valignment="CENTER" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="374.3333740234375" minHeight="10.0" prefHeight="374.3333740234375" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="328.0000305175781" minHeight="10.0" prefHeight="81.6666259765625" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="259.25927734375" minHeight="10.0" prefHeight="197.55557250976562" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="194.0740509033203" minHeight="10.0" prefHeight="122.370361328125" valignment="CENTER" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="432.48150634765625" minHeight="10.0" prefHeight="310.51849365234375" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="328.0000305175781" minHeight="10.0" prefHeight="170.48150634765625" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <ImageView fitHeight="150.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
@@ -127,10 +127,10 @@
                             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                           </columnConstraints>
                           <rowConstraints>
-                            <RowConstraints maxHeight="109.25927734375" minHeight="10.0" prefHeight="71.92593383789062" valignment="BOTTOM" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="112.29632568359375" minHeight="10.0" prefHeight="111.70367431640625" valignment="CENTER" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="124.59262084960938" minHeight="10.0" prefHeight="84.29632568359375" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="111.22222900390625" minHeight="10.0" prefHeight="108.77777099609375" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="109.25927734375" minHeight="10.0" prefHeight="69.370361328125" valignment="BOTTOM" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="112.29632568359375" minHeight="10.0" prefHeight="74.111083984375" valignment="CENTER" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="124.59262084960938" minHeight="10.0" prefHeight="75.888916015625" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="129.0" minHeight="10.0" prefHeight="100.59262084960938" valignment="TOP" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
                               <JFXTextField fx:id="IDField" focusColor="#0f4b9100" labelFloat="true" promptText="Patient ID" unFocusColor="#bababa">
@@ -165,7 +165,27 @@
                               <JFXButton onAction="#changeToStaffLogin" text="Log in as a staff" GridPane.rowIndex="3" />
                            </children>
                         </GridPane>
-                        <Label id="patientIdLabel" text="Enter the your Patient ID or the Partient ID of the person you are visiting" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1" />
+                        <Label id="patientIdLabel" text="Enter the your Patient ID or the Patient ID of the person you are visiting" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </Label>
+                        <GridPane GridPane.rowIndex="3">
+                          <columnConstraints>
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="83.5184326171875" minHeight="10.0" prefHeight="31.92596435546875" valignment="TOP" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="150.66668701171875" minHeight="10.0" prefHeight="97.07403564453125" valignment="TOP" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d2d2d2" height="2.0" opacity="0.52" stroke="TRANSPARENT" strokeType="INSIDE" width="450.0" />
+                              <JFXButton fx:id="viewMapButton" onAction="#openMap" text="View Map" GridPane.rowIndex="1" />
+                           </children>
+                        </GridPane>
                      </children>
                   </GridPane>
                </children>

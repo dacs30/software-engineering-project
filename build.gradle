@@ -41,10 +41,11 @@ dependencies {
             'org.apache.derby:derby:10.14.2.0',
             'org.apache.derby:derbyclient:10.14.2.0',
             'org.apache.derby:derbytools:10.14.2.0',
-
+            'org.apache.derby:derbynet:10.14.2.0',
             'org.slf4j:slf4j-api:1.7.30',
             'org.slf4j:slf4j-simple:1.7.30',
-            'com.gluonhq:charm-glisten:4.4.1'
+            'com.gluonhq:charm-glisten:4.4.1',
+            'com.google.maps:google-maps-services:0.18.0'
     )
 //These are test dependencies. These are only used for running verification tasks via Gradle.
     testCompile(

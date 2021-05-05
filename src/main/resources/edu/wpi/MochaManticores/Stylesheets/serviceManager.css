@@ -1,0 +1,116 @@
+#formsGrid {
+    -fx-background-color: rgba(255, 255, 255, 0.75);
+    -fx-background-radius: 40;
+}
+
+#foodDeliveryTitleLabel {
+    -fx-text-fill: grey;
+    -fx-font-weight: bold;
+    -fx-font-family: Roboto;
+    -fx-font-size: 50;
+}
+
+#feelingsNowLabel {
+    -fx-text-fill: grey;
+    -fx-font-weight: bold;
+    -fx-font-family: Roboto;
+    -fx-font-size: 30;
+}
+
+.jfx-text-field {
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -jfx-unfocus-color : #bababa;
+    -jfx-focus-color: grey;
+    -fx-max-width: 400;
+    -fx-prompt-text-fill: rgb(193, 193, 193);
+}
+
+.jfx-check-box {
+    -fx-tick-label-fill: #0F4B91
+}
+
+#submitBtn{
+    -fx-background-color: #0F4B91;
+    -fx-font-family: Roboto;
+    -fx-background-radius: 40;
+    -fx-font-size: 25;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+#backBtn{
+    -fx-background-color: #0F4B91;
+    -fx-font-family: Roboto;
+    -fx-background-radius: 40;
+    -fx-font-size: 25;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+#submitBtn:hover{
+    -fx-background-color: #c2c2c2;
+    -fx-effect: dropshadow( three-pass-box , rgba(2, 2, 2, 0.2), 20, 0.0 , 1 , 10);
+    -fx-font-family: Roboto;
+    -fx-text-fill: grey;
+}
+
+#backBtn:hover{
+    -fx-background-color: #c2c2c2;
+    -fx-effect: dropshadow( three-pass-box , rgba(2, 2, 2, 0.2), 20, 0.0 , 1 , 10);
+    -fx-font-family: Roboto;
+    -fx-text-fill: grey;
+}
+
+.jfx-combo-box {
+    -fx-prompt-text-fill: grey ;
+    -fx-background-color: rgba(186, 186, 186, 0.43);
+    -jfx-unfocus-color: transparent;
+    -fx-font-size: 20;
+}
+
+.jfx-combo-box .text-field:focused {
+    -fx-prompt-text-fill: transparent ;
+}
+
+.jfx-combo-box:hover{
+    -fx-effect: dropshadow( three-pass-box , rgba(2, 2, 2, 0.2), 20, 0.0 , 1 , 10);
+}
+
+#tabPane .label {
+    -fx-text-fill: grey;
+    -fx-font-size: 20;
+}
+
+#tabPane{
+    -fx-background-color: rgba(255, 255, 255, 0.90);
+    -fx-background-radius: 40;
+    -fx-border-radius: 40;
+    -jfx-disable-animation: true;
+}
+#tabPane .control-buttons-tab .tab-down-button{
+    -fx-background-color: #0059A9 ;
+}
+#tabPane .control-buttons-tab{
+    -fx-background-color: rgba(255, 255, 255, 0.75);
+}
+#tabPane .tab-header-background {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-background-radius: 40 40 0 0;
+    -fx-border-radius: 40;
+}
+
+#tabPane .depth-container {
+    -fx-effect: null;
+}
+#tabPane .tab-label {
+    -fx-text-fill: grey;
+}
+#tabPane .tab:selected .tab-label {
+    -fx-text-fill: #494949;
+}
+#tabPane .tab-selected-line {
+    -fx-background-color: #0059A9;
+    -fx-max-width: 20;
+    -fx-pref-width: 3;
+    /*-fx-background-color: transparent;*/
+}

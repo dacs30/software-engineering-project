@@ -1,25 +1,17 @@
 package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.*;
-import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.MochaManticores.App;
-import edu.wpi.MochaManticores.Services.SanitationServices;
-import edu.wpi.MochaManticores.Services.ServiceRequest;
-import edu.wpi.MochaManticores.Services.ServiceRequestType;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.sel;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
@@ -27,107 +19,10 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 public class sanitationServiceControllerEmployee extends SceneController {
 
-    public class ss extends RecursiveTreeObject<ss>{
-        edu.wpi.MochaManticores.Services.SanitationServices ref;
-        StringProperty location;
-        StringProperty safetyHazards;
-        StringProperty sanitationType;
-        StringProperty equipmentNeeded;
-        StringProperty description;
-        StringProperty employeeAssigned;
-        boolean completed;
-        LinkedList<String> fields;
-
-        public ss(edu.wpi.MochaManticores.Services.ServiceRequest ref){
-            this.ref = (edu.wpi.MochaManticores.Services.SanitationServices) ref;
-            location = new SimpleStringProperty(this.ref.getLocation());
-            safetyHazards = new SimpleStringProperty(this.ref.getSafetyHazards());
-            sanitationType = new SimpleStringProperty(this.ref.getSanitationType());
-            equipmentNeeded = new SimpleStringProperty(this.ref.getEquipmentNeeded());
-            description = new SimpleStringProperty(this.ref.getDescription());
-            employeeAssigned = new SimpleStringProperty(this.ref.getEmployee());
-            completed = this.ref.getCompleted();
-            fields = new LinkedList<>(Arrays.asList(
-                    location.get(),
-                    safetyHazards.get(),
-                    sanitationType.get(),
-                    equipmentNeeded.get(),
-                    description.get()));
-        }
-
-        public void setCompleted(boolean completed) {
-            this.completed = completed;
-        }
-
-        public SanitationServices getRef() {
-            return ref;
-        }
-
-        public String getLocation() {
-            return location.get();
-        }
-
-        public StringProperty locationProperty() {
-            return location;
-        }
-
-        public String getSafetyHazards() {
-            return safetyHazards.get();
-        }
-
-        public StringProperty safetyHazardsProperty() {
-            return safetyHazards;
-        }
-
-        public String getSanitationType() {
-            return sanitationType.get();
-        }
-
-        public StringProperty sanitationTypeProperty() {
-            return sanitationType;
-        }
-
-        public String getEquipmentNeeded() {
-            return equipmentNeeded.get();
-        }
-
-        public StringProperty equipmentNeededProperty() {
-            return equipmentNeeded;
-        }
-
-        public String getDescription() {
-            return description.get();
-        }
-
-        public StringProperty descriptionProperty() {
-            return description;
-        }
-
-        public String getEmployeeAssigned() {
-            return employeeAssigned.get();
-        }
-
-        public StringProperty employeeAssignedProperty() {
-            return employeeAssigned;
-        }
-
-        public String isCompleted() {
-            if(completed){
-                return "Completed";
-            }else{
-                return "Open";
-            }
-        }
-
-        public LinkedList<String> getFields() {
-            return fields;
-        }
-    }
 
     ObservableList<String> sanitationType = FXCollections.observableArrayList("Room Cleaning","Spill");
 
@@ -179,8 +74,6 @@ public class sanitationServiceControllerEmployee extends SceneController {
     @FXML
     private Label empTitle;
 
-    @FXML
-    private JFXButton backBtn;
 
     @FXML
     private GridPane requestPage;
@@ -188,52 +81,44 @@ public class sanitationServiceControllerEmployee extends SceneController {
     @FXML
     private GridPane managerPage;
 
-    public TableView<ss> sanitationTable;
+    @FXML
+    private JFXComboBox employeeAssigned;
 
-    public TableColumn<ss, String> locationColumn;
-    public TableColumn<ss, String> safetyHazardsColumn;
-    public TableColumn<ss, String> sanitationTypeColumn;
-    public TableColumn<ss, String> equipmentNeededColumn;
-    public TableColumn<ss, String> descriptionColumn;
-    public TableColumn<ss, String> employeeAssignedColumn;
-    public TableColumn<ss, String> completedColumn;
+    private void createFilterListener(JFXComboBox comboBox) {
+
+        // Create the listener to filter the list as user enters search terms
+        FilteredList<String> filteredList = new FilteredList<>(comboBox.getItems());
+
+        // Add listener to our ComboBox textfield to filter the list
+        comboBox.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            comboBox.show();
+            filteredList.setPredicate(item -> {
 
 
+                // If the TextField is empty, return all items in the original list
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
 
+                // Check if the search term is contained anywhere in our list
+                return item.toLowerCase().contains(newValue.toLowerCase().trim());
 
+            });
+        });
 
+        // Finally, let's add the filtered list to our ComboBox
+        comboBox.setItems(filteredList);
+
+    }
 
     @FXML
-    private void initialize(){
-
-        locationColumn = new TableColumn<ss, String>("Location");
-        locationColumn.setMinWidth(100);
-        locationColumn.setCellValueFactory(new PropertyValueFactory<ss, String>("location"));
-
-
-        safetyHazardsColumn = new TableColumn<ss, String>("Safety Hazards");
-        safetyHazardsColumn.setMinWidth(100);
-        safetyHazardsColumn.setCellValueFactory(new PropertyValueFactory<ss, String>("safetyHazards"));
-
-        sanitationTypeColumn = new TableColumn<ss, String>("Type");
-        sanitationTypeColumn.setMinWidth(100);
-        sanitationTypeColumn.setCellValueFactory(new PropertyValueFactory<ss, String>("sanitationType"));
-
-        equipmentNeededColumn = new TableColumn<ss, String>("Equipment Needed");
-        equipmentNeededColumn.setMinWidth(100);
-        equipmentNeededColumn.setCellValueFactory(new PropertyValueFactory<ss, String>("equipmentNeeded"));
-
-        descriptionColumn = new TableColumn<ss, String>("Description");
-        descriptionColumn.setMinWidth(100);
-        descriptionColumn.setCellValueFactory(new PropertyValueFactory<ss, String>("description"));
-
-        employeeAssignedColumn = new TableColumn<ss, String>("Employee");
-        employeeAssignedColumn.setMinWidth(100);
-        employeeAssignedColumn.setCellValueFactory(new PropertyValueFactory<ss, String>("employeeAssigned"));
-
-        completedColumn = new TableColumn<ss, String>("Status");
-        completedColumn.setMinWidth(100);
-        completedColumn.setCellValueFactory(new PropertyValueFactory<ss, String>("completed"));
+    private void initialize() {
+        employeeAssigned.setEditable(true);
+        //fromLocation.setOnKeyTyped(new AutoCompleteComboBoxListener<>(fromLocation));
+        ObservableList<String> items = FXCollections.observableArrayList();
+        items.addAll(DatabaseManager.getEmpManager().getEmployeeNames());
+        employeeAssigned.setItems(items);
+        createFilterListener(employeeAssigned);
 
 
         double height = App.getPrimaryStage().getScene().getHeight();
@@ -251,31 +136,6 @@ public class sanitationServiceControllerEmployee extends SceneController {
 
     }
 
-    private ObservableList<ss> buildTable(String searchTerm){
-        ObservableList<ss> tableRow = FXCollections.observableArrayList();
-        LinkedList<ServiceRequest> requests = DatabaseManager.getServiceMap().getServiceRequestsForType(ServiceRequestType.SanitationServices);
-
-        for(ServiceRequest s : requests){
-            ss ssToAdd = new ss(s);
-            for (int i = 0; i < ssToAdd.getFields().size(); i++) {
-                if(ssToAdd.getFields().get(i).toLowerCase().equals(searchTerm) || searchTerm.equals("")){
-                    tableRow.add(ssToAdd);
-                    break;
-                }
-            }
-        }
-        sanitationTable.setItems(tableRow);
-        sanitationTable.getColumns().setAll(
-                locationColumn,
-                safetyHazardsColumn,
-                sanitationTypeColumn,
-                equipmentNeededColumn,
-                descriptionColumn,
-                employeeAssignedColumn,
-                completedColumn);
-        return tableRow;
-
-    }
 
     public void helpButton(ActionEvent actionEvent){loadHelpDialogue();}
 
@@ -370,20 +230,14 @@ public class sanitationServiceControllerEmployee extends SceneController {
     public void changeToRequest(ActionEvent actionEvent) {
         requestPage.setVisible(true);
         managerPage.setVisible(false);
+        requestPage.toFront();
     }
-
-    public void changeManagerTable(ActionEvent actionEvent) {
-        buildTable("");
-        requestPage.setVisible(false);
+    public void changeManagerTable(ActionEvent actionEvent){
         managerPage.setVisible(true);
+        requestPage.setVisible(false);
+        managerPage.toFront();
     }
 
-    public void completeService(ActionEvent e){
-        ss selection = sanitationTable.getSelectionModel().getSelectedItem();
-        selection.setCompleted(true);
-        selection.getRef().setCompleted(true);
-        buildTable("");
-    }
 
     @FXML
     private void submit(ActionEvent e) {

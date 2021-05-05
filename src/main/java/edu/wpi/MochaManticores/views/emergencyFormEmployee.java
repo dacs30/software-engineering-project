@@ -1,9 +1,10 @@
 package edu.wpi.MochaManticores.views;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.*;
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.Services.EmergencyRequest;
+import edu.wpi.MochaManticores.database.DatabaseManager;
+import edu.wpi.MochaManticores.database.sel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -16,6 +17,9 @@ import javafx.scene.text.Text;
 public class emergencyFormEmployee extends SceneController {
 
     @FXML
+    private JFXComboBox<String> employeeAssigned;
+
+    @FXML
     private ComboBox numPeople;
 
     @FXML
@@ -26,6 +30,9 @@ public class emergencyFormEmployee extends SceneController {
 
     @FXML
     private StackPane dialogPane;
+
+    @FXML
+    private JFXCheckBox gurney;
 
     public void initialize() {
         double height = super.getHeight();
@@ -46,6 +53,13 @@ public class emergencyFormEmployee extends SceneController {
     }
 
     public void submitEmergency(ActionEvent actionEvent) {
+
+        DatabaseManager.addRequest(sel.Emergency, new EmergencyRequest("",
+                employeeAssigned.getEditor().getText(),
+                false,
+                (Integer) numPeople.getSelectionModel().getSelectedItem(),
+                roomNumber.getText(),
+                gurney.isSelected()));
         loadSubmitDialog();
     }
 

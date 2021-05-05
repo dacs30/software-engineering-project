@@ -6,7 +6,6 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -68,7 +67,7 @@
                                       <JFXTextField fx:id="numberOfStaff" labelFloat="true" promptText="Number of Staff Needed" GridPane.rowIndex="1" />
                                       <JFXTextField fx:id="destination" labelFloat="true" promptText="Destination" GridPane.rowIndex="2" />
                                       <JFXComboBox fx:id="transportComboBox" promptText="Method of Transportation" GridPane.rowIndex="3" />
-                                      <JFXTextField fx:id="empBox" promptText="Assign to Employee" GridPane.rowIndex="4" />
+                              <JFXComboBox fx:id="employeeAssigned" promptText="Assign to employee" GridPane.rowIndex="4" />
                                   </children>
                               </GridPane>
                               <ImageView fitHeight="150.0" fitWidth="40.0" onMouseClicked="#openHelp" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
@@ -82,41 +81,10 @@
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0" GridPane.rowIndex="2">
                            <children>
                                     <JFXButton id="submitBtn" onAction="#submitEvent" text="SUBMIT" />
-                              <JFXButton id="submitBtn" onAction="#changeManagerTable" text="MANAGER TABLE" />
                            </children>
                         </HBox>
                           </children>
                       </GridPane>
-                  <GridPane id="formGrid" fx:id="managerPage" maxHeight="700.0" maxWidth="1000.0" prefHeight="700.0" prefWidth="1000.0">
-                     <columnConstraints>
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="388.4814453125" minHeight="10.0" prefHeight="356.4814453125" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <effect>
-                        <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
-                     </effect>
-                     <children>
-                        <Label id="internalTransportationLabel" text="Internal Transportation Manager" textFill="WHITE" />
-                        <ImageView fitHeight="150.0" fitWidth="40.0" onMouseClicked="#openHelp" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
-                           <image>
-                              <Image url="@../images/hepIcon.png" />
-                           </image>
-                           <GridPane.margin>
-                              <Insets right="75.0" />
-                           </GridPane.margin>
-                        </ImageView>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0" GridPane.rowIndex="2">
-                           <children>
-                              <JFXButton id="submitBtn" onAction="#changeToRequest" text="CREATE A REQUEST" />
-                           </children>
-                        </HBox>
-                        <TableView fx:id="internalTransportationTable" prefHeight="200.0" prefWidth="200.0" stylesheets="@../jfx-tree-table-view.css" GridPane.rowIndex="1" />
-                     </children>
-                  </GridPane>
                </children>
             </StackPane>
          </children>
