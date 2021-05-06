@@ -8,7 +8,12 @@
     -fx-background-radius: 40;
     transition: background-color 10s ease;
 }
-
+.jfx-button:hover{
+    -fx-background-color: #c2c2c2;
+    -fx-effect: dropshadow( three-pass-box , rgba(2, 2, 2, 0.2), 20, 0.0 , 1 , 10);
+    -fx-font-family: Roboto;
+    -fx-text-fill: grey;
+}
 #mapTopBar{
     -fx-background-color: transparent;
 }
