@@ -57,9 +57,9 @@
                         </HBox>
                      </children>
                   </GridPane>
-                  <ImageView fitHeight="150.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+                  <ImageView fitHeight="170.0" fitWidth="289.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
                      <image>
-                        <Image url="@../images/imageForCovid.png" />
+                        <Image url="@../images/covidSurveyImage.png" />
                      </image>
                   </ImageView>
                </children>
@@ -96,9 +96,9 @@
                                  <children>
                                     <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="0.0" spacing="30.0">
                                        <children>
-                                          <ImageView fitHeight="164.0" fitWidth="232.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="155.0" fitWidth="267.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../images/urban-urban-line.png" />
+                                                <Image url="@../images/chatHomePageIcon.png" />
                                              </image>
                                           </ImageView>
                                        </children>
@@ -188,12 +188,12 @@
                         <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
                      </effect>
                      <children>
-                        <ImageView fitHeight="150.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                        <Label id="cardLabel" text="Map Editor" GridPane.rowIndex="1" />
+                        <ImageView fx:id="goToMapPage" fitHeight="117.0" fitWidth="149.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/mapCardIcon.png" />
+                              <Image url="@../images/mapHomePageIcon.png" />
                            </image>
                         </ImageView>
-                        <Label id="cardLabel" text="Map Editor" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                   <GridPane id="card" onMouseClicked="#goToManager" prefHeight="190.0" prefWidth="300.0">
@@ -201,8 +201,8 @@
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                      </columnConstraints>
                      <rowConstraints>
-                        <RowConstraints maxHeight="123.33331298828125" minHeight="10.0" prefHeight="123.33331298828125" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="103.0" minHeight="10.0" prefHeight="66.66668701171875" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="149.33331298828125" minHeight="10.0" prefHeight="137.33331298828125" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="103.0" minHeight="10.0" prefHeight="67.66668701171875" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <effect>
                         <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
@@ -212,9 +212,9 @@
                      </HBox.margin>
                      <children>
                         <Label id="cardLabelMedicineDelivery" text="Manage Services" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1" />
-                        <ImageView fitHeight="129.0" fitWidth="168.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="134.0" fitWidth="187.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/urban-842.png" />
+                              <Image url="@../images/managerHomePageIcon.png" />
                            </image>
                         </ImageView>
                      </children>
@@ -224,8 +224,8 @@
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                      </columnConstraints>
                      <rowConstraints>
-                        <RowConstraints maxHeight="130.3333740234375" minHeight="10.0" prefHeight="119.66668701171875" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="86.33331298828125" minHeight="10.0" prefHeight="70.33331298828125" valignment="CENTER" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="147.0" minHeight="10.0" prefHeight="147.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="86.33331298828125" minHeight="10.0" prefHeight="58.0" valignment="CENTER" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <effect>
                         <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
@@ -235,9 +235,9 @@
                      </HBox.margin>
                      <children>
                         <Label id="cardLabelInternalTransportation" text="Internal Transportation" textAlignment="CENTER" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <ImageView fitHeight="82.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="124.0" fitWidth="193.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/urban-wheelchair.png" />
+                              <Image url="@../images/internalTransportationHomePageIcon.png" />
                            </image>
                         </ImageView>
                      </children>
