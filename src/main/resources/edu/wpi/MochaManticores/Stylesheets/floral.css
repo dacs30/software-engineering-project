@@ -37,14 +37,13 @@
     -fx-font-size: 20;
     -fx-font-weight: bold;
     -jfx-unfocus-color : #0F4B91;
-    -fx-background-color: #0F4B91;
     -fx-max-width: 400;
-    -fx-prompt-text-fill: white;
+    -fx-prompt-text-fill: #0F4B91;
 }
 
 #flowerLabel, #vaseLabel {
     -fx-font-family: Roboto;
-    -fx-font-size: 20;
+    -fx-font-size: 25;
     -fx-font-weight: bold;
     -fx-text-fill: #0F4B91;
 }
