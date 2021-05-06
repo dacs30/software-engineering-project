@@ -263,72 +263,72 @@ public class mapPage extends SceneController{
         //GridPane.setHgrow(mapStack, Priority.ALWAYS);
 
         // event to drag the menu of the mapa around
-        tabPane.setOnMouseDragged(event -> {
+//        tabPane.setOnMouseDragged(event -> {
+//
+//            System.out.println("hey");
+//
+//            paneContainingTabPane.setManaged(false);
+//
+//            if (updateDeltas){
+//                dX = (event.getSceneX() - paneContainingTabPane.getLayoutX());
+//                dY = (event.getSceneY() - paneContainingTabPane.getLayoutY());
+//                updateDeltas = false;
+//            }
+//
+//            paneContainingTabPane.relocate(event.getSceneX() - dX, event.getSceneY() - dY);
+//            dragged = true;
+//
+//        });
 
-            System.out.println("hey");
+//        tabPane.setOnMouseReleased(event -> {
+//            if (dragged) {
+//                if (paneContainingTabPane.getLayoutX() < App.getPrimaryStage().getWidth() / 2) {
+//                    GridPane.setHalignment(paneContainingTabPane, HPos.LEFT);
+//                    Line line = new Line();
+//                    line.setStartX(event.getSceneX());
+//                    line.setStartY(event.getSceneY());
+//                    line.setEndX(paneContainingTabPane.getWidth() / 2);
+//                    line.setEndY(event.getSceneY());
+//
+//                    PathTransition pathTransition = new PathTransition();
+//                    pathTransition.setDuration(Duration.seconds(0.5));
+//                    pathTransition.setNode(paneContainingTabPane);
+//                    pathTransition.setPath(line);
+//
+//                    pathTransition.setCycleCount(1);
+//
+//                    pathTransition.play();
+//
+//                } else {
+//                    GridPane.setHalignment(paneContainingTabPane, HPos.RIGHT);
+//
+//                    Line line = new Line();
+//                    line.setStartX(event.getSceneX());
+//                    line.setStartY(event.getSceneY());
+//                    line.setEndX(paneContainingTabPane.getBoundsInLocal().getMaxX() - paneContainingTabPane.getWidth() / 2);
+//                    line.setEndY(event.getSceneY());
+//
+//                    Path path = new Path();
+//
+//                    // setted to -event because I don't know
+//                    path.getElements().add(new MoveTo(-event.getX(), event.getSceneY()));
+//                    path.getElements().add(new LineTo(paneContainingTabPane.getBoundsInLocal().getMaxX() - 35 - paneContainingTabPane.getWidth() / 2, event.getSceneY()));
+//
+//                    PathTransition pathTransition = new PathTransition();
+//                    pathTransition.setDuration(Duration.seconds(0.5));
+//                    pathTransition.setNode(paneContainingTabPane);
+//                    pathTransition.setPath(path);
+//
+//                    pathTransition.setCycleCount(1);
+//
+//                    pathTransition.play();
+//                }
+//                paneContainingTabPane.setManaged(true);
+//                updateDeltas = true;
+//                dragged = false;
+//            }
 
-            paneContainingTabPane.setManaged(false);
-
-            if (updateDeltas){
-                dX = (event.getSceneX() - paneContainingTabPane.getLayoutX());
-                dY = (event.getSceneY() - paneContainingTabPane.getLayoutY());
-                updateDeltas = false;
-            }
-
-            paneContainingTabPane.relocate(event.getSceneX() - dX, event.getSceneY() - dY);
-            dragged = true;
-
-        });
-
-        tabPane.setOnMouseReleased(event -> {
-            if (dragged) {
-                if (paneContainingTabPane.getLayoutX() < App.getPrimaryStage().getWidth() / 2) {
-                    GridPane.setHalignment(paneContainingTabPane, HPos.LEFT);
-                    Line line = new Line();
-                    line.setStartX(event.getSceneX());
-                    line.setStartY(event.getSceneY());
-                    line.setEndX(paneContainingTabPane.getWidth() / 2);
-                    line.setEndY(event.getSceneY());
-
-                    PathTransition pathTransition = new PathTransition();
-                    pathTransition.setDuration(Duration.seconds(0.5));
-                    pathTransition.setNode(paneContainingTabPane);
-                    pathTransition.setPath(line);
-
-                    pathTransition.setCycleCount(1);
-
-                    pathTransition.play();
-
-                } else {
-                    GridPane.setHalignment(paneContainingTabPane, HPos.RIGHT);
-
-                    Line line = new Line();
-                    line.setStartX(event.getSceneX());
-                    line.setStartY(event.getSceneY());
-                    line.setEndX(paneContainingTabPane.getBoundsInLocal().getMaxX() - paneContainingTabPane.getWidth() / 2);
-                    line.setEndY(event.getSceneY());
-
-                    Path path = new Path();
-
-                    // setted to -event because I don't know
-                    path.getElements().add(new MoveTo(-event.getX(), event.getSceneY()));
-                    path.getElements().add(new LineTo(paneContainingTabPane.getBoundsInLocal().getMaxX() - 35 - paneContainingTabPane.getWidth() / 2, event.getSceneY()));
-
-                    PathTransition pathTransition = new PathTransition();
-                    pathTransition.setDuration(Duration.seconds(0.5));
-                    pathTransition.setNode(paneContainingTabPane);
-                    pathTransition.setPath(path);
-
-                    pathTransition.setCycleCount(1);
-
-                    pathTransition.play();
-                }
-                paneContainingTabPane.setManaged(true);
-                updateDeltas = true;
-                dragged = false;
-            }
-
-        });
+//        });
 
 
         mapWindow.setPreserveRatio(false);
@@ -694,8 +694,7 @@ public class mapPage extends SceneController{
         endLabel.setText(DatabaseManager.getNode(endID).getLongName());
         endLabel.setTextFill(Color.RED);
         dirVBOX.getChildren().add(startLabel);
-        for (String str :
-                path) {
+        for (String str : path) {
             savedRoute.add(str);
             Label p = new Label();
             p.setText(DatabaseManager.getNode(str).getLongName());
@@ -931,7 +930,6 @@ public class mapPage extends SceneController{
                     }
                 }
             }
-
             for (node n : pitStops) {
                 n.resetFill();
             }
