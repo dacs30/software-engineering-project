@@ -129,7 +129,7 @@
                   <Image url="@../images/internalTransportationIcon.png" />
                </image>
             </ImageView>
-            <Label id="menuSideBarLabel" prefHeight="48.0" prefWidth="153.0" stylesheets="@../Stylesheets/landingPage.css" text="Internal   Transportation" wrapText="true" />
+            <Label id="menuSideBarLabel" prefHeight="48.0" prefWidth="153.0" stylesheets="@../Stylesheets/landingPage.css" text="Internal Transportation" wrapText="true" />
          </children>
          <padding>
             <Insets bottom="10.0" left="20.0" top="10.0" />
@@ -174,7 +174,7 @@
             <Insets bottom="10.0" left="20.0" top="10.0" />
          </padding>
       </HBox>
-      <HBox fx:id="surveySideMenu" alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" onMouseClicked="#renderCovidSurvey" prefHeight="100.0" prefWidth="340.0" spacing="10.0" style="-fx-background-color: #E9E9E9;">
+      <HBox fx:id="surveySideMenu" alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" onMouseClicked="#renderCovidSurvey" spacing="10.0" style="-fx-background-color: #E9E9E9;">
          <children>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -214,44 +214,41 @@
                         <Image url="@../images/logo-small.png" />
                      </image>
                   </ImageView>
-                  <HBox id="emergencyVBox" fx:id="emergencySidePanel" alignment="CENTER_LEFT" onMouseClicked="#openEmergencyDIalog" spacing="10.0" stylesheets="@../Stylesheets/landingPage.css" GridPane.rowIndex="3">
+                  <HBox id="emergencyVBox" fx:id="emergencySidePanel" alignment="CENTER" onMouseClicked="#openEmergencyDIalog" spacing="10.0" stylesheets="@../Stylesheets/landingPage.css" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/emergencyIcon.png" />
                            </image>
                         </ImageView>
-                        <Label id="menuSideBarLabel" stylesheets="@../Stylesheets/landingPage.css" text="Emergency" wrapText="true" />
+                        <Label id="emergencyButton" alignment="CENTER" stylesheets="@../Stylesheets/landingPage.css" text="Emergency" wrapText="true" />
                      </children>
-                     <padding>
-                        <Insets left="20.0" />
-                     </padding>
                      <GridPane.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </GridPane.margin>
                   </HBox>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                      <children>
-                        <Label id="cardUsername" fx:id="greetingLabel" text="Hello, USERNAME">
+                        <Label id="cardUsername" fx:id="greetingLabel" text="Hello, Username">
                            <font>
                               <Font name="System Bold" size="20.0" />
                            </font></Label>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                        <HBox fx:id="userSettings" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                            <children>
                               <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#logOut" prefHeight="40.0" prefWidth="112.0" style="-fx-background-color: #0F4B91;" text="Log out" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
-                              <JFXButton fx:id="userButton" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" prefHeight="40.0" style="-fx-background-color: #0F4B91;" text="User settings" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
+                              <JFXButton fx:id="userButton" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" prefHeight="40.0" style="-fx-background-color: #0F4B91;" text="User Settings" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
                            </children>
                         </HBox>
                      </children>
                   </VBox>
-                  <ScrollPane id="scrollPane" fx:id="servicesPane" maxWidth="1.7976931348623157E308" GridPane.rowIndex="2">
+                  <ScrollPane id="scrollPane" fx:id="servicesPane" maxWidth="1.7976931348623157E308" prefHeight="500.0" prefWidth="251.0" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </GridPane.margin>
                   </ScrollPane>
                </children>
             </GridPane>
-            <AnchorPane fx:id="scenesPane" GridPane.columnIndex="1" />
+            <AnchorPane fx:id="scenesPane" prefHeight="800.0" prefWidth="935.0" GridPane.columnIndex="1" />
          </children>
       </GridPane>
    </children>

@@ -34,9 +34,6 @@
                 <RowConstraints maxHeight="419.2222442626953" minHeight="10.0" prefHeight="419.2222442626953" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
-               <effect>
-                  <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
-               </effect>
                <children>
                   <Label id="floralDeliveryLabel" text="Floral Delivery" textFill="WHITE" />
                   <GridPane GridPane.rowIndex="1">
@@ -60,7 +57,7 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <GridPane GridPane.rowIndex="1">
+                              <GridPane id="flowerGrid" GridPane.rowIndex="1">
                                 <columnConstraints>
                                   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -70,12 +67,12 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <JFXRadioButton fx:id="tulip" onAction="#checkFlowers" text="Tulip(Orange) $15" GridPane.halignment="RIGHT" />
+                                    <JFXRadioButton fx:id="tulip" onAction="#checkFlowers" prefWidth="210.0" text="Tulip(Orange) $15" GridPane.halignment="RIGHT" />
                                     <JFXRadioButton fx:id="rose" onAction="#checkFlowers" text="Roses $25" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
                                     <JFXRadioButton fx:id="lilie" onAction="#checkFlowers" text="Lilies $18" GridPane.columnIndex="2" GridPane.halignment="LEFT" />
                                  </children>
                               </GridPane>
-                              <Label id="flowerLabel" text="Type of flowers" textFill="WHITE" />
+                              <Label id="flowerLabel" text="Type of flowers" textFill="WHITE" GridPane.valignment="TOP" />
                            </children>
                         </GridPane>
                         <JFXTextField fx:id="roomNumber" promptText="Room number" />
@@ -88,7 +85,7 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <GridPane GridPane.rowIndex="1">
+                              <GridPane id="vaseGrid" GridPane.rowIndex="1">
                                 <columnConstraints>
                                   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                     <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -103,15 +100,18 @@
                                     <JFXRadioButton fx:id="orangeVase" onAction="#checkVase" text="Orange" translateX="3.0" GridPane.columnIndex="2" GridPane.halignment="LEFT" />
                                  </children>
                               </GridPane>
-                              <Label id="vaseLabel" text="Vase options" textFill="WHITE" />
                            </children>
                         </GridPane>
+                        <Label id="vaseLabel" text="Vase options" textFill="WHITE" GridPane.rowIndex="3" GridPane.valignment="TOP" />
                         <JFXTextField fx:id="personalNote" promptText="Personalized note (optional)" GridPane.rowIndex="4" />
                         <JFXDatePicker fx:id="deliveryDate" defaultColor="#0f4b91" prefWidth="400.0" promptText="Delivery Date" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
-                  <JFXButton id="submitBtn" onAction="#submitForm" text="SUBMIT" GridPane.rowIndex="2" />
+                  <JFXButton id="submitBtn" onAction="#submitForm" text="Submit" GridPane.rowIndex="2" />
                </children>
+               <effect>
+                  <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
+               </effect>
             </GridPane>
          </children>
       </GridPane>

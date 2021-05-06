@@ -75,6 +75,9 @@ public class landingPageController extends SceneController {
   private  HBox religionSidePane;
 
   @FXML
+  private HBox userSettings;
+
+  @FXML
   private HBox laundrySidePane;
 
   @FXML
@@ -98,13 +101,13 @@ public class landingPageController extends SceneController {
     //contentPane.setPrefSize(width,height);
 
     Parent root = null;
-    greetingLabel.setText("Hello, " + App.getCurrentUsername().toUpperCase());
+    greetingLabel.setText("Hello, " + App.getCurrentUsername());
 
     if (App.getClearenceLevel() == 1) {
       userButton.setVisible(true);
       root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/employeeHomePage.fxml")));
     } else {
-      userButton.setVisible(false);
+      userSettings.getChildren().remove(userButton);
       root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/wpi/MochaManticores/fxml/homePage2.fxml")));
     }
 
