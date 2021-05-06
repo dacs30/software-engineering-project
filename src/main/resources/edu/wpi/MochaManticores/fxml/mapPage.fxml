@@ -77,14 +77,15 @@
                                  <children>
                                     <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                       <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                       </columnConstraints>
                                       <rowConstraints>
-                                        <RowConstraints maxHeight="424.14813232421875" minHeight="299.11114501953125" prefHeight="299.11114501953125" vgrow="SOMETIMES" />
-                                        <RowConstraints maxHeight="263.88885498046875" minHeight="10.0" prefHeight="263.88885498046875" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="424.14813232421875" minHeight="299.11114501953125" prefHeight="345.4814758300781" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="314.22222900390625" minHeight="10.0" prefHeight="268.5185241699219" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="263.88885498046875" minHeight="10.0" prefHeight="93.77777099609375" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
-                                          <VBox alignment="CENTER" prefHeight="431.0" prefWidth="486.0" spacing="30.0">
+                                          <VBox alignment="CENTER" prefHeight="431.0" prefWidth="486.0" spacing="25.0">
                                              <children>
                                                 <JFXComboBox fx:id="floorSelector" focusColor="#ffffff00" onAction="#selectFloor" prefHeight="44.0" prefWidth="162.0" promptText="Select Floor" unFocusColor="#ffffff00" />
                                                 <ScrollPane fx:id="textFieldScrollPane" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="141.0" prefWidth="365.0">
@@ -121,20 +122,12 @@
                                                 </ScrollPane>
                                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                                    <children>
-                                                      <JFXButton fx:id="routeExample" buttonType="RAISED" onAction="#goToRouteExample" prefHeight="56.0" prefWidth="110.0" text="Get Path" textAlignment="CENTER">
+                                                      <JFXButton fx:id="routeExample" buttonType="RAISED" onAction="#goToRouteExample" text="Get Path" textAlignment="CENTER">
                                                          <font>
                                                             <Font name="System Bold" size="19.0" />
                                                          </font>
                                                          <HBox.margin>
                                                             <Insets right="15.0" />
-                                                         </HBox.margin>
-                                                      </JFXButton>
-                                                      <JFXButton buttonType="RAISED" onAction="#clearLines" prefHeight="51.0" prefWidth="110.0" text="Clear" textAlignment="CENTER">
-                                                         <font>
-                                                            <Font size="18.0" />
-                                                         </font>
-                                                         <HBox.margin>
-                                                            <Insets left="15.0" />
                                                          </HBox.margin>
                                                       </JFXButton>
                                                    </children>
@@ -146,8 +139,13 @@
                                           </VBox>
                                           <ScrollPane id="scrollpane" fx:id="directionPane" prefHeight="200.0" prefWidth="200.0" stylesheets="@../Stylesheets/mapPage.css" GridPane.rowIndex="1">
                                              <GridPane.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" />
+                                                <Insets left="10.0" right="10.0" />
                                              </GridPane.margin></ScrollPane>
+                                          <JFXButton buttonType="RAISED" onAction="#clearLines" prefHeight="44.0" prefWidth="109.0" text="Clear" textAlignment="CENTER" GridPane.rowIndex="2">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </JFXButton>
                                        </children>
                                     </GridPane>
                                  </children>
@@ -160,10 +158,10 @@
                                  <children>
                                     <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="80.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <JFXButton onAction="#findNearestLocation" prefHeight="55.0" prefWidth="176.0" text="Find Nearest" />
-                                          <JFXComboBox fx:id="nearestLocationSelector" focusColor="BLACK" promptText="Select Location" style="-fx-background-color: WHITE;" />
-                                          <JFXButton fx:id="parkingButton" onMouseClicked="#saveUserParking" text="Save Parking" />
                                           <JFXToggleButton fx:id="pathHandicap" text="Handicap" />
+                                          <JFXComboBox fx:id="nearestLocationSelector" focusColor="BLACK" promptText="Select Location" style="-fx-background-color: WHITE;" />
+                                          <JFXButton onAction="#findNearestLocation" text="Find Nearest" />
+                                          <JFXButton fx:id="parkingButton" onMouseClicked="#saveUserParking" text="Save Parking" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -184,12 +182,12 @@
       </GridPane>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="130.0" spacing="10.0">
          <children>
-            <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="150.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/logo-small.png" />
                </image>
             </ImageView>
-            <JFXButton buttonType="RAISED" onAction="#back" prefHeight="51.0" prefWidth="93.0" style="-fx-background-radius: 40; -fx-border-radius: 40;" text="Back">
+            <JFXButton buttonType="RAISED" onAction="#back" style="-fx-background-radius: 40; -fx-border-radius: 40;" text="Back">
                <font>
                   <Font size="18.0" />
                </font>
@@ -205,9 +203,9 @@
             <ColumnConstraints hgrow="NEVER" maxWidth="120.0" minWidth="10.0" prefWidth="111.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="24.074066162109375" minHeight="10.0" prefHeight="24.074066162109375" vgrow="NEVER" />
-          <RowConstraints maxHeight="35.925933837890625" minHeight="10.0" prefHeight="29.48150634765625" vgrow="NEVER" />
-          <RowConstraints maxHeight="36.51849365234375" minHeight="10.0" prefHeight="36.51849365234375" vgrow="NEVER" />
+          <RowConstraints maxHeight="24.074066162109375" minHeight="10.0" prefHeight="21.4444580078125" vgrow="NEVER" />
+          <RowConstraints maxHeight="39.48149108886719" minHeight="10.0" prefHeight="26.888885498046875" vgrow="NEVER" />
+          <RowConstraints maxHeight="44.111114501953125" minHeight="10.0" prefHeight="44.111114501953125" vgrow="NEVER" />
         </rowConstraints>
          <children>
             <Label alignment="CENTER" text="Legend" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">

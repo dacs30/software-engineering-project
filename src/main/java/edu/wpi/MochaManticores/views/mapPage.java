@@ -16,6 +16,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
@@ -268,6 +269,10 @@ public class mapPage extends SceneController{
         contentPane.maxHeightProperty().bind(App.getPrimaryStage().heightProperty());
         mapStack.maxWidthProperty().bind(App.getPrimaryStage().widthProperty());
         mapStack.maxHeightProperty().bind(App.getPrimaryStage().heightProperty());
+
+        // Turns off the horizontal scroll and fits the content to the pane width
+        directionPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        directionPane.setFitToWidth(true);
 
         try{
             user = DatabaseManager.getEmployee(App.getCurrentUsername());
@@ -824,8 +829,7 @@ public class mapPage extends SceneController{
         //pathToTake is used in the dialog box that keeps all the nodes that the user has to pass through
         StringBuilder pathToTake = new StringBuilder();
         LinkedList<NodeSuper> stops = new LinkedList<>();
-        for (node n :
-                pitStops) {
+        for (node n : pitStops) {
             stops.add(DatabaseManager.getNode(n.nodeID));
         }
         if (pitStops.isEmpty()) {
@@ -879,83 +883,100 @@ public class mapPage extends SceneController{
             savedRoute.add(endID);
 //            dirVBOX.getChildren().add(endLabel);
             for (LinkedList<String> floor : App.getAlgoType().pathToText(path)){
+                Label currentFloor = new Label();
+                currentFloor.setText(floor.getFirst());
+                dirVBOX.getChildren().add(currentFloor);
                 for (String s : floor){
                     Label p = new Label();
                     if(s.contains("Take the stairs up to floor ")){
                         HBox hbox = new HBox();
-                        Image img = new Image("/edu/wpi/MochaManticores/images/stairs-up.png");
+                        Image img = new Image("/edu/wpi/MochaManticores/images/upStairsDirectionIcon.png");
                         ImageView stairs = new ImageView(img);
-                        stairs.setFitWidth(22);
+                        stairs.setFitWidth(50);
                         stairs.setPreserveRatio(true);
                         p.setText(s);
+                        p.setPadding(new Insets(10, 0, 10, 0));
+                        p.setWrapText(true);
                         hbox.getChildren().add(stairs);
                         hbox.getChildren().add(p);
                         hbox.setAlignment(Pos.CENTER_LEFT);
                         dirVBOX.getChildren().add(hbox);
                     } else if(s.contains("Take the elevator up to floor ")){
                         HBox hbox = new HBox();
-                        Image img = new Image("/edu/wpi/MochaManticores/images/elevator.png");
+                        Image img = new Image("/edu/wpi/MochaManticores/images/elevatorDirectionIcon.png");
                         ImageView elevator = new ImageView(img);
-                        elevator.setFitWidth(22);
+                        elevator.setFitWidth(50);
                         elevator.setPreserveRatio(true);
                         p.setText(s);
+                        p.setPadding(new Insets(10, 0, 10, 0));
+                        p.setWrapText(true);
                         hbox.getChildren().add(elevator);
                         hbox.getChildren().add(p);
                         hbox.setAlignment(Pos.CENTER_LEFT);
                         dirVBOX.getChildren().add(hbox);
                     } else if(s.contains("Take the stairs down to floor ")){
                         HBox hbox = new HBox();
-                        Image img = new Image("/edu/wpi/MochaManticores/images/stairs-down.png");
+                        Image img = new Image("/edu/wpi/MochaManticores/images/downStairsDirectionIcon.png");
                         ImageView stairs = new ImageView(img);
-                        stairs.setFitWidth(22);
+                        stairs.setFitWidth(50);
                         stairs.setPreserveRatio(true);
                         p.setText(s);
+                        p.setPadding(new Insets(10, 0, 10, 0));
+                        p.setWrapText(true);
                         hbox.getChildren().add(stairs);
                         hbox.getChildren().add(p);
                         hbox.setAlignment(Pos.CENTER_LEFT);
                         dirVBOX.getChildren().add(hbox);
                     } else if(s.contains("Take the elevator down to floor ")){
                         HBox hbox = new HBox();
-                        Image img = new Image("/edu/wpi/MochaManticores/images/elevator.png");
+                        Image img = new Image("/edu/wpi/MochaManticores/images/elevatorDirectionIcon.png");
                         ImageView elevator = new ImageView(img);
-                        elevator.setFitWidth(22);
+                        elevator.setFitWidth(50);
                         elevator.setPreserveRatio(true);
                         p.setText(s);
+                        p.setPadding(new Insets(10, 0, 10, 0));
+                        p.setWrapText(true);
                         hbox.getChildren().add(elevator);
                         hbox.getChildren().add(p);
                         hbox.setAlignment(Pos.CENTER_LEFT);
                         dirVBOX.getChildren().add(hbox);
                     } else if(s.contains("Head straight until you reach ")){
                         HBox hbox = new HBox();
-                        Image img = new Image("/edu/wpi/MochaManticores/images/up-arrow.png");
+                        Image img = new Image("/edu/wpi/MochaManticores/images/upArrowDirection.png");
                         ImageView arrowUp = new ImageView(img);
-                        arrowUp.setFitWidth(22);
+                        arrowUp.setFitWidth(50);
                         arrowUp.setPreserveRatio(true);
                         p.setText(s);
+                        p.setPadding(new Insets(10, 0, 10, 0));
+                        p.setWrapText(true);
                         hbox.getChildren().add(arrowUp);
                         hbox.getChildren().add(p);
                         hbox.setAlignment(Pos.CENTER_LEFT);
                         dirVBOX.getChildren().add(hbox);
                     } else if(s.contains("Then turn left")){
                         HBox hbox = new HBox();
-                        Image img = new Image("/edu/wpi/MochaManticores/images/up-arrow.png");
+                        Image img = new Image("/edu/wpi/MochaManticores/images/upArrowDirection.png");
                         ImageView arrowUp = new ImageView(img);
                         arrowUp.setPreserveRatio(true);
                         arrowUp.setRotate(-90);
-                        arrowUp.setFitWidth(22);
+                        arrowUp.setFitWidth(50);
                         p.setText(s);
+                        p.setPadding(new Insets(10, 0, 10, 0));
+                        p.setWrapText(true);
                         hbox.getChildren().add(arrowUp);
                         hbox.getChildren().add(p);
                         hbox.setAlignment(Pos.CENTER_LEFT);
                         dirVBOX.getChildren().add(hbox);
                     } else if(s.contains("Then turn right")){
                         HBox hbox = new HBox();
-                        Image img = new Image("/edu/wpi/MochaManticores/images/up-arrow.png");
+                        Image img = new Image("/edu/wpi/MochaManticores/images/upArrowDirection.png");
                         ImageView arrowUp = new ImageView(img);
                         arrowUp.setPreserveRatio(true);
                         arrowUp.setRotate(90);
-                        arrowUp.setFitWidth(22);
+                        arrowUp.setFitWidth(50);
                         p.setText(s);
+                        p.setPadding(new Insets(10, 0, 10, 0));
+                        p.setWrapText(true);
                         hbox.getChildren().add(arrowUp);
                         hbox.getChildren().add(p);
                         hbox.setAlignment(Pos.CENTER_LEFT);
