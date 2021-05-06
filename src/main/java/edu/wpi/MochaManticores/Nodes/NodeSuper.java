@@ -23,6 +23,7 @@ public class NodeSuper {
     private VertexList neighbors;               //A list of connected nodes with vertex costs
     private boolean isHandicap;
     private boolean isRestricted;
+    private boolean isCovid;
 
     //Constructor
     public NodeSuper(int xcoord, int ycoord, String floor, String building, String longName, String shortName, String nodeID, String nodeType, VertexList neighbors) {
@@ -37,10 +38,19 @@ public class NodeSuper {
         this.neighbors = neighbors;
         this.isHandicap = !nodeType.equals("STAI");
         this.isRestricted = false;
+        this.isCovid = false;
         if(neighbors == null){
             this.neighbors = new VertexList(new HashMap<>());
         }
 
+    }
+
+    public boolean isCovid() {
+        return isCovid;
+    }
+
+    public void setCovid(boolean covid) {
+        isCovid = covid;
     }
 
     /**
