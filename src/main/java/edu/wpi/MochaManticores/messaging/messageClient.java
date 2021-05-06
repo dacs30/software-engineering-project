@@ -34,7 +34,8 @@ public class messageClient extends SceneController {
     // Connection
     Socket socket = null;
     DataOutputStream output = null;
-    clientReader reader = null;
+    public clientReader reader = null;
+    public Thread readerThread = null;
     //user data
     public String user = App.getCurrentUsername();
 
@@ -68,8 +69,8 @@ public class messageClient extends SceneController {
 
             //create a thread in order to read message from server continuously
             reader = new clientReader(socket, this, App.getCurrentUsername());
-            Thread thread = new Thread(reader);
-            thread.start();
+            App.readerThread = new Thread(reader);
+            App.readerThread.start();
 
             //send a data grab request
             Message dataGrab = new Message(user, "dataGrab", "null", Message.msgType.DATAGRAB);

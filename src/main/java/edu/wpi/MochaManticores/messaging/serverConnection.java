@@ -2,6 +2,7 @@ package edu.wpi.MochaManticores.messaging;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.Socket;
 
@@ -9,6 +10,7 @@ public class serverConnection implements Runnable {
     private String user;
     private Socket socket;
     private messageServer server;
+    public boolean running = true;
 
     //datastreams
     DataInputStream inputStream;
@@ -25,8 +27,12 @@ public class serverConnection implements Runnable {
             //get socket streams
             inputStream = new DataInputStream(socket.getInputStream());
             outputStream = new DataOutputStream(socket.getOutputStream());
+            FileWriter myWriter = new FileWriter("connection.txt");
 
-            while(true){
+            while(running){
+                myWriter.write("connection run" + System.currentTimeMillis() + '\n');
+                myWriter.flush();
+
                 Message msg = new Message(inputStream.readUTF());
                 switch (msg.TYPE){
                     case MSGPOST:
@@ -41,7 +47,6 @@ public class serverConnection implements Runnable {
                         break;
                 }
             }
-
         } catch (IOException e) {
             //e.printStackTrace();
         }

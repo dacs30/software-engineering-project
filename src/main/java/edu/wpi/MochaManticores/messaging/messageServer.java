@@ -8,24 +8,38 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class messageServer implements Runnable{
-    List<serverConnection> connectionsList = new ArrayList<>();
+    public List<serverConnection> connectionsList = new ArrayList<>();
+    public List<Thread> threadList = new ArrayList<>();
     HashMap<String, LinkedList<Message>> messageHistory = new HashMap<>();
+    public boolean running = true;
     //TODO database refreshing
 
     @Override
     public void run() {
         try {
+            FileWriter myWriter = new FileWriter("SERVER.txt");
             // create server socket
             ServerSocket serverSocket = new ServerSocket(connectionUtil.port);
+            serverSocket.setSoTimeout(100);
 
             // add client loop
-            while (true) {
-                Socket socket = serverSocket.accept();
-                serverConnection connection = new serverConnection(socket, this);
-                connectionsList.add(connection);
+            while (running) {
+                myWriter.write("SERVER run" + System.currentTimeMillis() + '\n');
+                myWriter.flush();
 
-                Thread thread = new Thread(connection);
-                thread.start();
+                try {
+                    Socket socket = serverSocket.accept();
+                    serverConnection connection = new serverConnection(socket, this);
+                    connectionsList.add(connection);
+
+                    Thread thread = new Thread(connection);
+                    thread.start();
+                    threadList.add(thread);
+
+                }catch(SocketTimeoutException e){
+                    //do nothing
+                }
+
             }
 
         } catch (IOException e) {

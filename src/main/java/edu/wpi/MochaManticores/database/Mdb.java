@@ -18,6 +18,7 @@ public class Mdb extends Thread{
     private Connection connection = null;
     public String JDBC_EMBED = "jdbc:derby:Mdatabase;create=true";
     public String JDBC_SERVER = "jdbc:derby://localhost:1527/Mdatabase;create=true";
+    private NetworkServerControl server = null;
 
     /* function nodeStartup()
      * creates the node table if it does not already exist, then populates the table and map
@@ -469,7 +470,7 @@ public class Mdb extends Thread{
 
         // start network server
         try {
-            NetworkServerControl server = new NetworkServerControl();
+            server = new NetworkServerControl();
             server.start(null);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -651,9 +652,14 @@ public class Mdb extends Thread{
             for(sel s : sel.values()){
                 DatabaseManager.getManager(s).saveElements();
             }
+            if(server != null){
+                server.shutdown();
+            }
             connection = null;
             DatabaseManager.setConnection(null);
         }catch(FileNotFoundException | SQLException e){
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

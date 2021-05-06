@@ -1,6 +1,7 @@
 package edu.wpi.MochaManticores;
 
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.Socket;
 import java.sql.SQLException;
@@ -13,8 +14,7 @@ import edu.wpi.MochaManticores.database.EdgeManager;
 import edu.wpi.MochaManticores.database.EmployeeManager;
 import edu.wpi.MochaManticores.database.NodeManager;
 import edu.wpi.MochaManticores.database.*;
-import edu.wpi.MochaManticores.messaging.connectionUtil;
-import edu.wpi.MochaManticores.messaging.messageServer;
+import edu.wpi.MochaManticores.messaging.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -33,6 +33,11 @@ public class App extends Application {
   private static PathPlanning algoType = new AStar2();
   private static String currentUsername;
   private static GeoApiContext context;
+
+
+  private static messageServer server = null;
+  private static Thread serverThread = null;
+  public static Thread readerThread = null;
 
   public static GeoApiContext getContext() {
     return context;
@@ -127,22 +132,47 @@ public class App extends Application {
     return primaryStage;
   }
 
-
   public static void startServer(){
     try {
       Socket socket = new Socket(connectionUtil.host, connectionUtil.port);
       socket.close();
     }catch(IOException e){
       // no server, start server
-      messageServer server = new messageServer();
-      Thread serverThread = new Thread(server);
+      server = new messageServer();
+      serverThread = new Thread(server);
       serverThread.start();
     }
   }
 
   @Override
-  public void stop() {
+  public void stop() throws IOException {
     System.out.println("Shutting Down");
     DatabaseManager.shutdown();
+
+    FileWriter read = new FileWriter("APP.txt");
+
+    System.out.println(readerThread != null);
+    System.out.println(serverThread != null);
+
+    if(readerThread != null) {
+      read.write("reader" + System.currentTimeMillis() + '\n');
+      read.flush();
+      readerThread.stop();
+    }
+
+    if(server != null) {
+      for (Thread c : server.threadList) {
+        c.stop();
+        read.write("connection" + System.currentTimeMillis() + '\n');
+        read.flush();
+      }
+      serverThread.stop();
+      read.write("server  " + System.currentTimeMillis() + '\n');
+      read.flush();
+    }
+
+    read.write("all" + System.currentTimeMillis() + '\n');
+    read.flush();
+    read.close();
   }
 }

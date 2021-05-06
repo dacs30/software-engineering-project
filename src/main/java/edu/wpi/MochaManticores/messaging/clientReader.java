@@ -2,6 +2,7 @@ package edu.wpi.MochaManticores.messaging;
 
 import javafx.application.Platform;
 import java.io.DataInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.HashMap;
@@ -12,6 +13,8 @@ public class clientReader implements Runnable{
     messageClient client;
     DataInputStream input;
     String username;
+    FileWriter myWriter = null;
+    public boolean running = true;
     public HashMap<String,LinkedList<Message>> messageHistory = new HashMap<>();
 
     //Constructor
@@ -23,8 +26,16 @@ public class clientReader implements Runnable{
 
     @Override
     public void run() {
-        while(true){
+        try {
+            myWriter = new FileWriter("ReADER.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        while(running){
             try{
+                myWriter.write("reader run" + System.currentTimeMillis() + '\n');
+                myWriter.flush();
+
                 input = new DataInputStream(socket.getInputStream());
                 Message msg = new Message(input.readUTF());
                 postMessage(msg);
