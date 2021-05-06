@@ -36,7 +36,7 @@
                   <DropShadow color="#000000a8" height="84.3" radius="42.32" width="86.98" />
                </effect>
                <children>
-                  <GridPane>
+                  <GridPane GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -61,7 +61,7 @@
                         </HBox>
                      </children>
                   </GridPane>
-                  <ImageView fitHeight="150.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+                  <ImageView fitHeight="150.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <image>
                         <Image url="@../images/imageForCovid.png" />
                      </image>
@@ -76,7 +76,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <GridPane id="card" maxWidth="-Infinity" onMouseClicked="#goToChatPage" prefWidth="900.0">
+                  <GridPane id="card" maxWidth="-Infinity" minHeight="-Infinity" onMouseClicked="#goToChatPage" prefHeight="230.0" prefWidth="900.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <columnConstraints>
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -103,7 +103,7 @@
                               <Label id="covidDescription" text="Check out our new Chat Bot! " textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1" />
                               <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                                  <children>
-                                    <Label id="covidLabel" text="CONTACT US" />
+                                    <Label id="covidLabel" text="Contact Us" />
                                  </children>
                               </HBox>
                            </children>
@@ -117,9 +117,9 @@
                   </GridPane>
                </children>
             </GridPane>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0" GridPane.rowIndex="1">
+            <HBox alignment="CENTER" minHeight="-Infinity" prefHeight="275.0" prefWidth="200.0" spacing="50.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <children>
-                  <GridPane id="card" onMouseClicked="#goToMapPage" prefWidth="267.0">
+                  <GridPane id="card" onMouseClicked="#goToMapPage" prefWidth="260.0">
                     <columnConstraints>
                       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
                     </columnConstraints>
@@ -139,10 +139,10 @@
                               <Image url="@../images/mapCardIcon.png" />
                            </image>
                         </ImageView>
-                        <Label id="cardLabel" text="MAP" GridPane.rowIndex="1" />
+                        <Label id="cardLabel" text="Map" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
-                  <GridPane id="card" onMouseClicked="#goToMedicineOrder" prefWidth="267.0">
+                  <GridPane id="card" onMouseClicked="#goToMedicineOrder" prefWidth="260.0">
                      <columnConstraints>
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                      </columnConstraints>
@@ -157,7 +157,7 @@
                         <Insets bottom="30.0" top="40.0" />
                      </HBox.margin>
                      <children>
-                        <Label id="cardLabelMedicineDelivery" text="MEDICINE DELIVERY" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1" />
+                        <Label id="cardLabelMedicineDelivery" text="Medicine Delivery" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1" />
                         <ImageView fitHeight="100.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/urban-887.png" />
@@ -165,7 +165,7 @@
                         </ImageView>
                      </children>
                   </GridPane>
-                  <GridPane id="card" onMouseClicked="#goToInternalTransport" prefWidth="267.0">
+                  <GridPane id="card" minHeight="-Infinity" onMouseClicked="#goToInternalTransport" prefHeight="210.0" prefWidth="290.0">
                      <columnConstraints>
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                      </columnConstraints>
@@ -180,7 +180,7 @@
                         <Insets bottom="30.0" top="40.0" />
                      </HBox.margin>
                      <children>
-                        <Label id="cardLabelInternalTransportation" text="INTERNAL TRANSPORTATION" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1" />
+                        <Label id="cardLabelInternalTransportation" text="Internal Transportation" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1" />
                         <ImageView fitHeight="113.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/urban-wheelchair.png" />

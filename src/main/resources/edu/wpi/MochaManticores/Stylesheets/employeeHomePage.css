@@ -27,12 +27,12 @@
 
 #cardLabelMedicineDelivery {
     -fx-font-family: Roboto;
-    -fx-font-size: 20;
+    -fx-font-size: 25;
     -fx-font-weight: bold;
 }
 
 #cardLabelInternalTransportation {
-    -fx-font-size: 20;
+    -fx-font-size: 25;
     fx-font-family: Roboto;
     -fx-font-weight: bold;
 }
@@ -40,6 +40,11 @@
 #emergencyCard {
     -fx-background-color: #ff9494;
     -fx-background-radius: 40;
+}
+#cardAlgorithm{
+    -fx-font-size: 25;
+    -fx-font-family: Roboto;
+    -fx-font-weight: bold ;
 }
 
 #emergencyLabel {

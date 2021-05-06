@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
 <AnchorPane id="outerContainer" fx:id="outerPane" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../Stylesheets/landingPage.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.landingPageController">
    <children>
       <HBox fx:id="menuSidePane" alignment="CENTER_LEFT" onMouseClicked="#renderMenu" spacing="10.0" style="-fx-background-color: #E9E9E9;">
@@ -79,7 +71,7 @@
       </HBox>
       <HBox fx:id="servicesBox" alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" spacing="10.0" style="-fx-background-color: #E9E9E9;">
          <children>
-            <Label id="menuSideBarLabel" prefHeight="48.0" prefWidth="153.0" stylesheets="@../Stylesheets/landingPage.css" text="Services" wrapText="true" />
+            <Label id="menuSideBarLabel" stylesheets="@../Stylesheets/landingPage.css" text="Services" wrapText="true" />
          </children>
          <padding>
             <Insets bottom="10.0" left="20.0" top="10.0" />
@@ -108,7 +100,7 @@
                   <Image url="@../images/foodDeliveryIcon.png" />
                </image>
             </ImageView>
-            <Label id="menuSideBarLabel" prefHeight="44.0" prefWidth="79.0" stylesheets="@../Stylesheets/landingPage.css" text="Food Delivery" wrapText="true" />
+            <Label id="menuSideBarLabel" stylesheets="@../Stylesheets/landingPage.css" text="Food Delivery" wrapText="true" />
          </children>
          <opaqueInsets>
             <Insets />
@@ -124,7 +116,7 @@
                   <Image url="@../images/medicineDeliveryIcon.png" />
                </image>
             </ImageView>
-            <Label id="menuSideBarLabel" prefHeight="44.0" prefWidth="68.0" stylesheets="@../Stylesheets/landingPage.css" text="Medicine Delivery" wrapText="true" />
+            <Label id="menuSideBarLabel" stylesheets="@../Stylesheets/landingPage.css" text="Medicine Delivery" wrapText="true" />
          </children>
          <padding>
             <Insets bottom="10.0" left="20.0" top="10.0" />
@@ -176,7 +168,7 @@
                   <Image url="@../images/sanitationServicesIcon.png" />
                </image>
             </ImageView>
-            <Label id="menuSideBarLabel" prefHeight="48.0" prefWidth="153.0" stylesheets="@../Stylesheets/landingPage.css" text="Sanitation" wrapText="true" />
+            <Label id="menuSideBarLabel" stylesheets="@../Stylesheets/landingPage.css" text="Sanitation" wrapText="true" />
          </children>
          <padding>
             <Insets bottom="10.0" left="20.0" top="10.0" />
@@ -189,7 +181,7 @@
                   <Image url="@../images/covidIcon.png" />
                </image>
             </ImageView>
-            <Label id="menuSideBarLabel" prefHeight="60.0" prefWidth="200.0" stylesheets="@../Stylesheets/landingPage.css" text="Covid Survey" wrapText="true" />
+            <Label id="menuSideBarLabel" stylesheets="@../Stylesheets/landingPage.css" text="Covid Survey" wrapText="true" />
          </children>
          <padding>
             <Insets bottom="10.0" left="20.0" top="10.0" />
@@ -229,7 +221,7 @@
                               <Image url="@../images/emergencyIcon.png" />
                            </image>
                         </ImageView>
-                        <Label id="menuSideBarLabel" prefHeight="48.0" prefWidth="153.0" stylesheets="@../Stylesheets/landingPage.css" text="Emergency" wrapText="true" />
+                        <Label id="menuSideBarLabel" stylesheets="@../Stylesheets/landingPage.css" text="Emergency" wrapText="true" />
                      </children>
                      <padding>
                         <Insets left="20.0" />
@@ -240,11 +232,14 @@
                   </HBox>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                      <children>
-                        <Label fx:id="greetingLabel" text="Hello, USERNAME" />
+                        <Label id="cardUsername" fx:id="greetingLabel" text="Hello, USERNAME">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font></Label>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                            <children>
-                              <JFXButton alignment="TOP_LEFT" buttonType="RAISED" contentDisplay="CENTER" onAction="#logOut" style="-fx-background-color: #0F4B91;" text="Log out" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
-                              <JFXButton fx:id="userButton" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#userSettings" style="-fx-background-color: #0F4B91;" text="User settings" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
+                              <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#logOut" prefHeight="40.0" prefWidth="112.0" style="-fx-background-color: #0F4B91;" text="Log out" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
+                              <JFXButton fx:id="userButton" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" prefHeight="40.0" style="-fx-background-color: #0F4B91;" text="User settings" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
                            </children>
                         </HBox>
                      </children>
