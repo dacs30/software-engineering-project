@@ -1,7 +1,9 @@
 .jfx-text-field {
     -fx-font-family: Roboto;
     -fx-font-size: 24;
-    -fx-prompt-text-fill: rgba(193, 193, 193, 0.93);
+    -fx-prompt-text-fill: grey;
+    -jfx-unfocus-color : grey;
+    -jfx-focus-color : #0F4B91 ;
 }
 
 #orLabel {
