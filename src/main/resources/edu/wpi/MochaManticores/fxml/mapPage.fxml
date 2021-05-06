@@ -67,7 +67,7 @@
                   <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
                </effect>
             </GridPane>
-            <AnchorPane id="tabsPaneAnchor" fx:id="paneContainingTabPane" maxHeight="600.0" maxWidth="400.0" prefHeight="200.0" prefWidth="400.0" stylesheets="@../Stylesheets/mapPage.css" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+            <AnchorPane id="tabsPaneAnchor" fx:id="paneContainingTabPane" maxHeight="1.7976931348623157E308" maxWidth="400.0" prefHeight="200.0" prefWidth="400.0" stylesheets="@../Stylesheets/mapPage.css" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
                <children>
                   <JFXTabPane id="tabPane" fx:id="tabPane" maxHeight="624.0" maxWidth="376.0" prefHeight="624.0" prefWidth="444.0" stylesheets="@../Stylesheets/mapPage.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <tabs>
@@ -174,7 +174,7 @@
                   </JFXTabPane>
                </children>
                <GridPane.margin>
-                  <Insets left="15.0" right="15.0" />
+                  <Insets bottom="30.0" left="15.0" right="15.0" top="30.0" />
                </GridPane.margin>
                <effect>
                   <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
@@ -199,15 +199,15 @@
             <Insets left="30.0" />
          </padding>
       </VBox>
-      <GridPane alignment="BOTTOM_LEFT" style="-fx-background-color: white; -fx-background-radius: 20;" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="225.0">
+      <GridPane alignment="BOTTOM_LEFT" prefHeight="102.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 20;" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="225.0">
         <columnConstraints>
           <ColumnConstraints hgrow="NEVER" maxWidth="181.0" minWidth="10.0" prefWidth="89.0" />
             <ColumnConstraints hgrow="NEVER" maxWidth="120.0" minWidth="10.0" prefWidth="111.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+          <RowConstraints maxHeight="24.074066162109375" minHeight="10.0" prefHeight="24.074066162109375" vgrow="NEVER" />
+          <RowConstraints maxHeight="35.925933837890625" minHeight="10.0" prefHeight="29.48150634765625" vgrow="NEVER" />
+          <RowConstraints maxHeight="36.51849365234375" minHeight="10.0" prefHeight="36.51849365234375" vgrow="NEVER" />
         </rowConstraints>
          <children>
             <Label alignment="CENTER" text="Legend" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
@@ -229,7 +229,7 @@
             </Label>
          </children>
          <effect>
-            <DropShadow />
+            <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
          </effect>
       </GridPane>
    </children>

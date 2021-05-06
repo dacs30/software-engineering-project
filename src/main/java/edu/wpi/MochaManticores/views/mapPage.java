@@ -286,7 +286,7 @@ public class mapPage extends SceneController{
         //mapScrollPane.prefWidthProperty().bind(App.getPrimaryStage().widthProperty());
         //GridPane.setHgrow(mapStack, Priority.ALWAYS);
 
-        // event to drag the menu of the mapa around
+        // event to drag the menu of the mapa around (LEGACY)
 //        tabPane.setOnMouseDragged(event -> {
 //
 //            System.out.println("hey");
