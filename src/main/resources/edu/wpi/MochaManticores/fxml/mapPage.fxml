@@ -92,13 +92,8 @@
                                                    <content>
                                                       <VBox fx:id="textFieldGroup" alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="99.0" prefWidth="365.0" spacing="30.0">
                                                          <children>
-                                                            <Label fx:id="fromLocation" maxWidth="-Infinity" prefHeight="25.0" prefWidth="300.0">
-                                                               <VBox.margin>
-                                                                  <Insets right="35.0" />
-                                                               </VBox.margin></Label>
                                                             <HBox fx:id="toHBOX" prefHeight="34.0" prefWidth="300.0">
                                                                <children>
-                                                                  <Label fx:id="toLocation" prefHeight="25.0" prefWidth="300.0" />
                                                                   <HBox fx:id="addField">
                                                                      <children>
                                                                         <ImageView fitHeight="32.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">

@@ -1,9 +1,6 @@
 package edu.wpi.MochaManticores.views;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.database.Mdb;
 import javafx.application.Platform;
@@ -221,4 +218,6 @@ public class SceneController{
             }
         }
     }
+
+
 }

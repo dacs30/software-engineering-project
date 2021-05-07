@@ -11,10 +11,12 @@ import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.Employee;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
@@ -37,6 +39,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 public class mapPage extends SceneController{
 
@@ -170,10 +173,10 @@ public class mapPage extends SceneController{
     private JFXScrollPane scrollPane;
 
     @FXML
-    private Label fromLocation;
+    private JFXTextField fromLocation;
 
     @FXML
-    private Label toLocation;
+    private JFXTextField toLocation;
 
     @FXML
     private JFXButton routeExample;
@@ -225,7 +228,7 @@ public class mapPage extends SceneController{
     private boolean updateDeltas = true;
     private boolean dragged = false;
 
-    private LinkedList<Label> fields = new LinkedList<>();
+    private LinkedList<JFXTextField> fields = new LinkedList<>();
     private int fieldIndex = 0;
 
     /*
@@ -255,6 +258,38 @@ public class mapPage extends SceneController{
         comboBox.setItems(filteredList);
 
     }*/
+
+    public class nodeNameWrapper {
+        String ID;
+        String name;
+
+        public nodeNameWrapper(String ID, String name) {
+            this.ID = ID;
+            this.name = name;
+        }
+
+        public String getID() {
+            return ID;
+        }
+
+        public void setID(String ID) {
+            this.ID = ID;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String toString(){
+            return this.name;
+        }
+    }
+
 
     public void initialize() throws InvalidElementException {
         double height = super.getHeight();
@@ -409,6 +444,24 @@ public class mapPage extends SceneController{
         createFilterListener(fromLocation);
 */
 
+        ObservableList<nodeNameWrapper> items = FXCollections.observableArrayList();
+        DatabaseManager.getElementIDs().forEach(s -> {
+            items.add(new nodeNameWrapper(s.getKey(), s.getValue()));
+        });
+
+        fromLocation = new JFXTextField();
+        toLocation = new JFXTextField();
+
+
+        textFieldGroup.getChildren().add(0, fromLocation);
+        addField.getChildren().add(toLocation);
+
+
+        setAutoComplete(fromLocation, items);
+        setAutoComplete(toLocation, items);
+
+        //fromLocation.textProperty().addListener();
+
         fields.add(fromLocation);fields.add(toLocation);
 
 
@@ -487,26 +540,33 @@ public class mapPage extends SceneController{
         int ind = textFieldGroup.getChildren().indexOf(toHBOX);
 
         HBox cont = new HBox();
-        Label toAdd = new Label();
+        JFXTextField toAdd = new JFXTextField();
         toAdd.setPrefWidth(300);
         toAdd.maxWidthProperty().bind(toAdd.prefWidthProperty());
         toAdd.minWidthProperty().bind(toAdd.prefWidthProperty());
+
+        HBox g = new HBox();
 
         Image img = new Image("/edu/wpi/MochaManticores/images/removeIcon.png");
         ImageView minusImage = new ImageView(img);
         minusImage.setFitWidth(30);
         minusImage.setPreserveRatio(true);
 
-        cont.getChildren().addAll(toAdd, minusImage);
+        g.getChildren().add(minusImage);
+
+
+        cont.getChildren().addAll(toAdd, g);
 
         cont.setAlignment(Pos.CENTER_LEFT);
 
-        ObservableList<String> items = FXCollections.observableArrayList();
+        ObservableList<nodeNameWrapper> items = FXCollections.observableArrayList();
         DatabaseManager.getElementIDs().forEach(s -> {
-            items.add(s.toString());
+            items.add(new nodeNameWrapper(s.getKey(), s.getValue()));
         });
 
-        minusImage.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        setAutoComplete(toAdd, items);
+
+        g.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
 
@@ -1172,7 +1232,7 @@ public class mapPage extends SceneController{
 
             }
         }
-        for (Label f : fields){
+        for (JFXTextField f : fields){
             f.setText("");
         }
         fields.get(0).setText("Starting Location");
@@ -1261,5 +1321,30 @@ public class mapPage extends SceneController{
         }catch(InvalidElementException e){
             System.out.println("no user in database to save parking info to");
         }
+    }
+
+    public void setAutoComplete(JFXTextField test, List<nodeNameWrapper> items){
+        JFXAutoCompletePopup<mapPage.nodeNameWrapper> autoCompletePopup = new JFXAutoCompletePopup<>();
+        autoCompletePopup.getSuggestions().addAll(items);
+
+        autoCompletePopup.setSelectionHandler(event -> {
+            test.setText(event.getObject().toString());
+
+            // you can do other actions here when text completed
+
+            System.out.println("Text completed?");
+        });
+
+        // filtering options
+        test.textProperty().addListener(observable -> {
+            autoCompletePopup.filter(string -> string.toString().toLowerCase().contains(test.getText().toLowerCase()));
+            if (autoCompletePopup.getFilteredSuggestions().isEmpty() || test.getText().isEmpty()) {
+                autoCompletePopup.hide();
+                // if you remove textField.getText.isEmpty() when text field is empty it suggests all options
+                // so you can choose
+            } else {
+                autoCompletePopup.show(test);
+            }
+        });
     }
 }
