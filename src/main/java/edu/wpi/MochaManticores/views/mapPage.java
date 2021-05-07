@@ -878,7 +878,7 @@ public class mapPage extends SceneController{
         System.out.printf("(%f,%f)\n", e.getX() * xRatio, e.getY() * yRatio);
     }
 
-    public void findPath() throws InvalidElementException, DestinationNotAccessibleException {
+    public void findPath() throws InvalidElementException {
         savedRoute.clear();
         dirVBOX.getChildren().clear();
         //pathToTake is used in the dialog box that keeps all the nodes that the user has to pass through
@@ -890,29 +890,33 @@ public class mapPage extends SceneController{
         if (pitStops.isEmpty()) {
             pathToTake.append("Please select at least one node");
         } else {
-            LinkedList<String> path;
-            if(DatabaseManager.getEmployee(App.getCurrentUsername()).isCovidStatus()){
-                if(pathHandicap.isSelected()){
-                    path = App.getAlgoType().multiStopRoute(stops, "covidHandicap");
-                }else {
-                    path = App.getAlgoType().multiStopRoute(stops, "covid");
-                }
-            }
-            else {
-                if (!pathHandicap.isSelected()) {
-                    if (App.getClearenceLevel() >= 1) {
-                        path = App.getAlgoType().multiStopRoute(stops, "none");
+            LinkedList<String> path = null;
+            try {
+                if (DatabaseManager.getEmployee(App.getCurrentUsername()).isCovidStatus()) {
+                    if (pathHandicap.isSelected()) {
+                        path = App.getAlgoType().multiStopRoute(stops, "covidHandicap");
                     } else {
-                        path = App.getAlgoType().multiStopRoute(stops, "publicOnly");
+                        path = App.getAlgoType().multiStopRoute(stops, "covid");
                     }
                 } else {
-                    if (App.getClearenceLevel() >= 1) {
-                        path = App.getAlgoType().multiStopRoute(stops, "handicap");
+                    if (!pathHandicap.isSelected()) {
+                        if (App.getClearenceLevel() >= 1) {
+                            path = App.getAlgoType().multiStopRoute(stops, "none");
+                        } else {
+                            path = App.getAlgoType().multiStopRoute(stops, "publicOnly");
+                        }
                     } else {
-                        path = App.getAlgoType().multiStopRoute(stops, "publicHandicap");
-                    }
+                        if (App.getClearenceLevel() >= 1) {
+                            path = App.getAlgoType().multiStopRoute(stops, "handicap");
+                        } else {
+                            path = App.getAlgoType().multiStopRoute(stops, "publicHandicap");
+                        }
 
+                    }
                 }
+            } catch (DestinationNotAccessibleException de){
+                loadErrorDialog(dialogPane, "No accessible Path Found! If you think this is a mistake, please contact a staff member.");
+                return;
             }
              //CONDITION NEEDS TO BE INPUT HERE
             System.out.println(path);
@@ -1266,7 +1270,7 @@ public class mapPage extends SceneController{
         drawNodes();
         try {
             findPath();
-        } catch (InvalidElementException | DestinationNotAccessibleException invalidElementException) {
+        } catch (InvalidElementException invalidElementException) {
             invalidElementException.printStackTrace();
         }
     }
@@ -1323,6 +1327,25 @@ public class mapPage extends SceneController{
         }
     }
 
+    public String convertNodeSuperFloor(String nsFloor){
+        switch (nsFloor){
+            case ("2"):
+                return "F2";
+            case ("1"):
+                return "F1";
+            case ("3"):
+                return "F3";
+            case ("L1"):
+                return "LL1";
+            case ("L2"):
+                return "LL2";
+            case ("G"):
+                return "G";
+            default:
+                return nsFloor;
+        }
+    }
+
     public void setAutoComplete(JFXTextField test, List<nodeNameWrapper> items){
         JFXAutoCompletePopup<mapPage.nodeNameWrapper> autoCompletePopup = new JFXAutoCompletePopup<>();
         autoCompletePopup.getSuggestions().addAll(items);
@@ -1333,6 +1356,17 @@ public class mapPage extends SceneController{
             // you can do other actions here when text completed
 
             node n = nodes.get(event.getObject().ID);
+            if (n == null){
+                try {
+                    NodeSuper ns = DatabaseManager.getNode(event.getObject().ID);
+                    floorSelector.getSelectionModel().select(convertNodeSuperFloor(ns.getFloor()));
+                    selectFloor();
+                    drawNodes();
+                } catch (InvalidElementException e) {
+                    e.printStackTrace();
+                }
+            }
+            n = nodes.get(event.getObject().ID);
             n.c.setFill(Color.valueOf("#0F4B91"));
             n.setHighlighted(true);
             pitStops.add(n);
