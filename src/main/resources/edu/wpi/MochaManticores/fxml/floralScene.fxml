@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
@@ -108,6 +109,14 @@
                      </children>
                   </GridPane>
                   <JFXButton id="submitBtn" onAction="#submitForm" text="Submit" GridPane.rowIndex="2" />
+                  <ImageView id="helpButton" fitHeight="150.0" fitWidth="40.0" onMouseClicked="#helpButton" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+                     <image>
+                        <Image url="@../images/blueHelpBtn.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets right="75.0" />
+                     </GridPane.margin>
+                  </ImageView>
                </children>
                <effect>
                   <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
