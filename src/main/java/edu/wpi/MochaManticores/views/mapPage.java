@@ -15,9 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableView;
+import javafx.scene.control.*;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -26,7 +24,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -882,12 +879,14 @@ public class mapPage extends SceneController{
 //            dirVBOX.getChildren().add(endLabel);
             for (LinkedList<String> floor : App.getAlgoType().pathToText(path)){
                 Label currentFloor = new Label();
-                currentFloor.setText(floor.getFirst());
+                currentFloor.setText(floor.getFirst()); //Floor 1:
+                HBox root = new HBox();
+                root.getChildren().add(currentFloor);
                 //dirVBOX.getChildren().add(currentFloor);
                 // creates a tableviw of tableItems of HBoxes
-                TreeTableView<TreeItem<HBox>> floorTree = new TreeTableView<TreeItem<HBox>>();
-                TreeItem floorItem = new TreeItem(currentFloor);
-                floorTree.setRoot(floorItem);
+                TreeView<HBox> floorTree = new TreeView<HBox>();
+                floorTree.setRoot(new TreeItem<HBox>(root));
+                floorTree.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
                 for (String s : floor){
                     Label p = new Label();
                     if(s.contains("Take the stairs up to floor ")){
@@ -903,7 +902,9 @@ public class mapPage extends SceneController{
                         hbox.getChildren().add(p);
                         hbox.setAlignment(Pos.CENTER_LEFT);
                         //dirVBOX.getChildren().add(hbox);
-                        floorItem.getChildren().add(hbox);
+                        TreeItem<HBox> item = new TreeItem<>(hbox);
+                        item.setExpanded(true);
+                        floorTree.getRoot().getChildren().add(item);
                     } else if(s.contains("Take the elevator up to floor ")){
                         HBox hbox = new HBox();
                         Image img = new Image("/edu/wpi/MochaManticores/images/elevatorDirectionIcon.png");
@@ -917,7 +918,9 @@ public class mapPage extends SceneController{
                         hbox.getChildren().add(p);
                         hbox.setAlignment(Pos.CENTER_LEFT);
                         //dirVBOX.getChildren().add(hbox);
-                        floorItem.getChildren().add(hbox);
+                        TreeItem<HBox> item = new TreeItem<>(hbox);
+                        item.setExpanded(true);
+                        floorTree.getRoot().getChildren().add(item);
                     } else if(s.contains("Take the stairs down to floor ")){
                         HBox hbox = new HBox();
                         Image img = new Image("/edu/wpi/MochaManticores/images/downStairsDirectionIcon.png");
@@ -931,7 +934,9 @@ public class mapPage extends SceneController{
                         hbox.getChildren().add(p);
                         hbox.setAlignment(Pos.CENTER_LEFT);
                         //dirVBOX.getChildren().add(hbox);
-                        floorItem.getChildren().add(hbox);
+                        TreeItem<HBox> item = new TreeItem<>(hbox);
+                        item.setExpanded(true);
+                        floorTree.getRoot().getChildren().add(item);
                     } else if(s.contains("Take the elevator down to floor ")){
                         HBox hbox = new HBox();
                         Image img = new Image("/edu/wpi/MochaManticores/images/elevatorDirectionIcon.png");
@@ -945,7 +950,9 @@ public class mapPage extends SceneController{
                         hbox.getChildren().add(p);
                         hbox.setAlignment(Pos.CENTER_LEFT);
                         //dirVBOX.getChildren().add(hbox);
-                        floorItem.getChildren().add(hbox);
+                        TreeItem<HBox> item = new TreeItem<>(hbox);
+                        item.setExpanded(true);
+                        floorTree.getRoot().getChildren().add(item);
                     } else if(s.contains("Head straight until you reach ")){
                         HBox hbox = new HBox();
                         Image img = new Image("/edu/wpi/MochaManticores/images/upArrowDirection.png");
@@ -959,7 +966,9 @@ public class mapPage extends SceneController{
                         hbox.getChildren().add(p);
                         hbox.setAlignment(Pos.CENTER_LEFT);
                         //dirVBOX.getChildren().add(hbox);
-                        floorItem.getChildren().add(hbox);
+                        TreeItem<HBox> item = new TreeItem<>(hbox);
+                        item.setExpanded(true);
+                        floorTree.getRoot().getChildren().add(item);
                     } else if(s.contains("Then turn left")){
                         HBox hbox = new HBox();
                         Image img = new Image("/edu/wpi/MochaManticores/images/upArrowDirection.png");
@@ -974,7 +983,9 @@ public class mapPage extends SceneController{
                         hbox.getChildren().add(p);
                         hbox.setAlignment(Pos.CENTER_LEFT);
                         //dirVBOX.getChildren().add(hbox);
-                        floorItem.getChildren().add(hbox);
+                        TreeItem<HBox> item = new TreeItem<>(hbox);
+                        item.setExpanded(true);
+                        floorTree.getRoot().getChildren().add(item);
                     } else if(s.contains("Then turn right")){
                         HBox hbox = new HBox();
                         Image img = new Image("/edu/wpi/MochaManticores/images/upArrowDirection.png");
@@ -989,7 +1000,9 @@ public class mapPage extends SceneController{
                         hbox.getChildren().add(p);
                         hbox.setAlignment(Pos.CENTER_LEFT);
                         //dirVBOX.getChildren().add(hbox);
-                        floorItem.getChildren().add(hbox);
+                        TreeItem<HBox> item = new TreeItem<>(hbox);
+                        item.setExpanded(true);
+                        floorTree.getRoot().getChildren().add(item);
                     }
                 }
                 dirVBOX.getChildren().add(floorTree);
