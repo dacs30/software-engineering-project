@@ -37,6 +37,15 @@ public class MedicineDelivery {
     @FXML
     private JFXTextField patientRoom;
 
+    @FXML
+    private ImageView helpButton;
+
+    @FXML
+    private JFXButton submitButton;
+
+    @FXML
+    private StackPane dialogPane;
+
     public void initialize() {
         double height = App.getPrimaryStage().getScene().getHeight();
         double width = App.getPrimaryStage().getScene().getWidth();
@@ -102,11 +111,91 @@ public class MedicineDelivery {
             missingInput.setMessage("Type of medicine must be selected");
             typeOfMedicineComboBx.validate();
         }
-
+        loadSubmitDialogue();
         sel s = sel.Medicine;
         DatabaseManager.addRequest(s, new edu.wpi.MochaManticores.Services.MedicineRequest("","",false,typeOfMedicineComboBx.getSelectionModel().getSelectedItem(),feel.toString(),allergies.getText(),patientRoom.getText()));
     }
 
-    public void loadHelpDialogue(MouseEvent mouseEvent) {
+    public void helpButton(ActionEvent actionEvent) {
+        loadHelpDialogue();
+    }
+
+    public void loadHelpDialogue(){
+        dialogPane.toFront();
+        JFXDialogLayout message = new JFXDialogLayout();
+        message.setMaxHeight(Region.USE_COMPUTED_SIZE);
+        message.setMaxHeight(Region.USE_COMPUTED_SIZE);
+
+        final Text hearder = new Text("Help Page");
+        hearder.setStyle("-fx-font-weight: bold");
+        hearder.setStyle("-fx-font-size: 60");
+        hearder.setStyle("-fx-font-family: Roboto");
+        hearder.setStyle("-fx-alignment: center");
+        message.setHeading(hearder);
+
+        final Text body = new Text("Type of Medicine: Select a medicine from the provided dropdown.\n" +
+                "Please check of one or more boxes to describe the pain you are experiencing.\n" +
+                "Allergies: Type out any known allergies to any medication that you know of.\n" +
+                "Patient Room: The current room in the hospital that the patient resides in.");
+        body.setStyle("-fx-font-size: 40");
+        body.setStyle("-fx-font-family: Roboto");
+        body.setStyle("-fx-alignment: center");
+
+        message.setBody(body);
+
+
+        JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
+
+        JFXButton cont = new JFXButton("Continue");
+        cont.setOnAction(event -> {
+            dialog.close();
+            dialogPane.toBack();
+        });
+
+        dialog.setOnDialogClosed(event -> {
+            dialogPane.toBack();
+        });
+
+        message.setActions(cont);
+        dialog.show();
+
+    }
+
+    public void loadSubmitDialogue(){
+        dialogPane.toFront();
+        JFXDialogLayout message = new JFXDialogLayout();
+        message.setMaxHeight(Region.USE_COMPUTED_SIZE);
+        message.setMaxHeight(Region.USE_COMPUTED_SIZE);
+
+        final Text hearder = new Text("Submitted request.");
+        hearder.setStyle("-fx-font-weight: bold");
+        hearder.setStyle("-fx-font-size: 60");
+        hearder.setStyle("-fx-font-family: Roboto");
+        hearder.setStyle("-fx-alignment: center");
+        message.setHeading(hearder);
+
+        final Text body = new Text("Your request has been submitted and will be reviewed by a staff member.");
+        body.setStyle("-fx-font-size: 40");
+        body.setStyle("-fx-font-family: Roboto");
+        body.setStyle("-fx-alignment: center");
+
+        message.setBody(body);
+
+
+        JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
+
+        JFXButton cont = new JFXButton("Done");
+        cont.setOnAction(event -> {
+            dialog.close();
+            dialogPane.toBack();
+        });
+
+        dialog.setOnDialogClosed(event -> {
+            dialogPane.toBack();
+        });
+
+        message.setActions(cont);
+        dialog.show();
+
     }
 }
