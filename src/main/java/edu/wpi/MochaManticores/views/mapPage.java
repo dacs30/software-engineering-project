@@ -1235,8 +1235,8 @@ public class mapPage extends SceneController{
         for (JFXTextField f : fields){
             f.setText("");
         }
-        fields.get(0).setText("Starting Location");
-        fields.get(fields.size()-1).setText("Ending Location");
+        fields.get(0).setPromptText("Starting Location");
+        fields.get(fields.size()-1).setPromptText("Ending Location");
         for (int i = 0; i < pitStops.size(); i++){
             fields.get(i).setText(pitStops.get(i).getNodeID());
         }
@@ -1332,7 +1332,11 @@ public class mapPage extends SceneController{
 
             // you can do other actions here when text completed
 
-            System.out.println("Text completed?");
+            node n = nodes.get(event.getObject().ID);
+            n.c.setFill(Color.valueOf("#0F4B91"));
+            n.setHighlighted(true);
+            pitStops.add(n);
+
         });
 
         // filtering options
