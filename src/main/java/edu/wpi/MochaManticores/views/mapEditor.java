@@ -406,12 +406,7 @@ public class mapEditor extends SceneController {
 
         mapWindow.setPreserveRatio(false);
 
-        floorSelector.setValue("F1");
 
-        selectFloor();
-
-
-        loadF1();
 
         floorSelector.getItems().addAll("LL1",
                 "LL2",
@@ -419,6 +414,11 @@ public class mapEditor extends SceneController {
                 "F1",
                 "F2",
                 "F3");
+
+        floorSelector.setValue("F1");
+
+        selectFloor();
+        loadF1();
 
 //        Platform.runLater(new Runnable() {
 //            @Override
