@@ -4,9 +4,15 @@
 
 }
 
-.jfx text field {
+.jfx-text-field {
     -fx-text-fill: black;
     -fx-font-size: 25;
+    -jfx-unfocus-color: #0F4B91;
+}
+.jfx-check-box {
+    -fx-text-fill: #0F4B91;
+    -fx-font-size: 25;
+    -jfx-unfocus-color: #0F4B91;
 }
 
 #gridForm{
@@ -18,7 +24,7 @@
     -fx-font-size: 20;
     -fx-font-weight: bold;
     -fx-text-alignment: center;
-    -fx-text-fill: grey;
+    -fx-text-fill: #0F4B91;
 }
 
 .jfx-button {
@@ -37,5 +43,12 @@
     -fx-font-size: 50;
     -fx-font-weight: bold;
     -fx-text-alignment: center;
-    -fx-text-fill: grey;
+    -fx-text-fill: #0F4B91;
+}
+#foodDeliveryTitleLabel{
+    -fx-font-family: Roboto;
+    -fx-font-size: 50;
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+    -fx-text-fill: #0F4B91;
 }

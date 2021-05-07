@@ -4,22 +4,32 @@
 }
 
 #title {
-    -fx-text-fill: grey;
+    -fx-text-fill: #0F4B91;
 }
 
 .label {
     -fx-font-family: Roboto;
     -fx-font-size: 60;
     -fx-font-weight: bold;
-    -fx-text-fill: grey;
+    -fx-text-fill: #0F4B91;
 }
 
 .jfx-text-field {
     -fx-font-family: Roboto;
     -fx-font-weight: bold;
-    -fx-text-fill: grey;
+    -fx-text-fill: #0F4B91;
+    -jfx-focus-color:#0F4B91;
+    -fx-prompt-text-fill: #0F4B91;
     -fx-font-size: 20;
     -fx-max-width: 300;
+}
+#delicateSwitch{
+    -fx-font-family: Roboto;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0F4B91;
+    -jfx-focus-color:#0F4B91;
+    -fx-prompt-text-fill: #0F4B91;
+    -fx-font-size: 20;
 }
 
 .jfx-button{
@@ -34,9 +44,10 @@
 }
 
 .jfx-combo-box {
-    -fx-prompt-text-fill: grey ;
+    -fx-prompt-text-fill: #0F4B91;
     -fx-background-color: rgba(186, 186, 186, 0.43);
-    -jfx-unfocus-color: transparent;
+    -jfx-unfocus-color: grey;
+    -jfx-focus-color:#0F4B91;
     -fx-font-size: 20;
 }
 .jfx-combo-box .text-field:focused {

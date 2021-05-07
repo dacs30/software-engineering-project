@@ -11,9 +11,9 @@
 }
 
 .jfx-combo-box {
-    -fx-prompt-text-fill: white ;
+    -fx-prompt-text-fill: #0F4B91 ;
     -fx-background-color: rgba(186, 186, 186, 0.43);
-    -jfx-unfocus-color: #white;
+    -jfx-unfocus-color: grey;
     -jfx-focus-color: #0F4B91;
     -fx-font-size: 20;
 }
@@ -36,7 +36,8 @@
 .jfx-text-field {
     -fx-font-size: 20;
     -fx-font-weight: bold;
-    -jfx-unfocus-color : #0F4B91;
+    -jfx-unfocus-color : grey;
+    -jfx-focus-color: #0F4B91;
     -fx-max-width: 400;
     -fx-prompt-text-fill: #0F4B91;
 }
