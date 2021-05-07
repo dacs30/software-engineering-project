@@ -168,7 +168,7 @@ public class FloralSceneEmployeeController extends SceneController {
             JFXDialog dialog = new JFXDialog(dialogPane, message, JFXDialog.DialogTransition.CENTER);
             JFXButton ok = new JFXButton("OK");
             ok.setOnAction(event -> {
-                goBack(null);
+                dialog.close();
             });
 
             dialog.setOnDialogClosed(event -> {
@@ -272,6 +272,7 @@ public class FloralSceneEmployeeController extends SceneController {
                 vaseSelected.append("yellowVase,");
             }
         }
+
         public void changeManagerTable(ActionEvent actionEvent) {
             requestPage.setVisible(false);
             managerPage.setVisible(true);
