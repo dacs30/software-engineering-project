@@ -99,9 +99,9 @@ public class internalTransportationController extends SceneController{
         message.setHeading(hearder);
 
         final Text body = new Text("Patient ID: This is the ID given to the patient by the hospital.\n" +
-                                   "Number of staff: is for the number of staff recommended to transport a patient.\n" +
+                                   "Number of Staff: The number of staff recommended to transport a patient.\n" +
                                    "Destination: Room or location where the patient is going to be transported to.\n" +
-                                   "Method of Transportation: Dropdown menu with 3 options:(wheelchair,walker, medical bed).");
+                                   "Method of Transportation: Dropdown menu with 3 options:(Wheelchair, Walker, or Medical Bed).");
         body.setStyle("-fx-font-size: 40");
         body.setStyle("-fx-font-family: Roboto");
         body.setStyle("-fx-alignment: center");

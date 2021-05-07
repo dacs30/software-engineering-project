@@ -49,10 +49,10 @@
                   <JFXComboBox fx:id="foodMenu" focusColor="WHITE" prefWidth="400.0" promptText="Menu" stylesheets="@../Stylesheets/foodDelivery.css" unFocusColor="WHITE" GridPane.rowIndex="2" />
                   <JFXButton id="submitBtn" onAction="#submitForm" text="Submit" GridPane.rowIndex="4" />
                   <Label id="foodDeliveryTitleLabel" stylesheets="@../stylesheets.css" text="Food Delivery" textFill="WHITE" />
-                  <JFXTextField id="allergiesPrompt" fx:id="allergyPrompt" maxHeight="-Infinity" prefWidth="300.0" promptText="Allergies" GridPane.rowIndex="3" />
+                  <JFXTextField id="allergiesPrompt" fx:id="allergyPrompt" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="400.0" promptText="Allergies" GridPane.rowIndex="3" />
                   <ImageView id="helpButton" fitHeight="150.0" fitWidth="40.0" onMouseClicked="#helpButton" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
                      <image>
-                        <Image url="@../images/hepIcon.png" />
+                        <Image url="@../images/blueHelpBtn.png" />
                      </image>
                      <GridPane.margin>
                         <Insets right="75.0" />

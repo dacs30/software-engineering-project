@@ -79,7 +79,7 @@
                   <Label id="foodDeliveryTitleLabel" stylesheets="@../stylesheets.css" text="Ext. Transportation Manager" textFill="WHITE" wrapText="true" />
                   <ImageView fitHeight="150.0" fitWidth="40.0" onMouseClicked="#helpButton" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
                      <image>
-                        <Image url="@../images/hepIcon.png" />
+                        <Image url="@../images/blueHelpBtn.png" />
                      </image>
                      <GridPane.margin>
                         <Insets right="75.0" />
