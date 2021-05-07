@@ -3,7 +3,6 @@ package edu.wpi.MochaManticores.views;
 import com.jfoenix.controls.*;
 import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.MochaManticores.App;
-import edu.wpi.MochaManticores.Services.ExternalTransportation;
 import edu.wpi.MochaManticores.Services.FloralDelivery;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.sel;
@@ -123,7 +122,7 @@ public class FloralSceneController extends SceneController {
     dialog.show();
   }
 
-  public void helpButton(ActionEvent actionEvent) {
+  public void helpButton() {
     loadHelpDialogue();
   }
 

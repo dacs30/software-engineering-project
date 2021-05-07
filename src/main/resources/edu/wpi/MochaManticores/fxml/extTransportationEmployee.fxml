@@ -58,7 +58,6 @@
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0" GridPane.rowIndex="2">
                      <children>
                         <JFXButton id="submitBtn" fx:id="submitButton" onAction="#submitEvent" text="SUBMIT" />
-                        <JFXButton id="submitBtn" onAction="#changeManagerTable" text="MANAGER TABLE" />
                      </children>
                   </HBox>
                </children>
