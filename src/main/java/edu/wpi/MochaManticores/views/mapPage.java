@@ -916,16 +916,16 @@ public class mapPage extends SceneController{
             }
              //CONDITION NEEDS TO BE INPUT HERE
             System.out.println(path);
-            Label startLabel = new Label();
-            String startID = path.removeFirst();
-            startLabel.setText(DatabaseManager.getNode(startID).getLongName());
-            savedRoute.add(startID);
-            startLabel.setTextFill(Color.GREEN);
-            startLabel.setAlignment(Pos.CENTER);
-            Label endLabel = new Label();
-            String endID = path.removeLast();
-            endLabel.setText(DatabaseManager.getNode(endID).getLongName());
-            endLabel.setTextFill(Color.RED);
+            //Label startLabel = new Label();
+            //String startID = path.removeFirst();
+            //startLabel.setText(DatabaseManager.getNode(startID).getLongName());
+            //savedRoute.add(startID);
+            //startLabel.setTextFill(Color.GREEN);
+            //startLabel.setAlignment(Pos.CENTER);
+            //Label endLabel = new Label();
+            //String endID = path.removeLast();
+            //endLabel.setText(DatabaseManager.getNode(endID).getLongName());
+            //endLabel.setTextFill(Color.RED);
 //            dirVBOX.getChildren().add(startLabel);
             for (String str : path) {
                 savedRoute.add(str);
@@ -935,7 +935,7 @@ public class mapPage extends SceneController{
 //                System.out.printf("\n%s\n|\n", DatabaseManager.getNode(str).getLongName());
 //                pathToTake.append(DatabaseManager.getNode(str).getLongName()).append("\n|\n");//appending the paths
             }
-            savedRoute.add(endID);
+            //savedRoute.add(endID);
 //            dirVBOX.getChildren().add(endLabel);
             for (LinkedList<String> floor : App.getAlgoType().pathToText(path)){
                 Label currentFloor = new Label();
