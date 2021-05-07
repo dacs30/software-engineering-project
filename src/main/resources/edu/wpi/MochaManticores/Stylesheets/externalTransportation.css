@@ -14,15 +14,16 @@
     -fx-font-size: 20;
     -fx-font-weight: bold;
     -jfx-unfocus-color : #bababa;
-    -jfx-focus-color: grey;
+    -jfx-focus-color: #0F4B91;
     -fx-max-width: 400;
-    -fx-prompt-text-fill: rgb(193, 193, 193);
+    -fx-prompt-text-fill: #0F4B91;
 }
 
 .jfx-combo-box {
-    -fx-prompt-text-fill: grey ;
+    -fx-prompt-text-fill: #0F4B91 ;
     -fx-background-color: rgba(186, 186, 186, 0.43);
-    -jfx-unfocus-color: transparent;
+    -jfx-unfocus-color: grey;
+    -jfx-focus-color: #0F4B91;
     -fx-font-size: 20;
 }
 

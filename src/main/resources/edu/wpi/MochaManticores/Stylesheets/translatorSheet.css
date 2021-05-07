@@ -6,10 +6,10 @@
 .jfx-text-field {
     -fx-font-size: 30;
     -fx-font-weight: bold;
-    -jfx-unfocus-color : #bababa;
-    -jfx-focus-color: grey;
+    -jfx-unfocus-color : grey;
+    -jfx-focus-color: #0F4B91;
     -fx-max-width: 400;
-    -fx-prompt-text-fill: rgb(193, 193, 193);
+    -fx-prompt-text-fill: #0F4B91;
 }
 
 #submitBtn{
@@ -29,7 +29,7 @@
 }
 
 #translatorTitleLabel {
-    -fx-text-fill: grey;
+    -fx-text-fill: #0F4B91;
     -fx-font-weight: bold;
     -fx-font-family: Roboto;
     -fx-font-size: 50;
@@ -38,14 +38,15 @@
 #langSelect {
     -fx-font-family: Roboto;
     -fx-font-size: 20;
-    -fx-text-fill: rgb(15, 76, 145);
+    -fx-text-fill: #0F4B91;
     -fx-alignment: center;
 }
 
 .jfx-combo-box {
-    -fx-prompt-text-fill: grey ;
+    -fx-prompt-text-fill: #0F4B91 ;
     -fx-background-color: rgba(186, 186, 186, 0.43);
-    -jfx-unfocus-color: transparent;
+    -jfx-unfocus-color: grey;
+    -jfx-focus-color:#0F4B91;
     -fx-font-size: 20;
 }
 .jfx-combo-box .text-field:focused {

@@ -4,15 +4,26 @@
 }
 
 #foodDeliveryTitleLabel {
-    -fx-text-fill: grey;
+    -fx-text-fill: #0F4B91;
     -fx-font-weight: bold;
     -fx-font-family: Roboto;
     -fx-font-size: 50;
 }
+#allergiesPrompt {
+    -fx-text-fill: #0F4B91;
+    -fx-font-family: Roboto;
+    -fx-font-size: 20;
+    -fx-prompt-text-fill: #0F4B91;
+    -jfx-unfocus-color: grey;
+}
+#helpButton{
+    -fx-background-color:#0F4B91 ;
+}
+
 .jfx-combo-box {
-    -fx-prompt-text-fill: grey ;
-    -fx-background-color: rgba(186, 186, 186, 0.43);
-    -jfx-unfocus-color: transparent;
+    -fx-prompt-text-fill: #0F4B91;
+    -jfx-unfocus-color: grey;
+    -jfx-focus-color: #0F4B91;
     -fx-font-size: 20;
 }
 
@@ -26,17 +37,16 @@
 
 .jfx-text-field {
     -fx-font-size: 30;
-    -fx-font-weight: bold;
-    -jfx-unfocus-color : #bababa;
-    -jfx-focus-color: grey;
+    -jfx-unfocus-color : grey;
+    -jfx-focus-color: #0F4B91;
     -fx-max-width: 400;
-    -fx-prompt-text-fill: rgb(193, 193, 193);
+    -fx-prompt-text-fill: #0F4B91;
 }
 
 .jfx-text-area {
     -fx-prompt-text-fill: rgba(193, 193, 193, 0.93);
-    -jfx-focus-color: grey;
-    -jfx-unfocus-color: #bababa;
+    -jfx-focus-color: #0F4B91;
+    -jfx-unfocus-color: grey;
     -fx-text-fill: black;
     -fx-font-size: 20;
 }
@@ -55,18 +65,4 @@
     -fx-effect: dropshadow( three-pass-box , rgba(2, 2, 2, 0.2), 20, 0.0 , 1 , 10);
     -fx-font-family: Roboto;
     -fx-text-fill: grey;
-}
-
-.jfx-combo-box {
-    -fx-prompt-text-fill: grey ;
-    -fx-background-color: rgba(186, 186, 186, 0.43);
-    -jfx-unfocus-color: transparent;
-    -fx-font-size: 20;
-}
-.jfx-combo-box .text-field:focused {
-    -fx-prompt-text-fill: transparent ;
-}
-
-.jfx-combo-box:hover{
-    -fx-effect: dropshadow( three-pass-box , rgba(2, 2, 2, 0.2), 20, 0.0 , 1 , 10);
 }
