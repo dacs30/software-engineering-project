@@ -9,8 +9,6 @@ import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.Employee;
-import edu.wpi.MochaManticores.database.NodeManager;
-import javafx.animation.PathTransition;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
@@ -18,13 +16,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeTableView;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Label;
@@ -33,7 +32,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
@@ -885,7 +883,11 @@ public class mapPage extends SceneController{
             for (LinkedList<String> floor : App.getAlgoType().pathToText(path)){
                 Label currentFloor = new Label();
                 currentFloor.setText(floor.getFirst());
-                dirVBOX.getChildren().add(currentFloor);
+                //dirVBOX.getChildren().add(currentFloor);
+                // creates a tableviw of tableItems of HBoxes
+                TreeTableView<TreeItem<HBox>> floorTree = new TreeTableView<TreeItem<HBox>>();
+                TreeItem floorItem = new TreeItem(currentFloor);
+                floorTree.setRoot(floorItem);
                 for (String s : floor){
                     Label p = new Label();
                     if(s.contains("Take the stairs up to floor ")){
@@ -900,7 +902,8 @@ public class mapPage extends SceneController{
                         hbox.getChildren().add(stairs);
                         hbox.getChildren().add(p);
                         hbox.setAlignment(Pos.CENTER_LEFT);
-                        dirVBOX.getChildren().add(hbox);
+                        //dirVBOX.getChildren().add(hbox);
+                        floorItem.getChildren().add(hbox);
                     } else if(s.contains("Take the elevator up to floor ")){
                         HBox hbox = new HBox();
                         Image img = new Image("/edu/wpi/MochaManticores/images/elevatorDirectionIcon.png");
@@ -913,7 +916,8 @@ public class mapPage extends SceneController{
                         hbox.getChildren().add(elevator);
                         hbox.getChildren().add(p);
                         hbox.setAlignment(Pos.CENTER_LEFT);
-                        dirVBOX.getChildren().add(hbox);
+                        //dirVBOX.getChildren().add(hbox);
+                        floorItem.getChildren().add(hbox);
                     } else if(s.contains("Take the stairs down to floor ")){
                         HBox hbox = new HBox();
                         Image img = new Image("/edu/wpi/MochaManticores/images/downStairsDirectionIcon.png");
@@ -926,7 +930,8 @@ public class mapPage extends SceneController{
                         hbox.getChildren().add(stairs);
                         hbox.getChildren().add(p);
                         hbox.setAlignment(Pos.CENTER_LEFT);
-                        dirVBOX.getChildren().add(hbox);
+                        //dirVBOX.getChildren().add(hbox);
+                        floorItem.getChildren().add(hbox);
                     } else if(s.contains("Take the elevator down to floor ")){
                         HBox hbox = new HBox();
                         Image img = new Image("/edu/wpi/MochaManticores/images/elevatorDirectionIcon.png");
@@ -939,7 +944,8 @@ public class mapPage extends SceneController{
                         hbox.getChildren().add(elevator);
                         hbox.getChildren().add(p);
                         hbox.setAlignment(Pos.CENTER_LEFT);
-                        dirVBOX.getChildren().add(hbox);
+                        //dirVBOX.getChildren().add(hbox);
+                        floorItem.getChildren().add(hbox);
                     } else if(s.contains("Head straight until you reach ")){
                         HBox hbox = new HBox();
                         Image img = new Image("/edu/wpi/MochaManticores/images/upArrowDirection.png");
@@ -952,7 +958,8 @@ public class mapPage extends SceneController{
                         hbox.getChildren().add(arrowUp);
                         hbox.getChildren().add(p);
                         hbox.setAlignment(Pos.CENTER_LEFT);
-                        dirVBOX.getChildren().add(hbox);
+                        //dirVBOX.getChildren().add(hbox);
+                        floorItem.getChildren().add(hbox);
                     } else if(s.contains("Then turn left")){
                         HBox hbox = new HBox();
                         Image img = new Image("/edu/wpi/MochaManticores/images/upArrowDirection.png");
@@ -966,7 +973,8 @@ public class mapPage extends SceneController{
                         hbox.getChildren().add(arrowUp);
                         hbox.getChildren().add(p);
                         hbox.setAlignment(Pos.CENTER_LEFT);
-                        dirVBOX.getChildren().add(hbox);
+                        //dirVBOX.getChildren().add(hbox);
+                        floorItem.getChildren().add(hbox);
                     } else if(s.contains("Then turn right")){
                         HBox hbox = new HBox();
                         Image img = new Image("/edu/wpi/MochaManticores/images/upArrowDirection.png");
@@ -980,9 +988,11 @@ public class mapPage extends SceneController{
                         hbox.getChildren().add(arrowUp);
                         hbox.getChildren().add(p);
                         hbox.setAlignment(Pos.CENTER_LEFT);
-                        dirVBOX.getChildren().add(hbox);
+                        //dirVBOX.getChildren().add(hbox);
+                        floorItem.getChildren().add(hbox);
                     }
                 }
+                dirVBOX.getChildren().add(floorTree);
             }
             for (node n : pitStops) {
                 n.resetFill();
