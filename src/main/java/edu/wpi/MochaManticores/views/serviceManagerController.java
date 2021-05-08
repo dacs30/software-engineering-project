@@ -3334,7 +3334,7 @@ EmergencyCompletedColumn
             vaseOptions = new SimpleStringProperty(((FloralDelivery) ref).getVaseOptions());
             personalizedNote = new SimpleStringProperty(((FloralDelivery) ref).getPersonalizedNote());
             employee = new SimpleStringProperty(ref.getEmployee());
-            completed = false;
+            completed = ref.getCompleted();
             fields = new LinkedList<String>(
                     Arrays.asList(
                             roomNumber.get(),
