@@ -1,5 +1,7 @@
 package edu.wpi.MochaManticores.messaging;
 
+import edu.wpi.MochaManticores.connectionUtil;
+
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
@@ -16,7 +18,7 @@ public class messageServer implements Runnable{
     public void run() {
         try {
             // create server socket
-            ServerSocket serverSocket = new ServerSocket(connectionUtil.port);
+            ServerSocket serverSocket = new ServerSocket(connectionUtil.getPort());
             serverSocket.setSoTimeout(200);
 
             // add client loop

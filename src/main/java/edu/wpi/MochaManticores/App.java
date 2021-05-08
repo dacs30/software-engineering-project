@@ -14,7 +14,6 @@ import edu.wpi.MochaManticores.database.EmployeeManager;
 import edu.wpi.MochaManticores.database.NodeManager;
 import edu.wpi.MochaManticores.database.*;
 import edu.wpi.MochaManticores.messaging.clientReader;
-import edu.wpi.MochaManticores.messaging.connectionUtil;
 import edu.wpi.MochaManticores.messaging.messageClient;
 import edu.wpi.MochaManticores.messaging.messageServer;
 import javafx.application.Application;

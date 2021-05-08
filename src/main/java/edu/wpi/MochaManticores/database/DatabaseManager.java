@@ -43,8 +43,7 @@ public class DatabaseManager{
      */
     public static void startup(){
         try{
-            getMdb().databaseStartup(false); // start with server connection
-
+            getMdb().databaseStartup(); // start with server connection
         }catch(InterruptedException | SQLException e){
             e.printStackTrace();
         }

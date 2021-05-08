@@ -1,6 +1,7 @@
 package edu.wpi.MochaManticores.messaging;
 
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.connectionUtil;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 
@@ -40,7 +41,7 @@ public class messageClient {
 
     public void startServer(){
         try {
-            socket = new Socket(connectionUtil.host, connectionUtil.port);
+            socket = new Socket(connectionUtil.getHost(), connectionUtil.getPort());
             socket.close();
         }catch(IOException e){
             // no server, start server
@@ -61,7 +62,7 @@ public class messageClient {
             prevUser = App.getCurrentUsername();
             // on startup check if there is an existing host
             try {
-                socket = new Socket(connectionUtil.host, connectionUtil.port);
+                socket = new Socket(connectionUtil.getHost(), connectionUtil.getPort());
             }catch(IOException e){
                 e.printStackTrace();
                 return;
@@ -92,7 +93,6 @@ public class messageClient {
     public void startGUI(messageClientPage page){
         reader.startGUI(page);
     }
-
 
     public DataOutputStream getOutput() {
         return output;
