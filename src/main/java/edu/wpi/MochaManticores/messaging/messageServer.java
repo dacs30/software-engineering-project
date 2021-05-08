@@ -17,15 +17,18 @@ public class messageServer implements Runnable{
         try {
             // create server socket
             ServerSocket serverSocket = new ServerSocket(connectionUtil.port);
+            serverSocket.setSoTimeout(200);
 
             // add client loop
             while (true) {
-                Socket socket = serverSocket.accept();
-                serverConnection connection = new serverConnection(socket, this);
-                connectionsList.add(connection);
+                try {
+                    Socket socket = serverSocket.accept();
+                    serverConnection connection = new serverConnection(socket, this);
+                    connectionsList.add(connection);
 
-                Thread thread = new Thread(connection);
-                thread.start();
+                    Thread thread = new Thread(connection);
+                    thread.start();
+                }catch(SocketTimeoutException Ignored){}
             }
 
         } catch (IOException e) {

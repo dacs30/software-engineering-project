@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.messaging.messageClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -208,6 +209,8 @@ public class landingPageController extends SceneController {
   }
 
   public void renderMenu(MouseEvent mouseEvent) throws IOException {
+    //disables message GUI posts
+    App.getClient().closeGUI();
 
     // if it is an employee the page page is different
     if (App.getClearenceLevel() == 1) {

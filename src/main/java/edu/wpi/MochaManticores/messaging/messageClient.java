@@ -1,138 +1,108 @@
 package edu.wpi.MochaManticores.messaging;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.JFXTextField;
 import edu.wpi.MochaManticores.App;
-import edu.wpi.MochaManticores.views.SceneController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 
-import javax.swing.*;
-import java.awt.event.KeyEvent;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.Iterator;
 
-public class messageClient extends SceneController {
-    @FXML
-    public JFXTextArea textField;
-    @FXML
-    private JFXButton sendBTN;
-    @FXML
-    private JFXTextField tgt;
-    @FXML
-    private JFXTextField msgs;
-    @FXML
-    private ImageView backgroundIMG;
+public class messageClient {
+    //creates the reader, handles datagrab, handles shutdown and startup
 
     // Connection
-    Socket socket = null;
-    DataOutputStream output = null;
-    clientReader reader = null;
+    private Socket socket = null;
+    private DataOutputStream output = null;
+    private messageServer server = null;
+    private Thread serverThread = null;
+    private clientReader reader = null;
+    private Thread readerThread = null;
     //user data
-    public String user = App.getCurrentUsername();
+    public String prevUser = null;
 
-    public void initialize(){
-        //TODO update GUI to include tabs
+    public void shutdown() {
+        //shutdown server and client
+        //stop old client if still running
+        try{
+            if(prevUser != null) {
+                Message dataGrab = new Message(prevUser, "SHUTDOWN", "null", Message.msgType.SHUTDOWN);
+                output.writeUTF(dataGrab.toWriteFormat());
+                output.flush();
+            }
+        }catch(Exception e){}
 
-        double height = App.getPrimaryStage().getScene().getHeight();
-        double width = App.getPrimaryStage().getScene().getWidth();
-        backgroundIMG.setFitHeight(height);
-        backgroundIMG.setFitWidth(width);
 
-        backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
-        backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
+        if(serverThread != null) {
+            serverThread.stop();
+        }
+    }
 
+    public void startServer(){
         try {
+            socket = new Socket(connectionUtil.host, connectionUtil.port);
+            socket.close();
+        }catch(IOException e){
+            // no server, start server
+            server = new messageServer();
+            serverThread = new Thread(server);
+            serverThread.start();
+        }
+    }
+
+    public void startClient(){
+        try {
+            //stop old client if still running
+            if(prevUser != null) {
+                Message dataGrab = new Message(prevUser, "SHUTDOWN", "null", Message.msgType.SHUTDOWN);
+                output.writeUTF(dataGrab.toWriteFormat());
+                output.flush();
+            }
+            prevUser = App.getCurrentUsername();
             // on startup check if there is an existing host
             try {
                 socket = new Socket(connectionUtil.host, connectionUtil.port);
             }catch(IOException e){
-                socket.close();
-                textField.appendText(e.toString() + '\n');
+                e.printStackTrace();
                 return;
             }
-
-
-            //Connection successful
-            textField.appendText("Connected. \n");
 
             // Create an output stream to send data to the server
             output = new DataOutputStream(socket.getOutputStream());
 
             //create a thread in order to read message from server continuously
-            reader = new clientReader(socket, this, App.getCurrentUsername());
-            Thread thread = new Thread(reader);
-            thread.start();
+            reader = new clientReader(socket, App.getCurrentUsername());
+            readerThread = new Thread(reader);
+            readerThread.start();
 
             //send a data grab request
-            Message dataGrab = new Message(user, "dataGrab", "null", Message.msgType.DATAGRAB);
+            Message dataGrab = new Message(App.getCurrentUsername(), "dataGrab", "null", Message.msgType.DATAGRAB);
             output.writeUTF(dataGrab.toWriteFormat());
             output.flush();
 
         } catch (IOException ex) {
-            textField.appendText(ex.toString() + '\n');
+            ex.printStackTrace();
         }
     }
 
-    public void loadConversation(String target) {
-        textField.clear();
-        if (reader.messageHistory.containsKey(tgt.getText())) {
-            for (Message m : reader.messageHistory.get(target)) {
-                Platform.runLater(() -> {
-                    textField.appendText("[" + m.sender + "]" + " [" + m.target + "] " + m.body + "\n");
-                });
-            }
-        }
+    public void closeGUI(){
+        reader.stopGUI();
+    }
+
+    public void startGUI(messageClientPage page){
+        reader.startGUI(page);
     }
 
 
-    public void updateScreen() {
-        if (reader.messageHistory.containsKey(tgt.getText())) {
-            loadConversation(tgt.getText());
-        } else {
-            textField.clear();
-            Platform.runLater(() -> {
-                textField.appendText(user + "'s current conversations: \n");
-            });
-            for (String name : reader.messageHistory.keySet()) {
-                Platform.runLater(() -> {
-                    textField.appendText(name + "\n");
-                });
-            }
-        }
+    public DataOutputStream getOutput() {
+        return output;
     }
 
-    public void sendEvent(ActionEvent actionEvent) {
-        try {
-            String message = msgs.getText().trim();
-            String target = tgt.getText().trim();
+    public clientReader getReader() {
+        return reader;
+    }
 
-            //if message is empty, just return : don't send the message
-            if (message.length() == 0 | target.length() == 0) {
-                return;
-            }
-
-            //format into msg type
-            Message msg = new Message(user, target, message);
-
-            //load the convo of who we are sending to
-            loadConversation(target);
-
-
-            output.writeUTF(msg.toWriteFormat());
-            output.flush();
-
-            //clear the textfield
-            msgs.clear();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void setReader(clientReader reader) {
+        this.reader = reader;
     }
 }

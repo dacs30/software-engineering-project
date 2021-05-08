@@ -7,6 +7,7 @@ import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.Employee;
 import edu.wpi.MochaManticores.database.Mdb;
+import edu.wpi.MochaManticores.messaging.messageClient;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -173,6 +174,10 @@ public class LoginPage extends SceneController{
         } catch (Exception exception) {
             DatabaseManager.getEmpManager().addElement(employee);
         }
+
+        // start new message client
+        App.getClient().startClient();
+
         changeSceneTo("landingPage");
     }
 
@@ -194,7 +199,7 @@ public class LoginPage extends SceneController{
     }
 
     public void loginStaff(ActionEvent actionEvent) {
-        // try the login with the inputed credentials
+        // try the login with the inputed credentialssetCurrentUsername
         // error if fail
         System.out.println(employeeUsername.getText());
         try {
@@ -202,6 +207,8 @@ public class LoginPage extends SceneController{
             // sets to employee level
             App.setClearenceLevel(1);
             App.setCurrentUsername(employeeUsername.getText());
+            // start new message client
+            App.getClient().startClient();
             changeSceneTo("landingPage");
         } catch (Exception e) {
             // Validators

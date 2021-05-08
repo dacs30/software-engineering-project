@@ -25,9 +25,10 @@ public class serverConnection implements Runnable {
             //get socket streams
             inputStream = new DataInputStream(socket.getInputStream());
             outputStream = new DataOutputStream(socket.getOutputStream());
-
-            while(true){
+            boolean running = true;
+            while(running){
                 Message msg = new Message(inputStream.readUTF());
+                // shutdown procedure here
                 switch (msg.TYPE){
                     case MSGPOST:
                         server.msgpost(msg);
@@ -38,6 +39,10 @@ public class serverConnection implements Runnable {
                     case DATAGRAB:
                         user = msg.sender;
                         server.datagrab(msg);
+                        break;
+                    case SHUTDOWN:
+                        sendMessage(msg);
+                        running = false;
                         break;
                 }
             }

@@ -1,20 +1,13 @@
 package edu.wpi.MochaManticores.messaging;
 
 public class Message {
-    enum msgType {DATAGRAB,UPDATE,MSGPOST};
+    enum msgType {DATAGRAB,UPDATE,MSGPOST,SHUTDOWN};
 
     public String sender;
     public String target;
     public String body;
     public msgType TYPE;
     private String delim = "[|]+";
-
-    public Message(String sender, String target, String body){
-        this.sender = sender;
-        this.target = target;
-        this.body = body;
-        this.TYPE = msgType.MSGPOST;
-    }
 
     public Message(String sender, String target, String body, msgType type){
         this.sender = sender;
@@ -42,6 +35,8 @@ public class Message {
                 return msgType.DATAGRAB;
             case "UPDATE":
                 return msgType.UPDATE;
+            case "SHUTDOWN":
+                return msgType.SHUTDOWN;
             default:
                 return msgType.MSGPOST;
         }
@@ -53,6 +48,8 @@ public class Message {
                 return "DATAGRAB";
             case  UPDATE:
                 return "UPDATE";
+            case SHUTDOWN:
+                return "SHUTDOWN";
             default:
                 return "MSGPOST";
         }
