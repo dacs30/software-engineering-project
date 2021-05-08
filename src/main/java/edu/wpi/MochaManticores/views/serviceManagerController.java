@@ -340,7 +340,13 @@ public class serviceManagerController extends SceneController {
 
 
             checkBox.selectedProperty().setValue(user.isCompleted());
-            state.setOnMouseClicked(showBox);
+            state.setOnMouseClicked(new EventHandler<MouseEvent>(){
+                @Override
+                public void handle(MouseEvent e){
+                    System.out.println("Hello");
+                    showboxMethod(e, user);
+                }
+            });
 
 
 //            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
@@ -508,7 +514,12 @@ floralCompletedColumn
 
 
             checkBox.selectedProperty().setValue(user.isCompleted());
-            state.setOnMouseClicked(showBox);
+            state.setOnMouseClicked(new EventHandler<MouseEvent>(){
+                @Override
+                public void handle(MouseEvent e){
+                    showboxMethod(e, user);
+                }
+            });
 
 
 //            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
@@ -663,7 +674,12 @@ laundryCompletedColumn
             });
 
             checkBox.selectedProperty().setValue(user.isCompleted());
-            state.setOnMouseClicked(showBox);
+            state.setOnMouseClicked(new EventHandler<MouseEvent>(){
+                @Override
+                public void handle(MouseEvent e){
+                    showboxMethod(e, user);
+                }
+            });
 
 
 
@@ -813,7 +829,12 @@ EmergencyCompletedColumn
             });
 
             checkBox.selectedProperty().setValue(user.checkCompleted());
-            state.setOnMouseClicked(showBox);
+            state.setOnMouseClicked(new EventHandler<MouseEvent>(){
+                @Override
+                public void handle(MouseEvent e){
+                    showboxMethod(e, user);
+                }
+            });
 
 
 
@@ -908,6 +929,7 @@ EmergencyCompletedColumn
 
             serviceTabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->{
                 if(newValue.getText().equals("Medicine Delivery")){
+
                     completeEntry.setOnMouseClicked(event -> {
                         System.out.println(user.patientRoom.get());
                         contextBox.setVisible(false);
@@ -1119,7 +1141,12 @@ EmergencyCompletedColumn
             state.setText(stat.name());
 
             checkBox.selectedProperty().setValue(user.checkCompleted());
-            state.setOnMouseClicked(showBox);
+            state.setOnMouseClicked(new EventHandler<MouseEvent>(){
+                @Override
+                public void handle(MouseEvent e){
+                    showboxMethod(e, user);
+                }
+            });
 
 
             return new SimpleObjectProperty<JFXButton>(state);
@@ -1276,7 +1303,12 @@ EmergencyCompletedColumn
             });
 
             checkBox.selectedProperty().setValue(user.checkCompleted());
-            state.setOnMouseClicked(showBox);
+            state.setOnMouseClicked(new EventHandler<MouseEvent>(){
+                @Override
+                public void handle(MouseEvent e){
+                    showboxMethod(e, user);
+                }
+            });
 
 
 //            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
@@ -1433,7 +1465,12 @@ EmergencyCompletedColumn
             });
 
             checkBox.selectedProperty().setValue(user.checkCompleted());
-            state.setOnMouseClicked(showBox);
+            state.setOnMouseClicked(new EventHandler<MouseEvent>(){
+                @Override
+                public void handle(MouseEvent e){
+                    showboxMethod(e, user);
+                }
+            });
 
 
 //            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
@@ -1595,7 +1632,12 @@ EmergencyCompletedColumn
             });
 
             checkBox.selectedProperty().setValue(user.checkCompleted());
-            state.setOnMouseClicked(showBox);
+            state.setOnMouseClicked(new EventHandler<MouseEvent>(){
+                @Override
+                public void handle(MouseEvent e){
+                    showboxMethod(e, user);
+                }
+            });
 
 
 //            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
@@ -1762,7 +1804,12 @@ EmergencyCompletedColumn
             });
 
             checkBox.selectedProperty().setValue(user.checkCompleted());
-            state.setOnMouseClicked(showBox);
+            state.setOnMouseClicked(new EventHandler<MouseEvent>(){
+                @Override
+                public void handle(MouseEvent e){
+                    showboxMethod(e, user);
+                }
+            });
 
 
 //            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
@@ -1881,13 +1928,51 @@ EmergencyCompletedColumn
         CovidCompleteColumn.setCellValueFactory(arg0 -> {
 
 
+
             serviceStatus stat;
 
             cs user = arg0.getValue();
 
             CheckBox checkBox = new CheckBox();
             JFXButton state = new JFXButton();
+            serviceTabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->{
+                if(newValue.getText().equals("COVID Survey")){
 
+                    completeEntry.setOnMouseClicked(event -> {
+                        contextBox.setVisible(false);
+                        contextBox.toBack();
+                        completeEntry.setVisible(false);
+                        progressEntry.setVisible(false);
+                        deleteEntry.setVisible(false);
+                        setCompleteService(true,serviceToEdit);
+                    });
+
+                    progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            contextBox.setVisible(false);
+                            contextBox.toBack();
+                            completeEntry.setVisible(false);
+                            progressEntry.setVisible(false);
+                            deleteEntry.setVisible(false);
+                            setCompleteService(false,serviceToEdit);
+                        }
+                    });
+
+                    deleteEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            DatabaseManager.delElement(sel.Medicine,((md)serviceToEdit).getRef().getRequestID());
+                            buildMedicine("");
+                            contextBox.setVisible(false);
+                            contextBox.toBack();
+                            completeEntry.setVisible(false);
+                            progressEntry.setVisible(false);
+                            deleteEntry.setVisible(false);
+                        }
+                    });
+                }
+            });
 
 
             if(user.isCompleted()){
@@ -1940,15 +2025,15 @@ EmergencyCompletedColumn
             });
 
             checkBox.selectedProperty().setValue(user.isCompleted());
-            state.setOnMouseClicked(showBox);
+            
+            state.setOnMouseClicked(new EventHandler<MouseEvent>(){
+                @Override
+                public void handle(MouseEvent e){
+                    showboxMethod(e, user);
+                }
+            });
 
 
-//            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
-//
-//                setCompleteService(new_val, user);
-//                //user.setCompleted(new_val);
-//
-//            });
 
             return new SimpleObjectProperty<JFXButton>(state);
 
