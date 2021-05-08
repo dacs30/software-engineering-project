@@ -564,7 +564,7 @@ public class landingPageController extends SceneController {
     changeSceneTo("loginPage");
   }
 
-  public void userSettings(ActionEvent actionEvent) {
+  public void userSettings() {
 
     super.changeSceneTo("EmployeeEditor");
 

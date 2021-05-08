@@ -1,22 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXDialog?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import com.jfoenix.controls.JFXToggleButton?>
+<?import com.jfoenix.controls.*?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-
+<?import javafx.scene.layout.*?>
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.EmployeeEditorController">
    <children>
       <ImageView fx:id="backgroundIMG" fitHeight="810.0" fitWidth="1217.0" layoutX="10.0" opacity="0.5" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -61,28 +50,28 @@
                   <JFXTextField fx:id="newPass" focusColor="#bababa" labelFloat="true" maxHeight="-Infinity" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="800.0" promptText="New Password" stylesheets="@../Stylesheets/foodDelivery.css" GridPane.rowIndex="4" />
                   <JFXTextField fx:id="newUser" focusColor="#bababa" labelFloat="true" maxHeight="-Infinity" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="800.0" promptText="New Username" stylesheets="@../Stylesheets/foodDelivery.css" GridPane.rowIndex="2" />
                   <JFXTextField fx:id="oldPass" focusColor="#bababa" labelFloat="true" maxHeight="-Infinity" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="800.0" promptText="Old Password" stylesheets="@../Stylesheets/foodDelivery.css" GridPane.rowIndex="3" />
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="75.0" GridPane.halignment="CENTER" GridPane.rowIndex="6">
                      <children>
                         <JFXButton id="submitBtn" onAction="#cancel" text="Cancel" />
-                        <JFXButton id="submitBtn" onAction="#submitForm" text="SUBMIT" />
+                        <JFXButton id="submitBtn" onAction="#submitForm" text="Submit" />
+                        <JFXButton id="submitBtn" fx:id="userButton" onAction="#addUser" prefHeight="54.0" prefWidth="152.0" text="Add User" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.halignment="CENTER">
                      <children>
                         <Label id="foodDeliveryTitleLabel" fx:id="title" prefHeight="73.0" prefWidth="422.0" stylesheets="@../stylesheets.css" text="Employee Editor" textFill="WHITE" />
-                        <JFXButton id="submitBtn" fx:id="userButton" onAction="#addUser" prefHeight="54.0" prefWidth="152.0" text="Add User" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="250.0" GridPane.rowIndex="5">
                      <children>
                         <JFXComboBox fx:id="typePicker" prefHeight="44.0" prefWidth="312.0" />
-                        <JFXToggleButton fx:id="adminToggle" prefHeight="58.0" prefWidth="231.0" text="Admin" />
+                        <JFXToggleButton id="adminToggle" fx:id="adminToggle" prefHeight="58.0" prefWidth="231.0" size="15.0" stylesheets="@../Stylesheets/employeeEditor.css" text="Admin" toggleColor="#0f4b91" toggleLineColor="#0f4b91" unToggleColor="#0f4b91" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="933.0" spacing="250.0" GridPane.rowIndex="1">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="933.0" spacing="300.0" GridPane.rowIndex="1">
                      <children>
-                        <JFXTextField fx:id="first" focusColor="#bababa" labelFloat="true" maxHeight="-Infinity" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="122.0" promptText="First" stylesheets="@../Stylesheets/foodDelivery.css" />
-                        <JFXTextField fx:id="last" focusColor="#bababa" labelFloat="true" maxHeight="-Infinity" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="158.0" promptText="Last" stylesheets="@../Stylesheets/foodDelivery.css" />
+                        <JFXTextField fx:id="first" focusColor="#bababa" labelFloat="true" maxHeight="-Infinity" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="250.0" promptText="First Name" stylesheets="@../Stylesheets/foodDelivery.css" />
+                        <JFXTextField fx:id="last" focusColor="#bababa" labelFloat="true" maxHeight="-Infinity" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="250.0" promptText="Last Name" stylesheets="@../Stylesheets/foodDelivery.css" />
                      </children>
                   </HBox>
                </children>
