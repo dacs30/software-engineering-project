@@ -52,7 +52,7 @@ public class EmergencyManager  extends Manager<EmergencyRequest> {
     void addElement_db(EmergencyRequest temp) {
 
         try {
-            String sql = "INSERT INTO EMGREQ (RequestID, Employee, Completed, numPeopleNeeded, location, gurney) " +
+            String sql = "INSERT INTO EMGREQ (RequestID, EmpID, Completed, numPeopleNeeded, location, gurney) " +
                     "VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, temp.getRequestID());
