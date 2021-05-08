@@ -113,7 +113,7 @@
                         <JFXComboBox fx:id="employeeAssigned" prefWidth="400.0" promptText="Assign to Employee" GridPane.rowIndex="5" />
                      </children>
                   </GridPane>
-                  <JFXButton id="submitBtn" fx:id="submitBtn" onAction="#submitForm" text="SUBMIT" GridPane.rowIndex="2" />
+                  <JFXButton id="submitBtn" fx:id="submitBtn" buttonType="RAISED" onAction="#submitForm" text="Submit" GridPane.rowIndex="2" />
                   <ImageView id="helpButton" fitHeight="150.0" fitWidth="40.0" onMouseClicked="#helpButton" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
                      <image>
                         <Image url="@../images/blueHelpBtn.png" />

@@ -164,7 +164,7 @@ public class sanitationServiceController extends SceneController {
 
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
 
-        JFXButton cont = new JFXButton("CONTINUE");
+        JFXButton cont = new JFXButton("Continue");
         cont.setOnAction(event -> {
             dialog.close();
             dialogPane.toBack();

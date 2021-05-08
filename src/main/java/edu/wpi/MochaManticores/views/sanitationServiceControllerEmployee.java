@@ -54,7 +54,7 @@ public class sanitationServiceControllerEmployee extends SceneController {
     public JFXButton cancelButton;
 
     @FXML
-    public JFXButton helpBtn;
+    public JFXButton helpButton;
 
     @FXML
     public JFXTextField empBox;
@@ -74,12 +74,6 @@ public class sanitationServiceControllerEmployee extends SceneController {
     @FXML
     private Label empTitle;
 
-
-    @FXML
-    private GridPane requestPage;
-
-    @FXML
-    private GridPane managerPage;
 
     @FXML
     private JFXComboBox employeeAssigned;
@@ -137,7 +131,7 @@ public class sanitationServiceControllerEmployee extends SceneController {
     }
 
 
-    public void helpButton(ActionEvent actionEvent){loadHelpDialogue();}
+    public void helpButton(){loadHelpDialogue();}
 
     public void goBack(ActionEvent e) {
         back();
@@ -166,7 +160,7 @@ public class sanitationServiceControllerEmployee extends SceneController {
 
         message.setBody(body);
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
-        JFXButton ok = new JFXButton("OK");
+        JFXButton ok = new JFXButton("Ok");
         ok.setOnAction(event -> {
             dialogPane.toBack();
             dialog.close();
@@ -207,7 +201,7 @@ public class sanitationServiceControllerEmployee extends SceneController {
 
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
 
-        JFXButton cont = new JFXButton("CONTINUE");
+        JFXButton cont = new JFXButton("Continue");
         cont.setOnAction(event -> {
             dialog.close();
             dialogPane.toBack();
@@ -227,16 +221,6 @@ public class sanitationServiceControllerEmployee extends SceneController {
         loadDialog();
     }
 
-    public void changeToRequest(ActionEvent actionEvent) {
-        requestPage.setVisible(true);
-        managerPage.setVisible(false);
-        requestPage.toFront();
-    }
-    public void changeManagerTable(ActionEvent actionEvent){
-        managerPage.setVisible(true);
-        requestPage.setVisible(false);
-        managerPage.toFront();
-    }
 
 
     @FXML
