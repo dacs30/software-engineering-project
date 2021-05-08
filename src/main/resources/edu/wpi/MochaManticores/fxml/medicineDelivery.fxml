@@ -61,7 +61,7 @@
                   <Label id="MedicineDeliveryTitleLabel" stylesheets="@../stylesheets.css" text="Medicine Delivery" textFill="WHITE" />
                   <ImageView fx:id="helpButton" fitHeight="150.0" fitWidth="40.0" onMouseClicked="#loadHelpDialogue" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
                      <image>
-                        <Image url="@../images/hepIcon.png" />
+                        <Image url="@../images/blueHelpBtn.png" />
                      </image>
                      <GridPane.margin>
                         <Insets right="75.0" />

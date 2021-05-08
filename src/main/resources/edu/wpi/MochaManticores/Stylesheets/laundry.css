@@ -9,7 +9,7 @@
 
 .label {
     -fx-font-family: Roboto;
-    -fx-font-size: 60;
+    -fx-font-size: 50;
     -fx-font-weight: bold;
     -fx-text-fill: #0F4B91;
 }
@@ -21,7 +21,6 @@
     -jfx-focus-color:#0F4B91;
     -fx-prompt-text-fill: #0F4B91;
     -fx-font-size: 20;
-    -fx-max-width: 300;
 }
 #delicateSwitch{
     -fx-font-family: Roboto;
@@ -54,9 +53,9 @@
     -fx-prompt-text-fill: transparent ;
 }
 
-.jfx-combo-box:hover{
+/*.jfx-combo-box:hover{
     -fx-effect: dropshadow( three-pass-box , rgba(2, 2, 2, 0.2), 20, 0.0 , 1 , 10);
-}
+}*/
 
 #washLabel {
     -fx-font-size: 30;
