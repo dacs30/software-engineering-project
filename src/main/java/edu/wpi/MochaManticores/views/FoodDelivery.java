@@ -4,7 +4,6 @@ import com.jfoenix.controls.*;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.sel;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -41,7 +40,7 @@ public class FoodDelivery extends SceneController {
 
 
     @FXML
-    private void goBack(ActionEvent e) {
+    private void goBack() {
         back();
     }
 
@@ -72,7 +71,7 @@ public class FoodDelivery extends SceneController {
 
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
 
-        JFXButton cont = new JFXButton("CONTINUE");
+        JFXButton cont = new JFXButton("Continue");
         cont.setOnAction(event -> {
             dialog.close();
             dialogPane.toBack();
@@ -113,7 +112,7 @@ public class FoodDelivery extends SceneController {
     }
 
 
-    public void submitForm(ActionEvent e) {
+    public void submitForm() {
         sel s = sel.FoodDelivery;
         // changeSceneTo(e, "mainMenu");
         DatabaseManager.addRequest(s,
@@ -148,9 +147,9 @@ public class FoodDelivery extends SceneController {
 
         message.setBody(body);
         JFXDialog dialog = new JFXDialog(dialogPane, message, JFXDialog.DialogTransition.CENTER);
-        JFXButton exit = new JFXButton("OK!");
+        JFXButton exit = new JFXButton("Ok");
         exit.setOnAction(event -> {
-            back();
+            goBack();
         });
         dialog.setOnDialogClosed(event -> {
             dialogPane.setDisable(true);

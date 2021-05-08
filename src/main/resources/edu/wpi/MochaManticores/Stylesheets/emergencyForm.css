@@ -8,21 +8,38 @@
 }
 
 #emergencyRequestFormLabel {
-    -fx-text-fill: grey;
+    -fx-text-fill: #0F4B91;
     -fx-font-weight: bold;
     -fx-font-family: Roboto;
     -fx-font-size: 50;
 }
 
 .jfx-check-box{
-    -fx-font-size: 25;
+    -fx-prompt-text-fill:#0F4B91 ;
+    -fx-background-color: rgba(186, 186, 186, 0.43);
+    -jfx-unfocus-color: grey;
+    -jfx-focus-color: #0F4B91;
+    -fx-font-size: 20;
 }
 
 .label {
     -fx-text-fill: #0F4B91;
     -fx-font-family: Roboto;
-    -fx-font-size: 20;
+    -fx-font-size: 25;
     -fx-font-weight: bold;
+}
+#emergencyLabel{
+    -fx-text-fill: #0F4B91;
+    -fx-font-family: Roboto;
+    -fx-font-size: 50;
+    -fx-font-weight: bold;
+}
+#gurneyCheckBox{
+    -fx-prompt-text-fill:#0F4B91 ;
+    -fx-background-color: rgba(186, 186, 186, 0.43);
+    -jfx-unfocus-color: #0F4B91;
+    -jfx-focus-color: #0F4B91;
+    -fx-font-size: 20;
 }
 
 .jfx-combo-box {

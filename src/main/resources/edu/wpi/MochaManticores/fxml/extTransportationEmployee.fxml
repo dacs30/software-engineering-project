@@ -36,6 +36,14 @@
                </effect>
                <children>
                   <Label id="externalTransportationLabel" stylesheets="@../Stylesheets/externalTransportation.css" text="External Transportation" textFill="WHITE" />
+                  <ImageView fitHeight="150.0" fitWidth="40.0" onMouseClicked="#helpButton" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
+                     <image>
+                        <Image url="@../images/blueHelpBtn.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets right="75.0" />
+                     </GridPane.margin>
+                  </ImageView>
                   <GridPane GridPane.rowIndex="1">
                     <columnConstraints>
                       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -57,7 +65,7 @@
                   </GridPane>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0" GridPane.rowIndex="2">
                      <children>
-                        <JFXButton id="submitBtn" fx:id="submitButton" onAction="#submitEvent" text="SUBMIT" />
+                        <JFXButton id="submitBtn" fx:id="submitButton" onAction="#submitEvent" text="Submit" />
                      </children>
                   </HBox>
                </children>
@@ -76,18 +84,10 @@
                </effect>
                <children>
                   <Label id="foodDeliveryTitleLabel" stylesheets="@../stylesheets.css" text="Ext. Transportation Manager" textFill="WHITE" wrapText="true" />
-                  <ImageView fitHeight="150.0" fitWidth="40.0" onMouseClicked="#helpButton" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
-                     <image>
-                        <Image url="@../images/blueHelpBtn.png" />
-                     </image>
-                     <GridPane.margin>
-                        <Insets right="75.0" />
-                     </GridPane.margin>
-                  </ImageView>
                   <TableView fx:id="externalTable" editable="true" prefHeight="200.0" prefWidth="200.0" stylesheets="@../jfx-tree-table-view.css" GridPane.rowIndex="1" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0" GridPane.rowIndex="2">
                      <children>
-                        <JFXButton id="submitBtn" onAction="#changeToRequest" text="CREATE A REQUEST" />
+                        <JFXButton id="submitBtn" onAction="#changeToRequest" text="Create a Request" />
                      </children>
                   </HBox>
                </children>

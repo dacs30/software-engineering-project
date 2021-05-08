@@ -153,7 +153,7 @@ public class extTransportationControllerEmployee extends SceneController {
 
     }
 
-    public void helpButton(ActionEvent actionEvent){loadHelpDialogue();}
+    public void helpButton(){loadHelpDialogue();}
 
     public void changeToRequest(ActionEvent actionEvent) {
         requestPage.setVisible(true);
@@ -188,7 +188,7 @@ public class extTransportationControllerEmployee extends SceneController {
 
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
 
-        JFXButton cont = new JFXButton("CONTINUE");
+        JFXButton cont = new JFXButton("Continue");
         cont.setOnAction(event -> {
             dialog.close();
             dialogPane.toBack();
