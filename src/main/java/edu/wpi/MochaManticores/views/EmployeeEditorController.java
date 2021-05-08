@@ -11,6 +11,7 @@ import edu.wpi.MochaManticores.database.EmployeeManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 
 public class EmployeeEditorController extends  SceneController{
 
@@ -19,6 +20,9 @@ public class EmployeeEditorController extends  SceneController{
 
     @FXML
     private JFXTextField oldPass;
+
+    @FXML
+    private ImageView backgroundIMG;
 
     @FXML
     private JFXTextField newPass;
@@ -46,6 +50,13 @@ public class EmployeeEditorController extends  SceneController{
 
 
     public void initialize() throws InvalidElementException {
+        double height = App.getPrimaryStage().getScene().getHeight();
+        double width = App.getPrimaryStage().getScene().getWidth();
+        backgroundIMG.setFitWidth(width);
+        backgroundIMG.setFitHeight(height);
+
+        backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
+        backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
         Employee selected = DatabaseManager.getEmpManager().getElement(App.getCurrentUsername());
         boolean admin = selected.isAdmin();
         if(!admin){
