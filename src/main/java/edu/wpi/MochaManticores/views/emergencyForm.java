@@ -8,9 +8,9 @@ import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Services.EmergencyRequest;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.sel;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -47,11 +47,11 @@ public class emergencyForm extends SceneController {
         numPeople.getSelectionModel().select("1");
     }
 
-    public void backBtn(ActionEvent actionEvent) {
+    public void backBtn() {
         back();
     }
 
-    public void submitEmergency(ActionEvent actionEvent) {
+    public void submitEmergency() {
         DatabaseManager.addRequest(sel.Emergency, new EmergencyRequest("",
                 "",
                 false,
@@ -84,7 +84,7 @@ public class emergencyForm extends SceneController {
 
         message.setBody(body);
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
-        JFXButton ok = new JFXButton("OK");
+        JFXButton ok = new JFXButton("Ok");
         ok.setOnAction(event -> {
             dialog.close();
         });
