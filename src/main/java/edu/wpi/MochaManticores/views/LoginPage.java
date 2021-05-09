@@ -10,10 +10,13 @@ import edu.wpi.MochaManticores.database.Mdb;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -31,6 +34,9 @@ public class LoginPage extends SceneController{
 
     @FXML
     private JFXTextField IDField;
+
+    @FXML
+    private Label aboutLink;
 
     @FXML
     private GridPane contentPane;
@@ -74,6 +80,18 @@ public class LoginPage extends SceneController{
             }
         };
         employeePassword.setOnKeyTyped(enter);
+        aboutLink.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                App.getPrimaryStage().getScene().setCursor(Cursor.HAND);
+            }
+        });
+        aboutLink.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                App.getPrimaryStage().getScene().setCursor(Cursor.DEFAULT);
+            }
+        });
 
     }
 
@@ -218,5 +236,9 @@ public class LoginPage extends SceneController{
 
     public void openMap(ActionEvent actionEvent) {
         changeSceneTo("mapPage");
+    }
+
+    public void about(MouseEvent e){
+        changeSceneTo("aboutPage");
     }
 }

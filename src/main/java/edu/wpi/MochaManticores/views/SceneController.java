@@ -145,8 +145,8 @@ public class SceneController{
 
     protected void back(){
         String scene = "loginPage";
-        scenes.pop();
         try{
+            scenes.pop();
             scene = scenes.pop();
         } catch (EmptyStackException ignored){}
         changeSceneTo(scene);
