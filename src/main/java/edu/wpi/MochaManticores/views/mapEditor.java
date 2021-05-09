@@ -14,6 +14,7 @@ import edu.wpi.MochaManticores.database.Mdb;
 import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -25,6 +26,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -1207,6 +1209,11 @@ public class mapEditor extends SceneController {
                 spot.setOnMouseClicked(highlight);
                 spot.setOnMouseEntered(large);
                 spot.setOnMouseExited(small);
+                spot.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newVaue) -> {
+                    if(newVaue){
+                        Tooltip.install(spot, new Tooltip(n.getLongName()));
+                    }
+                });
                 nodes.put(n.getID(), new node(spot, n.getID(), n));
                 //drawEdges2(nodes.get(n.getID()));
                 nodePane.getChildren().addAll(nodes.get(n.getID()).c);
@@ -1300,7 +1307,11 @@ public class mapEditor extends SceneController {
                 l.setOnMouseClicked(highlight);
                 l.setOnMouseEntered(bold);
                 l.setOnMouseExited(unbold);
-
+                l.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newVaue) -> {
+                    if(newVaue){
+                        Tooltip.install(l, new Tooltip(e.getEdgeID()));
+                    }
+                });
                 nodePane.getChildren().addAll(l);
                 l.toBack();
             }

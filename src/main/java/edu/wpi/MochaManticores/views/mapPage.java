@@ -12,6 +12,7 @@ import edu.wpi.MochaManticores.database.Employee;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -1155,6 +1156,11 @@ public class mapPage extends SceneController{
                 spot.setOnMouseClicked(highlight);
                 spot.setOnMouseEntered(large);
                 spot.setOnMouseExited(small);
+                spot.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newVaue) -> {
+                    if(newVaue){
+                        Tooltip.install(spot, new Tooltip(n.getLongName()));
+                    }
+                });
                 nodes.put(n.getID(), new node(spot, n.getID()));
                 nodePane.getChildren().addAll(nodes.get(n.getID()).c);
             }
@@ -1178,6 +1184,14 @@ public class mapPage extends SceneController{
                 edge.setStroke(Color.GREY);
                 edge.getStrokeDashArray().addAll(5d, 15d);
             }
+            NodeSuper finalCurNode = curNode;
+            NodeSuper finalEndNode = endNode;
+
+            edge.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newVaue) -> {
+                if(newVaue){
+                    Tooltip.install(edge, new Tooltip(finalCurNode.getID()+"_"+ finalEndNode.getID()));
+                }
+            });
 
             lines.add(edge);
         }
@@ -1297,6 +1311,7 @@ public class mapPage extends SceneController{
         //System.out.printf("X: %f\nY: %f\n\n",curX,curY);
 
     }
+
     public void saveUserParking() throws InvalidElementException, DestinationNotAccessibleException {
         if(parkingButton.getText().equals("My spot") && !DatabaseManager.getEmployee(App.getCurrentUsername()).getParkingSpace().equals("Parking")){
             Iterator<node> mapIter = nodes.values().iterator();
