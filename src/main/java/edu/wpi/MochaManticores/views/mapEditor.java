@@ -1,7 +1,6 @@
 package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.*;
-import edu.wpi.MochaManticores.Algorithms.AStar2;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Editors.mapEdit;
 import edu.wpi.MochaManticores.Nodes.EdgeMapSuper;
@@ -9,12 +8,8 @@ import edu.wpi.MochaManticores.Nodes.EdgeSuper;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.database.DatabaseManager;
-import edu.wpi.MochaManticores.database.EdgeManager;
-import edu.wpi.MochaManticores.database.Mdb;
-import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -25,7 +20,6 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -38,17 +32,11 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import edu.wpi.MochaManticores.views.nodePage;
-import edu.wpi.MochaManticores.views.edgesPage;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.sql.Array;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.*;
 

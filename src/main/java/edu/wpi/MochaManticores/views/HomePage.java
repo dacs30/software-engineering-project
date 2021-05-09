@@ -4,7 +4,6 @@ import edu.wpi.MochaManticores.App;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import edu.wpi.MochaManticores.views.landingPageController;
 
 import java.io.IOException;
 

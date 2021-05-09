@@ -1,9 +1,7 @@
 package edu.wpi.MochaManticores.views;
+
 import com.jfoenix.controls.*;
 import edu.wpi.MochaManticores.App;
-import edu.wpi.MochaManticores.Services.InternalTransportation;
-import edu.wpi.MochaManticores.Services.ServiceRequest;
-import edu.wpi.MochaManticores.Services.ServiceRequestType;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.sel;
 import javafx.collections.FXCollections;

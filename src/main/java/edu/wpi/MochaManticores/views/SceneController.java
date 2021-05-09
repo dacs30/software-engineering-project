@@ -1,9 +1,9 @@
 package edu.wpi.MochaManticores.views;
 
-import com.jfoenix.controls.*;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import edu.wpi.MochaManticores.App;
-import edu.wpi.MochaManticores.database.Mdb;
-import edu.wpi.MochaManticores.messaging.Message;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,22 +19,18 @@ import javafx.stage.DirectoryChooser;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.*;
-import java.util.List;
+import java.util.Base64;
+import java.util.EmptyStackException;
+import java.util.Objects;
+import java.util.Stack;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SceneController{

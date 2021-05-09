@@ -5,7 +5,6 @@
         import javafx.collections.FXCollections;
         import javafx.collections.ObservableList;
         import javafx.event.EventHandler;
-        import javafx.scene.Cursor;
         import javafx.scene.input.KeyCode;
         import javafx.scene.input.KeyEvent;
         import javafx.util.Pair;
