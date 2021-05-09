@@ -50,7 +50,7 @@ public class clientReader implements Runnable{
                     running = false;
                     break;
                 }else if(msg.TYPE == Message.msgType.UPDATE){
-                    refreshDB();
+                    //refreshDB();
                     break;
                 }
 
