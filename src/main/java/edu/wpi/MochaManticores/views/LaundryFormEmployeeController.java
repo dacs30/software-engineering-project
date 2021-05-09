@@ -11,6 +11,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -53,6 +54,11 @@ public class LaundryFormEmployeeController {
 
     @FXML
     private JFXComboBox employeeAssigned;
+
+    @FXML
+    private ImageView helpButton;
+    @FXML
+    private JFXButton submitButton;
 
     private void createFilterListener(JFXComboBox comboBox) {
 
@@ -110,7 +116,7 @@ public class LaundryFormEmployeeController {
         dryTemp.getItems().addAll("High", "Medium", "Low", "Delicate", "No Heat");
     }
 
-    public void helpButton(ActionEvent actionEvent){loadHelpDialogue();}
+    public void helpEvent(MouseEvent mouseEvent){loadHelpDialogue();}
 
     public void changeToRequest(ActionEvent actionEvent) {
         requestPage.setVisible(true);
@@ -118,7 +124,7 @@ public class LaundryFormEmployeeController {
         requestPage.toFront();
     }
 
-    public void submit(ActionEvent e){
+    public void submitEvent(ActionEvent e){
         DatabaseManager.addRequest(sel.Laundry,
                 new LaundryRequest("",
                         employeeAssigned.getEditor().getText(),
@@ -129,10 +135,11 @@ public class LaundryFormEmployeeController {
                         washTemp.getSelectionModel().getSelectedItem(),
                         dryTemp.getSelectionModel().getSelectedItem(),
                         Integer.parseInt(dryCycles.getText())));
+        loadSubmitDialog();
     }
 
 
-    private void loadDialog(){
+    private void loadHelpDialogue(){
         JFXDialogLayout message = new JFXDialogLayout();
         message.setMaxHeight(Region.USE_COMPUTED_SIZE);
         message.setMaxHeight(Region.USE_COMPUTED_SIZE);
@@ -144,10 +151,12 @@ public class LaundryFormEmployeeController {
         hearder.setStyle("-fx-alignment: center");
         message.setHeading(hearder);
 
-        final Text body = new Text("Patient room: This is the room number given to the patient by the hospital.\n" +
-                "Current Room: is where the patient is currently staying until transportation out of the hospital.\n" +
-                "External Room: is the location where the patient is going to be transported to\n" +
-                "Transportation Method: This is a dropdown menu that you select which type of transportation the patient will take. ");
+        final Text body = new Text("Patient Name: Please put the name of the patient.\n" +
+                                    "Soil Level: Please select the level of soil for the wash cycle.\n" +
+                                    "Delicates: Please select whether the laundry is consider delicate or not.\n" +
+                                    "Temperature: Please select the temperature that you will wash and dry at.\n" +
+                                    "Extra Cycles: Please indicate the number of extra cycles you need.\n" +
+                                    "Assign to Employee: Select an employee from the provided dropdown menu.");
 
         body.setStyle("-fx-font-size: 40");
         body.setStyle("-fx-font-family: Roboto");
@@ -158,7 +167,7 @@ public class LaundryFormEmployeeController {
 
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
 
-        JFXButton cont = new JFXButton("CONTINUE");
+        JFXButton cont = new JFXButton("Continue");
         cont.setOnAction(event -> {
             dialog.close();
             dialogPane.toBack();
@@ -173,11 +182,6 @@ public class LaundryFormEmployeeController {
 
     }
 
-    private void loadHelpDialogue() {
-        dialogPane.toFront();
-        loadDialog();
-    }
-
     public void loadSubmitDialog(){
         //TODO Center the text of it.
         dialogPane.toFront();
@@ -186,14 +190,14 @@ public class LaundryFormEmployeeController {
         message.setMaxHeight(Region.USE_PREF_SIZE);
         message.setMaxHeight(Region.USE_PREF_SIZE);
 
-        final Text hearder = new Text("Your request was submited");
+        final Text hearder = new Text("Submitted request.");
         hearder.setStyle("-fx-font-weight: bold");
         hearder.setStyle("-fx-font-size: 30");
         hearder.setStyle("-fx-font-family: Roboto");
         hearder.setStyle("-fx-alignment: center");
         message.setHeading(hearder);
 
-        final Text body = new Text("Estimated time for arrival: ");
+        final Text body = new Text("Your request has been submitted for the patient.");
         body.setStyle("-fx-font-size: 15");
         body.setStyle("-fx-font-family: Roboto");
         body.setStyle("-fx-alignment: center");
@@ -201,7 +205,7 @@ public class LaundryFormEmployeeController {
 
         message.setBody(body);
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
-        JFXButton ok = new JFXButton("OK");
+        JFXButton ok = new JFXButton("Done");
         ok.setOnAction(event -> {
             dialogPane.toBack();
         });

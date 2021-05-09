@@ -1,8 +1,9 @@
 package edu.wpi.MochaManticores.views;
 
-import com.jfoenix.controls.*;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import edu.wpi.MochaManticores.App;
-import edu.wpi.MochaManticores.database.Mdb;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,17 +17,18 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 
-import java.awt.*;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.ArrayList;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.KeySpec;
+import java.util.Base64;
 import java.util.EmptyStackException;
-import java.util.List;
 import java.util.Objects;
 import java.util.Stack;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -139,8 +141,8 @@ public class SceneController{
 
     protected void back(){
         String scene = "loginPage";
-        scenes.pop();
         try{
+            scenes.pop();
             scene = scenes.pop();
         } catch (EmptyStackException ignored){}
         changeSceneTo(scene);
@@ -219,5 +221,40 @@ public class SceneController{
         }
     }
 
+    public String hashPassword(String plainText){
+        SecureRandom random = new SecureRandom();
+        byte[] salt = new byte[16];
+        random.nextBytes(salt);
+
+        KeySpec spec = new PBEKeySpec(plainText.toCharArray(), salt, 65536, 128);
+
+        SecretKeyFactory factory = null;
+
+        try {
+            factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        byte[] hashedPassword = new byte[0];
+        try {
+            hashedPassword = factory.generateSecret(spec).getEncoded();
+        } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+        }
+
+        return Base64.getEncoder().encodeToString(salt) + ":" + Base64.getEncoder().encodeToString(hashedPassword);
+    }
+
+    private static String bytesToHex(byte[] bytes) {
+        final char[] HEX_ARRAY = "0123456789ABCDEF".toCharArray();
+        char[] hexChars = new char[bytes.length * 2];
+        for (int j = 0; j < bytes.length; j++) {
+            int v = bytes[j] & 0xFF;
+            hexChars[j * 2] = HEX_ARRAY[v >>> 4];
+            hexChars[j * 2 + 1] = HEX_ARRAY[v & 0x0F];
+        }
+        return new String(hexChars);
+    }
 
 }

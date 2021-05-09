@@ -3,7 +3,6 @@ package edu.wpi.MochaManticores.views;
 import com.jfoenix.controls.*;
 import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.MochaManticores.App;
-import edu.wpi.MochaManticores.Services.ExternalTransportation;
 import edu.wpi.MochaManticores.Services.FloralDelivery;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.sel;
@@ -59,7 +58,7 @@ public class FloralSceneController extends SceneController {
 
 
   @FXML
-  private void goBack(ActionEvent e) {
+  private void goBack() {
     back();
   }
 
@@ -109,9 +108,9 @@ public class FloralSceneController extends SceneController {
 
     message.setBody(body);
     JFXDialog dialog = new JFXDialog(dialogPane, message, JFXDialog.DialogTransition.CENTER);
-    JFXButton ok = new JFXButton("OK");
+    JFXButton ok = new JFXButton("Ok");
     ok.setOnAction(event -> {
-      goBack(null);
+      goBack();
     });
 
     dialog.setOnDialogClosed(event -> {
@@ -123,7 +122,7 @@ public class FloralSceneController extends SceneController {
     dialog.show();
   }
 
-  public void helpButton(ActionEvent actionEvent) {
+  public void helpButton() {
     loadHelpDialogue();
   }
 
@@ -154,7 +153,7 @@ public class FloralSceneController extends SceneController {
 
     JFXDialog dialog = new JFXDialog(dialogPane, message, JFXDialog.DialogTransition.CENTER);
 
-    JFXButton cont = new JFXButton("CONTINUE");
+    JFXButton cont = new JFXButton("Continue");
     cont.setOnAction(event -> {
       dialog.close();
       dialogPane.toBack();

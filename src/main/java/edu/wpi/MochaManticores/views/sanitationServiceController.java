@@ -95,9 +95,9 @@ public class sanitationServiceController extends SceneController {
 
     }
 
-    public void helpButton(ActionEvent actionEvent){loadHelpDialogue();}
+    public void helpButton(){loadHelpDialogue();}
 
-    public void goBack(ActionEvent e) {
+    public void goBack() {
         back();
     }
 
@@ -126,7 +126,7 @@ public class sanitationServiceController extends SceneController {
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
         JFXButton ok = new JFXButton("OK");
         ok.setOnAction(event -> {
-            goBack(null);
+            goBack();
         });
 
         dialog.setOnDialogClosed(event -> {
@@ -164,7 +164,7 @@ public class sanitationServiceController extends SceneController {
 
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
 
-        JFXButton cont = new JFXButton("CONTINUE");
+        JFXButton cont = new JFXButton("Continue");
         cont.setOnAction(event -> {
             dialog.close();
             dialogPane.toBack();
@@ -240,7 +240,7 @@ public class sanitationServiceController extends SceneController {
     }
 
     public void back() {
-        super.back();
+        goBack();
     }
 }
 

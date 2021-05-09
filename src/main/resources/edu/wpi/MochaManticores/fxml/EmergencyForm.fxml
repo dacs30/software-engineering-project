@@ -60,7 +60,7 @@
                           </rowConstraints>
                            <children>
                               <Label text="How many people do you need?" textFill="WHITE" />
-                              <JFXComboBox fx:id="numPeople" promptText="Select number of people needed" GridPane.rowIndex="1" />
+                              <JFXComboBox fx:id="numPeople" prefWidth="400.0" promptText="Select number of people needed" GridPane.rowIndex="1" />
                            </children>
                         </GridPane>
                         <GridPane GridPane.rowIndex="1">
@@ -76,7 +76,7 @@
                               <JFXTextField fx:id="roomNumber" focusColor="WHITE" labelFloat="true" promptText="Room number or name" GridPane.rowIndex="1" />
                            </children>
                         </GridPane>
-                        <JFXCheckBox id="gurneyCheckBox" checkedColor="#0f4b91" text="Gurney" textFill="#a2a2a2" unCheckedColor="#888888" GridPane.rowIndex="2" />
+                        <JFXCheckBox id="gurneyCheckBox" fx:id="gurney" checkedColor="#0f4b91" text="Gurney" textFill="#0f4b91" unCheckedColor="#0f4b91" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                   <JFXButton id="submitBtn" buttonType="RAISED" onAction="#submitEmergency" text="Submit" GridPane.rowIndex="2" />

@@ -1,7 +1,6 @@
 package edu.wpi.MochaManticores.views;
 
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Services.ServiceRequest;
@@ -22,7 +21,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -108,6 +109,12 @@ public class InternalTransportationEmployee {
 
     @FXML
     private GridPane managerPage;
+
+    @FXML
+    private JFXButton submitButton;
+
+    @FXML
+    private ImageView helpButton;
 
     private void createFilterListener(JFXComboBox comboBox) {
 
@@ -199,9 +206,89 @@ public class InternalTransportationEmployee {
             ));
             System.out.println("Adds to database");
         }
+        loadSubmitDialogue();
+    }
+    public void loadSubmitDialogue(){
+        dialogPane.toFront();
+        JFXDialogLayout message = new JFXDialogLayout();
+        message.setMaxHeight(Region.USE_COMPUTED_SIZE);
+        message.setMaxHeight(Region.USE_COMPUTED_SIZE);
+
+        final Text hearder = new Text("Submitted request.");
+        hearder.setStyle("-fx-font-weight: bold");
+        hearder.setStyle("-fx-font-size: 60");
+        hearder.setStyle("-fx-font-family: Roboto");
+        hearder.setStyle("-fx-alignment: center");
+        message.setHeading(hearder);
+
+        final Text body = new Text("Your request has been submitted for the patient.");
+        body.setStyle("-fx-font-size: 40");
+        body.setStyle("-fx-font-family: Roboto");
+        body.setStyle("-fx-alignment: center");
+
+        message.setBody(body);
+
+
+        JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
+
+        JFXButton cont = new JFXButton("Done");
+        cont.setOnAction(event -> {
+            dialog.close();
+            dialogPane.toBack();
+        });
+
+        dialog.setOnDialogClosed(event -> {
+            dialogPane.toBack();
+        });
+
+        message.setActions(cont);
+        dialog.show();
+
     }
 
-    public void openHelp(MouseEvent mouseEvent) {
+    public void openHelp(MouseEvent mouseEvent) { loadHelpDialogue();
+    }
+
+    public void loadHelpDialogue(){
+        dialogPane.toFront();
+        JFXDialogLayout message = new JFXDialogLayout();
+        message.setMaxHeight(Region.USE_COMPUTED_SIZE);
+        message.setMaxHeight(Region.USE_COMPUTED_SIZE);
+
+        final Text hearder = new Text("Help Page");
+        hearder.setStyle("-fx-font-weight: bold");
+        hearder.setStyle("-fx-font-size: 60");
+        hearder.setStyle("-fx-font-family: Roboto");
+        hearder.setStyle("-fx-alignment: center");
+        message.setHeading(hearder);
+
+        final Text body = new Text("Patient ID: This is the ID given to the patient by the hospital.\n" +
+                                    "Number of Staff: The number of staff recommended to transport a patient.\n" +
+                                    "Destination: Room or location where the patient is going to be transported to.\n" +
+                                    "Method of Transportation: Dropdown menu with 3 options:(Wheelchair, Walker, or Medical Bed).\n" +
+                                    "Assign to Employee: Select an employee from the provided dropdown menu.");
+        body.setStyle("-fx-font-size: 40");
+        body.setStyle("-fx-font-family: Roboto");
+        body.setStyle("-fx-alignment: center");
+
+        message.setBody(body);
+
+
+        JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
+
+        JFXButton cont = new JFXButton("Continue");
+        cont.setOnAction(event -> {
+            dialog.close();
+            dialogPane.toBack();
+        });
+
+        dialog.setOnDialogClosed(event -> {
+            dialogPane.toBack();
+        });
+
+        message.setActions(cont);
+        dialog.show();
+
     }
 
     private ObservableList<it> buildTable(String searchTerm) {

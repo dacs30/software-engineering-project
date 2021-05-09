@@ -46,7 +46,7 @@
                   <Insets />
                </GridPane.margin>
                <children>
-                  <Label id="translatorTitleLabel" stylesheets="@../Stylesheets/translatorSheet.css" text="Translator Request Form" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <Label id="translatorTitleLabel" stylesheets="@../Stylesheets/translatorSheet.css" text="Translator Request" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                   <GridPane GridPane.rowIndex="1">
                     <columnConstraints>
                       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -56,7 +56,7 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <JFXTextField fx:id="roomNumber" focusColor="#0f4c91" promptText="Room" stylesheets="@../Stylesheets/translatorSheet.css" unFocusColor="#104d8f">
+                        <JFXTextField fx:id="roomNumber" focusColor="#0f4c91" promptText="Patient Room" stylesheets="@../Stylesheets/translatorSheet.css" unFocusColor="#104d8f">
                            <GridPane.margin>
                               <Insets left="50.0" right="50.0" />
                            </GridPane.margin>
@@ -69,7 +69,15 @@
                         </HBox>
                      </children>
                   </GridPane>
-                  <JFXButton id="submitBtn" fx:id="submitButton" contentDisplay="CENTER" onAction="#submitReq" stylesheets="@../Stylesheets/translatorSheet.css" text="SUBMIT" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                  <JFXButton id="submitBtn" fx:id="submitButton" contentDisplay="CENTER" onAction="#submitEvent" stylesheets="@../Stylesheets/translatorSheet.css" text="Submit" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="helpButton" fitHeight="150.0" fitWidth="40.0" onMouseClicked="#helpEvent" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
+                     <image>
+                        <Image url="@../images/blueHelpBtn.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets right="75.0" />
+                     </GridPane.margin>
+                  </ImageView>
                </children>
                <effect>
                   <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />

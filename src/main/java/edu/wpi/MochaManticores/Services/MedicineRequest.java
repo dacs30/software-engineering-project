@@ -1,10 +1,10 @@
 package edu.wpi.MochaManticores.Services;
 
 public class MedicineRequest extends ServiceRequest{
-    private String typeMedicine;
-    private String currentFeeling;
-    private String allergies;
-    private String patientRoom;
+    private final String typeMedicine;
+    private final String currentFeeling;
+    private final String allergies;
+    private final String patientRoom;
 
     public MedicineRequest(String RequestID, String employee, boolean completed, String typeMedicine,
                            String currentFeeling, String allergies, String patientRoom) {

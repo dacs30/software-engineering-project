@@ -1,8 +1,6 @@
 package edu.wpi.MochaManticores.views;
 
-import com.jfoenix.controls.JFXCheckBox;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.database.DatabaseManager;
@@ -13,8 +11,10 @@ import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 
 public class MedicineDeliveryEmployee {
 
@@ -49,6 +49,15 @@ public class MedicineDeliveryEmployee {
 
     @FXML
     private JFXComboBox employeeAssigned;
+
+    @FXML
+    private JFXButton submitButton;
+
+    @FXML
+    private ImageView helpButton;
+
+    @FXML
+    private StackPane dialogPane;
 
     private void createFilterListener(JFXComboBox comboBox) {
 
@@ -159,6 +168,7 @@ public class MedicineDeliveryEmployee {
             missingInput.setMessage("Type of medicine must be selected");
             medicineCombo.validate();
         }
+        loadSubmitDialogue();
         sel s = sel.Medicine;
         DatabaseManager.addRequest(s, new edu.wpi.MochaManticores.Services.MedicineRequest("", employeeAssigned.getEditor().getText(),false,medicineCombo.getSelectionModel().getSelectedItem(),feel.toString(),allergies.getText(),patientRoom.getText()));
 
@@ -179,10 +189,87 @@ public class MedicineDeliveryEmployee {
         managerPage.toFront();
     }
 
+    public void loadHelpDialogue(){
+        dialogPane.toFront();
+        JFXDialogLayout message = new JFXDialogLayout();
+        message.setMaxHeight(Region.USE_COMPUTED_SIZE);
+        message.setMaxHeight(Region.USE_COMPUTED_SIZE);
 
-    public void loadHelpDialogue(MouseEvent mouseEvent) {
+        final Text hearder = new Text("Help Page");
+        hearder.setStyle("-fx-font-weight: bold");
+        hearder.setStyle("-fx-font-size: 60");
+        hearder.setStyle("-fx-font-family: Roboto");
+        hearder.setStyle("-fx-alignment: center");
+        message.setHeading(hearder);
+
+        final Text body = new Text("Type of Medicine: Select a medicine from the provided dropdown.\n" +
+                "Please check of one or more boxes to describe the pain you are experiencing.\n" +
+                "Allergies: Type out any known allergies to any medication that you know of.\n" +
+                "Patient Room: The current room in the hospital that the patient resides in.\n"+
+                "Assign to Employee: Select an employee from the provided dropdown menu.");
+        body.setStyle("-fx-font-size: 40");
+        body.setStyle("-fx-font-family: Roboto");
+        body.setStyle("-fx-alignment: center");
+
+        message.setBody(body);
+
+
+        JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
+
+        JFXButton cont = new JFXButton("Continue");
+        cont.setOnAction(event -> {
+            dialog.close();
+            dialogPane.toBack();
+        });
+
+        dialog.setOnDialogClosed(event -> {
+            dialogPane.toBack();
+        });
+
+        message.setActions(cont);
+        dialog.show();
+
     }
 
-    public void helpButton(MouseEvent mouseEvent) {
+    public void loadSubmitDialogue(){
+        dialogPane.toFront();
+        JFXDialogLayout message = new JFXDialogLayout();
+        message.setMaxHeight(Region.USE_COMPUTED_SIZE);
+        message.setMaxHeight(Region.USE_COMPUTED_SIZE);
+
+        final Text hearder = new Text("Submitted request.");
+        hearder.setStyle("-fx-font-weight: bold");
+        hearder.setStyle("-fx-font-size: 60");
+        hearder.setStyle("-fx-font-family: Roboto");
+        hearder.setStyle("-fx-alignment: center");
+        message.setHeading(hearder);
+
+        final Text body = new Text("Your request has been submitted for the patient.");
+        body.setStyle("-fx-font-size: 40");
+        body.setStyle("-fx-font-family: Roboto");
+        body.setStyle("-fx-alignment: center");
+
+        message.setBody(body);
+
+
+        JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
+
+        JFXButton cont = new JFXButton("Done");
+        cont.setOnAction(event -> {
+            dialog.close();
+            dialogPane.toBack();
+        });
+
+        dialog.setOnDialogClosed(event -> {
+            dialogPane.toBack();
+        });
+
+        message.setActions(cont);
+        dialog.show();
+
+    }
+
+    public void helpButton(ActionEvent actionEvent) {
+        loadHelpDialogue();
     }
 }

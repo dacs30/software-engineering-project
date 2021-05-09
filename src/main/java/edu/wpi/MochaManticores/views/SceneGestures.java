@@ -23,7 +23,7 @@ class DragContext {
  */
 public class SceneGestures {
 
-    private DragContext sceneDragContext = new DragContext();
+    private final DragContext sceneDragContext = new DragContext();
 
     PanAndZoomPane panAndZoomPane;
 
@@ -47,7 +47,7 @@ public class SceneGestures {
         return onScrollEventHandler;
     }
 
-    private EventHandler<MouseEvent> onMousePressedEventHandler = new EventHandler<MouseEvent>() {
+    private final EventHandler<MouseEvent> onMousePressedEventHandler = new EventHandler<MouseEvent>() {
 
         public void handle(MouseEvent event) {
 
@@ -61,7 +61,7 @@ public class SceneGestures {
 
     };
 
-    private EventHandler<MouseEvent> onMouseDraggedEventHandler = new EventHandler<MouseEvent>() {
+    private final EventHandler<MouseEvent> onMouseDraggedEventHandler = new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
             double xTranslate = sceneDragContext.translateAnchorX + event.getX() - sceneDragContext.mouseAnchorX;
             double yTranslate = sceneDragContext.translateAnchorY + event.getY() - sceneDragContext.mouseAnchorY;
@@ -78,7 +78,7 @@ public class SceneGestures {
     /**
      * Mouse wheel handler: zoom to pivot point
      */
-    private EventHandler<ScrollEvent> onScrollEventHandler = new EventHandler<ScrollEvent>() {
+    private final EventHandler<ScrollEvent> onScrollEventHandler = new EventHandler<ScrollEvent>() {
 
         @Override
         public void handle(ScrollEvent event) {
@@ -109,7 +109,7 @@ public class SceneGestures {
     /**
      * Mouse click handler
      */
-    private EventHandler<MouseEvent> onMouseClickedEventHandler = new EventHandler<MouseEvent>() {
+    private final EventHandler<MouseEvent> onMouseClickedEventHandler = new EventHandler<MouseEvent>() {
 
         @Override
         public void handle(MouseEvent event) {

@@ -13,10 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
@@ -33,8 +30,6 @@ public class extTransportationController extends SceneController {
     private ImageView backgroundIMG;
     @FXML
     private StackPane dialogPane;
-    @FXML
-    private JFXTextField empBox;
     @FXML
     private JFXTextField patientRoom, currentRoom, externalRoom;
     @FXML
@@ -57,9 +52,7 @@ public class extTransportationController extends SceneController {
 
         dialogPane.setDisable(false);
 
-        if(App.getClearenceLevel()<=0){
-            empBox.setVisible(false);
-        }
+
     }
 
     public void submitEvent(ActionEvent actionEvent) {
@@ -89,7 +82,7 @@ public class extTransportationController extends SceneController {
 
     }
 
-    public void helpButton(ActionEvent actionEvent){loadHelpDialogue();}
+    public void helpButton(){loadHelpDialogue();}
 
     private void loadDialog(){
         JFXDialogLayout message = new JFXDialogLayout();
@@ -117,7 +110,7 @@ public class extTransportationController extends SceneController {
 
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
 
-        JFXButton cont = new JFXButton("CONTINUE");
+        JFXButton cont = new JFXButton("Continue");
         cont.setOnAction(event -> {
             dialog.close();
             dialogPane.toBack();
@@ -160,7 +153,7 @@ public class extTransportationController extends SceneController {
 
         message.setBody(body);
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
-        JFXButton ok = new JFXButton("OK");
+        JFXButton ok = new JFXButton("Ok");
         ok.setOnAction(event -> {
             super.back();
         });

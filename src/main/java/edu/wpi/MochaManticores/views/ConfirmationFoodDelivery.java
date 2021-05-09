@@ -1,11 +1,6 @@
 package edu.wpi.MochaManticores.views;
 
-import edu.wpi.MochaManticores.App;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
-
-import java.io.IOException;
 
 public class ConfirmationFoodDelivery extends SceneController {
 //    Trying to add a time function to go back to the menu

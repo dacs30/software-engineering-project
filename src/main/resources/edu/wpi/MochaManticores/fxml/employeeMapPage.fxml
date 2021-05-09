@@ -41,7 +41,7 @@
             <ColumnConstraints halignment="CENTER" hgrow="NEVER" minWidth="10.0" percentWidth="75.0" prefWidth="923.0" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
             <GridPane>
@@ -51,7 +51,7 @@
                <rowConstraints>
                   <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="NEVER" />
                   <RowConstraints maxHeight="61.1851806640625" minHeight="-Infinity" prefHeight="57.62959289550781" vgrow="NEVER" />
-                  <RowConstraints maxHeight="661.4814910888672" minHeight="650.8148193359375" prefHeight="654.3704071044922" vgrow="SOMETIMES" />
+                  <RowConstraints vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="-Infinity" vgrow="NEVER" />
                </rowConstraints>
                <children>
@@ -414,10 +414,10 @@
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints maxHeight="119.48149108886719" minHeight="110.59257507324219" prefHeight="110.59257507324219" vgrow="NEVER" />
-                  <RowConstraints maxHeight="699.4074249267578" minHeight="690.5185089111328" prefHeight="699.4074249267578" vgrow="ALWAYS" />
+                  <RowConstraints vgrow="ALWAYS" />
                </rowConstraints>
                <children>
-                  <ScrollPane id="scrollMapPane" fx:id="mapScrollPane" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                  <ScrollPane id="scrollMapPane" fx:id="mapScrollPane" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                      </GridPane.margin>

@@ -9,9 +9,8 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Nodes.EdgeMapSuper;
 import edu.wpi.MochaManticores.Nodes.EdgeSuper;
-import edu.wpi.MochaManticores.Nodes.MapSuper;
-import edu.wpi.MochaManticores.Nodes.NodeSuper;
-import edu.wpi.MochaManticores.database.*;
+import edu.wpi.MochaManticores.database.DatabaseManager;
+import edu.wpi.MochaManticores.database.sel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -31,13 +30,12 @@ import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
-import java.io.FileNotFoundException;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.sql.SQLException;
 import java.util.Iterator;
 
 public class edgesPage extends SceneController {
