@@ -1,24 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXDialog?>
-<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-
+<?import javafx.scene.layout.*?>
 <AnchorPane prefHeight="800.0" prefWidth="1207.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.FoodDeliveryEmployee">
    <children>
       <ImageView fx:id="backgroundIMG" fitHeight="800.0" fitWidth="1207.0" opacity="0.5" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -50,32 +39,21 @@
                </rowConstraints>
                <children>
                   <JFXComboBox fx:id="dietaryPreferences" focusColor="WHITE" prefWidth="400.0" promptText="Dietary Preferences" unFocusColor="WHITE" GridPane.rowIndex="1" />
-                  <JFXComboBox fx:id="foodMenu" focusColor="WHITE" minWidth="-Infinity" prefWidth="400.0" promptText="Menu" stylesheets="@../Stylesheets/foodDelivery.css" unFocusColor="WHITE" GridPane.rowIndex="2" />
-                  <JFXComboBox fx:id="employeeAssigned" prefWidth="400.0" promptText="Assign to employee" GridPane.rowIndex="3" />
-                  <Label id="foodDeliveryTitleLabel" stylesheets="@../stylesheets.css" text="Food Delivery" textFill="WHITE" />
-                  <JFXTextArea id="allergiesPrompt" fx:id="allergiesField" focusColor="WHITE" labelFloat="true" promptText="Allergies" style="-fx-font-weight: bold;" stylesheets="@../Stylesheets/foodDelivery.css" unFocusColor="WHITE" GridPane.rowIndex="4">
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <GridPane.margin>
-                        <Insets left="100.0" right="100.0" />
-                     </GridPane.margin>
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                  </JFXTextArea>
                   <ImageView fitHeight="150.0" fitWidth="40.0" onMouseClicked="#helpButton" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
                      <image>
-                        <Image url="@../images/hepIcon.png" />
+                        <Image url="@../images/blueHelpBtn.png" />
                      </image>
                      <GridPane.margin>
                         <Insets right="75.0" />
                      </GridPane.margin>
                   </ImageView>
+                  <JFXComboBox fx:id="foodMenu" focusColor="WHITE" minWidth="-Infinity" prefWidth="400.0" promptText="Menu" stylesheets="@../Stylesheets/foodDelivery.css" unFocusColor="WHITE" GridPane.rowIndex="2" />
+                  <JFXComboBox fx:id="employeeAssigned" prefWidth="400.0" promptText="Assign to employee" GridPane.rowIndex="3" />
+                  <Label id="foodDeliveryTitleLabel" stylesheets="@../stylesheets.css" text="Food Delivery" textFill="WHITE" />
+                  <JFXTextField id="allergiesPrompt" fx:id="allergyText" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="400.0" promptText="Allergies" text="Allergies" GridPane.rowIndex="4" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0" GridPane.rowIndex="5">
                      <children>
-                        <JFXButton id="submitBtn" onAction="#submitForm" text="SUBMIT" />
-                        <JFXButton id="submitBtn" onAction="#changeManagerTable" text="MANAGER TABLE" />
+                        <JFXButton id="submitBtn" onAction="#submitForm" text="Submit" />
                      </children>
                   </HBox>
                </children>
@@ -97,18 +75,10 @@
                </effect>
                <children>
                   <Label id="foodDeliveryTitleLabel" stylesheets="@../stylesheets.css" text="Food Delivery Manager" textFill="WHITE" />
-                  <ImageView fitHeight="150.0" fitWidth="40.0" onMouseClicked="#helpButton" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
-                     <image>
-                        <Image url="@../images/hepIcon.png" />
-                     </image>
-                     <GridPane.margin>
-                        <Insets right="75.0" />
-                     </GridPane.margin>
-                  </ImageView>
                   <TableView fx:id="foodDeliveryTable" prefHeight="200.0" prefWidth="200.0" stylesheets="@../jfx-tree-table-view.css" GridPane.rowIndex="1" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0" GridPane.rowIndex="2">
                      <children>
-                        <JFXButton id="submitBtn" onAction="#changeToRequest" text="CREATE A REQUEST" />
+                        <JFXButton id="submitBtn" onAction="#changeToRequest" text="Create a Request" />
                      </children>
                   </HBox>
                </children>

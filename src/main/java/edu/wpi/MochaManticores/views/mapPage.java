@@ -14,19 +14,20 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.geometry.Insets;
-import javafx.scene.control.*;
-import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
@@ -37,8 +38,9 @@ import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
-public class mapPage extends SceneController{
+public class mapPage extends SceneController {
 
     public mapPage() throws InvalidElementException {
     }
@@ -170,10 +172,10 @@ public class mapPage extends SceneController{
     private JFXScrollPane scrollPane;
 
     @FXML
-    private Label fromLocation;
+    private JFXTextField fromLocation;
 
     @FXML
-    private Label toLocation;
+    private JFXTextField toLocation;
 
     @FXML
     private JFXButton routeExample;
@@ -200,6 +202,8 @@ public class mapPage extends SceneController{
     private AnchorPane paneContainingTabPane;
 
     Employee user;
+
+    private PanAndZoomPane panAndZoomPane = new PanAndZoomPane();
 
     @FXML
     private HBox toHBOX;
@@ -256,6 +260,38 @@ public class mapPage extends SceneController{
 
     }*/
 
+    public class nodeNameWrapper {
+        String ID;
+        String name;
+
+        public nodeNameWrapper(String ID, String name) {
+            this.ID = ID;
+            this.name = name;
+        }
+
+        public String getID() {
+            return ID;
+        }
+
+        public void setID(String ID) {
+            this.ID = ID;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return this.name;
+        }
+    }
+
+
     public void initialize() throws InvalidElementException {
         double height = super.getHeight();
         double width = super.getWidth();
@@ -269,18 +305,18 @@ public class mapPage extends SceneController{
         directionPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         directionPane.setFitToWidth(true);
 
-        try{
+        try {
             user = DatabaseManager.getEmployee(App.getCurrentUsername());
-        }catch(InvalidElementException ex){
+        } catch (InvalidElementException ex) {
             App.setCurrentUsername("Guest");
             user = DatabaseManager.getEmployee(App.getCurrentUsername());
         }
 
 
-        if(user.isCovidStatus()){
-            MapSuper.getMap().get("FEXIT00201").setCovid(true);
+        if (user.isCovidStatus()) {
+            DatabaseManager.getNode("FEXIT00201").setCovid(true);
         }
-        if(!user.getParkingSpace().equals("Parking")){
+        if (!user.getParkingSpace().equals("Parking")) {
             parkingButton.setText("My spot");
         }
         //mapScrollPane.prefWidthProperty().bind(App.getPrimaryStage().widthProperty());
@@ -361,13 +397,13 @@ public class mapPage extends SceneController{
 
         floorSelector.setValue("F1");
 
-       loadF1();
+        loadF1();
 
 
         nearestLocationSelector.getItems().addAll("Bathroom", //REST
-                                                            "Exit", //EXIT
-                                                            "Service", //SERV
-                                                            "Retail"); //RETL
+                "Exit", //EXIT
+                "Service", //SERV
+                "Retail"); //RETL
 
 
         floorSelector.getItems().addAll("LL1",
@@ -409,18 +445,36 @@ public class mapPage extends SceneController{
         createFilterListener(fromLocation);
 */
 
-        fields.add(fromLocation);fields.add(toLocation);
+        ObservableList<nodeNameWrapper> items = FXCollections.observableArrayList();
+        DatabaseManager.getElementIDs().forEach(s -> {
+            items.add(new nodeNameWrapper(s.getKey(), s.getValue()));
+        });
 
+        fromLocation = new JFXTextField();
+        toLocation = new JFXTextField();
+
+
+        textFieldGroup.getChildren().add(0, fromLocation);
+        addField.getChildren().add(toLocation);
+
+
+        setAutoComplete(fromLocation, items);
+        setAutoComplete(toLocation, items);
+
+        //fromLocation.textProperty().addListener();
+
+        fields.add(fromLocation);
+        fields.add(toLocation);
 
 
         SceneGestures sceneGestures = new SceneGestures(panAndZoomPane);
 
         mapScrollPane.setContent(panAndZoomPane);
         panAndZoomPane.toBack();
-        mapScrollPane.addEventFilter( MouseEvent.MOUSE_CLICKED, sceneGestures.getOnMouseClickedEventHandler());
-        mapScrollPane.addEventFilter( MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
-        mapScrollPane.addEventFilter( MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
-        mapScrollPane.addEventFilter( ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
+        mapScrollPane.addEventFilter(MouseEvent.MOUSE_CLICKED, sceneGestures.getOnMouseClickedEventHandler());
+        mapScrollPane.addEventFilter(MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
+        mapScrollPane.addEventFilter(MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
+        mapScrollPane.addEventFilter(ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
 
         //mapWindow.fitWidthProperty().bind(mapStack.widthProperty());
         //mapWindow.fitHeightProperty().bind(mapStack.heightProperty());
@@ -466,11 +520,7 @@ public class mapPage extends SceneController{
         drawNodes();
 
 
-
-
         dirVBOX.setMaxWidth(Region.USE_COMPUTED_SIZE);
-
-
 
 
         //Initializing the dialog pane
@@ -483,30 +533,37 @@ public class mapPage extends SceneController{
 
     }
 
-    private int addPitstopField(){
+    private int addPitstopField() {
         int ind = textFieldGroup.getChildren().indexOf(toHBOX);
 
         HBox cont = new HBox();
-        Label toAdd = new Label();
+        JFXTextField toAdd = new JFXTextField();
         toAdd.setPrefWidth(300);
         toAdd.maxWidthProperty().bind(toAdd.prefWidthProperty());
         toAdd.minWidthProperty().bind(toAdd.prefWidthProperty());
+
+        HBox g = new HBox();
 
         Image img = new Image("/edu/wpi/MochaManticores/images/removeIcon.png");
         ImageView minusImage = new ImageView(img);
         minusImage.setFitWidth(30);
         minusImage.setPreserveRatio(true);
 
-        cont.getChildren().addAll(toAdd, minusImage);
+        g.getChildren().add(minusImage);
+
+
+        cont.getChildren().addAll(toAdd, g);
 
         cont.setAlignment(Pos.CENTER_LEFT);
 
-        ObservableList<String> items = FXCollections.observableArrayList();
+        ObservableList<nodeNameWrapper> items = FXCollections.observableArrayList();
         DatabaseManager.getElementIDs().forEach(s -> {
-            items.add(s.toString());
+            items.add(new nodeNameWrapper(s.getKey(), s.getValue()));
         });
 
-        minusImage.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        setAutoComplete(toAdd, items);
+
+        g.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
 
@@ -524,7 +581,7 @@ public class mapPage extends SceneController{
         return fields.indexOf(toAdd);
     }
 
-    private String getNodeType(){
+    private String getNodeType() {
         String type = (String) nearestLocationSelector.getSelectionModel().getSelectedItem();
         System.out.println(type);
         switch (type) {
@@ -541,7 +598,7 @@ public class mapPage extends SceneController{
         }
     }
 
-    public void toAStar() throws DestinationNotAccessibleException{
+    public void toAStar() throws DestinationNotAccessibleException {
         AStar2 star = new AStar2();
         //pathToTake is used in the dialog box that keeps all the nodes that the user has to pass through
         StringBuilder pathToTake = new StringBuilder();
@@ -554,7 +611,7 @@ public class mapPage extends SceneController{
             pathToTake.append("Please select at least one node");
         } else {
 
-            LinkedList<String> path = star.multiStopRoute(stops,pathToTake.toString());
+            LinkedList<String> path = star.multiStopRoute(stops, pathToTake.toString());
             System.out.println(path);
             Label startLabel = new Label();
             Label endLabel = new Label();
@@ -607,9 +664,10 @@ public class mapPage extends SceneController{
 
     /**
      * Loads the dialog box with the path generated by the A* algorithm
+     *
      * @param path
      */
-    public void loadDialog(StringBuilder path){
+    public void loadDialog(StringBuilder path) {
         dialogPane.toFront();
         dialogPane.setDisable(false);
 
@@ -635,12 +693,12 @@ public class mapPage extends SceneController{
         ending.setFill(Color.RED);
         start.setFill(Color.GREEN);
         final Text body;
-        if(path.toString().equals("Please select at least one node")){
-           body = new Text(path.toString());
-           header = new Text("Error");
-           header.setFill(Color.RED);
+        if (path.toString().equals("Please select at least one node")) {
+            body = new Text(path.toString());
+            header = new Text("Error");
+            header.setFill(Color.RED);
             vbox.setAlignment(Pos.CENTER_LEFT);
-        }else {
+        } else {
 
             body = new Text(path.substring(0, path.toString().length() - 3));
 
@@ -652,14 +710,14 @@ public class mapPage extends SceneController{
         body.setStyle("-fx-alignment: center");
         body.setTextAlignment(TextAlignment.CENTER);
 
-        if(path.toString().equals("Please select at least one node")) {
+        if (path.toString().equals("Please select at least one node")) {
             vbox.getChildren().addAll(body);
-        }else{
+        } else {
             vbox.getChildren().addAll(start, body, ending);
         }
         message.setHeading(header);
         message.setBody(vbox);
-        JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
+        JFXDialog dialog = new JFXDialog(dialogPane, message, JFXDialog.DialogTransition.CENTER);
         JFXButton ok = new JFXButton("OK");
         ok.setOnAction(event -> {
             dialog.close();
@@ -683,7 +741,7 @@ public class mapPage extends SceneController{
         //pathToTake is used in the dialog box that keeps all the nodes that the user has to pass through
         StringBuilder pathToTake = new StringBuilder();
         LinkedList<NodeSuper> stops = new LinkedList<>();
-        if (pitStops.size() != 1){
+        if (pitStops.size() != 1) {
             super.loadErrorDialog(dialogPane, "Must select only one node");
             return;
         }
@@ -691,14 +749,14 @@ public class mapPage extends SceneController{
         LinkedList<String> path;
         NodeSuper ns = null;
         ns = DatabaseManager.getNode(pitStops.get(0).getNodeID());
-        if (!pathHandicap.isSelected()){
-            if (App.getClearenceLevel() >= 1){
+        if (!pathHandicap.isSelected()) {
+            if (App.getClearenceLevel() >= 1) {
                 path = star.findNearest(ns, getNodeType(), "none");
             } else {
                 path = star.findNearest(ns, getNodeType(), "publicOnly");
             }
         } else {
-            if (App.getClearenceLevel() >= 1){
+            if (App.getClearenceLevel() >= 1) {
                 path = star.findNearest(ns, getNodeType(), "handicap");
             } else {
                 path = star.findNearest(ns, getNodeType(), "publicHandicap");
@@ -818,7 +876,7 @@ public class mapPage extends SceneController{
         System.out.printf("(%f,%f)\n", e.getX() * xRatio, e.getY() * yRatio);
     }
 
-    public void findPath() throws InvalidElementException, DestinationNotAccessibleException {
+    public void findPath() throws InvalidElementException {
         savedRoute.clear();
         dirVBOX.getChildren().clear();
         //pathToTake is used in the dialog box that keeps all the nodes that the user has to pass through
@@ -830,42 +888,46 @@ public class mapPage extends SceneController{
         if (pitStops.isEmpty()) {
             pathToTake.append("Please select at least one node");
         } else {
-            LinkedList<String> path;
-            if(DatabaseManager.getEmployee(App.getCurrentUsername()).isCovidStatus()){
-                if(pathHandicap.isSelected()){
-                    path = App.getAlgoType().multiStopRoute(stops, "covidHandicap");
-                }else {
-                    path = App.getAlgoType().multiStopRoute(stops, "covid");
-                }
-            }
-            else {
-                if (!pathHandicap.isSelected()) {
-                    if (App.getClearenceLevel() >= 1) {
-                        path = App.getAlgoType().multiStopRoute(stops, "none");
+            LinkedList<String> path = null;
+            try {
+                if (DatabaseManager.getEmployee(App.getCurrentUsername()).isCovidStatus()) {
+                    if (pathHandicap.isSelected()) {
+                        path = App.getAlgoType().multiStopRoute(stops, "covidHandicap");
                     } else {
-                        path = App.getAlgoType().multiStopRoute(stops, "publicOnly");
+                        path = App.getAlgoType().multiStopRoute(stops, "covid");
                     }
                 } else {
-                    if (App.getClearenceLevel() >= 1) {
-                        path = App.getAlgoType().multiStopRoute(stops, "handicap");
+                    if (!pathHandicap.isSelected()) {
+                        if (App.getClearenceLevel() >= 1) {
+                            path = App.getAlgoType().multiStopRoute(stops, "none");
+                        } else {
+                            path = App.getAlgoType().multiStopRoute(stops, "publicOnly");
+                        }
                     } else {
-                        path = App.getAlgoType().multiStopRoute(stops, "publicHandicap");
-                    }
+                        if (App.getClearenceLevel() >= 1) {
+                            path = App.getAlgoType().multiStopRoute(stops, "handicap");
+                        } else {
+                            path = App.getAlgoType().multiStopRoute(stops, "publicHandicap");
+                        }
 
+                    }
                 }
+            } catch (DestinationNotAccessibleException de) {
+                loadErrorDialog(dialogPane, "No accessible Path Found! If you think this is a mistake, please contact a staff member.");
+                return;
             }
-             //CONDITION NEEDS TO BE INPUT HERE
+            //CONDITION NEEDS TO BE INPUT HERE
             System.out.println(path);
-            Label startLabel = new Label();
-            String startID = path.removeFirst();
-            startLabel.setText(DatabaseManager.getNode(startID).getLongName());
-            savedRoute.add(startID);
-            startLabel.setTextFill(Color.GREEN);
-            startLabel.setAlignment(Pos.CENTER);
-            Label endLabel = new Label();
-            String endID = path.removeLast();
-            endLabel.setText(DatabaseManager.getNode(endID).getLongName());
-            endLabel.setTextFill(Color.RED);
+            //Label startLabel = new Label();
+            //String startID = path.removeFirst();
+            //startLabel.setText(DatabaseManager.getNode(startID).getLongName());
+            //savedRoute.add(startID);
+            //startLabel.setTextFill(Color.GREEN);
+            //startLabel.setAlignment(Pos.CENTER);
+            //Label endLabel = new Label();
+            //String endID = path.removeLast();
+            //endLabel.setText(DatabaseManager.getNode(endID).getLongName());
+            //endLabel.setTextFill(Color.RED);
 //            dirVBOX.getChildren().add(startLabel);
             for (String str : path) {
                 savedRoute.add(str);
@@ -875,6 +937,8 @@ public class mapPage extends SceneController{
 //                System.out.printf("\n%s\n|\n", DatabaseManager.getNode(str).getLongName());
 //                pathToTake.append(DatabaseManager.getNode(str).getLongName()).append("\n|\n");//appending the paths
             }
+            //savedRoute.add(endID);
+//            dirVBOX.getChildren().add(endLabel);
             savedRoute.add(endID);
             int count = 0;
             for (LinkedList<String> floor : App.getAlgoType().pathToText(path)){
@@ -884,6 +948,14 @@ public class mapPage extends SceneController{
                 currentFloorVbox.getChildren().add(currentFloor);
                 currentFloor.setAlignment(Pos.CENTER_LEFT);
                 currentFloor.setText(floor.getFirst()); //Floor 1:
+                HBox root = new HBox();
+                root.getChildren().add(currentFloor);
+                //dirVBOX.getChildren().add(currentFloor);
+                // creates a tableviw of tableItems of HBoxes
+                TreeView<HBox> floorTree = new TreeView<HBox>();
+                floorTree.setRoot(new TreeItem<HBox>(root));
+                floorTree.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+                for (String s : floor) {
                 floorBlock.getChildren().add(currentFloorVbox);
                 // VBox for the paths on this floor
                 VBox pathsOnThisFloor = new VBox();
@@ -905,7 +977,7 @@ public class mapPage extends SceneController{
                 });
                 for (String s : floor){
                     Label p = new Label();
-                    if(s.contains("Take the stairs up to floor ")){
+                    if (s.contains("Take the stairs up to floor ")) {
                         HBox hbox = new HBox();
                         Image img = new Image("/edu/wpi/MochaManticores/images/upStairsDirectionIcon.png");
                         ImageView stairs = new ImageView(img);
@@ -1034,39 +1106,31 @@ public class mapPage extends SceneController{
                 floorBlock.getChildren().add(pathsOnThisFloor);
                 dirVBOX.getChildren().add(floorBlock);
             }
-//            treeView.setCellFactory(item -> {
-//                TreeCell<HBox> treeCell = new TreeCell<HBox>() {
-//                    @Override
-//                    protected void updateItem(HBox item, boolean empty) {
-//                        super.updateItem(item, empty);
-//                        if (item != null && !empty){
-//
-//                            if (item.getChildren().size() < 1) {
-//                                System.out.println("nah");
-//                            } else {
-//                                System.out.println(item.getChildren().get(0).toString());
-//                            }
-//                            setText(item.getChildren().toString());
-//                        } else {
-//                            getChildren().clear();
-//                        }
-//                    }
-//                };
-//
-//                treeCell.prefWidthProperty().bind(treeView.widthProperty().subtract(5.0));
-//                return treeCell;
-//            });
             for (node n : pitStops) {
                 n.resetFill();
             }
-            pitStops = new LinkedList<>();
+
             updateFields();
         }
 
         drawNodes();
-
+        //TODO:change start and end node colors
+        for(node n : pitStops){
+            if(n.equals(pitStops.getFirst())){
+                n.c.setFill(Color.GREEN);
+                n.c.setRadius(4);
+            }
+            if(n.equals(pitStops.getLast())){
+                n.c.setFill(Color.RED);
+                n.c.setRadius(4);
+            }
+        }
+        pitStops = new LinkedList<>();
+        double xRatio = 5000 / mapWindow.getFitWidth();
+        double yRatio = 3400 / mapWindow.getFitHeight();
         directionPane.setContent(dirVBOX);
         //loadDialog(pathToTake); // calling the dialog pane with the path
+        //TODO: panAndZoomPane.setPivot((stops.getFirst().getXcoord() / xRatio) - mapWindow.getFitWidth()/2,(stops.getFirst().getYcoord()/yRatio) - mapWindow.getFitHeight()/2,2);
 
     }
 
@@ -1099,7 +1163,7 @@ public class mapPage extends SceneController{
         }
     }
 
-    public void clearLines(ActionEvent e){
+    public void clearLines(ActionEvent e) {
         savedRoute.clear();
         pitStops.clear();
         drawNodes();
@@ -1127,53 +1191,66 @@ public class mapPage extends SceneController{
                 EventHandler<MouseEvent> large = new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent e) {
-                        mouseOverNode(e,4);
+                        mouseOverNode(e, 4);
                     }
                 };
                 EventHandler<MouseEvent> small = new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent e) {
-                        mouseOverNode(e,3);
+                        mouseOverNode(e, 3);
                     }
                 };
                 spot.setOnMouseClicked(highlight);
                 spot.setOnMouseEntered(large);
                 spot.setOnMouseExited(small);
+                spot.hoverProperty().addListener((observable, oldValue, newVaue) -> {
+                    if (newVaue) {
+                        Tooltip.install(spot, new Tooltip(n.getLongName()));
+                    }
+                });
                 nodes.put(n.getID(), new node(spot, n.getID()));
                 nodePane.getChildren().addAll(nodes.get(n.getID()).c);
             }
         }
         LinkedList<Line> lines = new LinkedList();
-        for (int i = 0; i < savedRoute.size()-1; i++){
+        for (int i = 0; i < savedRoute.size() - 1; i++) {
             NodeSuper curNode = null;
             NodeSuper endNode = null;
             try {
                 curNode = DatabaseManager.getNode(savedRoute.get(i));
-                endNode = DatabaseManager.getNode(savedRoute.get(i+1));
+                endNode = DatabaseManager.getNode(savedRoute.get(i + 1));
             } catch (InvalidElementException e) {
                 e.printStackTrace();
             }
 
             Line edge = new Line(curNode.getXcoord() / xRatio, curNode.getYcoord() / yRatio, endNode.getXcoord() / xRatio, endNode.getYcoord() / yRatio);
             edge.setStrokeWidth(4);
-            if (curNode.getFloor().equals(selectedFloor)){
+            if (curNode.getFloor().equals(selectedFloor)) {
                 edge.setStroke(Color.BLACK);
             } else {
                 edge.setStroke(Color.GREY);
                 edge.getStrokeDashArray().addAll(5d, 15d);
             }
+            NodeSuper finalCurNode = curNode;
+            NodeSuper finalEndNode = endNode;
+
+            edge.hoverProperty().addListener((observable, oldValue, newVaue) -> {
+                if (newVaue) {
+                    Tooltip.install(edge, new Tooltip(finalCurNode.getID() + "_" + finalEndNode.getID()));
+                }
+            });
 
             lines.add(edge);
         }
 
         nodePane.getChildren().addAll(lines);
-        for (Line l : lines){
+        for (Line l : lines) {
             l.toBack();
         }
     }
 
     public void highlightNode(MouseEvent e) {
-        Circle src = ((Circle)e.getSource());
+        Circle src = ((Circle) e.getSource());
         src.setFill(Color.valueOf("#0F4B91"));
 
         Iterator<node> iter = nodes.values().iterator();
@@ -1181,7 +1258,7 @@ public class mapPage extends SceneController{
         for (int i = 0; i < nodes.size(); i++) {
             node n = iter.next();
             if (n.c.equals(src)) {
-                if (n.isHighlighted()){
+                if (n.isHighlighted()) {
                     src.setFill(Color.WHITE);
                     n.setHighlighted(false);
 
@@ -1206,27 +1283,27 @@ public class mapPage extends SceneController{
         }
     }
 
-    public void updateFields(){
+    public void updateFields() {
         if (pitStops.size() > fields.size()) {
             System.out.println("stops > fields");
             for (int i = 0; i < pitStops.size() - fields.size(); i++) {
                 addPitstopField();
             }
-        } else if (pitStops.size() < fields.size()){
+        } else if (pitStops.size() < fields.size()) {
             System.out.println("stops < fields");
             for (int i = 0; i < fields.size() - pitStops.size(); i++) {
-                if (fields.size() > 2){
+                if (fields.size() > 2) {
                     removePitstopField();
                 }
 
             }
         }
-        for (Label f : fields){
+        for (JFXTextField f : fields) {
             f.setText("");
         }
-        fields.get(0).setText("Starting Location");
-        fields.get(fields.size()-1).setText("Ending Location");
-        for (int i = 0; i < pitStops.size(); i++){
+        fields.get(0).setPromptText("Starting Location");
+        fields.get(fields.size() - 1).setPromptText("Ending Location");
+        for (int i = 0; i < pitStops.size(); i++) {
             fields.get(i).setText(pitStops.get(i).getNodeID());
         }
 
@@ -1238,8 +1315,8 @@ public class mapPage extends SceneController{
 
     }
 
-    public void mouseOverNode(MouseEvent e, double radius){
-        Circle src = ((Circle)e.getSource());
+    public void mouseOverNode(MouseEvent e, double radius) {
+        Circle src = ((Circle) e.getSource());
         Iterator<node> iter = nodes.values().iterator();
         for (int i = 0; i < nodes.size(); i++) {
             node n = iter.next();
@@ -1255,7 +1332,7 @@ public class mapPage extends SceneController{
         drawNodes();
         try {
             findPath();
-        } catch (InvalidElementException | DestinationNotAccessibleException invalidElementException) {
+        } catch (InvalidElementException invalidElementException) {
             invalidElementException.printStackTrace();
         }
     }
@@ -1281,13 +1358,14 @@ public class mapPage extends SceneController{
         //System.out.printf("X: %f\nY: %f\n\n",curX,curY);
 
     }
+
     public void saveUserParking() throws InvalidElementException, DestinationNotAccessibleException {
-        if(parkingButton.getText().equals("My spot") && !DatabaseManager.getEmployee(App.getCurrentUsername()).getParkingSpace().equals("Parking")){
+        if (parkingButton.getText().equals("My spot") && !DatabaseManager.getEmployee(App.getCurrentUsername()).getParkingSpace().equals("Parking")) {
             Iterator<node> mapIter = nodes.values().iterator();
             node n = null;
             for (int i = 0; i < nodes.size(); i++) {
                 n = mapIter.next();
-                if(n.getNodeID().equals(DatabaseManager.getEmployee(App.getCurrentUsername()).getParkingSpace())){
+                if (n.getNodeID().equals(DatabaseManager.getEmployee(App.getCurrentUsername()).getParkingSpace())) {
                     break;
                 }
             }
@@ -1298,7 +1376,7 @@ public class mapPage extends SceneController{
         try {
             Employee temp = DatabaseManager.getEmployee(App.getCurrentUsername());
             String nodeID = pitStops.getLast().getNodeID();
-            if(DatabaseManager.getNode(nodeID).getType().equals("PARK")) {
+            if (DatabaseManager.getNode(nodeID).getType().equals("PARK")) {
                 temp.setParkingSpace(nodeID);
                 DatabaseManager.modEmployee(temp.getUsername(), temp);
 
@@ -1307,8 +1385,67 @@ public class mapPage extends SceneController{
                 System.out.println(temp.getUsername() + "parking space has been set to: " + nodeID);
                 parkingButton.setText("My spot");
             }
-        }catch(InvalidElementException e){
+        } catch (InvalidElementException e) {
             System.out.println("no user in database to save parking info to");
         }
+    }
+
+    public String convertNodeSuperFloor(String nsFloor) {
+        switch (nsFloor) {
+            case ("2"):
+                return "F2";
+            case ("1"):
+                return "F1";
+            case ("3"):
+                return "F3";
+            case ("L1"):
+                return "LL1";
+            case ("L2"):
+                return "LL2";
+            case ("G"):
+                return "G";
+            default:
+                return nsFloor;
+        }
+    }
+
+    public void setAutoComplete(JFXTextField test, List<nodeNameWrapper> items) {
+        JFXAutoCompletePopup<mapPage.nodeNameWrapper> autoCompletePopup = new JFXAutoCompletePopup<>();
+        autoCompletePopup.getSuggestions().addAll(items);
+
+        autoCompletePopup.setSelectionHandler(event -> {
+            test.setText(event.getObject().toString());
+
+            // you can do other actions here when text completed
+
+            node n = nodes.get(event.getObject().ID);
+            if (n == null) {
+                try {
+                    NodeSuper ns = DatabaseManager.getNode(event.getObject().ID);
+                    floorSelector.getSelectionModel().select(convertNodeSuperFloor(ns.getFloor()));
+                    selectFloor();
+                    drawNodes();
+                } catch (InvalidElementException e) {
+                    e.printStackTrace();
+                }
+            }
+            n = nodes.get(event.getObject().ID);
+            n.c.setFill(Color.valueOf("#0F4B91"));
+            n.setHighlighted(true);
+            pitStops.add(n);
+
+        });
+
+        // filtering options
+        test.textProperty().addListener(observable -> {
+            autoCompletePopup.filter(string -> string.toString().toLowerCase().contains(test.getText().toLowerCase()));
+            if (autoCompletePopup.getFilteredSuggestions().isEmpty() || test.getText().isEmpty()) {
+                autoCompletePopup.hide();
+                // if you remove textField.getText.isEmpty() when text field is empty it suggests all options
+                // so you can choose
+            } else {
+                autoCompletePopup.show(test);
+            }
+        });
     }
 }

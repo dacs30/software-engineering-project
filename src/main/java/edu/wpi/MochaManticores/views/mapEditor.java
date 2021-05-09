@@ -1,7 +1,6 @@
 package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.*;
-import edu.wpi.MochaManticores.Algorithms.AStar2;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Editors.mapEdit;
 import edu.wpi.MochaManticores.Nodes.EdgeMapSuper;
@@ -9,9 +8,6 @@ import edu.wpi.MochaManticores.Nodes.EdgeSuper;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.database.DatabaseManager;
-import edu.wpi.MochaManticores.database.EdgeManager;
-import edu.wpi.MochaManticores.database.Mdb;
-import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
@@ -24,7 +20,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -36,17 +32,11 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import edu.wpi.MochaManticores.views.nodePage;
-import edu.wpi.MochaManticores.views.edgesPage;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.sql.Array;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -290,15 +280,15 @@ public class mapEditor extends SceneController {
         }
     }
 
-    private HashMap<String, node> nodes = new HashMap();
+    private final HashMap<String, node> nodes = new HashMap();
 
-    private HashMap<String, edge> edges = new HashMap<String, edge>();
+    private final HashMap<String, edge> edges = new HashMap<String, edge>();
 
 
     /**
      * Used as input for A*
      */
-    private LinkedList<node> selectedNodes = new LinkedList<>();
+    private final LinkedList<node> selectedNodes = new LinkedList<>();
 
     @FXML
     private ImageView backgroundIMG;
@@ -339,7 +329,7 @@ public class mapEditor extends SceneController {
     @FXML
     private JFXTextField nodeIDField;
 
-    private String location = "edu/wpi/MochaManticores/images/";
+    private final String location = "edu/wpi/MochaManticores/images/";
 
     private String selectedFloor = "";
 
@@ -359,8 +349,8 @@ public class mapEditor extends SceneController {
     @FXML
     private ScrollPane mapScrollPane;
 
-    private SimpleDoubleProperty mouseX = new SimpleDoubleProperty();
-    private SimpleDoubleProperty mouseY  = new SimpleDoubleProperty();
+    private final SimpleDoubleProperty mouseX = new SimpleDoubleProperty();
+    private final SimpleDoubleProperty mouseY  = new SimpleDoubleProperty();
 
     private boolean nodeClicked = false;
     private Node prevCircle;
@@ -368,13 +358,13 @@ public class mapEditor extends SceneController {
     private boolean addingEdge = false;
     private boolean editing = false;
     private Node prevLine;
-    private LinkedList<node> stashedChanges = new LinkedList<>();
+    private final LinkedList<node> stashedChanges = new LinkedList<>();
 
     private Line edgeToAdd = null;
 
-    private mapEdit editor = new mapEdit();
+    private final mapEdit editor = new mapEdit();
 
-    private double[] newCoords = new double[2];
+    private final double[] newCoords = new double[2];
 
     public void setSelectedFloor(String selectedFloor) {
         this.selectedFloor = selectedFloor;
@@ -406,12 +396,7 @@ public class mapEditor extends SceneController {
 
         mapWindow.setPreserveRatio(false);
 
-        floorSelector.setValue("F1");
 
-        selectFloor();
-
-
-        loadF1();
 
         floorSelector.getItems().addAll("LL1",
                 "LL2",
@@ -419,6 +404,11 @@ public class mapEditor extends SceneController {
                 "F1",
                 "F2",
                 "F3");
+
+        floorSelector.setValue("F1");
+
+        selectFloor();
+        loadF1();
 
 //        Platform.runLater(new Runnable() {
 //            @Override
@@ -707,7 +697,7 @@ public class mapEditor extends SceneController {
                 }
                 double avg = sum / selectedNodes.size();
                 for (node n : selectedNodes){
-                    n.getNodeRef().setCoords((int)n.getNodeRef().getXcoord(), (int)avg);
+                    n.getNodeRef().setCoords(n.getNodeRef().getXcoord(), (int)avg);
                     DatabaseManager.modNode(n.getNodeID(), n.getNodeRef());
                 }
                 drawNodes();
@@ -725,7 +715,7 @@ public class mapEditor extends SceneController {
                 }
                 double avg = sum / selectedNodes.size();
                 for (node n : selectedNodes){
-                    n.getNodeRef().setCoords((int)avg, (int)n.getNodeRef().getYcoord());
+                    n.getNodeRef().setCoords((int)avg, n.getNodeRef().getYcoord());
                     DatabaseManager.modNode(n.getNodeID(), n.getNodeRef());
                 }
                 drawNodes();
@@ -1015,7 +1005,6 @@ public class mapEditor extends SceneController {
                 loadF3();
                 break;
             default:
-                ;
         }
     }
 
@@ -1032,7 +1021,7 @@ public class mapEditor extends SceneController {
      */
     private void setZoom(Image img, double x, double y, Rectangle2D z) {
         noZoom = new Rectangle2D(0, 0, img.getWidth(), img.getHeight());
-        zoomPort = new Rectangle2D(x, y, (double) .25 * img.getWidth(), (double) .25 * img.getHeight());
+        zoomPort = new Rectangle2D(x, y, .25 * img.getWidth(), .25 * img.getHeight());
 
         mapWindow.setImage(img);
         mapWindow.setViewport(z);
@@ -1207,6 +1196,11 @@ public class mapEditor extends SceneController {
                 spot.setOnMouseClicked(highlight);
                 spot.setOnMouseEntered(large);
                 spot.setOnMouseExited(small);
+                spot.hoverProperty().addListener((observable, oldValue, newVaue) -> {
+                    if(newVaue){
+                        Tooltip.install(spot, new Tooltip(n.getLongName()));
+                    }
+                });
                 nodes.put(n.getID(), new node(spot, n.getID(), n));
                 //drawEdges2(nodes.get(n.getID()));
                 nodePane.getChildren().addAll(nodes.get(n.getID()).c);
@@ -1300,7 +1294,11 @@ public class mapEditor extends SceneController {
                 l.setOnMouseClicked(highlight);
                 l.setOnMouseEntered(bold);
                 l.setOnMouseExited(unbold);
-
+                l.hoverProperty().addListener((observable, oldValue, newVaue) -> {
+                    if(newVaue){
+                        Tooltip.install(l, new Tooltip(e.getEdgeID()));
+                    }
+                });
                 nodePane.getChildren().addAll(l);
                 l.toBack();
             }

@@ -7,8 +7,8 @@ import java.net.Socket;
 
 public class serverConnection implements Runnable {
     private String user;
-    private Socket socket;
-    private messageServer server;
+    private final Socket socket;
+    private final messageServer server;
 
     //datastreams
     DataInputStream inputStream;

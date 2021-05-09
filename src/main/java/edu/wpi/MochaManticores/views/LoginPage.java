@@ -6,22 +6,19 @@ import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.Employee;
-import edu.wpi.MochaManticores.database.Mdb;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.Cursor;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import edu.wpi.MochaManticores.database.EmployeeManager;
-
-import java.sql.Connection;
 
 
 public class LoginPage extends SceneController{
@@ -31,6 +28,9 @@ public class LoginPage extends SceneController{
 
     @FXML
     private JFXTextField IDField;
+
+    @FXML
+    private Label aboutLink;
 
     @FXML
     private GridPane contentPane;
@@ -74,6 +74,18 @@ public class LoginPage extends SceneController{
             }
         };
         employeePassword.setOnKeyTyped(enter);
+        aboutLink.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                App.getPrimaryStage().getScene().setCursor(Cursor.HAND);
+            }
+        });
+        aboutLink.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                App.getPrimaryStage().getScene().setCursor(Cursor.DEFAULT);
+            }
+        });
 
     }
 
@@ -218,5 +230,9 @@ public class LoginPage extends SceneController{
 
     public void openMap(ActionEvent actionEvent) {
         changeSceneTo("mapPage");
+    }
+
+    public void about(MouseEvent e){
+        changeSceneTo("aboutPage");
     }
 }

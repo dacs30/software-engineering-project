@@ -15,9 +15,9 @@ public class FloralDeliveryManager extends Manager<FloralDelivery> {
     private static final ServiceRequestType type = ServiceRequestType.FloralDelivery;
 
     FloralDeliveryManager(Connection connection, String csv_path){
-        this.connection = connection;
+        FloralDeliveryManager.connection = connection;
         if(csv_path != null){
-            this.csv_path = csv_path;
+            FloralDeliveryManager.csv_path = csv_path;
         }
     }
 
@@ -44,7 +44,7 @@ public class FloralDeliveryManager extends Manager<FloralDelivery> {
 
     @Override
     void addElement(FloralDelivery v) {
-        v.setRequestID(v.generateRequestID(this.type));
+        v.setRequestID(v.generateRequestID(type));
         addElement_db(v);
         addElement_map(v);
     }
@@ -71,8 +71,8 @@ public class FloralDeliveryManager extends Manager<FloralDelivery> {
     }
 
     void addElement_map(FloralDelivery temp) {
-        if(!DatabaseManager.getServiceMap().containsRequest(this.type, temp.RequestID)) {
-            DatabaseManager.getServiceMap().addRequest(this.type,temp);
+        if(!DatabaseManager.getServiceMap().containsRequest(type, temp.RequestID)) {
+            DatabaseManager.getServiceMap().addRequest(type,temp);
         }
         else {
             System.out.printf("This node %s already exists\n", temp.RequestID);
@@ -87,7 +87,7 @@ public class FloralDeliveryManager extends Manager<FloralDelivery> {
         pstmt.executeUpdate();
 
         // remove node from map
-        DatabaseManager.getServiceMap().delRequest(this.type,ID);
+        DatabaseManager.getServiceMap().delRequest(type,ID);
     }
 
     @Override
@@ -128,7 +128,7 @@ public class FloralDeliveryManager extends Manager<FloralDelivery> {
     @Override
     FloralDelivery getElement(String ID) throws InvalidElementException {
         // unlike employeeManager, we get nodes from the map so that they include neighbors
-        if(DatabaseManager.getServiceMap().containsRequest(this.type,ID)){
+        if(DatabaseManager.getServiceMap().containsRequest(type,ID)){
             return (FloralDelivery) DatabaseManager.getServiceMap().getRequest(type,ID); //TODO DOES THIS CAST BREAK THINGS
         }else{
             throw new InvalidElementException();

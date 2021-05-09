@@ -2,19 +2,14 @@ package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.*;
 import edu.wpi.MochaManticores.App;
-import edu.wpi.MochaManticores.Services.ServiceMap;
-import edu.wpi.MochaManticores.Services.ServiceRequest;
-import edu.wpi.MochaManticores.Services.ServiceRequestType;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.sel;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
-import javafx.scene.image.ImageView;
 
 public class FoodDelivery extends SceneController {
 
@@ -22,7 +17,7 @@ public class FoodDelivery extends SceneController {
     private JFXComboBox<String> dietaryPreferences;
 
     @FXML
-    private JFXTextArea allergiesField;
+    private JFXTextField allergyText;
 
     @FXML
     private JFXComboBox<String> foodMenu;
@@ -45,7 +40,7 @@ public class FoodDelivery extends SceneController {
 
 
     @FXML
-    private void goBack(ActionEvent e) {
+    private void goBack() {
         back();
     }
 
@@ -65,7 +60,6 @@ public class FoodDelivery extends SceneController {
 
         final Text body = new Text("Dietary preferences: Dropdown menu with options for food.\n" +
                 "Allergies: Indicate any allergies you may have with food or beverages.\n" +
-                "Assign to Employee: Assign an employee to deliver you the food\n" +
                 "Menu: This is the menu  ");
 
         body.setStyle("-fx-font-size: 40");
@@ -77,7 +71,7 @@ public class FoodDelivery extends SceneController {
 
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
 
-        JFXButton cont = new JFXButton("CONTINUE");
+        JFXButton cont = new JFXButton("Continue");
         cont.setOnAction(event -> {
             dialog.close();
             dialogPane.toBack();
@@ -92,10 +86,6 @@ public class FoodDelivery extends SceneController {
 
     }
 
-    private void loadFullHelpDialogue() {
-        dialogPane.toFront();
-        loadHelpDialog();
-    }
 
 
     public void initialize() {
@@ -122,13 +112,13 @@ public class FoodDelivery extends SceneController {
     }
 
 
-    public void submitForm(ActionEvent e) {
+    public void submitForm() {
         sel s = sel.FoodDelivery;
         // changeSceneTo(e, "mainMenu");
         DatabaseManager.addRequest(s,
                         new edu.wpi.MochaManticores.Services.FoodDelivery(
                         "", "", false, dietaryPreferences.getSelectionModel().getSelectedItem(),
-                        allergiesField.getText(), foodMenu.getSelectionModel().getSelectedItem()));
+                        allergyText.getText(), foodMenu.getSelectionModel().getSelectedItem()));
         dialogPane.setVisible(true);
         loadDialog();
     }
@@ -157,9 +147,9 @@ public class FoodDelivery extends SceneController {
 
         message.setBody(body);
         JFXDialog dialog = new JFXDialog(dialogPane, message, JFXDialog.DialogTransition.CENTER);
-        JFXButton exit = new JFXButton("OK!");
+        JFXButton exit = new JFXButton("Ok");
         exit.setOnAction(event -> {
-            back();
+            goBack();
         });
         dialog.setOnDialogClosed(event -> {
             dialogPane.setDisable(true);
@@ -170,7 +160,7 @@ public class FoodDelivery extends SceneController {
 
     }
 
-    public void helpButton(MouseEvent mouseEvent) {
+    public void helpButton() {
         loadHelpDialog();
     }
 }
