@@ -1,3 +1,2 @@
 REQUESTID,EMPID,COMPLETED,NAME,DOB,SICK,VAXX,TRAVEL,TEST,CONATACT,SYMPTOMS,ADMIT,
-COVID20,employee,false,admin,2021-05-15,false,true,false,false,false,None of the Above,false,
-COVID1,employee,false,admin,2021-05-04,true,false,false,true,false,Coughing,true,
+COVID0,employee,false,Guest,2021-05-11,true,true,false,true,true,Loss Of Smell or Taste,true,

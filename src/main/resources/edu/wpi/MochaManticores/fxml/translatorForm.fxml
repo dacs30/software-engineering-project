@@ -63,8 +63,8 @@
                         </JFXTextField>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0" GridPane.rowIndex="1">
                            <children>
-                              <JFXComboBox id="dropDown" fx:id="languageOne" focusColor="#405aa800" prefWidth="175.0" promptText="Language 1" stylesheets="@../Stylesheets/translatorSheet.css" />
-                              <JFXComboBox id="dropDown" fx:id="languageTwo" focusColor="#ffffff00" prefWidth="175.0" promptText="Language 2" stylesheets="@../Stylesheets/translatorSheet.css" />
+                              <JFXComboBox id="dropDown" fx:id="languageOne" focusColor="#405aa800" prefWidth="150.0" promptText="Language 1" stylesheets="@../Stylesheets/translatorSheet.css" />
+                              <JFXComboBox id="dropDown" fx:id="languageTwo" focusColor="#ffffff00" prefWidth="150.0" promptText="Language 2" stylesheets="@../Stylesheets/translatorSheet.css" />
                            </children>
                         </HBox>
                      </children>

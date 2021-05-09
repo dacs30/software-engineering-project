@@ -26,7 +26,7 @@ public class FoodDeliveryEmployee {
     private JFXComboBox<String> dietaryPreferences;
 
     @FXML
-    private JFXTextArea allergiesField;
+    private JFXTextField allergyText;
 
     @FXML
     private JFXTextField empBox;
@@ -117,13 +117,13 @@ public class FoodDeliveryEmployee {
 
 
 
-    public void submitForm(ActionEvent actionEvent) {
+    public void submitForm() {
         sel s = sel.FoodDelivery;
         // changeSceneTo(e, "mainMenu");
         DatabaseManager.addRequest(s,
                 new edu.wpi.MochaManticores.Services.FoodDelivery(
                         "", employeeAssigned.getEditor().getText(), false, dietaryPreferences.getSelectionModel().getSelectedItem(),
-                        allergiesField.getText(), foodMenu.getSelectionModel().getSelectedItem()));
+                        allergyText.getText(), foodMenu.getSelectionModel().getSelectedItem()));
     }
 
     public void helpButton(MouseEvent mouseEvent) {

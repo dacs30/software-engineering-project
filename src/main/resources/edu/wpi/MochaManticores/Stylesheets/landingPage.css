@@ -24,11 +24,15 @@
     -fx-font-size: 14;
     -fx-font-family: Roboto;
 }
-searchText{
-    -jfx-unfocus-color : #0F4B91;
+#searchBar{
+    -jfx-unfocus-color : grey;
+    -jfx-focus-color : #0F4B91;
+    -fx-prompt-text-fill : #0F4B91;
     -fx-font-weight: bold;
-
+    -fx-font-size: 17;
+    -fx-font-family: Roboto;
 }
+
 #searchSideBarLabel {
     -fx-text-fill: rgba(34, 34, 34, 0.8);
     -fx-font-size: 14;

@@ -31,6 +31,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import org.apache.derby.iapi.db.Database;
 
 import java.io.File;
 import java.io.IOException;
@@ -313,7 +314,7 @@ public class mapPage extends SceneController{
 
 
         if(user.isCovidStatus()){
-            MapSuper.getMap().get("FEXIT00201").setCovid(true);
+            DatabaseManager.getNode("FEXIT00201").setCovid(true);
         }
         if(!user.getParkingSpace().equals("Parking")){
             parkingButton.setText("My spot");

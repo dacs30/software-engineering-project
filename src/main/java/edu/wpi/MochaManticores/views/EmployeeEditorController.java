@@ -11,6 +11,7 @@ import edu.wpi.MochaManticores.database.EmployeeManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 
 public class EmployeeEditorController extends  SceneController{
 
@@ -19,6 +20,9 @@ public class EmployeeEditorController extends  SceneController{
 
     @FXML
     private JFXTextField oldPass;
+
+    @FXML
+    private ImageView backgroundIMG;
 
     @FXML
     private JFXTextField newPass;
@@ -46,8 +50,18 @@ public class EmployeeEditorController extends  SceneController{
 
 
     public void initialize() throws InvalidElementException {
+        double height = App.getPrimaryStage().getScene().getHeight();
+        double width = App.getPrimaryStage().getScene().getWidth();
+        backgroundIMG.setFitWidth(width);
+        backgroundIMG.setFitHeight(height);
+
+        backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
+        backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
         Employee selected = DatabaseManager.getEmpManager().getElement(App.getCurrentUsername());
         boolean admin = selected.isAdmin();
+
+        System.out.println(hashPassword("1234"));
+
         if(!admin){
             adminToggle.setDisable(true);
             typePicker.setDisable(true);
@@ -88,7 +102,7 @@ public class EmployeeEditorController extends  SceneController{
             }
 
             try {
-                DatabaseManager.checkEmployeeLogin(loggedIn.getUsername(), oldPass.getText());
+                DatabaseManager.checkEmployeeLogin(loggedIn.getUsername(), hashPassword(oldPass.getText()));
             } catch (InvalidLoginException | InvalidElementException invalidLoginException) {
                 newUser.setText("");
                 oldPass.setText("");
@@ -101,7 +115,7 @@ public class EmployeeEditorController extends  SceneController{
             }
             DatabaseManager.modEmployee(loggedIn.getUsername(),
                     new Employee(username,
-                            pass,
+                            hashPassword(pass),
                             first.getText(),
                             last.getText(),
                             (Employee.employeeType) typePicker.getSelectionModel().getSelectedItem(),
@@ -140,7 +154,7 @@ public class EmployeeEditorController extends  SceneController{
                 }
                 toAdd = new Employee(
                         username,
-                        password,
+                        hashPassword(password),
                         first.getText(),
                         last.getText(),
                         (Employee.employeeType) typePicker.getSelectionModel().getSelectedItem(),
@@ -148,6 +162,7 @@ public class EmployeeEditorController extends  SceneController{
                         adminToggle.isSelected(),
                         false,
                         null);
+
                 DatabaseManager.addEmployee(toAdd);
                 back();
             }

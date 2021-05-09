@@ -1,3 +1,1 @@
 REQUESTID,EMPID,COMPLETED,DIETARYPREFERENCES,ALLERGIES,MENU,
-FOOD0, admin,true,Vegetarian,NullPointers,Menu 1,
-FOOD1,Sai Vadlamudi,false,Vegetarian,none,Menu 1,

@@ -40,6 +40,7 @@
     -fx-background-color: rgba(186, 186, 186, 0.43);
     -jfx-unfocus-color: grey;
     -fx-font-size: 20;
+    -fx-font-weight: bold;
 }
 
 .jfx-combo-box .text-field:focused {

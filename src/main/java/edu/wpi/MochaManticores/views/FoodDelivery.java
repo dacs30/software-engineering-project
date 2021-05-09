@@ -17,7 +17,7 @@ public class FoodDelivery extends SceneController {
     private JFXComboBox<String> dietaryPreferences;
 
     @FXML
-    private JFXTextArea allergiesField;
+    private JFXTextField allergyText;
 
     @FXML
     private JFXComboBox<String> foodMenu;
@@ -118,7 +118,7 @@ public class FoodDelivery extends SceneController {
         DatabaseManager.addRequest(s,
                         new edu.wpi.MochaManticores.Services.FoodDelivery(
                         "", "", false, dietaryPreferences.getSelectionModel().getSelectedItem(),
-                        allergiesField.getText(), foodMenu.getSelectionModel().getSelectedItem()));
+                        allergyText.getText(), foodMenu.getSelectionModel().getSelectedItem()));
         dialogPane.setVisible(true);
         loadDialog();
     }
