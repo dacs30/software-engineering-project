@@ -876,17 +876,33 @@ public class mapPage extends SceneController{
 //                pathToTake.append(DatabaseManager.getNode(str).getLongName()).append("\n|\n");//appending the paths
             }
             savedRoute.add(endID);
-//            dirVBOX.getChildren().add(endLabel);
+            int count = 0;
             for (LinkedList<String> floor : App.getAlgoType().pathToText(path)){
+                VBox floorBlock = new VBox();
+                HBox currentFloorVbox = new HBox();
                 Label currentFloor = new Label();
+                currentFloorVbox.getChildren().add(currentFloor);
+                currentFloor.setAlignment(Pos.CENTER_LEFT);
                 currentFloor.setText(floor.getFirst()); //Floor 1:
-                HBox root = new HBox();
-                root.getChildren().add(currentFloor);
-                //dirVBOX.getChildren().add(currentFloor);
-                // creates a tableviw of tableItems of HBoxes
-                TreeView<HBox> floorTree = new TreeView<HBox>();
-                floorTree.setRoot(new TreeItem<HBox>(root));
-                floorTree.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+                floorBlock.getChildren().add(currentFloorVbox);
+                // VBox for the paths on this floor
+                VBox pathsOnThisFloor = new VBox();
+
+                if(count != 0){
+                    pathsOnThisFloor.setVisible(false);
+                    pathsOnThisFloor.setManaged(false);
+                }
+                count++;
+
+                floorBlock.getChildren().get(0).setOnMouseClicked(e-> {
+                    if(floorBlock.getChildren().get(1).isVisible()){
+                        floorBlock.getChildren().get(1).setVisible(false);
+                        floorBlock.getChildren().get(1).setManaged(false);
+                    } else {
+                        floorBlock.getChildren().get(1).setVisible(true);
+                        floorBlock.getChildren().get(1).setManaged(true);
+                    }
+                });
                 for (String s : floor){
                     Label p = new Label();
                     if(s.contains("Take the stairs up to floor ")){
@@ -897,14 +913,16 @@ public class mapPage extends SceneController{
                         stairs.setPreserveRatio(true);
                         p.setText(s);
                         p.setPadding(new Insets(10, 0, 10, 0));
+                        p.setPrefWidth(Control.USE_COMPUTED_SIZE);
                         p.setWrapText(true);
                         hbox.getChildren().add(stairs);
                         hbox.getChildren().add(p);
                         hbox.setAlignment(Pos.CENTER_LEFT);
-                        //dirVBOX.getChildren().add(hbox);
-                        TreeItem<HBox> item = new TreeItem<>(hbox);
-                        item.setExpanded(true);
-                        floorTree.getRoot().getChildren().add(item);
+                        pathsOnThisFloor.getChildren().add(hbox);
+//                        hbox.prefWidthProperty().bind(treeView.widthProperty().divide(5));
+//                        hbox.setMaxWidth(Control.USE_COMPUTED_SIZE);
+//                        TreeItem item = new TreeItem(hbox);
+//                        currentFloorItem.getChildren().add(item);
                     } else if(s.contains("Take the elevator up to floor ")){
                         HBox hbox = new HBox();
                         Image img = new Image("/edu/wpi/MochaManticores/images/elevatorDirectionIcon.png");
@@ -914,13 +932,15 @@ public class mapPage extends SceneController{
                         p.setText(s);
                         p.setPadding(new Insets(10, 0, 10, 0));
                         p.setWrapText(true);
+                        p.setPrefWidth(Control.USE_COMPUTED_SIZE);
                         hbox.getChildren().add(elevator);
                         hbox.getChildren().add(p);
                         hbox.setAlignment(Pos.CENTER_LEFT);
-                        //dirVBOX.getChildren().add(hbox);
-                        TreeItem<HBox> item = new TreeItem<>(hbox);
-                        item.setExpanded(true);
-                        floorTree.getRoot().getChildren().add(item);
+                        pathsOnThisFloor.getChildren().add(hbox);
+//                        hbox.prefWidthProperty().bind(treeView.widthProperty().divide(5));
+//                        hbox.setMaxWidth(Control.USE_COMPUTED_SIZE);
+//                        TreeItem item = new TreeItem(hbox);
+//                        currentFloorItem.getChildren().add(item);
                     } else if(s.contains("Take the stairs down to floor ")){
                         HBox hbox = new HBox();
                         Image img = new Image("/edu/wpi/MochaManticores/images/downStairsDirectionIcon.png");
@@ -930,13 +950,15 @@ public class mapPage extends SceneController{
                         p.setText(s);
                         p.setPadding(new Insets(10, 0, 10, 0));
                         p.setWrapText(true);
+                        p.setPrefWidth(Control.USE_COMPUTED_SIZE);
                         hbox.getChildren().add(stairs);
                         hbox.getChildren().add(p);
                         hbox.setAlignment(Pos.CENTER_LEFT);
-                        //dirVBOX.getChildren().add(hbox);
-                        TreeItem<HBox> item = new TreeItem<>(hbox);
-                        item.setExpanded(true);
-                        floorTree.getRoot().getChildren().add(item);
+                        pathsOnThisFloor.getChildren().add(hbox);
+//                        hbox.prefWidthProperty().bind(treeView.widthProperty().divide(5));
+//                        hbox.setMaxWidth(Control.USE_COMPUTED_SIZE);
+//                        TreeItem item = new TreeItem(hbox);
+//                        currentFloorItem.getChildren().add(item);
                     } else if(s.contains("Take the elevator down to floor ")){
                         HBox hbox = new HBox();
                         Image img = new Image("/edu/wpi/MochaManticores/images/elevatorDirectionIcon.png");
@@ -946,13 +968,15 @@ public class mapPage extends SceneController{
                         p.setText(s);
                         p.setPadding(new Insets(10, 0, 10, 0));
                         p.setWrapText(true);
+                        p.setPrefWidth(Control.USE_COMPUTED_SIZE);
                         hbox.getChildren().add(elevator);
                         hbox.getChildren().add(p);
                         hbox.setAlignment(Pos.CENTER_LEFT);
-                        //dirVBOX.getChildren().add(hbox);
-                        TreeItem<HBox> item = new TreeItem<>(hbox);
-                        item.setExpanded(true);
-                        floorTree.getRoot().getChildren().add(item);
+                        pathsOnThisFloor.getChildren().add(hbox);
+//                        hbox.prefWidthProperty().bind(treeView.widthProperty().divide(5));
+//                        hbox.setMaxWidth(Control.USE_COMPUTED_SIZE);
+//                        TreeItem item = new TreeItem(hbox);
+//                        currentFloorItem.getChildren().add(item);
                     } else if(s.contains("Head straight until you reach ")){
                         HBox hbox = new HBox();
                         Image img = new Image("/edu/wpi/MochaManticores/images/upArrowDirection.png");
@@ -962,13 +986,15 @@ public class mapPage extends SceneController{
                         p.setText(s);
                         p.setPadding(new Insets(10, 0, 10, 0));
                         p.setWrapText(true);
+                        p.setPrefWidth(Control.USE_COMPUTED_SIZE);
                         hbox.getChildren().add(arrowUp);
                         hbox.getChildren().add(p);
                         hbox.setAlignment(Pos.CENTER_LEFT);
-                        //dirVBOX.getChildren().add(hbox);
-                        TreeItem<HBox> item = new TreeItem<>(hbox);
-                        item.setExpanded(true);
-                        floorTree.getRoot().getChildren().add(item);
+                        pathsOnThisFloor.getChildren().add(hbox);
+//                        hbox.prefWidthProperty().bind(treeView.widthProperty().divide(5));
+//                        hbox.setMaxWidth(Control.USE_COMPUTED_SIZE);
+//                        TreeItem item = new TreeItem(hbox);
+//                        currentFloorItem.getChildren().add(item);
                     } else if(s.contains("Then turn left")){
                         HBox hbox = new HBox();
                         Image img = new Image("/edu/wpi/MochaManticores/images/upArrowDirection.png");
@@ -979,13 +1005,15 @@ public class mapPage extends SceneController{
                         p.setText(s);
                         p.setPadding(new Insets(10, 0, 10, 0));
                         p.setWrapText(true);
+                        p.setPrefWidth(Control.USE_COMPUTED_SIZE);
                         hbox.getChildren().add(arrowUp);
                         hbox.getChildren().add(p);
                         hbox.setAlignment(Pos.CENTER_LEFT);
-                        //dirVBOX.getChildren().add(hbox);
-                        TreeItem<HBox> item = new TreeItem<>(hbox);
-                        item.setExpanded(true);
-                        floorTree.getRoot().getChildren().add(item);
+                        pathsOnThisFloor.getChildren().add(hbox);
+//                        hbox.prefWidthProperty().bind(treeView.widthProperty().divide(5));
+//                        hbox.setMaxWidth(Control.USE_COMPUTED_SIZE);
+//                        TreeItem item = new TreeItem(hbox);
+//                        currentFloorItem.getChildren().add(item);
                     } else if(s.contains("Then turn right")){
                         HBox hbox = new HBox();
                         Image img = new Image("/edu/wpi/MochaManticores/images/upArrowDirection.png");
@@ -996,17 +1024,38 @@ public class mapPage extends SceneController{
                         p.setText(s);
                         p.setPadding(new Insets(10, 0, 10, 0));
                         p.setWrapText(true);
+                        p.setPrefWidth(Control.USE_COMPUTED_SIZE);
                         hbox.getChildren().add(arrowUp);
                         hbox.getChildren().add(p);
                         hbox.setAlignment(Pos.CENTER_LEFT);
-                        //dirVBOX.getChildren().add(hbox);
-                        TreeItem<HBox> item = new TreeItem<>(hbox);
-                        item.setExpanded(true);
-                        floorTree.getRoot().getChildren().add(item);
+                        pathsOnThisFloor.getChildren().add(hbox);
                     }
                 }
-                dirVBOX.getChildren().add(floorTree);
+                floorBlock.getChildren().add(pathsOnThisFloor);
+                dirVBOX.getChildren().add(floorBlock);
             }
+//            treeView.setCellFactory(item -> {
+//                TreeCell<HBox> treeCell = new TreeCell<HBox>() {
+//                    @Override
+//                    protected void updateItem(HBox item, boolean empty) {
+//                        super.updateItem(item, empty);
+//                        if (item != null && !empty){
+//
+//                            if (item.getChildren().size() < 1) {
+//                                System.out.println("nah");
+//                            } else {
+//                                System.out.println(item.getChildren().get(0).toString());
+//                            }
+//                            setText(item.getChildren().toString());
+//                        } else {
+//                            getChildren().clear();
+//                        }
+//                    }
+//                };
+//
+//                treeCell.prefWidthProperty().bind(treeView.widthProperty().subtract(5.0));
+//                return treeCell;
+//            });
             for (node n : pitStops) {
                 n.resetFill();
             }

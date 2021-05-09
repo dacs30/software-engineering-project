@@ -103,3 +103,24 @@
 .jfx-combo-box:hover{
     -fx-effect: dropshadow( three-pass-box , rgba(2, 2, 2, 0.2), 20, 0.0 , 1 , 10);
 }
+
+.tree-cell {
+    -fx-padding: 6px;
+}
+
+.tree-cell .label {
+    -fx-wrap-text: true;
+}
+
+.tree-disclosure-node {
+    -fx-padding: 10 5 0 5;
+}
+
+.tree-view .scroll-bar:horizontal {
+    -fx-opacity: 0;
+    -fx-padding:-7;
+}
+.tree-view .scroll-bar:vertical {
+    -fx-opacity: 0;
+    -fx-padding:-7;
+}
