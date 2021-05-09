@@ -172,7 +172,7 @@ public class landingPageController extends SceneController {
 
     message.setBody(body);
     JFXDialog dialog = new JFXDialog(dialogPane, message, JFXDialog.DialogTransition.CENTER);
-    JFXButton yes = new JFXButton("YES");
+    JFXButton yes = new JFXButton("Yes");
     yes.setOnAction(event -> {
       // change the colors of the old selected page back to the default
       currentVbox.setStyle("-fx-background-radius: 0;");
@@ -192,7 +192,7 @@ public class landingPageController extends SceneController {
       scenesPane.getChildren().add(root);
     });
 
-    JFXButton no = new JFXButton("NO");
+    JFXButton no = new JFXButton("No");
     no.setOnAction(event -> {
       dialog.close();
       dialogPane.toBack();
@@ -567,7 +567,7 @@ public class landingPageController extends SceneController {
     changeSceneTo("loginPage");
   }
 
-  public void userSettings(ActionEvent actionEvent) {
+  public void userSettings() {
 
     super.changeSceneTo("EmployeeEditor");
 

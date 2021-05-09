@@ -250,7 +250,7 @@ public class covidSurveyController extends SceneController{
         message.setHeading(hearder);
 
         final Text body = new Text("When you plan to visit the hospital, please follow this path. Take a photo or screenshot if needed.");
-        body.setStyle("-fx-font-size: 15");
+        body.setStyle("-fx-font-size: 20");
         body.setStyle("-fx-font-family: Roboto");
         body.setStyle("-fx-alignment: center");
         message.setHeading(hearder);

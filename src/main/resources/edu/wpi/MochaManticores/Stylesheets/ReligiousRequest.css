@@ -5,7 +5,7 @@
 
 
 .jfx-text-field {
-    -fx-font-size: 30;
+    -fx-font-size: 25;
     -fx-font-weight: bold;
     -jfx-unfocus-color : #bababa;
     -jfx-focus-color: #0F4B91;
@@ -25,7 +25,9 @@
     -fx-prompt-text-fill: #0F4B91 ;
     -fx-background-color: rgba(186, 186, 186, 0.43);
     -jfx-unfocus-color: grey;
+    -jfx-focus-color: #0F4B91;
     -fx-font-size: 20;
+    -fx-font-weight: bold;
 }
 .jfx-combo-box .text-field:focused {
     -fx-prompt-text-fill: transparent ;
@@ -42,13 +44,13 @@
     -fx-font-family: Roboto;
     -fx-font-weight: bold;
     -fx-text-fill: white;
-    -fx-font-size: 20;
+    -fx-font-size: 25;
     -fx-border-radius: 40;
     -fx-background-radius: 40;
     transition: background-color 10s ease;
 }
 
-.jfx-button:hover{
+/*.jfx-button:hover{
     -fx-background-color: #c2c2c2;
     -fx-effect: dropshadow( three-pass-box , rgba(2, 2, 2, 0.2), 20, 0.0 , 1 , 10);
     -fx-font-family: Roboto;
@@ -56,10 +58,10 @@
     -fx-font-size: 20;
     -fx-border-radius: 40;
     -fx-background-radius: 40;
-}
+} */
 
 #religiousTitle {
-    -fx-text-fill: grey;
+    -fx-text-fill: #0F4B91;
     -fx-font-family: Roboto;
     -fx-font-weight: bold;
     -fx-font-size: 50;

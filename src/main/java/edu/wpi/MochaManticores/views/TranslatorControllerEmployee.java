@@ -107,7 +107,7 @@ public class TranslatorControllerEmployee extends SceneController{
         // changeSceneTo(e, "mainMenu");
         DatabaseManager.addRequest(s,
                 new edu.wpi.MochaManticores.Services.LanguageInterpreterRequest(
-                        "", "", false, roomNumber.getText(),
+                        "", employeeAssigned.getEditor().getText(), false, roomNumber.getText(),
                         languageOne.getSelectionModel().getSelectedItem().toString(),
                         languageTwo.getSelectionModel().getSelectedItem().toString()));
 //        dialogPane.setVisible(true);

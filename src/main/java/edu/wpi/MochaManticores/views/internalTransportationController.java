@@ -43,6 +43,9 @@ public class internalTransportationController extends SceneController{
     private StackPane dialogPane;
 
     @FXML
+    private JFXButton submitButton;
+
+    @FXML
     private ImageView helpButton;
 
     @FXML
@@ -84,6 +87,7 @@ public class internalTransportationController extends SceneController{
                     ));
             System.out.println("Adds to database");
         }
+        loadSubmitDialog();
     }
 
     private void loadDialog(){
@@ -99,9 +103,9 @@ public class internalTransportationController extends SceneController{
         message.setHeading(hearder);
 
         final Text body = new Text("Patient ID: This is the ID given to the patient by the hospital.\n" +
-                                   "Number of staff: is for the number of staff recommended to transport a patient.\n" +
+                                   "Number of Staff: The number of staff recommended to transport a patient.\n" +
                                    "Destination: Room or location where the patient is going to be transported to.\n" +
-                                   "Method of Transportation: Dropdown menu with 3 options:(wheelchair,walker, medical bed).");
+                                   "Method of Transportation: Dropdown menu with 3 options:(Wheelchair, Walker, or Medical Bed).");
         body.setStyle("-fx-font-size: 40");
         body.setStyle("-fx-font-family: Roboto");
         body.setStyle("-fx-alignment: center");
@@ -111,7 +115,7 @@ public class internalTransportationController extends SceneController{
 
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
 
-        JFXButton cont = new JFXButton("CONTINUE");
+        JFXButton cont = new JFXButton("Continue");
         cont.setOnAction(event -> {
             dialog.close();
             dialogPane.toBack();
@@ -135,14 +139,14 @@ public class internalTransportationController extends SceneController{
         message.setMaxHeight(Region.USE_PREF_SIZE);
         message.setMaxHeight(Region.USE_PREF_SIZE);
 
-        final Text hearder = new Text("Your request was submited");
+        final Text hearder = new Text("Your request has been submitted.");
         hearder.setStyle("-fx-font-weight: bold");
         hearder.setStyle("-fx-font-size: 30");
         hearder.setStyle("-fx-font-family: Roboto");
         hearder.setStyle("-fx-alignment: center");
         message.setHeading(hearder);
 
-        final Text body = new Text("Estimated time for arrival: ");
+        final Text body = new Text("Please wait until transport has arrived.");
         body.setStyle("-fx-font-size: 15");
         body.setStyle("-fx-font-family: Roboto");
         body.setStyle("-fx-alignment: center");
@@ -150,14 +154,14 @@ public class internalTransportationController extends SceneController{
 
         message.setBody(body);
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
-        JFXButton ok = new JFXButton("OK");
+        JFXButton ok = new JFXButton("Done");
         ok.setOnAction(event -> {
-            goBack(null);
+            dialog.close();
+            dialogPane.toBack();
         });
 
         dialog.setOnDialogClosed(event -> {
             dialogPane.toBack();
-            dialog.close();
         });
 
         message.setActions(ok);

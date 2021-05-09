@@ -1,7 +1,6 @@
 package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
@@ -9,8 +8,6 @@ import edu.wpi.MochaManticores.Services.*;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.sel;
 import javafx.beans.property.*;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,17 +15,13 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.util.Callback;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -61,34 +54,33 @@ public class serviceManagerController extends SceneController {
     private Group restricted;
 
 
-    
     public TableView<ss> sanitationTable;
     public TableColumn<ss, String> sanitationLocationColumn;
     public TableColumn<ss, String> safetyHazardsColumn;
     public TableColumn<ss, String> sanitationTypeColumn;
     public TableColumn<ss, String> equipmentNeededColumn;
     public TableColumn<ss, String> sanitationDescriptionColumn;
-    public TableColumn<ss, JFXComboBox> sanitationEmployeeColumn;
+    public TableColumn<ss, JFXComboBox<String>> sanitationEmployeeColumn;
     public TableColumn<ss, JFXButton> sanitationCompletedColumn;
 
     public TableView<tl> translatorTable;
     public TableColumn<tl, String> translateRoomColumn;
     public TableColumn<tl, String> languageOneColumn;
     public TableColumn<tl, String> languageTwoColumn;
-    public TableColumn<tl, JFXComboBox> translateEmployeeColumn;
+    public TableColumn<tl, JFXComboBox<String>> translateEmployeeColumn;
     public TableColumn<tl, JFXButton> translateCompletedColumn;
 
     public TableView<rr> religionTable;
     public TableColumn<rr, String> reasonVisitColumn;
     public TableColumn<rr, String> religionLocationColumn;
     public TableColumn<rr, String> typeSacredPersonColumn;
-    public TableColumn<rr, JFXComboBox> religionEmployeeColumn;
+    public TableColumn<rr, JFXComboBox<String>> religionEmployeeColumn;
     public TableColumn<rr, JFXButton> religionCompletedColumn;
 
     public TableView<fd> foodDeliveryTable;
     public TableColumn<fd, String> dietaryPrefColumn;
     public TableColumn<fd, String> FoodAllergiesColumn;
-    public TableColumn<fd, JFXComboBox> FoodEmployeeColumn;
+    public TableColumn<fd, JFXComboBox<String>> FoodEmployeeColumn;
     public TableColumn<fd, JFXButton> FoodCompletedColumn;
     public TableColumn<fd, String> menuOptionColumn;
 
@@ -97,7 +89,7 @@ public class serviceManagerController extends SceneController {
     public TableColumn<et, String> currentRoomColumn;
     public TableColumn<et, String> externalRoomColumn;
     public TableColumn<et, String> transportationMethodColumn;
-    public TableColumn<et, JFXComboBox> ExternalEmployeeColumn;
+    public TableColumn<et, JFXComboBox<String>> ExternalEmployeeColumn;
     public TableColumn<et, JFXButton> ExternalCompletedColumn;
 
     public TableView<md> medicineDeliveryTable;
@@ -105,7 +97,7 @@ public class serviceManagerController extends SceneController {
     public TableColumn<md, String> currentFeelingColumn;
     public TableColumn<md, String> MedicineAllergiesColumn;
     public TableColumn<md, String> MedicinePatientRoomColumn;
-    public TableColumn<md, JFXComboBox> MedicineEmployeeColumn;
+    public TableColumn<md, JFXComboBox<String>> MedicineEmployeeColumn;
     public TableColumn<md, JFXButton> MedicineCompletedColumn;
 
     public TableView<it> internalTable;
@@ -113,7 +105,7 @@ public class serviceManagerController extends SceneController {
     public TableColumn<it, String> internalNumStaffNeededTableColumn;
     public TableColumn<it, String> internalDestinationTableColumn;
     public TableColumn<it, String> internalTransportationMethodsTableColumn;
-    public TableColumn<it, JFXComboBox> internalEmployeeColumn;
+    public TableColumn<it, JFXComboBox<String>> internalEmployeeColumn;
     public TableColumn<it, JFXButton> internalCompletedColumn;
 
     public TableView<cs> covidTable;
@@ -128,10 +120,10 @@ public class serviceManagerController extends SceneController {
     public TableColumn<cs, JFXButton> CovidCompleteColumn;
 
     public TableView<er> emergencyTable;
-    public TableColumn<er,String>EmergencyNumPeopleNeededColumn;
-    public TableColumn<er,String>EmergencyLocationColumn;
-    public TableColumn<er,String>EmergencyGurneyColumn;
-    public TableColumn<er, JFXComboBox> EmergencyEmployeeColumn;
+    public TableColumn<er, String> EmergencyNumPeopleNeededColumn;
+    public TableColumn<er, String> EmergencyLocationColumn;
+    public TableColumn<er, String> EmergencyGurneyColumn;
+    public TableColumn<er, JFXComboBox<String>> EmergencyEmployeeColumn;
     public TableColumn<er, JFXButton> EmergencyCompletedColumn;
 
     public TableView<ls> laundryTable;
@@ -141,7 +133,7 @@ public class serviceManagerController extends SceneController {
     public TableColumn<ls, String> LaundryWashCycleTemperatureColumn;
     public TableColumn<ls, String> LaundryDryCycleTemperatureColumn;
     public TableColumn<ls, String> LaundryDryCycleNumberColumn;
-    public TableColumn<ls, JFXComboBox> laundryEmployeeColumn;
+    public TableColumn<ls, JFXComboBox<String>> laundryEmployeeColumn;
     public TableColumn<ls, JFXButton> laundryCompletedColumn;
 
     public TableView<fs> floralTable;
@@ -150,19 +142,16 @@ public class serviceManagerController extends SceneController {
     public TableColumn<fs, String> floralTypeOfFlowersColumn;
     public TableColumn<fs, String> floralVaseOptionsColumn;
     public TableColumn<fs, String> floralPersonalizedNoteColumn;
-    public TableColumn<fs, JFXComboBox> floralEmployeeColumn;
+    public TableColumn<fs, JFXComboBox<String>> floralEmployeeColumn;
     public TableColumn<fs, JFXButton> floralCompletedColumn;
 
     public service serviceToEdit;
 
-    private EventHandler<MouseEvent> showBox = new EventHandler<MouseEvent>() {
-        @Override
-        public void handle(MouseEvent event) {
+    private final EventHandler<MouseEvent> showBox = event -> {
 
-        }
     };
 
-    private void showboxMethod(MouseEvent e, service row){
+    private void showboxMethod(MouseEvent e, service row) {
         contextBox.setVisible(true);
         contextBox.setDisable(false);
         contextBox.toFront();
@@ -188,7 +177,6 @@ public class serviceManagerController extends SceneController {
         covidContext.toBack();
 
 
-
         mainPane.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
             contextBox.setVisible(false);
             covidContext.setVisible(false);
@@ -207,7 +195,7 @@ public class serviceManagerController extends SceneController {
         floralTableSetUp();
     }
 
-    private void floralTableSetUp(){
+    private void floralTableSetUp() {
         floralRoomNumberColumn = new TableColumn<fs, String>("Room");
         floralRoomNumberColumn.setMinWidth(100);
         floralRoomNumberColumn.setCellValueFactory(new PropertyValueFactory<fs, String>("roomNumber"));
@@ -228,7 +216,7 @@ public class serviceManagerController extends SceneController {
         floralPersonalizedNoteColumn.setMinWidth(100);
         floralPersonalizedNoteColumn.setCellValueFactory(new PropertyValueFactory<fs, String>("personalizedNote"));
 
-        floralEmployeeColumn = new TableColumn<fs, JFXComboBox>("Assigned To");
+        floralEmployeeColumn = new TableColumn<fs, JFXComboBox<String>>("Assigned To");
         floralEmployeeColumn.setMinWidth(100);
         floralEmployeeColumn.setCellValueFactory(arg0 -> {
             JFXComboBox<String> emps = new JFXComboBox<>();
@@ -258,7 +246,7 @@ public class serviceManagerController extends SceneController {
                 String newEmp = emps.getSelectionModel().getSelectedItem();
                 user.getRef().setEmployee(newEmp);
                 user.getRef().setCompleted(false);
-                DatabaseManager.modRequest(sel.Medicine,user.getRef().getRequestID(),user.getRef());
+                DatabaseManager.modRequest(sel.Medicine, user.getRef().getRequestID(), user.getRef());
                 buildFloral("");
             });
 
@@ -270,12 +258,12 @@ public class serviceManagerController extends SceneController {
 //            });
 
 
-            return new SimpleObjectProperty<JFXComboBox>(emps);
+            return new SimpleObjectProperty<JFXComboBox<String>>(emps);
 
 
         });
 
-        floralCompletedColumn = new TableColumn<fs, JFXButton>("Status");
+        floralCompletedColumn = new TableColumn<>("Status");
         floralCompletedColumn.setMinWidth(100);
         floralCompletedColumn.setCellValueFactory(arg0 -> {
 
@@ -286,52 +274,46 @@ public class serviceManagerController extends SceneController {
             CheckBox checkBox = new CheckBox();
             JFXButton state = new JFXButton();
 
-            serviceTabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->{
-                if(newValue.getText().equals("Floral Delivery")){
+            serviceTabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue.getText().equals("Floral Delivery")) {
                     completeEntry.setOnMouseClicked(event -> {
                         contextBox.setVisible(false);
                         contextBox.toBack();
                         completeEntry.setVisible(false);
                         progressEntry.setVisible(false);
                         deleteEntry.setVisible(false);
-                        setCompleteService(true,user);
+                        setCompleteService(true, user);
                     });
 
-                    progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                        @Override
-                        public void handle(MouseEvent event) {
-                            contextBox.setVisible(false);
-                            contextBox.toBack();
-                            completeEntry.setVisible(false);
-                            progressEntry.setVisible(false);
-                            deleteEntry.setVisible(false);
-                            setCompleteService(false,serviceToEdit);
-                        }
+                    progressEntry.setOnMouseClicked(event -> {
+                        contextBox.setVisible(false);
+                        contextBox.toBack();
+                        completeEntry.setVisible(false);
+                        progressEntry.setVisible(false);
+                        deleteEntry.setVisible(false);
+                        setCompleteService(false, serviceToEdit);
                     });
 
-                    deleteEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                        @Override
-                        public void handle(MouseEvent event) {
-                            DatabaseManager.delElement(sel.FloralDelivery,user.getRef().getRequestID());
-                            buildLaundry("");
-                            contextBox.setVisible(false);
-                            contextBox.toBack();
-                            completeEntry.setVisible(false);
-                            progressEntry.setVisible(false);
-                            deleteEntry.setVisible(false);
-                        }
+                    deleteEntry.setOnMouseClicked(event -> {
+                        DatabaseManager.delElement(sel.FloralDelivery, user.getRef().getRequestID());
+                        buildLaundry("");
+                        contextBox.setVisible(false);
+                        contextBox.toBack();
+                        completeEntry.setVisible(false);
+                        progressEntry.setVisible(false);
+                        deleteEntry.setVisible(false);
                     });
                 }
             });
 
-            if(user.getEmployee().equals("")){
+            if (user.getEmployee().equals("")) {
                 stat = serviceStatus.UNASSIGNED;
                 state.setStyle("-fx-background-color: #FF0000;");
-            }else{
-                if(user.isCompleted()){
+            } else {
+                if (user.isCompleted()) {
                     stat = serviceStatus.COMPLETED;
                     state.setStyle("-fx-background-color: #00FF00;");
-                }else{
+                } else {
                     stat = serviceStatus.PROGRESS;
                     state.setStyle("-fx-background-color: #0f4b91;");
                 }
@@ -340,7 +322,10 @@ public class serviceManagerController extends SceneController {
 
 
             checkBox.selectedProperty().setValue(user.isCompleted());
-            state.setOnMouseClicked(showBox);
+            state.setOnMouseClicked(e -> {
+                //System.out.println("Hello");
+                showboxMethod(e, user);
+            });
 
 
 //            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
@@ -370,7 +355,7 @@ floralCompletedColumn
         buildFloral("");
     }
 
-    private void laundryTableSetUp(){
+    private void laundryTableSetUp() {
         LaundryNameColumn = new TableColumn<ls, String>("Name");
         LaundryNameColumn.setMinWidth(100);
         LaundryNameColumn.setCellValueFactory(new PropertyValueFactory<ls, String>("name"));
@@ -395,7 +380,7 @@ floralCompletedColumn
         LaundryDryCycleNumberColumn.setMinWidth(100);
         LaundryDryCycleNumberColumn.setCellValueFactory(new PropertyValueFactory<ls, String>("dryCycleNumber"));
 
-        laundryEmployeeColumn = new TableColumn<ls, JFXComboBox>("Assigned To");
+        laundryEmployeeColumn = new TableColumn<ls, JFXComboBox<String>>("Assigned To");
         laundryEmployeeColumn.setMinWidth(100);
         laundryEmployeeColumn.setCellValueFactory(arg0 -> {
             JFXComboBox<String> emps = new JFXComboBox<>();
@@ -425,7 +410,7 @@ floralCompletedColumn
                 String newEmp = emps.getSelectionModel().getSelectedItem();
                 user.getRef().setEmployee(newEmp);
                 user.getRef().setCompleted(false);
-                DatabaseManager.modRequest(sel.Medicine,user.getRef().getRequestID(),user.getRef());
+                DatabaseManager.modRequest(sel.Medicine, user.getRef().getRequestID(), user.getRef());
                 buildLaundry("");
             });
 
@@ -437,7 +422,7 @@ floralCompletedColumn
 //            });
 
 
-            return new SimpleObjectProperty<JFXComboBox>(emps);
+            return new SimpleObjectProperty<JFXComboBox<String>>(emps);
 
 
         });
@@ -453,34 +438,34 @@ floralCompletedColumn
             CheckBox checkBox = new CheckBox();
             JFXButton state = new JFXButton();
 
-            serviceTabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->{
-                if(newValue.getText().equals("Laundry")){
+            serviceTabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue.getText().equals("Laundry")) {
                     completeEntry.setOnMouseClicked(event -> {
                         contextBox.setVisible(false);
                         contextBox.toBack();
                         completeEntry.setVisible(false);
                         progressEntry.setVisible(false);
                         deleteEntry.setVisible(false);
-                        setCompleteService(true,user);
+                        setCompleteService(true, user);
                     });
 
                     progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent event) {
-                            setCompleteService(false,serviceToEdit);
+                            setCompleteService(false, serviceToEdit);
                             contextBox.setVisible(false);
                             contextBox.toBack();
                             completeEntry.setVisible(false);
                             progressEntry.setVisible(false);
                             deleteEntry.setVisible(false);
-                            setCompleteService(false,serviceToEdit);
+                            setCompleteService(false, serviceToEdit);
                         }
                     });
 
                     deleteEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent event) {
-                            DatabaseManager.delElement(sel.Medicine,user.getRef().getRequestID());
+                            DatabaseManager.delElement(sel.Medicine, user.getRef().getRequestID());
                             buildLaundry("");
                             contextBox.setVisible(false);
                             contextBox.toBack();
@@ -492,14 +477,14 @@ floralCompletedColumn
                 }
             });
 
-            if(user.getEmployee().equals("")){
+            if (user.getEmployee().equals("")) {
                 stat = serviceStatus.UNASSIGNED;
                 state.setStyle("-fx-background-color: #FF0000;");
-            }else{
-                if(user.isCompleted()){
+            } else {
+                if (user.isCompleted()) {
                     stat = serviceStatus.COMPLETED;
                     state.setStyle("-fx-background-color: #00FF00;");
-                }else{
+                } else {
                     stat = serviceStatus.PROGRESS;
                     state.setStyle("-fx-background-color: #0f4b91;");
                 }
@@ -508,7 +493,12 @@ floralCompletedColumn
 
 
             checkBox.selectedProperty().setValue(user.isCompleted());
-            state.setOnMouseClicked(showBox);
+            state.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent e) {
+                    showboxMethod(e, user);
+                }
+            });
 
 
 //            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
@@ -539,7 +529,7 @@ laundryCompletedColumn
          */
     }
 
-    private void emergencyTableSetUp(){
+    private void emergencyTableSetUp() {
 
         EmergencyNumPeopleNeededColumn = new TableColumn<er, String>("Staff needed");
         EmergencyNumPeopleNeededColumn.setMinWidth(100);
@@ -553,7 +543,7 @@ laundryCompletedColumn
         EmergencyGurneyColumn.setMinWidth(100);
         EmergencyGurneyColumn.setCellValueFactory(new PropertyValueFactory<er, String>("gurney"));
 
-        EmergencyEmployeeColumn = new TableColumn<er, JFXComboBox>("Assigned To");
+        EmergencyEmployeeColumn = new TableColumn<er, JFXComboBox<String>>("Assigned To");
         EmergencyEmployeeColumn.setMinWidth(100);
         EmergencyEmployeeColumn.setCellValueFactory(arg0 -> {
 
@@ -575,13 +565,12 @@ laundryCompletedColumn
             JFXButton state = new JFXButton();
 
 
-
             emps.setValue(user.getEmployee());
 
             emps.getSelectionModel().selectedItemProperty().addListener((ov, old_val, new_val) -> {
                 String newEmp = emps.getSelectionModel().getSelectedItem();
                 user.getRef().setEmployee(newEmp);
-                DatabaseManager.modRequest(sel.Medicine,user.getRef().getRequestID(),user.getRef());
+                DatabaseManager.modRequest(sel.Medicine, user.getRef().getRequestID(), user.getRef());
                 buildEmergency("");
             });
 
@@ -593,7 +582,7 @@ laundryCompletedColumn
 //            });
 
 
-            return new SimpleObjectProperty<JFXComboBox>(emps);
+            return new SimpleObjectProperty<JFXComboBox<String>>(emps);
 
 
         });
@@ -610,15 +599,14 @@ laundryCompletedColumn
             JFXButton state = new JFXButton();
 
 
-
-            if(user.getEmployee().equals("")){
+            if (user.getEmployee().equals("")) {
                 stat = serviceStatus.UNASSIGNED;
                 state.setStyle("-fx-background-color: #FF0000;");
-            }else{
-                if(user.isCompleted()){
+            } else {
+                if (user.isCompleted()) {
                     stat = serviceStatus.COMPLETED;
                     state.setStyle("-fx-background-color: #00FF00;");
-                }else{
+                } else {
                     stat = serviceStatus.PROGRESS;
                     state.setStyle("-fx-background-color: #0f4b91;");
                 }
@@ -632,27 +620,27 @@ laundryCompletedColumn
                     completeEntry.setVisible(false);
                     progressEntry.setVisible(false);
                     deleteEntry.setVisible(false);
-                    setCompleteService(true,user);
+                    setCompleteService(true, user);
                 }
             });
 
             progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    setCompleteService(false,serviceToEdit);
+                    setCompleteService(false, serviceToEdit);
                     contextBox.setVisible(false);
                     contextBox.toBack();
                     completeEntry.setVisible(false);
                     progressEntry.setVisible(false);
                     deleteEntry.setVisible(false);
-                    setCompleteService(false,serviceToEdit);
+                    setCompleteService(false, serviceToEdit);
                 }
             });
 
             deleteEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    DatabaseManager.delElement(sel.Emergency,user.getRef().getRequestID());
+                    DatabaseManager.delElement(sel.Emergency, user.getRef().getRequestID());
                     buildEmergency("");
                     contextBox.setVisible(false);
                     contextBox.toBack();
@@ -663,8 +651,12 @@ laundryCompletedColumn
             });
 
             checkBox.selectedProperty().setValue(user.isCompleted());
-            state.setOnMouseClicked(showBox);
-
+            state.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent e) {
+                    showboxMethod(e, user);
+                }
+            });
 
 
 //            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
@@ -690,7 +682,7 @@ EmergencyCompletedColumn
         buildEmergency("");
     }
 
-    private void internalTableSetUp(){
+    private void internalTableSetUp() {
         internalPatientIDTableColumn = new TableColumn<it, String>("Patient");
         internalPatientIDTableColumn.setMinWidth(100);
         internalPatientIDTableColumn.setCellValueFactory(new PropertyValueFactory<it, String>("PatientIDTable"));
@@ -707,7 +699,7 @@ EmergencyCompletedColumn
         internalTransportationMethodsTableColumn.setMinWidth(100);
         internalTransportationMethodsTableColumn.setCellValueFactory(new PropertyValueFactory<it, String>("TransportationMethodsTable"));
 
-        internalEmployeeColumn = new TableColumn<it, JFXComboBox>("Employee");
+        internalEmployeeColumn = new TableColumn<it, JFXComboBox<String>>("Employee");
         internalEmployeeColumn.setMinWidth(100);
         internalEmployeeColumn.setCellValueFactory(arg0 -> {
             JFXComboBox<String> emps = new JFXComboBox<>();
@@ -731,7 +723,7 @@ EmergencyCompletedColumn
             emps.getSelectionModel().selectedItemProperty().addListener((ov, old_val, new_val) -> {
                 String newEmp = emps.getSelectionModel().getSelectedItem();
                 user.getRef().setEmployee(newEmp);
-                DatabaseManager.modRequest(sel.InternalTransportation,user.getRef().getRequestID(),user.getRef());
+                DatabaseManager.modRequest(sel.InternalTransportation, user.getRef().getRequestID(), user.getRef());
                 buildInternal("");
             });
 
@@ -743,7 +735,7 @@ EmergencyCompletedColumn
 //            });
 
 
-            return new SimpleObjectProperty<JFXComboBox>(emps);
+            return new SimpleObjectProperty<JFXComboBox<String>>(emps);
 
 
         });
@@ -760,15 +752,14 @@ EmergencyCompletedColumn
             JFXButton state = new JFXButton();
 
 
-
-            if(user.getEmployee().equals("")){
+            if (user.getEmployee().equals("")) {
                 stat = serviceStatus.UNASSIGNED;
                 state.setStyle("-fx-background-color: #FF0000;");
-            }else{
-                if(user.checkCompleted()){
+            } else {
+                if (user.checkCompleted()) {
                     stat = serviceStatus.COMPLETED;
                     state.setStyle("-fx-background-color: #00FF00;");
-                }else{
+                } else {
                     stat = serviceStatus.PROGRESS;
                     state.setStyle("-fx-background-color: #0f4b91;");
                 }
@@ -783,7 +774,7 @@ EmergencyCompletedColumn
                     completeEntry.setVisible(false);
                     progressEntry.setVisible(false);
                     deleteEntry.setVisible(false);
-                    setCompleteService(true,user);
+                    setCompleteService(true, user);
                 }
             });
 
@@ -795,14 +786,14 @@ EmergencyCompletedColumn
                     completeEntry.setVisible(false);
                     progressEntry.setVisible(false);
                     deleteEntry.setVisible(false);
-                    setCompleteService(false,serviceToEdit);
+                    setCompleteService(false, serviceToEdit);
                 }
             });
 
             deleteEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    DatabaseManager.delElement(sel.InternalTransportation,user.getRef().getRequestID());
+                    DatabaseManager.delElement(sel.InternalTransportation, user.getRef().getRequestID());
                     buildInternal("");
                     contextBox.setVisible(false);
                     contextBox.toBack();
@@ -813,8 +804,12 @@ EmergencyCompletedColumn
             });
 
             checkBox.selectedProperty().setValue(user.checkCompleted());
-            state.setOnMouseClicked(showBox);
-
+            state.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent e) {
+                    showboxMethod(e, user);
+                }
+            });
 
 
 //            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
@@ -848,7 +843,7 @@ EmergencyCompletedColumn
         MedicinePatientRoomColumn.setMinWidth(100);
         MedicinePatientRoomColumn.setCellValueFactory(new PropertyValueFactory<md, String>("patientRoom"));
 
-        MedicineEmployeeColumn = new TableColumn<md, JFXComboBox>("Assigned To");
+        MedicineEmployeeColumn = new TableColumn<md, JFXComboBox<String>>("Assigned To");
         MedicineEmployeeColumn.setMinWidth(100);
         MedicineEmployeeColumn.setCellValueFactory(arg0 -> {
             JFXComboBox<String> emps = new JFXComboBox<>();
@@ -870,7 +865,7 @@ EmergencyCompletedColumn
 //            if(user.getEmployeeAssigned().equals("")){
 //                emps.setValue("Unassigned");
 //            }else{
-                emps.setValue(user.employeeAssigned.get());
+            emps.setValue(user.employeeAssigned.get());
             //}
 
 
@@ -878,7 +873,7 @@ EmergencyCompletedColumn
                 String newEmp = emps.getSelectionModel().getSelectedItem();
                 user.getRef().setEmployee(newEmp);
                 user.getRef().setCompleted(false);
-                DatabaseManager.modRequest(sel.Medicine,user.getRef().getRequestID(),user.getRef());
+                DatabaseManager.modRequest(sel.Medicine, user.getRef().getRequestID(), user.getRef());
                 buildMedicine("");
             });
 
@@ -890,7 +885,7 @@ EmergencyCompletedColumn
 //            });
 
 
-            return new SimpleObjectProperty<JFXComboBox>(emps);
+            return new SimpleObjectProperty<JFXComboBox<String>>(emps);
 
 
         });
@@ -906,8 +901,9 @@ EmergencyCompletedColumn
             CheckBox checkBox = new CheckBox();
             JFXButton state = new JFXButton();
 
-            serviceTabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->{
-                if(newValue.getText().equals("Medicine Delivery")){
+            serviceTabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue.getText().equals("Medicine Delivery")) {
+
                     completeEntry.setOnMouseClicked(event -> {
                         System.out.println(user.patientRoom.get());
                         contextBox.setVisible(false);
@@ -915,7 +911,7 @@ EmergencyCompletedColumn
                         completeEntry.setVisible(false);
                         progressEntry.setVisible(false);
                         deleteEntry.setVisible(false);
-                        setCompleteService(true,serviceToEdit);
+                        setCompleteService(true, serviceToEdit);
                     });
 
                     progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -926,14 +922,14 @@ EmergencyCompletedColumn
                             completeEntry.setVisible(false);
                             progressEntry.setVisible(false);
                             deleteEntry.setVisible(false);
-                            setCompleteService(false,serviceToEdit);
+                            setCompleteService(false, serviceToEdit);
                         }
                     });
 
                     deleteEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent event) {
-                            DatabaseManager.delElement(sel.Medicine,((md)serviceToEdit).getRef().getRequestID());
+                            DatabaseManager.delElement(sel.Medicine, ((md) serviceToEdit).getRef().getRequestID());
                             buildMedicine("");
                             contextBox.setVisible(false);
                             contextBox.toBack();
@@ -945,14 +941,14 @@ EmergencyCompletedColumn
                 }
             });
 
-            if(user.getEmployeeAssigned().equals("")){
+            if (user.getEmployeeAssigned().equals("")) {
                 stat = serviceStatus.UNASSIGNED;
                 state.setStyle("-fx-background-color: #FF0000;");
-            }else{
-                if(user.checkCompleted()){
+            } else {
+                if (user.checkCompleted()) {
                     stat = serviceStatus.COMPLETED;
                     state.setStyle("-fx-background-color: #00FF00;");
-                }else{
+                } else {
                     stat = serviceStatus.PROGRESS;
                     state.setStyle("-fx-background-color: #0f4b91;");
                 }
@@ -967,9 +963,9 @@ EmergencyCompletedColumn
 //                    System.out.println(user.patientRoom.get());
 //                }
 //            });
-            state.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            state.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
-                public void handle(MouseEvent e){
+                public void handle(MouseEvent e) {
                     showboxMethod(e, user);
                 }
             });
@@ -1013,7 +1009,7 @@ EmergencyCompletedColumn
         transportationMethodColumn.setCellValueFactory(new PropertyValueFactory<et, String>("transportationMethod"));
 
 
-        ExternalEmployeeColumn = new TableColumn<et, JFXComboBox>("Employee");
+        ExternalEmployeeColumn = new TableColumn<et, JFXComboBox<String>>("Employee");
         ExternalEmployeeColumn.setMinWidth(100);
         ExternalEmployeeColumn.setCellValueFactory(arg0 -> {
             JFXComboBox<String> emps = new JFXComboBox<>();
@@ -1037,7 +1033,7 @@ EmergencyCompletedColumn
             emps.getSelectionModel().selectedItemProperty().addListener((ov, old_val, new_val) -> {
                 String newEmp = emps.getSelectionModel().getSelectedItem();
                 user.getRef().setEmployee(newEmp);
-                DatabaseManager.modRequest(sel.ExternalTransportation,user.getRef().getRequestID(),user.getRef());
+                DatabaseManager.modRequest(sel.ExternalTransportation, user.getRef().getRequestID(), user.getRef());
                 buildExternal("");
             });
 
@@ -1049,7 +1045,7 @@ EmergencyCompletedColumn
 //            });
 
 
-            return new SimpleObjectProperty<JFXComboBox>(emps);
+            return new SimpleObjectProperty<JFXComboBox<String>>(emps);
 
 
         });
@@ -1067,15 +1063,15 @@ EmergencyCompletedColumn
             JFXButton state = new JFXButton();
 
 
-            serviceTabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->{
-                if(newValue.getText().equals("External Transport")){
+            serviceTabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue.getText().equals("External Transport")) {
                     completeEntry.setOnMouseClicked(event -> {
                         contextBox.setVisible(false);
                         contextBox.toBack();
                         completeEntry.setVisible(false);
                         progressEntry.setVisible(false);
                         deleteEntry.setVisible(false);
-                        setCompleteService(true,user);
+                        setCompleteService(true, user);
                     });
 
                     progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -1086,14 +1082,14 @@ EmergencyCompletedColumn
                             completeEntry.setVisible(false);
                             progressEntry.setVisible(false);
                             deleteEntry.setVisible(false);
-                            setCompleteService(false,serviceToEdit);
+                            setCompleteService(false, serviceToEdit);
                         }
                     });
 
                     deleteEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent event) {
-                            DatabaseManager.delElement(sel.Medicine,user.getRef().getRequestID());
+                            DatabaseManager.delElement(sel.Medicine, user.getRef().getRequestID());
                             buildMedicine("");
                             contextBox.setVisible(false);
                             contextBox.toBack();
@@ -1104,14 +1100,14 @@ EmergencyCompletedColumn
                     });
                 }
             });
-            if(user.getEmployeeAssigned().equals("")){
+            if (user.getEmployeeAssigned().equals("")) {
                 stat = serviceStatus.UNASSIGNED;
                 state.setStyle("-fx-background-color: #FF0000;");
-            }else{
-                if(user.checkCompleted()){
+            } else {
+                if (user.checkCompleted()) {
                     stat = serviceStatus.COMPLETED;
                     state.setStyle("-fx-background-color: #00FF00;");
-                }else{
+                } else {
                     stat = serviceStatus.PROGRESS;
                     state.setStyle("-fx-background-color: #0f4b91;");
                 }
@@ -1119,7 +1115,12 @@ EmergencyCompletedColumn
             state.setText(stat.name());
 
             checkBox.selectedProperty().setValue(user.checkCompleted());
-            state.setOnMouseClicked(showBox);
+            state.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent e) {
+                    showboxMethod(e, user);
+                }
+            });
 
 
             return new SimpleObjectProperty<JFXButton>(state);
@@ -1145,7 +1146,7 @@ EmergencyCompletedColumn
         menuOptionColumn.setCellValueFactory(new PropertyValueFactory<fd, String>("Menu"));
         //menuOption.setPrefWidth(foodDeliveryTable.getPrefWidth()/3);
 
-        FoodEmployeeColumn = new TableColumn<fd, JFXComboBox>("Employee");
+        FoodEmployeeColumn = new TableColumn<fd, JFXComboBox<String>>("Employee");
         FoodEmployeeColumn.setMinWidth(100);
         FoodEmployeeColumn.setCellValueFactory(arg0 -> {
             JFXComboBox<String> emps = new JFXComboBox<>();
@@ -1169,7 +1170,7 @@ EmergencyCompletedColumn
             emps.getSelectionModel().selectedItemProperty().addListener((ov, old_val, new_val) -> {
                 String newEmp = emps.getSelectionModel().getSelectedItem();
                 user.getRef().setEmployee(newEmp);
-                DatabaseManager.modRequest(sel.FoodDelivery,user.getRef().getRequestID(),user.getRef());
+                DatabaseManager.modRequest(sel.FoodDelivery, user.getRef().getRequestID(), user.getRef());
                 buildFood("");
             });
 
@@ -1181,7 +1182,7 @@ EmergencyCompletedColumn
 //            });
 
 
-            return new SimpleObjectProperty<JFXComboBox>(emps);
+            return new SimpleObjectProperty<JFXComboBox<String>>(emps);
 
 
         });
@@ -1218,15 +1219,14 @@ EmergencyCompletedColumn
             JFXButton state = new JFXButton();
 
 
-
-            if(user.getEmployeeAssigned().equals("")){
+            if (user.getEmployeeAssigned().equals("")) {
                 stat = serviceStatus.UNASSIGNED;
                 state.setStyle("-fx-background-color: #FF0000;");
-            }else{
-                if(user.checkCompleted()){
+            } else {
+                if (user.checkCompleted()) {
                     stat = serviceStatus.COMPLETED;
                     state.setStyle("-fx-background-color: #00FF00;");
-                }else{
+                } else {
                     stat = serviceStatus.PROGRESS;
                     state.setStyle("-fx-background-color: #0f4b91;");
                 }
@@ -1238,33 +1238,33 @@ EmergencyCompletedColumn
             completeEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    setCompleteService(true,user);
+                    setCompleteService(true, user);
                     contextBox.setVisible(false);
                     contextBox.toBack();
                     completeEntry.setVisible(false);
                     progressEntry.setVisible(false);
                     deleteEntry.setVisible(false);
-                    setCompleteService(true,user);
+                    setCompleteService(true, user);
                 }
             });
 
             progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    setCompleteService(false,serviceToEdit);
+                    setCompleteService(false, serviceToEdit);
                     contextBox.setVisible(false);
                     contextBox.toBack();
                     completeEntry.setVisible(false);
                     progressEntry.setVisible(false);
                     deleteEntry.setVisible(false);
-                    setCompleteService(false,serviceToEdit);
+                    setCompleteService(false, serviceToEdit);
                 }
             });
 
             deleteEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    DatabaseManager.delElement(sel.FoodDelivery,user.getRef().getRequestID());
+                    DatabaseManager.delElement(sel.FoodDelivery, user.getRef().getRequestID());
                     buildFood("");
                     contextBox.setVisible(false);
                     contextBox.toBack();
@@ -1276,7 +1276,12 @@ EmergencyCompletedColumn
             });
 
             checkBox.selectedProperty().setValue(user.checkCompleted());
-            state.setOnMouseClicked(showBox);
+            state.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent e) {
+                    showboxMethod(e, user);
+                }
+            });
 
 
 //            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
@@ -1306,7 +1311,7 @@ EmergencyCompletedColumn
         typeSacredPersonColumn.setMinWidth(100);
         typeSacredPersonColumn.setCellValueFactory(new PropertyValueFactory<rr, String>("typeSacredPerson"));
 
-        religionEmployeeColumn = new TableColumn<rr, JFXComboBox>("Employee Assigned");
+        religionEmployeeColumn = new TableColumn<rr, JFXComboBox<String>>("Employee Assigned");
         religionEmployeeColumn.setMinWidth(100);
         religionEmployeeColumn.setCellValueFactory(arg0 -> {
             JFXComboBox<String> emps = new JFXComboBox<>();
@@ -1330,7 +1335,7 @@ EmergencyCompletedColumn
             emps.getSelectionModel().selectedItemProperty().addListener((ov, old_val, new_val) -> {
                 String newEmp = emps.getSelectionModel().getSelectedItem();
                 user.getRef().setEmployee(newEmp);
-                DatabaseManager.modRequest(sel.ReligiousRequest,user.getRef().getRequestID(),user.getRef());
+                DatabaseManager.modRequest(sel.ReligiousRequest, user.getRef().getRequestID(), user.getRef());
                 buildReligion("");
             });
 
@@ -1342,7 +1347,7 @@ EmergencyCompletedColumn
 //            });
 
 
-            return new SimpleObjectProperty<JFXComboBox>(emps);
+            return new SimpleObjectProperty<JFXComboBox<String>>(emps);
 
 
         });
@@ -1379,15 +1384,14 @@ EmergencyCompletedColumn
             JFXButton state = new JFXButton();
 
 
-
-            if(user.getEmployeeAssigned().equals("")){
+            if (user.getEmployeeAssigned().equals("")) {
                 stat = serviceStatus.UNASSIGNED;
                 state.setStyle("-fx-background-color: #FF0000;");
-            }else{
-                if(user.checkCompleted()){
+            } else {
+                if (user.checkCompleted()) {
                     stat = serviceStatus.COMPLETED;
                     state.setStyle("-fx-background-color: #00FF00;");
-                }else{
+                } else {
                     stat = serviceStatus.PROGRESS;
                     state.setStyle("-fx-background-color: #0f4b91;");
                 }
@@ -1396,33 +1400,33 @@ EmergencyCompletedColumn
             completeEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    setCompleteService(true,user);
+                    setCompleteService(true, user);
                     contextBox.setVisible(false);
                     contextBox.toBack();
                     completeEntry.setVisible(false);
                     progressEntry.setVisible(false);
                     deleteEntry.setVisible(false);
-                    setCompleteService(true,user);
+                    setCompleteService(true, user);
                 }
             });
 
             progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    setCompleteService(false,serviceToEdit);
+                    setCompleteService(false, serviceToEdit);
                     contextBox.setVisible(false);
                     contextBox.toBack();
                     completeEntry.setVisible(false);
                     progressEntry.setVisible(false);
                     deleteEntry.setVisible(false);
-                    setCompleteService(false,serviceToEdit);
+                    setCompleteService(false, serviceToEdit);
                 }
             });
 
             deleteEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    DatabaseManager.delElement(sel.ReligiousRequest,user.getRef().getRequestID());
+                    DatabaseManager.delElement(sel.ReligiousRequest, user.getRef().getRequestID());
                     buildReligion("");
                     contextBox.setVisible(false);
                     contextBox.toBack();
@@ -1433,7 +1437,12 @@ EmergencyCompletedColumn
             });
 
             checkBox.selectedProperty().setValue(user.checkCompleted());
-            state.setOnMouseClicked(showBox);
+            state.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent e) {
+                    showboxMethod(e, user);
+                }
+            });
 
 
 //            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
@@ -1465,7 +1474,7 @@ EmergencyCompletedColumn
         languageTwoColumn.setMinWidth(100);
         languageTwoColumn.setCellValueFactory(new PropertyValueFactory<tl, String>("languageTwo"));
 
-        translateEmployeeColumn = new TableColumn<tl, JFXComboBox>("Assigned To");
+        translateEmployeeColumn = new TableColumn<tl, JFXComboBox<String>>("Assigned To");
         translateEmployeeColumn.setMinWidth(100);
         translateEmployeeColumn.setCellValueFactory(arg0 -> {
             JFXComboBox<String> emps = new JFXComboBox<>();
@@ -1484,7 +1493,7 @@ EmergencyCompletedColumn
             CheckBox checkBox = new CheckBox();
             JFXButton state = new JFXButton();
 
-            if(user.employeeAssigned.get().equals("")){
+            if (user.employeeAssigned.get().equals("")) {
 
             }
             emps.setValue(user.employeeAssigned.get());
@@ -1492,7 +1501,7 @@ EmergencyCompletedColumn
             emps.getSelectionModel().selectedItemProperty().addListener((ov, old_val, new_val) -> {
                 String newEmp = emps.getSelectionModel().getSelectedItem();
                 user.getRef().setEmployee(newEmp);
-                DatabaseManager.modRequest(sel.LanguageInterperter,user.getRef().getRequestID(),user.getRef());
+                DatabaseManager.modRequest(sel.LanguageInterperter, user.getRef().getRequestID(), user.getRef());
                 buildTranslate("");
             });
 
@@ -1504,14 +1513,14 @@ EmergencyCompletedColumn
 //            });
 
 
-            return new SimpleObjectProperty<JFXComboBox>(emps);
+            return new SimpleObjectProperty<JFXComboBox<String>>(emps);
 
 
         });
 
         translateCompletedColumn = new TableColumn<tl, JFXButton>("Status");
         translateCompletedColumn.setMinWidth(100);
-       //translateCompletedColumn.setCellValueFactory(new PropertyValueFactory<tl, String>("completed"));
+        //translateCompletedColumn.setCellValueFactory(new PropertyValueFactory<tl, String>("completed"));
 //        translateCompletedColumn.setCellValueFactory(arg0 -> {
 //            tl user = arg0.getValue();
 //
@@ -1541,15 +1550,14 @@ EmergencyCompletedColumn
             JFXButton state = new JFXButton();
 
 
-
-            if(user.getEmployeeAssigned().equals("")){
+            if (user.getEmployeeAssigned().equals("")) {
                 stat = serviceStatus.UNASSIGNED;
                 state.setStyle("-fx-background-color: #FF0000;");
-            }else{
-                if(user.checkCompleted()){
+            } else {
+                if (user.checkCompleted()) {
                     stat = serviceStatus.COMPLETED;
                     state.setStyle("-fx-background-color: #00FF00;");
-                }else{
+                } else {
                     stat = serviceStatus.PROGRESS;
                     state.setStyle("-fx-background-color: #0f4b91;");
                 }
@@ -1558,33 +1566,33 @@ EmergencyCompletedColumn
             completeEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    setCompleteService(true,user);
+                    setCompleteService(true, user);
                     contextBox.setVisible(false);
                     contextBox.toBack();
                     completeEntry.setVisible(false);
                     progressEntry.setVisible(false);
                     deleteEntry.setVisible(false);
-                    setCompleteService(true,user);
+                    setCompleteService(true, user);
                 }
             });
 
             progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    setCompleteService(false,serviceToEdit);
+                    setCompleteService(false, serviceToEdit);
                     contextBox.setVisible(false);
                     contextBox.toBack();
                     completeEntry.setVisible(false);
                     progressEntry.setVisible(false);
                     deleteEntry.setVisible(false);
-                    setCompleteService(false,serviceToEdit);
+                    setCompleteService(false, serviceToEdit);
                 }
             });
 
             deleteEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    DatabaseManager.delElement(sel.LanguageInterperter,user.getRef().getRequestID());
+                    DatabaseManager.delElement(sel.LanguageInterperter, user.getRef().getRequestID());
                     buildTranslate("");
                     contextBox.setVisible(false);
                     contextBox.toBack();
@@ -1595,7 +1603,12 @@ EmergencyCompletedColumn
             });
 
             checkBox.selectedProperty().setValue(user.checkCompleted());
-            state.setOnMouseClicked(showBox);
+            state.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent e) {
+                    showboxMethod(e, user);
+                }
+            });
 
 
 //            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
@@ -1635,7 +1648,7 @@ EmergencyCompletedColumn
         sanitationDescriptionColumn.setMinWidth(100);
         sanitationDescriptionColumn.setCellValueFactory(new PropertyValueFactory<ss, String>("description"));
 
-        sanitationEmployeeColumn = new TableColumn<ss, JFXComboBox>("Employee");
+        sanitationEmployeeColumn = new TableColumn<ss, JFXComboBox<String>>("Employee");
         sanitationEmployeeColumn.setMinWidth(100);
         sanitationEmployeeColumn.setCellValueFactory(arg0 -> {
             JFXComboBox<String> emps = new JFXComboBox<>();
@@ -1659,7 +1672,7 @@ EmergencyCompletedColumn
             emps.getSelectionModel().selectedItemProperty().addListener((ov, old_val, new_val) -> {
                 String newEmp = emps.getSelectionModel().getSelectedItem();
                 user.getRef().setEmployee(newEmp);
-                DatabaseManager.modRequest(sel.SanitationServices,user.getRef().getRequestID(),user.getRef());
+                DatabaseManager.modRequest(sel.SanitationServices, user.getRef().getRequestID(), user.getRef());
                 buildSanitation("");
             });
 
@@ -1671,7 +1684,7 @@ EmergencyCompletedColumn
 //            });
 
 
-            return new SimpleObjectProperty<JFXComboBox>(emps);
+            return new SimpleObjectProperty<JFXComboBox<String>>(emps);
 
 
         });
@@ -1708,15 +1721,14 @@ EmergencyCompletedColumn
             JFXButton state = new JFXButton();
 
 
-
-            if(user.getEmployeeAssigned().equals("")){
+            if (user.getEmployeeAssigned().equals("")) {
                 stat = serviceStatus.UNASSIGNED;
                 state.setStyle("-fx-background-color: #FF0000;");
-            }else{
-                if(user.checkCompleted()){
+            } else {
+                if (user.checkCompleted()) {
                     stat = serviceStatus.COMPLETED;
                     state.setStyle("-fx-background-color: #00FF00;");
-                }else{
+                } else {
                     stat = serviceStatus.PROGRESS;
                     state.setStyle("-fx-background-color: #0f4b91;");
                 }
@@ -1725,33 +1737,33 @@ EmergencyCompletedColumn
             completeEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    setCompleteService(true,user);
+                    setCompleteService(true, user);
                     contextBox.setVisible(false);
                     contextBox.toBack();
                     completeEntry.setVisible(false);
                     progressEntry.setVisible(false);
                     deleteEntry.setVisible(false);
-                    setCompleteService(true,user);
+                    setCompleteService(true, user);
                 }
             });
 
             progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    setCompleteService(false,serviceToEdit);
+                    setCompleteService(false, serviceToEdit);
                     contextBox.setVisible(false);
                     contextBox.toBack();
                     completeEntry.setVisible(false);
                     progressEntry.setVisible(false);
                     deleteEntry.setVisible(false);
-                    setCompleteService(false,serviceToEdit);
+                    setCompleteService(false, serviceToEdit);
                 }
             });
 
             deleteEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    DatabaseManager.delElement(sel.SanitationServices,user.getRef().getRequestID());
+                    DatabaseManager.delElement(sel.SanitationServices, user.getRef().getRequestID());
                     buildSanitation("");
                     contextBox.setVisible(false);
                     contextBox.toBack();
@@ -1762,7 +1774,12 @@ EmergencyCompletedColumn
             });
 
             checkBox.selectedProperty().setValue(user.checkCompleted());
-            state.setOnMouseClicked(showBox);
+            state.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent e) {
+                    showboxMethod(e, user);
+                }
+            });
 
 
 //            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
@@ -1780,7 +1797,7 @@ EmergencyCompletedColumn
         buildSanitation("");
     }
 
-    private void covidTableSetUp(){
+    private void covidTableSetUp() {
         nameColumn = new TableColumn<cs, String>("Name");
         nameColumn.setMinWidth(100);
         nameColumn.setCellValueFactory(new PropertyValueFactory<cs, String>("name"));
@@ -1821,34 +1838,33 @@ EmergencyCompletedColumn
             JFXButton state = new JFXButton();
 
 
-
-            if(user.isAdmit()){
+            if (user.isAdmit()) {
                 stat = covidStatus.ADMIT;
                 state.setStyle("-fx-background-color: #00FF00;");
-            }else{
+            } else {
                 stat = covidStatus.RESTRICTED;
                 state.setStyle("-fx-background-color: #FF0000;");
             }
             state.setText(stat.name());
             admitted.setOnMouseClicked(event -> {
-                setCompleteService(true,user);
+                setCompleteService(true, user);
                 covidContext.setVisible(false);
                 covidContext.setDisable(true);
                 covidContext.toBack();
 
                 user.getRef().setAdmit(true);
-                DatabaseManager.modRequest(sel.COVID,user.getRef().getRequestID(),user.getRef());
+                DatabaseManager.modRequest(sel.COVID, user.getRef().getRequestID(), user.getRef());
                 buildCovid("");
             });
 
             restricted.setOnMouseClicked(event -> {
-                setCompleteService(true,user);
+                setCompleteService(true, user);
                 covidContext.setVisible(false);
                 covidContext.setDisable(true);
                 covidContext.toBack();
 
                 user.getRef().setAdmit(false);
-                DatabaseManager.modRequest(sel.COVID,user.getRef().getRequestID(),user.getRef());
+                DatabaseManager.modRequest(sel.COVID, user.getRef().getRequestID(), user.getRef());
                 buildCovid("");
             });
 
@@ -1887,13 +1903,50 @@ EmergencyCompletedColumn
 
             CheckBox checkBox = new CheckBox();
             JFXButton state = new JFXButton();
+            serviceTabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue.getText().equals("COVID Survey")) {
+
+                    completeEntry.setOnMouseClicked(event -> {
+                        contextBox.setVisible(false);
+                        contextBox.toBack();
+                        completeEntry.setVisible(false);
+                        progressEntry.setVisible(false);
+                        deleteEntry.setVisible(false);
+                        setCompleteService(true, serviceToEdit);
+                    });
+
+                    progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            contextBox.setVisible(false);
+                            contextBox.toBack();
+                            completeEntry.setVisible(false);
+                            progressEntry.setVisible(false);
+                            deleteEntry.setVisible(false);
+                            setCompleteService(false, serviceToEdit);
+                        }
+                    });
+
+                    deleteEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            DatabaseManager.delElement(sel.Medicine, ((md) serviceToEdit).getRef().getRequestID());
+                            buildMedicine("");
+                            contextBox.setVisible(false);
+                            contextBox.toBack();
+                            completeEntry.setVisible(false);
+                            progressEntry.setVisible(false);
+                            deleteEntry.setVisible(false);
+                        }
+                    });
+                }
+            });
 
 
-
-            if(user.isCompleted()){
+            if (user.isCompleted()) {
                 stat = serviceStatus.COMPLETED;
                 state.setStyle("-fx-background-color: #00FF00;");
-            }else{
+            } else {
                 stat = serviceStatus.PROGRESS;
                 state.setStyle("-fx-background-color: #0f4b91;");
             }
@@ -1907,28 +1960,28 @@ EmergencyCompletedColumn
                     completeEntry.setVisible(false);
                     progressEntry.setVisible(false);
                     deleteEntry.setVisible(false);
-                    setCompleteService(true,user);
+                    setCompleteService(true, user);
                 }
             });
 
             progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    setCompleteService(false,serviceToEdit);
+                    setCompleteService(false, serviceToEdit);
                     contextBox.setVisible(false);
                     contextBox.setDisable(true);
                     contextBox.toBack();
                     completeEntry.setVisible(false);
                     progressEntry.setVisible(false);
                     deleteEntry.setVisible(false);
-                    setCompleteService(false,serviceToEdit);
+                    setCompleteService(false, serviceToEdit);
                 }
             });
 
             deleteEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    DatabaseManager.delElement(sel.COVID,user.ref.getRequestID());
+                    DatabaseManager.delElement(sel.COVID, user.ref.getRequestID());
                     buildCovid("");
                     contextBox.setVisible(false);
                     contextBox.setDisable(true);
@@ -1940,15 +1993,14 @@ EmergencyCompletedColumn
             });
 
             checkBox.selectedProperty().setValue(user.isCompleted());
-            state.setOnMouseClicked(showBox);
 
+            state.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent e) {
+                    showboxMethod(e, user);
+                }
+            });
 
-//            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
-//
-//                setCompleteService(new_val, user);
-//                //user.setCompleted(new_val);
-//
-//            });
 
             return new SimpleObjectProperty<JFXButton>(state);
 
@@ -1959,7 +2011,7 @@ EmergencyCompletedColumn
         buildCovid("");
     }
 
-    public ObservableList<fs> buildFloral(String searchTerm){
+    public ObservableList<fs> buildFloral(String searchTerm) {
         ObservableList<fs> tableRow = FXCollections.observableArrayList();
         LinkedList<ServiceRequest> requests = DatabaseManager.getServiceMap().getServiceRequestsForType(ServiceRequestType.FloralDelivery);
 
@@ -1984,7 +2036,7 @@ EmergencyCompletedColumn
         return tableRow;
     }
 
-    public ObservableList<ls> buildLaundry(String searchTerm){
+    public ObservableList<ls> buildLaundry(String searchTerm) {
         ObservableList<ls> tableRow = FXCollections.observableArrayList();
         LinkedList<ServiceRequest> requests = DatabaseManager.getServiceMap().getServiceRequestsForType(ServiceRequestType.Laundry);
 
@@ -2010,7 +2062,7 @@ EmergencyCompletedColumn
         return tableRow;
     }
 
-    public ObservableList<er> buildEmergency(String searchTerm){
+    public ObservableList<er> buildEmergency(String searchTerm) {
         ObservableList<er> tableRow = FXCollections.observableArrayList();
         LinkedList<ServiceRequest> requests = DatabaseManager.getServiceMap().getServiceRequestsForType(ServiceRequestType.Emergency);
 
@@ -2033,7 +2085,7 @@ EmergencyCompletedColumn
         return tableRow;
     }
 
-    public ObservableList<cs> buildCovid(String searchTerm){
+    public ObservableList<cs> buildCovid(String searchTerm) {
         ObservableList<cs> tableRow = FXCollections.observableArrayList();
         LinkedList<ServiceRequest> requests = DatabaseManager.getServiceMap().getServiceRequestsForType(ServiceRequestType.COVID);
 
@@ -2060,7 +2112,7 @@ EmergencyCompletedColumn
         return tableRow;
     }
 
-    public ObservableList<it> buildInternal(String searchTerm){
+    public ObservableList<it> buildInternal(String searchTerm) {
         ObservableList<it> tableRow = FXCollections.observableArrayList();
         LinkedList<ServiceRequest> requests = DatabaseManager.getServiceMap().getServiceRequestsForType(ServiceRequestType.InternalTransportation);
 
@@ -2240,13 +2292,13 @@ EmergencyCompletedColumn
 
     }
 
-    public void setCompleteService(boolean val, service selected){
+    public void setCompleteService(boolean val, service selected) {
         String tabName;
         tabName = serviceTabPane.getSelectionModel().selectedItemProperty().get().getText();
 
-        try{
+        try {
             //service selected;
-            switch(tabName){
+            switch (tabName) {
                 case "Medicine Delivery":
                     //selected = medicineDeliveryTable.getSelectionModel().getSelectedItem();
                     ((md) selected).setCompleted(val);
@@ -2288,28 +2340,38 @@ EmergencyCompletedColumn
                     ((tl) selected).getRef().setCompleted(val);
                     DatabaseManager.modRequest(sel.LanguageInterperter, ((tl) selected).getRef().getRequestID(), ((tl) selected).getRef());
                     buildTranslate("");
+                    break;
                 case "COVID Survey":
                     ((cs) selected).setCompleted(val);
                     ((cs) selected).getRef().setCompleted(val);
-                    DatabaseManager.modRequest(sel.COVID,((cs) selected).getRef().getRequestID(), ((cs)selected).getRef());
+                    DatabaseManager.modRequest(sel.COVID, ((cs) selected).getRef().getRequestID(), ((cs) selected).getRef());
                     buildCovid("");
                     //TODO: add to DB
                     break;
                 case "Internal Transport":
                     ((it) selected).setCompleted(val);
                     ((it) selected).getRef().setCompleted(val);
-                    DatabaseManager.modRequest(sel.COVID,((it) selected).getRef().getRequestID(), ((it)selected).getRef());
+                    DatabaseManager.modRequest(sel.COVID, ((it) selected).getRef().getRequestID(), ((it) selected).getRef());
                     buildInternal("");
                     break;
                 case "Laundry":
                     ((ls) selected).setCompleted(val);
                     ((ls) selected).getRef().setCompleted(val);
-                    DatabaseManager.modRequest(sel.Laundry,((ls) selected).getRef().getRequestID(), ((ls)selected).getRef());
+                    DatabaseManager.modRequest(sel.Laundry, ((ls) selected).getRef().getRequestID(), ((ls) selected).getRef());
                     buildLaundry("");
+                    break;
+                case "Floral Delivery":
+                    ((fs) selected).setCompleted(val);
+                    ((fs) selected).getRef().setCompleted(val);
+                    DatabaseManager.modRequest(sel.FloralDelivery, ((fs) selected).getRef().getRequestID(), ((fs) selected).getRef());
+                    buildFloral("");
+                    break;
                 default:
                     break;
             }
-        }catch(NullPointerException ignored){}
+        } catch (NullPointerException ignored) {
+            ignored.printStackTrace();
+        }
     }
 
     public class md extends RecursiveTreeObject<md> implements service {
@@ -2356,7 +2418,8 @@ EmergencyCompletedColumn
                 return "Open";
             }
         }
-        public boolean checkCompleted(){
+
+        public boolean checkCompleted() {
             return completed;
         }
 
@@ -2411,9 +2474,11 @@ EmergencyCompletedColumn
         StringProperty employeeAssigned;
         boolean completed;
         LinkedList<String> fields;
-        public boolean checkCompleted(){
+
+        public boolean checkCompleted() {
             return completed;
         }
+
         public et(edu.wpi.MochaManticores.Services.ServiceRequest ref) {
             this.ref = (edu.wpi.MochaManticores.Services.ExternalTransportation) ref;
             patientRoom = new SimpleStringProperty(this.ref.getPatientRoom());
@@ -2540,9 +2605,11 @@ EmergencyCompletedColumn
         StringProperty employeeAssigned;
         boolean completed;
         LinkedList<String> fields;
-        public boolean checkCompleted(){
+
+        public boolean checkCompleted() {
             return completed;
         }
+
         public fd(edu.wpi.MochaManticores.Services.ServiceRequest ref) {
             this.ref = (edu.wpi.MochaManticores.Services.FoodDelivery) ref;
             dp = new SimpleStringProperty(this.ref.getDietaryPreference());
@@ -2603,9 +2670,11 @@ EmergencyCompletedColumn
         StringProperty employeeAssigned;
         boolean completed;
         LinkedList<String> fields;
-        public boolean checkCompleted(){
+
+        public boolean checkCompleted() {
             return completed;
         }
+
         public rr(edu.wpi.MochaManticores.Services.ServiceRequest ref) {
             this.ref = (edu.wpi.MochaManticores.Services.ReligiousRequest) ref;
             reasonVisit = new SimpleStringProperty(this.ref.getReasonVisit());
@@ -2680,9 +2749,11 @@ EmergencyCompletedColumn
         StringProperty employeeAssigned;
         boolean completed;
         LinkedList<String> fields;
-        public boolean checkCompleted(){
+
+        public boolean checkCompleted() {
             return completed;
         }
+
         public tl(edu.wpi.MochaManticores.Services.ServiceRequest ref) {
             this.ref = (edu.wpi.MochaManticores.Services.LanguageInterpreterRequest) ref;
             room = new SimpleStringProperty(this.ref.getRoom());
@@ -2760,9 +2831,11 @@ EmergencyCompletedColumn
         StringProperty employeeAssigned;
         boolean completed;
         LinkedList<String> fields;
-        public boolean checkCompleted(){
+
+        public boolean checkCompleted() {
             return completed;
         }
+
         public ss(edu.wpi.MochaManticores.Services.ServiceRequest ref) {
             this.ref = (edu.wpi.MochaManticores.Services.SanitationServices) ref;
             location = new SimpleStringProperty(this.ref.getLocation());
@@ -2849,7 +2922,7 @@ EmergencyCompletedColumn
         }
     }
 
-    public class it extends RecursiveTreeObject<it> implements service{
+    public class it extends RecursiveTreeObject<it> implements service {
 
         edu.wpi.MochaManticores.Services.InternalTransportation ref;
         StringProperty patientIDTable;
@@ -2859,9 +2932,11 @@ EmergencyCompletedColumn
         StringProperty employee;
         boolean completed;
         LinkedList<String> fields;
-        public boolean checkCompleted(){
+
+        public boolean checkCompleted() {
             return completed;
         }
+
         public void setCompleted(boolean completed) {
             this.completed = completed;
         }
@@ -2915,7 +2990,7 @@ EmergencyCompletedColumn
             }
         }
 
-        public it(edu.wpi.MochaManticores.Services.ServiceRequest ref){
+        public it(edu.wpi.MochaManticores.Services.ServiceRequest ref) {
             this.ref = (edu.wpi.MochaManticores.Services.InternalTransportation) ref;
             patientIDTable = new SimpleStringProperty(this.ref.getPatientID());
             numStaffNeededTable = new SimpleIntegerProperty(this.ref.getNumStaffNeeded());
@@ -2923,14 +2998,14 @@ EmergencyCompletedColumn
             transportationMethodsTable = new SimpleStringProperty(this.ref.getTransportationMethod());
             employee = new SimpleStringProperty(ref.getEmployee());
             fields = new LinkedList<>(Arrays.asList(patientIDTable.get(), Integer.toString(numStaffNeededTable.get()),
-                    destinationTable.get(),transportationMethodsTable.get()));
+                    destinationTable.get(), transportationMethodsTable.get()));
         }
 
         public LinkedList<String> getFields() {
             return fields;
         }
 
-        public String getTransportationMethod(){
+        public String getTransportationMethod() {
             return transportationMethodsTable.get();
         }
 
@@ -2938,20 +3013,20 @@ EmergencyCompletedColumn
             return ref;
         }
 
-        public String getPatientID(){
+        public String getPatientID() {
             return patientIDTable.get();
         }
 
-        public int getNumStaffNeeded(){
+        public int getNumStaffNeeded() {
             return numStaffNeededTable.get();
         }
 
-        public String getDestination(){
+        public String getDestination() {
             return destinationTable.get();
         }
     }
 
-    public class cs extends RecursiveTreeObject<cs> implements service{
+    public class cs extends RecursiveTreeObject<cs> implements service {
         public StringProperty name;
         public StringProperty DOB;
         public boolean sick;
@@ -2977,7 +3052,7 @@ EmergencyCompletedColumn
             this.completed = completed;
         }
 
-        public cs(edu.wpi.MochaManticores.Services.ServiceRequest ref){
+        public cs(edu.wpi.MochaManticores.Services.ServiceRequest ref) {
             this.ref = (COVIDsurvey) ref;
             name = new SimpleStringProperty(((COVIDsurvey) ref).getName());
             DOB = new SimpleStringProperty(((COVIDsurvey) ref).getDOB());
@@ -3054,7 +3129,7 @@ EmergencyCompletedColumn
         }
     }
 
-    public class er extends RecursiveTreeObject<er> implements service{
+    public class er extends RecursiveTreeObject<er> implements service {
         public StringProperty numPeopleNeeded;
         public StringProperty location;
         public StringProperty gurney;
@@ -3063,13 +3138,13 @@ EmergencyCompletedColumn
         public boolean completed;
         public LinkedList<String> fields;
 
-        public er(ServiceRequest ref){
+        public er(ServiceRequest ref) {
             this.ref = (EmergencyRequest) ref;
             numPeopleNeeded = new SimpleStringProperty(String.valueOf(((EmergencyRequest) ref).getNumPeopleNeeded()));
             location = new SimpleStringProperty(((EmergencyRequest) ref).getLocation());
             gurney = new SimpleStringProperty(String.valueOf(((EmergencyRequest) ref).isGurney()));
             employee = new SimpleStringProperty(ref.getEmployee());
-            completed = false;
+            completed = ref.getCompleted();
             fields = new LinkedList<String>(
                     Arrays.asList(numPeopleNeeded.get(),
                             location.get(),
@@ -3129,7 +3204,7 @@ EmergencyCompletedColumn
         }
     }
 
-    public class ls extends RecursiveTreeObject<ls> implements service{
+    public class ls extends RecursiveTreeObject<ls> implements service {
 
         public LaundryRequest ref;
         public StringProperty name;
@@ -3218,7 +3293,7 @@ EmergencyCompletedColumn
             return fields;
         }
 
-        public ls(ServiceRequest ref){
+        public ls(ServiceRequest ref) {
             this.ref = (LaundryRequest) ref;
             name = new SimpleStringProperty(((LaundryRequest) ref).getName());
             soilLevel = new SimpleStringProperty(((LaundryRequest) ref).getSoilLevel());
@@ -3240,7 +3315,7 @@ EmergencyCompletedColumn
         }
     }
 
-    public class fs extends RecursiveTreeObject<fs> implements service{
+    public class fs extends RecursiveTreeObject<fs> implements service {
         FloralDelivery ref;
         StringProperty roomNumber;
         StringProperty deliveryChoice;
@@ -3251,7 +3326,7 @@ EmergencyCompletedColumn
         boolean completed;
         LinkedList<String> fields;
 
-        public fs(ServiceRequest ref){
+        public fs(ServiceRequest ref) {
             this.ref = (FloralDelivery) ref;
             roomNumber = new SimpleStringProperty(((FloralDelivery) ref).getRoomNumber());
             deliveryChoice = new SimpleStringProperty(((FloralDelivery) ref).getDeliveryChoice());
@@ -3259,7 +3334,7 @@ EmergencyCompletedColumn
             vaseOptions = new SimpleStringProperty(((FloralDelivery) ref).getVaseOptions());
             personalizedNote = new SimpleStringProperty(((FloralDelivery) ref).getPersonalizedNote());
             employee = new SimpleStringProperty(ref.getEmployee());
-            completed = false;
+            completed = ref.getCompleted();
             fields = new LinkedList<String>(
                     Arrays.asList(
                             roomNumber.get(),
@@ -3338,17 +3413,17 @@ EmergencyCompletedColumn
         }
     }
 
-    public interface service{
+    public interface service {
 
     }
 
-    public enum serviceStatus{
+    public enum serviceStatus {
         COMPLETED,
         PROGRESS,
-        UNASSIGNED;
+        UNASSIGNED
     }
 
-    public enum covidStatus{
+    public enum covidStatus {
         ADMIT,
         RESTRICTED
     }
