@@ -25,6 +25,7 @@
     -jfx-unfocus-color: grey;
     -jfx-focus-color: #0F4B91;
     -fx-font-size: 20;
+    -fx-font-weight: bold;
 }
 
 .jfx-combo-box .text-field:focused {

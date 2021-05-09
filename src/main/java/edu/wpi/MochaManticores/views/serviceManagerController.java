@@ -3144,7 +3144,7 @@ EmergencyCompletedColumn
             location = new SimpleStringProperty(((EmergencyRequest) ref).getLocation());
             gurney = new SimpleStringProperty(String.valueOf(((EmergencyRequest) ref).isGurney()));
             employee = new SimpleStringProperty(ref.getEmployee());
-            completed = false;
+            completed = ref.getCompleted();
             fields = new LinkedList<String>(
                     Arrays.asList(numPeopleNeeded.get(),
                             location.get(),
