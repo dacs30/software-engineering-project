@@ -1,12 +1,17 @@
 package edu.wpi.MochaManticores.database;
 
+import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import edu.wpi.MochaManticores.Exceptions.InvalidLoginException;
 import edu.wpi.MochaManticores.Exceptions.InvalidPermissionsException;
+import edu.wpi.MochaManticores.Nodes.EdgeMapSuper;
 import edu.wpi.MochaManticores.Nodes.EdgeSuper;
+import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.Services.ServiceMap;
 import edu.wpi.MochaManticores.Services.ServiceRequest;
+import edu.wpi.MochaManticores.messaging.Message;
+import javafx.scene.shape.Mesh;
 import javafx.util.Pair;
 
 import java.io.FileNotFoundException;
@@ -21,17 +26,17 @@ public class DatabaseManager{
     private static NodeManager nodeManager = null;
     private static EdgeManager edgeManager = null;
 
-    private static EmergencyManager emergencyManager = null;
-    private static ExtTransportManager extTransportManager = null;
-    private static IntTransportManager intTransportManager = null;
-    private static FoodDeliveryManager foodDeliveryManager = null;
-    private static FloralDeliveryManager floralDeliveryManager = null;
-    private static SanitationServiceManager sanitationServiceManager = null;
-    private static ReligiousManager religiousManager = null;
-    private static MedicineRequestManager medicineRequestManager = null;
-    private static LaundryManager laundryManager = null;
-    private static LanguageInterpreterManager languageInterpreterManager = null;
-    private static COVIDmanager coviDmanager = null;
+    public static EmergencyManager emergencyManager = null;
+    public static ExtTransportManager extTransportManager = null;
+    public static IntTransportManager intTransportManager = null;
+    public static FoodDeliveryManager foodDeliveryManager = null;
+    public static FloralDeliveryManager floralDeliveryManager = null;
+    public static SanitationServiceManager sanitationServiceManager = null;
+    public static ReligiousManager religiousManager = null;
+    public static MedicineRequestManager medicineRequestManager = null;
+    public static LaundryManager laundryManager = null;
+    public static LanguageInterpreterManager languageInterpreterManager = null;
+    public static COVIDmanager coviDmanager = null;
 
     private static ServiceMap serviceMap = null;
 
@@ -82,6 +87,7 @@ public class DatabaseManager{
      */
     public static void addRequest(sel s, ServiceRequest request){
         getManager(s).addElement(request);
+        sendUpdate();
     }
 
     /*  function: addNode()
@@ -90,6 +96,7 @@ public class DatabaseManager{
      */
     public static void addNode(NodeSuper node){
         getNodeManager().addElement(node);
+        sendUpdate();
     }
 
     /*  function: addEdge()
@@ -98,6 +105,7 @@ public class DatabaseManager{
      */
     public static void addEdge(EdgeSuper edge){
         getEdgeManager().addElement(edge);
+        sendUpdate();
     }
 
     /*  function: addEmployee()
@@ -106,6 +114,7 @@ public class DatabaseManager{
      */
     public static void addEmployee(Employee employee){
         getEmpManager().addElement(employee);
+        sendUpdate();
     }
 
     /*  function: addElement()
@@ -115,6 +124,7 @@ public class DatabaseManager{
     public static void delElement(sel s, String ID) {
         try {
             getManager(s).delElement(ID);
+            sendUpdate();
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -127,6 +137,7 @@ public class DatabaseManager{
     public static void modRequest(sel s, String ID, ServiceRequest request){
         try{
             getManager(s).modElement(ID,request);
+            sendUpdate();
         }catch(SQLException e) {
             e.printStackTrace();
         }
@@ -139,6 +150,7 @@ public class DatabaseManager{
     public static void modNode(String ID, NodeSuper newNode){
         try{
             getNodeManager().modElement(ID,newNode);
+            sendUpdate();
         }catch(SQLException e) {
             e.printStackTrace();
         }
@@ -151,6 +163,7 @@ public class DatabaseManager{
     public static void modEdge(String ID, EdgeSuper newEdge){
         try{
             getEdgeManager().modElement(ID,newEdge);
+            sendUpdate();
         }catch(SQLException e) {
             e.printStackTrace();
         }
@@ -163,6 +176,7 @@ public class DatabaseManager{
     public static void modEmployee(String ID, Employee newEmployee){
         try{
             getEmpManager().modElement(ID,newEmployee);
+            sendUpdate();
         }catch(SQLException e) {
             e.printStackTrace();
         }
@@ -323,6 +337,12 @@ public class DatabaseManager{
      */
     private static void setCSV_path(sel s, String path){
         getManager(s).setCSV_path(path);
+    }
+
+    //sends update request through current client
+    private static void sendUpdate(){
+        Message msg = new Message(App.getCurrentUsername(),"ALL","NULL", Message.msgType.UPDATE);
+        App.getClient().sendMsg(msg);
     }
 
     // ==== getters and setters ===== //

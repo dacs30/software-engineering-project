@@ -235,4 +235,9 @@ public class EmployeeManager extends Manager<Employee>{
         PreparedStatement pstmt = connection.prepareStatement(sql);
         int result = pstmt.executeUpdate();
     }
+
+    @Override
+    public void updateElementMap() throws SQLException {
+        //no map
+    }
 }

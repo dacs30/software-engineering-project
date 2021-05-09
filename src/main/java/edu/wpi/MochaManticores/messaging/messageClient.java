@@ -86,6 +86,16 @@ public class messageClient {
         }
     }
 
+    public void sendMsg(Message msg){
+        try {
+            output.writeUTF(msg.toWriteFormat());
+            output.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public void closeGUI(){
         reader.stopGUI();
     }

@@ -2,8 +2,6 @@ package edu.wpi.MochaManticores.database;
 
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import edu.wpi.MochaManticores.Services.ExternalTransportation;
-import edu.wpi.MochaManticores.Services.FoodDelivery;
-import edu.wpi.MochaManticores.Services.ServiceMap;
 import edu.wpi.MochaManticores.Services.ServiceRequestType;
 
 import java.io.*;
@@ -147,6 +145,7 @@ public class ExtTransportManager extends Manager<ExternalTransportation> {
         // not implemented
     }
 
+    @Override
     public void updateElementMap() throws SQLException {
         String sql = "SELECT * FROM EXTTRANSPORT";
         Statement stmt = connection.createStatement();

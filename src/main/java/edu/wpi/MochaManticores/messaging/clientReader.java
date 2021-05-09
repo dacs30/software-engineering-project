@@ -1,11 +1,17 @@
 package edu.wpi.MochaManticores.messaging;
 
+import edu.wpi.MochaManticores.Nodes.EdgeMapSuper;
+import edu.wpi.MochaManticores.Nodes.MapSuper;
+import edu.wpi.MochaManticores.database.DatabaseManager;
+import edu.wpi.MochaManticores.database.sel;
 import javafx.application.Platform;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Objects;
 
 public class clientReader implements Runnable{
     public HashMap<String,LinkedList<Message>> messageHistory = new HashMap<>();
@@ -43,6 +49,9 @@ public class clientReader implements Runnable{
                 if(msg.TYPE == Message.msgType.SHUTDOWN){
                     running = false;
                     break;
+                }else if(msg.TYPE == Message.msgType.UPDATE){
+                    refreshDB();
+                    break;
                 }
 
                 if(this.GUIconnected){
@@ -54,6 +63,39 @@ public class clientReader implements Runnable{
             }catch (IOException e){
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void refreshDB() {
+        /* function: refreshTables()
+         * runs when called by clientReader upon update message
+         * refreshes hash tables by reloading the database and rebuilding the hashtables
+         * @return void
+         */
+        try {
+            MapSuper.getMap().clear();
+            DatabaseManager.getNodeManager().updateElementMap();
+        } catch (SQLException throwables) {
+            System.out.println("problem with node map");
+            throwables.printStackTrace();
+        }
+        try {
+            EdgeMapSuper.getMap().clear();
+            DatabaseManager.getEdgeManager().updateElementMap();
+        } catch (SQLException throwables) {
+            System.out.println("problem with edge map");
+            throwables.printStackTrace();
+        }
+        try {
+            DatabaseManager.getServiceMap().clearMap();
+            for (sel s : sel.values()) {
+                if (s != sel.NODE | s != sel.EDGE) {
+                    Objects.requireNonNull(DatabaseManager.getManager(s)).updateElementMap();
+                }
+            }
+        } catch (SQLException throwables) {
+            System.out.println("problem with service map");
+            throwables.printStackTrace();
         }
     }
 

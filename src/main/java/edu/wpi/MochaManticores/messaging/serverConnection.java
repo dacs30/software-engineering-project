@@ -1,5 +1,7 @@
 package edu.wpi.MochaManticores.messaging;
 
+import edu.wpi.MochaManticores.database.DatabaseManager;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -31,17 +33,21 @@ public class serverConnection implements Runnable {
                 // shutdown procedure here
                 switch (msg.TYPE){
                     case MSGPOST:
+                        System.out.println(" User: [" + user + "] MESSAGE POST to target: [" + msg.target + "]");
                         server.msgpost(msg);
                         break;
                     case UPDATE:
-                        //TODO
+                        System.out.println(" User: [" + user + "] UPDATE REQUEST");
+                        server.sendUpdate(msg);
                         break;
                     case DATAGRAB:
                         user = msg.sender;
+                        System.out.println(" User: [" + user + "] DATAGRAB REQUEST");
                         server.datagrab(msg);
                         break;
                     case SHUTDOWN:
                         sendMessage(msg);
+                        System.out.println(" User: [" + user + "] SHUTDOWN REQUEST");
                         running = false;
                         break;
                 }

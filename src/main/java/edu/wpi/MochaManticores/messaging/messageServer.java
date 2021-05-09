@@ -18,6 +18,7 @@ public class messageServer implements Runnable{
     public void run() {
         try {
             // create server socket
+            System.out.println("| Connecting at port " + connectionUtil.getPort());
             ServerSocket serverSocket = new ServerSocket(connectionUtil.getPort());
             serverSocket.setSoTimeout(200);
 
@@ -28,13 +29,24 @@ public class messageServer implements Runnable{
                     serverConnection connection = new serverConnection(socket, this);
                     connectionsList.add(connection);
 
+                    System.out.println("| Socket connection accepted: " + socket.toString());
+
                     Thread thread = new Thread(connection);
                     thread.start();
                 }catch(SocketTimeoutException Ignored){}
             }
 
         } catch (IOException e) {
+            System.out.println("\u001B[41m" +"| Connecting failed" + "\u001B[46m");
             e.printStackTrace();
+        }
+    }
+
+    public void sendUpdate(Message msg){
+        for(serverConnection connect : this.connectionsList){
+            if(connect.getUser() != null && !connect.getUser().equals(msg.sender)){
+                connect.sendMessage(msg);
+            }
         }
     }
 

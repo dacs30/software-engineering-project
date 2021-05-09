@@ -43,7 +43,6 @@ public class App extends Application {
   public static void setClient(messageClient client) {
     App.client = client;
   }
-
   public static GeoApiContext getContext() {
     return context;
   }

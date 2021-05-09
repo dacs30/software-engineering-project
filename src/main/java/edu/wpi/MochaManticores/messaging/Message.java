@@ -1,7 +1,7 @@
 package edu.wpi.MochaManticores.messaging;
 
 public class Message {
-    enum msgType {DATAGRAB,UPDATE,MSGPOST,SHUTDOWN};
+    public enum msgType {DATAGRAB,UPDATE,MSGPOST,SHUTDOWN};
 
     public String sender;
     public String target;

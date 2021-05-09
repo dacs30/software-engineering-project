@@ -1,8 +1,6 @@
 package edu.wpi.MochaManticores.database;
 
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
-import edu.wpi.MochaManticores.Services.ExternalTransportation;
-import edu.wpi.MochaManticores.Services.FoodDelivery;
 import edu.wpi.MochaManticores.Services.LanguageInterpreterRequest;
 import edu.wpi.MochaManticores.Services.ServiceRequestType;
 
@@ -147,6 +145,7 @@ public class LanguageInterpreterManager extends Manager<LanguageInterpreterReque
         //implement clean table function here
     }
 
+    @Override
     public void updateElementMap() throws SQLException {
         String sql = "SELECT * FROM LANGINTREQ";
         Statement stmt = connection.createStatement();

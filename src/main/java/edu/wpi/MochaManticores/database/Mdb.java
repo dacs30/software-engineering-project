@@ -1,19 +1,13 @@
 package edu.wpi.MochaManticores.database;
 
 
-import edu.wpi.MochaManticores.App;
-import edu.wpi.MochaManticores.Services.FloralDelivery;
-import edu.wpi.MochaManticores.Services.SanitationServices;
 import edu.wpi.MochaManticores.connectionUtil;
 import org.apache.derby.drda.*;
 
-import javax.xml.crypto.Data;
 import java.io.FileNotFoundException;
-import java.net.ConnectException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.sql.*;
-import java.util.Scanner;
 
 
 public class Mdb extends Thread{
@@ -416,9 +410,6 @@ public class Mdb extends Thread{
             throwables.printStackTrace();
         }
     }
-
-
-
     /*
     function embedded startup()
     starts the embedded database connection
