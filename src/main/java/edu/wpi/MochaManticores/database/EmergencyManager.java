@@ -2,7 +2,6 @@ package edu.wpi.MochaManticores.database;
 
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import edu.wpi.MochaManticores.Services.EmergencyRequest;
-import edu.wpi.MochaManticores.Services.FoodDelivery;
 import edu.wpi.MochaManticores.Services.ServiceRequestType;
 
 import java.io.*;
@@ -146,6 +145,7 @@ public class EmergencyManager  extends Manager<EmergencyRequest> {
         // not implemented
     }
 
+    @Override
     public void updateElementMap() throws SQLException {
         String sql = "SELECT * FROM EMGREQ";
         Statement stmt = connection.createStatement();

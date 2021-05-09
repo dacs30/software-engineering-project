@@ -152,6 +152,7 @@ public class COVIDmanager extends Manager<COVIDsurvey> {
 
     }
 
+    @Override
     public void updateElementMap() throws SQLException {
         String sql = "SELECT * FROM COVID";
         Statement stmt = connection.createStatement();

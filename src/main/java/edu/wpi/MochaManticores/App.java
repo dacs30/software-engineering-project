@@ -13,7 +13,8 @@ import edu.wpi.MochaManticores.database.EdgeManager;
 import edu.wpi.MochaManticores.database.EmployeeManager;
 import edu.wpi.MochaManticores.database.NodeManager;
 import edu.wpi.MochaManticores.database.*;
-import edu.wpi.MochaManticores.messaging.connectionUtil;
+import edu.wpi.MochaManticores.messaging.clientReader;
+import edu.wpi.MochaManticores.messaging.messageClient;
 import edu.wpi.MochaManticores.messaging.messageServer;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -31,15 +32,23 @@ public class App extends Application {
   private static EdgeManager edgeManager;
   private static EmployeeManager employeeManager;
   private static PathPlanning algoType = new AStar2();
-  private static String currentUsername;
   private static GeoApiContext context;
+  private static String currentUsername = null;
+  private static messageClient client = new messageClient();
 
+  public static messageClient getClient() {
+    return client;
+  }
+
+  public static void setClient(messageClient client) {
+    App.client = client;
+  }
   public static GeoApiContext getContext() {
     return context;
   }
 
   public static String getCurrentUsername() {
-    return currentUsername;
+    return App.currentUsername;
   }
 
   public static void setCurrentUsername(String currentUsername) {
@@ -91,7 +100,7 @@ public class App extends Application {
     System.out.println("Starting Up");
     System.out.println("Starting Database");
     DatabaseManager.startup();
-    startServer();
+    client.startServer();
   }
 
   @Override
@@ -127,22 +136,10 @@ public class App extends Application {
     return primaryStage;
   }
 
-
-  public static void startServer(){
-    try {
-      Socket socket = new Socket(connectionUtil.host, connectionUtil.port);
-      socket.close();
-    }catch(IOException e){
-      // no server, start server
-      messageServer server = new messageServer();
-      Thread serverThread = new Thread(server);
-      serverThread.start();
-    }
-  }
-
   @Override
   public void stop() {
     System.out.println("Shutting Down");
     DatabaseManager.shutdown();
+    client.shutdown();
   }
 }

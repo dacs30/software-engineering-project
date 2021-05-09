@@ -1,7 +1,6 @@
 package edu.wpi.MochaManticores.database;
 
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
-import edu.wpi.MochaManticores.Services.FoodDelivery;
 import edu.wpi.MochaManticores.Services.MedicineRequest;
 import edu.wpi.MochaManticores.Services.ServiceRequestType;
 
@@ -147,6 +146,7 @@ public class MedicineRequestManager extends Manager<MedicineRequest> {
         //implement clean table
     }
 
+    @Override
     public void updateElementMap() throws SQLException {
         String sql = "SELECT * FROM MEDREQ";
         Statement stmt = connection.createStatement();
