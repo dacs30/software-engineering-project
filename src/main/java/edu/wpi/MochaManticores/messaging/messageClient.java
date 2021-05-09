@@ -4,6 +4,7 @@ import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.connectionUtil;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import org.apache.derby.iapi.sql.conn.ConnectionUtil;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -40,14 +41,22 @@ public class messageClient {
     }
 
     public void startServer(){
-        try {
-            socket = new Socket(connectionUtil.getHost(), connectionUtil.getPort());
+        //try remote connection first, if unavaliable then set connection util to use local params
+        try{
+            socket = new Socket(connectionUtil.getHost(),connectionUtil.getPort());
             socket.close();
-        }catch(IOException e){
-            // no server, start server
-            server = new messageServer();
-            serverThread = new Thread(server);
-            serverThread.start();
+        }catch (IOException ex){
+            //remote connection failed, perfom local connection attempt
+            connectionUtil.local = true;
+            try {
+                socket = new Socket(connectionUtil.getHost(), connectionUtil.getPort());
+                socket.close();
+            }catch(IOException e){
+                // no server, start server
+                server = new messageServer();
+                serverThread = new Thread(server);
+                serverThread.start();
+            }
         }
     }
 
