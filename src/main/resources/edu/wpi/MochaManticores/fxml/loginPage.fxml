@@ -1,20 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXDialogLayout?>
-<?import com.jfoenix.controls.JFXPasswordField?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.geometry.Insets?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.shape.Rectangle?>
-
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <AnchorPane prefHeight="800.0" prefWidth="1207.0" stylesheets="@../Stylesheets/loginPage.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.LoginPage">
    <children>
       <ImageView id="backgroundPhoto" fx:id="backgroundIMG" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
@@ -44,8 +35,8 @@
                      </columnConstraints>
                      <rowConstraints>
                         <RowConstraints maxHeight="259.25927734375" minHeight="10.0" prefHeight="226.1111297607422" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="194.0740509033203" minHeight="0.0" prefHeight="37.666656494140625" valignment="CENTER" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="492.0" minHeight="10.0" prefHeight="454.3333435058594" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="194.0740509033203" minHeight="0.0" prefHeight="69.0" valignment="CENTER" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="492.0" minHeight="10.0" prefHeight="423.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="328.0000305175781" minHeight="10.0" prefHeight="81.6666259765625" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
@@ -112,9 +103,9 @@
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints maxHeight="259.25927734375" minHeight="10.0" prefHeight="197.55557250976562" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="194.0740509033203" minHeight="10.0" prefHeight="122.370361328125" valignment="CENTER" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="432.48150634765625" minHeight="10.0" prefHeight="310.51849365234375" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="328.0000305175781" minHeight="10.0" prefHeight="170.48150634765625" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="194.0740509033203" minHeight="10.0" prefHeight="123.66668701171875" valignment="CENTER" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="432.48150634765625" minHeight="10.0" prefHeight="333.99993896484375" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="328.0000305175781" minHeight="10.0" prefHeight="146.00006103515625" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <ImageView fitHeight="150.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">

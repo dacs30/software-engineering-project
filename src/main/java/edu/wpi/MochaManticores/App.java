@@ -1,18 +1,12 @@
 package edu.wpi.MochaManticores;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.Socket;
-import java.sql.SQLException;
-import java.util.Objects;
-
 import com.google.maps.GeoApiContext;
 import edu.wpi.MochaManticores.Algorithms.AStar2;
 import edu.wpi.MochaManticores.Algorithms.PathPlanning;
+import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.EdgeManager;
 import edu.wpi.MochaManticores.database.EmployeeManager;
 import edu.wpi.MochaManticores.database.NodeManager;
-import edu.wpi.MochaManticores.database.*;
 import edu.wpi.MochaManticores.messaging.connectionUtil;
 import edu.wpi.MochaManticores.messaging.messageServer;
 import javafx.application.Application;
@@ -22,6 +16,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.Socket;
+import java.sql.SQLException;
+import java.util.Objects;
 
 public class App extends Application {
 
@@ -109,8 +109,6 @@ public class App extends Application {
       //primaryStage.setMaximized(true);
       //primaryStage.setFullScreen(true);
       primaryStage.setScene(scene);
-      primaryStage.setMinHeight(800);
-      primaryStage.setMinWidth(1280);
       primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
       primaryStage.show();
       root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("fxml/loginPage.fxml")));
