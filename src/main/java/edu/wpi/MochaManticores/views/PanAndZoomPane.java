@@ -76,9 +76,21 @@ public class PanAndZoomPane extends Pane {
         setPivot(x, y, scale);
     }
 
-    public void centerOnPoint(double x, double y){
+    public void centerOnPoint(double CenterX, double CenterY){
+        if(CenterX < this.getWidth()/2){
+            CenterX = (this.getWidth()/2) - CenterX;
+            CenterX *=-1;
+        }else{
+            CenterX -= this.getWidth();
+        }
+        if(CenterY < this.getHeight()/2){
+            CenterY = (this.getHeight()/2) - CenterY;
+            CenterY *=-1;
+        }else{
+            CenterY -= this.getHeight();
+        }
 
-        setPivot(x,y,2.0d);
+        setPivot(CenterX,CenterY,2.0d);
     }
 
     public double getDeltaY() {

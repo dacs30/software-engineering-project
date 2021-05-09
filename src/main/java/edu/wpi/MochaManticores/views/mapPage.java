@@ -417,7 +417,6 @@ public class mapPage extends SceneController {
         mapScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         mapScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
-        PanAndZoomPane panAndZoomPane = new PanAndZoomPane();
         zoomProperty.bind(panAndZoomPane.myScale);
         deltaY.bind(panAndZoomPane.deltaY);
         panAndZoomPane.getChildren().add(mapStack);
@@ -1123,12 +1122,18 @@ public class mapPage extends SceneController {
                     n.c.setRadius(4);
                 }
             }
+
+            double CenterX = pitStops.getFirst().getxCoord();
+            double CenterY = pitStops.getFirst().getyCoord();
+
+
+
             pitStops = new LinkedList<>();
             double xRatio = 5000 / mapWindow.getFitWidth();
             double yRatio = 3400 / mapWindow.getFitHeight();
             directionPane.setContent(dirVBOX);
             //loadDialog(pathToTake); // calling the dialog pane with the path
-            //TODO: panAndZoomPane.setPivot((stops.getFirst().getXcoord() / xRatio) - mapWindow.getFitWidth()/2,(stops.getFirst().getYcoord()/yRatio) - mapWindow.getFitHeight()/2,2);
+            panAndZoomPane.centerOnPoint(CenterX,CenterY);
 
         }
     }
@@ -1168,6 +1173,7 @@ public class mapPage extends SceneController {
         drawNodes();
         updateFields();
         dirVBOX.getChildren().clear();
+        panAndZoomPane.resetZoom();
     }
 
     public void drawNodes() {
