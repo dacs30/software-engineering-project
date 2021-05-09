@@ -109,6 +109,8 @@ public class covidSurveyController extends SceneController{
     @FXML
     private JFXButton submitBtn;
     @FXML
+    private ImageView helpButton;
+    @FXML
     private JFXButton yesBtn;
     @FXML
     private JFXButton noBtn;
@@ -200,6 +202,8 @@ public class covidSurveyController extends SceneController{
        loadSubmitDialog();
     }
 
+    public void helpEvent() { loadHelpDialogue();}
+
     public void loadSubmitDialog(){
             dialogPane.toFront();
             dialogPane.setDisable(false);
@@ -222,7 +226,7 @@ public class covidSurveyController extends SceneController{
 
             message.setBody(body);
             JFXDialog finalDialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
-            JFXButton ok = new JFXButton("OK");
+            JFXButton ok = new JFXButton("Done");
             ok.setOnAction(event -> {
                 changeSceneTo("landingPage");
             });
@@ -235,6 +239,47 @@ public class covidSurveyController extends SceneController{
             message.setActions(ok);
             finalDialog.show();
     }
+
+    public void loadHelpDialogue(){
+        dialogPane.toFront();
+        JFXDialogLayout message = new JFXDialogLayout();
+        message.setMaxHeight(Region.USE_COMPUTED_SIZE);
+        message.setMaxHeight(Region.USE_COMPUTED_SIZE);
+
+        final Text hearder = new Text("Help Page");
+        hearder.setStyle("-fx-font-weight: bold");
+        hearder.setStyle("-fx-font-size: 60");
+        hearder.setStyle("-fx-font-family: Roboto");
+        hearder.setStyle("-fx-alignment: center");
+        message.setHeading(hearder);
+
+        final Text body = new Text("Patient Name: Please put your name in the text field provided.\n" +
+                                    "Have you been clinically diagnosed to have COVID-19?: \n" +
+                                    "Please select YES if you have been declared already by a medical professional,\n" +
+                                    "otherwise select NO and proceed with the rest of the survey.");
+        body.setStyle("-fx-font-size: 40");
+        body.setStyle("-fx-font-family: Roboto");
+        body.setStyle("-fx-alignment: center");
+
+        message.setBody(body);
+
+
+        JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
+
+        JFXButton cont = new JFXButton("Continue");
+        cont.setOnAction(event -> {
+            dialog.close();
+        });
+
+        dialog.setOnDialogClosed(event -> {
+            dialog.close();
+        });
+
+        message.setActions(cont);
+        dialog.show();
+
+    }
+
     public void loadCOVIDPositiveDialog(){
         dialogPane.toFront();
         dialogPane.setDisable(false);
@@ -267,7 +312,7 @@ public class covidSurveyController extends SceneController{
         message.setBody(vbox);
 
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
-        JFXButton ok = new JFXButton("OK");
+        JFXButton ok = new JFXButton("Done");
         ok.setOnAction(event -> {
             dialogPane.toBack();
             dialog.close();
@@ -313,7 +358,7 @@ public class covidSurveyController extends SceneController{
 
         message.setBody(body);
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
-        JFXButton ok = new JFXButton("OK");
+        JFXButton ok = new JFXButton("Continue");
         ok.setOnAction(event -> {
             dialog.toBack();
             dialog.setVisible(false);

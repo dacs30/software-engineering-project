@@ -206,7 +206,8 @@ public class MedicineDeliveryEmployee {
         final Text body = new Text("Type of Medicine: Select a medicine from the provided dropdown.\n" +
                 "Please check of one or more boxes to describe the pain you are experiencing.\n" +
                 "Allergies: Type out any known allergies to any medication that you know of.\n" +
-                "Patient Room: The current room in the hospital that the patient resides in.");
+                "Patient Room: The current room in the hospital that the patient resides in.\n"+
+                "Assign to Employee: Select an employee from the provided dropdown menu.");
         body.setStyle("-fx-font-size: 40");
         body.setStyle("-fx-font-family: Roboto");
         body.setStyle("-fx-alignment: center");

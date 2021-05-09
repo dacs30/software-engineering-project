@@ -31,8 +31,6 @@ public class internalTransportationController extends SceneController{
     @FXML
     private JFXTextField destination;
     @FXML
-    private JFXTextField empBox;
-    @FXML
     private JFXComboBox<String> transportComboBox;
 
     @FXML
@@ -61,11 +59,6 @@ public class internalTransportationController extends SceneController{
 
         transportComboBox.setItems(typeOfTransportList);
 
-        dialogPane.toBack();
-
-        if(App.getClearenceLevel()<=0){
-            empBox.setVisible(false);
-        }
     }
 
     public void goBack(ActionEvent actionEvent) {
@@ -139,7 +132,7 @@ public class internalTransportationController extends SceneController{
         message.setMaxHeight(Region.USE_PREF_SIZE);
         message.setMaxHeight(Region.USE_PREF_SIZE);
 
-        final Text hearder = new Text("Your request has been submitted.");
+        final Text hearder = new Text("Submitted request.");
         hearder.setStyle("-fx-font-weight: bold");
         hearder.setStyle("-fx-font-size: 30");
         hearder.setStyle("-fx-font-family: Roboto");
