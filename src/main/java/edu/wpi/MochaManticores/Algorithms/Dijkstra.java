@@ -44,7 +44,8 @@ public class Dijkstra implements PathPlanning{
             path = findRoute(stops.getFirst(), stops.getLast());
         } else {
             path = findRoute(stops.pop(), stops.getFirst());
-            for (int i = 0; i < stops.size() - 1; i++) {
+            int j = stops.size();
+            for (int i = 0; i < j - 1; i++) {
                 path.removeLast();
                 path.addAll(findRoute(stops.pop(), stops.getFirst()));
             }
