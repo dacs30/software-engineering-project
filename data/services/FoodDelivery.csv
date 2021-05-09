@@ -1,1 +1,3 @@
 REQUESTID,EMPID,COMPLETED,DIETARYPREFERENCES,ALLERGIES,MENU,
+FOOD0,Sai Vadlamudi,true,Vegetarian,,Menu 2,
+FOOD1,,false,Vegan,hewhfha,Menu 1,
