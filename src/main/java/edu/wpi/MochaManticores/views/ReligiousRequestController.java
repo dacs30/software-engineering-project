@@ -1,6 +1,9 @@
 package edu.wpi.MochaManticores.views;
 
-import com.jfoenix.controls.*;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.JFXTextField;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Services.ReligiousRequest;
 import edu.wpi.MochaManticores.database.DatabaseManager;

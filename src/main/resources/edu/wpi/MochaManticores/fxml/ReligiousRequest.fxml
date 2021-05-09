@@ -36,7 +36,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <GridPane id="formsGrid" fx:id="formSquare" maxHeight="700.0" maxWidth="1000.0" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../Stylesheets/ReligiousRequest.css">
+                <GridPane id="formsGrid" fx:id="formSquare" maxHeight="700.0" maxWidth="1000.0" prefHeight="700.0" prefWidth="1000.0">
                     <columnConstraints>
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -52,7 +52,7 @@
                     </GridPane.margin>
                     <children>
 
-                        <Label id="religiousTitle" fx:id="religiousTitle" stylesheets="@../Stylesheets/ReligiousRequest.css" text="Religious Request Form" />
+                        <Label id="religiousTitle" fx:id="religiousTitle" stylesheets="@../Stylesheets/ReligiousRequest.css" text="Religious Request" />
 
                         <JFXTextField id="reasonForVisit" fx:id="reasonBox" labelFloat="true" promptText="Reason for visit" GridPane.rowIndex="1" />
 

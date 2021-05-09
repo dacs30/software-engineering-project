@@ -8,10 +8,10 @@ import edu.wpi.MochaManticores.Nodes.NodeSuper;
  */
 public class AStarNode{
     //Declare instance variables
-    private String ID;          //Node ID
+    private final String ID;          //Node ID
     private String lastID;      //ID of the node which leads to this node
     private int costToReach;    //the current lowest cost to reach this node
-    private int estimatedCost;  //heuristic cost to reach the target node
+    private final int estimatedCost;  //heuristic cost to reach the target node
     private int priority;       //the estimated aggregate cost to reach the target node traveling through this node
 
     //A* Constructor
@@ -64,7 +64,7 @@ public class AStarNode{
      */
     @Override
     public boolean equals(Object o) {
-        return ( ((String) o).equals(this.ID));
+        return ( o.equals(this.ID));
     }
 
     /**

@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXDialog?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@../Stylesheets/covidSurvey.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.covidSurveyController">
    <children>
       <ImageView fx:id="backgroundIMG" fitHeight="800.0" fitWidth="1217.0" opacity="0.5" pickOnBounds="true">
@@ -60,10 +70,18 @@
                                  </padding>
                               </JFXTextField>
                               <Label text="Have you been clinically diagnosed with COVID-19?" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                              <JFXButton fx:id="yesBtn" buttonType="RAISED" onAction="#yesEvent" prefHeight="60.0" prefWidth="150.0" stylesheets="@../Stylesheets/covidSurvey.css" text="Yes" translateX="-100.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-                              <JFXButton fx:id="noBtn" buttonType="RAISED" onAction="#noEvent" prefHeight="60.0" prefWidth="150.0" stylesheets="@../Stylesheets/covidSurvey.css" text="No" translateX="100.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+                              <JFXButton fx:id="yesBtn" buttonType="RAISED" onAction="#yesEvent" prefHeight="60.0" prefWidth="100.0" stylesheets="@../Stylesheets/covidSurvey.css" text="Yes" translateX="-100.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+                              <JFXButton fx:id="noBtn" buttonType="RAISED" onAction="#noEvent" prefHeight="60.0" prefWidth="100.0" stylesheets="@../Stylesheets/covidSurvey.css" text="No" translateX="100.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
                            </children>
                         </GridPane>
+                        <ImageView fx:id="helpButton" fitHeight="150.0" fitWidth="40.0" onMouseClicked="#helpEvent" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
+                           <image>
+                              <Image url="@../images/blueHelpBtn.png" />
+                           </image>
+                           <GridPane.margin>
+                              <Insets right="75.0" />
+                           </GridPane.margin>
+                        </ImageView>
                      </children>
                      <effect>
                         <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
@@ -129,7 +147,7 @@
                            <children>
                               <Label text="Are you feeling sick today?:" translateX="50.0" />
                               <JFXCheckBox fx:id="yesSickCB" checkedColor="#0f4b91" onAction="#setSingleSickAnswer" text="Yes" translateX="-150.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                              <JFXCheckBox fx:id="noSickCB" checkedColor="#0f4b91" onAction="#setSingleSickAnswer" text="No" translateX="-75.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                              <JFXCheckBox fx:id="noSickCB" checkedColor="#0f4b91" onAction="#setSingleSickAnswer" text="No" translateX="-70.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                            </children>
                         </GridPane>
                         <GridPane GridPane.halignment="CENTER" GridPane.rowIndex="4">
@@ -142,7 +160,7 @@
                            <children>
                               <Label text="Are you here to take a COVID-19 test?" translateX="50.0" />
                               <JFXCheckBox fx:id="yesCovidTestBox" checkedColor="#0f4b91" onAction="#setSingleCovidTestAnswer" text="Yes" translateX="-40.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                              <JFXCheckBox fx:id="noCovidTestBox" checkedColor="#0f4b91" onAction="#setSingleCovidTestAnswer" text="No" translateX="35.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                              <JFXCheckBox fx:id="noCovidTestBox" checkedColor="#0f4b91" onAction="#setSingleCovidTestAnswer" text="No" translateX="40.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                            </children>
                         </GridPane>
                         <GridPane GridPane.rowIndex="5">
@@ -155,7 +173,7 @@
                            <children>
                               <Label text="Have you traveled in the past 14 days?" translateX="50.0" />
                               <JFXCheckBox fx:id="yesTravelBox" checkedColor="#0f4b91" onAction="#setSingleTravelAnswer" text="Yes" translateX="-40.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                              <JFXCheckBox fx:id="noTravelBox" checkedColor="#0f4b91" onAction="#setSingleTravelAnswer" text="No" translateX="35.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                              <JFXCheckBox fx:id="noTravelBox" checkedColor="#0f4b91" onAction="#setSingleTravelAnswer" text="No" translateX="40.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                            </children>
                         </GridPane>
                         <GridPane GridPane.rowIndex="6">
@@ -168,7 +186,10 @@
                            <children>
                               <Label text="Are you fully vaccinated against COVID-19?" translateX="50.0" />
                               <JFXCheckBox fx:id="yesVaccinatedCB" checkedColor="#0f4b91" onAction="#setSingleVaccineAnswer" text="Yes" translateX="5.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                              <JFXCheckBox fx:id="noVaccinatedCB" checkedColor="#0f4b91" onAction="#setSingleVaccineAnswer" text="No" translateX="80.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                              <JFXCheckBox fx:id="noVaccinatedCB" checkedColor="#0f4b91" onAction="#setSingleVaccineAnswer" text="No" translateX="85.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin></JFXCheckBox>
                            </children>
                         </GridPane>
                         <GridPane GridPane.rowIndex="7">
@@ -180,8 +201,14 @@
                            </rowConstraints>
                            <children>
                               <Label text="Have you been in contact with anyone confirmed to be COVID-19 positive?" translateX="50.0" />
-                              <JFXCheckBox fx:id="yesContactCovidCB" checkedColor="#0f4b91" onAction="#setSingleCovidContactAnswer" text="Yes" translateX="-175.0" GridPane.halignment="RIGHT" />
-                              <JFXCheckBox fx:id="noContactCovidCB" checkedColor="#0f4b91" onAction="#setSingleCovidContactAnswer" text="No" translateX="-100.0" GridPane.halignment="RIGHT" />
+                              <JFXCheckBox fx:id="yesContactCovidCB" checkedColor="#0f4b91" onAction="#setSingleCovidContactAnswer" text="Yes" translateX="-160.0" GridPane.halignment="RIGHT">
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin></JFXCheckBox>
+                              <JFXCheckBox fx:id="noContactCovidCB" checkedColor="#0f4b91" onAction="#setSingleCovidContactAnswer" text="No" translateX="-80.0" GridPane.halignment="RIGHT">
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin></JFXCheckBox>
                            </children>
                         </GridPane>
                         <GridPane prefHeight="82.0" prefWidth="1000.0" GridPane.rowIndex="8">
@@ -217,7 +244,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <JFXButton fx:id="submitBtn" buttonType="RAISED" onAction="#submitEvent" prefHeight="60.0" prefWidth="150.0" stylesheets="@../Stylesheets/covidSurvey.css" text="Submit" translateY="-5.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                              <JFXButton fx:id="submitBtn" buttonType="RAISED" onAction="#submitEvent" stylesheets="@../Stylesheets/covidSurvey.css" text="Submit" translateY="-5.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                            </children>
                         </GridPane>
                      </children>

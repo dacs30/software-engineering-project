@@ -1,9 +1,7 @@
 package edu.wpi.MochaManticores.views;
+
 import com.jfoenix.controls.*;
 import edu.wpi.MochaManticores.App;
-import edu.wpi.MochaManticores.Services.InternalTransportation;
-import edu.wpi.MochaManticores.Services.ServiceRequest;
-import edu.wpi.MochaManticores.Services.ServiceRequestType;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.sel;
 import javafx.collections.FXCollections;
@@ -30,8 +28,6 @@ public class internalTransportationController extends SceneController{
     private JFXTextField numberOfStaff;
     @FXML
     private JFXTextField destination;
-    @FXML
-    private JFXTextField empBox;
     @FXML
     private JFXComboBox<String> transportComboBox;
 
@@ -61,11 +57,6 @@ public class internalTransportationController extends SceneController{
 
         transportComboBox.setItems(typeOfTransportList);
 
-        dialogPane.toBack();
-
-        if(App.getClearenceLevel()<=0){
-            empBox.setVisible(false);
-        }
     }
 
     public void goBack(ActionEvent actionEvent) {
@@ -139,7 +130,7 @@ public class internalTransportationController extends SceneController{
         message.setMaxHeight(Region.USE_PREF_SIZE);
         message.setMaxHeight(Region.USE_PREF_SIZE);
 
-        final Text hearder = new Text("Your request has been submitted.");
+        final Text hearder = new Text("Submitted request.");
         hearder.setStyle("-fx-font-weight: bold");
         hearder.setStyle("-fx-font-size: 30");
         hearder.setStyle("-fx-font-family: Roboto");

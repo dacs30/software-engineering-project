@@ -1,13 +1,13 @@
 package edu.wpi.MochaManticores.messaging;
 
 public class Message {
-    enum msgType {DATAGRAB,UPDATE,MSGPOST};
+    enum msgType {DATAGRAB,UPDATE,MSGPOST}
 
     public String sender;
     public String target;
     public String body;
     public msgType TYPE;
-    private String delim = "[|]+";
+    private final String delim = "[|]+";
 
     public Message(String sender, String target, String body){
         this.sender = sender;

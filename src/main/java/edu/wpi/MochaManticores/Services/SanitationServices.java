@@ -1,11 +1,11 @@
 package edu.wpi.MochaManticores.Services;
 
 public class SanitationServices extends ServiceRequest {
-    private String location;
-    private String safetyHazards;
-    private String sanitationType;
-    private String equipmentNeeded;
-    private String description;
+    private final String location;
+    private final String safetyHazards;
+    private final String sanitationType;
+    private final String equipmentNeeded;
+    private final String description;
 
     public SanitationServices(String RequestID, String employee, boolean completed, String location, String safetyHazards,
                               String sanitationType, String equipmentNeeded, String description) {

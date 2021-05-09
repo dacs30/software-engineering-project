@@ -5,8 +5,6 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import edu.wpi.MochaManticores.App;
-import edu.wpi.MochaManticores.database.DatabaseManager;
-import edu.wpi.MochaManticores.database.sel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;

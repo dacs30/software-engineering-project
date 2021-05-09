@@ -1,9 +1,9 @@
 package edu.wpi.MochaManticores.Services;
 
 public class EmergencyRequest extends ServiceRequest {
-    private int numPeopleNeeded;
-    private String location;
-    private boolean gurney;
+    private final int numPeopleNeeded;
+    private final String location;
+    private final boolean gurney;
 
     public EmergencyRequest(String RequestID, String employee, boolean completed, int numPeopleNeeded, String location, boolean gurney) {
         super(employee, completed, RequestID);

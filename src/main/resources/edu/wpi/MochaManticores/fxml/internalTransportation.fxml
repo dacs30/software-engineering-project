@@ -55,14 +55,12 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <JFXTextField fx:id="patientID" labelFloat="true" promptText="Patient ID" />
                         <JFXTextField fx:id="numberOfStaff" labelFloat="true" promptText="Number of Staff Needed" GridPane.rowIndex="1" />
                         <JFXTextField fx:id="destination" labelFloat="true" promptText="Destination" GridPane.rowIndex="2" />
                         <JFXComboBox fx:id="transportComboBox" prefWidth="400.0" promptText="Method of Transportation" GridPane.rowIndex="3" />
-                        <JFXTextField fx:id="empBox" promptText="Assign to Employee" GridPane.rowIndex="4" />
                      </children>
                   </GridPane>
                   <JFXButton id="submitBtn" fx:id="submitButton" onAction="#submitEvent" text="Submit" GridPane.rowIndex="2" />

@@ -1,9 +1,9 @@
 package edu.wpi.MochaManticores.Services;
 
 public class LanguageInterpreterRequest extends ServiceRequest{
-    private String room;
-    private String languageOne;
-    private String languageTwo;
+    private final String room;
+    private final String languageOne;
+    private final String languageTwo;
 
 
     public LanguageInterpreterRequest(String RequestID, String employee, boolean completed, String room,

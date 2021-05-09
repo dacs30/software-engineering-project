@@ -14,9 +14,9 @@ public class EmployeeManager extends Manager<Employee>{
     private static final String CSVdelim = ",";
 
     EmployeeManager(Connection connection, String Employee_csv_path){
-        this.connection = connection;
+        EmployeeManager.connection = connection;
         if(Employee_csv_path != null){
-            this.Employee_csv_path = Employee_csv_path;
+            EmployeeManager.Employee_csv_path = Employee_csv_path;
         }
     }
 

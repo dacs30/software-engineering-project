@@ -5,10 +5,6 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.event.EventHandler;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
@@ -17,7 +13,7 @@ public class PanAndZoomPane extends Pane {
     public static final double DEFAULT_DELTA = 1.3d;
     DoubleProperty myScale = new SimpleDoubleProperty(1.0);
     public DoubleProperty deltaY = new SimpleDoubleProperty(0.0);
-    private Timeline timeline;
+    private final Timeline timeline;
 
 
     public PanAndZoomPane() {
@@ -39,6 +35,7 @@ public class PanAndZoomPane extends Pane {
     }
 
     public void setPivot( double x, double y, double scale) {
+        System.out.printf("X: %f, Y: %f, SCALE:%f\n",x,y,scale);
         // note: pivot value must be untransformed, i. e. without scaling
         // timeline that scales and moves the node
         if (scale < 1.0d){
@@ -77,6 +74,11 @@ public class PanAndZoomPane extends Pane {
         double y = getTranslateY();
 
         setPivot(x, y, scale);
+    }
+
+    public void centerOnPoint(double x, double y){
+
+        setPivot(x,y,2.0d);
     }
 
     public double getDeltaY() {

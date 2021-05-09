@@ -570,7 +570,7 @@ laundryCompletedColumn
             emps.getSelectionModel().selectedItemProperty().addListener((ov, old_val, new_val) -> {
                 String newEmp = emps.getSelectionModel().getSelectedItem();
                 user.getRef().setEmployee(newEmp);
-                DatabaseManager.modRequest(sel.Medicine, user.getRef().getRequestID(), user.getRef());
+                DatabaseManager.modRequest(sel.Emergency, user.getRef().getRequestID(), user.getRef());
                 buildEmergency("");
             });
 
@@ -2366,6 +2366,12 @@ EmergencyCompletedColumn
                     DatabaseManager.modRequest(sel.FloralDelivery, ((fs) selected).getRef().getRequestID(), ((fs) selected).getRef());
                     buildFloral("");
                     break;
+                case "Emergency":
+                    ((er) selected).setCompleted(val);
+                    ((er) selected).getRef().setCompleted(val);
+                    DatabaseManager.modRequest(sel.Emergency, ((er) selected).getRef().getRequestID(), ((er) selected).getRef());
+                    buildEmergency("");
+                    break;
                 default:
                     break;
             }
@@ -3144,7 +3150,7 @@ EmergencyCompletedColumn
             location = new SimpleStringProperty(((EmergencyRequest) ref).getLocation());
             gurney = new SimpleStringProperty(String.valueOf(((EmergencyRequest) ref).isGurney()));
             employee = new SimpleStringProperty(ref.getEmployee());
-            completed = false;
+            completed = ref.getCompleted();
             fields = new LinkedList<String>(
                     Arrays.asList(numPeopleNeeded.get(),
                             location.get(),

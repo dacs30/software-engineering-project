@@ -36,7 +36,7 @@
     -fx-font-family: Roboto;
     -fx-font-weight: bold;
     -fx-text-fill: white;
-    -fx-font-size: 20;
+    -fx-font-size: 25;
     -fx-border-radius: 40;
     -fx-background-radius: 40;
     transition: background-color 2s ease;

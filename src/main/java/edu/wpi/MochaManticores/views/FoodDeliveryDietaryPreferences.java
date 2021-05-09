@@ -1,17 +1,11 @@
 package edu.wpi.MochaManticores.views;
 
-import edu.wpi.MochaManticores.App;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
-
-import java.io.IOException;
 
 public class FoodDeliveryDietaryPreferences extends SceneController{
 
