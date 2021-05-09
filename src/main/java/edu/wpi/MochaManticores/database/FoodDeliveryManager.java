@@ -1,7 +1,6 @@
 package edu.wpi.MochaManticores.database;
 
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
-import edu.wpi.MochaManticores.Nodes.EdgeSuper;
 import edu.wpi.MochaManticores.Services.FoodDelivery;
 import edu.wpi.MochaManticores.Services.ServiceRequestType;
 
@@ -151,6 +150,7 @@ public class FoodDeliveryManager extends Manager<FoodDelivery> {
         //TODO: implement clean table
     }
 
+    @Override
     public void updateElementMap() throws SQLException {
         String sql = "SELECT * FROM FOODDEL";
         Statement stmt = connection.createStatement();

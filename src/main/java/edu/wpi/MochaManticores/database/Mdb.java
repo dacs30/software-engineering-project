@@ -1,24 +1,23 @@
 package edu.wpi.MochaManticores.database;
 
 
-import edu.wpi.MochaManticores.App;
-import edu.wpi.MochaManticores.Services.FloralDelivery;
-import edu.wpi.MochaManticores.Services.SanitationServices;
+import edu.wpi.MochaManticores.connectionUtil;
 import org.apache.derby.drda.*;
 
-import javax.xml.crypto.Data;
 import java.io.FileNotFoundException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.sql.*;
-import java.util.Scanner;
 
 
 public class Mdb extends Thread{
 
     private DatabaseMetaData meta;
     private Connection connection = null;
+    private NetworkServerControl server = null;
     public String JDBC_EMBED = "jdbc:derby:Mdatabase;create=true";
-    public String JDBC_SERVER = "jdbc:derby://localhost:1527/Mdatabase;create=true";
-
+    public String JDBC_SERVER = connectionUtil.JDBC_SERVER;
+    public String JDBC_REMOTE_SERVER = connectionUtil.JDBC_REMOTE_SERVER;
     /* function nodeStartup()
      * creates the node table if it does not already exist, then populates the table and map
      */
@@ -90,7 +89,7 @@ public class Mdb extends Thread{
                 System.out.println("Creating Employees Table");
                 sql = "CREATE TABLE EMPLOYEES" +
                         "(username VARCHAR(21) not NULL, " +
-                        " password VARCHAR(21), " +
+                        " password VARCHAR(55), " +
                         " firstName VARCHAR(21), " +
                         " lastName VARCHAR(21), " +
                         " employeeType VARCHAR(21)," +
@@ -411,40 +410,31 @@ public class Mdb extends Thread{
             throwables.printStackTrace();
         }
     }
-
-
-
     /*
     function embedded startup()
     starts the embedded database connection
      */
-    public void embeddedStartup(){
-        System.out.println("-------Embedded Apache Derby Connection Testing --------");
+    public boolean embeddedStartup(){
+        System.out.println("-------Embedded Apache Derby Connection --------");
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
         } catch (ClassNotFoundException e) {
             System.out.println("Apache Derby Driver not found. Add the classpath to your module.");
-            System.out.println("For IntelliJ do the following:");
-            System.out.println("File | Project Structure, Modules, Dependency tab");
-            System.out.println("Add by clicking on the green plus icon on the right of the window");
-            System.out.println("Select JARs or directories. Go to the folder where the database JAR is located");
-            System.out.println("Click OK, now you can compile your program and run it.");
             e.printStackTrace();
-            return;
+            return false;
         }
-
-        System.out.println("Apache Derby driver registered!\n");
-        connection = null;
 
         try {
             connection = DriverManager.getConnection(JDBC_EMBED);
             DatabaseManager.setConnection(connection);
             meta = connection.getMetaData();
         } catch (SQLException e) {
+            connection = null;
             System.out.println("Connection failed. Check output console.");
             e.printStackTrace();
-            return;
+            return false;
         }
+        return true;
     }
 
     /*
@@ -452,30 +442,24 @@ public class Mdb extends Thread{
     starts Mdatabase with a server connection
      */
     // TODO update method for all connected databases using an observer model
-    public void serverStartup() {
+    public boolean serverStartup() {
         System.out.println("-------Server-Client Apache Derby Connection--------");
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
         } catch (ClassNotFoundException e) {
             System.out.println("Apache Derby Driver not found. Add the classpath to your module.");
-            System.out.println("For IntelliJ do the following:");
-            System.out.println("File | Project Structure, Modules, Dependency tab");
-            System.out.println("Add by clicking on the green plus icon on the right of the window");
-            System.out.println("Select JARs or directories. Go to the folder where the database JAR is located");
-            System.out.println("Click OK, now you can compile your program and run it.");
             e.printStackTrace();
-            return;
+            return false;
         }
 
         // start network server
         try {
-            NetworkServerControl server = new NetworkServerControl();
+            server = new NetworkServerControl();
             server.start(null);
             } catch (Exception e) {
                 e.printStackTrace();
         }
 
-        System.out.println("Apache Derby driver registered!\n");
         connection = null;
 
         try {
@@ -483,21 +467,77 @@ public class Mdb extends Thread{
             DatabaseManager.setConnection(connection);
             meta = connection.getMetaData();
         } catch (SQLException e) {
-            System.out.println("Connection failed. Check output console.");
+            System.out.println("Connection to remote failed. Trying Local server.");
             e.printStackTrace();
-            return;
+            return false;
         }
+        return true;
+    }
+
+    public boolean remoteStartup() {
+        System.out.println("-------Remote-Client Apache Derby Connection--------");
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Apache Derby Driver not found. Add the classpath to your module.");
+            e.printStackTrace();
+            return false;
+        }
+
+        // start network server on oracle cloud
+        try{
+            //if the server is not started then just exit
+            server = new NetworkServerControl(InetAddress.getByName("notahost"), connectionUtil.dbPort);
+            if(!isServerStarted(server)){
+                System.out.println("Remote Server has not been started");
+                return false;
+            }
+        } catch (UnknownHostException e) {
+            System.out.println("Remote Server not found");
+            return false;
+        } catch (Exception e) {
+            return false;
+        }
+
+        try {
+            connection = DriverManager.getConnection(JDBC_REMOTE_SERVER);
+            DatabaseManager.setConnection(connection);
+            meta = connection.getMetaData();
+        } catch (Exception e) {
+            System.out.println("Connection to remote failed. Trying Local server.");
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isServerStarted(NetworkServerControl server) {
+        boolean started = false;
+        int count = 10, wait = 300;
+        while (!started && (count > 0)) {
+            try {
+                count--;
+                server.ping();
+                started = true;
+            } catch (Exception e) {}
+        }
+        return started;
     }
 
     /* function databaseStartup()
      * creates database connection and calls startup threads
      */
-    public void databaseStartup(boolean embedded) throws InterruptedException, SQLException {
-        if(embedded){
-            embeddedStartup();
-        }else{
-            serverStartup();
+    public void databaseStartup() throws InterruptedException, SQLException {
+        //DATABASE SETUP CASCADE
+        if(!remoteStartup()){
+            if(!serverStartup()){
+                if(!embeddedStartup()){
+                    return;
+                }
+            }
         }
+
+
         //create hashmaps here
         DatabaseManager.getServiceMap();
 
@@ -653,7 +693,10 @@ public class Mdb extends Thread{
             }
             connection = null;
             DatabaseManager.setConnection(null);
+            server.shutdown();
         }catch(FileNotFoundException | SQLException e){
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

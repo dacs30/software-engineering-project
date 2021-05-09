@@ -5,6 +5,8 @@ import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.database.DatabaseManager;
+import edu.wpi.MochaManticores.database.Mdb;
+import edu.wpi.MochaManticores.messaging.messageClient;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -154,7 +156,11 @@ public class EmployeeLogin extends SceneController{
         // error if fail
         try {
             DatabaseManager.checkEmployeeLogin(empUserName.getText(), empPassword.getText());
+
+            App.getClient().startClient();
+
             changeSceneTo("landingPage");
+
         } catch (Exception e) {
             // popup the error dialog
             dialogPane.toFront();
