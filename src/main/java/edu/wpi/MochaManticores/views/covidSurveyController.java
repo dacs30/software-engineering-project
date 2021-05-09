@@ -165,10 +165,7 @@ public class covidSurveyController extends SceneController{
     }
 
     private boolean check(List<JFXCheckBox> list){
-        if(list.get(0).isSelected()){
-            return true;
-        }
-        return false;
+        return list.get(0).isSelected();
     }
 
     public void goBack(ActionEvent actionEvent) {

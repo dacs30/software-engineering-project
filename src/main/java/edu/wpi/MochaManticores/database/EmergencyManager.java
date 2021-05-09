@@ -15,9 +15,9 @@ public class EmergencyManager  extends Manager<EmergencyRequest> {
     private static final ServiceRequestType type = ServiceRequestType.Emergency;
 
     EmergencyManager(Connection connection, String csv_path){
-        this.connection = connection;
+        EmergencyManager.connection = connection;
         if(csv_path != null){
-            this.csv_path = csv_path;
+            EmergencyManager.csv_path = csv_path;
         }
     }
 
@@ -44,7 +44,7 @@ public class EmergencyManager  extends Manager<EmergencyRequest> {
 
     @Override
     void addElement(EmergencyRequest temp) {
-        temp.setRequestID(temp.generateRequestID(this.type));
+        temp.setRequestID(temp.generateRequestID(type));
         addElement_db(temp);
         addElement_map(temp);
     }
@@ -68,8 +68,8 @@ public class EmergencyManager  extends Manager<EmergencyRequest> {
     }
 
     void addElement_map(EmergencyRequest temp) {
-        if(!DatabaseManager.getServiceMap().containsRequest(this.type, temp.RequestID)) {
-            DatabaseManager.getServiceMap().addRequest(this.type,temp);
+        if(!DatabaseManager.getServiceMap().containsRequest(type, temp.RequestID)) {
+            DatabaseManager.getServiceMap().addRequest(type,temp);
         }
         else {
             System.out.printf("This node %s already exists\n", temp.RequestID);
@@ -84,7 +84,7 @@ public class EmergencyManager  extends Manager<EmergencyRequest> {
         pstmt.executeUpdate();
 
         // remove node from map
-        DatabaseManager.getServiceMap().delRequest(this.type,ID);
+        DatabaseManager.getServiceMap().delRequest(type,ID);
     }
 
     @Override
@@ -124,7 +124,7 @@ public class EmergencyManager  extends Manager<EmergencyRequest> {
     @Override
     EmergencyRequest getElement(String ID) throws InvalidElementException {
         // unlike employeeManager, we get nodes from the map so that they include neighbors
-        if(DatabaseManager.getServiceMap().containsRequest(this.type,ID)){
+        if(DatabaseManager.getServiceMap().containsRequest(type,ID)){
             return (EmergencyRequest) DatabaseManager.getServiceMap().getRequest(type,ID); //TODO DOES THIS CAST BREAK THINGS
         }else{
             throw new InvalidElementException();

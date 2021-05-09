@@ -16,9 +16,9 @@ public class NodeManager extends Manager<NodeSuper>{
     private static final String CSVdelim = ",";
 
     NodeManager(Connection connection, String Node_csv_path){
-        this.connection = connection;
+        NodeManager.connection = connection;
         if(Node_csv_path != null){
-            this.Node_csv_path = Node_csv_path;
+            NodeManager.Node_csv_path = Node_csv_path;
         }
     }
 

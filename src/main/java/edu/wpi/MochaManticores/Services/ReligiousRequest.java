@@ -1,9 +1,9 @@
 package edu.wpi.MochaManticores.Services;
 
 public class ReligiousRequest extends ServiceRequest{
-    private String reasonVisit;
-    private String location;
-    private String typeSacredPerson;
+    private final String reasonVisit;
+    private final String location;
+    private final String typeSacredPerson;
 
 
     public ReligiousRequest(String RequestID, String employee, boolean completed, String reasonVisit,

@@ -16,9 +16,9 @@ public class LanguageInterpreterManager extends Manager<LanguageInterpreterReque
     private static final ServiceRequestType type = ServiceRequestType.LanguageInterperter;
 
     LanguageInterpreterManager(Connection connection, String csv_path){
-        this.connection = connection;
+        LanguageInterpreterManager.connection = connection;
         if(csv_path != null){
-            this.csv_path = csv_path;
+            LanguageInterpreterManager.csv_path = csv_path;
         }
     }
 
@@ -46,7 +46,7 @@ public class LanguageInterpreterManager extends Manager<LanguageInterpreterReque
 
     @Override
     void addElement(LanguageInterpreterRequest v) {
-        v.setRequestID(v.generateRequestID(this.type));
+        v.setRequestID(v.generateRequestID(type));
         addElement_db(v);
         addElement_map(v);
     }
@@ -69,8 +69,8 @@ public class LanguageInterpreterManager extends Manager<LanguageInterpreterReque
     }
 
     void addElement_map(LanguageInterpreterRequest temp) {
-        if(!DatabaseManager.getServiceMap().containsRequest(this.type, temp.RequestID)) {
-            DatabaseManager.getServiceMap().addRequest(this.type,temp);
+        if(!DatabaseManager.getServiceMap().containsRequest(type, temp.RequestID)) {
+            DatabaseManager.getServiceMap().addRequest(type,temp);
         }
         else {
             System.out.printf("This node %s already exists\n", temp.RequestID);
@@ -85,7 +85,7 @@ public class LanguageInterpreterManager extends Manager<LanguageInterpreterReque
         pstmt.executeUpdate();
 
         // remove node from map
-        DatabaseManager.getServiceMap().delRequest(this.type,ID);
+        DatabaseManager.getServiceMap().delRequest(type,ID);
     }
 
     @Override
@@ -125,7 +125,7 @@ public class LanguageInterpreterManager extends Manager<LanguageInterpreterReque
     @Override
     LanguageInterpreterRequest getElement(String ID) throws InvalidElementException {
         // unlike employeeManager, we get nodes from the map so that they include neighbors
-        if(DatabaseManager.getServiceMap().containsRequest(this.type,ID)){
+        if(DatabaseManager.getServiceMap().containsRequest(type,ID)){
             return (LanguageInterpreterRequest) DatabaseManager.getServiceMap().getRequest(type,ID); //TODO DOES THIS CAST BREAK THINGS
         }else{
             throw new InvalidElementException();

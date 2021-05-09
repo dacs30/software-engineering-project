@@ -13,7 +13,7 @@ import java.util.PriorityQueue;
  */
 public class GBF implements PathPlanning{
     //Declare instance variables
-    private HashMap<String, NodeSuper> nodes;           //The HashMap containing all nodes on the map
+    private final HashMap<String, NodeSuper> nodes;           //The HashMap containing all nodes on the map
     private PriorityQueue<AStarNode> horizon;           //Contains unvisited nodes adjacent to visited ones (lowest cost first)
     private HashMap<String, AStarNode> visitedNodes;    //Contains all visited nodes
     private HashMap<String, AStarNode> horizonNodes;    //Same as horizon but as a list to enable object retrieval

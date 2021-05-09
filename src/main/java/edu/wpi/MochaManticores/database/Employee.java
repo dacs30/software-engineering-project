@@ -2,7 +2,7 @@ package edu.wpi.MochaManticores.database;
 
 public class Employee {
     //employee attributes
-    public enum employeeType {DEFAULT,JANITOR,DOCTOR,NURSE,FLORIST,CHEF,STAFF,PATIENT};
+    public enum employeeType {DEFAULT,JANITOR,DOCTOR,NURSE,FLORIST,CHEF,STAFF,PATIENT}
 
     private String username;
     private String password;

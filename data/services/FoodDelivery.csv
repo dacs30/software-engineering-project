@@ -1,2 +1,3 @@
 REQUESTID,EMPID,COMPLETED,DIETARYPREFERENCES,ALLERGIES,MENU,
 FOOD0,Sai Vadlamudi,true,Vegetarian,,Menu 2,
+FOOD2, Shah,false,Vegan,teeth,Menu 1,

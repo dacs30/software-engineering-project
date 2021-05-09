@@ -15,9 +15,9 @@ public class FoodDeliveryManager extends Manager<FoodDelivery> {
     private static final ServiceRequestType type = ServiceRequestType.FoodDelivery;
 
     FoodDeliveryManager(Connection connection, String csv_path){
-        this.connection = connection;
+        FoodDeliveryManager.connection = connection;
         if(csv_path != null){
-            this.csv_path = csv_path;
+            FoodDeliveryManager.csv_path = csv_path;
         }
     }
 
@@ -44,7 +44,7 @@ public class FoodDeliveryManager extends Manager<FoodDelivery> {
 
     @Override
     void addElement(FoodDelivery v) {
-        v.setRequestID(v.generateRequestID(this.type));
+        v.setRequestID(v.generateRequestID(type));
         addElement_db(v);
         addElement_map(v);
     }
@@ -68,8 +68,8 @@ public class FoodDeliveryManager extends Manager<FoodDelivery> {
     }
 
     void addElement_map(FoodDelivery temp) {
-        if(!DatabaseManager.getServiceMap().containsRequest(this.type, temp.RequestID)) {
-            DatabaseManager.getServiceMap().addRequest(this.type,temp);
+        if(!DatabaseManager.getServiceMap().containsRequest(type, temp.RequestID)) {
+            DatabaseManager.getServiceMap().addRequest(type,temp);
         }
         else {
             System.out.printf("This node %s already exists\n", temp.RequestID);
@@ -84,7 +84,7 @@ public class FoodDeliveryManager extends Manager<FoodDelivery> {
         pstmt.executeUpdate();
 
         // remove node from map
-        DatabaseManager.getServiceMap().delRequest(this.type,ID);
+        DatabaseManager.getServiceMap().delRequest(type,ID);
     }
 
     @Override
@@ -129,7 +129,7 @@ public class FoodDeliveryManager extends Manager<FoodDelivery> {
     @Override
     FoodDelivery getElement(String ID) throws InvalidElementException {
         // unlike employeeManager, we get nodes from the map so that they include neighbors
-        if(DatabaseManager.getServiceMap().containsRequest(this.type,ID)){
+        if(DatabaseManager.getServiceMap().containsRequest(type,ID)){
             return (FoodDelivery) DatabaseManager.getServiceMap().getRequest(type,ID); //TODO DOES THIS CAST BREAK THINGS
         }else{
             throw new InvalidElementException();

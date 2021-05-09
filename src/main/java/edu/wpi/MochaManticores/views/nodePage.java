@@ -339,7 +339,7 @@ public class nodePage extends SceneController{
         if (n == null){
             loadErrorDialog();
         }else{
-            StringProperty fields[] = new StringProperty[n.getFields().length];
+            StringProperty[] fields = new StringProperty[n.getFields().length];
             Set<String> neigh = new HashSet<>();
             for (int i = 0; i < n.getFields().length; i++) {
                 fields[i] = n.getFields()[i];

@@ -17,9 +17,9 @@ public class EdgeManager extends Manager<EdgeSuper>{
     private static final String CSVdelim = ",";
 
     EdgeManager(Connection connection, String Edge_csv_path){
-        this.connection = connection;
+        EdgeManager.connection = connection;
         if(Edge_csv_path != null){
-            this.Edge_csv_path = Edge_csv_path;
+            EdgeManager.Edge_csv_path = Edge_csv_path;
         }
     }
 
@@ -212,7 +212,7 @@ public class EdgeManager extends Manager<EdgeSuper>{
         results.close();
 
 
-        System.out.println(sb.toString());
+        System.out.println(sb);
     }
 
     /*

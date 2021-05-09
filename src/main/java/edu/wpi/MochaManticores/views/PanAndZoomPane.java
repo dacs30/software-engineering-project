@@ -17,7 +17,7 @@ public class PanAndZoomPane extends Pane {
     public static final double DEFAULT_DELTA = 1.3d;
     DoubleProperty myScale = new SimpleDoubleProperty(1.0);
     public DoubleProperty deltaY = new SimpleDoubleProperty(0.0);
-    private Timeline timeline;
+    private final Timeline timeline;
 
 
     public PanAndZoomPane() {

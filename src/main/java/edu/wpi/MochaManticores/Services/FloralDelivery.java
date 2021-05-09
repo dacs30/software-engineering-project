@@ -2,11 +2,11 @@ package edu.wpi.MochaManticores.Services;
 
 
 public class FloralDelivery extends ServiceRequest{
-    private String roomNumber;
-    private String deliveryChoice;
-    private String typeOfFlowers;
-    private String vaseOptions;
-    private String personalizedNote;
+    private final String roomNumber;
+    private final String deliveryChoice;
+    private final String typeOfFlowers;
+    private final String vaseOptions;
+    private final String personalizedNote;
 
     public FloralDelivery(String RequestID, String employee, boolean completed, String roomNumber, String deliveryChoice,
                           String typeOfFlowers, String vaseOptions, String personalizedNote) {
