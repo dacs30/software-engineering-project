@@ -43,7 +43,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <GridPane id="formSquare" fx:id="yesNoQuestion" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../Stylesheets/covidSurvey.css">
+                  <GridPane id="formSquare" fx:id="yesNoQuestion" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../Stylesheets/covidSurvey.css" visible="false">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                      </columnConstraints>
@@ -87,7 +87,7 @@
                         <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
                      </effect>
                   </GridPane>
-                  <GridPane id="formSquare" fx:id="covidForm" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../Stylesheets/covidSurvey.css" visible="false">
+                  <GridPane id="formSquare" fx:id="covidForm" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../Stylesheets/covidSurvey.css">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -138,7 +138,7 @@
                           </rowConstraints>
                            <children>
                               <Label text="Patient Date Of Birth:" translateX="50.0" />
-                              <JFXDatePicker fx:id="dateOfBirthPicker" defaultColor="#0f4b91" prefWidth="300.0" translateX="210.0">
+                              <JFXDatePicker fx:id="dateOfBirthPicker" defaultColor="#0f4b91" prefWidth="365.0" translateX="210.0">
                                  <padding>
                                     <Insets left="50.0" />
                                  </padding>
