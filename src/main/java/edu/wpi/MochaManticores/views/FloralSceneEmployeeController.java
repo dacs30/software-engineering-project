@@ -139,14 +139,14 @@ public class FloralSceneEmployeeController extends SceneController {
         message.setMaxHeight(Region.USE_PREF_SIZE);
         message.setMaxHeight(Region.USE_PREF_SIZE);
 
-        final Text hearder = new Text("Your request was submited");
+        final Text hearder = new Text("Submitted request");
         hearder.setStyle("-fx-font-weight: bold");
         hearder.setStyle("-fx-font-size: 30");
         hearder.setStyle("-fx-font-family: Roboto");
         hearder.setStyle("-fx-alignment: center");
         message.setHeading(hearder);
 
-        final Text body = new Text("Estimated time for arrival: ");
+        final Text body = new Text("Your request has been submitted for the patient.");
         body.setStyle("-fx-font-size: 15");
         body.setStyle("-fx-font-family: Roboto");
         body.setStyle("-fx-alignment: center");
@@ -155,6 +155,7 @@ public class FloralSceneEmployeeController extends SceneController {
         message.setBody(body);
         JFXDialog dialog = new JFXDialog(dialogPane, message, JFXDialog.DialogTransition.CENTER);
         JFXButton ok = new JFXButton("Done");
+        ok.setStyle("-fx-font-size: 15");
         ok.setOnAction(event -> {
             dialogPane.toBack();
             dialog.close();
@@ -189,7 +190,8 @@ public class FloralSceneEmployeeController extends SceneController {
                 "Delivery choice is how you want the flowers delivered. \n" +
                 "There are three options for the flowers and three options for the vase color.\n" +
                 "Click on the option you would like.\n" +
-                "Personalized note is not necessary to get flowers delivered, but is an option for if you want to leave a message.");
+                "Personalized note is not necessary to get flowers delivered, but is an option for if you want to leave a message.\n" +
+                "Assign to Employee: Select an employee from the provided dropdown menu.");
 
         body.setStyle("-fx-font-size: 40");
         body.setStyle("-fx-font-family: Roboto");
@@ -201,6 +203,7 @@ public class FloralSceneEmployeeController extends SceneController {
         JFXDialog dialog = new JFXDialog(dialogPane, message, JFXDialog.DialogTransition.CENTER);
 
         JFXButton cont = new JFXButton("Continue");
+        cont.setStyle("-fx-font-size: 15");
         cont.setOnAction(event -> {
             dialog.close();
             dialogPane.toBack();

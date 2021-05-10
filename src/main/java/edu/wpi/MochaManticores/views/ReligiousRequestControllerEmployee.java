@@ -135,7 +135,7 @@ public class ReligiousRequestControllerEmployee extends SceneController{
         message.setMaxHeight(Region.USE_COMPUTED_SIZE);
         message.setMaxHeight(Region.USE_COMPUTED_SIZE);
 
-        final Text hearder = new Text("Submitted request.");
+        final Text hearder = new Text("Submitted request");
         hearder.setStyle("-fx-font-weight: bold");
         hearder.setStyle("-fx-font-size: 60");
         hearder.setStyle("-fx-font-family: Roboto");
@@ -153,6 +153,7 @@ public class ReligiousRequestControllerEmployee extends SceneController{
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
 
         JFXButton cont = new JFXButton("Done");
+        cont.setStyle("-fx-font-size: 15");
         cont.setOnAction(event -> {
             dialog.close();
             dialogPane.toBack();
@@ -196,6 +197,7 @@ public class ReligiousRequestControllerEmployee extends SceneController{
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
 
         JFXButton cont = new JFXButton("Continue");
+        cont.setStyle("-fx-font-size: 15");
         cont.setOnAction(event -> {
             dialog.close();
             dialogPane.toBack();

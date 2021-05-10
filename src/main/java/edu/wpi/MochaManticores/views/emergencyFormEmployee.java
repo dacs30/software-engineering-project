@@ -70,14 +70,14 @@ public class emergencyFormEmployee extends SceneController {
         message.setMaxHeight(Region.USE_PREF_SIZE);
         message.setMaxHeight(Region.USE_PREF_SIZE);
 
-        final Text hearder = new Text("Your request was submited");
+        final Text hearder = new Text("Submitted request");
         hearder.setStyle("-fx-font-weight: bold");
         hearder.setStyle("-fx-font-size: 30");
         hearder.setStyle("-fx-font-family: Roboto");
         hearder.setStyle("-fx-alignment: center");
         message.setHeading(hearder);
 
-        final Text body = new Text("Estimated time for arrival: ");
+        final Text body = new Text("Help is on the way!");
         body.setStyle("-fx-font-size: 15");
         body.setStyle("-fx-font-family: Roboto");
         body.setStyle("-fx-alignment: center");
@@ -86,6 +86,7 @@ public class emergencyFormEmployee extends SceneController {
         message.setBody(body);
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
         JFXButton ok = new JFXButton("Done");
+        ok.setStyle("-fx-font-size: 15");
         ok.setOnAction(event -> {
             backBtn();
         });

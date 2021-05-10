@@ -266,6 +266,7 @@ public class covidSurveyController extends SceneController{
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
 
         JFXButton cont = new JFXButton("Continue");
+        cont.setStyle("-fx-font-size: 15");
         cont.setOnAction(event -> {
             dialog.close();
         });
@@ -310,6 +311,7 @@ public class covidSurveyController extends SceneController{
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
 
         JFXButton cont = new JFXButton("Continue");
+        cont.setStyle("-fx-font-size: 15");
         cont.setOnAction(event -> {
             dialog.close();
         });
@@ -356,6 +358,7 @@ public class covidSurveyController extends SceneController{
 
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
         JFXButton ok = new JFXButton("Done");
+        ok.setStyle("-fx-font-size: 15");
         ok.setOnAction(event -> {
             dialogPane.toBack();
             dialog.close();
@@ -402,6 +405,7 @@ public class covidSurveyController extends SceneController{
         message.setBody(body);
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
         JFXButton ok = new JFXButton("Continue");
+        ok.setStyle("-fx-font-size: 15");
         ok.setOnAction(event -> {
             dialog.toBack();
             dialog.setVisible(false);
