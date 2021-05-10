@@ -2,7 +2,7 @@ package edu.wpi.MochaManticores.database;
 
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import edu.wpi.MochaManticores.Nodes.*;
-import edu.wpi.MochaManticores.views.nodePage;
+import edu.wpi.MochaManticores.Services.ServiceRequestType;
 import javafx.util.Pair;
 
 import java.io.*;
@@ -187,13 +187,18 @@ public class NodeManager extends Manager<NodeSuper>{
 
         //clean hashmap
         MapSuper.getMap().clear();
+    }
 
+    @Override
+    void cleanMap(){
+        MapSuper.getMap().clear();
     }
 
     /*
     function updateElementMap()
-    updates the hashmap to match the data in the database, used only during startup
+    updates the hashmap to match the data in the database
      */
+    @Override
     public void updateElementMap() throws SQLException {
         String sql = "SELECT * FROM NODES";
         Statement stmt = connection.createStatement();

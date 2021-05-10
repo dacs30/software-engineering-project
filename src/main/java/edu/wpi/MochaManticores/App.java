@@ -1,13 +1,20 @@
 package edu.wpi.MochaManticores;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.Socket;
+import java.sql.SQLException;
+import java.util.Objects;
+
 import com.google.maps.GeoApiContext;
 import edu.wpi.MochaManticores.Algorithms.AStar2;
 import edu.wpi.MochaManticores.Algorithms.PathPlanning;
-import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.EdgeManager;
 import edu.wpi.MochaManticores.database.EmployeeManager;
 import edu.wpi.MochaManticores.database.NodeManager;
-import edu.wpi.MochaManticores.messaging.connectionUtil;
+import edu.wpi.MochaManticores.database.*;
+import edu.wpi.MochaManticores.messaging.clientReader;
+import edu.wpi.MochaManticores.messaging.messageClient;
 import edu.wpi.MochaManticores.messaging.messageServer;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -17,12 +24,6 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.Socket;
-import java.sql.SQLException;
-import java.util.Objects;
-
 public class App extends Application {
 
   private static Stage primaryStage;
@@ -31,15 +32,23 @@ public class App extends Application {
   private static EdgeManager edgeManager;
   private static EmployeeManager employeeManager;
   private static PathPlanning algoType = new AStar2();
-  private static String currentUsername;
   private static GeoApiContext context;
+  private static String currentUsername = null;
+  private static messageClient client = new messageClient();
 
+  public static messageClient getClient() {
+    return client;
+  }
+
+  public static void setClient(messageClient client) {
+    App.client = client;
+  }
   public static GeoApiContext getContext() {
     return context;
   }
 
   public static String getCurrentUsername() {
-    return currentUsername;
+    return App.currentUsername;
   }
 
   public static void setCurrentUsername(String currentUsername) {
@@ -73,9 +82,6 @@ public class App extends Application {
   public static EmployeeManager getEmployeeManager() {
     return employeeManager;
   }
- // public static messageClient getClient() {
-    //return client;
- // }
 
   public static void setEmployeeManager(EmployeeManager employeeManager) {
     App.employeeManager = employeeManager;
@@ -94,7 +100,7 @@ public class App extends Application {
     System.out.println("Starting Up");
     System.out.println("Starting Database");
     DatabaseManager.startup();
-    startServer();
+    client.startServer();
   }
 
   @Override
@@ -112,8 +118,8 @@ public class App extends Application {
       //primaryStage.setMaximized(true);
       //primaryStage.setFullScreen(true);
       primaryStage.setScene(scene);
-      primaryStage.setHeight(800);
-      primaryStage.setWidth(1200);
+      primaryStage.setMinHeight(800);
+      primaryStage.setMinWidth(1280);
       primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
       primaryStage.show();
       root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("fxml/loginPage.fxml")));
@@ -130,22 +136,10 @@ public class App extends Application {
     return primaryStage;
   }
 
-
-  public static void startServer(){
-    try {
-      Socket socket = new Socket(connectionUtil.host, connectionUtil.port);
-      socket.close();
-    }catch(IOException e){
-      // no server, start server
-      messageServer server = new messageServer();
-      Thread serverThread = new Thread(server);
-      serverThread.start();
-    }
-  }
-
   @Override
   public void stop() {
     System.out.println("Shutting Down");
     DatabaseManager.shutdown();
+    client.shutdown();
   }
 }

@@ -6,7 +6,7 @@ import edu.wpi.MochaManticores.Nodes.EdgeMapSuper;
 import edu.wpi.MochaManticores.Nodes.EdgeSuper;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
-import edu.wpi.MochaManticores.views.edgesPage;
+import edu.wpi.MochaManticores.Services.ServiceRequestType;
 
 import java.io.*;
 import java.sql.*;
@@ -245,10 +245,17 @@ public class EdgeManager extends Manager<EdgeSuper>{
         EdgeMapSuper.getMap().clear();
     }
 
+    @Override
+    void cleanMap(){
+        EdgeMapSuper.getMap().clear();
+    }
+
     /*
     function updateElementMap()
     updates the hashmap to match the data in the database, used only during startup
      */
+
+    @Override
     public void updateElementMap() throws SQLException {
         String sql = "SELECT * FROM EDGES";
         Statement stmt = connection.createStatement();

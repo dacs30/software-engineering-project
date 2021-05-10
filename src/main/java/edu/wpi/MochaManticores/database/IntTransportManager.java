@@ -1,7 +1,6 @@
 package edu.wpi.MochaManticores.database;
 
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
-import edu.wpi.MochaManticores.Services.FoodDelivery;
 import edu.wpi.MochaManticores.Services.InternalTransportation;
 import edu.wpi.MochaManticores.Services.ServiceRequestType;
 
@@ -145,9 +144,20 @@ public class IntTransportManager extends Manager<InternalTransportation> {
 
     @Override
     void cleanTable() throws SQLException {
-        // not implemented
+        String sql = "DELETE FROM INTTRANSPORT";
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        int result = pstmt.executeUpdate();
+
+        //clean hashmap
+        DatabaseManager.getServiceMap().clearMap(ServiceRequestType.InternalTransportation);
     }
 
+    @Override
+    void cleanMap(){
+        DatabaseManager.getServiceMap().clearMap(ServiceRequestType.InternalTransportation);
+    }
+
+    @Override
     public void updateElementMap() throws SQLException {
         String sql = "SELECT * FROM INTTRANSPORT";
         Statement stmt = connection.createStatement();

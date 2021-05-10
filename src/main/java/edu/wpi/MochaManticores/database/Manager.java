@@ -5,7 +5,7 @@ import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 
-abstract class Manager<Value> {
+public abstract class Manager<Value> {
     /*
     function: loadFromCSV()
     loads elements from the specified CSV path
@@ -60,4 +60,8 @@ abstract class Manager<Value> {
     saves and empties database table
      */
     abstract void cleanTable() throws SQLException;
+
+    abstract void cleanMap();
+
+    public abstract void updateElementMap() throws SQLException;
 }

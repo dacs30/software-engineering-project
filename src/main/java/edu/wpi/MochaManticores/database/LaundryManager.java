@@ -1,7 +1,6 @@
 package edu.wpi.MochaManticores.database;
 
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
-import edu.wpi.MochaManticores.Services.FoodDelivery;
 import edu.wpi.MochaManticores.Services.LaundryRequest;
 import edu.wpi.MochaManticores.Services.ServiceRequestType;
 
@@ -146,9 +145,20 @@ public class LaundryManager extends Manager<LaundryRequest> {
 
     @Override
     void cleanTable() throws SQLException {
-        //add the clean table functionality
+        String sql = "DELETE FROM LAUNDRY";
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        int result = pstmt.executeUpdate();
+
+        //clean hashmap
+        DatabaseManager.getServiceMap().clearMap(ServiceRequestType.Laundry);
     }
 
+    @Override
+    void cleanMap(){
+        DatabaseManager.getServiceMap().clearMap(ServiceRequestType.Laundry);
+    }
+
+    @Override
     public void updateElementMap() throws SQLException {
         String sql = "SELECT * FROM LAUNDRY";
         Statement stmt = connection.createStatement();

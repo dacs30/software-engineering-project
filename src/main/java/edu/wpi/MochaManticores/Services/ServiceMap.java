@@ -63,6 +63,13 @@ public class ServiceMap {
         return myMap.get(type).containsKey(requestID);
     }
 
+    public void clearMap(ServiceRequestType type){
+        myMap.get(type).clear();
+        maxMap.put(type, 0);
+
+        myMap.put(type,new HashMap<String,ServiceRequest>());
+    }
+
     public int getSize(ServiceRequestType type){
         return maxMap.get(type);
     }

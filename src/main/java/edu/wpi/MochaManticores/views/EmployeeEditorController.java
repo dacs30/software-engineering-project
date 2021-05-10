@@ -104,7 +104,7 @@ public class EmployeeEditorController extends  SceneController{
             }
 
             try {
-                DatabaseManager.checkEmployeeLogin(loggedIn.getUsername(), hashPassword(oldPass.getText()));
+                DatabaseManager.checkEmployeeLogin(loggedIn.getUsername(), oldPass.getText());
             } catch (InvalidLoginException | InvalidElementException invalidLoginException) {
                 newUser.setText("");
                 oldPass.setText("");
