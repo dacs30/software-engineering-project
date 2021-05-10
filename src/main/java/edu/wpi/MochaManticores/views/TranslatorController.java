@@ -58,7 +58,7 @@ public class TranslatorController extends SceneController{
         back();
     }
 
-    public void submitEvent(ActionEvent actionEvent) {
+    public void submitEvent() {
         sel s = sel.LanguageInterperter;
         // changeSceneTo(e, "mainMenu");
         DatabaseManager.addRequest(s,

@@ -49,7 +49,7 @@
                   <Insets />
                </GridPane.margin>
                <children>
-                  <JFXTextField labelFloat="true" maxWidth="-Infinity" prefWidth="365.0" promptText="Patient ID" GridPane.rowIndex="1" />
+                  <JFXTextField fx:id="nameField" labelFloat="true" maxWidth="-Infinity" minHeight="-Infinity" prefWidth="400.0" promptText="Patient ID" GridPane.rowIndex="1" />
                   <Label id="title" text="Laundry Request" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                   <JFXButton fx:id="submitButton" alignment="CENTER" onAction="#submitEvent" text="Submit" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
@@ -61,24 +61,24 @@
                      <GridPane.margin>
                         <Insets bottom="60.0" />
                      </GridPane.margin></Label>
-                  <JFXComboBox fx:id="soil" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                  <JFXComboBox fx:id="soil" prefWidth="100.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
                         <Insets right="300.0" />
                      </GridPane.margin>
                   </JFXComboBox>
-                  <JFXComboBox fx:id="wTemp" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                  <JFXComboBox fx:id="wTemp" prefWidth="100.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                      <GridPane.margin>
                         <Insets left="300.0" />
                      </GridPane.margin></JFXComboBox>
-                  <JFXComboBox fx:id="dTemp" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+                  <JFXComboBox fx:id="dTemp" prefWidth="100.0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
                         <Insets right="300.0" />
                      </GridPane.margin>
                   </JFXComboBox>
-                  <JFXTextField fx:id="extra" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+                  <JFXTextField fx:id="dryCycles" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
                         <Insets left="570.0" right="270.0" />
                      </GridPane.margin>
@@ -93,7 +93,7 @@
                         <Insets left="300.0" />
                      </GridPane.margin>
                   </Label>
-                  <JFXToggleButton id="delicateSwitch" text="Delicates" toggleColor="#0f4b91" toggleLineColor="#739bc6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                  <JFXToggleButton id="delicateSwitch" fx:id="delicateToggle" text="Delicates" toggleColor="#0f4b91" toggleLineColor="#739bc6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>

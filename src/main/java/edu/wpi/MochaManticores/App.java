@@ -114,6 +114,8 @@ public class App extends Application {
       Scene scene = new Scene(root);
       //primaryStage.setMaximized(true);
       //primaryStage.setFullScreen(true);
+      primaryStage.setWidth(1280);
+      primaryStage.setHeight(800);
       primaryStage.setScene(scene);
       primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
       primaryStage.show();

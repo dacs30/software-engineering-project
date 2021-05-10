@@ -8,7 +8,6 @@ import edu.wpi.MochaManticores.database.sel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -133,7 +132,7 @@ public class sanitationServiceControllerEmployee extends SceneController {
 
     public void helpButton(){loadHelpDialogue();}
 
-    public void goBack(ActionEvent e) {
+    public void goBack() {
         back();
     }
 
@@ -224,14 +223,8 @@ public class sanitationServiceControllerEmployee extends SceneController {
 
 
     @FXML
-    private void submit(ActionEvent e) {
-        //JFXCheckBox source = (JFXCheckBox) e.getSource();
+    public void submitEvent() {
         StringBuilder equipmentNeeded = new StringBuilder();
-        for(JFXCheckBox button : equipment) {
-//             if(!button.equals(source)) {
-//                 button.setSelected(false);
-//             }
-            }
         if(maskNeeded.isSelected()) {
             equipmentNeeded.append("maskNeeded,");
         }
@@ -241,19 +234,19 @@ public class sanitationServiceControllerEmployee extends SceneController {
         if(mopNeeded.isSelected()) {
             equipmentNeeded.append("mopNeeded,");
         }
-            if(!loc.getText().isEmpty() && !safetyHaz.getText().isEmpty() &&
-                 !typeComboBox.getSelectionModel().getSelectedItem().isEmpty() && (glovesNeeded.isSelected() || maskNeeded.isSelected() || mopNeeded.isSelected()) && !description.getText().isEmpty()){
+        if(!loc.getText().isEmpty() && !safetyHaz.getText().isEmpty() &&
+                !typeComboBox.getSelectionModel().getSelectedItem().isEmpty() && (glovesNeeded.isSelected() || maskNeeded.isSelected() || mopNeeded.isSelected()) && !description.getText().isEmpty()){
             sel s = sel.SanitationServices;
-                DatabaseManager.addRequest(s, new edu.wpi.MochaManticores.Services.SanitationServices(
+            DatabaseManager.addRequest(s, new edu.wpi.MochaManticores.Services.SanitationServices(
                     "",
-                    "",
+                    employeeAssigned.getItems().toString(),
                     false,
                     loc.getText(),
                     safetyHaz.getText(),
                     typeComboBox.getValue(),
                     equipmentNeeded.toString(),
                     description.getText()
-                    ));
+            ));
             System.out.println("Adds to database");
         } else if (loc.getText().isEmpty()){
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
@@ -271,14 +264,14 @@ public class sanitationServiceControllerEmployee extends SceneController {
             missingInput.setMessage("Sanitation Type is required.");
             typeComboBox.validate();
         } else if (equipmentNeeded.toString().isEmpty()){
-                Alert a = new Alert(Alert.AlertType.WARNING);
-                a.show();
-            } else if (description.getText().isEmpty()){
-                RequiredFieldValidator missingInput = new RequiredFieldValidator();
-                description.getValidators().add(missingInput);
-                missingInput.setMessage("Description is required.");
-                description.validate();
-            }
+            Alert a = new Alert(Alert.AlertType.WARNING);
+            a.show();
+        } else if (description.getText().isEmpty()){
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            description.getValidators().add(missingInput);
+            missingInput.setMessage("Description is required.");
+            description.validate();
+        }
         loadSubmitDialog();
     }
 

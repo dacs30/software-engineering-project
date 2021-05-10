@@ -7,7 +7,6 @@ import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.sel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -126,7 +125,8 @@ public class sanitationServiceController extends SceneController {
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
         JFXButton ok = new JFXButton("Done");
         ok.setOnAction(event -> {
-            goBack();
+            dialogPane.toBack();
+            dialog.close();
         });
 
         dialog.setOnDialogClosed(event -> {
@@ -187,7 +187,7 @@ public class sanitationServiceController extends SceneController {
 
 
     @FXML
-    private void submit(ActionEvent e) {
+    public void submitEvent() {
         StringBuilder equipmentNeeded = new StringBuilder();
         if(maskNeeded.isSelected()) {
             equipmentNeeded.append("maskNeeded,");
