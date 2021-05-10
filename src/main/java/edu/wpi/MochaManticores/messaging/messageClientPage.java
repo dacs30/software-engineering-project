@@ -8,11 +8,24 @@ import edu.wpi.MochaManticores.views.SceneController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
+import javafx.geometry.Pos;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
+import javafx.scene.input.MouseEvent;
 
-import javax.swing.*;
-import java.awt.event.KeyEvent;
+import java.util.Iterator;
+import java.util.Map;
+
+import java.util.HashMap;
+import java.util.LinkedList;
+
+import java.awt.*;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
@@ -27,7 +40,14 @@ public class messageClientPage extends SceneController {
     private JFXTextField msgs;
     @FXML
     private ImageView backgroundIMG;
-
+    @FXML
+    private VBox publicChatBox;
+    @FXML
+    private VBox conversationsBox;
+    @FXML
+    private ScrollPane conversationsScrollPane;
+    @FXML
+    private  ScrollPane publicChatBoxScrollPane;
     // Connection & user data
     DataOutputStream output =  App.getClient().getOutput();
     clientReader reader = App.getClient().getReader();
@@ -46,9 +66,27 @@ public class messageClientPage extends SceneController {
         //must set GUI connected to false when leaving the page
         App.getClient().startGUI(this);
 
-        Platform.runLater(() -> {
-            textField.appendText("connected \n");
-        });
+        publicChatBox.prefWidthProperty().bind(publicChatBoxScrollPane.widthProperty().subtract(20));
+
+        publicChatBox.prefHeightProperty().bind(publicChatBoxScrollPane.heightProperty().subtract(20));
+
+        conversationsBox.setPrefWidth(conversationsScrollPane.getWidth());
+
+        publicChatBox.setAlignment(Pos.TOP_LEFT);
+
+        for (Map.Entry<String, LinkedList<Message>> m : messages.entrySet()){
+            Target t = new Target(m);
+            targets.add(t);
+            HBox container = new HBox();
+            container.getChildren().add(t);
+            conversationsBox.getChildren().add(container);
+
+            container.setOnMouseClicked((MouseEvent e) -> {
+                selected = t;
+                loadConversation( t.getMessenger()/*((Target) ((HBox)e.getSource()).getChildren().get(0)).getMessenger()*/);
+            });
+        }
+
 
     }
 
@@ -58,11 +96,33 @@ public class messageClientPage extends SceneController {
     }
 
     public void loadConversation(String target) {
-        textField.clear();
+
+        publicChatBox.getChildren().clear();
         if (reader.messageHistory.containsKey(tgt.getText())) {
             for (Message m : reader.messageHistory.get(target)) {
                 Platform.runLater(() -> {
-                    textField.appendText("[" + m.sender + "]" + " [" + m.target + "] " + m.body + "\n");
+                    HBox msgBox = new HBox(12);
+                    if (m.sender.equals(App.getCurrentUsername())){
+                        // create a new textField
+                        TextFlow msgFromUser = new TextFlow();
+                        Text msgText = new Text(m.body);
+                        msgText.setStyle("-fx-text-fill: white;");
+                        msgFromUser.getChildren().add(msgText);
+                        msgFromUser.getStyleClass().add("textFlow");
+                        msgBox.getChildren().add(msgFromUser);
+                        msgBox.setAlignment(Pos.CENTER_RIGHT);
+                    } else {
+                        // create a new textField
+                        TextFlow msgReceived = new TextFlow();
+                        Text msgText = new Text(m.body);
+                        msgText.setStyle("-fx-text-fill: black;");
+                        msgReceived.getChildren().add(msgText);
+                        msgReceived.getStyleClass().add("textFlowFlipped");
+                        msgBox.getChildren().add(msgReceived);
+                        msgBox.setAlignment(Pos.CENTER_LEFT);
+                    }
+                    msgBox.getStyleClass().add("hboxMessages");
+                    publicChatBox.getChildren().add(msgBox);
                 });
             }
         }
@@ -85,6 +145,7 @@ public class messageClientPage extends SceneController {
     }
 
     public void sendEvent(ActionEvent actionEvent) {
+
         try {
             String message = msgs.getText().trim();
             String target = tgt.getText().trim();

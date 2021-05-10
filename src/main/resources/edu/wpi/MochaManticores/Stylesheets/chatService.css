@@ -1,0 +1,103 @@
+#formSquare {
+    -fx-background-color: white;
+    -fx-background-radius: 40;
+}
+
+.jfx-text-field {
+    -fx-text-fill: black;
+    -fx-prompt-text-fill: #aaaaaa;
+    -jfx-unfocus-color : #aaaaaa;
+}
+
+.label {
+    -fx-font-family: Roboto;
+    -fx-font-size: 60;
+    -fx-font-weight: bold;
+}
+
+/* Styles for the buttons */
+
+.jfx-button{
+    -fx-background-color: #0F4B91;
+    -fx-font-family: Roboto;
+    -fx-text-fill: white;
+    -fx-font-size: 20;
+    -fx-border-radius: 40;
+    -fx-background-radius: 40;
+    transition: background-color 2s ease;
+}
+
+.jfx-button:hover{
+    -fx-background-color: #c2c2c2;
+    -fx-effect: dropshadow( three-pass-box , rgba(2, 2, 2, 0.2), 20, 0.0 , 1 , 10);
+    -fx-font-family: Roboto;
+    -fx-text-fill: grey;
+    -fx-font-size: 20;
+    -fx-border-radius: 40;
+    -fx-background-radius: 40;
+}
+
+#textArea{
+    -fx-font-size: 30;
+    -fx-font-family: Roboto;
+    -fx-effect: dropshadow( three-pass-box , rgba(2, 2, 2, 0.2), 20, 0.0 , 1 , 10);
+    -fx-background-color: rgba(180, 178, 178, 0.15);
+    -fx-highlight-fill: rgb(191, 3, 3);
+
+}
+
+.scroll-pane {
+    -fx-background-color:  transparent;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane:horizontal {
+    visibility: false;
+}
+
+.textFlow{
+    -fx-background-color: #0F4B91;
+    -fx-background-insets: -5 -10 -5 -5;
+    -fx-effect: dropshadow(three-pass-box,rgba(0,0,0,0.08),2,1.0,0.5,0.5);
+    -fx-shape: "M 94.658379,129.18587 H 46.277427 c -3.545458,0.23354 -5.32763,-1.59167 -5.14193,-4.67449 v -19.39913 c 0.405797,-3.73565 2.470637,-4.56641 5.14193,-4.90821 h 43.706464 c 2.572701,0.2361 4.604321, 1.68288 4.674488,4.90821 v 19.39913 c 0.436089,3.14572 2.890695,3.57304 4.908212,4.67449 z";
+}
+
+.textFlowFlipped{
+    -fx-background-color: grey;
+    -fx-background-insets: -5 -5 -5 -10;
+    -fx-effect: dropshadow(three-pass-box,rgba(0,0,0,0.08),2,1.0,-0.5,-0.5);
+    -fx-shape: "m 46.030545,129.18592 h 48.380952 c 3.54546,0.23355 5.32763,-1.59167 5.14193,-4.67449
+    V 105.1123 c -0.4058,-3.73565 -2.47064,-4.56641 -5.14193,-4.90821 H 50.705033
+    c -2.572701,0.2361 -4.604321,1.68288 -4.674488,4.90821 v 19.39913
+    c -0.436089,3.14572 -2.890695,3.57304 -4.908212,4.67449 z";
+}
+
+.hboxMessages{
+    -fx-background-insets: 15;
+    -fx-padding: 12px;
+}
+
+#sendBtn {
+    -fx-shape: "M 4.01 6.03 L 11.52 9.25 L 4 8.25 L 4.01 6.03 M 11.51 14.75 L 4 17.97 L 4 15.75 L 11.51 14.75 M 2.01 3 L 2 10 L 17 12 L 2 14 L 2.01 21 L 23 12 L 2.01 3 Z";
+    -fx-background-color: #0F4B91;
+}
+
+#messageField {
+    -fx-font-family: Roboto;
+    -fx-font-size: 24;
+    -fx-prompt-text-fill: grey;
+    -jfx-unfocus-color : grey;
+    -jfx-focus-color : #0F4B91 ;
+}
+
+#emojiBtn {
+    -fx-shape: "M 9.99 3 C 6.13 3 3 6.14 3 10 C 3 13.86 6.13 17 9.99 17 C 13.86 17 17 13.86 17 10 C 17 6.14 13.86 3 9.99 3 Z M 9.99 16 C 6.69 16 4 13.31 4 10 C 4 6.69 6.69 4 9.99 4 C 13.31 4 16 6.69 16 10 C 16 13.31 13.31 16 9.99 16 Z M 10 14 C 11.86 14 13.41 12.72 13.86 11 L 6.14 11 C 6.59 12.72 8.14 14 10 14 Z M 13 7 C 12.735 7 12.48 7.105 12.293 7.293 C 12.105 7.48 12 7.735 12 8 C 12 8.265 12.105 8.52 12.293 8.707 C 12.48 8.895 12.735 9 13 9 C 13.265 9 13.52 8.895 13.707 8.707 C 13.895 8.52 14 8.265 14 8 C 14 7.735 13.895 7.48 13.707 7.293 C 13.52 7.105 13.265 7 13 7 Z M 7 7 C 6.735 7 6.48 7.105 6.293 7.293 C 6.105 7.48 6 7.735 6 8 C 6 8.265 6.105 8.52 6.293 8.707 C 6.48 8.895 6.735 9 7 9 C 7.265 9 7.52 8.895 7.707 8.707 C 7.895 8.52 8 8.265 8 8 C 8 7.735 7.895 7.48 7.707 7.293 C 7.52 7.105 7.265 7 7 7 Z";
+    -fx-background-color : #0F4B91 ;
+}

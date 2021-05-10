@@ -1,10 +1,16 @@
 package edu.wpi.MochaManticores.messaging;
 
+import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Nodes.EdgeMapSuper;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.sel;
 import javafx.application.Platform;
+import javafx.geometry.Pos;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
+import java.util.Iterator;
+
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.Socket;
@@ -60,13 +66,13 @@ public class clientReader implements Runnable{
                     continue;
                 }
 
+                store(msg);
+
                 if(this.GUIconnected){
                     postMessage(msg);
                 }else{
                     postNotif(msg);
                 }
-
-                store(msg);
 
             }catch (IOException e){
                 e.printStackTrace();
@@ -75,13 +81,30 @@ public class clientReader implements Runnable{
     }
 
     public void postMessage(Message msg){
+        // don't delete
         Platform.runLater(() -> {
-            clientPage.textField.appendText("[" + msg.sender + "]" + " [" + msg.target + "] " + msg.body + "\n");
+            if (msg.target.equals(App.getCurrentUsername())){
+                clientPage.loadConversation(msg.sender);
+            } else {
+                clientPage.loadConversation(msg.target);
+            }
         });
     }
 
     public void postNotif(Message msg){
         //post to some text feild
+        Platform.runLater(new Runnable(){
+            @Override
+            public void run() {
+                Notifications notifications = Notifications.create()
+                        .title(msg.sender)
+                        .text(msg.body)
+                        .hideAfter(Duration.seconds(5))
+                        .position(Pos.BOTTOM_RIGHT);
+
+                notifications.show();
+            }
+        });
     }
 
 
