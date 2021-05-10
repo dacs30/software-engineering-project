@@ -46,7 +46,7 @@
 
 }
 
-.scroll-pane {
+/*.scroll-pane {
     -fx-background-color:  transparent;
 }
 
@@ -60,7 +60,7 @@
 
 .scroll-pane:horizontal {
     visibility: false;
-}
+}*/
 
 .textFlow{
     -fx-background-color: #0F4B91;
@@ -100,4 +100,45 @@
 #emojiBtn {
     -fx-shape: "M 9.99 3 C 6.13 3 3 6.14 3 10 C 3 13.86 6.13 17 9.99 17 C 13.86 17 17 13.86 17 10 C 17 6.14 13.86 3 9.99 3 Z M 9.99 16 C 6.69 16 4 13.31 4 10 C 4 6.69 6.69 4 9.99 4 C 13.31 4 16 6.69 16 10 C 16 13.31 13.31 16 9.99 16 Z M 10 14 C 11.86 14 13.41 12.72 13.86 11 L 6.14 11 C 6.59 12.72 8.14 14 10 14 Z M 13 7 C 12.735 7 12.48 7.105 12.293 7.293 C 12.105 7.48 12 7.735 12 8 C 12 8.265 12.105 8.52 12.293 8.707 C 12.48 8.895 12.735 9 13 9 C 13.265 9 13.52 8.895 13.707 8.707 C 13.895 8.52 14 8.265 14 8 C 14 7.735 13.895 7.48 13.707 7.293 C 13.52 7.105 13.265 7 13 7 Z M 7 7 C 6.735 7 6.48 7.105 6.293 7.293 C 6.105 7.48 6 7.735 6 8 C 6 8.265 6.105 8.52 6.293 8.707 C 6.48 8.895 6.735 9 7 9 C 7.265 9 7.52 8.895 7.707 8.707 C 7.895 8.52 8 8.265 8 8 C 8 7.735 7.895 7.48 7.707 7.293 C 7.52 7.105 7.265 7 7 7 Z";
     -fx-background-color : #0F4B91 ;
+}
+
+#publicChatBoxScrollPane{
+    -fx-background-color: transparent;
+}
+#publicChatBoxScrollPane >.viewport{
+    -fx-background-color: transparent;
+}
+
+#publicChatBoxScrollPane .scroll-bar:vertical{
+    -fx-background-color:inherit;
+
+}
+
+#publicChatBoxScrollPane .scroll-bar:vertical .track{
+    -fx-background-color:transparent;
+    -fx-border-color:transparent;
+    -fx-background-radius: 0em;
+
+}
+#publicChatBoxScrollPane .scroll-bar:vertical .increment-button,
+#publicChatBoxScrollPane .scroll-bar:vertical .decrement-button{
+    -fx-background-color:transparent;
+    -fx-background-radius: 0em;
+    -fx-padding:0 0 10 0;
+
+}
+
+#publicChatBoxScrollPane  .scroll-bar .increment-arrow,
+#publicChatBoxScrollPane  .scroll-bar .decrement-arrow {
+    -fx-shape: " ";
+    -fx-padding:0;
+}
+#publicChatBoxScrollPane .scroll-bar:vertical .thumb {
+    -fx-background-color:transparent;
+
+}
+#publicChatBoxScrollPane:hover .scroll-bar:vertical .thumb{
+    -fx-background-color:rgba(0,0,0,0.6);
+    -fx-background-insets: 4, 0, 0;
+    -fx-background-radius: 2em;
 }

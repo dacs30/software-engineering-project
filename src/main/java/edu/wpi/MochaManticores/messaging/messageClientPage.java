@@ -7,15 +7,21 @@ import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.views.SceneController;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.scene.input.MouseEvent;
@@ -83,6 +89,10 @@ public class messageClientPage extends SceneController {
         backgroundIMG.setFitHeight(height);
         backgroundIMG.setFitWidth(width);
 
+        publicChatBox.heightProperty().addListener((observable, oldValue, newValue) -> {
+            publicChatBoxScrollPane.setVvalue(newValue.doubleValue());
+        });
+
         backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
         backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
@@ -129,23 +139,28 @@ public class messageClientPage extends SceneController {
                         // create a new textField
                         TextFlow msgFromUser = new TextFlow();
                         Text msgText = new Text(m.body);
-                        msgText.setStyle("-fx-text-fill: white;");
+                        msgText.setFill(Paint.valueOf("WHITE"));
+                        msgText.setStyle("-fx-font-size: 35");
                         msgFromUser.getChildren().add(msgText);
                         msgFromUser.getStyleClass().add("textFlow");
+                        msgFromUser.setPadding(new Insets(0, 50,0,10));
                         msgBox.getChildren().add(msgFromUser);
                         msgBox.setAlignment(Pos.CENTER_RIGHT);
                     } else {
                         // create a new textField
                         TextFlow msgReceived = new TextFlow();
                         Text msgText = new Text(m.body);
-                        msgText.setStyle("-fx-text-fill: black;");
+                        msgText.setFill(Paint.valueOf("BLACK"));
+                        msgText.setStyle("-fx-font-size: 35");
                         msgReceived.getChildren().add(msgText);
                         msgReceived.getStyleClass().add("textFlowFlipped");
+                        msgReceived.setPadding(new Insets(0, 10,0,50));
                         msgBox.getChildren().add(msgReceived);
                         msgBox.setAlignment(Pos.CENTER_LEFT);
                     }
                     msgBox.getStyleClass().add("hboxMessages");
                     publicChatBox.getChildren().add(msgBox);
+
                 });
             }
         }
