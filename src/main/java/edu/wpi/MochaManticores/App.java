@@ -109,6 +109,8 @@ public class App extends Application {
       //primaryStage.setMaximized(true);
       //primaryStage.setFullScreen(true);
       primaryStage.setScene(scene);
+      primaryStage.setHeight(800);
+      primaryStage.setWidth(1200);
       primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
       primaryStage.show();
       root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("fxml/loginPage.fxml")));

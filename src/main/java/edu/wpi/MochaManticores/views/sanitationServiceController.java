@@ -239,8 +239,5 @@ public class sanitationServiceController extends SceneController {
         loadSubmitDialog();
     }
 
-    public void back() {
-        goBack();
-    }
 }
 
