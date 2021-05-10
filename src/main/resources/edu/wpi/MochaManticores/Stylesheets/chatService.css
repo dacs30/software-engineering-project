@@ -28,10 +28,10 @@
 }
 
 .jfx-button:hover{
-    -fx-background-color: #c2c2c2;
+    -fx-background-color: #E9E9EB;
     -fx-effect: dropshadow( three-pass-box , rgba(2, 2, 2, 0.2), 20, 0.0 , 1 , 10);
     -fx-font-family: Roboto;
-    -fx-text-fill: grey;
+    -fx-text-fill: black;
     -fx-font-size: 20;
     -fx-border-radius: 40;
     -fx-background-radius: 40;
