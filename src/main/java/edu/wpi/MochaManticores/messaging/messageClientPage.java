@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.views.SceneController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -52,6 +53,28 @@ public class messageClientPage extends SceneController {
     DataOutputStream output =  App.getClient().getOutput();
     clientReader reader = App.getClient().getReader();
     String user = App.getCurrentUsername();
+    HashMap<String,LinkedList<Message>> messages = reader.getHistory();
+    LinkedList<Target> targets = new LinkedList<>();
+    Target selected;
+
+    public class Target extends Text{
+
+        private Map.Entry<String, LinkedList<Message>> m;
+
+        public Target(Map.Entry<String, LinkedList<Message>> m){
+            super();
+            this.m = m;
+            this.setText(m.getKey());
+        }
+
+        public String getMessenger(){
+            return m.getKey();
+        }
+
+        public LinkedList<Message> getMessageHistory(){
+            return m.getValue();
+        }
+    }
 
     public void initialize(){
         //TODO update GUI to include tabs
@@ -147,8 +170,14 @@ public class messageClientPage extends SceneController {
     public void sendEvent(ActionEvent actionEvent) {
 
         try {
+            String target;
             String message = msgs.getText().trim();
-            String target = tgt.getText().trim();
+            if(selected==null){
+                target = tgt.getText().trim();
+            }else{
+                target = selected.getMessenger();
+            }
+
 
             //if message is empty, just return : don't send the message
             if (message.length() == 0 | target.length() == 0) {

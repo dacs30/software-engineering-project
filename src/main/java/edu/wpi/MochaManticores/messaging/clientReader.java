@@ -45,6 +45,10 @@ public class clientReader implements Runnable{
         this.GUIconnected = false;
     }
 
+    public HashMap<String,LinkedList<Message>> getHistory(){
+        return messageHistory;
+    }
+
     @Override
     public void run() {
         boolean running = true;
