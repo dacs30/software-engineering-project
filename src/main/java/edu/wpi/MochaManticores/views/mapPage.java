@@ -31,6 +31,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import org.controlsfx.control.Notifications;
 
 import java.io.File;
 import java.io.IOException;
@@ -937,37 +938,68 @@ public class mapPage extends SceneController {
 //                pathToTake.append(DatabaseManager.getNode(str).getLongName()).append("\n|\n");//appending the paths
             }
             //savedRoute.add(endID);
-//            dirVBOX.getChildren().add(endLabel);
             int count = 0;
             final VBox[] pathCurrentlyOpened = {null};
             for (LinkedList<String> floor : App.getAlgoType().pathToText(path)) {
-                // floorBlock is a VBox that contains the HBox of the floor and the
+                // floorBlock is a VBox that contains the VBox of the floor and the
                 // VBox of HBoxes for that floor path
                 VBox floorBlock = new VBox();
 
+                // currentFloorTitle is the VBox with the floor Label and the grey line
                 VBox currentFloorTitle = new VBox();
 
+                // grey line at the bottom of the top of the label
                 Rectangle line = new Rectangle();
-                line.setFill(Color.GREY);
-                line.setWidth(150);
+                line.setFill(Color.rgb(10, 10, 10, 0.2));
+                line.setWidth(250);
                 line.setHeight(1);
 
-                Rectangle line2 = new Rectangle();
-                line2.setFill(Color.GREY);
-                line2.setWidth(150);
-                line2.setHeight(1);
-
+                // HBox that contains the Label and the button to open the path
                 HBox currentFloorHbox = new HBox();
                 Label currentFloor = new Label();
                 currentFloor.setStyle("-fx-font-family: Roboto");
-                JFXButton seePathButton = new JFXButton("Open path");
+                currentFloor.setStyle("-fx-font-weight: bold");
+                currentFloor.setTextFill(Color.GREY);
+
+                // Button to open the path
+                JFXButton seePathButton = new JFXButton("View Path");
+                seePathButton.setStyle("-fx-font-size: 15");
+                seePathButton.setOnMouseClicked(e->{
+                    if (floor.getFirst().contains("LL1")){
+                        loadL1();
+                    } else if (floor.getFirst().contains("LL2")){
+                        loadL2();
+                    } else if (floor.getFirst().contains("G")){
+                        loadGround();
+                    } else if (floor.getFirst().contains("1")){
+                        loadF1();
+                    } else if (floor.getFirst().contains("2")){
+                        loadF2();
+                    } else if (floor.getFirst().contains("3")){
+                        loadF3();
+                    }
+
+                    if (floorBlock.getChildren().get(1).isVisible()) {
+                        floorBlock.getChildren().get(1).setVisible(false);
+                        floorBlock.getChildren().get(1).setManaged(false);
+                    } else{
+                        pathCurrentlyOpened[0].setVisible(false);
+                        pathCurrentlyOpened[0].setManaged(false);
+                        floorBlock.getChildren().get(1).setVisible(true);
+                        floorBlock.getChildren().get(1).setManaged(true);
+                        pathCurrentlyOpened[0] = (VBox) floorBlock.getChildren().get(1);
+                    }
+                });
+
+
                 currentFloorHbox.getChildren().add(currentFloor);
                 currentFloorHbox.getChildren().add(seePathButton);
                 currentFloorHbox.setAlignment(Pos.CENTER_LEFT);
-                currentFloorHbox.setSpacing(175);
-                currentFloorHbox.setPadding(new Insets(10, 0, 10, 0));
+                currentFloorHbox.setSpacing(190);
+                currentFloorHbox.setPadding(new Insets(15, 0, 15, 0));
                 currentFloor.setAlignment(Pos.CENTER_LEFT);
                 currentFloor.setText(floor.getFirst()); //Floor 1:
+                currentFloor.setPadding(new Insets(0, 0, 0, 10));
 
                 currentFloorTitle.getChildren().add(line);
                 currentFloorTitle.getChildren().add(currentFloorHbox);
@@ -987,6 +1019,21 @@ public class mapPage extends SceneController {
 
                 // VBox for the paths on this floor
                 floorBlock.getChildren().get(0).setOnMouseClicked(e -> {
+
+                    if (floor.getFirst().contains("LL1")){
+                        loadL1();
+                    } else if (floor.getFirst().contains("LL2")){
+                        loadL2();
+                    } else if (floor.getFirst().contains("G")){
+                        loadGround();
+                    } else if (floor.getFirst().contains("1")){
+                        loadF1();
+                    } else if (floor.getFirst().contains("2")){
+                        loadF2();
+                    } else if (floor.getFirst().contains("3")){
+                        loadF3();
+                    }
+
                     if (floorBlock.getChildren().get(1).isVisible()) {
                         floorBlock.getChildren().get(1).setVisible(false);
                         floorBlock.getChildren().get(1).setManaged(false);
@@ -1105,6 +1152,8 @@ public class mapPage extends SceneController {
                     }
 
                 }
+
+                pathsOnThisFloor.setPadding(new Insets(0, 0, 20, 0));
 
                 floorBlock.getChildren().add(pathsOnThisFloor);
                 dirVBOX.getChildren().add(floorBlock);

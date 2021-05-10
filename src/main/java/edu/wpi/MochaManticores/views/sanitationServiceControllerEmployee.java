@@ -160,7 +160,7 @@ public class sanitationServiceControllerEmployee extends SceneController {
 
         message.setBody(body);
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
-        JFXButton ok = new JFXButton("Ok");
+        JFXButton ok = new JFXButton("Done");
         ok.setOnAction(event -> {
             dialogPane.toBack();
             dialog.close();

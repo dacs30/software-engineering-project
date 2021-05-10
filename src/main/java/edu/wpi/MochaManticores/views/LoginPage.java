@@ -4,10 +4,9 @@ import com.jfoenix.controls.*;
 import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
+import edu.wpi.MochaManticores.Exceptions.InvalidLoginException;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.Employee;
-import edu.wpi.MochaManticores.database.Mdb;
-import edu.wpi.MochaManticores.messaging.messageClient;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -111,14 +110,14 @@ public class LoginPage extends SceneController{
 
         message.setBody(body);
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
-        JFXButton yes = new JFXButton("YES");
+        JFXButton yes = new JFXButton("Yes");
         yes.setOnAction(event -> {
             dialog.close();
             dialogPane.toBack();
             changeSceneTo("EmergencyForm");
         });
 
-        JFXButton no = new JFXButton("NO");
+        JFXButton no = new JFXButton("No");
         no.setOnAction(event -> {
             dialog.close();
             dialogPane.toBack();
@@ -223,14 +222,14 @@ public class LoginPage extends SceneController{
             // start new message client
             App.getClient().startClient();
             changeSceneTo("landingPage");
-        } catch (Exception e) {
+        } catch (InvalidLoginException | InvalidElementException e) {
             // Validators
             employeeUsername.setText(null);
             employeePassword.setText(null);
             RequiredFieldValidator wrongCreditals = new RequiredFieldValidator();
             employeeUsername.getValidators().add(wrongCreditals);
             employeePassword.getValidators().add(wrongCreditals);
-            wrongCreditals.setMessage("Wrong credentials");
+            wrongCreditals.setMessage("Incorrect username or password");
             employeeUsername.validate();
             employeePassword.validate();
         }

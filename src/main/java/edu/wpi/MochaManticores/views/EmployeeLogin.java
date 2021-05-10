@@ -5,8 +5,6 @@ import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.database.DatabaseManager;
-import edu.wpi.MochaManticores.database.Mdb;
-import edu.wpi.MochaManticores.messaging.messageClient;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -82,14 +80,14 @@ public class EmployeeLogin extends SceneController{
 
         message.setBody(body);
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
-        JFXButton yes = new JFXButton("YES");
+        JFXButton yes = new JFXButton("Yes");
         yes.setOnAction(event -> {
             dialog.close();
             dialogPane.toBack();
             changeSceneTo("EmergencyForm");
         });
 
-        JFXButton no = new JFXButton("NO");
+        JFXButton no = new JFXButton("No");
         no.setOnAction(event -> {
             dialog.close();
             dialogPane.toBack();
@@ -124,7 +122,7 @@ public class EmployeeLogin extends SceneController{
 
         message.setBody(body);
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
-        JFXButton ok = new JFXButton("OK");
+        JFXButton ok = new JFXButton("Done");
         ok.setOnAction(event -> {
             dialog.close();
             dialogPane.toBack();

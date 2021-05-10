@@ -98,7 +98,7 @@ public class FoodDelivery extends SceneController {
         backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
         backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
-        System.out.println(width);
+        //System.out.println(width);
 
         dietaryPreferences.getItems().clear();
         dietaryPreferences.getItems().addAll("Vegan", "Vegetarian", "Gluten Free");
@@ -147,7 +147,7 @@ public class FoodDelivery extends SceneController {
 
         message.setBody(body);
         JFXDialog dialog = new JFXDialog(dialogPane, message, JFXDialog.DialogTransition.CENTER);
-        JFXButton exit = new JFXButton("Ok");
+        JFXButton exit = new JFXButton("Done");
         exit.setOnAction(event -> {
             goBack();
         });

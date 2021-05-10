@@ -32,8 +32,8 @@
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints maxHeight="150.07406616210938" minHeight="10.0" prefHeight="125.77775573730469" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="419.2222442626953" minHeight="10.0" prefHeight="419.2222442626953" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="451.3333740234375" minHeight="10.0" prefHeight="451.3333740234375" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="124.0" minHeight="10.0" prefHeight="97.6666259765625" vgrow="SOMETIMES" />
               </rowConstraints>
                <effect>
                   <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
@@ -72,7 +72,7 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <JFXRadioButton fx:id="tulip" onAction="#checkFlowers" text="Tulip(Orange) $15" translateX="66.0" GridPane.halignment="CENTER" />
+                                    <JFXRadioButton fx:id="tulip" alignment="CENTER_RIGHT" onAction="#checkFlowers" prefHeight="30.0" prefWidth="135.0" text="Tulips $15" translateX="100.0" GridPane.halignment="CENTER" />
                                     <JFXRadioButton fx:id="rose" onAction="#checkFlowers" text="Roses $25" translateX="10.0" GridPane.columnIndex="1" />
                                     <JFXRadioButton fx:id="lilie" onAction="#checkFlowers" text="Lilies $18" translateX="-50.0" GridPane.columnIndex="2" />
                                  </children>
@@ -100,9 +100,9 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <JFXRadioButton fx:id="blueVase" onAction="#checkVase" text="Blue" translateX="30.0" />
-                                    <JFXRadioButton fx:id="yellowVase" onAction="#checkVase" text="Yellow" GridPane.columnIndex="1" />
-                                    <JFXRadioButton fx:id="orangeVase" onAction="#checkVase" text="Orange" translateX="-53.0" GridPane.columnIndex="2" />
+                                    <JFXRadioButton fx:id="blueVase" onAction="#checkVase" text="Blue" translateX="69.0" />
+                                    <JFXRadioButton fx:id="yellowVase" onAction="#checkVase" text="Yellow" translateX="-6.0" GridPane.columnIndex="1" />
+                                    <JFXRadioButton fx:id="orangeVase" onAction="#checkVase" text="Orange" translateX="-56.0" GridPane.columnIndex="2" />
                                  </children>
                               </GridPane>
                               <Label id="vaseLabel" text="Vase Options" textFill="WHITE" />

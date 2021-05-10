@@ -1,24 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXCheckBox?>
-<?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXDialog?>
-<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <AnchorPane prefHeight="800.0" prefWidth="1207.0" stylesheets="@../Stylesheets/medicineDelivery.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.MedicineDeliveryEmployee">
    <children>
       <ImageView fx:id="backgroundIMG" fitHeight="800.0" fitWidth="1207.0" opacity="0.5" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -63,8 +51,8 @@
                         <Insets right="75.0" />
                      </GridPane.margin>
                   </ImageView>
-                  <JFXComboBox fx:id="medicineCombo" focusColor="#405aa800" prefWidth="400.0" promptText="Type of Medicine" GridPane.rowIndex="1" />
-                  <Label id="feelingsNowLabel" text="What pain is the patient feeling right now?" GridPane.rowIndex="2" />
+                  <JFXComboBox fx:id="medicineCombo" focusColor="#405aa800" prefWidth="400.0" promptText="Type of Medicine" GridPane.rowIndex="5" />
+                  <Label id="feelingsNowLabel" text="What pain are you feeling right now?" GridPane.rowIndex="2" />
                   <GridPane GridPane.rowIndex="3">
                     <columnConstraints>
                       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -84,8 +72,8 @@
                         <JFXCheckBox fx:id="checkBox5" checkedColor="#0f4b91" text="Chest Pain" translateX="50.0" unCheckedColor="BLACK" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
-                  <JFXTextField fx:id="allergies" promptText="Allergies" GridPane.rowIndex="4" />
-                  <JFXTextField fx:id="patientRoom" promptText="Patient room" GridPane.rowIndex="5" />
+                  <JFXTextField fx:id="allergies" labelFloat="true" maxWidth="-Infinity" prefWidth="400.0" promptText="Allergies" GridPane.rowIndex="4" />
+                  <JFXTextField fx:id="patientRoom" labelFloat="true" maxWidth="-Infinity" prefWidth="400.0" promptText="Patient Room" GridPane.rowIndex="1" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0" GridPane.rowIndex="7">
                      <children>
                         <JFXButton id="submitBtn" fx:id="submitButton" onAction="#submitForm" text="Submit" />

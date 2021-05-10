@@ -173,6 +173,42 @@ public class FoodDeliveryEmployee {
         dialog.show();
 
     }
+    public void loadDialog() {
+        //TODO Center the text of it.
+
+        dialogPane.toFront();
+        dialogPane.setDisable(false);
+        JFXDialogLayout message = new JFXDialogLayout();
+        message.setMaxHeight(Region.USE_PREF_SIZE);
+        message.setMaxHeight(Region.USE_PREF_SIZE);
+
+        final Text hearder = new Text("Submited");
+        hearder.setStyle("-fx-font-weight: bold");
+        hearder.setStyle("-fx-font-size: 30");
+        hearder.setStyle("-fx-font-family: Roboto");
+        hearder.setStyle("-fx-alignment: center");
+        message.setHeading(hearder);
+
+        final Text body = new Text("Time estimated:");
+        body.setStyle("-fx-font-size: 15");
+        body.setStyle("-fx-font-family: Roboto");
+        body.setStyle("-fx-alignment: center");
+        message.setHeading(hearder);
+
+        message.setBody(body);
+        JFXDialog dialog = new JFXDialog(dialogPane, message, JFXDialog.DialogTransition.CENTER);
+        JFXButton exit = new JFXButton("Done");
+        exit.setOnAction(event -> {
+            //goBack();
+        });
+        dialog.setOnDialogClosed(event -> {
+            dialogPane.setDisable(true);
+            dialogPane.toBack();
+        });
+        message.setActions(exit);
+        dialog.show();
+
+    }
 
     public void changeManagerTable(ActionEvent actionEvent) {
         requestPage.setVisible(false);

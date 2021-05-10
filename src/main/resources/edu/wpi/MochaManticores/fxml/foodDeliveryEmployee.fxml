@@ -48,9 +48,9 @@
                      </GridPane.margin>
                   </ImageView>
                   <JFXComboBox fx:id="foodMenu" focusColor="WHITE" minWidth="-Infinity" prefWidth="400.0" promptText="Menu" stylesheets="@../Stylesheets/foodDelivery.css" unFocusColor="WHITE" GridPane.rowIndex="2" />
-                  <JFXComboBox fx:id="employeeAssigned" prefWidth="400.0" promptText="Assign to employee" GridPane.rowIndex="3" />
+                  <JFXComboBox fx:id="employeeAssigned" prefWidth="400.0" promptText="Assign to employee" GridPane.rowIndex="4" />
                   <Label id="foodDeliveryTitleLabel" stylesheets="@../stylesheets.css" text="Food Delivery" textFill="WHITE" />
-                  <JFXTextField id="allergiesPrompt" fx:id="allergyText" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="400.0" promptText="Allergies" text="Allergies" GridPane.rowIndex="4" />
+                  <JFXTextField id="allergiesPrompt" fx:id="allergyText" labelFloat="true" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="400.0" promptText="Allergies" text="Allergies" GridPane.rowIndex="3" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0" GridPane.rowIndex="5">
                      <children>
                         <JFXButton id="submitBtn" onAction="#submitForm" text="Submit" />

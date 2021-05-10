@@ -1,7 +1,7 @@
 .jfx-text-field {
     -fx-font-family: Roboto;
     -fx-font-size: 24;
-    -fx-prompt-text-fill: #0F4B91;
+    -fx-prompt-text-fill: grey;
     -jfx-unfocus-color : grey;
     -jfx-focus-color : #0F4B91 ;
 }
@@ -10,6 +10,12 @@
     -fx-font-family: Roboto;
     -fx-font-size: 20;
     -fx-text-fill: rgba(193, 193, 193, 0.93);
+}
+#aboutPage{
+    -fx-font-family: Roboto;
+    -fx-font-size: 15;
+    -fx-text-fill: #0F4B91;
+
 }
 
 #patientIdLabel {
@@ -41,7 +47,7 @@
 .jfx-password-field{
     -fx-font-family: Roboto;
     -fx-font-size: 25;
-    -fx-prompt-text-fill: #0F4B91;
+    -fx-prompt-text-fill: grey;
     -jfx-unfocus-color: grey;
     -jfx-focus-color: #0F4B91;
 }

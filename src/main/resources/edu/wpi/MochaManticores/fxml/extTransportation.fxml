@@ -52,10 +52,10 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <JFXTextField fx:id="patientRoom" promptText="Patient Room" stylesheets="@../Stylesheets/externalTransportation.css" />
-                        <JFXTextField fx:id="currentRoom" promptText="Current Room" stylesheets="@../Stylesheets/externalTransportation.css" GridPane.rowIndex="1" />
-                        <JFXTextField fx:id="externalRoom" promptText="External Room" stylesheets="@../Stylesheets/externalTransportation.css" GridPane.rowIndex="2" />
-                        <JFXComboBox fx:id="transportationMethods" prefWidth="400.0" promptText="Select transportation method" GridPane.rowIndex="3" />
+                        <JFXTextField fx:id="patientRoom" labelFloat="true" promptText="Patient Room" stylesheets="@../Stylesheets/externalTransportation.css" />
+                        <JFXTextField fx:id="currentRoom" labelFloat="true" promptText="Current Room" stylesheets="@../Stylesheets/externalTransportation.css" GridPane.rowIndex="1" />
+                        <JFXTextField fx:id="externalRoom" labelFloat="true" promptText="External Location" stylesheets="@../Stylesheets/externalTransportation.css" GridPane.rowIndex="2" />
+                        <JFXComboBox fx:id="transportationMethods" prefWidth="400.0" promptText="Select Transportation Method" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
                   <JFXButton id="submitBtn" onAction="#submitEvent" text="Submit" GridPane.rowIndex="2" />

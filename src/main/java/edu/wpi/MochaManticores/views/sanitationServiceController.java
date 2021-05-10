@@ -124,7 +124,7 @@ public class sanitationServiceController extends SceneController {
 
         message.setBody(body);
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
-        JFXButton ok = new JFXButton("OK");
+        JFXButton ok = new JFXButton("Done");
         ok.setOnAction(event -> {
             goBack();
         });
@@ -239,8 +239,5 @@ public class sanitationServiceController extends SceneController {
         loadSubmitDialog();
     }
 
-    public void back() {
-        goBack();
-    }
 }
 

@@ -1,23 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXDialog?>
-<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@../Stylesheets/translatorSheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.TranslatorControllerEmployee">
    <children>
       <StackPane fx:id="dialogPane" layoutX="10.0" layoutY="10.0" prefHeight="800.0" prefWidth="1207.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -55,20 +44,21 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <JFXTextField fx:id="roomNumber" focusColor="#0f4c91" promptText="Patient Room" stylesheets="@../Stylesheets/translatorSheet.css" unFocusColor="#104d8f">
+                        <JFXTextField fx:id="roomNumber" focusColor="#0f4c91" labelFloat="true" promptText="Patient Room" stylesheets="@../Stylesheets/translatorSheet.css" unFocusColor="#104d8f">
                            <GridPane.margin>
                               <Insets left="50.0" right="50.0" />
                            </GridPane.margin>
                         </JFXTextField>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0" GridPane.rowIndex="1">
                            <children>
-                              <JFXComboBox id="dropDown" fx:id="languageOne" focusColor="#405aa800" prefWidth="175.0" promptText="Language 1" stylesheets="@../Stylesheets/translatorSheet.css" />
-                              <JFXComboBox id="dropDown" fx:id="languageTwo" focusColor="#ffffff00" prefWidth="175.0" promptText="Language 2" stylesheets="@../Stylesheets/translatorSheet.css" />
+                              <JFXComboBox id="dropDown" fx:id="languageOne" focusColor="#405aa800" prefWidth="400.0" promptText="Language 1" stylesheets="@../Stylesheets/translatorSheet.css" />
                            </children>
                         </HBox>
-                        <JFXComboBox fx:id="employeeAssigned" prefHeight="44.0" prefWidth="400.0" promptText="Assign to employee" GridPane.rowIndex="2" />
+                        <JFXComboBox fx:id="employeeAssigned" prefHeight="44.0" prefWidth="400.0" promptText="Assign to Employee" GridPane.rowIndex="3" />
+                        <JFXComboBox id="dropDown" fx:id="languageTwo" focusColor="#ffffff00" prefWidth="400.0" promptText="Language 2" stylesheets="@../Stylesheets/translatorSheet.css" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0" stylesheets="@../Stylesheets/medicineDelivery.css" GridPane.rowIndex="2">

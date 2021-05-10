@@ -12,11 +12,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.Objects;
 
 public class landingPageController extends SceneController {
@@ -97,6 +99,8 @@ public class landingPageController extends SceneController {
   @FXML
   private JFXTextField searchRequest;
 
+  LinkedList listServices = new LinkedList<HBox>();
+
 
   public void initialize() throws IOException {
 
@@ -134,6 +138,23 @@ public class landingPageController extends SceneController {
               internalTransportationSidePanel, externalTransportationSidePanel,floralSceneSidePanel,sanitationSideMenu,
               surveySideMenu,religionSidePane, laundrySidePane,translatorSidePane);
 
+      listServices.add(menuSidePane);
+      listServices.add(mapSidePane);
+      listServices.add(servicesBox);
+    listServices.add(foodDeliverySidePanel);
+    listServices.add(medicineDeliverySidePanel);
+    listServices.add(internalTransportationSidePanel);
+    listServices.add(externalTransportationSidePanel);
+    listServices.add(floralSceneSidePanel);
+    listServices.add(sanitationSideMenu);
+    listServices.add(surveySideMenu);
+    listServices.add(religionSidePane);
+    listServices.add(laundrySidePane);
+    listServices.add(translatorSidePane);
+
+
+      //search
+      //loop that gets the children and compates them to a string
 
       services.setMaxWidth(Region.USE_COMPUTED_SIZE);
 
@@ -205,6 +226,14 @@ public class landingPageController extends SceneController {
     message.setActions(yes, no);
     dialogPane.toFront();
     dialog.show();
+
+  }
+
+  public void searchRequests(KeyEvent keyEvent) {
+
+    //for(if(listServices.get(1).equals(keyEvent)){
+      //super.changeWindowTo();
+   // }
 
   }
 
@@ -575,5 +604,6 @@ public class landingPageController extends SceneController {
 
     //loadErrorDialog(dialogPane, "Coming in a future iteration!");
   }
+
 
 }
