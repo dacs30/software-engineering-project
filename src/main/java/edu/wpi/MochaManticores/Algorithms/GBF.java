@@ -1,6 +1,5 @@
 package edu.wpi.MochaManticores.Algorithms;
 
-import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 
 import java.util.HashMap;
@@ -11,19 +10,10 @@ import java.util.PriorityQueue;
  * GBF implementation using a priority queue to find the most efficient path to the target node
  * @author aksil
  */
-public class GBF implements PathPlanning{
-    //Declare instance variables
-    private final HashMap<String, NodeSuper> nodes;           //The HashMap containing all nodes on the map
-    private PriorityQueue<AStarNode> horizon;           //Contains unvisited nodes adjacent to visited ones (lowest cost first)
-    private HashMap<String, AStarNode> visitedNodes;    //Contains all visited nodes
-    private HashMap<String, AStarNode> horizonNodes;    //Same as horizon but as a list to enable object retrieval
-    private AStarNode currentNode;                      //Current node being explored
-    private NodeSuper target;                           //The node being searched for
-    private String condition;                           //Conditions which must be met by nodes in the path
-
+public class GBF extends PathPlannerSuper implements PathPlanning{
     //Constructor
     public GBF() {
-        this.nodes = MapSuper.getMap();
+        super();
     }
 
     /**
@@ -69,10 +59,6 @@ public class GBF implements PathPlanning{
         this.currentNode = new AStarNode(start, target, "NONE");         //Initialized to start node
         this.target = target;                           //Initializes the target variable
 
-        //Initialize local variables
-        LinkedList<String> route = new LinkedList<>();  //Initialized as empty
-        String traceBackNode = target.getID();          //First ID on the route list will be the target node
-
         //Explore the horizon until the target node is found
         while(true) {
             //checkNeighbors adds to the horizon and compares routes, returns false unless the target is found
@@ -84,17 +70,8 @@ public class GBF implements PathPlanning{
             this.horizonNodes.remove(this.currentNode.getID());
         }
 
-        //Once the target has been found, retrace steps back to the start node
-        while(true) {
-            route.addFirst(traceBackNode);
-            traceBackNode = this.visitedNodes.get(traceBackNode).getLastID();
-            //Once the start node has been found, break the loop
-            if(traceBackNode == "NONE") {
-                break;
-            }
-        }
-        //return the path (ordered target -> start)
-        return route;
+        //Once the target has been found, retrace steps back to the start node and return the path (target -> start)
+        return traceBack(target.getID());
     }
 
     /**
@@ -113,35 +90,8 @@ public class GBF implements PathPlanning{
             //Initialize more local variables
             NodeSuper neighbor = this.nodes.get(ID);    //Stores the neighbor node as a local variable for efficiency
 
-            //Tests whether or not a node is accessible to the user
-            boolean isAccessible = false;
-            switch(this.condition) {
-                case "covid":
-                    if(!neighbor.isRestricted() && !neighbor.isCovid()){
-                        isAccessible = true;
-                    }
-                    break;
-                case "covidHandicap":
-                    if(!neighbor.isRestricted() && !neighbor.isCovid() && neighbor.isHandicap()){
-                        isAccessible = true;
-                    }
-                    break;
-                case "none":
-                    isAccessible = true;
-                    break;
-                case "handicap":
-                    if(neighbor.isHandicap()) {isAccessible = true;}
-                    break;
-                case "publicOnly":
-                    if(!neighbor.isRestricted()) {isAccessible = true;}
-                    break;
-                case "publicHandicap":
-                    if(neighbor.isHandicap() && !neighbor.isRestricted()) {isAccessible = true;}
-                    break;
-            }
-
             //If the node is accessible, continue
-            if(isAccessible) {
+            if(isAccessible(neighbor)) {
                 AStarNode newNode;
 
                 newNode = new AStarNode(neighbor, this.target, currentID);    //Makes a new A* node
