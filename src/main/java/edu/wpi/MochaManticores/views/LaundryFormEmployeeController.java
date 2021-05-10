@@ -140,6 +140,7 @@ public class LaundryFormEmployeeController {
 
 
     private void loadHelpDialogue(){
+        dialogPane.toFront();
         JFXDialogLayout message = new JFXDialogLayout();
         message.setMaxHeight(Region.USE_COMPUTED_SIZE);
         message.setMaxHeight(Region.USE_COMPUTED_SIZE);
