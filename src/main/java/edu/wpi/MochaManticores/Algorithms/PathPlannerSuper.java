@@ -47,7 +47,7 @@ public class PathPlannerSuper {
             if (!(lastLevelChange && currLevelChange)) {
                 route.addFirst(traceBackNode);
                 traceBackNode = this.visitedNodes.get(traceBackNode).getLastID();
-                if(traceBackNode == "NONE") {
+                if(traceBackNode.equals("NONE")) {
                     break;  //Once the start node has been found, break the loop
                 }
             }
@@ -60,7 +60,7 @@ public class PathPlannerSuper {
                 traceBackNode = this.visitedNodes.get(traceBackNode).getLastID();   //update traceback node
 
                 //Check whether or not this is the origin node
-                if(traceBackNode == "NONE") {
+                if(traceBackNode.equals("NONE")) {
                     route.addFirst(currNode);   //If so, add it to the path and break the loop
                     break;
                 }
@@ -123,6 +123,86 @@ public class PathPlannerSuper {
     }
 
     /**
+     * function: pathToText()
+     * usage: translates the path from AStar into directions for the user
+     * inputs: LinkedList<String> which is the output from AStar
+     * returns: LinkedList<LinkedList<String>> where each string is a separate direction and each List is directions on a
+     *          separate floor
+     */
+    public LinkedList<LinkedList<String>> pathToText(LinkedList<String> path){
+        LinkedList<LinkedList<String>> pathAsText = new LinkedList<>();
+        if (path.isEmpty()){
+            return pathAsText;
+        } else  if (path.size() == 1){
+            LinkedList<String> leg1 = new LinkedList<>();
+            leg1.add("Floor: " + nodes.get(path.getFirst()).getFloor());
+            leg1.add("You are at " + nodes.get(path.getFirst()).getShortName());
+            pathAsText.add(leg1);
+            return pathAsText;
+        }
+        int x;
+        int y;
+        int lx = 0;
+        int ly = 0;
+        boolean up;
+        boolean stairs;
+        while (path.size() > 1){
+            pathAsText.add(new LinkedList<>());
+            pathAsText.getLast().add("Floor: " + nodes.get(path.getFirst()).getFloor());
+
+            while (path.size() > 1 && nodes.get(path.getFirst()).getFloor().equals(nodes.get(path.get(1)).getFloor())){
+
+                x = nodes.get(path.get(1)).getXcoord() - nodes.get(path.getFirst()).getXcoord();
+                y = nodes.get(path.get(1)).getYcoord() - nodes.get(path.getFirst()).getYcoord();
+
+                x = Integer.compare(x, 0);
+                y = Integer.compare(y, 0);
+
+                if (lx == 0 && ly == 0){
+                    lx = x;
+                    ly = y;
+                }
+
+                if (x != lx || y != ly){
+                    pathAsText.getLast().add("Head straight until you reach " + nodes.get(path.getFirst()).getShortName());
+                    if (isLeft(nodes.get(path.getFirst()).getID(), nodes.get(path.get(1)).getID(), lx, ly)){
+                        pathAsText.getLast().add("Then turn left");
+                    }else if (isRight(nodes.get(path.getFirst()).getID(), nodes.get(path.get(1)).getID(), lx, ly)){
+                        pathAsText.getLast().add("Then turn right");
+                    }
+                }
+                path.removeFirst();
+            }
+
+            if(path.size() > 1) {
+                up = floorCMP(nodes.get(path.getFirst()).getFloor(), nodes.get(path.get(1)).getFloor());
+                stairs = nodes.get(path.getFirst()).getType().equals("STAI");
+                if (up) {
+                    if (stairs) {
+                        pathAsText.getLast().add("Take the stairs up to floor " + nodes.get(path.get(1)).getFloor());
+                    } else {
+                        pathAsText.getLast().add("Take the elevator up to floor " + nodes.get(path.get(1)).getFloor());
+                    }
+                } else {
+                    if (stairs) {
+                        pathAsText.getLast().add("Take the stairs down to floor " + nodes.get(path.get(1)).getFloor());
+                    } else {
+                        pathAsText.getLast().add("Take the elevator down to floor " + nodes.get(path.get(1)).getFloor());
+                    }
+                }
+                path.removeFirst();
+                lx = 0;
+                ly = 0;
+            }
+        }
+        if (!pathAsText.getLast().getLast().equals("Head straight until you reach " + nodes.get(path.getFirst()).getShortName())){
+            pathAsText.getLast().add("Head straight until you reach " + nodes.get(path.getFirst()).getShortName());
+        }
+
+        return pathAsText;
+    }
+
+    /**
      * function: floorCMP()
      * usage: determines whether traversing floors in a direction is up or down
      * inputs: curF the id of the current floor, nextF the id of the next floor
@@ -161,20 +241,8 @@ public class PathPlannerSuper {
         int xn = nodes.get(n).getXcoord() - nodes.get(curr).getXcoord();
         int yn = nodes.get(n).getYcoord() - nodes.get(curr).getYcoord();
 
-        if (xn > 0){
-            xn = 1;
-        } else if(xn < 0){
-            xn = -1;
-        } else {
-            xn = 0;
-        }
-        if (yn > 0){
-            yn = 1;
-        } else if(yn < 0){
-            yn = -1;
-        } else {
-            yn = 0;
-        }
+        xn = Integer.compare(xn, 0);
+        yn = Integer.compare(yn, 0);
 
         if (x == 1 && y == 0){
             return yn == 1;
@@ -209,20 +277,8 @@ public class PathPlannerSuper {
         int xn = nodes.get(n).getXcoord() - nodes.get(curr).getXcoord();
         int yn = nodes.get(n).getYcoord() - nodes.get(curr).getYcoord();
 
-        if (xn > 0){
-            xn = 1;
-        } else if(xn < 0){
-            xn = -1;
-        } else {
-            xn = 0;
-        }
-        if (yn > 0){
-            yn = 1;
-        } else if(yn < 0){
-            yn = -1;
-        } else {
-            yn = 0;
-        }
+        xn = Integer.compare(xn, 0);
+        yn = Integer.compare(yn, 0);
 
         if (x == 1 && y == 0){
             return yn == -1;
