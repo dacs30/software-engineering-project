@@ -63,7 +63,7 @@ public class internalTransportationController extends SceneController{
         back();
     }
 
-    public void submitEvent(ActionEvent actionEvent) {
+    public void submitEvent() {
         if(!patientID.getText().isEmpty() && !numberOfStaff.getText().isEmpty() &&
                 !destination.getText().isEmpty() && !transportComboBox.getSelectionModel().getSelectedItem().isEmpty()){
             sel s = sel.InternalTransportation;

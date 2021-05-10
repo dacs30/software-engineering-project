@@ -58,7 +58,7 @@
                         <JFXComboBox fx:id="transportationMethods" prefWidth="400.0" promptText="Select Transportation Method" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
-                  <JFXButton id="submitBtn" onAction="#submitEvent" text="Submit" GridPane.rowIndex="2" />
+                  <JFXButton id="submitBtn" buttonType="RAISED" onAction="#submitEvent" text="Submit" GridPane.rowIndex="2" />
                   <ImageView id="helpButton" fitHeight="150.0" fitWidth="40.0" onMouseClicked="#helpButton" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
                      <image>
                         <Image url="@../images/blueHelpBtn.png" />

@@ -1,11 +1,10 @@
 package edu.wpi.MochaManticores.views;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.*;
 import edu.wpi.MochaManticores.App;
-import javafx.event.ActionEvent;
+import edu.wpi.MochaManticores.Services.LaundryRequest;
+import edu.wpi.MochaManticores.database.DatabaseManager;
+import edu.wpi.MochaManticores.database.sel;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -17,6 +16,12 @@ import javafx.scene.text.Text;
 public class LaundryFormController {
 
     @FXML
+    private JFXTextField nameField;
+
+    @FXML
+    private JFXTextField dryCycles;
+
+    @FXML
     private JFXComboBox<String> soil;
 
     @FXML
@@ -24,6 +29,7 @@ public class LaundryFormController {
 
     @FXML
     private JFXComboBox<String> dTemp;
+
 
     @FXML
     private GridPane contentGrid;
@@ -37,6 +43,8 @@ public class LaundryFormController {
     private ImageView helpButton;
     @FXML
     private StackPane dialogPane;
+    @FXML
+    private JFXToggleButton delicateToggle;
 
 
     public void initialize(){
@@ -60,7 +68,16 @@ public class LaundryFormController {
         dTemp.getItems().addAll("High", "Medium", "Low", "Delicate", "No Heat");
     }
 
-    public void submitEvent(ActionEvent actionEvent) {
+    public void submitEvent(){
+        DatabaseManager.addRequest(sel.Laundry,
+                new LaundryRequest("","",
+                        false
+                        ,nameField.getText(),
+                        soil.getSelectionModel().getSelectedItem(),
+                        delicateToggle.isSelected(),
+                        wTemp.getSelectionModel().getSelectedItem(),
+                        dTemp.getSelectionModel().getSelectedItem(),
+                        Integer.parseInt(dryCycles.getText())));
         loadSubmitDialog();
     }
 

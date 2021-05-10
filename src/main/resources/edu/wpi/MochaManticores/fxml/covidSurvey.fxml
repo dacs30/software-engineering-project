@@ -64,9 +64,15 @@
                            </rowConstraints>
                            <children>
                               <Label text="Patient Name:" translateX="-175.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                              <JFXTextField focusColor="#0f4b91" maxWidth="-Infinity" prefWidth="300.0" GridPane.halignment="CENTER">
+                              <JFXTextField focusColor="#0f4b91" maxWidth="-Infinity" prefWidth="450.0" GridPane.halignment="CENTER">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <GridPane.margin>
+                                    <Insets left="150.0" />
+                                 </GridPane.margin>
                                  <padding>
-                                    <Insets left="50.0" />
+                                    <Insets left="50.0" right="50.0" />
                                  </padding>
                               </JFXTextField>
                               <Label text="Have you been clinically diagnosed with COVID-19?" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
@@ -138,7 +144,7 @@
                           </rowConstraints>
                            <children>
                               <Label text="Patient Date Of Birth:" translateX="50.0" />
-                              <JFXDatePicker fx:id="dateOfBirthPicker" defaultColor="#0f4b91" prefWidth="300.0" translateX="210.0">
+                              <JFXDatePicker fx:id="dateOfBirthPicker" defaultColor="#0f4b91" prefWidth="365.0" translateX="210.0">
                                  <padding>
                                     <Insets left="50.0" />
                                  </padding>

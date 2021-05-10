@@ -124,7 +124,7 @@ public class LaundryFormEmployeeController {
         requestPage.toFront();
     }
 
-    public void submitEvent(ActionEvent e){
+    public void submitEvent(){
         DatabaseManager.addRequest(sel.Laundry,
                 new LaundryRequest("",
                         employeeAssigned.getEditor().getText(),

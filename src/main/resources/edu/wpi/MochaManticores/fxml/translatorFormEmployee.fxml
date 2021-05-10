@@ -63,7 +63,7 @@
                   </GridPane>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0" stylesheets="@../Stylesheets/medicineDelivery.css" GridPane.rowIndex="2">
                      <children>
-                        <JFXButton id="submitBtn" fx:id="submitButton" onAction="#submitEvent" text="Submit" />
+                        <JFXButton id="submitBtn" fx:id="submitButton" buttonType="RAISED" onAction="#submitEvent" text="Submit" />
                      </children>
                   </HBox>
                   <ImageView fx:id="helpButton" fitHeight="150.0" fitWidth="40.0" onMouseClicked="#helpEvent" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">

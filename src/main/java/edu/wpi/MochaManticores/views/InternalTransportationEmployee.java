@@ -191,7 +191,7 @@ public class InternalTransportationEmployee {
 //        buildTable("");
     }
 
-    public void submitEvent(ActionEvent actionEvent) {
+    public void submitEvent() {
         if(!patientID.getText().isEmpty() || !numberOfStaff.getText().isEmpty() ||
                 !destination.getText().isEmpty() || !transportComboBox.getSelectionModel().getSelectedItem().isEmpty()){
             sel s = sel.InternalTransportation;

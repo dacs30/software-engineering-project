@@ -68,9 +68,9 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <JFXRadioButton fx:id="tulip" alignment="CENTER_RIGHT" onAction="#checkFlowers" prefHeight="30.0" prefWidth="124.0" text="Tulips $15" GridPane.halignment="RIGHT" />
-                                    <JFXRadioButton fx:id="rose" onAction="#checkFlowers" text="Roses $25" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-                                    <JFXRadioButton fx:id="lilie" onAction="#checkFlowers" text="Lilies $18" GridPane.columnIndex="2" GridPane.halignment="LEFT" />
+                                    <JFXRadioButton fx:id="tulip" alignment="CENTER_RIGHT" onAction="#checkFlowers" prefHeight="30.0" text="Tulips $15" GridPane.halignment="RIGHT" />
+                                    <JFXRadioButton fx:id="rose" onAction="#checkFlowers" prefWidth="128.0" text="Roses $25" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                                    <JFXRadioButton fx:id="lilie" onAction="#checkFlowers" prefWidth="128.0" text="Lilies $18" GridPane.columnIndex="2" GridPane.halignment="LEFT" />
                                  </children>
                               </GridPane>
                               <Label id="flowerLabel" text="Flower Types" textFill="WHITE" GridPane.valignment="TOP" />

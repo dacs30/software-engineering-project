@@ -73,7 +73,7 @@
                            </children>
                         </GridPane>
                         <JFXTextField fx:id="description" labelFloat="true" promptText="Description" GridPane.rowIndex="3" />
-                        <JFXButton id="submitBtn" fx:id="submitButton" onAction="#submit" text="Submit" GridPane.rowIndex="6" />
+                        <JFXButton id="submitBtn" fx:id="submitButton" onAction="#submitEvent" text="Submit" GridPane.rowIndex="6" />
                         <ImageView id="helpButton" fitHeight="150.0" fitWidth="40.0" onMouseClicked="#helpButton" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
                            <image>
                               <Image url="@../images/blueHelpBtn.png" />

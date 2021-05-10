@@ -11,7 +11,6 @@ import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.sel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
@@ -55,7 +54,7 @@ public class extTransportationController extends SceneController {
 
     }
 
-    public void submitEvent(ActionEvent actionEvent) {
+    public void submitEvent() {
         if(!externalRoom.getText().isEmpty() && !currentRoom.getText().isEmpty() && !patientRoom.getText().isEmpty()){
             sel s = sel.ExternalTransportation;
             DatabaseManager.addRequest(s,
@@ -79,6 +78,7 @@ public class extTransportationController extends SceneController {
             missingInput.setMessage("External room is required");
             externalRoom.validate();
         }
+        loadSubmitDialog();
 
     }
 
@@ -155,7 +155,8 @@ public class extTransportationController extends SceneController {
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
         JFXButton ok = new JFXButton("Done");
         ok.setOnAction(event -> {
-            super.back();
+            dialogPane.toBack();
+            dialog.close();
         });
 
         dialog.setOnDialogClosed(event -> {

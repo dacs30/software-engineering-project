@@ -149,7 +149,8 @@ public class FoodDelivery extends SceneController {
         JFXDialog dialog = new JFXDialog(dialogPane, message, JFXDialog.DialogTransition.CENTER);
         JFXButton exit = new JFXButton("Done");
         exit.setOnAction(event -> {
-            goBack();
+            dialogPane.toBack();
+            dialog.close();
         });
         dialog.setOnDialogClosed(event -> {
             dialogPane.setDisable(true);

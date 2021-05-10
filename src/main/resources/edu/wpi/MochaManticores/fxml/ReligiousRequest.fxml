@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import javafx.geometry.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDialog?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+
 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../Stylesheets/ReligiousRequest.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.ReligiousRequestController">
     <children>
-      <ImageView fx:id="backgroundIMG" fitHeight="800.0" fitWidth="1200.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ImageView fx:id="backgroundIMG" fitHeight="800.0" fitWidth="1200.0" opacity="0.5" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@../images/cool-background.jpg" />
          </image>
@@ -77,136 +87,7 @@
                         <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
                     </effect>
                 </GridPane>
-            <GridPane id="formsGrid" fx:id="formSquare1" layoutX="110.0" layoutY="60.0" maxHeight="700.0" maxWidth="1000.0" prefHeight="700.0" prefWidth="1000.0">
-               <columnConstraints>
-                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <Label id="religiousTitle" fx:id="religiousTitle1" stylesheets="@../Stylesheets/ReligiousRequest.css" text="Religious Request" />
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0" GridPane.rowIndex="2">
-                     <children>
-                        <JFXTextField id="reasonForVisit" fx:id="reasonBox1" labelFloat="true" prefWidth="400.0" promptText="Reason for visit" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="200.0" GridPane.rowIndex="4">
-                     <children>
-                        <JFXButton id="jfx-button" fx:id="submitBTN1" buttonType="RAISED" onAction="#submitEvent" text="Submit" />
-                     </children>
-                  </HBox>
-                  <JFXComboBox fx:id="TypeOfSacredPerson1" prefWidth="400.0" promptText="Select a Religious Figure" GridPane.rowIndex="3" />
-                  <ImageView fx:id="helpButton1" fitHeight="150.0" fitWidth="40.0" onMouseClicked="#openHelp" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
-                     <image>
-                        <Image url="@../images/blueHelpBtn.png" />
-                     </image>
-                     <GridPane.margin>
-                        <Insets right="75.0" />
-                     </GridPane.margin>
-                  </ImageView>
-                  <JFXTextField fx:id="roomIDBox1" labelFloat="true" prefWidth="400.0" promptText="Room Number" GridPane.rowIndex="1">
-                     <padding>
-                        <Insets left="0" right="0" />
-                     </padding>
-                  </JFXTextField>
-               </children>
-               <effect>
-                  <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
-               </effect>
-            </GridPane>
             </children>
         </GridPane>
-      <GridPane id="backgroundGrid" fx:id="backgroundGrid1" layoutX="10.0" layoutY="10.0" prefHeight="800.0" prefWidth="1200.0">
-         <columnConstraints>
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="1028.111083984375" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-         </rowConstraints>
-         <children>
-            <GridPane id="formsGrid" fx:id="formSquare1" maxHeight="700.0" maxWidth="1000.0" prefHeight="700.0" prefWidth="1000.0">
-               <columnConstraints>
-                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-               <children>
-                  <Label id="religiousTitle" fx:id="religiousTitle1" stylesheets="@../Stylesheets/ReligiousRequest.css" text="Religious Request" />
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0" GridPane.rowIndex="2" />
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="200.0" GridPane.rowIndex="4">
-                     <children>
-                        <JFXButton id="jfx-button" fx:id="submitBTN1" buttonType="RAISED" onAction="#submitEvent" text="Submit" />
-                     </children>
-                  </HBox>
-                  <ImageView fx:id="helpButton1" fitHeight="150.0" fitWidth="40.0" onMouseClicked="#openHelp" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
-                     <image>
-                        <Image url="@../images/blueHelpBtn.png" />
-                     </image>
-                     <GridPane.margin>
-                        <Insets right="75.0" />
-                     </GridPane.margin>
-                  </ImageView>
-               </children>
-               <effect>
-                  <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
-               </effect>
-            </GridPane>
-            <GridPane id="formsGrid" fx:id="formSquare11" layoutX="110.0" layoutY="60.0" maxHeight="700.0" maxWidth="1000.0" prefHeight="700.0" prefWidth="1000.0">
-               <columnConstraints>
-                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <Label id="religiousTitle" fx:id="religiousTitle11" stylesheets="@../Stylesheets/ReligiousRequest.css" text="Religious Request" />
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0" GridPane.rowIndex="2">
-                     <children>
-                        <JFXTextField id="reasonForVisit" fx:id="reasonBox1" labelFloat="true" prefWidth="400.0" promptText="Reason for visit" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="200.0" GridPane.rowIndex="4">
-                     <children>
-                        <JFXButton id="jfx-button" fx:id="submitBTN11" buttonType="RAISED" onAction="#submitEvent" text="Submit" />
-                     </children>
-                  </HBox>
-                  <JFXComboBox fx:id="TypeOfSacredPerson11" prefWidth="400.0" promptText="Select a Religious Figure" GridPane.rowIndex="3" />
-                  <ImageView fx:id="helpButton11" fitHeight="150.0" fitWidth="40.0" onMouseClicked="#openHelp" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
-                     <image>
-                        <Image url="@../images/blueHelpBtn.png" />
-                     </image>
-                     <GridPane.margin>
-                        <Insets right="75.0" />
-                     </GridPane.margin>
-                  </ImageView>
-                  <JFXTextField fx:id="roomIDBox1" labelFloat="true" prefWidth="400.0" promptText="Room Number" GridPane.rowIndex="1">
-                     <padding>
-                        <Insets left="0" right="0" />
-                     </padding>
-                  </JFXTextField>
-               </children>
-               <effect>
-                  <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />
-               </effect>
-            </GridPane>
-         </children>
-      </GridPane>
     </children>
 </AnchorPane>
