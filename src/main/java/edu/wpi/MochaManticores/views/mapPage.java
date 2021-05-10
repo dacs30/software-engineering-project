@@ -31,6 +31,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import org.controlsfx.control.Notifications;
 
 import java.io.File;
 import java.io.IOException;
