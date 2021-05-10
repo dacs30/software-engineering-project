@@ -4,8 +4,16 @@ package edu.wpi.MochaManticores.database;
 import edu.wpi.MochaManticores.Exceptions.InvalidLoginException;
 import edu.wpi.MochaManticores.Exceptions.InvalidPermissionsException;
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
+
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.KeySpec;
 import java.sql.*;
+import java.util.Base64;
 import java.util.LinkedList;
 
 public class EmployeeManager extends Manager<Employee>{
@@ -154,17 +162,77 @@ public class EmployeeManager extends Manager<Employee>{
     public Employee checkEmployeeLogin(String username,String password) throws InvalidLoginException, InvalidElementException {
         Employee emp = getElement(username);
 
-        if(emp.getPassword() == null | emp.getPassword().equals("")){
-            return emp;
-        }
+//        if(emp.getPassword() == null || emp.getPassword().equals("")){
+//            return emp;
+//        }
 
-        //TODO passwords are currently stored in plain text
-        if(!emp.getPassword().equals(password)){
+        String pass = emp.getPassword();
+        String salt = pass.substring(0, pass.indexOf(":"));
+        String hashPass = hashWithGivenSalt(password, salt);
+
+        if(!pass.equals(hashPass)){
             throw new InvalidLoginException();
         }
 
         // if valid login, return the employee object
         return emp;
+    }
+
+    /**
+     * hashWithGivenSalt
+     * @param plainText
+     * @param salt
+     * @return hashed plainText with given salt
+     */
+    public String hashWithGivenSalt(String plainText, String salt){
+        byte[] bSalt = fromHex(salt);
+
+        KeySpec spec = new PBEKeySpec(plainText.toCharArray(), bSalt, 65536, 128);
+
+        SecretKeyFactory factory = null;
+
+        try {
+            factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        byte[] hashedPassword = new byte[0];
+        try {
+            hashedPassword = factory.generateSecret(spec).getEncoded();
+        } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(bytesToHex(bSalt) + " : " + bytesToHex(hashedPassword));
+
+        return bytesToHex(bSalt) + ":" + bytesToHex(hashedPassword);
+    }
+
+    private static byte[] fromHex(String hex)
+    {
+        byte[] bytes = new byte[hex.length() / 2];
+        for(int i = 0; i<bytes.length ;i++)
+        {
+            bytes[i] = (byte)Integer.parseInt(hex.substring(2 * i, 2 * i + 2), 16);
+        }
+        return bytes;
+    }
+
+    /**
+     * bytesToHex
+     * @param bytes
+     * @return hex representation of byte array
+     */
+    private static String bytesToHex(byte[] bytes) {
+        final char[] HEX_ARRAY = "0123456789ABCDEF".toCharArray();
+        char[] hexChars = new char[bytes.length * 2];
+        for (int j = 0; j < bytes.length; j++) {
+            int v = bytes[j] & 0xFF;
+            hexChars[j * 2] = HEX_ARRAY[v >>> 4];
+            hexChars[j * 2 + 1] = HEX_ARRAY[v & 0x0F];
+        }
+        return new String(hexChars);
     }
 
     /**

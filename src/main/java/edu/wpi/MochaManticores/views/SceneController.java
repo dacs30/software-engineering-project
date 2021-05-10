@@ -21,6 +21,8 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.security.NoSuchAlgorithmException;
@@ -243,7 +245,7 @@ public class SceneController{
             e.printStackTrace();
         }
 
-        return Base64.getEncoder().encodeToString(salt) + ":" + Base64.getEncoder().encodeToString(hashedPassword);
+        return bytesToHex(salt) + ":" + bytesToHex(hashedPassword);
     }
 
     private static String bytesToHex(byte[] bytes) {

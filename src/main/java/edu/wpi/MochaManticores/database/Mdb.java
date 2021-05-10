@@ -89,7 +89,7 @@ public class Mdb extends Thread{
                 System.out.println("Creating Employees Table");
                 sql = "CREATE TABLE EMPLOYEES" +
                         "(username VARCHAR(21) not NULL, " +
-                        " password VARCHAR(55), " +
+                        " password VARCHAR(65), " +
                         " firstName VARCHAR(21), " +
                         " lastName VARCHAR(21), " +
                         " employeeType VARCHAR(21)," +

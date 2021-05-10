@@ -4,6 +4,7 @@ import com.jfoenix.controls.*;
 import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
+import edu.wpi.MochaManticores.Exceptions.InvalidLoginException;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.Employee;
 import edu.wpi.MochaManticores.database.Mdb;
@@ -223,7 +224,7 @@ public class LoginPage extends SceneController{
             // start new message client
             App.getClient().startClient();
             changeSceneTo("landingPage");
-        } catch (Exception e) {
+        } catch (InvalidLoginException | InvalidElementException e) {
             // Validators
             employeeUsername.setText(null);
             employeePassword.setText(null);
