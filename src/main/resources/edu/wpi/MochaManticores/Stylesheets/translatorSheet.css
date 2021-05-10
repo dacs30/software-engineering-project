@@ -4,12 +4,13 @@
 }
 
 .jfx-text-field {
-    -fx-font-size: 30;
-    -fx-font-weight: bold;
-    -jfx-unfocus-color : grey;
+    -fx-font-family: Roboto;
+    -fx-font-size: 20;
+    -jfx-unfocus-color : #0F4B91;
     -jfx-focus-color: #0F4B91;
-    -fx-max-width: 400;
     -fx-prompt-text-fill: #0F4B91;
+    -fx-max-width: 400;
+    -fx-font-weight: bold;
 }
 
 #submitBtn{

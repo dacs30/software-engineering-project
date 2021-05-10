@@ -208,9 +208,4 @@ public class TranslatorControllerEmployee extends SceneController{
         requestPage.toFront();
     }
 
-    public void changeManagerTable(ActionEvent actionEvent) {
-        requestPage.setVisible(false);
-        managerPage.setVisible(true);
-        managerPage.toFront();
-    }
 }

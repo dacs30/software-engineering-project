@@ -11,6 +11,12 @@
     -fx-font-size: 20;
     -fx-text-fill: rgba(193, 193, 193, 0.93);
 }
+#aboutPage{
+    -fx-font-family: Roboto;
+    -fx-font-size: 15;
+    -fx-text-fill: #0F4B91;
+
+}
 
 #patientIdLabel {
     -fx-font-family: Roboto;

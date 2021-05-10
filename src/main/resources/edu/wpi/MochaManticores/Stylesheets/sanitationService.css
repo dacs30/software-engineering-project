@@ -4,12 +4,13 @@
 }
 
 .jfx-text-field {
+    -fx-font-family: Roboto;
     -fx-font-size: 20;
-    -fx-font-weight: bold;
-    -jfx-unfocus-color : grey;
+    -jfx-unfocus-color : #0F4B91;
     -jfx-focus-color: #0F4B91;
-    -fx-max-width: 400;
     -fx-prompt-text-fill: #0F4B91;
+    -fx-max-width: 400;
+    -fx-font-weight: bold;
 }
 
 #submitBtn{
@@ -36,9 +37,10 @@
 }
 
 .jfx-combo-box {
-    -fx-prompt-text-fill: #0F4B91;
+    -fx-prompt-text-fill: #0F4B91 ;
     -fx-background-color: rgba(186, 186, 186, 0.43);
     -jfx-unfocus-color: grey;
+    -jfx-focus-color:#0F4B91;
     -fx-font-size: 20;
     -fx-font-weight: bold;
 }
@@ -55,6 +57,7 @@
     -jfx-unfocus-color:grey ;
     -jfx-focus-color:#0F4B91;
     -fx-font-size: 20;
+    -fx-font-weight: bold;
 }
 
 #equipmentNeededLabel {
