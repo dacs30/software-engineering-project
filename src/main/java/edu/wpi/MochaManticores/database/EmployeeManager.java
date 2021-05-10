@@ -305,6 +305,11 @@ public class EmployeeManager extends Manager<Employee>{
     }
 
     @Override
+    public void cleanMap(){
+        //no map
+    }
+
+    @Override
     public void updateElementMap() throws SQLException {
         //no map
     }

@@ -1,6 +1,7 @@
 package edu.wpi.MochaManticores.database;
 
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
+import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Services.COVIDsurvey;
 import edu.wpi.MochaManticores.Services.ServiceRequestType;
 
@@ -149,7 +150,17 @@ public class COVIDmanager extends Manager<COVIDsurvey> {
 
     @Override
     void cleanTable() throws SQLException {
+        String sql = "DELETE FROM COVID";
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        int result = pstmt.executeUpdate();
 
+        //clean hashmap
+        DatabaseManager.getServiceMap().clearMap(ServiceRequestType.COVID);
+    }
+
+    @Override
+    void cleanMap(){
+        DatabaseManager.getServiceMap().clearMap(ServiceRequestType.COVID);
     }
 
     @Override

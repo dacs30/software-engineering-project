@@ -147,7 +147,17 @@ public class FoodDeliveryManager extends Manager<FoodDelivery> {
 
     @Override
     void cleanTable() throws SQLException {
-        //TODO: implement clean table
+        String sql = "DELETE FROM FOODDEL";
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        int result = pstmt.executeUpdate();
+
+        //clean hashmap
+        DatabaseManager.getServiceMap().clearMap(ServiceRequestType.FoodDelivery);
+    }
+
+    @Override
+    void cleanMap(){
+        DatabaseManager.getServiceMap().clearMap(ServiceRequestType.FoodDelivery);
     }
 
     @Override

@@ -144,7 +144,17 @@ public class IntTransportManager extends Manager<InternalTransportation> {
 
     @Override
     void cleanTable() throws SQLException {
-        // not implemented
+        String sql = "DELETE FROM INTTRANSPORT";
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        int result = pstmt.executeUpdate();
+
+        //clean hashmap
+        DatabaseManager.getServiceMap().clearMap(ServiceRequestType.InternalTransportation);
+    }
+
+    @Override
+    void cleanMap(){
+        DatabaseManager.getServiceMap().clearMap(ServiceRequestType.InternalTransportation);
     }
 
     @Override

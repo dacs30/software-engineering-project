@@ -61,5 +61,7 @@ public abstract class Manager<Value> {
      */
     abstract void cleanTable() throws SQLException;
 
+    abstract void cleanMap();
+
     public abstract void updateElementMap() throws SQLException;
 }

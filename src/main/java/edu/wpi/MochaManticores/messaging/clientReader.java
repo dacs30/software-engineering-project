@@ -50,12 +50,14 @@ public class clientReader implements Runnable{
                     running = false;
                     break;
                 }else if(msg.TYPE == Message.msgType.UPDATE){
-                    //refreshDB();
+                    DatabaseManager.refreshTable(DatabaseManager.getManagerFromString(msg.target));
                     break;
                 }
 
                 if(this.GUIconnected){
                     postMessage(msg);
+                }else{
+                    postNotif(msg);
                 }
 
                 store(msg);
@@ -66,44 +68,16 @@ public class clientReader implements Runnable{
         }
     }
 
-    public void refreshDB() {
-        /* function: refreshTables()
-         * runs when called by clientReader upon update message
-         * refreshes hash tables by reloading the database and rebuilding the hashtables
-         * @return void
-         */
-        try {
-            MapSuper.getMap().clear();
-            DatabaseManager.getNodeManager().updateElementMap();
-        } catch (SQLException throwables) {
-            System.out.println("problem with node map");
-            throwables.printStackTrace();
-        }
-        try {
-            EdgeMapSuper.getMap().clear();
-            DatabaseManager.getEdgeManager().updateElementMap();
-        } catch (SQLException throwables) {
-            System.out.println("problem with edge map");
-            throwables.printStackTrace();
-        }
-        try {
-            DatabaseManager.getServiceMap().clearMap();
-            for (sel s : sel.values()) {
-                if (s != sel.NODE | s != sel.EDGE) {
-                    Objects.requireNonNull(DatabaseManager.getManager(s)).updateElementMap();
-                }
-            }
-        } catch (SQLException throwables) {
-            System.out.println("problem with service map");
-            throwables.printStackTrace();
-        }
-    }
-
     public void postMessage(Message msg){
         Platform.runLater(() -> {
             client.textField.appendText("[" + msg.sender + "]" + " [" + msg.target + "] " + msg.body + "\n");
         });
     }
+
+    public void postNotif(Message msg){
+        //post to some text feild
+    }
+
 
     private void store(Message msg){
         // add messages to hashmap

@@ -142,7 +142,17 @@ public class LanguageInterpreterManager extends Manager<LanguageInterpreterReque
 
     @Override
     void cleanTable() throws SQLException {
-        //implement clean table function here
+        String sql = "DELETE FROM LANGINTREQ";
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        int result = pstmt.executeUpdate();
+
+        //clean hashmap
+        DatabaseManager.getServiceMap().clearMap(ServiceRequestType.LanguageInterperter);
+    }
+
+    @Override
+    void cleanMap(){
+        DatabaseManager.getServiceMap().clearMap(ServiceRequestType.LanguageInterperter);
     }
 
     @Override
