@@ -50,9 +50,9 @@
     -fx-font-size: 20;
     -fx-font-weight: bold;
 }
-.jfx-combo-box .text-field:focused {
+/*.jfx-combo-box .text-field:focused {
     -fx-prompt-text-fill: transparent ;
-}
+}*/
 
 /*.jfx-combo-box:hover{
     -fx-effect: dropshadow( three-pass-box , rgba(2, 2, 2, 0.2), 20, 0.0 , 1 , 10);
