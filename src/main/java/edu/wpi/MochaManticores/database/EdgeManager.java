@@ -6,6 +6,7 @@ import edu.wpi.MochaManticores.Nodes.EdgeMapSuper;
 import edu.wpi.MochaManticores.Nodes.EdgeSuper;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
+import edu.wpi.MochaManticores.Services.ServiceRequestType;
 
 import java.io.*;
 import java.sql.*;
@@ -241,6 +242,11 @@ public class EdgeManager extends Manager<EdgeSuper>{
         int result = pstmt.executeUpdate();
 
         //clean hashmap
+        EdgeMapSuper.getMap().clear();
+    }
+
+    @Override
+    void cleanMap(){
         EdgeMapSuper.getMap().clear();
     }
 

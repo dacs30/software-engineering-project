@@ -146,7 +146,17 @@ public class FloralDeliveryManager extends Manager<FloralDelivery> {
 
     @Override
     void cleanTable() throws SQLException {
-        //clean table
+        String sql = "DELETE FROM FLORALDEL";
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        int result = pstmt.executeUpdate();
+
+        //clean hashmap
+        DatabaseManager.getServiceMap().clearMap(ServiceRequestType.FloralDelivery);
+    }
+
+    @Override
+    void cleanMap(){
+        DatabaseManager.getServiceMap().clearMap(ServiceRequestType.FloralDelivery);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package edu.wpi.MochaManticores.database;
 
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
+import edu.wpi.MochaManticores.Nodes.EdgeMapSuper;
 import edu.wpi.MochaManticores.Services.EmergencyRequest;
 import edu.wpi.MochaManticores.Services.ServiceRequestType;
 
@@ -142,7 +143,17 @@ public class EmergencyManager  extends Manager<EmergencyRequest> {
 
     @Override
     void cleanTable() throws SQLException {
-        // not implemented
+        String sql = "DELETE FROM EMGREQ";
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        int result = pstmt.executeUpdate();
+
+        //clean hashmap
+        DatabaseManager.getServiceMap().clearMap(ServiceRequestType.Emergency);
+    }
+
+    @Override
+    void cleanMap(){
+        DatabaseManager.getServiceMap().clearMap(ServiceRequestType.Emergency);
     }
 
     @Override

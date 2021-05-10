@@ -142,8 +142,19 @@ public class ExtTransportManager extends Manager<ExternalTransportation> {
 
     @Override
     void cleanTable() throws SQLException {
-        // not implemented
+        String sql = "DELETE FROM EXTTRANSPORT";
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        int result = pstmt.executeUpdate();
+
+        //clean hashmap
+        DatabaseManager.getServiceMap().clearMap(ServiceRequestType.ExternalTransportation);
     }
+
+    @Override
+    void cleanMap(){
+        DatabaseManager.getServiceMap().clearMap(ServiceRequestType.ExternalTransportation);
+    }
+
 
     @Override
     public void updateElementMap() throws SQLException {

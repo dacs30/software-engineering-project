@@ -1,6 +1,7 @@
 package edu.wpi.MochaManticores.database;
 
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
+import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Services.ReligiousRequest;
 import edu.wpi.MochaManticores.Services.ServiceRequestType;
 
@@ -141,7 +142,17 @@ public class ReligiousManager extends Manager<ReligiousRequest> {
 
     @Override
     void cleanTable() throws SQLException {
-        //TODO: implement clean table functionality
+        String sql = "DELETE FROM RELREQ";
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        int result = pstmt.executeUpdate();
+
+        //clean hashmap
+        DatabaseManager.getServiceMap().clearMap(ServiceRequestType.ReligiousRequest);
+    }
+
+    @Override
+    void cleanMap(){
+        DatabaseManager.getServiceMap().clearMap(ServiceRequestType.ReligiousRequest);
     }
 
     @Override

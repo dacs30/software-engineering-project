@@ -145,7 +145,17 @@ public class LaundryManager extends Manager<LaundryRequest> {
 
     @Override
     void cleanTable() throws SQLException {
-        //add the clean table functionality
+        String sql = "DELETE FROM LAUNDRY";
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        int result = pstmt.executeUpdate();
+
+        //clean hashmap
+        DatabaseManager.getServiceMap().clearMap(ServiceRequestType.Laundry);
+    }
+
+    @Override
+    void cleanMap(){
+        DatabaseManager.getServiceMap().clearMap(ServiceRequestType.Laundry);
     }
 
     @Override
