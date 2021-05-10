@@ -144,7 +144,17 @@ public class SanitationServiceManager extends Manager<SanitationServices> {
 
     @Override
     void cleanTable() throws SQLException {
-        //TODO: implement clean table
+        String sql = "DELETE FROM SANITATIONSER";
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        int result = pstmt.executeUpdate();
+
+        //clean hashmap
+        DatabaseManager.getServiceMap().clearMap(ServiceRequestType.SanitationServices);
+    }
+
+    @Override
+    void cleanMap(){
+        DatabaseManager.getServiceMap().clearMap(ServiceRequestType.SanitationServices);
     }
 
     @Override

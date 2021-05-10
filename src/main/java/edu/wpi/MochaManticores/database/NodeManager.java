@@ -2,6 +2,7 @@ package edu.wpi.MochaManticores.database;
 
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import edu.wpi.MochaManticores.Nodes.*;
+import edu.wpi.MochaManticores.Services.ServiceRequestType;
 import javafx.util.Pair;
 
 import java.io.*;
@@ -186,7 +187,11 @@ public class NodeManager extends Manager<NodeSuper>{
 
         //clean hashmap
         MapSuper.getMap().clear();
+    }
 
+    @Override
+    void cleanMap(){
+        MapSuper.getMap().clear();
     }
 
     /*

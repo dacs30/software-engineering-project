@@ -81,13 +81,24 @@ public class DatabaseManager{
         }
     }
 
+    public static void refreshTable(sel s){
+        try {
+            Manager man = getManager(s);
+            System.out.println("resetting Table: " + s);
+            man.cleanMap();
+            man.updateElementMap();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
     /* function: addRequest()
      * adds request to specified manager table
      * @ return void
      */
     public static void addRequest(sel s, ServiceRequest request){
         getManager(s).addElement(request);
-        sendUpdate();
+        sendUpdate(s);
     }
 
     /*  function: addNode()
@@ -96,7 +107,7 @@ public class DatabaseManager{
      */
     public static void addNode(NodeSuper node){
         getNodeManager().addElement(node);
-        sendUpdate();
+        sendUpdate(sel.NODE);
     }
 
     /*  function: addEdge()
@@ -105,7 +116,7 @@ public class DatabaseManager{
      */
     public static void addEdge(EdgeSuper edge){
         getEdgeManager().addElement(edge);
-        sendUpdate();
+        sendUpdate(sel.EDGE);
     }
 
     /*  function: addEmployee()
@@ -114,7 +125,7 @@ public class DatabaseManager{
      */
     public static void addEmployee(Employee employee){
         getEmpManager().addElement(employee);
-        sendUpdate();
+        sendUpdate(sel.EMPLOYEE);
     }
 
     /*  function: addElement()
@@ -124,7 +135,7 @@ public class DatabaseManager{
     public static void delElement(sel s, String ID) {
         try {
             getManager(s).delElement(ID);
-            sendUpdate();
+            sendUpdate(s);
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -137,7 +148,7 @@ public class DatabaseManager{
     public static void modRequest(sel s, String ID, ServiceRequest request){
         try{
             getManager(s).modElement(ID,request);
-            sendUpdate();
+            sendUpdate(s);
         }catch(SQLException e) {
             e.printStackTrace();
         }
@@ -150,7 +161,7 @@ public class DatabaseManager{
     public static void modNode(String ID, NodeSuper newNode){
         try{
             getNodeManager().modElement(ID,newNode);
-            sendUpdate();
+            sendUpdate(sel.NODE);
         }catch(SQLException e) {
             e.printStackTrace();
         }
@@ -163,7 +174,7 @@ public class DatabaseManager{
     public static void modEdge(String ID, EdgeSuper newEdge){
         try{
             getEdgeManager().modElement(ID,newEdge);
-            sendUpdate();
+            sendUpdate(sel.EDGE);
         }catch(SQLException e) {
             e.printStackTrace();
         }
@@ -176,7 +187,7 @@ public class DatabaseManager{
     public static void modEmployee(String ID, Employee newEmployee){
         try{
             getEmpManager().modElement(ID,newEmployee);
-            sendUpdate();
+            sendUpdate(sel.EMPLOYEE);
         }catch(SQLException e) {
             e.printStackTrace();
         }
@@ -297,6 +308,78 @@ public class DatabaseManager{
         }
     }
 
+    public static sel getManagerFromString(String s) {
+        switch (s) {
+            case "NODE":
+                return sel.NODE;
+            case "EDGE":
+                return sel.EDGE;
+            case "EMPLOYEE":
+                return sel.EMPLOYEE;
+            case "InternalTransportation":
+                return sel.InternalTransportation;
+            case "ExternalTransportation":
+                return sel.ExternalTransportation;
+            case "FloralDelivery":
+                return sel.FloralDelivery;
+            case "FoodDelivery":
+                return sel.FoodDelivery;
+            case "SanitationServices":
+                return sel.SanitationServices;
+            case "Emergency":
+                return sel.Emergency;
+            case "ReligiousRequest":
+                return sel.ReligiousRequest;
+            case "LanguageInterperter":
+                return sel.LanguageInterperter;
+            case "Medicine":
+                return sel.Medicine;
+            case "Laundry":
+                return sel.Laundry;
+            case "COVID":
+                return sel.COVID;
+            default:
+                System.out.println("No Manager Found");
+                return null;
+        }
+    }
+
+    public static String getStringFromManager(sel s) {
+        switch (s) {
+            case NODE:
+                return "NODE";
+            case EDGE:
+                return "EDGE";
+            case EMPLOYEE:
+                return "EMPLOYEE";
+            case InternalTransportation:
+                return "InternalTransportation";
+            case ExternalTransportation:
+                return "ExternalTransportation";
+            case FloralDelivery:
+                return "FloralDelivery";
+            case FoodDelivery:
+                return "FoodDelivery";
+            case SanitationServices:
+                return "SanitationServices";
+            case Emergency:
+                return "Emergency";
+            case ReligiousRequest:
+                return "ReligiousRequest";
+            case LanguageInterperter:
+                return "LanguageInterperter";
+            case Medicine:
+                return "Medicine";
+            case Laundry:
+                return "Laundry";
+            case COVID:
+                return "COVID";
+            default:
+                System.out.println("No Manager Found");
+                return null;
+        }
+    }
+
     // ==== Private DB methods ==== //
 
     private static void loadFromCSV(sel s){
@@ -340,8 +423,8 @@ public class DatabaseManager{
     }
 
     //sends update request through current client
-    private static void sendUpdate(){
-        Message msg = new Message(App.getCurrentUsername(),"ALL","NULL", Message.msgType.UPDATE);
+    private static void sendUpdate(sel s){
+        Message msg = new Message(App.getCurrentUsername(),getStringFromManager(s),"NULL", Message.msgType.UPDATE);
         App.getClient().sendMsg(msg);
     }
 

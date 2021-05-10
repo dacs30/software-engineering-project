@@ -143,7 +143,17 @@ public class MedicineRequestManager extends Manager<MedicineRequest> {
 
     @Override
     void cleanTable() throws SQLException {
-        //implement clean table
+        String sql = "DELETE FROM MEDREQ";
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        int result = pstmt.executeUpdate();
+
+        //clean hashmap
+        DatabaseManager.getServiceMap().clearMap(ServiceRequestType.Medicine);
+    }
+
+    @Override
+    void cleanMap(){
+        DatabaseManager.getServiceMap().clearMap(ServiceRequestType.Medicine);
     }
 
     @Override
