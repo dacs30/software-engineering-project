@@ -77,20 +77,79 @@ public class PanAndZoomPane extends Pane {
     }
 
     public void centerOnPoint(double CenterX, double CenterY){
-        if(CenterX < this.getWidth()/2){
-            CenterX = (this.getWidth()/2) - CenterX;
-            CenterX *=-1;
-        }else{
-            CenterX -= this.getWidth();
-        }
-        if(CenterY < this.getHeight()/2){
-            CenterY = (this.getHeight()/2) - CenterY;
-            CenterY *=-1;
-        }else{
-            CenterY -= this.getHeight();
-        }
 
-        setPivot(CenterX,CenterY,2.0d);
+
+
+
+        //System.out.println(xTranslate + " || " + yTranslate);
+        //setScale(3);
+
+        translateXProperty().set(this.getWidth()/2 - CenterX);
+        translateYProperty().set(this.getHeight()/2 - CenterY);
+
+        //setPivot(CenterX, CenterY,3);
+
+        //setPivot(0,0,3);
+
+
+
+
+//        double delta = PanAndZoomPane.DEFAULT_DELTA;
+//
+//        double scale = getScale(); // currently we only use Y, same value is used for X
+//        double oldScale = scale;
+//
+//        setDeltaY(100);
+//        if (deltaY.get() < 0) {
+//            scale /= delta;
+//        } else {
+//            scale *= delta;
+//        }
+//
+//        double f = (scale / oldScale)-1;
+//        double dx = (0 - (getBoundsInParent().getWidth()/2 + getBoundsInParent().getMinX()));
+//        double dy = (0 - (getBoundsInParent().getHeight()/2 + getBoundsInParent().getMinY()));
+//
+//
+//        setPivot(dx*f, dy*f, scale);
+
+        //event.consume();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//        if(CenterX < this.getWidth()/2){
+//            CenterX = (this.getWidth()/2) - CenterX;
+//            CenterX *=-1;
+//        }else{
+//            CenterX -= this.getWidth()/2;
+//        }
+//        if(CenterY < this.getHeight()/2){
+//            CenterY = (this.getHeight()/2) - CenterY;
+//            CenterY *=-1;
+//        }else{
+//            CenterY -= this.getHeight()/2;
+//        }
+//
+//        setPivot(CenterX,CenterY,3.0d);
     }
 
     public double getDeltaY() {

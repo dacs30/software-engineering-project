@@ -9,7 +9,9 @@ import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.Employee;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -63,11 +65,38 @@ public class mapPage extends SceneController {
     }
 
     public class node {
+        public boolean isStart() {
+            return start.get();
+        }
+
+        public BooleanProperty startProperty() {
+            return start;
+        }
+
+        public void setStart(boolean start) {
+            this.start.set(start);
+        }
+
+        public boolean isEnd() {
+            return end.get();
+        }
+
+        public BooleanProperty endProperty() {
+            return end;
+        }
+
+        public void setEnd(boolean end) {
+            this.end.set(end);
+        }
+
         Circle c;
         String nodeID;
         double xCoord;
         double yCoord;
         boolean highlighted = false;
+
+        BooleanProperty start = new SimpleBooleanProperty();
+        BooleanProperty end = new SimpleBooleanProperty();
 
         public boolean isHighlighted() {
             return highlighted;
@@ -863,7 +892,7 @@ public class mapPage extends SceneController {
 
     public void loadF3() {
         //locationTitle.setText("Floor 3");
-        setSelectedFloor("L3");
+        setSelectedFloor("3");
 
         setZoom(new Image(location + "03_thethirdfloor.png"), 0, 0, noZoom);
         drawNodes();
@@ -1166,30 +1195,46 @@ public class mapPage extends SceneController {
             }
 
             drawNodes();
+            pitStops.getFirst().setStart(true);
+            pitStops.getLast().setEnd(true);
+
+            drawNodes();
             //TODO:change start and end node colors
-            for (node n : pitStops) {
-                if (n.equals(pitStops.getFirst())) {
-                    n.c.setFill(Color.GREEN);
-                    n.c.setRadius(4);
-                }
-                if (n.equals(pitStops.getLast())) {
-                    n.c.setFill(Color.RED);
-                    n.c.setRadius(4);
-                }
-            }
+
+//            pitStops.getFirst().c.setFill(Color.GREEN);
+//            pitStops.getFirst().c.setRadius(4);
+//
+//
+//            pitStops.getLast().c.setFill(Color.RED);
+//            pitStops.getLast().c.setRadius(4);
+
 
             double CenterX = pitStops.getFirst().getxCoord();
             double CenterY = pitStops.getFirst().getyCoord();
 
 
+//            if(CenterX < mapWindow.getFitWidth()/2){
+//                CenterX = (mapWindow.getFitWidth()/2) - CenterX;
+//                CenterX *=-1;
+//            }else{
+//                CenterX -= mapWindow.getFitWidth()/2;
+//            }
+//            if(CenterY < mapWindow.getFitHeight()/2){
+//                CenterY = (mapWindow.getFitHeight()/2) - CenterY;
+//                CenterY *=-1;
+//            }else{
+//                CenterY -= mapWindow.getFitHeight()/2;
+//            }
+            System.out.printf("X:%f Y:%f\n", CenterX, CenterY);
 
             pitStops = new LinkedList<>();
             double xRatio = 5000 / mapWindow.getFitWidth();
             double yRatio = 3400 / mapWindow.getFitHeight();
             directionPane.setContent(dirVBOX);
             //loadDialog(pathToTake); // calling the dialog pane with the path
-            panAndZoomPane.centerOnPoint(CenterX,CenterY);
+            panAndZoomPane.centerOnPoint(CenterX, CenterY);
 
+            //panAndZoomPane.centerOnPoint(mapWindow.getFitWidth()/2,mapWindow.getFitHeight()/2);
         }
     }
 
@@ -1238,6 +1283,7 @@ public class mapPage extends SceneController {
         Iterator<NodeSuper> mapIter = MapSuper.getMap().values().iterator();
         for (int i = 0; i < MapSuper.getMap().size(); i++) {
             NodeSuper n = mapIter.next();
+            System.out.println(n.getFloor() + ":" + selectedFloor);
             if (n.getFloor().equals(selectedFloor)) {
                 Circle spot = new Circle(n.getXcoord() / xRatio, n.getYcoord() / yRatio, 3, Color.WHITE);
                 spot.setStrokeWidth(1);
@@ -1268,7 +1314,24 @@ public class mapPage extends SceneController {
                         Tooltip.install(spot, new Tooltip(n.getLongName()));
                     }
                 });
-                nodes.put(n.getID(), new node(spot, n.getID()));
+                node nodeToAdd =  new node(spot, n.getID());
+
+                nodeToAdd.startProperty().addListener((observable, oldValue, newValue) ->{
+                    if(newValue){
+                        System.out.println(nodeToAdd.getNodeID()+" GREEN");
+                        nodeToAdd.c.setFill(Color.GREEN);
+                        nodeToAdd.c.setStyle("-fx-background-color: GREEN;");
+                    }
+                });
+
+                nodeToAdd.endProperty().addListener((observable, oldValue, newValue) ->{
+                    if(newValue){
+                        System.out.println(nodeToAdd.getNodeID()+" RED");
+                        nodeToAdd.c.setFill(Color.RED);
+                        nodeToAdd.c.setStyle("-fx-background-color: RED;");
+                    }
+                });
+                nodes.put(n.getID(),nodeToAdd);
                 nodePane.getChildren().addAll(nodes.get(n.getID()).c);
             }
         }
