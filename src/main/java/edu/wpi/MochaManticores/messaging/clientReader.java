@@ -16,19 +16,21 @@ import java.util.Objects;
 public class clientReader implements Runnable{
     public HashMap<String,LinkedList<Message>> messageHistory = new HashMap<>();
     private Socket socket;
-    private messageClientPage client = null;
+    private messageClient client = null;
+    private messageClientPage clientPage = null;
     private DataInputStream input = null;
     private boolean GUIconnected = false;
     private String username = null;
 
     //Constructor
-    public clientReader(Socket socket, String username){
+    public clientReader(Socket socket, String username, messageClient client){
+        this.client = client;
         this.socket = socket;
         this.username = username;
     }
 
     public void startGUI(messageClientPage page){
-        this.client = page;
+        this.clientPage = page;
         this.GUIconnected = true;
     }
 
@@ -47,11 +49,15 @@ public class clientReader implements Runnable{
 
 
                 if(msg.TYPE == Message.msgType.SHUTDOWN){
+                    if(msg.sender.equals("SENDER")){
+                        msg.sender = username;
+                        client.sendMsg(msg);
+                    }
                     running = false;
                     break;
                 }else if(msg.TYPE == Message.msgType.UPDATE){
                     DatabaseManager.refreshTable(DatabaseManager.getManagerFromString(msg.target));
-                    break;
+                    continue;
                 }
 
                 if(this.GUIconnected){
@@ -70,7 +76,7 @@ public class clientReader implements Runnable{
 
     public void postMessage(Message msg){
         Platform.runLater(() -> {
-            client.textField.appendText("[" + msg.sender + "]" + " [" + msg.target + "] " + msg.body + "\n");
+            clientPage.textField.appendText("[" + msg.sender + "]" + " [" + msg.target + "] " + msg.body + "\n");
         });
     }
 

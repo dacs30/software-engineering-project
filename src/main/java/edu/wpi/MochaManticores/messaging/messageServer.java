@@ -42,6 +42,13 @@ public class messageServer implements Runnable{
         }
     }
 
+    public void shutdown(){
+        Message msg = new Message("SERVER","ALL","NONE", Message.msgType.SHUTDOWN);
+        for(serverConnection connect : this.connectionsList){
+            connect.sendMessage(msg);
+        }
+    }
+
     public void sendUpdate(Message msg){
         for(serverConnection connect : this.connectionsList){
             if(connect.getUser() != null && !connect.getUser().equals(msg.sender)){

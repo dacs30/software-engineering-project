@@ -26,16 +26,18 @@ public class messageClient {
     public void shutdown() {
         //shutdown server and client
         //stop old client if still running
-        try{
-            if(prevUser != null) {
-                Message dataGrab = new Message(prevUser, "SHUTDOWN", "null", Message.msgType.SHUTDOWN);
-                output.writeUTF(dataGrab.toWriteFormat());
+        try {
+            if (prevUser != null) {
+                Message shutdown = new Message(prevUser, "SHUTDOWN", "null", Message.msgType.SHUTDOWN);
+                output.writeUTF(shutdown.toWriteFormat());
                 output.flush();
             }
-        }catch(Exception e){}
+        } catch (Exception e) {
+        }
 
 
         if(serverThread != null) {
+            server.shutdown();
             serverThread.stop();
         }
     }
@@ -64,8 +66,8 @@ public class messageClient {
         try {
             //stop old client if still running
             if(prevUser != null) {
-                Message dataGrab = new Message(prevUser, "SHUTDOWN", "null", Message.msgType.SHUTDOWN);
-                output.writeUTF(dataGrab.toWriteFormat());
+                Message shutdown = new Message(prevUser, "SHUTDOWN", "null", Message.msgType.SHUTDOWN);
+                output.writeUTF(shutdown.toWriteFormat());
                 output.flush();
             }
             prevUser = App.getCurrentUsername();
@@ -81,7 +83,7 @@ public class messageClient {
             output = new DataOutputStream(socket.getOutputStream());
 
             //create a thread in order to read message from server continuously
-            reader = new clientReader(socket, App.getCurrentUsername());
+            reader = new clientReader(socket, App.getCurrentUsername(),this);
             readerThread = new Thread(reader);
             readerThread.start();
 
