@@ -73,6 +73,9 @@ public class App extends Application {
   public static EmployeeManager getEmployeeManager() {
     return employeeManager;
   }
+ // public static messageClient getClient() {
+    //return client;
+ // }
 
   public static void setEmployeeManager(EmployeeManager employeeManager) {
     App.employeeManager = employeeManager;
