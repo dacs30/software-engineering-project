@@ -53,11 +53,11 @@ public class Dijkstra extends PathPlannerSuper implements PathPlanning{
     @Override
     public LinkedList<String> findRoute(NodeSuper start, NodeSuper target) {
         //Initialize class variables
-        this.horizon = new PriorityQueue<AStarNode>(10, new NodeComparator());  //Sorts using NodeComparator
-        this.visitedNodes = new HashMap<>();                                                //Initialized as empty
-        this.horizonNodes = new HashMap<>();                                                //Initialized as empty
+        this.horizon = new PriorityQueue<>(10, new NodeComparator());   //Sorts using NodeComparator
+        this.visitedNodes = new HashMap<>();                                        //Initialized as empty
+        this.horizonNodes = new HashMap<>();                                        //Initialized as empty
         this.currentNode = new AStarNode(start, "NONE", 0);         //Initialized to start node
-        this.target = target;                           //Initializes the target variable
+        this.target = target;                                                       //Initializes the target variable
 
         //Explore the horizon until the target node is found
         while(true) {
@@ -126,91 +126,5 @@ public class Dijkstra extends PathPlannerSuper implements PathPlanning{
             }
         //return true if one of the neighbors is the target, false otherwise
         return located;
-    }
-
-    public LinkedList<LinkedList<String>> pathToText(LinkedList<String> path){
-        LinkedList<LinkedList<String>> pathAsText = new LinkedList<>();
-        if (path.isEmpty()){
-            return pathAsText;
-        } else  if (path.size() == 1){
-            LinkedList<String> leg1 = new LinkedList<>();
-            leg1.add("Floor: " + nodes.get(path.getFirst()).getFloor());
-            leg1.add("You are at " + nodes.get(path.getFirst()).getShortName());
-            pathAsText.add(leg1);
-            return pathAsText;
-        }
-        int x = 0;
-        int y = 0;
-        int lx = 0;
-        int ly = 0;
-        boolean up = true;
-        boolean stairs = true;
-        while (path.size() > 1){
-            pathAsText.add(new LinkedList<>());
-            pathAsText.getLast().add("Floor: " + nodes.get(path.getFirst()).getFloor());
-
-            while (nodes.get(path.getFirst()).getFloor().equals(nodes.get(path.get(1)).getFloor()) && path.size() > 1){
-
-                x = nodes.get(path.get(1)).getXcoord() - nodes.get(path.getFirst()).getXcoord();
-                y = nodes.get(path.get(1)).getYcoord() - nodes.get(path.getFirst()).getYcoord();
-
-                if (x > 0){
-                    x = 1;
-                } else if(x < 0){
-                    x = -1;
-                } else {
-                    x = 0;
-                }
-                if (y > 0){
-                    y = 1;
-                } else if(y < 0){
-                    y = -1;
-                } else {
-                    y = 0;
-                }
-
-                if (lx == 0 && ly ==0){
-                    lx = x;
-                    ly = y;
-                }
-                if (x != lx || y != ly){
-                    pathAsText.getLast().add("Head straight until you reach " + nodes.get(path.getFirst()).getShortName());
-                    if (isLeft(nodes.get(path.getFirst()).getID(), nodes.get(path.get(1)).getID(), lx, ly)){
-                        pathAsText.getLast().add("Then turn left");
-                    }else if (isRight(nodes.get(path.getFirst()).getID(), nodes.get(path.get(1)).getID(), lx, ly)){
-                        pathAsText.getLast().add("Then turn right");
-                    }
-
-                }
-
-                path.removeFirst();
-            }
-            if(path.size() > 1) {
-                up = floorCMP(nodes.get(path.getFirst()).getFloor(), nodes.get(path.get(1)).getFloor());
-                stairs = nodes.get(path.getFirst()).getType().equals("STAI");
-                if (up) {
-                    if (stairs) {
-                        pathAsText.getLast().add("Take the stairs up to floor " + nodes.get(path.get(1)).getFloor());
-                    } else {
-                        pathAsText.getLast().add("Take the elevator up to floor " + nodes.get(path.get(1)).getFloor());
-                    }
-                } else {
-                    if (stairs) {
-                        pathAsText.getLast().add("Take the stairs down to floor " + nodes.get(path.get(1)).getFloor());
-                    } else {
-                        pathAsText.getLast().add("Take the elevator down to floor " + nodes.get(path.get(1)).getFloor());
-                    }
-                }
-                path.removeFirst();
-                lx = 0;
-                ly = 0;
-            }
-
-        }
-        if (!pathAsText.getLast().getLast().equals("Head straight until you reach " + nodes.get(path.getFirst()).getShortName())){
-            pathAsText.getLast().add("Head straight until you reach " + nodes.get(path.getFirst()).getShortName());
-        }
-
-        return pathAsText;
     }
 }
