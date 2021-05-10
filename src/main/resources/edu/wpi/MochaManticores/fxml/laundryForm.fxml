@@ -93,7 +93,7 @@
                         <Insets left="300.0" />
                      </GridPane.margin>
                   </Label>
-                  <JFXToggleButton id="delicateSwitch" text="Delicates" toggleColor="#0f4b91" toggleLineColor="#0f4b91" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                  <JFXToggleButton id="delicateSwitch" text="Delicates" toggleColor="#0f4b91" toggleLineColor="#739bc6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>

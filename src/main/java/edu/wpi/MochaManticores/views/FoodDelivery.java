@@ -98,7 +98,7 @@ public class FoodDelivery extends SceneController {
         backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
         backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
-        System.out.println(width);
+        //System.out.println(width);
 
         dietaryPreferences.getItems().clear();
         dietaryPreferences.getItems().addAll("Vegan", "Vegetarian", "Gluten Free");
