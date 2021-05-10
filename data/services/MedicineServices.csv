@@ -1,7 +1,2 @@
 REQUESTID,EMPID,COMPLETED,TYPEMEDICINE,CURRENTFEELING,ALLERGIES,PATIENTROOM,
-Med0,,false,Aspirin,Muscle pain,Some pain,,new methods,hahdhsah,
-Med1,,false,Advil,Muscle pain,Headache,,dsad,grrgrgrgrg,
-Med2,,false,Tylenol,Muscle pain,Headache,,dsad,kdjlkajdskl,
-Med3,,false,Tylenol,Muscle pain,Headache,,dsad,kdjlkajdskl,
-Med4,,false,Tylenol,Muscle pain,Headache,,dsad,kdj,
-Med5,,false,Tylenol,Muscle pain,Headache,,dsad,kdj,
+Med0,kushshah,false,Advil,Muscle pain,,none,
