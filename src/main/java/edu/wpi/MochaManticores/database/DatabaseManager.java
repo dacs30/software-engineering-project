@@ -90,7 +90,7 @@ public class DatabaseManager{
     public static void refreshTable(sel s){
         try {
             Manager man = getManager(s);
-            System.out.println("resetting Table: " + s);
+            //System.out.println("resetting Table: " + s);
             man.cleanMap();
             man.updateElementMap();
         }catch(SQLException e){
