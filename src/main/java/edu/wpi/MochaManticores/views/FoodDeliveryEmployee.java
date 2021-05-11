@@ -125,7 +125,7 @@ public class FoodDeliveryEmployee extends SceneController{
             // changeSceneTo(e, "mainMenu");
             DatabaseManager.addRequest(s,
                     new edu.wpi.MochaManticores.Services.FoodDelivery(
-                            "", "", false, dietaryPreferences.getSelectionModel().getSelectedItem(),
+                            "", employeeAssigned.getEditor().getText(), false, dietaryPreferences.getSelectionModel().getSelectedItem(),
                             allergyText.getText(), foodMenu.getSelectionModel().getSelectedItem()));
             loadDialog();
         } else if (dietaryPreferences.getSelectionModel().isEmpty()){
@@ -144,11 +144,11 @@ public class FoodDeliveryEmployee extends SceneController{
             missingInput.setMessage("Allergies field requires an input");
             allergyText.validate();
         }
-        else if(employeeAssigned.getItems().isEmpty()){
+        else if(employeeAssigned.getSelectionModel().isEmpty()){
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
             employeeAssigned.getValidators().add(missingInput);
             missingInput.setMessage("Please assign an employee");
-
+            employeeAssigned.validate();
         }
         dialogPane.setVisible(true);
     }
