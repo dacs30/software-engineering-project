@@ -103,6 +103,9 @@ public class DatabaseManager{
      * @ return void
      */
     public static void addRequest(sel s, ServiceRequest request){
+
+
+
         getManager(s).addElement(request);
         sendUpdate(s);
     }

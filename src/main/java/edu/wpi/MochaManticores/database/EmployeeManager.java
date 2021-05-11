@@ -279,6 +279,28 @@ public class EmployeeManager extends Manager<Employee>{
         }
         return names;
     }
+
+    public String getEmployeeUsername(String name) {
+        String[] nameArray = name.split(" ");
+        String username = "";
+        try {
+            String sql = "SELECT username FROM EMPLOYEES WHERE firstName=? AND lastName=?";
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, nameArray[0]);
+            pstmt.setString(2, nameArray[1]);
+            ResultSet result = pstmt.executeQuery();
+
+            if (!result.next()) {
+                throw new InvalidElementException();
+            }
+
+            username = result.getString(1);
+        }catch(SQLException | InvalidElementException e){
+            e.printStackTrace();
+        }
+        return username;
+    }
+
     /**
     function: getCSV_path()
     getter for CSV_path

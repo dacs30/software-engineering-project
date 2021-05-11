@@ -157,8 +157,7 @@ public class FloralSceneEmployeeController extends SceneController {
         JFXButton ok = new JFXButton("Done");
         ok.setStyle("-fx-font-size: 15");
         ok.setOnAction(event -> {
-            dialogPane.toBack();
-            dialog.close();
+            changeSceneTo("landingPage");
         });
 
         dialog.setOnDialogClosed(event -> {

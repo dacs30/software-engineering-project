@@ -16,7 +16,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
-public class FoodDeliveryEmployee {
+public class FoodDeliveryEmployee extends SceneController{
 
 
     @FXML
@@ -201,8 +201,7 @@ public class FoodDeliveryEmployee {
         JFXButton exit = new JFXButton("Done");
         exit.setStyle("-fx-font-size: 15");
         exit.setOnAction(event -> {
-            dialogPane.toBack();
-            dialog.close();
+            changeSceneTo("landingPage");
         });
         dialog.setOnDialogClosed(event -> {
             dialogPane.setDisable(true);

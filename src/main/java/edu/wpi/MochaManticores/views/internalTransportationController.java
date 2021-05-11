@@ -149,8 +149,7 @@ public class internalTransportationController extends SceneController{
         JFXButton ok = new JFXButton("Done");
         ok.setStyle("-fx-font-size: 15");
         ok.setOnAction(event -> {
-            dialog.close();
-            dialogPane.toBack();
+            changeSceneTo("landingPage");
         });
 
         dialog.setOnDialogClosed(event -> {

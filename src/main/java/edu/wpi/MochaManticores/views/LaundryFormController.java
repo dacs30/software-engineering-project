@@ -13,7 +13,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
-public class LaundryFormController {
+public class LaundryFormController extends SceneController {
 
     @FXML
     private JFXTextField nameField;
@@ -149,8 +149,7 @@ public class LaundryFormController {
         JFXButton ok = new JFXButton("Done");
         ok.setStyle("-fx-font-size: 15");
         ok.setOnAction(event -> {
-            dialog.close();
-            dialogPane.toBack();
+            changeSceneTo("landingPage");
         });
 
         dialog.setOnDialogClosed(event -> {

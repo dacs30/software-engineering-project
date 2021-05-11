@@ -101,7 +101,6 @@ public class App extends Application {
   @Override
   public void start(Stage primaryStage) {
 
-
     App.primaryStage = primaryStage;
     //App.context = new GeoApiContext.Builder().apiKey("AIzaSyAMDVoCK3Gv78bS9Y9H98IbWeAHzPfqHAk").build();
 

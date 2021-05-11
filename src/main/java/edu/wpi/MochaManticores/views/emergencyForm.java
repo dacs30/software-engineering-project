@@ -91,7 +91,7 @@ public class emergencyForm extends SceneController {
         JFXButton ok = new JFXButton("Done");
         ok.setStyle("-fx-font-size: 15");
         ok.setOnAction(event -> {
-            dialog.close();
+            changeSceneTo("landingPage");
         });
 
         dialog.setOnDialogClosed(event -> {

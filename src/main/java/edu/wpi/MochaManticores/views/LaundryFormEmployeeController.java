@@ -17,7 +17,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
-public class LaundryFormEmployeeController {
+public class LaundryFormEmployeeController extends SceneController {
 
     @FXML
     private GridPane managerPage;
@@ -210,7 +210,7 @@ public class LaundryFormEmployeeController {
         JFXButton ok = new JFXButton("Done");
         ok.setStyle("-fx-font-size: 15");
         ok.setOnAction(event -> {
-            dialogPane.toBack();
+            changeSceneTo("landingPage");
         });
 
         dialog.setOnDialogClosed(event -> {
