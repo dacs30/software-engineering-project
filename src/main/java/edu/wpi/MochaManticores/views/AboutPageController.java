@@ -1,10 +1,12 @@
 package edu.wpi.MochaManticores.views;
 
+import com.jfoenix.controls.JFXButton;
 import edu.wpi.MochaManticores.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,6 +16,9 @@ public class AboutPageController extends SceneController{
 
     @FXML
     public Label aboutText;
+
+    @FXML
+    public JFXButton creditsButton;
 
     @FXML
     public ImageView backgroundIMG;
@@ -46,5 +51,5 @@ public class AboutPageController extends SceneController{
         super.back();
     }
 
-    public void goToCredits(ActionEvent e) {changeSceneTo("creditsPage");}
+    public void goToCredits(MouseEvent e) {changeSceneTo("creditsPage");}
 }

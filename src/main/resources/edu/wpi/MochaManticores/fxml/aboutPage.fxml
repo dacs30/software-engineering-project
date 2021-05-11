@@ -60,7 +60,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <JFXButton fx:id="creditsButton" onAction="#goToCredits" stylesheets="@../Stylesheets/loginPage.css" text="Credits" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                  <JFXButton fx:id="creditsButton" onMouseClicked="#goToCredits" stylesheets="@../Stylesheets/loginPage.css" text="Credits" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets right="50.0" />
                      </GridPane.margin>
