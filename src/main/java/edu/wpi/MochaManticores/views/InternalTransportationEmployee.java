@@ -28,7 +28,7 @@ import javafx.scene.text.Text;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-public class InternalTransportationEmployee {
+public class InternalTransportationEmployee extends SceneController{
 
     public class it extends RecursiveTreeObject<it> {
 
@@ -234,8 +234,7 @@ public class InternalTransportationEmployee {
         JFXButton cont = new JFXButton("Done");
         cont.setStyle("-fx-font-size: 15");
         cont.setOnAction(event -> {
-            dialog.close();
-            dialogPane.toBack();
+            changeSceneTo("landingPage");
         });
 
         dialog.setOnDialogClosed(event -> {

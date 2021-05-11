@@ -147,8 +147,7 @@ public class ReligiousRequestController extends SceneController{
         JFXButton cont = new JFXButton("Done");
         cont.setStyle("-fx-font-size: 15");
         cont.setOnAction(event -> {
-            dialog.close();
-            dialogPane.toBack();
+            changeSceneTo("landingPage");
         });
 
         dialog.setOnDialogClosed(event -> {

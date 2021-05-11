@@ -100,8 +100,7 @@ public class TranslatorController extends SceneController{
         JFXButton exit = new JFXButton("Done");
         exit.setStyle("-fx-font-size: 15");
         exit.setOnAction(event -> {
-            dialog.close();
-            dialogPane.toBack();
+            changeSceneTo("landingPage");
         });
         dialog.setOnDialogClosed(event -> {
             dialogPane.toBack();

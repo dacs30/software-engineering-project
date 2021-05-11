@@ -226,6 +226,7 @@ public class covidSurveyController extends SceneController{
             message.setBody(body);
             JFXDialog finalDialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
             JFXButton ok = new JFXButton("Done");
+            ok.setStyle("-fx-font-size: 15");
             ok.setOnAction(event -> {
                 changeSceneTo("landingPage");
             });

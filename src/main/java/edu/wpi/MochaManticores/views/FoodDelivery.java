@@ -151,8 +151,7 @@ public class FoodDelivery extends SceneController {
         JFXButton exit = new JFXButton("Done");
         exit.setStyle("-fx-font-size: 15");
         exit.setOnAction(event -> {
-            dialogPane.toBack();
-            dialog.close();
+            changeSceneTo("landingPage");
         });
         dialog.setOnDialogClosed(event -> {
             dialogPane.setDisable(true);

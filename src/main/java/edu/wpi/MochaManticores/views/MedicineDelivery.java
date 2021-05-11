@@ -13,7 +13,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
-public class MedicineDelivery {
+public class MedicineDelivery extends SceneController{
 
     @FXML
     private GridPane contentGrid;
@@ -184,8 +184,7 @@ public class MedicineDelivery {
         JFXButton cont = new JFXButton("Done");
         cont.setStyle("-fx-font-size: 15");
         cont.setOnAction(event -> {
-            dialog.close();
-            dialogPane.toBack();
+            changeSceneTo("landingPage");
         });
 
         dialog.setOnDialogClosed(event -> {

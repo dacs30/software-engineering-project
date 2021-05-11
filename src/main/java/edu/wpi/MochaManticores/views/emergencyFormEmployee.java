@@ -90,7 +90,7 @@ public class emergencyFormEmployee extends SceneController {
         JFXButton ok = new JFXButton("Done");
         ok.setStyle("-fx-font-size: 15");
         ok.setOnAction(event -> {
-            backBtn();
+            changeSceneTo("landingPage");
         });
 
         dialog.setOnDialogClosed(event -> {
