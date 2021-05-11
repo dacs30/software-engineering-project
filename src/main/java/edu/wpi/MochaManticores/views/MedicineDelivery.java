@@ -88,12 +88,17 @@ public class MedicineDelivery extends SceneController{
         }
         // changeSceneTo(e, "mainMenu");
         if (checkBoxesAreFilled() && !typeOfMedicineComboBx.getSelectionModel().isEmpty() && !patientRoom.getText().isEmpty()){
-//            ServiceRequest.addRequest(new edu.wpi.MochaManticores.Services.MedicineDelivery(App.getClearenceLevel()==1,
-//                    false,
-//                    0,
-//                    typeOfMedicineComboBx.getSelectionModel().getSelectedItem(),
-//                    allergies.getText(),
-//                    patientRoom.getText()), ServiceMap.FoodDelivery);
+            sel s = sel.Medicine;
+            edu.wpi.MochaManticores.Services.MedicineRequest toAdd = new edu.wpi.MochaManticores.Services.MedicineRequest("",
+                    "",
+                    false,
+                    typeOfMedicineComboBx.getSelectionModel().getSelectedItem(),
+                    feel.toString(),
+                    allergies.getText(),
+                    patientRoom.getText());
+            DatabaseManager.addRequest(s,toAdd);
+            toAdd.send(toAdd.getRequestID());
+            loadSubmitDialogue();
             System.out.println("send to database");
         } else if (patientRoom.getText().isEmpty()){
             // if patient room is empty, generate error
@@ -107,11 +112,8 @@ public class MedicineDelivery extends SceneController{
             missingInput.setMessage("Type of medicine must be selected");
             typeOfMedicineComboBx.validate();
         }
-        loadSubmitDialogue();
-        sel s = sel.Medicine;
-        edu.wpi.MochaManticores.Services.MedicineRequest toAdd = new edu.wpi.MochaManticores.Services.MedicineRequest("","",false,typeOfMedicineComboBx.getSelectionModel().getSelectedItem(),feel.toString(),allergies.getText(),patientRoom.getText());
-        DatabaseManager.addRequest(s,toAdd);
-        toAdd.send(toAdd.getRequestID());
+
+
     }
 
     public void helpButton(ActionEvent actionEvent) {

@@ -148,13 +148,18 @@ public class MedicineDeliveryEmployee extends SceneController{
         }
         //feel.setLength(feel.length()-1);
         // changeSceneTo(e, "mainMenu");
-        if (checkBoxesAreFilled() && !medicineCombo.getSelectionModel().isEmpty() && !patientRoom.getText().isEmpty()){
-//            ServiceRequest.addRequest(new edu.wpi.MochaManticores.Services.MedicineDelivery(App.getClearenceLevel()==1,
-//                    false,
-//                    0,
-//                    typeOfMedicineComboBx.getSelectionModel().getSelectedItem(),
-//                    allergies.getText(),
-//                    patientRoom.getText()), ServiceMap.FoodDelivery);
+        if (checkBoxesAreFilled() && !medicineCombo.getSelectionModel().isEmpty() && !patientRoom.getText().isEmpty() && !employeeAssigned.getSelectionModel().isEmpty()){
+            sel s = sel.Medicine;
+            edu.wpi.MochaManticores.Services.MedicineRequest toAdd = new edu.wpi.MochaManticores.Services.MedicineRequest("",
+                    employeeAssigned.getEditor().getText(),
+                    false,
+                    medicineCombo.getSelectionModel().getSelectedItem(),
+                    feel.toString(),
+                    allergies.getText(),
+                    patientRoom.getText());
+            DatabaseManager.addRequest(s, toAdd);
+            toAdd.send(toAdd.getRequestID());
+            loadSubmitDialogue();
             System.out.println("send to database");
         } else if (patientRoom.getText().isEmpty()){
             // if patient room is empty, generate error
@@ -167,18 +172,13 @@ public class MedicineDeliveryEmployee extends SceneController{
             medicineCombo.getValidators().add(missingInput);
             missingInput.setMessage("Type of medicine must be selected");
             medicineCombo.validate();
+        } else if (employeeAssigned.getSelectionModel().isEmpty()) {
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            employeeAssigned.getValidators().add(missingInput);
+            missingInput.setMessage("Please assign an employee");
+            employeeAssigned.validate();
         }
-        loadSubmitDialogue();
-        sel s = sel.Medicine;
-        edu.wpi.MochaManticores.Services.MedicineRequest toAdd = new edu.wpi.MochaManticores.Services.MedicineRequest("", employeeAssigned.getEditor().getText(),false,medicineCombo.getSelectionModel().getSelectedItem(),feel.toString(),allergies.getText(),patientRoom.getText());
-        DatabaseManager.addRequest(s, toAdd);
-        toAdd.send(toAdd.getRequestID());
-
-
     }
-
-
-
     public void changeToRequest(ActionEvent actionEvent) {
         requestPage.setVisible(true);
         managerPage.setVisible(false);
