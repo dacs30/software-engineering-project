@@ -1,24 +1,24 @@
 package edu.wpi.MochaManticores.views;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import edu.wpi.MochaManticores.App;
-import edu.wpi.MochaManticores.messaging.messageClient;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 
 public class landingPageController extends SceneController {
@@ -97,6 +97,9 @@ public class landingPageController extends SceneController {
   private HBox currentVbox;
 
   @FXML
+  private VBox textFieldGroup;
+
+  @FXML
   private JFXTextField searchRequest;
 
   LinkedList listServices = new LinkedList<HBox>();
@@ -138,9 +141,9 @@ public class landingPageController extends SceneController {
               internalTransportationSidePanel, externalTransportationSidePanel,floralSceneSidePanel,sanitationSideMenu,
               surveySideMenu,religionSidePane, laundrySidePane,translatorSidePane);
 
-      listServices.add(menuSidePane);
-      listServices.add(mapSidePane);
-      listServices.add(servicesBox);
+    listServices.add(menuSidePane);
+    listServices.add(mapSidePane) ;
+    listServices.add(servicesBox);
     listServices.add(foodDeliverySidePanel);
     listServices.add(medicineDeliverySidePanel);
     listServices.add(internalTransportationSidePanel);
@@ -151,6 +154,28 @@ public class landingPageController extends SceneController {
     listServices.add(religionSidePane);
     listServices.add(laundrySidePane);
     listServices.add(translatorSidePane);
+
+
+    ObservableList<HBox> items = FXCollections.observableArrayList();
+    FilteredList<HBox> filteredList = new FilteredList(items);
+    if(listServices.contains("s")) {
+      //filteredList.add(listServices.indexOf());
+    }
+   // );
+    items.addAll(listServices);
+
+    listServices.forEach(s -> {
+
+
+     // items.add(listServices.getFirst().toString());
+
+    });
+
+    searchBar = new JFXTextField();
+
+
+    setAutoComplete(searchBar, items);
+
 
 
       //search
@@ -168,6 +193,33 @@ public class landingPageController extends SceneController {
         System.out.println("ERROR");
       }
       super.setLandingPageWindow(scenesPane);
+  }
+
+
+
+
+  public void setAutoComplete(JFXTextField test, List<HBox> items) {
+    JFXAutoCompletePopup<HBox> autoCompletePopup = new JFXAutoCompletePopup<>();
+    autoCompletePopup.getSuggestions().addAll(items);
+
+    autoCompletePopup.setSelectionHandler(event -> {
+      test.setText(event.getObject().toString());
+
+      // you can do other actions here when text completed
+
+    });
+
+    // filtering options
+    test.textProperty().addListener(observable -> {
+      autoCompletePopup.filter(string -> string.toString().toLowerCase().contains(test.getText().toLowerCase()));
+      if (autoCompletePopup.getFilteredSuggestions().isEmpty()) {
+        autoCompletePopup.hide();
+        // if you remove textField.getText.isEmpty() when text field is empty it suggests all options
+        // so you can choose
+      } else {
+        autoCompletePopup.show(test);
+      }
+    });
   }
 
   //emergencyDialog
@@ -236,6 +288,7 @@ public class landingPageController extends SceneController {
    // }
 
   }
+
 
   public void renderMenu(MouseEvent mouseEvent) throws IOException {
     //disables message GUI posts
