@@ -22,7 +22,9 @@ public class Message {
         this.sender = tokens[0];
         this.target = tokens[1];
         this.TYPE = typeConverter(tokens[2]);
-        this.body = tokens[3];
+        if(tokens.length > 3) {
+            this.body = tokens[3];
+        }
     }
 
     public String toWriteFormat(){

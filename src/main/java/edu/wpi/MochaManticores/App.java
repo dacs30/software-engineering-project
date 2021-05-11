@@ -93,10 +93,6 @@ public class App extends Application {
   @Override
   public void init() throws InterruptedException, FileNotFoundException, SQLException {
     System.out.println("Starting Up");
-    System.out.println("Starting Database");
-    DatabaseManager.startup();
-    client.startServer();
-    System.out.println(DatabaseManager.getEmpManager().getEmployeeNames());
   }
 
   @Override
@@ -110,6 +106,12 @@ public class App extends Application {
     try {
       Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("fxml/loadingPage.fxml")));
       Scene scene = new Scene(root);
+
+      System.out.println("Starting Database");
+      DatabaseManager.startup();
+      client.startServer();
+      System.out.println(DatabaseManager.getEmpManager().getEmployeeNames());
+
       //primaryStage.setMaximized(true);
       //primaryStage.setFullScreen(true);
       //primaryStage.setWidth(1280);
