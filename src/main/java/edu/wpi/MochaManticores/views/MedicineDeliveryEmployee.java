@@ -170,7 +170,9 @@ public class MedicineDeliveryEmployee extends SceneController{
         }
         loadSubmitDialogue();
         sel s = sel.Medicine;
-        DatabaseManager.addRequest(s, new edu.wpi.MochaManticores.Services.MedicineRequest("", employeeAssigned.getEditor().getText(),false,medicineCombo.getSelectionModel().getSelectedItem(),feel.toString(),allergies.getText(),patientRoom.getText()));
+        edu.wpi.MochaManticores.Services.MedicineRequest toAdd = new edu.wpi.MochaManticores.Services.MedicineRequest("", employeeAssigned.getEditor().getText(),false,medicineCombo.getSelectionModel().getSelectedItem(),feel.toString(),allergies.getText(),patientRoom.getText());
+        DatabaseManager.addRequest(s, toAdd);
+        toAdd.send(toAdd.getRequestID());
 
 
     }

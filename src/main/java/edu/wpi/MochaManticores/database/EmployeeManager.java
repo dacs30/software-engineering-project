@@ -265,12 +265,12 @@ public class EmployeeManager extends Manager<Employee>{
     public LinkedList<String> getEmployeeNames() {
         LinkedList<String> names = new LinkedList<>();
         try {
-            String sql = "SELECT firstName, lastName, employeeType FROM EMPLOYEES GROUP BY firstName, lastName, employeeType";
+            String sql = "SELECT username, employeeType FROM EMPLOYEES GROUP BY username, employeeType";
             Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery(sql);
             while (result.next()) {
-                if(!result.getString(3).equals("PATIENT")){
-                    String temp = result.getString(1) + " " + result.getString(2);
+                if(!result.getString(2).equals("PATIENT")){
+                    String temp = result.getString(1);
                     names.add(temp);
                 }
             }

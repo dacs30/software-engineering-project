@@ -2,6 +2,7 @@ package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.*;
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.Services.FoodDelivery;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.sel;
 import javafx.collections.FXCollections;
@@ -120,18 +121,18 @@ public class FoodDeliveryEmployee extends SceneController{
     public void submitForm() {
         sel s = sel.FoodDelivery;
         // changeSceneTo(e, "mainMenu");
-        DatabaseManager.addRequest(s,
-                new edu.wpi.MochaManticores.Services.FoodDelivery(
-                        "", employeeAssigned.getEditor().getText(), false, dietaryPreferences.getSelectionModel().getSelectedItem(),
-                        allergyText.getText(), foodMenu.getSelectionModel().getSelectedItem()));
+        FoodDelivery toAdd = new edu.wpi.MochaManticores.Services.FoodDelivery(
+                "", employeeAssigned.getEditor().getText(), false, dietaryPreferences.getSelectionModel().getSelectedItem(),
+                allergyText.getText(), foodMenu.getSelectionModel().getSelectedItem());
+        DatabaseManager.addRequest(s, toAdd);
+        toAdd.send(toAdd.getRequestID());
+
     }
 
     public void helpButton(MouseEvent mouseEvent) {
         loadHelpDialog();
     }
     public void loadHelpDialog() {
-
-
         dialogPane.toFront();
         dialogPane.setDisable(false);
         JFXDialogLayout message = new JFXDialogLayout();

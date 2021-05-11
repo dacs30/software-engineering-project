@@ -115,11 +115,12 @@ public class TranslatorControllerEmployee extends SceneController{
     public void submitEvent() {
         sel s = sel.LanguageInterperter;
         // changeSceneTo(e, "mainMenu");
-        DatabaseManager.addRequest(s,
-                new edu.wpi.MochaManticores.Services.LanguageInterpreterRequest(
-                        "", employeeAssigned.getEditor().getText(), false, roomNumber.getText(),
-                        languageOne.getSelectionModel().getSelectedItem().toString(),
-                        languageTwo.getSelectionModel().getSelectedItem().toString()));
+        edu.wpi.MochaManticores.Services.LanguageInterpreterRequest toAdd =  new edu.wpi.MochaManticores.Services.LanguageInterpreterRequest(
+                "", employeeAssigned.getEditor().getText(), false, roomNumber.getText(),
+                languageOne.getSelectionModel().getSelectedItem().toString(),
+                languageTwo.getSelectionModel().getSelectedItem().toString());
+        DatabaseManager.addRequest(s, toAdd);
+        toAdd.send(toAdd.getRequestID());
         dialogPane.setVisible(true);
         loadDialog();
 //        back();

@@ -108,7 +108,7 @@ public class clientReader implements Runnable{
             public void run() {
                 Notifications notifications = Notifications.create()
                         .title(msg.sender)
-                        .text(msg.body)
+                        .text(msg.body +" "+ msg.target +" "+ msg.sender)
                         .hideAfter(Duration.seconds(5))
                         .position(Pos.BOTTOM_RIGHT);
 

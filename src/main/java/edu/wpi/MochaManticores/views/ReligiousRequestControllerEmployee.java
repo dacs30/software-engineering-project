@@ -119,13 +119,14 @@ public class ReligiousRequestControllerEmployee extends SceneController{
 
     public void submitEvent(ActionEvent actionEvent) {
         sel s = sel.ReligiousRequest;
-        DatabaseManager.addRequest(s,
-                new ReligiousRequest("",
-                        employeeAssigned.getValue().toString(),
-                        false,
-                        reasonBox.getText(),
-                        roomIDbox.getText(),
-                        TypeOfSacredPerson.getSelectionModel().getSelectedItem()));
+        ReligiousRequest toAdd = new ReligiousRequest("",
+                employeeAssigned.getValue().toString(),
+                false,
+                reasonBox.getText(),
+                roomIDbox.getText(),
+                TypeOfSacredPerson.getSelectionModel().getSelectedItem());
+        DatabaseManager.addRequest(s, toAdd);
+        toAdd.send(toAdd.getRequestID());
         loadSubmitDialogue();
     }
 

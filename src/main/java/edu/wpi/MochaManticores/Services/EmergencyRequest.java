@@ -10,6 +10,7 @@ public class EmergencyRequest extends ServiceRequest {
         if(RequestID.equals("")){
             this.RequestID = generateRequestID(ServiceRequestType.Emergency);
         }
+        super.send(this.getRequestID());
         this.numPeopleNeeded = numPeopleNeeded;
         this.location = location;
         this.gurney = gurney;

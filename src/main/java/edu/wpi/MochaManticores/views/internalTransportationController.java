@@ -2,6 +2,7 @@ package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.*;
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.Services.InternalTransportation;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.sel;
 import javafx.collections.FXCollections;
@@ -67,15 +68,16 @@ public class internalTransportationController extends SceneController{
         if(!patientID.getText().isEmpty() && !numberOfStaff.getText().isEmpty() &&
                 !destination.getText().isEmpty() && !transportComboBox.getSelectionModel().getSelectedItem().isEmpty()){
             sel s = sel.InternalTransportation;
-            DatabaseManager.addRequest(s, new edu.wpi.MochaManticores.Services.InternalTransportation(
+            edu.wpi.MochaManticores.Services.InternalTransportation toAdd = new edu.wpi.MochaManticores.Services.InternalTransportation(
                     "",
                     "",
                     false,
                     patientID.getText(),
                     Integer.parseInt(numberOfStaff.getText()),
                     destination.getText(),
-                    transportComboBox.getValue()
-                    ));
+                    transportComboBox.getValue());
+            DatabaseManager.addRequest(s,toAdd);
+            toAdd.send(toAdd.getRequestID());
             System.out.println("Adds to database");
         }
         loadSubmitDialog();

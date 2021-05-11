@@ -3,6 +3,7 @@ package edu.wpi.MochaManticores.views;
 import com.jfoenix.controls.*;
 import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.Services.ExternalTransportation;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.sel;
 import javafx.collections.FXCollections;
@@ -122,16 +123,16 @@ public class extTransportationControllerEmployee extends SceneController {
     public void submitEvent() {
         if(!externalRoom.getText().isEmpty() && !currentRoom.getText().isEmpty() && !patientRoom.getText().isEmpty()){
             sel s = sel.ExternalTransportation;
-            DatabaseManager.addRequest(s,
-                    new edu.wpi.MochaManticores.Services.ExternalTransportation(
-                            "",
-                            employeeAssigned.getEditor().getText(),
-                            false,
-                            patientRoom.getText(),
-                            currentRoom.getText(),
-                            externalRoom.getText(),
-                            transportationMethods.getSelectionModel().getSelectedItem()
-                    ));
+            ExternalTransportation toAdd = new edu.wpi.MochaManticores.Services.ExternalTransportation(
+                    "",
+                    employeeAssigned.getEditor().getText(),
+                    false,
+                    patientRoom.getText(),
+                    currentRoom.getText(),
+                    externalRoom.getText(),
+                    transportationMethods.getSelectionModel().getSelectedItem());
+            DatabaseManager.addRequest(s, toAdd);
+            toAdd.send(toAdd.getRequestID());
             System.out.println("runned");
         } else if (patientRoom.getText().isEmpty()){
             RequiredFieldValidator missingInput = new RequiredFieldValidator();

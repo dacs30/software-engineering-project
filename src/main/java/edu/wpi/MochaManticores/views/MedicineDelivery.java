@@ -109,7 +109,9 @@ public class MedicineDelivery extends SceneController{
         }
         loadSubmitDialogue();
         sel s = sel.Medicine;
-        DatabaseManager.addRequest(s, new edu.wpi.MochaManticores.Services.MedicineRequest("","",false,typeOfMedicineComboBx.getSelectionModel().getSelectedItem(),feel.toString(),allergies.getText(),patientRoom.getText()));
+        edu.wpi.MochaManticores.Services.MedicineRequest toAdd = new edu.wpi.MochaManticores.Services.MedicineRequest("","",false,typeOfMedicineComboBx.getSelectionModel().getSelectedItem(),feel.toString(),allergies.getText(),patientRoom.getText());
+        DatabaseManager.addRequest(s,toAdd);
+        toAdd.send(toAdd.getRequestID());
     }
 
     public void helpButton(ActionEvent actionEvent) {
