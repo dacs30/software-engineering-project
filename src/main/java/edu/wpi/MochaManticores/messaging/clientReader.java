@@ -49,7 +49,7 @@ public class clientReader implements Runnable{
 
 
                 if(msg.TYPE == Message.msgType.SHUTDOWN){
-                    if(msg.sender.equals("SENDER")){
+                    if(msg.sender.equals("SERVER")){
                         msg.sender = username;
                         client.sendMsg(msg);
                     }

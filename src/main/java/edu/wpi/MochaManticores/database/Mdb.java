@@ -487,7 +487,7 @@ public class Mdb extends Thread{
         // start network server on oracle cloud
         try{
             //if the server is not started then just exit
-            server = new NetworkServerControl(InetAddress.getByName("notahost"), connectionUtil.dbPort);
+            server = new NetworkServerControl(InetAddress.getByName(connectionUtil.JDBC_REMOTE_SERVER), connectionUtil.dbPort);
             if(!isServerStarted(server)){
                 System.out.println("Remote Server has not been started");
                 return false;
@@ -683,17 +683,33 @@ public class Mdb extends Thread{
 
     }
 
+    public boolean isServerStarted() throws Exception {
+        if(server == null){
+            return false;
+        }
+        try {
+            server.ping();
+            return true;
+        } catch (Exception var2) {
+            return false;
+        }
+    }
+
     /* function databaseShutdown()
      * clears connection and saves the tables.
      */
     public void databaseShutdown(){
         try {
-            for(sel s : sel.values()){
-                DatabaseManager.getManager(s).saveElements();
+            if(isServerStarted()) {
+                for (sel s : sel.values()) {
+                    DatabaseManager.getManager(s).saveElements();
+                }
+                connection = null;
+                DatabaseManager.setConnection(null);
+                if(server != null){
+                    server.shutdown();
+                }
             }
-            connection = null;
-            DatabaseManager.setConnection(null);
-            server.shutdown();
         }catch(FileNotFoundException | SQLException e){
             e.printStackTrace();
         } catch (Exception e) {
