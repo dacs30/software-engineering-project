@@ -121,11 +121,11 @@ public class extTransportationControllerEmployee extends SceneController {
 
 
     public void submitEvent() {
-        if(!externalRoom.getText().isEmpty() && !currentRoom.getText().isEmpty() && !patientRoom.getText().isEmpty()){
+        if (!externalRoom.getText().isEmpty() && !currentRoom.getText().isEmpty() && !patientRoom.getText().isEmpty()) {
             sel s = sel.ExternalTransportation;
             ExternalTransportation toAdd = new edu.wpi.MochaManticores.Services.ExternalTransportation(
                     "",
-                    employeeAssigned.getEditor().getText(),
+                    (String) employeeAssigned.getSelectionModel().getSelectedItem(),
                     false,
                     patientRoom.getText(),
                     currentRoom.getText(),
@@ -134,24 +134,28 @@ public class extTransportationControllerEmployee extends SceneController {
             DatabaseManager.addRequest(s, toAdd);
             toAdd.send(toAdd.getRequestID());
             System.out.println("runned");
-        } else if (patientRoom.getText().isEmpty()){
+            loadSubmitDialog();
+        } else if (patientRoom.getText().isEmpty()) {
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
             patientRoom.getValidators().add(missingInput);
             missingInput.setMessage("Patient room is required");
             patientRoom.validate();
-        } else if (currentRoom.getText().isEmpty()){
+        } else if (currentRoom.getText().isEmpty()) {
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
             currentRoom.getValidators().add(missingInput);
             missingInput.setMessage("Current room is required");
             currentRoom.validate();
-        } else if (externalRoom.getText().isEmpty()){
+        } else if (externalRoom.getText().isEmpty()) {
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
             externalRoom.getValidators().add(missingInput);
             missingInput.setMessage("External room is required");
             externalRoom.validate();
-        }
-        loadSubmitDialog();
+        } else if (employeeAssigned.getItems().isEmpty()) {
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            employeeAssigned.getValidators().add(missingInput);
+            missingInput.setMessage("Please assign an employee");
 
+        }
     }
 
     public void helpButton(){loadHelpDialogue();}

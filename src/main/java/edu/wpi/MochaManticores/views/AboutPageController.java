@@ -41,19 +41,6 @@ public class AboutPageController extends SceneController{
 
         backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
         backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
-        StringBuilder about = new StringBuilder();
-        try {
-            File aboutFile = new File("src/main/resources/edu/wpi/MochaManticores/about.txt");
-            Scanner sc = new Scanner(aboutFile);
-            while (sc.hasNextLine()) {
-                String data = sc.nextLine();
-                about.append(data + "\n");
-            }
-            sc.close();
-        } catch (FileNotFoundException ex) {
-            about.append("Data not found");
-        }
-        aboutText.setText(about.toString());
 
     }
 
@@ -67,5 +54,10 @@ public class AboutPageController extends SceneController{
 
     public void goToCredits(ActionEvent actionEvent) {
         creditsGrid.toFront();
+    }
+
+    public void openGitHubTeam(MouseEvent mouseEvent) {
+        System.out.println(mouseEvent.getSource());
+
     }
 }

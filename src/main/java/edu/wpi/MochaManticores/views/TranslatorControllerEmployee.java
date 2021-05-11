@@ -123,33 +123,32 @@ public class TranslatorControllerEmployee extends SceneController{
                             "", "", false, roomNumber.getText(),
                             languageOne.getSelectionModel().getSelectedItem().toString(),
                             languageTwo.getSelectionModel().getSelectedItem().toString()));
+            loadDialog();
         }
         else if (roomNumber.getText().isEmpty()) {
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
             roomNumber.getValidators().add(missingInput);
-            missingInput.setMessage("Dietary Preference requires an input");
+            missingInput.setMessage("Room number is a required input");
             roomNumber.validate();
-        } else if (languageOne.getItems().isEmpty()) {
+        } else if (languageOne.getSelectionModel().isEmpty()) {
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
             languageOne.getValidators().add(missingInput);
-            missingInput.setMessage("Allergies field requires an input");
+            missingInput.setMessage("Language one is a required input");
             languageOne.validate();
-        } else if (languageTwo.getItems().isEmpty()) {
+        } else if (languageTwo.getSelectionModel().isEmpty()) {
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
             languageTwo.getValidators().add(missingInput);
-            missingInput.setMessage("Food menu requires an input");
+            missingInput.setMessage("Language two is a required input");
             languageTwo.validate();
-
         }
-        else if (employeeAssigned.getItems().isEmpty()) {
+        else if (employeeAssigned.getSelectionModel().isEmpty()) {
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
             languageTwo.getValidators().add(missingInput);
-            missingInput.setMessage("Food menu requires an input");
+            missingInput.setMessage("Please assign an employee");
             languageTwo.validate();
 
         }
         dialogPane.setVisible(true);
-        loadDialog();
 //        back();
     }
 

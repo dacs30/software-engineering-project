@@ -79,4 +79,6 @@ public class EmployeeHomePage extends SceneController {
     public void goToMapEditor(MouseEvent mouseEvent) {
         changeSceneTo("employeeMapPage");
     }
+
+
 }

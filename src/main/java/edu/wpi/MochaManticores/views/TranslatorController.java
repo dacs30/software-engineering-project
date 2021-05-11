@@ -63,8 +63,8 @@ public class TranslatorController extends SceneController{
     }
 
     public void submitEvent() {
-        if(!roomNumber.getText().isEmpty() && !languageOne.getItems().isEmpty() &&
-                !languageTwo.getItems().isEmpty()) {
+        if(!roomNumber.getText().isEmpty() && !languageOne.getSelectionModel().isEmpty() &&
+                !languageTwo.getSelectionModel().isEmpty()) {
             sel s = sel.LanguageInterperter;
             // changeSceneTo(e, "mainMenu");
             DatabaseManager.addRequest(s,
@@ -72,26 +72,26 @@ public class TranslatorController extends SceneController{
                             "", "", false, roomNumber.getText(),
                             languageOne.getSelectionModel().getSelectedItem().toString(),
                             languageTwo.getSelectionModel().getSelectedItem().toString()));
+            loadDialog();
         }
-        else if (roomNumber.getText().isEmpty()) {
+         else if (roomNumber.getText().isEmpty()) {
                 RequiredFieldValidator missingInput = new RequiredFieldValidator();
                 roomNumber.getValidators().add(missingInput);
-                missingInput.setMessage("Dietary Preference requires an input");
+                missingInput.setMessage("Room number is a required input");
                 roomNumber.validate();
-            } else if (languageOne.getItems().isEmpty()) {
+            } else if (languageOne.getSelectionModel().isEmpty()) {
                 RequiredFieldValidator missingInput = new RequiredFieldValidator();
                 languageOne.getValidators().add(missingInput);
-                missingInput.setMessage("Allergies field requires an input");
+                missingInput.setMessage("Language one is a required input");
                 languageOne.validate();
-            } else if (languageTwo.getItems().isEmpty()) {
+            } else if (languageTwo.getSelectionModel().isEmpty()) {
                 RequiredFieldValidator missingInput = new RequiredFieldValidator();
                 languageTwo.getValidators().add(missingInput);
-                missingInput.setMessage("Food menu requires an input");
+                missingInput.setMessage("Language two is a required input");
                 languageTwo.validate();
 
         }
         dialogPane.setVisible(true);
-        loadDialog();
     }
 
 

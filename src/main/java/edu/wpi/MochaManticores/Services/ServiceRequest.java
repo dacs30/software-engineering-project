@@ -55,7 +55,6 @@ public abstract class ServiceRequest {
 
     public void send(String requestID){
         String newEmployee = employee;//DatabaseManager.getEmpManager().getEmployeeUsername(employee);
-        System.out.println(employee+" "+newEmployee);
         String content = "Hello, " +
                 newEmployee + " you have been assigned to " + requestID;
         Message toNew = new Message("SERVER",newEmployee, content, Message.msgType.MSGPOST);

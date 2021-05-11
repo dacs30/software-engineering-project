@@ -22,3 +22,42 @@
     -fx-border-radius: 40;
     -fx-background-radius: 40;
 }
+
+#title {
+    -fx-font-family: Roboto;
+    -fx-font-size: 22;
+    -fx-text-fill: #0F4B91;
+    -fx-font-weight: bold;
+}
+
+#subTitle {
+    -fx-font-family: Roboto;
+    -fx-font-size: 15;
+    -fx-text-fill: #0F4B91;
+    -fx-font-weight: bold;
+}
+
+#credits {
+    fx-font-family: Roboto;
+    -fx-font-size: 15;
+    -fx-text-fill: #0F4B91;
+    -fx-font-weight: bold;
+}
+
+.creditsLabels {
+    -fx-font-family: Roboto;
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+}
+
+.teamMemberLabel {
+    -fx-font-family: Roboto;
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+}
+
+.thankYouLabels {
+    -fx-font-family: Roboto;
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+}
