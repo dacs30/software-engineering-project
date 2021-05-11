@@ -10,12 +10,6 @@
     -fx-font-size: 50;
 }
 
-.label {
-    -fx-font-family: Roboto;
-    -fx-font-size: 50;
-    -fx-font-weight: bold;
-    -fx-text-fill: #0F4B91;
-}
 
 .jfx-text-field {
     -fx-font-family: Roboto;
@@ -24,6 +18,7 @@
     -jfx-focus-color: #0F4B91;
     -fx-prompt-text-fill: #0F4B91;
     -fx-font-weight: bold;
+    -fx-effect: none;
 }
 #delicateSwitch{
     -fx-font-family: Roboto;
@@ -42,7 +37,6 @@
     -fx-font-size: 25;
     -fx-border-radius: 40;
     -fx-background-radius: 40;
-    transition: background-color 2s ease;
 }
 
 .jfx-combo-box {
@@ -54,12 +48,28 @@
     -fx-font-weight: bold;
 }
 
-#washLabel {
+.jfx-combo-box:hover {
+    -fx-effect: dropshadow( three-pass-box , rgba(2, 2, 2, 0.2), 20, 0.0 , 1 , 10);
+}
+#washCycleLabel {
     -fx-font-size: 30;
+    -fx-font-family: Roboto;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0F4B91;
+}
+
+#washLabel {
+    -fx-font-size: 20;
+    -fx-font-family: Roboto;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0F4B91;
 }
 
 #laundry-Label {
     -fx-font-size: 20;
+    -fx-font-family: Roboto;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0F4B91;
 }
 
 #nameLabel {
@@ -69,5 +79,4 @@
     -fx-font-size: 20;
     -fx-border-radius: 20;
     -fx-background-radius: 40;
-    transition: background-color 2s ease;
 }

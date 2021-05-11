@@ -66,7 +66,7 @@ public class internalTransportationController extends SceneController{
 
     public void submitEvent() {
         if(!patientID.getText().isEmpty() && !numberOfStaff.getText().isEmpty() &&
-                !destination.getText().isEmpty() && !transportComboBox.getSelectionModel().getSelectedItem().isEmpty()) {
+                !destination.getText().isEmpty() && !transportComboBox.getSelectionModel().isEmpty()) {
             sel s = sel.InternalTransportation;
             DatabaseManager.addRequest(s, new edu.wpi.MochaManticores.Services.InternalTransportation(
                     "",
@@ -75,7 +75,8 @@ public class internalTransportationController extends SceneController{
                     patientID.getText(),
                     Integer.parseInt(numberOfStaff.getText()),
                     destination.getText(),
-                    transportComboBox.getValue()
+                    transportComboBox.getSelectionModel().getSelectedItem()
+
             ));
             loadSubmitDialog();
         }
@@ -95,7 +96,7 @@ public class internalTransportationController extends SceneController{
                 missingInput.setMessage("Destination is required");
                 destination.validate();
             }
-                else if (transportComboBox.getItems().isEmpty()) {
+                else if (transportComboBox.getSelectionModel().isEmpty()) {
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
             transportComboBox.getValidators().add(missingInput);
             missingInput.setMessage("Type of transportation is required");

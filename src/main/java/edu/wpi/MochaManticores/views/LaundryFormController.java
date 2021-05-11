@@ -1,6 +1,7 @@
 package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.*;
+import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Services.LaundryRequest;
 import edu.wpi.MochaManticores.database.DatabaseManager;
@@ -68,18 +69,48 @@ public class LaundryFormController extends SceneController {
         dTemp.getItems().addAll("High", "Medium", "Low", "Delicate", "No Heat");
     }
 
-    public void submitEvent(){
-        LaundryRequest toAdd = new LaundryRequest("","",
-                false
-                ,nameField.getText(),
-                soil.getSelectionModel().getSelectedItem(),
-                delicateToggle.isSelected(),
-                wTemp.getSelectionModel().getSelectedItem(),
-                dTemp.getSelectionModel().getSelectedItem(),
-                Integer.parseInt(dryCycles.getText()));
-        DatabaseManager.addRequest(sel.Laundry, toAdd);
-        toAdd.send(toAdd.getRequestID());
-        loadSubmitDialog();
+    public void submitEvent() {
+        if (!nameField.getText().isEmpty() && !soil.getSelectionModel().isEmpty() && !wTemp.getSelectionModel().isEmpty() && !dTemp.getSelectionModel().isEmpty() && !dryCycles.getText().isEmpty()) {
+            DatabaseManager.addRequest(sel.Laundry,
+                    new LaundryRequest("", "",
+                            false
+                            , nameField.getText(),
+                            soil.getSelectionModel().getSelectedItem(),
+                            delicateToggle.isSelected(),
+                            wTemp.getSelectionModel().getSelectedItem(),
+                            dTemp.getSelectionModel().getSelectedItem(),
+                            Integer.parseInt(dryCycles.getText())));
+            loadSubmitDialog();
+        } else if (nameField.getText().isEmpty()) {
+            // if patient room is empty, generate error
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            nameField.getValidators().add(missingInput);
+            missingInput.setMessage("Patient ID must be filled out.");
+            nameField.validate();
+        } else if (soil.getSelectionModel().isEmpty()) {
+            // if patient room is empty, generate error
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            soil.getValidators().add(missingInput);
+            missingInput.setMessage("Please select one");
+            soil.validate();
+        } else if (wTemp.getSelectionModel().isEmpty()) {
+            // if patient room is empty, generate error
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            wTemp.getValidators().add(missingInput);
+            missingInput.setMessage("Please select one");
+            wTemp.validate();
+        } else if (dTemp.getSelectionModel().isEmpty()) {
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            dTemp.getValidators().add(missingInput);
+            missingInput.setMessage("Please select one");
+            dTemp.validate();
+        } else if (dryCycles.getText().isEmpty()) {
+            // if patient room is empty, generate error
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            dryCycles.getValidators().add(missingInput);
+            missingInput.setMessage("Put 0, if no extra");
+            dryCycles.validate();
+        }
     }
 
     private void loadDialog(){
