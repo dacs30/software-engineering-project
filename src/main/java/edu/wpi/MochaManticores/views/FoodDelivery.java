@@ -148,7 +148,6 @@ public class FoodDelivery extends SceneController {
 
         }*/
         dialogPane.setVisible(true);
-
     }
 
     public void loadDialog() {

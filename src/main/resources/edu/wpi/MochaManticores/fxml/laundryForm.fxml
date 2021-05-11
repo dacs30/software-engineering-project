@@ -59,7 +59,6 @@
                   <Insets />
                </GridPane.margin>
                <children>
-                  <JFXTextField fx:id="nameField" labelFloat="true" maxWidth="-Infinity" minHeight="-Infinity" prefWidth="460.0" promptText="Patient ID" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                   <Label id="title" text="Laundry Request" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                   <JFXButton fx:id="submitButton" alignment="CENTER" onAction="#submitEvent" text="Submit" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
@@ -126,6 +125,7 @@
                         <Insets right="75.0" />
                      </GridPane.margin>
                   </ImageView>
+                  <JFXTextField fx:id="nameField" labelFloat="true" maxWidth="-Infinity" minHeight="-Infinity" prefWidth="460.0" promptText="Patient ID" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                </children>
                <effect>
                   <DropShadow color="#00000099" height="80.0" radius="39.5" width="80.0" />

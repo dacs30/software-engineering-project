@@ -151,7 +151,6 @@ public class FoodDeliveryEmployee extends SceneController{
 
         }
         dialogPane.setVisible(true);
-        loadDialog();
     }
 
     public void helpButton(MouseEvent mouseEvent) {

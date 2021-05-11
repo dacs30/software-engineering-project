@@ -276,7 +276,7 @@ public class FloralSceneEmployeeController extends SceneController {
         if (!roomNumber.getText().isEmpty() && !deliveryDate.equals("") &&
                 (tulip.isSelected() || rose.isSelected() || lilie.isSelected()) &&
                 (blueVase.isSelected() || orangeVase.isSelected() || yellowVase.isSelected()) &&
-                !employeeAssigned.getValue().toString().isEmpty()) {
+                !employeeAssigned.getSelectionModel().isEmpty()) {
             sel s = sel.FloralDelivery;
             FloralDelivery toAdd = new FloralDelivery("",
                     employeeAssigned.getEditor().getText(),
@@ -288,22 +288,22 @@ public class FloralSceneEmployeeController extends SceneController {
                     personalNote.getText());
             DatabaseManager.addRequest(s, toAdd);
             toAdd.send(toAdd.getRequestID());
-
+            loadSubmitDialog();
         } else if (roomNumber.getText().isEmpty()) {
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
-            //roomNumber.getValue().getValidators().add(missingInput);
-            //missingInput.setMessage("Patient room is required");
-            // roomNumber.validate();
-        } else if (deliveryDate.getValue() == null) {
+            roomNumber.getValidators().add(missingInput);
+            missingInput.setMessage("Patient room is required");
+            roomNumber.validate();
+        } else if (deliveryDate.equals("")) {
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
-            //deliveryDate.getValidators().add(missingInput);
-            //missingInput.setMessage("Delivery date is required");
-            //deliveryDate.validate();
+            deliveryDate.getValidators().add(missingInput);
+            missingInput.setMessage("Delivery date is required");
+            deliveryDate.validate();
         } else if (employeeAssigned.getValue().toString().isEmpty()) {
-            //RequiredFieldValidator missingInput = new RequiredFieldValidator();
-            //empBox.getValidators().add(missingInput);
-            //missingInput.setMessage("Employee must be assigned");
-            //empBox.validate();
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            employeeAssigned.getValidators().add(missingInput);
+            missingInput.setMessage("Employee must be assigned");
+            employeeAssigned.validate();
             System.out.println("Adds to database");
         }
     }

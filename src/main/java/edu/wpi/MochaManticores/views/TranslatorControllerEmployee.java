@@ -120,7 +120,7 @@ public class TranslatorControllerEmployee extends SceneController{
             // changeSceneTo(e, "mainMenu");
             DatabaseManager.addRequest(s,
                     new edu.wpi.MochaManticores.Services.LanguageInterpreterRequest(
-                            "", "", false, roomNumber.getText(),
+                            "", employeeAssigned.getEditor().getText(), false, roomNumber.getText(),
                             languageOne.getSelectionModel().getSelectedItem().toString(),
                             languageTwo.getSelectionModel().getSelectedItem().toString()));
             loadDialog();
@@ -143,10 +143,9 @@ public class TranslatorControllerEmployee extends SceneController{
         }
         else if (employeeAssigned.getSelectionModel().isEmpty()) {
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
-            languageTwo.getValidators().add(missingInput);
+            employeeAssigned.getValidators().add(missingInput);
             missingInput.setMessage("Please assign an employee");
-            languageTwo.validate();
-
+            employeeAssigned.validate();
         }
         dialogPane.setVisible(true);
 //        back();

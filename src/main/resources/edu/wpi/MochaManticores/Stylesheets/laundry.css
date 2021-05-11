@@ -1,6 +1,8 @@
 #formsGrid {
     -fx-background-color: rgba(255, 255, 255, 0.75);
     -fx-background-radius: 40;
+    -jfx-unfocus-color: grey;
+    -jfx-focus-color: #0F4B91;
 }
 
 #title {
@@ -18,7 +20,7 @@
     -jfx-focus-color: #0F4B91;
     -fx-prompt-text-fill: #0F4B91;
     -fx-font-weight: bold;
-    -fx-effect: none;
+    -fx-faint-focus-color: red;
 }
 #delicateSwitch{
     -fx-font-family: Roboto;
@@ -46,6 +48,7 @@
     -jfx-focus-color:#0F4B91;
     -fx-font-size: 20;
     -fx-font-weight: bold;
+    -fx-faint-focus-color: red;
 }
 
 .jfx-combo-box:hover {

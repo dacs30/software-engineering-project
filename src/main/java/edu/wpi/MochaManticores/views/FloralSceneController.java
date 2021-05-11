@@ -230,7 +230,7 @@ public class FloralSceneController extends SceneController {
               personalNote.getText());
       DatabaseManager.addRequest(s, toAdd);
       toAdd.send(toAdd.getRequestID());
-
+      loadSubmitDialog();
     } else if (roomNumber.getText().isEmpty()) {
       RequiredFieldValidator missingInput = new RequiredFieldValidator();
       roomNumber.getValidators().add(missingInput);
@@ -241,12 +241,6 @@ public class FloralSceneController extends SceneController {
       deliveryDate.getValidators().add(missingInput);
       missingInput.setMessage("Delivery date is required");
       deliveryDate.validate();
-    } else if (empBox.getText().isEmpty()) {
-      RequiredFieldValidator missingInput = new RequiredFieldValidator();
-      empBox.getValidators().add(missingInput);
-      missingInput.setMessage("Employee must be assigned");
-      empBox.validate();
-      System.out.println("Adds to database");
     }
   }
 }
