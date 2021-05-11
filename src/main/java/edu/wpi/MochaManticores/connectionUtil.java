@@ -6,7 +6,7 @@ public class connectionUtil {
     public static boolean local = false;
     //LOCAL
     public static String host="localhost";
-    public static int port=8001;
+    public static int port=8100;
     public static String JDBC_SERVER = "jdbc:derby://localhost:1527/Mdatabase;create=true";
 
 
