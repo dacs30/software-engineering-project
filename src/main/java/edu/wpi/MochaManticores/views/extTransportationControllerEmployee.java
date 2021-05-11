@@ -150,10 +150,11 @@ public class extTransportationControllerEmployee extends SceneController {
             externalRoom.getValidators().add(missingInput);
             missingInput.setMessage("External room is required");
             externalRoom.validate();
-        } else if (employeeAssigned.getItems().isEmpty()) {
+        } else if (employeeAssigned.getSelectionModel().isEmpty()) {
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
             employeeAssigned.getValidators().add(missingInput);
             missingInput.setMessage("Please assign an employee");
+            employeeAssigned.validate();
         }
     }
 

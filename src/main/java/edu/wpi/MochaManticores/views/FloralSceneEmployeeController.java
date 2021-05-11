@@ -299,7 +299,7 @@ public class FloralSceneEmployeeController extends SceneController {
             deliveryDate.getValidators().add(missingInput);
             missingInput.setMessage("Delivery date is required");
             deliveryDate.validate();
-        } else if (employeeAssigned.getValue().toString().isEmpty()) {
+        } else if (employeeAssigned.getSelectionModel().isEmpty()) {
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
             employeeAssigned.getValidators().add(missingInput);
             missingInput.setMessage("Employee must be assigned");
