@@ -15,6 +15,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -26,6 +27,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
@@ -760,7 +763,7 @@ public class mapPage extends SceneController {
 
     }
 
-    public void findNearestLocation(ActionEvent e) throws InvalidElementException, DestinationNotAccessibleException {
+    public void findNearestLocation(ActionEvent event) throws InvalidElementException, DestinationNotAccessibleException {
         AStar2 star = new AStar2();
 
         savedRoute.clear();
@@ -791,7 +794,7 @@ public class mapPage extends SceneController {
 
         }
 
-        System.out.println(path);
+//        System.out.println(path);
         Label startLabel = new Label();
         String startID = path.removeFirst();
         startLabel.setText(DatabaseManager.getNode(startID).getLongName());
@@ -802,130 +805,258 @@ public class mapPage extends SceneController {
         String endID = path.removeLast();
         endLabel.setText(DatabaseManager.getNode(endID).getLongName());
         endLabel.setTextFill(Color.RED);
-        dirVBOX.getChildren().add(startLabel);
-        VBox pathsOnThisFloor = new VBox();
+//        dirVBOX.getChildren().add(startLabel);
         for (String str : path) {
             savedRoute.add(str);
-            Label p = new Label();
-            p.setText(DatabaseManager.getNode(str).getLongName());
+        }
+        int count = 0;
+        final VBox[] pathCurrentlyOpened = {null};
+        for (LinkedList<String> floor : App.getAlgoType().pathToText(path)) {
+            // floorBlock is a VBox that contains the VBox of the floor and the
+            // VBox of HBoxes for that floor path
+            VBox floorBlock = new VBox();
 
-            if (str.contains("Take the stairs up to floor ")) {
-                HBox hbox = new HBox();
-                Image img = new Image("/edu/wpi/MochaManticores/images/upStairsDirectionIcon.png");
-                ImageView stairs = new ImageView(img);
-                stairs.setFitWidth(50);
-                stairs.setPreserveRatio(true);
-                p.setText(str);
-                p.setPadding(new Insets(10, 0, 10, 0));
-                p.setPrefWidth(Control.USE_COMPUTED_SIZE);
-                p.setWrapText(true);
-                hbox.getChildren().add(stairs);
-                hbox.getChildren().add(p);
-                hbox.setAlignment(Pos.CENTER_LEFT);
-                pathsOnThisFloor.getChildren().add(hbox);
-            } else if (str.contains("Take the elevator up to floor ")) {
-                HBox hbox = new HBox();
-                Image img = new Image("/edu/wpi/MochaManticores/images/elevatorDirectionIcon.png");
-                ImageView elevator = new ImageView(img);
-                elevator.setFitWidth(50);
-                elevator.setPreserveRatio(true);
-                p.setText(str);
-                p.setPadding(new Insets(10, 0, 10, 0));
-                p.setWrapText(true);
-                p.setPrefWidth(Control.USE_COMPUTED_SIZE);
-                hbox.getChildren().add(elevator);
-                hbox.getChildren().add(p);
-                hbox.setAlignment(Pos.CENTER_LEFT);
-                pathsOnThisFloor.getChildren().add(hbox);
-            } else if (str.contains("Take the stairs down to floor ")) {
-                HBox hbox = new HBox();
-                Image img = new Image("/edu/wpi/MochaManticores/images/downStairsDirectionIcon.png");
-                ImageView stairs = new ImageView(img);
-                stairs.setFitWidth(50);
-                stairs.setPreserveRatio(true);
-                p.setText(str);
-                p.setPadding(new Insets(10, 0, 10, 0));
-                p.setWrapText(true);
-                p.setPrefWidth(Control.USE_COMPUTED_SIZE);
-                hbox.getChildren().add(stairs);
-                hbox.getChildren().add(p);
-                hbox.setAlignment(Pos.CENTER_LEFT);
-                pathsOnThisFloor.getChildren().add(hbox);
-            } else if (str.contains("Take the elevator down to floor ")) {
-                HBox hbox = new HBox();
-                Image img = new Image("/edu/wpi/MochaManticores/images/elevatorDirectionIcon.png");
-                ImageView elevator = new ImageView(img);
-                elevator.setFitWidth(50);
-                elevator.setPreserveRatio(true);
-                p.setText(str);
-                p.setPadding(new Insets(10, 0, 10, 0));
-                p.setWrapText(true);
-                p.setPrefWidth(Control.USE_COMPUTED_SIZE);
-                hbox.getChildren().add(elevator);
-                hbox.getChildren().add(p);
-                hbox.setAlignment(Pos.CENTER_LEFT);
-                pathsOnThisFloor.getChildren().add(hbox);
-            } else if (str.contains("Head straight until you reach ")) {
-                HBox hbox = new HBox();
-                Image img = new Image("/edu/wpi/MochaManticores/images/upArrowDirection.png");
-                ImageView arrowUp = new ImageView(img);
-                arrowUp.setFitWidth(50);
-                arrowUp.setPreserveRatio(true);
-                p.setText(str);
-                p.setPadding(new Insets(10, 0, 10, 0));
-                p.setWrapText(true);
-                p.setPrefWidth(Control.USE_COMPUTED_SIZE);
-                hbox.getChildren().add(arrowUp);
-                hbox.getChildren().add(p);
-                hbox.setAlignment(Pos.CENTER_LEFT);
-                pathsOnThisFloor.getChildren().add(hbox);
-            } else if (str.contains("Then turn left")) {
-                HBox hbox = new HBox();
-                Image img = new Image("/edu/wpi/MochaManticores/images/upArrowDirection.png");
-                ImageView arrowUp = new ImageView(img);
-                arrowUp.setPreserveRatio(true);
-                arrowUp.setRotate(-90);
-                arrowUp.setFitWidth(50);
-                p.setText(str);
-                p.setPadding(new Insets(10, 0, 10, 0));
-                p.setWrapText(true);
-                p.setPrefWidth(Control.USE_COMPUTED_SIZE);
-                hbox.getChildren().add(arrowUp);
-                hbox.getChildren().add(p);
-                hbox.setAlignment(Pos.CENTER_LEFT);
-                pathsOnThisFloor.getChildren().add(hbox);
-            } else if (str.contains("Then turn right")) {
-                HBox hbox = new HBox();
-                Image img = new Image("/edu/wpi/MochaManticores/images/upArrowDirection.png");
-                ImageView arrowUp = new ImageView(img);
-                arrowUp.setPreserveRatio(true);
-                arrowUp.setRotate(90);
-                arrowUp.setFitWidth(50);
-                p.setText(str);
-                p.setPadding(new Insets(10, 0, 10, 0));
-                p.setWrapText(true);
-                p.setPrefWidth(Control.USE_COMPUTED_SIZE);
-                hbox.getChildren().add(arrowUp);
-                hbox.getChildren().add(p);
-                hbox.setAlignment(Pos.CENTER_LEFT);
-                pathsOnThisFloor.getChildren().add(hbox);
+            // currentFloorTitle is the VBox with the floor Label and the grey line
+            VBox currentFloorTitle = new VBox();
+
+            // grey line at the bottom of the top of the label
+            Rectangle line = new Rectangle();
+            line.setFill(Color.rgb(10, 10, 10, 0.2));
+            line.setWidth(250);
+            line.setHeight(1);
+
+            // HBox that contains the Label and the button to open the path
+            GridPane currentFloorGrid = new GridPane();
+            Label currentFloor = new Label();
+            currentFloor.setStyle("-fx-font-family: Roboto");
+            currentFloor.setStyle("-fx-font-weight: bold");
+            currentFloor.setTextFill(Color.GREY);
+
+            // Button to open the path
+            JFXButton seePathButton = new JFXButton("View Path");
+            seePathButton.setStyle("-fx-font-size: 15");
+            seePathButton.setOnMouseClicked(e->{
+                if (floor.getFirst().contains("L1")){
+                    loadL1();
+                } else if (floor.getFirst().contains("L2")){
+                    loadL2();
+                } else if (floor.getFirst().contains("G")){
+                    loadGround();
+                } else if (floor.getFirst().contains("1")){
+                    loadF1();
+                } else if (floor.getFirst().contains("2")){
+                    loadF2();
+                } else if (floor.getFirst().contains("3")){
+                    loadF3();
+                }
+
+                if (floorBlock.getChildren().get(1).isVisible()) {
+                    floorBlock.getChildren().get(1).setVisible(false);
+                    floorBlock.getChildren().get(1).setManaged(false);
+                } else{
+                    pathCurrentlyOpened[0].setVisible(false);
+                    pathCurrentlyOpened[0].setManaged(false);
+                    floorBlock.getChildren().get(1).setVisible(true);
+                    floorBlock.getChildren().get(1).setManaged(true);
+                    pathCurrentlyOpened[0] = (VBox) floorBlock.getChildren().get(1);
+                }
+            });
+
+            currentFloorGrid.add(currentFloor, 0, 0);
+            currentFloorGrid.add(seePathButton, 0, 1);
+            currentFloorGrid.setPrefWidth(300);
+            GridPane.setValignment(currentFloor, VPos.CENTER);
+            GridPane.setHalignment(currentFloor, HPos.LEFT);
+            currentFloorGrid.setAlignment(Pos.CENTER);
+            currentFloorGrid.setPadding(new Insets(15, 0, 15, 0));
+            currentFloor.setText(floor.getFirst()); //Floor 1:
+            currentFloor.setPadding(new Insets(0, 0, 0, 10));
+
+            currentFloorTitle.getChildren().add(line);
+            currentFloorTitle.getChildren().add(currentFloorGrid);
+            currentFloorTitle.setAlignment(Pos.CENTER);
+
+            floorBlock.getChildren().add(currentFloorTitle);
+            VBox pathsOnThisFloor = new VBox();
+
+            // Only the first floor is opened  by default
+            if (count != 0) {
+                pathsOnThisFloor.setVisible(false);
+                pathsOnThisFloor.setManaged(false);
+            } else if(count == 0){ // ignore that, only happens once
+                pathCurrentlyOpened[0] = pathsOnThisFloor;
             }
-        }
-        dirVBOX.getChildren().add(pathsOnThisFloor);
-        savedRoute.add(endID);
-        dirVBOX.getChildren().add(endLabel);
+            count++;
 
-        for (node n :
-                pitStops) {
-            n.resetFill();
+            // VBox for the paths on this floor
+            floorBlock.getChildren().get(0).setOnMouseClicked(e -> {
+
+                System.out.println(floor.getFirst());
+                if (floor.getFirst().contains("L1")){
+                    loadL1();
+                } else if (floor.getFirst().contains("L2")){
+                    loadL2();
+                } else if (floor.getFirst().contains("G")){
+                    loadGround();
+                } else if (floor.getFirst().contains("1")){
+                    loadF1();
+                } else if (floor.getFirst().contains("2")){
+                    loadF2();
+                } else if (floor.getFirst().contains("3")){
+                    loadF3();
+                }
+
+                if (floorBlock.getChildren().get(1).isVisible()) {
+                    floorBlock.getChildren().get(1).setVisible(false);
+                    floorBlock.getChildren().get(1).setManaged(false);
+                } else{
+                    pathCurrentlyOpened[0].setVisible(false);
+                    pathCurrentlyOpened[0].setManaged(false);
+                    floorBlock.getChildren().get(1).setVisible(true);
+                    floorBlock.getChildren().get(1).setManaged(true);
+                    pathCurrentlyOpened[0] = (VBox) floorBlock.getChildren().get(1);
+                }
+            });
+
+            for (String s : floor) {
+                Label p = new Label();
+
+                if (s.contains("Take the stairs up to floor ")) {
+                    HBox hbox = new HBox();
+                    Image img = new Image("/edu/wpi/MochaManticores/images/upStairsDirectionIcon.png");
+                    ImageView stairs = new ImageView(img);
+                    stairs.setFitWidth(50);
+                    stairs.setPreserveRatio(true);
+                    p.setText(s);
+                    p.setPadding(new Insets(10, 0, 10, 0));
+                    p.setPrefWidth(Control.USE_COMPUTED_SIZE);
+                    p.setWrapText(true);
+                    hbox.getChildren().add(stairs);
+                    hbox.getChildren().add(p);
+                    hbox.setAlignment(Pos.CENTER_LEFT);
+                    pathsOnThisFloor.getChildren().add(hbox);
+                } else if (s.contains("Take the elevator up to floor ")) {
+                    HBox hbox = new HBox();
+                    Image img = new Image("/edu/wpi/MochaManticores/images/elevatorDirectionIcon.png");
+                    ImageView elevator = new ImageView(img);
+                    elevator.setFitWidth(50);
+                    elevator.setPreserveRatio(true);
+                    p.setText(s);
+                    p.setPadding(new Insets(10, 0, 10, 0));
+                    p.setWrapText(true);
+                    p.setPrefWidth(Control.USE_COMPUTED_SIZE);
+                    hbox.getChildren().add(elevator);
+                    hbox.getChildren().add(p);
+                    hbox.setAlignment(Pos.CENTER_LEFT);
+                    pathsOnThisFloor.getChildren().add(hbox);
+                } else if (s.contains("Take the stairs down to floor ")) {
+                    HBox hbox = new HBox();
+                    Image img = new Image("/edu/wpi/MochaManticores/images/downStairsDirectionIcon.png");
+                    ImageView stairs = new ImageView(img);
+                    stairs.setFitWidth(50);
+                    stairs.setPreserveRatio(true);
+                    p.setText(s);
+                    p.setPadding(new Insets(10, 0, 10, 0));
+                    p.setWrapText(true);
+                    p.setPrefWidth(Control.USE_COMPUTED_SIZE);
+                    hbox.getChildren().add(stairs);
+                    hbox.getChildren().add(p);
+                    hbox.setAlignment(Pos.CENTER_LEFT);
+                    pathsOnThisFloor.getChildren().add(hbox);
+                } else if (s.contains("Take the elevator down to floor ")) {
+                    HBox hbox = new HBox();
+                    Image img = new Image("/edu/wpi/MochaManticores/images/elevatorDirectionIcon.png");
+                    ImageView elevator = new ImageView(img);
+                    elevator.setFitWidth(50);
+                    elevator.setPreserveRatio(true);
+                    p.setText(s);
+                    p.setPadding(new Insets(10, 0, 10, 0));
+                    p.setWrapText(true);
+                    p.setPrefWidth(Control.USE_COMPUTED_SIZE);
+                    hbox.getChildren().add(elevator);
+                    hbox.getChildren().add(p);
+                    hbox.setAlignment(Pos.CENTER_LEFT);
+                    pathsOnThisFloor.getChildren().add(hbox);
+                } else if (s.contains("Head straight until you reach ")) {
+                    HBox hbox = new HBox();
+                    Image img = new Image("/edu/wpi/MochaManticores/images/upArrowDirection.png");
+                    ImageView arrowUp = new ImageView(img);
+                    arrowUp.setFitWidth(50);
+                    arrowUp.setPreserveRatio(true);
+                    p.setText(s);
+                    p.setPadding(new Insets(10, 0, 10, 0));
+                    p.setWrapText(true);
+                    p.setPrefWidth(Control.USE_COMPUTED_SIZE);
+                    hbox.getChildren().add(arrowUp);
+                    hbox.getChildren().add(p);
+                    hbox.setAlignment(Pos.CENTER_LEFT);
+                    pathsOnThisFloor.getChildren().add(hbox);
+                } else if (s.contains("Then turn left")) {
+                    HBox hbox = new HBox();
+                    Image img = new Image("/edu/wpi/MochaManticores/images/upArrowDirection.png");
+                    ImageView arrowUp = new ImageView(img);
+                    arrowUp.setPreserveRatio(true);
+                    arrowUp.setRotate(-90);
+                    arrowUp.setFitWidth(50);
+                    p.setText(s);
+                    p.setPadding(new Insets(10, 0, 10, 0));
+                    p.setWrapText(true);
+                    p.setPrefWidth(Control.USE_COMPUTED_SIZE);
+                    hbox.getChildren().add(arrowUp);
+                    hbox.getChildren().add(p);
+                    hbox.setAlignment(Pos.CENTER_LEFT);
+                    pathsOnThisFloor.getChildren().add(hbox);
+                } else if (s.contains("Then turn right")) {
+                    HBox hbox = new HBox();
+                    Image img = new Image("/edu/wpi/MochaManticores/images/upArrowDirection.png");
+                    ImageView arrowUp = new ImageView(img);
+                    arrowUp.setPreserveRatio(true);
+                    arrowUp.setRotate(90);
+                    arrowUp.setFitWidth(50);
+                    p.setText(s);
+                    p.setPadding(new Insets(10, 0, 10, 0));
+                    p.setWrapText(true);
+                    p.setPrefWidth(Control.USE_COMPUTED_SIZE);
+                    hbox.getChildren().add(arrowUp);
+                    hbox.getChildren().add(p);
+                    hbox.setAlignment(Pos.CENTER_LEFT);
+                    pathsOnThisFloor.getChildren().add(hbox);
+                }
+
+            }
+
+            pathsOnThisFloor.setPadding(new Insets(0, 0, 20, 0));
+
+            floorBlock.getChildren().add(pathsOnThisFloor);
+            dirVBOX.getChildren().add(floorBlock);
+
+            for (node n : pitStops) {
+                n.resetFill();
+            }
+
+            updateFields();
         }
-        pitStops = new LinkedList<>();
-        updateFields();
+
+        drawNodes();
+        pitStops.getFirst().setStart(true);
+        pitStops.getLast().setEnd(true);
 
         drawNodes();
 
+        double CenterX = pitStops.getFirst().getxCoord();
+        double CenterY = pitStops.getFirst().getyCoord();
+        //loadDialog(pathToTake); // calling the dialog pane with the path
+
+        System.out.printf("X:%f Y:%f\n", CenterX, CenterY);
+
+        pitStops = new LinkedList<>();
+        double xRatio = 5000 / mapWindow.getFitWidth();
+        double yRatio = 3400 / mapWindow.getFitHeight();
         directionPane.setContent(dirVBOX);
         //loadDialog(pathToTake); // calling the dialog pane with the path
+        panAndZoomPane.centerOnPoint(CenterX, CenterY);
+
+        tabPane.getSelectionModel().select(0);
     }
 
     public void back(ActionEvent e) {
@@ -1447,9 +1578,13 @@ public class mapPage extends SceneController {
             }
 
             Line edge = new Line(curNode.getXcoord() / xRatio, curNode.getYcoord() / yRatio, endNode.getXcoord() / xRatio, endNode.getYcoord() / yRatio);
+            //Rectangle edgeRectangle = new Rectangle(, );
             edge.setStrokeWidth(4);
             if (curNode.getFloor().equals(selectedFloor)) {
-                edge.setStroke(Color.BLACK);
+                //edgeRectangle.setFill(new ImagePattern(new Image("edu/wpi/MochaManticores/images/02_thesecondfloor.png")));
+                //edge.setFill(new ImagePattern(new Image("edu/wpi/MochaManticores/images/02_thesecondfloor.png")));
+                Image map = new Image("edu/wpi/MochaManticores/images/tenor.gif");
+                edge.setStroke(new ImagePattern(map));
             } else {
                 edge.setStroke(Color.GREY);
                 edge.getStrokeDashArray().addAll(5d, 15d);
