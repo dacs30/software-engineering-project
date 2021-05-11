@@ -20,6 +20,7 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class landingPageController extends SceneController {
@@ -113,10 +114,8 @@ public class landingPageController extends SceneController {
         searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
             services.getChildren().clear();
 
-            System.out.println("hey");
-
             for (Object service : listServices){
-                if(service.toString().contains(newValue)){
+                if(service.toString().toLowerCase().contains(newValue.replaceAll("\\s+", ""))){
                    if(!services.getChildren().contains(service)){
                        services.getChildren().add((Node) service);
                    }
