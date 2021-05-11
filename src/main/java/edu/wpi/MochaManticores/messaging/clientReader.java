@@ -77,6 +77,12 @@ public class clientReader implements Runnable{
                 }else{
                     postNotif(msg);
                 }
+                Platform.runLater(() -> {
+
+                    try {
+                        clientPage.updateConvos();
+                    } catch (NullPointerException ignore) {}
+                });
 
             }catch (IOException e){
                 e.printStackTrace();
