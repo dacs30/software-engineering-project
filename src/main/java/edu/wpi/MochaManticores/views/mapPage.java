@@ -1062,7 +1062,7 @@ public class mapPage extends SceneController {
         double CenterY = pitStops.getFirst().getyCoord();
         //loadDialog(pathToTake); // calling the dialog pane with the path
 
-        System.out.printf("X:%f Y:%f\n", CenterX, CenterY);
+        //System.out.printf("X:%f Y:%f\n", CenterX, CenterY);
 
         pitStops = new LinkedList<>();
         double xRatio = 5000 / mapWindow.getFitWidth();

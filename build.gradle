@@ -15,7 +15,6 @@ plugins {
 }
 mainClassName = 'edu.wpi.MochaManticores.Main'
 
-
 //These are the repositories where Gradle looks for dependencies.
 // You likely won't have to change these unless you add a cool, new dependency that isn't listed on Maven
 repositories {

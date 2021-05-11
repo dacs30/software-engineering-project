@@ -35,7 +35,7 @@ public class PanAndZoomPane extends Pane {
     }
 
     public void setPivot( double x, double y, double scale) {
-        System.out.printf("X: %f, Y: %f, SCALE:%f\n",x,y,scale);
+        //System.out.printf("X: %f, Y: %f, SCALE:%f\n",x,y,scale);
         // note: pivot value must be untransformed, i. e. without scaling
         // timeline that scales and moves the node
         if (scale < 1.0d){
