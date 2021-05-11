@@ -119,18 +119,16 @@ public class FoodDeliveryEmployee extends SceneController{
 
 
     public void submitForm() {
-        if(!dietaryPreferences.getItems().isEmpty() && !allergyText.getText().isEmpty() &&
-                !foodMenu.getItems().isEmpty() && !employeeAssigned.getItems().isEmpty()) {
+        if(!dietaryPreferences.getSelectionModel().isEmpty() && !allergyText.getText().isEmpty() &&
+                !foodMenu.getSelectionModel().isEmpty() && !employeeAssigned.getItems().isEmpty()) {
             sel s = sel.FoodDelivery;
             // changeSceneTo(e, "mainMenu");
             DatabaseManager.addRequest(s,
                     new edu.wpi.MochaManticores.Services.FoodDelivery(
                             "", "", false, dietaryPreferences.getSelectionModel().getSelectedItem(),
                             allergyText.getText(), foodMenu.getSelectionModel().getSelectedItem()));
-
-
-
-        } else if (dietaryPreferences.getItems().isEmpty()){
+            loadDialog();
+        } else if (dietaryPreferences.getSelectionModel().isEmpty()){
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
             dietaryPreferences.getValidators().add(missingInput);
             missingInput.setMessage("Dietary Preference requires an input");
@@ -140,7 +138,7 @@ public class FoodDeliveryEmployee extends SceneController{
             allergyText.getValidators().add(missingInput);
             missingInput.setMessage("Allergies field requires an input");
             allergyText.validate();
-        } else if (foodMenu.getItems().isEmpty()) {
+        } else if (foodMenu.getSelectionModel().isEmpty()) {
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
             foodMenu.getValidators().add(missingInput);
             missingInput.setMessage("Food menu requires an input");
@@ -149,7 +147,7 @@ public class FoodDeliveryEmployee extends SceneController{
         else if(employeeAssigned.getItems().isEmpty()){
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
             employeeAssigned.getValidators().add(missingInput);
-            missingInput.setMessage("Employee must be assigned");
+            missingInput.setMessage("Please assign an employee");
 
         }
         dialogPane.setVisible(true);

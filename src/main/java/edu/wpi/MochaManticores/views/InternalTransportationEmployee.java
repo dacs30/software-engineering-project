@@ -231,7 +231,7 @@ public class InternalTransportationEmployee extends SceneController{
                 missingInput.setMessage("Type of transportation is required");
                 transportComboBox.validate();
         }
-        else if (employeeAssigned.getItems().isEmpty()) {
+        else if (employeeAssigned.getSelectionModel().isEmpty()) {
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
             employeeAssigned.getValidators().add(missingInput);
             missingInput.setMessage("External room is required");
