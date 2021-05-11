@@ -71,8 +71,9 @@ public class ReligiousRequestController extends SceneController{
 
     public void submitEvent(ActionEvent actionEvent) {
         sel s = sel.ReligiousRequest;
-        DatabaseManager.addRequest(s,
-                new ReligiousRequest("", "",false,reasonBox.getText(),roomIDBox.getText(),TypeOfSacredPerson.getSelectionModel().getSelectedItem()));
+        ReligiousRequest toAdd =new ReligiousRequest("", "",false,reasonBox.getText(),roomIDBox.getText(),TypeOfSacredPerson.getSelectionModel().getSelectedItem());
+        DatabaseManager.addRequest(s, toAdd);
+        toAdd.send(toAdd.getRequestID());
         loadSubmitDialogue();
     }
 

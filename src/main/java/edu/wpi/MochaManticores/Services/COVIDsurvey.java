@@ -20,7 +20,7 @@ public class COVIDsurvey extends ServiceRequest{
         if(RequestID.equals("")){
             this.RequestID = generateRequestID(ServiceRequestType.COVID);
         }
-
+        super.send(this.getRequestID());
         this.name = name;
         this.DOB = DOB;
         this.sick = sick;

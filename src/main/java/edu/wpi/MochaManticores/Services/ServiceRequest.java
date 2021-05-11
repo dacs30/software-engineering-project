@@ -1,16 +1,23 @@
 package edu.wpi.MochaManticores.Services;
 
+import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.database.DatabaseManager;
+import edu.wpi.MochaManticores.messaging.*;
 import edu.wpi.MochaManticores.database.Employee;
+import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 import java.awt.image.ImageProducer;
 import java.io.*;
+import java.security.MessageDigest;
 import java.sql.Connection;
 import java.util.LinkedList;
 import java.util.List;
 
 public abstract class ServiceRequest {
     private String employee;
+    private StringProperty employeeProperty;
     private boolean completed;
     public String RequestID;
 
@@ -27,6 +34,7 @@ public abstract class ServiceRequest {
     }
 
     public void setEmployee(String employee) {
+        employeeProperty.set(employee);
         this.employee = employee;
     }
 
@@ -42,6 +50,20 @@ public abstract class ServiceRequest {
         this.employee = employee;
         this.completed = completed;
         this.RequestID = RequestID;
+        this.employeeProperty = new SimpleStringProperty(employee);
+    }
+
+    public void send(String requestID){
+        String newEmployee = employee;//DatabaseManager.getEmpManager().getEmployeeUsername(employee);
+        System.out.println(employee+" "+newEmployee);
+        String content = "Hello, " +
+                newEmployee + " you have been assigned to " + requestID;
+        Message toNew = new Message("SERVER",newEmployee, content, Message.msgType.MSGPOST);
+
+        try{
+            App.getClient().sendMsg(toNew);
+        }
+        catch (NullPointerException ignored){}
     }
 
     public String generateRequestID(ServiceRequestType type){

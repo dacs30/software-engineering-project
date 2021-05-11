@@ -242,9 +242,7 @@ public class serviceManagerController extends SceneController {
             emps.setEditable(true);
 
             ObservableList<String> people = FXCollections.observableArrayList();
-            DatabaseManager.getEmployeeNames().forEach(s -> {
-                people.add(s.substring(s.indexOf(" ")));
-            });
+            DatabaseManager.getEmployeeNames().forEach(people::add);
             people.add("");
             emps.setItems(people);
             serviceStatus stat;
@@ -406,9 +404,7 @@ floralCompletedColumn
             emps.setEditable(true);
 
             ObservableList<String> people = FXCollections.observableArrayList();
-            DatabaseManager.getEmployeeNames().forEach(s -> {
-                people.add(s.substring(s.indexOf(" ")));
-            });
+            DatabaseManager.getEmployeeNames().forEach(people::add);
             people.add("");
             emps.setItems(people);
             serviceStatus stat;
@@ -570,9 +566,7 @@ laundryCompletedColumn
             emps.setEditable(true);
 
             ObservableList<String> people = FXCollections.observableArrayList();
-            DatabaseManager.getEmployeeNames().forEach(s -> {
-                people.add(s.substring(s.indexOf(" ")));
-            });
+            DatabaseManager.getEmployeeNames().forEach(people::add);
             people.add("");
             emps.setItems(people);
 
@@ -725,9 +719,7 @@ EmergencyCompletedColumn
             emps.setEditable(true);
 
             ObservableList<String> people = FXCollections.observableArrayList();
-            DatabaseManager.getEmployeeNames().forEach(s -> {
-                people.add(s.substring(s.indexOf(" ")));
-            });
+            people.addAll(DatabaseManager.getEmployeeNames());
             people.add("");
             emps.setItems(people);
             serviceStatus stat;
@@ -869,9 +861,7 @@ EmergencyCompletedColumn
             emps.setEditable(true);
 
             ObservableList<String> people = FXCollections.observableArrayList();
-            DatabaseManager.getEmployeeNames().forEach(s -> {
-                people.add(s.substring(s.indexOf(" ")));
-            });
+            DatabaseManager.getEmployeeNames().forEach(people::add);
             people.add("");
             emps.setItems(people);
             serviceStatus stat;
@@ -1035,9 +1025,7 @@ EmergencyCompletedColumn
             emps.setEditable(true);
 
             ObservableList<String> people = FXCollections.observableArrayList();
-            DatabaseManager.getEmployeeNames().forEach(s -> {
-                people.add(s.substring(s.indexOf(" ")));
-            });
+            people.addAll(DatabaseManager.getEmployeeNames());
             people.add("");
             emps.setItems(people);
             serviceStatus stat;
@@ -1172,9 +1160,7 @@ EmergencyCompletedColumn
             emps.setEditable(true);
 
             ObservableList<String> people = FXCollections.observableArrayList();
-            DatabaseManager.getEmployeeNames().forEach(s -> {
-                people.add(s.substring(s.indexOf(" ")));
-            });
+            people.addAll(DatabaseManager.getEmployeeNames());
             people.add("");
             emps.setItems(people);
             serviceStatus stat;
@@ -1237,7 +1223,45 @@ EmergencyCompletedColumn
             CheckBox checkBox = new CheckBox();
             JFXButton state = new JFXButton();
 
+            serviceTabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue.getText().equals("Food Delivery")) {
 
+                    completeEntry.setOnMouseClicked(event -> {
+                        //System.out.println(user.patientRoom.get());
+                        contextBox.setVisible(false);
+                        contextBox.toBack();
+                        completeEntry.setVisible(false);
+                        progressEntry.setVisible(false);
+                        deleteEntry.setVisible(false);
+                        setCompleteService(true, serviceToEdit);
+                    });
+
+                    progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            contextBox.setVisible(false);
+                            contextBox.toBack();
+                            completeEntry.setVisible(false);
+                            progressEntry.setVisible(false);
+                            deleteEntry.setVisible(false);
+                            setCompleteService(false, serviceToEdit);
+                        }
+                    });
+
+                    deleteEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            DatabaseManager.delElement(sel.Medicine, ((md) serviceToEdit).getRef().getRequestID());
+                            buildMedicine("");
+                            contextBox.setVisible(false);
+                            contextBox.toBack();
+                            completeEntry.setVisible(false);
+                            progressEntry.setVisible(false);
+                            deleteEntry.setVisible(false);
+                        }
+                    });
+                }
+            });
             if (user.getEmployeeAssigned().equals("")) {
                 stat = serviceStatus.UNASSIGNED;
                 state.setStyle("-fx-background-color: #FF0000;");
@@ -1254,45 +1278,6 @@ EmergencyCompletedColumn
             //state.setStyle("-fx-font-weight: bolder;");
             state.setText(stat.name());
 
-            completeEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    setCompleteService(true, user);
-                    contextBox.setVisible(false);
-                    contextBox.toBack();
-                    completeEntry.setVisible(false);
-                    progressEntry.setVisible(false);
-                    deleteEntry.setVisible(false);
-                    setCompleteService(true, user);
-                }
-            });
-
-            progressEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    setCompleteService(false, serviceToEdit);
-                    contextBox.setVisible(false);
-                    contextBox.toBack();
-                    completeEntry.setVisible(false);
-                    progressEntry.setVisible(false);
-                    deleteEntry.setVisible(false);
-                    setCompleteService(false, serviceToEdit);
-                }
-            });
-
-            deleteEntry.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    DatabaseManager.delElement(sel.FoodDelivery, user.getRef().getRequestID());
-                    buildFood("");
-                    contextBox.setVisible(false);
-                    contextBox.toBack();
-                    completeEntry.setVisible(false);
-                    progressEntry.setVisible(false);
-                    deleteEntry.setVisible(false);
-                    buildFood("");
-                }
-            });
 
             checkBox.selectedProperty().setValue(user.checkCompleted());
             state.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -1337,9 +1322,7 @@ EmergencyCompletedColumn
             emps.setEditable(true);
 
             ObservableList<String> people = FXCollections.observableArrayList();
-            DatabaseManager.getEmployeeNames().forEach(s -> {
-                people.add(s.substring(s.indexOf(" ")));
-            });
+            people.addAll(DatabaseManager.getEmployeeNames());
             people.add("");
             emps.setItems(people);
             serviceStatus stat;
@@ -1500,9 +1483,7 @@ EmergencyCompletedColumn
             emps.setEditable(true);
 
             ObservableList<String> people = FXCollections.observableArrayList();
-            DatabaseManager.getEmployeeNames().forEach(s -> {
-                people.add(s.substring(s.indexOf(" ")));
-            });
+            people.addAll(DatabaseManager.getEmployeeNames());
             people.add("");
             emps.setItems(people);
             serviceStatus stat;
@@ -1674,9 +1655,7 @@ EmergencyCompletedColumn
             emps.setEditable(true);
 
             ObservableList<String> people = FXCollections.observableArrayList();
-            DatabaseManager.getEmployeeNames().forEach(s -> {
-                people.add(s.substring(s.indexOf(" ")));
-            });
+            people.addAll(DatabaseManager.getEmployeeNames());
             people.add("");
             emps.setItems(people);
             serviceStatus stat;

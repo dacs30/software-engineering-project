@@ -195,7 +195,7 @@ public class InternalTransportationEmployee extends SceneController{
         if(!patientID.getText().isEmpty() || !numberOfStaff.getText().isEmpty() ||
                 !destination.getText().isEmpty() || !transportComboBox.getSelectionModel().getSelectedItem().isEmpty()){
             sel s = sel.InternalTransportation;
-            DatabaseManager.addRequest(s, new edu.wpi.MochaManticores.Services.InternalTransportation(
+            edu.wpi.MochaManticores.Services.InternalTransportation toAdd = new edu.wpi.MochaManticores.Services.InternalTransportation(
                     "",
                     employeeAssigned.getEditor().getText(),
                     false,
@@ -203,7 +203,9 @@ public class InternalTransportationEmployee extends SceneController{
                     Integer.parseInt(numberOfStaff.getText()),
                     destination.getText(),
                     transportComboBox.getValue()
-            ));
+            );
+            DatabaseManager.addRequest(s, toAdd);
+            toAdd.send(toAdd.getRequestID());
             System.out.println("Adds to database");
         }
             else if (patientID.getText().isEmpty()){

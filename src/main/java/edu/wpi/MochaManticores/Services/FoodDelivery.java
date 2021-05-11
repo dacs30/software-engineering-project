@@ -10,6 +10,7 @@ public class FoodDelivery extends ServiceRequest {
         if(RequestID.equals("")){
             this.RequestID = generateRequestID(ServiceRequestType.FoodDelivery);
         }
+        //super.send(this.getRequestID());
         this.dietaryPreference = dietaryPreference;
         this.allergies = allergies;
         this.menu = menu;

@@ -55,12 +55,14 @@ public class emergencyForm extends SceneController {
     }
 
     public void submitEmergency() {
-        DatabaseManager.addRequest(sel.Emergency, new EmergencyRequest("",
+        EmergencyRequest toAdd = new EmergencyRequest("",
                 "",
                 false,
                 Integer.parseInt((String) numPeople.getSelectionModel().getSelectedItem()),
                 roomNumber.getText(),
-                gurney.isSelected()));
+                gurney.isSelected());
+        DatabaseManager.addRequest(sel.Emergency, toAdd);
+        toAdd.send(toAdd.getRequestID());
         loadSubmitDialog();
     }
     public void helpEvent(){ loadHelpDialogue();}

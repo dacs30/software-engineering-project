@@ -12,6 +12,7 @@ public class LanguageInterpreterRequest extends ServiceRequest{
         if(RequestID.equals("")){
             this.RequestID = generateRequestID(ServiceRequestType.LanguageInterperter);
         }
+        super.send(this.getRequestID());
         this.room = room;
         this.languageOne = languageOne;
         this.languageTwo = languageTwo;

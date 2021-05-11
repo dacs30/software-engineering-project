@@ -57,10 +57,11 @@ public class extTransportationController extends SceneController {
     public void submitEvent() {
         if(!externalRoom.getText().isEmpty() && !currentRoom.getText().isEmpty() && !patientRoom.getText().isEmpty()){
             sel s = sel.ExternalTransportation;
-            DatabaseManager.addRequest(s,
-                    new ExternalTransportation(
-                            "", "", false, patientRoom.getText(),
-                            currentRoom.getText(), externalRoom.getText(), transportationMethods.getValue()));
+            ExternalTransportation toAdd = new ExternalTransportation(
+                    "", "", false, patientRoom.getText(),
+                    currentRoom.getText(), externalRoom.getText(), transportationMethods.getValue());
+            DatabaseManager.addRequest(s, toAdd);
+            toAdd.send(toAdd.getRequestID());
             System.out.println("runned");
         } else if (patientRoom.getText().isEmpty()){
             RequiredFieldValidator missingInput = new RequiredFieldValidator();

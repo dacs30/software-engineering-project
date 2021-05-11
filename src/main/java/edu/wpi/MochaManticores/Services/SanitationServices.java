@@ -13,6 +13,7 @@ public class SanitationServices extends ServiceRequest {
         if(RequestID.equals("")){
             this.RequestID = generateRequestID(ServiceRequestType.SanitationServices);
         }
+        super.send(this.getRequestID());
         this.location = location;
         this.safetyHazards = safetyHazards;
         this.sanitationType = sanitationType;

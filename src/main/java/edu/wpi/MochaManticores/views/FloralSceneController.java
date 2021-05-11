@@ -223,12 +223,13 @@ public class FloralSceneController extends SceneController {
             (blueVase.isSelected() || orangeVase.isSelected() || yellowVase.isSelected()) &&
             App.getClearenceLevel() == 0) {
       sel s = sel.FloralDelivery;
-      DatabaseManager.addRequest(s,
-              new FloralDelivery(
-                      "", "", false, roomNumber.getText(),
-                      deliveryDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")), flowerSelected.toString(),
-                      vaseSelected.toString(),
-                      personalNote.getText()));
+      FloralDelivery toAdd =  new FloralDelivery(
+              "", "", false, roomNumber.getText(),
+              deliveryDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")), flowerSelected.toString(),
+              vaseSelected.toString(),
+              personalNote.getText());
+      DatabaseManager.addRequest(s, toAdd);
+      toAdd.send(toAdd.getRequestID());
 
     } else if (roomNumber.getText().isEmpty()) {
       RequiredFieldValidator missingInput = new RequiredFieldValidator();
