@@ -1,9 +1,6 @@
 package edu.wpi.MochaManticores.views;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Services.ExternalTransportation;
@@ -12,7 +9,6 @@ import edu.wpi.MochaManticores.database.sel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
@@ -32,7 +28,7 @@ public class extTransportationController extends SceneController {
     @FXML
     private JFXTextField patientRoom, currentRoom, externalRoom;
     @FXML
-    private ComboBox<String> transportationMethods;
+    private JFXComboBox<String> transportationMethods;
 
     @FXML
     private void initialize() {
@@ -55,13 +51,15 @@ public class extTransportationController extends SceneController {
     }
 
     public void submitEvent() {
-        if(!externalRoom.getText().isEmpty() && !currentRoom.getText().isEmpty() && !patientRoom.getText().isEmpty()){
+        if(!externalRoom.getText().isEmpty() && !currentRoom.getText().isEmpty() &&
+                !patientRoom.getText().isEmpty() && !transportationMethods.getSelectionModel().isEmpty()){
             sel s = sel.ExternalTransportation;
             ExternalTransportation toAdd = new ExternalTransportation(
                     "", "", false, patientRoom.getText(),
-                    currentRoom.getText(), externalRoom.getText(), transportationMethods.getValue());
+                    currentRoom.getText(), externalRoom.getText(), transportationMethods.getSelectionModel().getSelectedItem());
             DatabaseManager.addRequest(s, toAdd);
             toAdd.send(toAdd.getRequestID());
+            loadSubmitDialog();
             System.out.println("runned");
         } else if (patientRoom.getText().isEmpty()){
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
@@ -79,7 +77,12 @@ public class extTransportationController extends SceneController {
             missingInput.setMessage("External room is required");
             externalRoom.validate();
         }
-        loadSubmitDialog();
+        else if (transportationMethods.getSelectionModel().isEmpty()) {
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            transportationMethods.getValidators().add(missingInput);
+            missingInput.setMessage("Transportation method is required");
+            transportationMethods.validate();
+        }
 
     }
 

@@ -63,8 +63,8 @@ public class TranslatorController extends SceneController{
     }
 
     public void submitEvent() {
-        if(!roomNumber.getText().isEmpty() && !languageOne.getItems().isEmpty() &&
-                !languageTwo.getItems().isEmpty()) {
+        if(!roomNumber.getText().isEmpty() && !languageOne.getSelectionModel().isEmpty() &&
+                !languageTwo.getSelectionModel().isEmpty()) {
             sel s = sel.LanguageInterperter;
             // changeSceneTo(e, "mainMenu");
             DatabaseManager.addRequest(s,
@@ -79,12 +79,12 @@ public class TranslatorController extends SceneController{
                 roomNumber.getValidators().add(missingInput);
                 missingInput.setMessage("Room number is a required input");
                 roomNumber.validate();
-            } else if (languageOne.getItems().isEmpty()) {
+            } else if (languageOne.getSelectionModel().isEmpty()) {
                 RequiredFieldValidator missingInput = new RequiredFieldValidator();
                 languageOne.getValidators().add(missingInput);
                 missingInput.setMessage("Language one is a required input");
                 languageOne.validate();
-            } else if (languageTwo.getItems().isEmpty()) {
+            } else if (languageTwo.getSelectionModel().isEmpty()) {
                 RequiredFieldValidator missingInput = new RequiredFieldValidator();
                 languageTwo.getValidators().add(missingInput);
                 missingInput.setMessage("Language two is a required input");

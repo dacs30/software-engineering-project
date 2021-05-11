@@ -1,6 +1,7 @@
 package edu.wpi.MochaManticores.database;
 
 
+import edu.wpi.MochaManticores.Main;
 import edu.wpi.MochaManticores.connectionUtil;
 import org.apache.derby.drda.*;
 
@@ -443,7 +444,7 @@ public class Mdb extends Thread{
     function serverStartup()
     starts Mdatabase with a server connection
      */
-    // TODO update method for all connected databases using an observer model
+
     public boolean serverStartup() throws InterruptedException {
         System.out.println("-------Server-Client Apache Derby Connection--------");
         try {
@@ -459,8 +460,10 @@ public class Mdb extends Thread{
             server = new NetworkServerControl();
 
             if(!isServerStarted()){
+                System.out.println("STARTING SERVER LOCALLY");
                 server.start(null);
             }else{
+                System.out.println("LOCALHOST SERVER PINGED");
                 makeTables = false;
             }
 
@@ -468,6 +471,7 @@ public class Mdb extends Thread{
                 e.printStackTrace();
         }
 
+        //attempt to connect to oracle and local host
         connection = null;
         int count = 0;
         while(connection ==  null) {
@@ -478,7 +482,7 @@ public class Mdb extends Thread{
                 meta = connection.getMetaData();
             } catch (SQLException e) {
                 if(count == 5) {
-                    System.out.println("Connection to local failed. Trying embedded server.");
+                    System.out.println("LOCALHOST CONNECTION FAILED");
                     e.printStackTrace();
                     return false;
                 }
@@ -486,10 +490,11 @@ public class Mdb extends Thread{
             }
         }
 
+        System.out.println("CONNECTED AT LOCALHOST");
         return true;
     }
 
-    public boolean remoteStartup() throws InterruptedException {
+    public boolean remoteStartup() throws InterruptedException{
         System.out.println("-------Remote-Client Apache Derby Connection--------");
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
@@ -499,41 +504,46 @@ public class Mdb extends Thread{
             return false;
         }
 
-        // start network server on oracle cloud
+        // connect to oracle server
         try{
             //if the server is not started then just exit
-            server = new NetworkServerControl(InetAddress.getByName(connectionUtil.JDBC_REMOTE_SERVER), connectionUtil.dbPort);
-            if(!isServerStarted(server)){
-                System.out.println("Remote Server has not been started");
-                return false;
-            }else{
+            server = new NetworkServerControl(InetAddress.getByName(connectionUtil.oracleHost), connectionUtil.dbPort);
+            if(isServerStarted(server)){
+                System.out.println("ORACLE SERVER PINGED");
                 makeTables = false;
             }
-
         } catch (UnknownHostException e) {
-            System.out.println("Remote Server not found");
+            System.out.println("ORACLE SERVER NOT FOUND");
             return false;
         } catch (Exception e) {
             return false;
         }
 
+        //establish connection with oracle server if we are connected
         connection = null;
         int count = 0;
         while(connection ==  null) {
             count++;
+
             try {
-                connection = DriverManager.getConnection(JDBC_REMOTE_SERVER);
+                if(Main.headless_run) {
+                    connection = DriverManager.getConnection(connectionUtil.JDBC_ORACLE_SERVER);
+                }else{
+                    connection = DriverManager.getConnection(connectionUtil.JDBC_REMOTE_SERVER);
+                }
                 DatabaseManager.setConnection(connection);
                 meta = connection.getMetaData();
+
             } catch (SQLException e) {
                 if(count == 5) {
-                    System.out.println("Connection to remote failed. Trying Local server.");
-                    e.printStackTrace();
+                    System.out.println("ORACLE CONNECTION FAILED");
                     return false;
                 }
                 sleep(1000);
             }
         }
+
+        System.out.println("CONNECTED AT ORACLE");
         return true;
     }
 
@@ -562,7 +572,6 @@ public class Mdb extends Thread{
                 }
             }
         }
-
 
         //create hashmaps here
         DatabaseManager.getServiceMap();
@@ -707,7 +716,6 @@ public class Mdb extends Thread{
             // updates the hm here because the data doesnt exist if we do it in the threads, where is map super created?
             DatabaseManager.getNodeManager().updateElementMap();
             DatabaseManager.getEdgeManager().updateElementMap();
-
     }
 
     public boolean isServerStarted(){

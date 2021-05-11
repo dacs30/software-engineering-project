@@ -251,6 +251,7 @@ public class sanitationServiceControllerEmployee extends SceneController {
             );
             DatabaseManager.addRequest(s, toAdd);
             toAdd.send(toAdd.getRequestID());
+            loadSubmitDialog();
             System.out.println("Adds to database");
         } else if (loc.getText().isEmpty()){
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
@@ -276,7 +277,6 @@ public class sanitationServiceControllerEmployee extends SceneController {
             missingInput.setMessage("Description is required.");
             description.validate();
         }
-        loadSubmitDialog();
     }
 
     public void back() {
