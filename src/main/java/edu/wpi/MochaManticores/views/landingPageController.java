@@ -312,6 +312,8 @@ public class landingPageController extends SceneController {
   }
 
   public void renderFoodDelivery(MouseEvent mouseEvent) throws IOException {
+
+    App.getClient().closeGUI();
     // removes the children so you don't end up with weird scenes one over the other
     scenesPane.getChildren().removeAll(scenesPane.getChildren());
 
@@ -342,6 +344,8 @@ public class landingPageController extends SceneController {
 
 
   public void renderMedicineDelivery(MouseEvent mouseEvent) throws IOException {
+
+    App.getClient().closeGUI();
     // removes the children so you don't end up with weird scenes one over the other
     scenesPane.getChildren().removeAll(scenesPane.getChildren());
     Parent root;
@@ -370,6 +374,7 @@ public class landingPageController extends SceneController {
   }
 
   public void renderFloralScene(MouseEvent mouseEvent) throws IOException {
+    App.getClient().closeGUI();
     // removes the children so you don't end up with weird scenes one over the other
     scenesPane.getChildren().removeAll(scenesPane.getChildren());
     Parent root;
@@ -397,9 +402,8 @@ public class landingPageController extends SceneController {
     scenesPane.getChildren().add(root);
   }
 
-
-
   public void renderInternalTransportation(MouseEvent mouseEvent) throws IOException {
+    App.getClient().closeGUI();
     // removes the children so you don't end up with weird scenes one over the other
     scenesPane.getChildren().removeAll(scenesPane.getChildren());
 
@@ -429,6 +433,7 @@ public class landingPageController extends SceneController {
   }
 
   public void renderExternalTransportation(MouseEvent mouseEvent) throws IOException {
+    App.getClient().closeGUI();
     // removes the children so you don't end up with weird scenes one over the other
     scenesPane.getChildren().removeAll(scenesPane.getChildren());
 
@@ -456,6 +461,7 @@ public class landingPageController extends SceneController {
   }
 
   public void renderCovidSurvey(MouseEvent mouseEvent) throws IOException {
+    App.getClient().closeGUI();
     // removes the children so you don't end up with weird scenes one over the other
     scenesPane.getChildren().removeAll(scenesPane.getChildren());
 
@@ -477,10 +483,8 @@ public class landingPageController extends SceneController {
     scenesPane.getChildren().add(root);
   }
 
-
-
   public void renderSanitationServices(MouseEvent mouseEvent) throws IOException {
-
+    App.getClient().closeGUI();
     // removes the children so you don't end up with weird scenes one over the other
     scenesPane.getChildren().removeAll(scenesPane.getChildren());
 
@@ -512,6 +516,7 @@ public class landingPageController extends SceneController {
   }
 
   public void renderReligious(MouseEvent mouseEvent) throws IOException {
+    App.getClient().closeGUI();
 
     // removes the children so you don't end up with weird scenes one over the other
     scenesPane.getChildren().removeAll(scenesPane.getChildren());
@@ -542,7 +547,7 @@ public class landingPageController extends SceneController {
   }
 
   public void renderLaundry(MouseEvent mouseEvent) throws IOException {
-
+    App.getClient().closeGUI();
     // removes the children so you don't end up with weird scenes one over the other
     scenesPane.getChildren().removeAll(scenesPane.getChildren());
 
@@ -570,7 +575,7 @@ public class landingPageController extends SceneController {
   }
 
   public void renderTranslator(MouseEvent mouseEvent) throws IOException {
-
+    App.getClient().closeGUI();
     // removes the children so you don't end up with weird scenes one over the other
     scenesPane.getChildren().removeAll(scenesPane.getChildren());
 
@@ -598,7 +603,7 @@ public class landingPageController extends SceneController {
   }
 
   public void renderMapEditor(MouseEvent mouseEvent) throws IOException {
-
+    App.getClient().closeGUI();
 
     if (App.getClearenceLevel() >= 1) {
       super.changeSceneTo("employeeMapPage");
@@ -650,6 +655,7 @@ public class landingPageController extends SceneController {
   }
 
   public void userSettings() {
+    App.getClient().closeGUI();
 
     super.changeSceneTo("EmployeeEditor");
 
