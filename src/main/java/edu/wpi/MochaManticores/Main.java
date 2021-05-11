@@ -8,6 +8,8 @@ import java.util.Scanner;
 
 public class Main {
 
+  public static boolean headless_run = false;
+
   // added comments so I can commit
   public static void main(String[] args) {
     if(args.length > 0 && args[0].equals("headless")){
@@ -21,7 +23,6 @@ public class Main {
 
   public static void headless(){
     messageClient client = new messageClient();
-
 
     DatabaseManager.startup();
     client.startServer();

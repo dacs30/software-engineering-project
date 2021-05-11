@@ -11,6 +11,8 @@ public class connectionUtil {
 
 
     //REMOTE
+    public static String oracleHost = "0.0.0.0";
+    public static String JDBC_ORACLE_SERVER = "jdbc:derby://0.0.0.0:1527/Mdatabase;create=true";
     public static String JDBC_REMOTE_SERVER = "jdbc:derby://129.213.114.11:1527/Mdatabase;create=true";
     public static String remoteHost = "129.213.114.11";
     public static int dbPort = 1527;
