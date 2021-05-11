@@ -48,6 +48,8 @@ public class serverConnection implements Runnable {
                     case SHUTDOWN:
                         sendMessage(msg);
                         System.out.println(" User: [" + user + "] SHUTDOWN REQUEST");
+                        inputStream = null;
+                        outputStream = null;
                         running = false;
                         break;
                 }
@@ -62,8 +64,10 @@ public class serverConnection implements Runnable {
         try {
             //Writes two bytes of length information to the output stream, followed by the modified UTF-8 representation
             // of every character in the string s
-            outputStream.writeUTF(msg.toWriteFormat());
-            outputStream.flush();
+            if(outputStream != null) {
+                outputStream.writeUTF(msg.toWriteFormat());
+                outputStream.flush();
+            }
 
         } catch (IOException e) {
             e.printStackTrace();

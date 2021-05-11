@@ -24,11 +24,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.scene.input.MouseEvent;
 
-import java.util.Iterator;
-import java.util.Map;
-
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.*;
 
 import java.awt.*;
 import java.io.DataOutputStream;
@@ -236,10 +232,10 @@ public class messageClientPage extends SceneController {
             String target;
             String message = msgs.getText().trim();
             if(selected==null){
-                target = tgt.getText().trim();
+                target = tgt.getText().trim().toLowerCase(Locale.ROOT);
             }else{
-                if (!tgt.getText().trim().equals(selected.getMessenger())){
-                    target = tgt.getText().trim();
+                if (!tgt.getText().trim().toLowerCase(Locale.ROOT).equals(selected.getMessenger())){
+                    target = tgt.getText().trim().toLowerCase(Locale.ROOT);
                 } else {
                     target = selected.getMessenger();
                 }

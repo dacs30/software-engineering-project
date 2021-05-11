@@ -1,5 +1,7 @@
 package edu.wpi.MochaManticores.database;
 
+import java.util.Locale;
+
 public class Employee {
     //employee attributes
     public enum employeeType {DEFAULT,JANITOR,DOCTOR,NURSE,FLORIST,CHEF,STAFF,PATIENT}
@@ -19,7 +21,7 @@ public class Employee {
 
     public Employee (String username, String password, String firstName, String lastName, employeeType type, int ID, boolean isAdmin,
                      boolean covidStatus, String parkingSpace, boolean loggedIN){
-        this.username = username;
+        this.username = username.toLowerCase(Locale.ROOT);
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
