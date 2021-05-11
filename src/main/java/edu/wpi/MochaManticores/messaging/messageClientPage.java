@@ -137,6 +137,7 @@ public class messageClientPage extends SceneController {
                     ((Node)e.getSource()).setStyle("-fx-background-color: transparent");
                     selected = null;
                     publicChatBox.getChildren().clear();
+                    tgt.setText(null);
                     return;
                 }
 
@@ -145,6 +146,7 @@ public class messageClientPage extends SceneController {
                     n.setStyle("-fx-background-color: transparent");
                 }
                 container.setStyle("-fx-background-color: red");
+
                 loadConversation( t.getMessenger()/*((Target) ((HBox)e.getSource()).getChildren().get(0)).getMessenger()*/);
             });
         }
@@ -156,6 +158,7 @@ public class messageClientPage extends SceneController {
     }
 
     public void loadConversation(String target) {
+        tgt.setText(target);
 
         publicChatBox.getChildren().clear();
         if (reader.messageHistory.containsKey(target)) {
