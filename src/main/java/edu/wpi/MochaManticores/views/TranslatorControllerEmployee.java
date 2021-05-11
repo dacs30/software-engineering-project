@@ -127,17 +127,17 @@ public class TranslatorControllerEmployee extends SceneController{
         else if (roomNumber.getText().isEmpty()) {
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
             roomNumber.getValidators().add(missingInput);
-            missingInput.setMessage("Dietary Preference requires an input");
+            missingInput.setMessage("Room number is a required input");
             roomNumber.validate();
         } else if (languageOne.getItems().isEmpty()) {
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
             languageOne.getValidators().add(missingInput);
-            missingInput.setMessage("Allergies field requires an input");
+            missingInput.setMessage("Language one is a required input");
             languageOne.validate();
         } else if (languageTwo.getItems().isEmpty()) {
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
             languageTwo.getValidators().add(missingInput);
-            missingInput.setMessage("Food menu requires an input");
+            missingInput.setMessage("Language two is a required input");
             languageTwo.validate();
 
         }

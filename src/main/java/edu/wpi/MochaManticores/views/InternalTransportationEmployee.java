@@ -211,23 +211,23 @@ public class InternalTransportationEmployee extends SceneController{
             else if (patientID.getText().isEmpty()){
                 RequiredFieldValidator missingInput = new RequiredFieldValidator();
                 patientID.getValidators().add(missingInput);
-                missingInput.setMessage("Patient room is required");
+                missingInput.setMessage("Patient ID is required");
                 patientID.validate();
             } else if (numberOfStaff.getText().isEmpty()){
                 RequiredFieldValidator missingInput = new RequiredFieldValidator();
                 numberOfStaff.getValidators().add(missingInput);
-                missingInput.setMessage("Current room is required");
+                missingInput.setMessage("The number of staff is required");
                 numberOfStaff.validate();
             } else if (destination.getText().isEmpty()) {
                 RequiredFieldValidator missingInput = new RequiredFieldValidator();
                 destination.getValidators().add(missingInput);
-                missingInput.setMessage("External room is required");
+                missingInput.setMessage("Destination is required");
                 destination.validate();
             }
                 else if (transportComboBox.getItems().isEmpty()) {
                 RequiredFieldValidator missingInput = new RequiredFieldValidator();
                 transportComboBox.getValidators().add(missingInput);
-                missingInput.setMessage("External room is required");
+                missingInput.setMessage("Type of transportation is required");
                 transportComboBox.validate();
         }
         else if (employeeAssigned.getItems().isEmpty()) {
