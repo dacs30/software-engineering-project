@@ -74,7 +74,7 @@ public class clientReader implements Runnable{
 
                 if(this.GUIconnected){
                     postMessage(msg);
-                }else{
+                }else if(msg.TYPE != Message.msgType.DATAGRAB){
                     postNotif(msg);
                 }
                 Platform.runLater(() -> {
