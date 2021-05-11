@@ -77,7 +77,7 @@ public class DatabaseManager{
     public static void resetTable(sel s, String newPath){
         try {
             Manager man = getManager(s);
-            System.out.println("resetting Table: " + s);
+            //System.out.println("resetting Table: " + s);
             man.saveElements();
             man.cleanTable();
             man.setCSV_path(newPath);
