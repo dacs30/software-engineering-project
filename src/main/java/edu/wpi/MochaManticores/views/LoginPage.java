@@ -190,6 +190,16 @@ public class LoginPage extends SceneController{
                 IDField.validate();
                 return;
             }
+
+            if(!temp.getPassword().equals("")){
+                IDField.clear();
+                RequiredFieldValidator wrongCreditals = new RequiredFieldValidator();
+                IDField.getValidators().add(wrongCreditals);
+                wrongCreditals.setMessage(name + " is an employee");
+                IDField.validate();
+                return;
+            }
+
         } catch (Exception exception) {
 
             Employee employee = new Employee(name, "", IDField.getText(), IDField.getText(), Employee.employeeType.PATIENT,
@@ -231,6 +241,16 @@ public class LoginPage extends SceneController{
         //System.out.println(employeeUsername.getText());
 
         try {
+            if(employeePassword.getText().equals("") || employeePassword.getText() == null){
+                employeePassword.setText(null);
+                RequiredFieldValidator wrongCreditals = new RequiredFieldValidator();
+                employeePassword.getValidators().add(wrongCreditals);
+                wrongCreditals.setMessage("please input a password");
+                employeePassword.validate();
+                return;
+            }
+
+
             Employee temp = DatabaseManager.checkEmployeeLogin(employeeUsername.getText(), employeePassword.getText());
 
 
@@ -243,6 +263,7 @@ public class LoginPage extends SceneController{
                 employeeUsername.validate();
                 return;
             }
+
             // sets to employee level
             App.setClearenceLevel(1);
             App.setCurrentUsername(employeeUsername.getText());

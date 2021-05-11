@@ -164,9 +164,9 @@ public class EmployeeManager extends Manager<Employee>{
     public Employee checkEmployeeLogin(String username,String password) throws InvalidLoginException, InvalidElementException {
         Employee emp = getElement(username);
 
-//        if(emp.getPassword() == null || emp.getPassword().equals("")){
-//            return emp;
-//        }
+        if(emp.getPassword() == null || emp.getPassword().equals("")){
+            throw new InvalidLoginException();
+        }
 
         String pass = emp.getPassword();
         String salt = pass.substring(0, pass.indexOf(":"));
