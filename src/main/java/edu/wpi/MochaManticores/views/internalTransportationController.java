@@ -1,6 +1,7 @@
 package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.*;
+import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.sel;
@@ -65,7 +66,7 @@ public class internalTransportationController extends SceneController{
 
     public void submitEvent() {
         if(!patientID.getText().isEmpty() && !numberOfStaff.getText().isEmpty() &&
-                !destination.getText().isEmpty() && !transportComboBox.getSelectionModel().getSelectedItem().isEmpty()){
+                !destination.getText().isEmpty() && !transportComboBox.getSelectionModel().getSelectedItem().isEmpty()) {
             sel s = sel.InternalTransportation;
             DatabaseManager.addRequest(s, new edu.wpi.MochaManticores.Services.InternalTransportation(
                     "",
@@ -75,8 +76,30 @@ public class internalTransportationController extends SceneController{
                     Integer.parseInt(numberOfStaff.getText()),
                     destination.getText(),
                     transportComboBox.getValue()
-                    ));
-            System.out.println("Adds to database");
+            ));
+        }
+            else if (patientID.getText().isEmpty()){
+                RequiredFieldValidator missingInput = new RequiredFieldValidator();
+                patientID.getValidators().add(missingInput);
+                missingInput.setMessage("Patient room is required");
+                patientID.validate();
+            } else if (numberOfStaff.getText().isEmpty()){
+                RequiredFieldValidator missingInput = new RequiredFieldValidator();
+                numberOfStaff.getValidators().add(missingInput);
+                missingInput.setMessage("Current room is required");
+                numberOfStaff.validate();
+            } else if (destination.getText().isEmpty()) {
+                RequiredFieldValidator missingInput = new RequiredFieldValidator();
+                destination.getValidators().add(missingInput);
+                missingInput.setMessage("External room is required");
+                destination.validate();
+            }
+                else if (transportComboBox.getItems().isEmpty()) {
+                RequiredFieldValidator missingInput = new RequiredFieldValidator();
+                transportComboBox.getValidators().add(missingInput);
+                missingInput.setMessage("External room is required");
+                transportComboBox.validate();
+
         }
         loadSubmitDialog();
     }

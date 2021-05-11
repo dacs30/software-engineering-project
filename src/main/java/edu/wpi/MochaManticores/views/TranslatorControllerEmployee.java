@@ -1,6 +1,7 @@
 package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.*;
+import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.sel;
@@ -113,13 +114,40 @@ public class TranslatorControllerEmployee extends SceneController{
     }
 
     public void submitEvent() {
-        sel s = sel.LanguageInterperter;
-        // changeSceneTo(e, "mainMenu");
-        DatabaseManager.addRequest(s,
-                new edu.wpi.MochaManticores.Services.LanguageInterpreterRequest(
-                        "", employeeAssigned.getEditor().getText(), false, roomNumber.getText(),
-                        languageOne.getSelectionModel().getSelectedItem().toString(),
-                        languageTwo.getSelectionModel().getSelectedItem().toString()));
+        if(!roomNumber.getText().isEmpty() && !languageOne.getItems().isEmpty() &&
+                !languageTwo.getItems().isEmpty() && !employeeAssigned.getItems().isEmpty()) {
+            sel s = sel.LanguageInterperter;
+            // changeSceneTo(e, "mainMenu");
+            DatabaseManager.addRequest(s,
+                    new edu.wpi.MochaManticores.Services.LanguageInterpreterRequest(
+                            "", "", false, roomNumber.getText(),
+                            languageOne.getSelectionModel().getSelectedItem().toString(),
+                            languageTwo.getSelectionModel().getSelectedItem().toString()));
+        }
+        else if (roomNumber.getText().isEmpty()) {
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            roomNumber.getValidators().add(missingInput);
+            missingInput.setMessage("Dietary Preference requires an input");
+            roomNumber.validate();
+        } else if (languageOne.getItems().isEmpty()) {
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            languageOne.getValidators().add(missingInput);
+            missingInput.setMessage("Allergies field requires an input");
+            languageOne.validate();
+        } else if (languageTwo.getItems().isEmpty()) {
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            languageTwo.getValidators().add(missingInput);
+            missingInput.setMessage("Food menu requires an input");
+            languageTwo.validate();
+
+        }
+        else if (employeeAssigned.getItems().isEmpty()) {
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            languageTwo.getValidators().add(missingInput);
+            missingInput.setMessage("Food menu requires an input");
+            languageTwo.validate();
+
+        }
         dialogPane.setVisible(true);
         loadDialog();
 //        back();

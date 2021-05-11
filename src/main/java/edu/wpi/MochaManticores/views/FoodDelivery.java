@@ -1,6 +1,7 @@
 package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.*;
+import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.sel;
@@ -112,14 +113,40 @@ public class FoodDelivery extends SceneController {
         //dialogPane.setDisable(false);
     }
 
-
     public void submitForm() {
-        sel s = sel.FoodDelivery;
-        // changeSceneTo(e, "mainMenu");
-        DatabaseManager.addRequest(s,
-                        new edu.wpi.MochaManticores.Services.FoodDelivery(
-                        "", "", false, dietaryPreferences.getSelectionModel().getSelectedItem(),
-                        allergyText.getText(), foodMenu.getSelectionModel().getSelectedItem()));
+        if(!dietaryPreferences.getItems().isEmpty() && !allergyText.getText().isEmpty() &&
+                !foodMenu.getItems().isEmpty()) {
+            sel s = sel.FoodDelivery;
+            // changeSceneTo(e, "mainMenu");
+            DatabaseManager.addRequest(s,
+                    new edu.wpi.MochaManticores.Services.FoodDelivery(
+                            "", "", false, dietaryPreferences.getSelectionModel().getSelectedItem(),
+                            allergyText.getText(), foodMenu.getSelectionModel().getSelectedItem()));
+
+        } else if (dietaryPreferences.getItems().isEmpty()){
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            dietaryPreferences.getValidators().add(missingInput);
+            missingInput.setMessage("Dietary Preference requires an input");
+            dietaryPreferences.validate();
+        } else if (allergyText.getText().isEmpty()){
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            allergyText.getValidators().add(missingInput);
+            missingInput.setMessage("Allergies field requires an input");
+            allergyText.validate();
+        } else if (foodMenu.getItems().isEmpty()) {
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            foodMenu.getValidators().add(missingInput);
+            missingInput.setMessage("Food menu requires an input");
+            foodMenu.validate();
+        }
+        //if we want a validator for assign to employee
+
+        /*else if(employeeAssigned.getItems().isEmpty()){
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            employeeAssigned.getValidators().add(missingInput);
+            missingInput.setMessage("Employee must be assigned");
+
+        }*/
         dialogPane.setVisible(true);
         loadDialog();
     }
