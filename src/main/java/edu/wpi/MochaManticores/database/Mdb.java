@@ -510,6 +510,7 @@ public class Mdb extends Thread{
             server = new NetworkServerControl(InetAddress.getByName(connectionUtil.oracleHost), connectionUtil.dbPort);
             if(isServerStarted(server)){
                 System.out.println("ORACLE SERVER PINGED");
+            }else{
                 makeTables = false;
             }
         } catch (UnknownHostException e) {
