@@ -8,7 +8,6 @@ import edu.wpi.MochaManticores.database.sel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -133,7 +132,7 @@ public class sanitationServiceControllerEmployee extends SceneController {
 
     public void helpButton(){loadHelpDialogue();}
 
-    public void goBack(ActionEvent e) {
+    public void goBack() {
         back();
     }
 
@@ -145,14 +144,14 @@ public class sanitationServiceControllerEmployee extends SceneController {
         message.setMaxHeight(Region.USE_PREF_SIZE);
         message.setMaxHeight(Region.USE_PREF_SIZE);
 
-        final Text hearder = new Text("Your request was submited");
+        final Text hearder = new Text("Submitted request");
         hearder.setStyle("-fx-font-weight: bold");
         hearder.setStyle("-fx-font-size: 30");
         hearder.setStyle("-fx-font-family: Roboto");
         hearder.setStyle("-fx-alignment: center");
         message.setHeading(hearder);
 
-        final Text body = new Text("Estimated time for arrival: ");
+        final Text body = new Text("Your request has been submitted for the patient.");
         body.setStyle("-fx-font-size: 15");
         body.setStyle("-fx-font-family: Roboto");
         body.setStyle("-fx-alignment: center");
@@ -161,6 +160,7 @@ public class sanitationServiceControllerEmployee extends SceneController {
         message.setBody(body);
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
         JFXButton ok = new JFXButton("Done");
+        ok.setStyle("-fx-font-size: 15");
         ok.setOnAction(event -> {
             dialogPane.toBack();
             dialog.close();
@@ -190,8 +190,9 @@ public class sanitationServiceControllerEmployee extends SceneController {
         final Text body = new Text("Location: The room number, hallway, waiting area, etc. of the sanitation request.\n" +
                 "Safety Hazards: This is where you indicate any safety hazards such as biohazards or densely populated area near the location. \n" +
                 "Sanitation Type: This is where you indicate what the request is for such as room cleaning or spill.\n" +
-                "Equipment Needed: This is where you indicate what equipment may be needed to complete the request.\n " +
-                "Description: This is where you indicate the rest of the necesary information to complete the request.");
+                "Equipment Needed: This is where you indicate what equipment may be needed to complete the request.\n" +
+                "Description: This is where you indicate the rest of the necessary information to complete the request.\n" +
+                "Assign to Employee: Select an employee from the provided dropdown menu.");
         body.setStyle("-fx-font-size: 40");
         body.setStyle("-fx-font-family: Roboto");
         body.setStyle("-fx-alignment: center");
@@ -202,6 +203,7 @@ public class sanitationServiceControllerEmployee extends SceneController {
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
 
         JFXButton cont = new JFXButton("Continue");
+        cont.setStyle("-fx-font-size: 15");
         cont.setOnAction(event -> {
             dialog.close();
             dialogPane.toBack();
@@ -224,14 +226,8 @@ public class sanitationServiceControllerEmployee extends SceneController {
 
 
     @FXML
-    private void submit(ActionEvent e) {
-        //JFXCheckBox source = (JFXCheckBox) e.getSource();
+    public void submitEvent() {
         StringBuilder equipmentNeeded = new StringBuilder();
-        for(JFXCheckBox button : equipment) {
-//             if(!button.equals(source)) {
-//                 button.setSelected(false);
-//             }
-            }
         if(maskNeeded.isSelected()) {
             equipmentNeeded.append("maskNeeded,");
         }
@@ -241,19 +237,19 @@ public class sanitationServiceControllerEmployee extends SceneController {
         if(mopNeeded.isSelected()) {
             equipmentNeeded.append("mopNeeded,");
         }
-            if(!loc.getText().isEmpty() && !safetyHaz.getText().isEmpty() &&
-                 !typeComboBox.getSelectionModel().getSelectedItem().isEmpty() && (glovesNeeded.isSelected() || maskNeeded.isSelected() || mopNeeded.isSelected()) && !description.getText().isEmpty()){
+        if(!loc.getText().isEmpty() && !safetyHaz.getText().isEmpty() &&
+                !typeComboBox.getSelectionModel().getSelectedItem().isEmpty() && (glovesNeeded.isSelected() || maskNeeded.isSelected() || mopNeeded.isSelected()) && !description.getText().isEmpty()){
             sel s = sel.SanitationServices;
-                DatabaseManager.addRequest(s, new edu.wpi.MochaManticores.Services.SanitationServices(
+            DatabaseManager.addRequest(s, new edu.wpi.MochaManticores.Services.SanitationServices(
                     "",
-                    "",
+                    employeeAssigned.getItems().toString(),
                     false,
                     loc.getText(),
                     safetyHaz.getText(),
                     typeComboBox.getValue(),
                     equipmentNeeded.toString(),
                     description.getText()
-                    ));
+            ));
             System.out.println("Adds to database");
         } else if (loc.getText().isEmpty()){
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
@@ -271,14 +267,14 @@ public class sanitationServiceControllerEmployee extends SceneController {
             missingInput.setMessage("Sanitation Type is required.");
             typeComboBox.validate();
         } else if (equipmentNeeded.toString().isEmpty()){
-                Alert a = new Alert(Alert.AlertType.WARNING);
-                a.show();
-            } else if (description.getText().isEmpty()){
-                RequiredFieldValidator missingInput = new RequiredFieldValidator();
-                description.getValidators().add(missingInput);
-                missingInput.setMessage("Description is required.");
-                description.validate();
-            }
+            Alert a = new Alert(Alert.AlertType.WARNING);
+            a.show();
+        } else if (description.getText().isEmpty()){
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            description.getValidators().add(missingInput);
+            missingInput.setMessage("Description is required.");
+            description.validate();
+        }
         loadSubmitDialog();
     }
 

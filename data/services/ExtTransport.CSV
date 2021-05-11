@@ -1,2 +1,6 @@
 REQUESTID,EMPID,COMPLETED,PATIENTROOM,CURRENTROOM,EXTERNALROOM,TRANSPORTATIONMETHOD,
-EXTtrans0,,false,SYNC,sdas,qss,Ambulance,
+EXTtrans0,,false,100,101,103,Helicopter,
+EXTtrans1,Kush,false,100,101,103,Helicopter,
+EXTtrans2,,false,100,101,1000,Helicopter,
+EXTtrans3,Kush,false,100,101,1000,Helicopter,
+EXTtrans4,Kush Shah,false,200,201,2003,Plane,

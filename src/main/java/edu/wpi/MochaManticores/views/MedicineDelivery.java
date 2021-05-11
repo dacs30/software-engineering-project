@@ -69,7 +69,7 @@ public class MedicineDelivery {
     public void submitForm(ActionEvent actionEvent) {
         StringBuilder feel = new StringBuilder();
         if(checkBox0.isSelected()){
-            feel.append("Muscle pain,");
+            feel.append("Coughing,");
         }
         if(checkBox1.isSelected()){
             feel.append("Nausea,");
@@ -78,13 +78,13 @@ public class MedicineDelivery {
             feel.append("Headache,");
         }
         if(checkBox3.isSelected()){
-            feel.append("Other pain,");
+            feel.append("Dizziness,");
         }
         if(checkBox4.isSelected()){
-            feel.append("Some pain,");
+            feel.append("Muscle Pain,");
         }
         if(checkBox5.isSelected()){
-            feel.append("More pain");
+            feel.append("Chest Pain,");
         }
         // changeSceneTo(e, "mainMenu");
         if (checkBoxesAreFilled() && !typeOfMedicineComboBx.getSelectionModel().isEmpty() && !patientRoom.getText().isEmpty()){
@@ -143,6 +143,7 @@ public class MedicineDelivery {
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
 
         JFXButton cont = new JFXButton("Continue");
+        cont.setStyle("-fx-font-size: 15");
         cont.setOnAction(event -> {
             dialog.close();
             dialogPane.toBack();
@@ -163,7 +164,7 @@ public class MedicineDelivery {
         message.setMaxHeight(Region.USE_COMPUTED_SIZE);
         message.setMaxHeight(Region.USE_COMPUTED_SIZE);
 
-        final Text hearder = new Text("Submitted request.");
+        final Text hearder = new Text("Submitted request");
         hearder.setStyle("-fx-font-weight: bold");
         hearder.setStyle("-fx-font-size: 60");
         hearder.setStyle("-fx-font-family: Roboto");
@@ -181,6 +182,7 @@ public class MedicineDelivery {
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
 
         JFXButton cont = new JFXButton("Done");
+        cont.setStyle("-fx-font-size: 15");
         cont.setOnAction(event -> {
             dialog.close();
             dialogPane.toBack();

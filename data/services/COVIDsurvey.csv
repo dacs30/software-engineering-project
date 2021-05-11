@@ -1,5 +1,1 @@
 REQUESTID,EMPID,COMPLETED,NAME,DOB,SICK,VAXX,TRAVEL,TEST,CONATACT,SYMPTOMS,ADMIT,
-COVID0,employee,false,usr,2021-05-26,true,true,true,true,false,SYMTOMS,true,
-COVID1,employee,false,usr,2021-05-05,true,false,true,false,true,SYMTOMS,true,
-COVID2,employee,false,Guest,2021-05-14,false,false,false,false,true,null,true,
-COVID3,employee,false,peter,2021-05-06,false,false,false,true,false,Headache,true,

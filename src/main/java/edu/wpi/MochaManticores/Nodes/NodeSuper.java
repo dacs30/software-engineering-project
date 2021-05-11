@@ -18,7 +18,7 @@ public class NodeSuper {
     private String longName;                    //Name of the node
     private String shortName;                   //Abbreviated node name
     private String nodeID;                      //Unique node identifier
-    private final String nodeType;                    //Type of node (elevator, door, etc.)
+    private final String nodeType;              //Type of node (elevator, door, etc.)
     private final String teamAssigned = "m";    //Node created by D21 team M
     private VertexList neighbors;               //A list of connected nodes with vertex costs
     private final boolean isHandicap;
@@ -42,7 +42,6 @@ public class NodeSuper {
         if(neighbors == null){
             this.neighbors = new VertexList(new HashMap<>());
         }
-
     }
 
     public boolean isCovid() {

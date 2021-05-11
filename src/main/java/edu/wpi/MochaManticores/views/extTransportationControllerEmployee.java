@@ -119,7 +119,7 @@ public class extTransportationControllerEmployee extends SceneController {
 
 
 
-    public void submitEvent(ActionEvent actionEvent) {
+    public void submitEvent() {
         if(!externalRoom.getText().isEmpty() && !currentRoom.getText().isEmpty() && !patientRoom.getText().isEmpty()){
             sel s = sel.ExternalTransportation;
             DatabaseManager.addRequest(s,
@@ -149,7 +149,7 @@ public class extTransportationControllerEmployee extends SceneController {
             missingInput.setMessage("External room is required");
             externalRoom.validate();
         }
-
+        loadSubmitDialog();
 
     }
 
@@ -175,9 +175,10 @@ public class extTransportationControllerEmployee extends SceneController {
         message.setHeading(hearder);
 
         final Text body = new Text("Patient room: This is the room number given to the patient by the hospital.\n" +
-                "Current Room: is where the patient is currently staying until transportation out of the hospital.\n" +
-                "External Room: is the location where the patient is going to be transported to\n" +
-                "Transportation Method: This is a dropdown menu that you select which type of transportation the patient will take. ");
+                "Current Room: This is where the patient is currently staying until transportation out of the hospital.\n" +
+                "External Room: This is the location where the patient is going to be transported to.\n" +
+                "Transportation Method: This is a dropdown menu that you select which type of transportation the patient will take.\n" +
+                "Assign to Employee: Select an employee from the provided dropdown menu.");
 
         body.setStyle("-fx-font-size: 40");
         body.setStyle("-fx-font-family: Roboto");
@@ -189,6 +190,7 @@ public class extTransportationControllerEmployee extends SceneController {
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
 
         JFXButton cont = new JFXButton("Continue");
+        cont.setStyle("-fx-font-size: 15");
         cont.setOnAction(event -> {
             dialog.close();
             dialogPane.toBack();
@@ -216,14 +218,14 @@ public class extTransportationControllerEmployee extends SceneController {
         message.setMaxHeight(Region.USE_PREF_SIZE);
         message.setMaxHeight(Region.USE_PREF_SIZE);
 
-        final Text hearder = new Text("Your request was submited");
+        final Text hearder = new Text("Submitted request");
         hearder.setStyle("-fx-font-weight: bold");
         hearder.setStyle("-fx-font-size: 30");
         hearder.setStyle("-fx-font-family: Roboto");
         hearder.setStyle("-fx-alignment: center");
         message.setHeading(hearder);
 
-        final Text body = new Text("Estimated time for arrival: ");
+        final Text body = new Text("Your request has been submitted for the patient.");
         body.setStyle("-fx-font-size: 15");
         body.setStyle("-fx-font-family: Roboto");
         body.setStyle("-fx-alignment: center");
@@ -232,8 +234,10 @@ public class extTransportationControllerEmployee extends SceneController {
         message.setBody(body);
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
         JFXButton ok = new JFXButton("Done");
+        ok.setStyle("-fx-font-size: 15");
         ok.setOnAction(event -> {
-            super.back();
+            dialogPane.toBack();
+            dialog.close();
         });
 
         dialog.setOnDialogClosed(event -> {

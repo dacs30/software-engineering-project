@@ -58,9 +58,9 @@ public class FoodDelivery extends SceneController {
         hearder.setStyle("-fx-alignment: center");
         message.setHeading(hearder);
 
-        final Text body = new Text("Dietary preferences: Dropdown menu with options for food.\n" +
-                "Allergies: Indicate any allergies you may have with food or beverages.\n" +
-                "Menu: This is the menu  ");
+        final Text body = new Text("Dietary preferences: Select an option from the dropdown of the food preferences.\n" +
+                "Menu: Select from the provided dropdown one of the menus.\n" +
+                "Allergies: Indicate any allergies you may have with food or beverages.");
 
         body.setStyle("-fx-font-size: 40");
         body.setStyle("-fx-font-family: Roboto");
@@ -72,6 +72,7 @@ public class FoodDelivery extends SceneController {
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
 
         JFXButton cont = new JFXButton("Continue");
+        cont.setStyle("-fx-font-size: 15");
         cont.setOnAction(event -> {
             dialog.close();
             dialogPane.toBack();
@@ -101,7 +102,7 @@ public class FoodDelivery extends SceneController {
         //System.out.println(width);
 
         dietaryPreferences.getItems().clear();
-        dietaryPreferences.getItems().addAll("Vegan", "Vegetarian", "Gluten Free");
+        dietaryPreferences.getItems().addAll("Vegan", "Vegetarian", "Gluten Free", "No Dietary Preferences");
 
         // TODO Condition of menus depending of the dietary preference
         foodMenu.getItems().clear();
@@ -132,14 +133,14 @@ public class FoodDelivery extends SceneController {
         message.setMaxHeight(Region.USE_PREF_SIZE);
         message.setMaxHeight(Region.USE_PREF_SIZE);
 
-        final Text hearder = new Text("Submited");
+        final Text hearder = new Text("Submitted request");
         hearder.setStyle("-fx-font-weight: bold");
         hearder.setStyle("-fx-font-size: 30");
         hearder.setStyle("-fx-font-family: Roboto");
         hearder.setStyle("-fx-alignment: center");
         message.setHeading(hearder);
 
-        final Text body = new Text("Time estimated:");
+        final Text body = new Text("Your request has been submitted and will be reviewed by a staff member.");
         body.setStyle("-fx-font-size: 15");
         body.setStyle("-fx-font-family: Roboto");
         body.setStyle("-fx-alignment: center");
@@ -148,8 +149,10 @@ public class FoodDelivery extends SceneController {
         message.setBody(body);
         JFXDialog dialog = new JFXDialog(dialogPane, message, JFXDialog.DialogTransition.CENTER);
         JFXButton exit = new JFXButton("Done");
+        exit.setStyle("-fx-font-size: 15");
         exit.setOnAction(event -> {
-            goBack();
+            dialogPane.toBack();
+            dialog.close();
         });
         dialog.setOnDialogClosed(event -> {
             dialogPane.setDisable(true);

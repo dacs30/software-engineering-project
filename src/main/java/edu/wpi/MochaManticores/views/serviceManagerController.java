@@ -1,9 +1,8 @@
 package edu.wpi.MochaManticores.views;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTabPane;
+import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Services.*;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.sel;
@@ -19,9 +18,13 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -31,6 +34,9 @@ public class serviceManagerController extends SceneController {
 
     @FXML
     private AnchorPane mainPane;
+
+    @FXML
+    private ImageView backgroundIMG;
 
     @FXML
     private VBox contextBox;
@@ -53,6 +59,11 @@ public class serviceManagerController extends SceneController {
     @FXML
     private Group restricted;
 
+    @FXML
+    private ImageView helpButton;
+
+    @FXML
+    private StackPane dialogPane;
 
     public TableView<ss> sanitationTable;
     public TableColumn<ss, String> sanitationLocationColumn;
@@ -170,6 +181,14 @@ public class serviceManagerController extends SceneController {
     public JFXTabPane serviceTabPane;
 
     public void initialize() {
+        double height = App.getPrimaryStage().getScene().getHeight();
+        double width = App.getPrimaryStage().getScene().getWidth();
+        backgroundIMG.setFitHeight(height);
+        backgroundIMG.setFitWidth(width);
+        //contentGrid.setPrefSize(width, height);
+
+        backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
+        backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
         contextBox.setVisible(false);
         contextBox.toBack();
 
@@ -2286,9 +2305,48 @@ EmergencyCompletedColumn
 
     }
 
-    public void helpButton(ActionEvent e) {
+    public void helpEvent(MouseEvent e) {
+        dialogPane.toFront();
+        JFXDialogLayout message = new JFXDialogLayout();
+        message.setMaxHeight(Region.USE_COMPUTED_SIZE);
+        message.setMaxHeight(Region.USE_COMPUTED_SIZE);
 
-        //TODO:make dialog
+        final Text hearder = new Text("Help Page");
+        hearder.setStyle("-fx-font-weight: bold");
+        hearder.setStyle("-fx-font-size: 60");
+        hearder.setStyle("-fx-font-family: Roboto");
+        hearder.setStyle("-fx-alignment: center");
+        message.setHeading(hearder);
+
+        final Text body = new Text("The tabs at the top of the table indicate the different service requests logs available.\n" +
+                                    "The different logs that come with each tab at the top, you may select from the dropdown box\n" +
+                                    "an employee to assign them to the task. The color button that is on each log, you may click on\n" +
+                                    "to mark as completed, in-progress, or delete it (if necessary).\n" +
+                                    "\n" +
+                                    "For the COVID-19 survey tab, you may determine whether the patient\n" +
+                                    "or personnel can be admitted to all paths or restricted to a certain path.");
+        body.setStyle("-fx-font-size: 40");
+        body.setStyle("-fx-font-family: Roboto");
+        body.setStyle("-fx-alignment: center");
+
+        message.setBody(body);
+
+
+        JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
+
+        JFXButton cont = new JFXButton("Continue");
+        cont.setStyle("-fx-font-size: 15");
+        cont.setOnAction(event -> {
+            dialog.close();
+            dialogPane.toBack();
+        });
+
+        dialog.setOnDialogClosed(event -> {
+            dialogPane.toBack();
+        });
+
+        message.setActions(cont);
+        dialog.show();
 
     }
 

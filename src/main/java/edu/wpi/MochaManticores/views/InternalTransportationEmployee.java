@@ -191,7 +191,7 @@ public class InternalTransportationEmployee {
 //        buildTable("");
     }
 
-    public void submitEvent(ActionEvent actionEvent) {
+    public void submitEvent() {
         if(!patientID.getText().isEmpty() || !numberOfStaff.getText().isEmpty() ||
                 !destination.getText().isEmpty() || !transportComboBox.getSelectionModel().getSelectedItem().isEmpty()){
             sel s = sel.InternalTransportation;
@@ -214,7 +214,7 @@ public class InternalTransportationEmployee {
         message.setMaxHeight(Region.USE_COMPUTED_SIZE);
         message.setMaxHeight(Region.USE_COMPUTED_SIZE);
 
-        final Text hearder = new Text("Submitted request.");
+        final Text hearder = new Text("Submitted request");
         hearder.setStyle("-fx-font-weight: bold");
         hearder.setStyle("-fx-font-size: 60");
         hearder.setStyle("-fx-font-family: Roboto");
@@ -232,6 +232,7 @@ public class InternalTransportationEmployee {
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
 
         JFXButton cont = new JFXButton("Done");
+        cont.setStyle("-fx-font-size: 15");
         cont.setOnAction(event -> {
             dialog.close();
             dialogPane.toBack();
@@ -277,6 +278,7 @@ public class InternalTransportationEmployee {
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
 
         JFXButton cont = new JFXButton("Continue");
+        cont.setStyle("-fx-font-size: 15");
         cont.setOnAction(event -> {
             dialog.close();
             dialogPane.toBack();

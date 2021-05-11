@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDialog?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
 <AnchorPane id="backgroundIMG" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../Stylesheets/laundry.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.LaundryFormController">
    <children>
       <ImageView fx:id="backgroundIMG" fitHeight="800.0" fitWidth="1200.0" opacity="0.5" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -49,7 +59,7 @@
                   <Insets />
                </GridPane.margin>
                <children>
-                  <JFXTextField labelFloat="true" maxWidth="-Infinity" prefWidth="365.0" promptText="Patient ID" GridPane.rowIndex="1" />
+                  <JFXTextField fx:id="nameField" labelFloat="true" maxWidth="-Infinity" minHeight="-Infinity" prefWidth="460.0" promptText="Patient ID" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                   <Label id="title" text="Laundry Request" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                   <JFXButton fx:id="submitButton" alignment="CENTER" onAction="#submitEvent" text="Submit" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
@@ -61,51 +71,51 @@
                      <GridPane.margin>
                         <Insets bottom="60.0" />
                      </GridPane.margin></Label>
-                  <JFXComboBox fx:id="soil" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                  <JFXComboBox fx:id="soil" maxWidth="-Infinity" prefWidth="160.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
-                        <Insets right="300.0" />
+                        <Insets right="320.0" />
                      </GridPane.margin>
                   </JFXComboBox>
-                  <JFXComboBox fx:id="wTemp" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                  <JFXComboBox fx:id="wTemp" maxWidth="-Infinity" prefWidth="160.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                      <GridPane.margin>
-                        <Insets left="300.0" />
+                        <Insets left="320.0" />
                      </GridPane.margin></JFXComboBox>
-                  <JFXComboBox fx:id="dTemp" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+                  <JFXComboBox fx:id="dTemp" maxWidth="-Infinity" prefWidth="160.0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
-                        <Insets right="300.0" />
+                        <Insets right="320.0" />
                      </GridPane.margin>
                   </JFXComboBox>
-                  <JFXTextField fx:id="extra" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+                  <JFXTextField fx:id="dryCycles" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
-                        <Insets left="570.0" right="270.0" />
+                        <Insets left="320.0" />
                      </GridPane.margin>
                   </JFXTextField>
                   <Label id="laundry-Label" text="Soil Level" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                      <GridPane.margin>
-                        <Insets right="300.0" />
+                        <Insets right="320.0" />
                      </GridPane.margin>
                   </Label>
                   <Label id="laundry-Label" text="Temperature" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                      <GridPane.margin>
-                        <Insets left="300.0" />
+                        <Insets left="320.0" />
                      </GridPane.margin>
                   </Label>
-                  <JFXToggleButton id="delicateSwitch" text="Delicates" toggleColor="#0f4b91" toggleLineColor="#739bc6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                  <JFXToggleButton id="delicateSwitch" fx:id="delicateToggle" text="Delicates" toggleColor="#0f4b91" toggleLineColor="#739bc6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
                   </JFXToggleButton>
                   <Label id="laundry-Label" text="Temperature" GridPane.halignment="CENTER" GridPane.rowIndex="3">
-                     <padding>
-                        <Insets right="300.0" />
-                     </padding>
+                     <GridPane.margin>
+                        <Insets right="320.0" />
+                     </GridPane.margin>
                   </Label>
                   <Label id="laundry-Label" text="Extra Cycles" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                      <GridPane.margin>
-                        <Insets left="300.0" />
+                        <Insets left="320.0" />
                      </GridPane.margin>
                   </Label>
                   <ImageView fx:id="helpButton" fitHeight="150.0" fitWidth="40.0" onMouseClicked="#openHelp" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">

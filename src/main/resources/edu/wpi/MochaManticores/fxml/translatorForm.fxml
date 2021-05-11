@@ -61,7 +61,7 @@
                         <JFXComboBox id="dropDown" fx:id="languageTwo" focusColor="#ffffff00" prefWidth="400.0" promptText="Language 2" stylesheets="@../Stylesheets/translatorSheet.css" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
-                  <JFXButton id="submitBtn" fx:id="submitButton" contentDisplay="CENTER" onAction="#submitEvent" stylesheets="@../Stylesheets/translatorSheet.css" text="Submit" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                  <JFXButton id="submitBtn" fx:id="submitButton" buttonType="RAISED" contentDisplay="CENTER" onAction="#submitEvent" stylesheets="@../Stylesheets/translatorSheet.css" text="Submit" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                   <ImageView fx:id="helpButton" fitHeight="150.0" fitWidth="40.0" onMouseClicked="#helpEvent" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
                      <image>
                         <Image url="@../images/blueHelpBtn.png" />

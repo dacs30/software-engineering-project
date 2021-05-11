@@ -20,7 +20,8 @@ public class TranslatorControllerEmployee extends SceneController{
 
 
     ObservableList<String> availableLanguages = FXCollections
-            .observableArrayList("English","Spanish","Mandarin","Russian");
+            .observableArrayList("English","Spanish","Mandarin","Russian","Vietnamese",
+                    "Arabic","French","Indonesian","Swahili","Korean","Hindi","Portuguese","Japanese");
 
     @FXML
     private JFXTextField roomNumber;
@@ -101,6 +102,8 @@ public class TranslatorControllerEmployee extends SceneController{
 
         languageOne.setItems(availableLanguages);
         languageTwo.setItems(availableLanguages);
+        languageOne.setVisibleRowCount(5);
+        languageTwo.setVisibleRowCount(5);
     }
 
 
@@ -109,7 +112,7 @@ public class TranslatorControllerEmployee extends SceneController{
         back();
     }
 
-    public void submitEvent(ActionEvent actionEvent) {
+    public void submitEvent() {
         sel s = sel.LanguageInterperter;
         // changeSceneTo(e, "mainMenu");
         DatabaseManager.addRequest(s,
@@ -129,7 +132,7 @@ public class TranslatorControllerEmployee extends SceneController{
         message.setMaxHeight(Region.USE_PREF_SIZE);
         message.setMaxHeight(Region.USE_PREF_SIZE);
 
-        final Text hearder = new Text("Submitted request.");
+        final Text hearder = new Text("Submitted request");
         hearder.setStyle("-fx-font-weight: bold");
         hearder.setStyle("-fx-font-size: 30");
         hearder.setStyle("-fx-font-family: Roboto");
@@ -145,6 +148,7 @@ public class TranslatorControllerEmployee extends SceneController{
         message.setBody(body);
         JFXDialog dialog = new JFXDialog(dialogPane, message, JFXDialog.DialogTransition.CENTER);
         JFXButton exit = new JFXButton("Done");
+        exit.setStyle("-fx-font-size: 15");
         exit.setOnAction(event -> {
             dialog.close();
             dialogPane.toBack();
@@ -188,6 +192,7 @@ public class TranslatorControllerEmployee extends SceneController{
         JFXDialog dialog = new JFXDialog(dialogPane, message,JFXDialog.DialogTransition.CENTER);
 
         JFXButton cont = new JFXButton("Continue");
+        cont.setStyle("-fx-font-size: 15");
         cont.setOnAction(event -> {
             dialog.close();
             dialogPane.toBack();

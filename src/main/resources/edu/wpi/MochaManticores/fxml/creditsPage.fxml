@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.AboutPageController">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.CreditsPageController">
    <children>
       <ImageView fx:id="backgroundIMG" fitHeight="810.0" fitWidth="1217.0" layoutX="10.0" opacity="0.5" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
@@ -52,7 +52,7 @@
                </effect>
                <children>
                   <JFXButton onAction="#back" stylesheets="@../Stylesheets/loginPage.css" text="Back" GridPane.rowIndex="1" />
-                  <Label fx:id="aboutText" text="Label" wrapText="true" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                  <Label fx:id="creditsText" text="Label" wrapText="true" GridPane.halignment="LEFT" GridPane.valignment="TOP">
                      <GridPane.margin>
                         <Insets left="50.0" top="50.0" />
                      </GridPane.margin>
@@ -60,11 +60,6 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <JFXButton fx:id="creditsButton" onMouseClicked="#goToCredits" stylesheets="@../Stylesheets/loginPage.css" text="Credits" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
-                     <GridPane.margin>
-                        <Insets right="50.0" />
-                     </GridPane.margin>
-                  </JFXButton>
                </children>
             </GridPane>
          </children>
