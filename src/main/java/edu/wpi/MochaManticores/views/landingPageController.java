@@ -100,12 +100,19 @@ public class landingPageController extends SceneController {
   private VBox textFieldGroup;
 
   @FXML
-  private JFXTextField searchRequest;
+  private JFXTextField searchBar;
 
   LinkedList listServices = new LinkedList<HBox>();
 
+  // services VBox
+  VBox services = new VBox();
 
   public void initialize() throws IOException {
+
+      searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
+      searchRequests(newValue);
+
+    });
 
     sidePanel.toFront();
 
@@ -132,9 +139,6 @@ public class landingPageController extends SceneController {
     menuSidePane.setStyle("-fx-background-color: rgba(15,75,145,0.29);");
 
     dialogPane.toBack();
-
-      // create a vbox of services
-      VBox services = new VBox();
 
       // add the hbox of the services
       services.getChildren().addAll(menuSidePane,mapSidePane, servicesBox, foodDeliverySidePanel, medicineDeliverySidePanel,
@@ -280,12 +284,36 @@ public class landingPageController extends SceneController {
     dialog.show();
 
   }
+  // searches through each letter and displays the HBox
+  // service requests
 
-  public void searchRequests(KeyEvent keyEvent) {
+  public void searchRequests(String keyEvent) {
 
-    //for(if(listServices.get(1).equals(keyEvent)){
-      //super.changeWindowTo();
-   // }
+    System.out.println(keyEvent);
+
+    servicesPane.setContent(null);
+//    services.getChildren().removeAll();
+
+    String[] serviceNameList = {"Menu","Map","Food Delivery", "Medicine Delivery", "Internal Transportation", "External Transportation",
+            "Floral Delivery","Sanitation","Covid Survey", "Religion", "Laundry", "Translator"};
+    LinkedList<Object> servicesFiltered = new LinkedList<>();
+
+    int i = 0;
+    System.out.println(keyEvent);
+    for(String serviceName : serviceNameList){
+      i++;
+      if(serviceName.contains(keyEvent)){
+        servicesFiltered.add(listServices.get(i));
+        //Arrays.stream(serviceNameList).filter(s -> ).toArray(String[]::new);
+      }
+    }
+
+    for(Object node : servicesFiltered){
+      //servicesPane.setContent((Node)node);
+      services.getChildren().add((Node) node);
+    }
+
+    servicesPane.setContent(services);
 
   }
 
