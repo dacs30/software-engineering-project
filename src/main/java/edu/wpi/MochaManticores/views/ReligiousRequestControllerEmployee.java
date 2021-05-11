@@ -1,6 +1,7 @@
 package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.*;
+import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Services.ReligiousRequest;
 import edu.wpi.MochaManticores.database.DatabaseManager;
@@ -10,7 +11,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -45,7 +45,7 @@ public class ReligiousRequestControllerEmployee extends SceneController{
 
     ObservableList<String> TypeOfSacredPersons = FXCollections.observableArrayList("Rabbi", "Monk", "Priest",  "Purohit", "Spiritual Person");
     @FXML
-    private ComboBox<String> TypeOfSacredPerson;
+    private JFXComboBox<String> typeOfSacredPerson;
     @FXML
     private GridPane backgroundGrid;
     @FXML
@@ -99,7 +99,7 @@ public class ReligiousRequestControllerEmployee extends SceneController{
         backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
         backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
-        TypeOfSacredPerson.setItems(TypeOfSacredPersons);
+        typeOfSacredPerson.setItems(TypeOfSacredPersons);
 
     }
 
@@ -117,17 +117,42 @@ public class ReligiousRequestControllerEmployee extends SceneController{
         managerPage.setVisible(false);
     }
 
-    public void submitEvent(ActionEvent actionEvent) {
-        sel s = sel.ReligiousRequest;
-        ReligiousRequest toAdd = new ReligiousRequest("",
-                employeeAssigned.getValue().toString(),
-                false,
-                reasonBox.getText(),
-                roomIDbox.getText(),
-                TypeOfSacredPerson.getSelectionModel().getSelectedItem());
-        DatabaseManager.addRequest(s, toAdd);
-        toAdd.send(toAdd.getRequestID());
-        loadSubmitDialogue();
+    public void submitEvent() {
+        if(!reasonBox.getText().isEmpty() && !roomIDbox.getText().isEmpty() &&
+                !typeOfSacredPerson.getSelectionModel().isEmpty() && !employeeAssigned.getSelectionModel().isEmpty()) {
+            sel s = sel.ReligiousRequest;
+            ReligiousRequest toAdd = new ReligiousRequest("",
+                    employeeAssigned.getItems().toString(),
+                    false,
+                    reasonBox.getText(),
+                    roomIDbox.getText(),
+                    typeOfSacredPerson.getSelectionModel().getSelectedItem());
+            DatabaseManager.addRequest(s, toAdd);
+            toAdd.send(toAdd.getRequestID());
+            loadSubmitDialogue();
+        }else if(roomIDbox.getText().isEmpty()){
+                RequiredFieldValidator missingInput = new RequiredFieldValidator();
+                roomIDbox.getValidators().add(missingInput);
+                missingInput.setMessage("Location is required");
+                roomIDbox.validate();
+            } else if(reasonBox.getText().isEmpty()){
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            reasonBox.getValidators().add(missingInput);
+            missingInput.setMessage("Reason for visit is required");
+            reasonBox.validate();
+        }
+        else if(typeOfSacredPerson.getSelectionModel().isEmpty()){
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            typeOfSacredPerson.getValidators().add(missingInput);
+            missingInput.setMessage("The type of religious figure is required");
+            typeOfSacredPerson.validate();
+        }
+        else if(employeeAssigned.getSelectionModel().isEmpty()){
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            employeeAssigned.getValidators().add(missingInput);
+            missingInput.setMessage("Please assign an employee");
+            employeeAssigned.validate();
+        }
     }
 
     public void loadSubmitDialogue(){

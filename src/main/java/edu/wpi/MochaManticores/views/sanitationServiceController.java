@@ -8,7 +8,6 @@ import edu.wpi.MochaManticores.database.sel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -51,7 +50,7 @@ public class sanitationServiceController extends SceneController {
     public JFXButton cancelButton;
 
     @FXML
-    public JFXButton helpBtn;
+    public ImageView helpBtn;
 
     @FXML
     public JFXTextField empBox;
@@ -180,7 +179,7 @@ public class sanitationServiceController extends SceneController {
 
     }
 
-    private void loadHelpDialogue() {
+    public void loadHelpDialogue() {
         dialogPane.toFront();
         loadDialog();
     }
@@ -200,7 +199,7 @@ public class sanitationServiceController extends SceneController {
             equipmentNeeded.append("mopNeeded,");
         }
             if(!loc.getText().isEmpty() && !safetyHaz.getText().isEmpty() &&
-                 !typeComboBox.getSelectionModel().getSelectedItem().isEmpty() && (glovesNeeded.isSelected() || maskNeeded.isSelected() || mopNeeded.isSelected()) && !description.getText().isEmpty()){
+                 !typeComboBox.getSelectionModel().getSelectedItem().isEmpty() && !equipmentNeeded.toString().isEmpty() && !description.getText().isEmpty()){
             sel s = sel.SanitationServices;
                 edu.wpi.MochaManticores.Services.SanitationServices toAdd = new edu.wpi.MochaManticores.Services.SanitationServices(
                         "",
@@ -221,24 +220,26 @@ public class sanitationServiceController extends SceneController {
             loc.getValidators().add(missingInput);
             missingInput.setMessage("Location is required.");
             loc.validate();
-        } else if (safetyHaz.getText().isEmpty()){
-            RequiredFieldValidator missingInput = new RequiredFieldValidator();
-            safetyHaz.getValidators().add(missingInput);
-            missingInput.setMessage("Safety Hazards are required.");
-            safetyHaz.validate();
-        } else if (typeComboBox.getSelectionModel().getSelectedItem().isEmpty()){
-            RequiredFieldValidator missingInput = new RequiredFieldValidator();
-            typeComboBox.getValidators().add(missingInput);
-            missingInput.setMessage("Sanitation Type is required.");
-            typeComboBox.validate();
-        } else if (equipmentNeeded.toString().isEmpty()){
-                Alert a = new Alert(Alert.AlertType.WARNING);
-                a.show();
-            } else if (description.getText().isEmpty()){
+        } else if (description.getText().isEmpty()){
                 RequiredFieldValidator missingInput = new RequiredFieldValidator();
                 description.getValidators().add(missingInput);
                 missingInput.setMessage("Description is required.");
                 description.validate();
+            } else if (typeComboBox.getSelectionModel().getSelectedItem().isEmpty()){
+                RequiredFieldValidator missingInput = new RequiredFieldValidator();
+                typeComboBox.getValidators().add(missingInput);
+                missingInput.setMessage("Sanitation Type is required.");
+                typeComboBox.validate();
+            } else if (safetyHaz.getText().isEmpty()) {
+                RequiredFieldValidator missingInput = new RequiredFieldValidator();
+                safetyHaz.getValidators().add(missingInput);
+                missingInput.setMessage("Safety Hazards are required.");
+                safetyHaz.validate();
+            } else if (safetyHaz.getText().isEmpty()){
+                    RequiredFieldValidator missingInput = new RequiredFieldValidator();
+                    safetyHaz.getValidators().add(missingInput);
+                    missingInput.setMessage("Safety Hazards are required.");
+                    safetyHaz.validate();
             }
     }
 
