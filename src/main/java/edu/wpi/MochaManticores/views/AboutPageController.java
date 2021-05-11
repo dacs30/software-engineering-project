@@ -48,16 +48,4 @@ public class AboutPageController extends SceneController{
         super.back();
     }
 
-    public void goToAbout(ActionEvent actionEvent) {
-        aboutGrid.toFront();
-    }
-
-    public void goToCredits(ActionEvent actionEvent) {
-        creditsGrid.toFront();
-    }
-
-    public void openGitHubTeam(MouseEvent mouseEvent) {
-        System.out.println(mouseEvent.getSource());
-
-    }
 }

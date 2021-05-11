@@ -811,6 +811,7 @@ public class mapPage extends SceneController {
         }
         int count = 0;
         final VBox[] pathCurrentlyOpened = {null};
+        String firstFloor = null;
         for (LinkedList<String> floor : App.getAlgoType().pathToText(path)) {
             // floorBlock is a VBox that contains the VBox of the floor and the
             // VBox of HBoxes for that floor path
@@ -1037,6 +1038,20 @@ public class mapPage extends SceneController {
             updateFields();
         }
 
+        if (firstFloor.contains("L1")){
+            loadL1();
+        } else if (firstFloor.contains("L2")){
+            loadL2();
+        } else if (firstFloor.contains("G")){
+            loadGround();
+        } else if (firstFloor.contains("1")){
+            loadF1();
+        } else if (firstFloor.contains("2")){
+            loadF2();
+        } else if (firstFloor.contains("3")){
+            loadF3();
+        }
+
         drawNodes();
         pitStops.getFirst().setStart(true);
         pitStops.getLast().setEnd(true);
@@ -1198,6 +1213,7 @@ public class mapPage extends SceneController {
             }
             //savedRoute.add(endID);
             int count = 0;
+            String firstFloor = null;
             final VBox[] pathCurrentlyOpened = {null};
             for (LinkedList<String> floor : App.getAlgoType().pathToText(path)) {
                 // floorBlock is a VBox that contains the VBox of the floor and the
@@ -1273,6 +1289,7 @@ public class mapPage extends SceneController {
                     pathsOnThisFloor.setManaged(false);
                 } else if(count == 0){ // ignore that, only happens once
                     pathCurrentlyOpened[0] = pathsOnThisFloor;
+                    firstFloor = floor.getFirst();
                 }
                 count++;
 
@@ -1423,6 +1440,23 @@ public class mapPage extends SceneController {
                 }
 
                 updateFields();
+            }
+
+            System.out.println(dirVBOX.getChildren().get(0));
+
+
+            if (firstFloor.contains("L1")){
+                loadL1();
+            } else if (firstFloor.contains("L2")){
+                loadL2();
+            } else if (firstFloor.contains("G")){
+                loadGround();
+            } else if (firstFloor.contains("1")){
+                loadF1();
+            } else if (firstFloor.contains("2")){
+                loadF2();
+            } else if (firstFloor.contains("3")){
+                loadF3();
             }
 
             drawNodes();
