@@ -2,6 +2,7 @@ package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Services.ServiceRequest;
 import edu.wpi.MochaManticores.Services.ServiceRequestType;
@@ -16,7 +17,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -93,7 +93,7 @@ public class InternalTransportationEmployee extends SceneController{
     private JFXTextField patientID, numberOfStaff, destination, empBox;
 
     @FXML
-    private ComboBox<String> transportComboBox;
+    private JFXComboBox<String> transportComboBox;
 
     @FXML
     private TableView<it> internalTransportationTable;
@@ -195,7 +195,7 @@ public class InternalTransportationEmployee extends SceneController{
         if(!patientID.getText().isEmpty() || !numberOfStaff.getText().isEmpty() ||
                 !destination.getText().isEmpty() || !transportComboBox.getSelectionModel().getSelectedItem().isEmpty()){
             sel s = sel.InternalTransportation;
-            DatabaseManager.addRequest(s, new edu.wpi.MochaManticores.Services.InternalTransportation(
+            edu.wpi.MochaManticores.Services.InternalTransportation toAdd = new edu.wpi.MochaManticores.Services.InternalTransportation(
                     "",
                     employeeAssigned.getEditor().getText(),
                     false,
@@ -203,10 +203,40 @@ public class InternalTransportationEmployee extends SceneController{
                     Integer.parseInt(numberOfStaff.getText()),
                     destination.getText(),
                     transportComboBox.getValue()
-            ));
+            );
+            DatabaseManager.addRequest(s, toAdd);
+            toAdd.send(toAdd.getRequestID());
+            loadSubmitDialogue();
             System.out.println("Adds to database");
         }
-        loadSubmitDialogue();
+            else if (patientID.getText().isEmpty()){
+                RequiredFieldValidator missingInput = new RequiredFieldValidator();
+                patientID.getValidators().add(missingInput);
+                missingInput.setMessage("Patient ID is required");
+                patientID.validate();
+            } else if (numberOfStaff.getText().isEmpty()){
+                RequiredFieldValidator missingInput = new RequiredFieldValidator();
+                numberOfStaff.getValidators().add(missingInput);
+                missingInput.setMessage("The number of staff is required");
+                numberOfStaff.validate();
+            } else if (destination.getText().isEmpty()) {
+                RequiredFieldValidator missingInput = new RequiredFieldValidator();
+                destination.getValidators().add(missingInput);
+                missingInput.setMessage("Destination is required");
+                destination.validate();
+            }
+                else if (transportComboBox.getItems().isEmpty()) {
+                RequiredFieldValidator missingInput = new RequiredFieldValidator();
+                transportComboBox.getValidators().add(missingInput);
+                missingInput.setMessage("Type of transportation is required");
+                transportComboBox.validate();
+        }
+        else if (employeeAssigned.getItems().isEmpty()) {
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            employeeAssigned.getValidators().add(missingInput);
+            missingInput.setMessage("External room is required");
+            employeeAssigned.validate();
+        }
     }
     public void loadSubmitDialogue(){
         dialogPane.toFront();

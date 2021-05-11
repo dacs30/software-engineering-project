@@ -15,6 +15,7 @@ public class ExternalTransportation extends ServiceRequest{
         if(RequestID.equals("")){
             this.RequestID = generateRequestID(ServiceRequestType.ExternalTransportation);
         }
+        super.send(this.getRequestID());
         this.patientRoom = patientRoom;
         this.currentRoom = currentRoom;
         this.externalRoom = externalRoom;

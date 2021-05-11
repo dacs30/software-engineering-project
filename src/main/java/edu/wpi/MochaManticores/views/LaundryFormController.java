@@ -69,15 +69,16 @@ public class LaundryFormController extends SceneController {
     }
 
     public void submitEvent(){
-        DatabaseManager.addRequest(sel.Laundry,
-                new LaundryRequest("","",
-                        false
-                        ,nameField.getText(),
-                        soil.getSelectionModel().getSelectedItem(),
-                        delicateToggle.isSelected(),
-                        wTemp.getSelectionModel().getSelectedItem(),
-                        dTemp.getSelectionModel().getSelectedItem(),
-                        Integer.parseInt(dryCycles.getText())));
+        LaundryRequest toAdd = new LaundryRequest("","",
+                false
+                ,nameField.getText(),
+                soil.getSelectionModel().getSelectedItem(),
+                delicateToggle.isSelected(),
+                wTemp.getSelectionModel().getSelectedItem(),
+                dTemp.getSelectionModel().getSelectedItem(),
+                Integer.parseInt(dryCycles.getText()));
+        DatabaseManager.addRequest(sel.Laundry, toAdd);
+        toAdd.send(toAdd.getRequestID());
         loadSubmitDialog();
     }
 

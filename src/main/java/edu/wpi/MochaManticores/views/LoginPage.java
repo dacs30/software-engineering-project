@@ -179,7 +179,7 @@ public class LoginPage extends SceneController{
         }
 
         try {
-            Employee temp = DatabaseManager.getEmpManager().getElement(name);
+            Employee temp = DatabaseManager.getEmpManager().getElement(name.toLowerCase());
             //if emp exists and is logged in display an error
 
             if(temp.isLoggedIN()){
@@ -245,7 +245,7 @@ public class LoginPage extends SceneController{
                 employeePassword.setText(null);
                 RequiredFieldValidator wrongCreditals = new RequiredFieldValidator();
                 employeePassword.getValidators().add(wrongCreditals);
-                wrongCreditals.setMessage("please input a password");
+                wrongCreditals.setMessage("Please input a password");
                 employeePassword.validate();
                 return;
             }
@@ -259,7 +259,7 @@ public class LoginPage extends SceneController{
                 employeePassword.setText(null);
                 RequiredFieldValidator wrongCreditals = new RequiredFieldValidator();
                 employeeUsername.getValidators().add(wrongCreditals);
-                wrongCreditals.setMessage("user is already logged in");
+                wrongCreditals.setMessage("User is already logged in");
                 employeeUsername.validate();
                 return;
             }

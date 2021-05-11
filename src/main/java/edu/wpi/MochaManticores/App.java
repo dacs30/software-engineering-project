@@ -96,6 +96,7 @@ public class App extends Application {
     System.out.println("Starting Database");
     DatabaseManager.startup();
     client.startServer();
+    System.out.println(DatabaseManager.getEmpManager().getEmployeeNames());
   }
 
   @Override

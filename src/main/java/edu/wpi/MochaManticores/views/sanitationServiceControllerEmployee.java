@@ -239,7 +239,7 @@ public class sanitationServiceControllerEmployee extends SceneController {
         if(!loc.getText().isEmpty() && !safetyHaz.getText().isEmpty() &&
                 !typeComboBox.getSelectionModel().getSelectedItem().isEmpty() && (glovesNeeded.isSelected() || maskNeeded.isSelected() || mopNeeded.isSelected()) && !description.getText().isEmpty()){
             sel s = sel.SanitationServices;
-            DatabaseManager.addRequest(s, new edu.wpi.MochaManticores.Services.SanitationServices(
+            edu.wpi.MochaManticores.Services.SanitationServices toAdd = new edu.wpi.MochaManticores.Services.SanitationServices(
                     "",
                     employeeAssigned.getItems().toString(),
                     false,
@@ -248,7 +248,9 @@ public class sanitationServiceControllerEmployee extends SceneController {
                     typeComboBox.getValue(),
                     equipmentNeeded.toString(),
                     description.getText()
-            ));
+            );
+            DatabaseManager.addRequest(s, toAdd);
+            toAdd.send(toAdd.getRequestID());
             System.out.println("Adds to database");
         } else if (loc.getText().isEmpty()){
             RequiredFieldValidator missingInput = new RequiredFieldValidator();

@@ -278,15 +278,16 @@ public class FloralSceneEmployeeController extends SceneController {
                 (blueVase.isSelected() || orangeVase.isSelected() || yellowVase.isSelected()) &&
                 !employeeAssigned.getValue().toString().isEmpty()) {
             sel s = sel.FloralDelivery;
-            DatabaseManager.addRequest(s,
-                    new FloralDelivery("",
-                            employeeAssigned.getEditor().getText(),
-                            false,
-                            roomNumber.getText(),
-                            deliveryDate.getValue().toString(),
-                            flowerSelected.toString(),
-                            vaseSelected.toString(),
-                            personalNote.getText()));
+            FloralDelivery toAdd = new FloralDelivery("",
+                    employeeAssigned.getEditor().getText(),
+                    false,
+                    roomNumber.getText(),
+                    deliveryDate.getValue().toString(),
+                    flowerSelected.toString(),
+                    vaseSelected.toString(),
+                    personalNote.getText());
+            DatabaseManager.addRequest(s, toAdd);
+            toAdd.send(toAdd.getRequestID());
 
         } else if (roomNumber.getText().isEmpty()) {
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
