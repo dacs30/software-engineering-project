@@ -114,11 +114,11 @@ public class landingPageController extends SceneController {
         searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
             services.getChildren().clear();
 
-            for (Object service : listServices){
-                if(service.toString().toLowerCase().contains(newValue.replaceAll("\\s+", ""))){
-                   if(!services.getChildren().contains(service)){
-                       services.getChildren().add((Node) service);
-                   }
+            for (Object service : listServices) {
+                if (service.toString().toLowerCase().contains(newValue.replaceAll("\\s+", ""))) {
+                    if (!services.getChildren().contains(service)) {
+                        services.getChildren().add((Node) service);
+                    }
                 }
             }
         });
@@ -164,7 +164,7 @@ public class landingPageController extends SceneController {
         listServices.add(translatorSidePane);
 
 
-        for(HBox service : listServices){
+        for (HBox service : listServices) {
             services.getChildren().add(service);
         }
 

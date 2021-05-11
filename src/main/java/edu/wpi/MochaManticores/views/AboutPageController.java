@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -18,7 +19,16 @@ public class AboutPageController extends SceneController{
     public Label aboutText;
 
     @FXML
+    private Label creditsText;
+
+    @FXML
     public JFXButton creditsButton;
+
+    @FXML
+    private GridPane aboutGrid;
+
+    @FXML
+    private GridPane creditsGrid;
 
     @FXML
     public ImageView backgroundIMG;
@@ -51,5 +61,11 @@ public class AboutPageController extends SceneController{
         super.back();
     }
 
-    public void goToCredits(MouseEvent e) {changeSceneTo("creditsPage");}
+    public void goToAbout(ActionEvent actionEvent) {
+        aboutGrid.toFront();
+    }
+
+    public void goToCredits(ActionEvent actionEvent) {
+        creditsGrid.toFront();
+    }
 }
