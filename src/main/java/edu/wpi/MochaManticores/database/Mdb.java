@@ -444,7 +444,7 @@ public class Mdb extends Thread{
     starts Mdatabase with a server connection
      */
     // TODO update method for all connected databases using an observer model
-    public boolean serverStartup() {
+    public boolean serverStartup() throws InterruptedException {
         System.out.println("-------Server-Client Apache Derby Connection--------");
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
@@ -469,20 +469,27 @@ public class Mdb extends Thread{
         }
 
         connection = null;
-
-        try {
-            connection = DriverManager.getConnection(JDBC_SERVER);
-            DatabaseManager.setConnection(connection);
-            meta = connection.getMetaData();
-        } catch (SQLException e) {
-            System.out.println("Connection to remote failed. Trying Local server.");
-            e.printStackTrace();
-            return false;
+        int count = 0;
+        while(connection ==  null) {
+            count++;
+            try {
+                connection = DriverManager.getConnection(JDBC_SERVER);
+                DatabaseManager.setConnection(connection);
+                meta = connection.getMetaData();
+            } catch (SQLException e) {
+                if(count == 5) {
+                    System.out.println("Connection to local failed. Trying embedded server.");
+                    e.printStackTrace();
+                    return false;
+                }
+                sleep(1000);
+            }
         }
+
         return true;
     }
 
-    public boolean remoteStartup() {
+    public boolean remoteStartup() throws InterruptedException {
         System.out.println("-------Remote-Client Apache Derby Connection--------");
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
@@ -510,14 +517,22 @@ public class Mdb extends Thread{
             return false;
         }
 
-        try {
-            connection = DriverManager.getConnection(JDBC_REMOTE_SERVER);
-            DatabaseManager.setConnection(connection);
-            meta = connection.getMetaData();
-        } catch (Exception e) {
-            System.out.println("Connection to remote failed. Trying Local server.");
-            e.printStackTrace();
-            return false;
+        connection = null;
+        int count = 0;
+        while(connection ==  null) {
+            count++;
+            try {
+                connection = DriverManager.getConnection(JDBC_REMOTE_SERVER);
+                DatabaseManager.setConnection(connection);
+                meta = connection.getMetaData();
+            } catch (SQLException e) {
+                if(count == 5) {
+                    System.out.println("Connection to remote failed. Trying Local server.");
+                    e.printStackTrace();
+                    return false;
+                }
+                sleep(1000);
+            }
         }
         return true;
     }
