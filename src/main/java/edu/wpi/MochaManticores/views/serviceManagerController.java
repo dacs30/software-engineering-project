@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Services.*;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.sel;
@@ -19,6 +20,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -31,6 +33,9 @@ public class serviceManagerController extends SceneController {
 
     @FXML
     private AnchorPane mainPane;
+
+    @FXML
+    private ImageView backgroundIMG;
 
     @FXML
     private VBox contextBox;
@@ -170,6 +175,14 @@ public class serviceManagerController extends SceneController {
     public JFXTabPane serviceTabPane;
 
     public void initialize() {
+        double height = App.getPrimaryStage().getScene().getHeight();
+        double width = App.getPrimaryStage().getScene().getWidth();
+        backgroundIMG.setFitHeight(height);
+        backgroundIMG.setFitWidth(width);
+        //contentGrid.setPrefSize(width, height);
+
+        backgroundIMG.fitWidthProperty().bind(App.getPrimaryStage().widthProperty());
+        backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
         contextBox.setVisible(false);
         contextBox.toBack();
 
