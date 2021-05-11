@@ -60,7 +60,7 @@
                         <Insets />
                     </GridPane.margin>
                     <children>
-                        <JFXTextField fx:id="nameField" maxWidth="-Infinity" prefWidth="460.0" promptText="Patient ID" GridPane.rowIndex="1" />
+                        <JFXTextField fx:id="nameField" maxWidth="-Infinity" prefWidth="530.0" promptText="Patient ID" GridPane.rowIndex="1" />
                         <Label id="title" alignment="CENTER" contentDisplay="CENTER" prefHeight="88.0" prefWidth="664.0" text="Laundry Request" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                         <JFXButton fx:id="submitButton" alignment="CENTER" onAction="#submitEvent" text="Submit" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
                             <GridPane.margin>
@@ -72,36 +72,36 @@
                             <GridPane.margin>
                                 <Insets bottom="60.0" />
                             </GridPane.margin></Label>
-                        <JFXComboBox fx:id="soilLevel" prefWidth="160.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                        <JFXComboBox fx:id="soilLevel" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                             <GridPane.margin>
-                                <Insets right="320.0" />
+                                <Insets right="350.0" />
                             </GridPane.margin>
                         </JFXComboBox>
-                        <JFXComboBox fx:id="washTemp" prefWidth="160.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                        <JFXComboBox fx:id="washTemp" maxWidth="-Infinity" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                             <opaqueInsets>
                                 <Insets />
                             </opaqueInsets>
                             <GridPane.margin>
-                                <Insets left="320.0" />
+                                <Insets left="360.0" />
                             </GridPane.margin></JFXComboBox>
-                        <JFXComboBox fx:id="dryTemp" prefWidth="160.0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+                        <JFXComboBox fx:id="dryTemp" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
                             <GridPane.margin>
-                                <Insets right="320.0" />
+                                <Insets right="350.0" />
                             </GridPane.margin>
                         </JFXComboBox>
-                        <JFXTextField fx:id="dryCycles" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+                        <JFXTextField fx:id="dryCycles" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
                             <GridPane.margin>
-                                <Insets left="320.0" />
+                                <Insets left="360.0" />
                             </GridPane.margin>
                         </JFXTextField>
                         <Label id="laundry-Label" text="Soil Level" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
-                                <Insets right="320.0" />
+                                <Insets right="350.0" />
                             </GridPane.margin>
                         </Label>
                         <Label id="laundry-Label" text="Temperature" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
-                                <Insets left="320.0" />
+                                <Insets left="360.0" />
                             </GridPane.margin>
                         </Label>
                         <JFXToggleButton id="delicateSwitch" fx:id="delicateToggle" text="Delicates" toggleColor="#0f4b91" toggleLineColor="#739bc6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
@@ -111,15 +111,15 @@
                         </JFXToggleButton>
                         <Label id="laundry-Label" text="Temperature" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                      <GridPane.margin>
-                        <Insets right="320.0" />
+                        <Insets right="350.0" />
                      </GridPane.margin>
                         </Label>
                         <Label id="laundry-Label" text="Extra Cycles" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                             <GridPane.margin>
-                                <Insets left="320.0" />
+                                <Insets left="360.0" />
                             </GridPane.margin>
                         </Label>
-                  <JFXComboBox fx:id="employeeAssigned" prefWidth="460.0" promptText="Assign to Employee" GridPane.rowIndex="4" />
+                  <JFXComboBox fx:id="employeeAssigned" prefWidth="530.0" promptText="Assign to Employee" GridPane.rowIndex="4" />
                   <ImageView fx:id="helpButton" fitHeight="150.0" fitWidth="40.0" onMouseClicked="#helpEvent" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
                      <image>
                         <Image url="@../images/blueHelpBtn.png" />

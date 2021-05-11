@@ -192,8 +192,8 @@ public class InternalTransportationEmployee extends SceneController{
     }
 
     public void submitEvent() {
-        if(!patientID.getText().isEmpty() || !numberOfStaff.getText().isEmpty() ||
-                !destination.getText().isEmpty() || !transportComboBox.getSelectionModel().getSelectedItem().isEmpty()){
+        if(!patientID.getText().isEmpty() && !numberOfStaff.getText().isEmpty() &&
+                !destination.getText().isEmpty() && !transportComboBox.getSelectionModel().isEmpty() && !employeeAssigned.getSelectionModel().isEmpty()){
             sel s = sel.InternalTransportation;
             edu.wpi.MochaManticores.Services.InternalTransportation toAdd = new edu.wpi.MochaManticores.Services.InternalTransportation(
                     "",
@@ -202,7 +202,7 @@ public class InternalTransportationEmployee extends SceneController{
                     patientID.getText(),
                     Integer.parseInt(numberOfStaff.getText()),
                     destination.getText(),
-                    transportComboBox.getValue()
+                    transportComboBox.getSelectionModel().getSelectedItem()
             );
             DatabaseManager.addRequest(s, toAdd);
             toAdd.send(toAdd.getRequestID());
@@ -225,7 +225,7 @@ public class InternalTransportationEmployee extends SceneController{
                 missingInput.setMessage("Destination is required");
                 destination.validate();
             }
-                else if (transportComboBox.getItems().isEmpty()) {
+                else if (transportComboBox.getSelectionModel().isEmpty()) {
                 RequiredFieldValidator missingInput = new RequiredFieldValidator();
                 transportComboBox.getValidators().add(missingInput);
                 missingInput.setMessage("Type of transportation is required");
@@ -234,9 +234,10 @@ public class InternalTransportationEmployee extends SceneController{
         else if (employeeAssigned.getSelectionModel().isEmpty()) {
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
             employeeAssigned.getValidators().add(missingInput);
-            missingInput.setMessage("External room is required");
+            missingInput.setMessage("Please assign an employee");
             employeeAssigned.validate();
         }
+
     }
     public void loadSubmitDialogue(){
         dialogPane.toFront();

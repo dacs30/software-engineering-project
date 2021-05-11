@@ -1,6 +1,7 @@
 package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.*;
+import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Services.LaundryRequest;
 import edu.wpi.MochaManticores.database.DatabaseManager;
@@ -125,18 +126,56 @@ public class LaundryFormEmployeeController extends SceneController {
     }
 
     public void submitEvent(){
-        LaundryRequest toAdd = new LaundryRequest("",
-                employeeAssigned.getEditor().getText(),
-                false
-                ,nameField.getText(),
-                soilLevel.getSelectionModel().getSelectedItem(),
-                delicateToggle.isSelected(),
-                washTemp.getSelectionModel().getSelectedItem(),
-                dryTemp.getSelectionModel().getSelectedItem(),
-                Integer.parseInt(dryCycles.getText()));
-        DatabaseManager.addRequest(sel.Laundry, toAdd);
-        toAdd.send(toAdd.getRequestID());
-        loadSubmitDialog();
+        if (!nameField.getText().isEmpty() && !soilLevel.getSelectionModel().isEmpty()
+                && !washTemp.getSelectionModel().isEmpty() && !dryTemp.getSelectionModel().isEmpty()
+                && !dryCycles.getText().isEmpty() && !employeeAssigned.getSelectionModel().isEmpty()) {
+            LaundryRequest toAdd = new LaundryRequest("",
+                    employeeAssigned.getEditor().getText(),
+                    false
+                    , nameField.getText(),
+                    soilLevel.getSelectionModel().getSelectedItem(),
+                    delicateToggle.isSelected(),
+                    washTemp.getSelectionModel().getSelectedItem(),
+                    dryTemp.getSelectionModel().getSelectedItem(),
+                    Integer.parseInt(dryCycles.getText()));
+            DatabaseManager.addRequest(sel.Laundry, toAdd);
+            toAdd.send(toAdd.getRequestID());
+            loadSubmitDialog();
+        }else if (nameField.getText().isEmpty()) {
+            // if patient room is empty, generate error
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            nameField.getValidators().add(missingInput);
+            missingInput.setMessage("Patient ID must be filled out.");
+            nameField.validate();
+        } else if (soilLevel.getSelectionModel().isEmpty()) {
+            // if patient room is empty, generate error
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            soilLevel.getValidators().add(missingInput);
+            missingInput.setMessage("Please select one");
+            soilLevel.validate();
+        } else if (washTemp.getSelectionModel().isEmpty()) {
+            // if patient room is empty, generate error
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            washTemp.getValidators().add(missingInput);
+            missingInput.setMessage("Please select one");
+            washTemp.validate();
+        } else if (dryTemp.getSelectionModel().isEmpty()) {
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            dryTemp.getValidators().add(missingInput);
+            missingInput.setMessage("Please select one");
+            dryTemp.validate();
+        } else if (dryCycles.getText().isEmpty()) {
+            // if patient room is empty, generate error
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            dryCycles.getValidators().add(missingInput);
+            missingInput.setMessage("Put 0, if no extra");
+            dryCycles.validate();
+        } else if (employeeAssigned.getSelectionModel().isEmpty()) {
+        RequiredFieldValidator missingInput = new RequiredFieldValidator();
+        employeeAssigned.getValidators().add(missingInput);
+        missingInput.setMessage("Please assign an employee");
+        employeeAssigned.validate();
+        }
     }
 
 
