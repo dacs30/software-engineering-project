@@ -77,6 +77,7 @@ public class internalTransportationController extends SceneController{
                     destination.getText(),
                     transportComboBox.getValue()
             ));
+            loadSubmitDialog();
         }
             else if (patientID.getText().isEmpty()){
                 RequiredFieldValidator missingInput = new RequiredFieldValidator();
@@ -95,13 +96,12 @@ public class internalTransportationController extends SceneController{
                 destination.validate();
             }
                 else if (transportComboBox.getItems().isEmpty()) {
-                RequiredFieldValidator missingInput = new RequiredFieldValidator();
-                transportComboBox.getValidators().add(missingInput);
-                missingInput.setMessage("Type of transportation is required");
-                transportComboBox.validate();
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            transportComboBox.getValidators().add(missingInput);
+            missingInput.setMessage("Type of transportation is required");
+            transportComboBox.validate();
 
         }
-        loadSubmitDialog();
     }
 
     private void loadDialog(){

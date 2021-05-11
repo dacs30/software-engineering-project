@@ -206,6 +206,7 @@ public class InternalTransportationEmployee extends SceneController{
             );
             DatabaseManager.addRequest(s, toAdd);
             toAdd.send(toAdd.getRequestID());
+            loadSubmitDialogue();
             System.out.println("Adds to database");
         }
             else if (patientID.getText().isEmpty()){
@@ -236,8 +237,6 @@ public class InternalTransportationEmployee extends SceneController{
             missingInput.setMessage("External room is required");
             employeeAssigned.validate();
         }
-
-        loadSubmitDialogue();
     }
     public void loadSubmitDialogue(){
         dialogPane.toFront();

@@ -72,8 +72,9 @@ public class TranslatorController extends SceneController{
                             "", "", false, roomNumber.getText(),
                             languageOne.getSelectionModel().getSelectedItem().toString(),
                             languageTwo.getSelectionModel().getSelectedItem().toString()));
+            loadDialog();
         }
-        else if (roomNumber.getText().isEmpty()) {
+         else if (roomNumber.getText().isEmpty()) {
                 RequiredFieldValidator missingInput = new RequiredFieldValidator();
                 roomNumber.getValidators().add(missingInput);
                 missingInput.setMessage("Room number is a required input");
@@ -91,7 +92,6 @@ public class TranslatorController extends SceneController{
 
         }
         dialogPane.setVisible(true);
-        loadDialog();
     }
 
 
