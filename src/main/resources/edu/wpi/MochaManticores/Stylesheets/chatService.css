@@ -61,6 +61,10 @@
 .scroll-pane:horizontal {
     visibility: false;
 }*/
+.scroll-pane{
+    -fx-background-color:  #F0F0F0;
+    -fx-background-radius: 40;
+}
 
 .textFlow{
     -fx-background-color: #0F4B91;
@@ -141,4 +145,29 @@
     -fx-background-color:rgba(0,0,0,0.6);
     -fx-background-insets: 4, 0, 0;
     -fx-background-radius: 2em;
+}
+#conversationsScrollPane .scroll-bar:vertical .thumb{
+    -fx-background-color:#0F4B91;
+    -fx-background-radius: 5em;
+}
+#conversationsScrollPane .scroll-bar:vertical .track{
+    -fx-background-color:transparent;
+    -fx-border-color:transparent;
+    -fx-background-radius: 0em;
+
+}
+#conversationsScrollPane .scroll-bar:horizontal .thumb{
+    -fx-background-color:#0F4B91;
+    -fx-background-radius: 5em;
+}
+#conversationsScrollPane .scroll-bar:horizontal .track{
+    -fx-background-color:transparent;
+    -fx-border-color:transparent;
+    -fx-background-radius: 0em;
+
+}
+#conversationsScrollPane  .scroll-bar .increment-arrow,
+#conversationsScrollPane  .scroll-bar .decrement-arrow {
+    -fx-shape: " ";
+    /*-fx-padding:0;*/
 }
