@@ -153,7 +153,7 @@ public class EmployeeLogin extends SceneController{
         // try the login with the inputed credentials
         // error if fail
         try {
-            DatabaseManager.checkEmployeeLogin(empUserName.getText(), empPassword.getText());
+            DatabaseManager.checkEmployeeLogin(empUserName.getText().toLowerCase(), empPassword.getText());
 
             App.getClient().startClient();
 

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@../Stylesheets/aboutPage.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.MochaManticores.views.AboutPageController">
    <children>
@@ -27,46 +27,71 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <StackPane>
+            <GridPane id="aboutContentGrid" fx:id="aboutGrid">
+              <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="445.1851806640625" minHeight="10.0" prefHeight="340.7037353515625" valignment="TOP" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="272.3333435058594" minHeight="10.0" prefHeight="106.2962646484375" valignment="TOP" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="272.3333435058594" minHeight="10.0" prefHeight="128.03704833984375" valignment="TOP" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
                <children>
-                  <GridPane id="aboutContentGrid" fx:id="creditsGrid">
-                     <columnConstraints>
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
+                  <JFXButton buttonType="RAISED" onAction="#back" text="BACK" GridPane.rowIndex="4" />
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Label fx:id="creditsText" text="Label" />
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                           <children>
-                              <JFXButton onAction="#goToAbout" text="About" />
-                              <JFXButton onAction="#back" text="BACK" />
-                           </children>
-                        </HBox>
+                        <Label id="title" text="Worcester Polytechnic Institute Computer Science Department" />
+                        <Label id="subTitle" text="CS3733-D21 Software Engineering, Professor Wilson Wong, Micheal Clements" />
                      </children>
-                  </GridPane>
-                  <GridPane id="aboutContentGrid" fx:id="aboutGrid">
+                  </VBox>
+                  <GridPane GridPane.rowIndex="1">
                     <columnConstraints>
-                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="22.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label fx:id="aboutText" text="Label" />
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                        <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="20.0" GridPane.columnIndex="1">
                            <children>
-                              <JFXButton onAction="#goToCredits" text="Credits" />
-                              <JFXButton onAction="#back" text="BACK" />
+                              <Label styleClass="teamMemberLabel" text="•Harrison Kyriacou - Lead Software Engineer - Github: hmkyriacou" />
+                              <Label styleClass="teamMemberLabel" text="•Kush Shah - Assistant Lead Software Engineer - Github: kush5683" />
+                              <Label styleClass="teamMemberLabel" text="•Ryan Luu - Assistant Lead Software Engineer - Github: rluu1" />
+                              <Label styleClass="teamMemberLabel" text="•Danilo Correia - UI/UX Engineer - Github: dacs30" />
+                              <Label styleClass="teamMemberLabel" text="•Patrick Mejia - UI/UX Engineer - Github: patrickm10" />
+                              <Label styleClass="teamMemberLabel" text="•Alec Kneedler - Algorithms Specialist - Github: atkneedler" />
+                              <Label styleClass="teamMemberLabel" text="•Griffin Atchue - Algorithms Specialist - Github: GriffinAtchue" />
+                              <Label styleClass="teamMemberLabel" text="•Peter Nikopoulos - Database System Engineer - Github: nikopoulospet" />
+                              <Label styleClass="teamMemberLabel" text="•Sai Vadlamudi - Database System Engineer - Github: svadlamudi2" />
                            </children>
-                        </HBox>
+                        </VBox>
                      </children>
                   </GridPane>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" GridPane.rowIndex="2">
+                     <children>
+                        <Label styleClass="thankYouLabels" text="Thank you Brigham &amp; Women's Hospital and Andrew Shinn for your time and input on this application." />
+                        <Label styleClass="thankYouLabels" text="The Brigham &amp; Women's Hospital maps and data used in this application are copyrighted and provided for the sole use of educational purposes." textAlignment="CENTER" wrapText="true" />
+                     </children>
+                     <GridPane.margin>
+                        <Insets left="15.0" right="15.0" />
+                     </GridPane.margin>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.rowIndex="3">
+                     <children>
+                        <Label id="credits" text="CREDITS" />
+                        <Label styleClass="creditsLabels" text="JFoenix library (http://www.jfoenix.com/)" />
+                        <Label styleClass="creditsLabels" text="ControlsFX external library (https://github.com/controlsfx/controlsfx)" />
+                        <Label styleClass="creditsLabels" text="ChatRoomFX (https://github.com/Oshan96/ChatRoomFX)" textAlignment="CENTER" wrapText="true" />
+                     </children>
+                  </VBox>
                </children>
-            </StackPane>
+            </GridPane>
          </children>
       </GridPane>
    </children>
