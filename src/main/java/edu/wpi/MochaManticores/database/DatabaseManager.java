@@ -49,6 +49,12 @@ public class DatabaseManager{
     public static void startup(){
         try{
             getMdb().databaseStartup(); // start with server connection
+
+            //TODO is this useful?
+            for (sel s : sel.values()) {
+                refreshTable(s);
+            }
+
         }catch(InterruptedException | SQLException e){
             e.printStackTrace();
         }

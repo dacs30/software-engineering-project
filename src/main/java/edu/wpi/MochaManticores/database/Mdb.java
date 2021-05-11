@@ -15,6 +15,7 @@ public class Mdb extends Thread{
     private DatabaseMetaData meta;
     private Connection connection = null;
     private NetworkServerControl server = null;
+    private Boolean makeTables = true;
     public String JDBC_EMBED = "jdbc:derby:Mdatabase;create=true";
     public String JDBC_SERVER = connectionUtil.JDBC_SERVER;
     public String JDBC_REMOTE_SERVER = connectionUtil.JDBC_REMOTE_SERVER;
@@ -97,6 +98,7 @@ public class Mdb extends Thread{
                         " AdminLevel BOOLEAN," +
                         " covidStatus BOOLEAN," +
                         " parkingSpot VARCHAR (21)," +
+                        " loggedIN BOOLEAN," +
                         " PRIMARY KEY (username))";
                 stmt.executeUpdate(sql);
                 DatabaseManager.getEmpManager().loadFromCSV();
@@ -452,10 +454,16 @@ public class Mdb extends Thread{
             return false;
         }
 
-        // start network server
+        // start network server if no server open otherwise just connect
         try {
             server = new NetworkServerControl();
-            server.start(null);
+
+            if(!isServerStarted()){
+                server.start(null);
+            }else{
+                makeTables = false;
+            }
+
             } catch (Exception e) {
                 e.printStackTrace();
         }
@@ -491,7 +499,10 @@ public class Mdb extends Thread{
             if(!isServerStarted(server)){
                 System.out.println("Remote Server has not been started");
                 return false;
+            }else{
+                makeTables = false;
             }
+
         } catch (UnknownHostException e) {
             System.out.println("Remote Server not found");
             return false;
@@ -541,7 +552,8 @@ public class Mdb extends Thread{
         //create hashmaps here
         DatabaseManager.getServiceMap();
 
-        //create data tables
+        if(makeTables) {
+            //create data tables
             Thread nodeThread = new Thread(() -> {
                 try {
                     nodeStartup();
@@ -660,7 +672,6 @@ public class Mdb extends Thread{
             COVIDthread.start();
 
 
-
             nodeThread.join();
             edgeThread.join();
             employeeThread.join();
@@ -676,6 +687,7 @@ public class Mdb extends Thread{
             LaundryThread.join();
             MedicineThread.join();
             COVIDthread.join();
+        }
 
             // updates the hm here because the data doesnt exist if we do it in the threads, where is map super created?
             DatabaseManager.getNodeManager().updateElementMap();
@@ -683,7 +695,7 @@ public class Mdb extends Thread{
 
     }
 
-    public boolean isServerStarted() throws Exception {
+    public boolean isServerStarted(){
         if(server == null){
             return false;
         }

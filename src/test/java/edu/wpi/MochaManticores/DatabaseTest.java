@@ -82,6 +82,9 @@ public class DatabaseTest {
                 "lastName",
                 "DEFAULT",
                 "1",
+                "false",
+                "false",
+                "park",
                 "false");
 
         DatabaseManager.addEmployee(employee);
@@ -98,6 +101,9 @@ public class DatabaseTest {
                 "lastName",
                 "DEFAULT",
                 "1",
+                "false",
+                "false",
+                "park",
                 "false");
 
         DatabaseManager.addEmployee(employee);
@@ -114,6 +120,9 @@ public class DatabaseTest {
                 "lastName",
                 "DEFAULT",
                 "1",
+                "false",
+                "false",
+                "park",
                 "false");
 
         DatabaseManager.addEmployee(employee);
@@ -123,6 +132,9 @@ public class DatabaseTest {
                 "lastName",
                 "DEFAULT",
                 "1",
+                "false",
+                "false",
+                "park",
                 "false");
 
         DatabaseManager.modEmployee(employee.getUsername(),employeeMOD);

@@ -1,7 +1,10 @@
 package edu.wpi.MochaManticores.messaging;
 
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import edu.wpi.MochaManticores.connectionUtil;
+import edu.wpi.MochaManticores.database.DatabaseManager;
+import edu.wpi.MochaManticores.database.Employee;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import org.apache.derby.iapi.sql.conn.ConnectionUtil;
@@ -66,11 +69,12 @@ public class messageClient {
         try {
             //stop old client if still running
             if(prevUser != null) {
+                //shutdown message
                 Message shutdown = new Message(prevUser, "SHUTDOWN", "null", Message.msgType.SHUTDOWN);
                 output.writeUTF(shutdown.toWriteFormat());
                 output.flush();
             }
-            prevUser = App.getCurrentUsername();
+
             // on startup check if there is an existing host
             try {
                 socket = new Socket(connectionUtil.getHost(), connectionUtil.getPort());
@@ -91,6 +95,14 @@ public class messageClient {
             Message dataGrab = new Message(App.getCurrentUsername(), "dataGrab", "null", Message.msgType.DATAGRAB);
             output.writeUTF(dataGrab.toWriteFormat());
             output.flush();
+
+            //set new user and log them in
+            prevUser = App.getCurrentUsername();
+            try {
+                Employee emp = DatabaseManager.getEmployee(prevUser);
+                emp.setLoggedIN(true);
+                DatabaseManager.modEmployee(prevUser, emp);
+            }catch (InvalidElementException x){}
 
         } catch (IOException ex) {
             ex.printStackTrace();

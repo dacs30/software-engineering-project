@@ -171,25 +171,40 @@ public class LoginPage extends SceneController{
         //save the patient id as App.setCurrentUsername
         //if there is no employee with that username then create it
 
-        App.setClearenceLevel(0);
+        String name;
         if (IDField.getText().equals("")){
-            App.setCurrentUsername("Guest");
+            name = "Guest";
         } else {
-            App.setCurrentUsername(IDField.getText());
+            name = IDField.getText();
         }
 
-        //create employee here
-        Employee employee = new Employee(App.getCurrentUsername(), "", IDField.getText(), IDField.getText(), Employee.employeeType.PATIENT,
-                0, false, false, "Parking");
         try {
-            DatabaseManager.getEmpManager().getElement(App.getCurrentUsername());
+            Employee temp = DatabaseManager.getEmpManager().getElement(name);
+            //if emp exists and is logged in display an error
+
+            if(temp.isLoggedIN()){
+                IDField.clear();
+                RequiredFieldValidator wrongCreditals = new RequiredFieldValidator();
+                IDField.getValidators().add(wrongCreditals);
+                wrongCreditals.setMessage(name + " is already logged in");
+                IDField.validate();
+                return;
+            }
         } catch (Exception exception) {
+
+            Employee employee = new Employee(name, "", IDField.getText(), IDField.getText(), Employee.employeeType.PATIENT,
+                    0, false, false, "Parking",false);
             DatabaseManager.getEmpManager().addElement(employee);
         }
+
+        //set name and clearance
+        App.setClearenceLevel(0);
+        App.setCurrentUsername(name);
 
         // start new message client
         App.getClient().startClient();
 
+        //Next page
         changeSceneTo("landingPage");
     }
 
@@ -213,9 +228,21 @@ public class LoginPage extends SceneController{
     public void loginStaff(ActionEvent actionEvent) {
         // try the login with the inputed credentialssetCurrentUsername
         // error if fail
-        System.out.println(employeeUsername.getText());
+        //System.out.println(employeeUsername.getText());
+
         try {
-            DatabaseManager.checkEmployeeLogin(employeeUsername.getText(), employeePassword.getText());
+            Employee temp = DatabaseManager.checkEmployeeLogin(employeeUsername.getText(), employeePassword.getText());
+
+
+            if(temp.isLoggedIN()){
+                employeeUsername.setText(null);
+                employeePassword.setText(null);
+                RequiredFieldValidator wrongCreditals = new RequiredFieldValidator();
+                employeeUsername.getValidators().add(wrongCreditals);
+                wrongCreditals.setMessage("user is already logged in");
+                employeeUsername.validate();
+                return;
+            }
             // sets to employee level
             App.setClearenceLevel(1);
             App.setCurrentUsername(employeeUsername.getText());

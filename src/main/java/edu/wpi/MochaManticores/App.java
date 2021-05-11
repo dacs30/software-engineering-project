@@ -3,10 +3,8 @@ package edu.wpi.MochaManticores;
 import com.google.maps.GeoApiContext;
 import edu.wpi.MochaManticores.Algorithms.AStar2;
 import edu.wpi.MochaManticores.Algorithms.PathPlanning;
-import edu.wpi.MochaManticores.database.DatabaseManager;
-import edu.wpi.MochaManticores.database.EdgeManager;
-import edu.wpi.MochaManticores.database.EmployeeManager;
-import edu.wpi.MochaManticores.database.NodeManager;
+import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
+import edu.wpi.MochaManticores.database.*;
 import edu.wpi.MochaManticores.messaging.messageClient;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -137,6 +135,19 @@ public class App extends Application {
 
   @Override
   public void stop() {
+    //logout current user
+    if(App.getCurrentUsername() != null){
+      //log out previous user
+      try {
+        Employee emp = DatabaseManager.getEmployee(App.getCurrentUsername());
+        emp.setLoggedIN(false);
+        DatabaseManager.modEmployee(App.getCurrentUsername(), emp);
+      }catch (InvalidElementException x){
+        x.printStackTrace();
+      }
+    }
+
+
     System.out.println("Shutting Down");
     DatabaseManager.shutdown();
     client.shutdown();

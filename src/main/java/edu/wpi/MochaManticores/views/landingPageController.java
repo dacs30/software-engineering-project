@@ -2,6 +2,9 @@ package edu.wpi.MochaManticores.views;
 
 import com.jfoenix.controls.*;
 import edu.wpi.MochaManticores.App;
+import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
+import edu.wpi.MochaManticores.database.DatabaseManager;
+import edu.wpi.MochaManticores.database.Employee;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableListBase;
@@ -632,6 +635,15 @@ public class landingPageController extends SceneController {
 
 
     public void logOut(ActionEvent actionEvent) {
+        //log out previous user
+        try {
+            Employee emp = DatabaseManager.getEmployee(App.getCurrentUsername());
+            emp.setLoggedIN(false);
+            DatabaseManager.modEmployee(App.getCurrentUsername(), emp);
+        }catch (InvalidElementException x){
+            x.printStackTrace();
+        }
+
         App.setCurrentUsername(null);
         changeSceneTo("loginPage");
     }

@@ -13,11 +13,12 @@ public class Employee {
     private boolean isAdmin;
     private boolean covidStatus;
     private String parkingSpace;
+    private boolean loggedIN;
 
     public Employee () {}
 
     public Employee (String username, String password, String firstName, String lastName, employeeType type, int ID, boolean isAdmin,
-                     boolean covidStatus, String parkingSpace){
+                     boolean covidStatus, String parkingSpace, boolean loggedIN){
         this.username = username;
         this.password = password;
         this.firstName = firstName;
@@ -27,20 +28,10 @@ public class Employee {
         this.isAdmin = isAdmin;
         this.covidStatus = covidStatus;
         this.parkingSpace = parkingSpace;
+        this.loggedIN = loggedIN;
     }
 
-    // String only constructor
-    public Employee(String username, String password, String firstName, String lastName, String type, String ID, String isAdmin){
-        this.username = username;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.type = getTypeFromString(type);
-        this.ID = Integer.parseInt(ID);
-        this.isAdmin = Boolean.parseBoolean(isAdmin);
-    }
-
-    public Employee(String username, String password, String firstName, String lastName, String type, String ID, String isAdmin, String covidStatus, String parkingSpace){
+    public Employee(String username, String password, String firstName, String lastName, String type, String ID, String isAdmin, String covidStatus, String parkingSpace, String loggedIN){
         this.username = username;
         this.password = password;
         this.firstName = firstName;
@@ -50,6 +41,7 @@ public class Employee {
         this.isAdmin = Boolean.parseBoolean(isAdmin);
         this.covidStatus = Boolean.parseBoolean(covidStatus);
         this.parkingSpace = parkingSpace;
+        this.loggedIN = Boolean.parseBoolean(loggedIN);
     }
 
     //GETTERS AND SETTERS
@@ -123,6 +115,14 @@ public class Employee {
 
     public void setParkingSpace(String parkingSpace) {
         this.parkingSpace = parkingSpace;
+    }
+
+    public boolean isLoggedIN() {
+        return loggedIN;
+    }
+
+    public void setLoggedIN(boolean loggedIN) {
+        this.loggedIN = loggedIN;
     }
 
     public static employeeType getTypeFromString(String type){

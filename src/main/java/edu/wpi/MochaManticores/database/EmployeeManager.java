@@ -43,7 +43,7 @@ public class EmployeeManager extends Manager<Employee>{
                 if(line == null) break;
                 String[] row = line.split(CSVdelim);
 
-                Employee employee = new Employee(row[0],row[1],row[2], row[3],row[4],row[5],row[6], row[7], row[8]);
+                Employee employee = new Employee(row[0],row[1],row[2], row[3],row[4],row[5],row[6], row[7], row[8], row[9]);
                 addElement(employee);
 
             }
@@ -59,8 +59,8 @@ public class EmployeeManager extends Manager<Employee>{
      */
     public void addElement(Employee employee){
         try{
-            String sql = "INSERT INTO EMPLOYEES (username, password, firstName, lastName, employeeType,ID, AdminLevel, covidStatus, parkingSpot) " +
-                    "VALUES (?,?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO EMPLOYEES (username, password, firstName, lastName, employeeType,ID, AdminLevel, covidStatus, parkingSpot, loggedIN) " +
+                    "VALUES (?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, employee.getUsername());
             pstmt.setString(2, employee.getPassword());
@@ -71,6 +71,7 @@ public class EmployeeManager extends Manager<Employee>{
             pstmt.setBoolean(7, employee.isAdmin());
             pstmt.setBoolean(8, employee.isCovidStatus());
             pstmt.setString(9, employee.getParkingSpace());
+            pstmt.setBoolean(10, employee.isLoggedIN());
             pstmt.executeUpdate();
 
         } catch (SQLException throwables) {
@@ -146,7 +147,8 @@ public class EmployeeManager extends Manager<Employee>{
             }
 
             Employee employee = new Employee(result.getString(1), result.getString(2), result.getString(3),
-                    result.getString(4), result.getString(5), result.getString(6), result.getString(7), result.getString(8), result.getString(9));
+                    result.getString(4), result.getString(5), result.getString(6), result.getString(7),
+                    result.getString(8), result.getString(9), result.getString(10));
             return employee;
         }catch(SQLException e){
             e.printStackTrace();

@@ -124,7 +124,7 @@ public class EmployeeEditorController extends  SceneController{
                             loggedIn.getID(),
                             adminToggle.isSelected(),
                             loggedIn.isCovidStatus(),
-                            loggedIn.getParkingSpace()));
+                            loggedIn.getParkingSpace(), loggedIn.isLoggedIN()));
             App.setCurrentUsername(null);
             changeSceneTo("loginPage");
         }else {
@@ -163,7 +163,8 @@ public class EmployeeEditorController extends  SceneController{
                         0,
                         adminToggle.isSelected(),
                         false,
-                        null);
+                        null,
+                        false);
 
                 DatabaseManager.addEmployee(toAdd);
                 back();
