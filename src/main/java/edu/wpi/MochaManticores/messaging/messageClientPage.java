@@ -16,11 +16,13 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Separator;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.scene.input.MouseEvent;
 
@@ -68,7 +70,8 @@ public class messageClientPage extends SceneController {
         public Target(Map.Entry<String, LinkedList<Message>> m){
             super();
             this.m = m;
-            this.setText(m.getKey());
+            StringBuilder text = new StringBuilder(m.getKey());
+            this.setText(m.getKey().substring(0,1).toUpperCase() + m.getKey().substring(1));
             this.setStyle("-fx-font-size: 25");
         }
 
@@ -79,6 +82,7 @@ public class messageClientPage extends SceneController {
         public LinkedList<Message> getMessageHistory(){
             return m.getValue();
         }
+
     }
 
     public void initialize(){
@@ -127,8 +131,12 @@ public class messageClientPage extends SceneController {
             }
             targets.add(t);
             HBox container = new HBox();
+            Separator sep = new Separator();
+
+            container.setPadding(new Insets(0,25,0,25));
+            container.setPrefWidth(container.maxWidthProperty().get());
             container.getChildren().add(t);
-            conversationsBox.getChildren().add(container);
+            conversationsBox.getChildren().addAll(container,sep);
 
             container.setOnMouseClicked((MouseEvent e) -> {
                 System.out.println(t.getMessenger());
@@ -158,13 +166,16 @@ public class messageClientPage extends SceneController {
     public void highlightConvo(String target){
         for (Node container :
                 conversationsBox.getChildren()) {
-            Target t =((Target) ((HBox) container).getChildren().get(0));
-            if(t.getMessenger().equals(target)){
-                selected = t;
-                for (Node n : conversationsBox.getChildren()){
-                    n.setStyle("-fx-background-color: transparent");
+            try {
+                Target t =((Target) ((HBox) container).getChildren().get(0));
+                if(t.getMessenger().equals(target)){
+                    selected = t;
+                    for (Node n : conversationsBox.getChildren()){
+                        n.setStyle("-fx-background-color: transparent");
+                    }
+                    container.setStyle("-fx-background-color: rgba(15,75,145,0.29);");
                 }
-                container.setStyle("-fx-background-color: red");
+            } catch (ClassCastException ignore) {
             }
         }
     }
@@ -175,7 +186,7 @@ public class messageClientPage extends SceneController {
     }
 
     public void loadConversation(String target) {
-        tgt.setText(target);
+        tgt.setText(target.substring(0,1).toUpperCase() + target.substring(1));
 
         publicChatBox.getChildren().clear();
         if (reader.messageHistory.containsKey(target)) {
@@ -236,10 +247,10 @@ public class messageClientPage extends SceneController {
             String target;
             String message = msgs.getText().trim();
             if(selected==null){
-                target = tgt.getText().trim();
+                target = tgt.getText().trim().toLowerCase();
             }else{
-                if (!tgt.getText().trim().equals(selected.getMessenger())){
-                    target = tgt.getText().trim();
+                if (!tgt.getText().trim().toLowerCase().equals(selected.getMessenger())){
+                    target = tgt.getText().trim().toLowerCase();
                 } else {
                     target = selected.getMessenger();
                 }
