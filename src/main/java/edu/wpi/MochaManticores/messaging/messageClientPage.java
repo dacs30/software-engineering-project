@@ -106,6 +106,7 @@ public class messageClientPage extends SceneController {
 
         publicChatBox.setAlignment(Pos.TOP_LEFT);
 
+        tgt.setPromptText("To:");
         updateConvos();
 
 
@@ -138,17 +139,33 @@ public class messageClientPage extends SceneController {
                     selected = null;
                     publicChatBox.getChildren().clear();
                     tgt.setText(null);
+                    tgt.setPromptText("To:");
                     return;
                 }
 
+                highlightConvo(t.getMessenger());
+//                selected = t;
+//                for (Node n : conversationsBox.getChildren()){
+//                    n.setStyle("-fx-background-color: transparent");
+//                }
+//                container.setStyle("-fx-background-color: red");
+
+                loadConversation( t.getMessenger()/*((Target) ((HBox)e.getSource()).getChildren().get(0)).getMessenger()*/);
+            });
+        }
+    }
+
+    public void highlightConvo(String target){
+        for (Node container :
+                conversationsBox.getChildren()) {
+            Target t =((Target) ((HBox) container).getChildren().get(0));
+            if(t.getMessenger().equals(target)){
                 selected = t;
                 for (Node n : conversationsBox.getChildren()){
                     n.setStyle("-fx-background-color: transparent");
                 }
                 container.setStyle("-fx-background-color: red");
-
-                loadConversation( t.getMessenger()/*((Target) ((HBox)e.getSource()).getChildren().get(0)).getMessenger()*/);
-            });
+            }
         }
     }
 
@@ -190,6 +207,7 @@ public class messageClientPage extends SceneController {
                     }
                     msgBox.getStyleClass().add("hboxMessages");
                     publicChatBox.getChildren().add(msgBox);
+                    highlightConvo(target);
 
                 });
             }
@@ -238,8 +256,6 @@ public class messageClientPage extends SceneController {
 
             //load the convo of who we are sending to
             loadConversation(target);
-
-
             output.writeUTF(msg.toWriteFormat());
             output.flush();
 
