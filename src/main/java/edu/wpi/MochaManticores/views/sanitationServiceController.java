@@ -199,7 +199,7 @@ public class sanitationServiceController extends SceneController {
             equipmentNeeded.append("mopNeeded,");
         }
             if(!loc.getText().isEmpty() && !safetyHaz.getText().isEmpty() &&
-                 !typeComboBox.getSelectionModel().getSelectedItem().isEmpty() && !equipmentNeeded.toString().isEmpty() && !description.getText().isEmpty()){
+                 !typeComboBox.getSelectionModel().isEmpty() && !equipmentNeeded.toString().isEmpty() && !description.getText().isEmpty()){
             sel s = sel.SanitationServices;
                 edu.wpi.MochaManticores.Services.SanitationServices toAdd = new edu.wpi.MochaManticores.Services.SanitationServices(
                         "",
@@ -207,7 +207,7 @@ public class sanitationServiceController extends SceneController {
                         false,
                         loc.getText(),
                         safetyHaz.getText(),
-                        typeComboBox.getValue(),
+                        typeComboBox.getSelectionModel().getSelectedItem(),
                         equipmentNeeded.toString(),
                         description.getText()
                 );
@@ -235,11 +235,6 @@ public class sanitationServiceController extends SceneController {
                 safetyHaz.getValidators().add(missingInput);
                 missingInput.setMessage("Safety Hazards are required.");
                 safetyHaz.validate();
-            } else if (safetyHaz.getText().isEmpty()){
-                    RequiredFieldValidator missingInput = new RequiredFieldValidator();
-                    safetyHaz.getValidators().add(missingInput);
-                    missingInput.setMessage("Safety Hazards are required.");
-                    safetyHaz.validate();
             }
     }
 

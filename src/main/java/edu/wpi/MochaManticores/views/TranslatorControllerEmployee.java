@@ -114,8 +114,8 @@ public class TranslatorControllerEmployee extends SceneController{
     }
 
     public void submitEvent() {
-        if(!roomNumber.getText().isEmpty() && !languageOne.getItems().isEmpty() &&
-                !languageTwo.getItems().isEmpty() && !employeeAssigned.getItems().isEmpty()) {
+        if(!roomNumber.getText().isEmpty() && !languageOne.getSelectionModel().isEmpty() &&
+                !languageTwo.getSelectionModel().isEmpty() && !employeeAssigned.getSelectionModel().isEmpty()) {
             sel s = sel.LanguageInterperter;
             // changeSceneTo(e, "mainMenu");
             DatabaseManager.addRequest(s,

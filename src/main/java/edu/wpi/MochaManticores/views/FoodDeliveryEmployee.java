@@ -133,16 +133,16 @@ public class FoodDeliveryEmployee extends SceneController{
             dietaryPreferences.getValidators().add(missingInput);
             missingInput.setMessage("Dietary Preference requires an input");
             dietaryPreferences.validate();
-        } else if (allergyText.getText().isEmpty()){
-            RequiredFieldValidator missingInput = new RequiredFieldValidator();
-            allergyText.getValidators().add(missingInput);
-            missingInput.setMessage("Allergies field requires an input");
-            allergyText.validate();
         } else if (foodMenu.getSelectionModel().isEmpty()) {
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
             foodMenu.getValidators().add(missingInput);
             missingInput.setMessage("Food menu requires an input");
             foodMenu.validate();
+        }else if (allergyText.getText().isEmpty()){
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            allergyText.getValidators().add(missingInput);
+            missingInput.setMessage("Allergies field requires an input");
+            allergyText.validate();
         }
         else if(employeeAssigned.getItems().isEmpty()){
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
