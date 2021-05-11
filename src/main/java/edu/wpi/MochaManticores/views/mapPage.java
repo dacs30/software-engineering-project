@@ -614,7 +614,7 @@ public class mapPage extends SceneController {
 
     private String getNodeType() {
         String type = (String) nearestLocationSelector.getSelectionModel().getSelectedItem();
-        System.out.println(type);
+        //System.out.println(type);
         switch (type) {
             case "Bathroom":
                 return "REST";
@@ -643,7 +643,7 @@ public class mapPage extends SceneController {
         } else {
 
             LinkedList<String> path = star.multiStopRoute(stops, pathToTake.toString());
-            System.out.println(path);
+            //System.out.println(path);
             Label startLabel = new Label();
             Label endLabel = new Label();
             startLabel.setText(path.removeFirst());
@@ -892,7 +892,7 @@ public class mapPage extends SceneController {
             // VBox for the paths on this floor
             floorBlock.getChildren().get(0).setOnMouseClicked(e -> {
 
-                System.out.println(floor.getFirst());
+                //System.out.println(floor.getFirst());
                 if (floor.getFirst().contains("L1")){
                     loadL1();
                 } else if (floor.getFirst().contains("L2")){
@@ -1147,7 +1147,7 @@ public class mapPage extends SceneController {
         double xRatio = 5000 / mapWindow.getFitWidth();
         double yRatio = 3400 / mapWindow.getFitHeight();
 
-        System.out.printf("(%f,%f)\n", e.getX() * xRatio, e.getY() * yRatio);
+        //System.out.printf("(%f,%f)\n", e.getX() * xRatio, e.getY() * yRatio);
     }
 
     public void findPath() throws InvalidElementException {
@@ -1191,7 +1191,7 @@ public class mapPage extends SceneController {
                 return;
             }
             //CONDITION NEEDS TO BE INPUT HERE
-            System.out.println(path);
+            //System.out.println(path);
             //Label startLabel = new Label();
             //String startID = path.removeFirst();
             //startLabel.setText(DatabaseManager.getNode(startID).getLongName());
@@ -1296,7 +1296,7 @@ public class mapPage extends SceneController {
                 // VBox for the paths on this floor
                 floorBlock.getChildren().get(0).setOnMouseClicked(e -> {
 
-                    System.out.println(floor.getFirst());
+                    //System.out.println(floor.getFirst());
                     if (floor.getFirst().contains("L1")){
                         loadL1();
                     } else if (floor.getFirst().contains("L2")){
@@ -1442,7 +1442,7 @@ public class mapPage extends SceneController {
                 updateFields();
             }
 
-            System.out.println(dirVBOX.getChildren().get(0));
+            //System.out.println(dirVBOX.getChildren().get(0));
 
 
             if (firstFloor.contains("L1")){
@@ -1490,7 +1490,7 @@ public class mapPage extends SceneController {
 //            }else{
 //                CenterY -= mapWindow.getFitHeight()/2;
 //            }
-            System.out.printf("X:%f Y:%f\n", CenterX, CenterY);
+            //System.out.printf("X:%f Y:%f\n", CenterX, CenterY);
 
             pitStops = new LinkedList<>();
             double xRatio = 5000 / mapWindow.getFitWidth();
@@ -1508,7 +1508,7 @@ public class mapPage extends SceneController {
      */
     public void selectFloor() {
         String floor = (String) floorSelector.getSelectionModel().getSelectedItem();
-        System.out.println(floor);
+        //System.out.println(floor);
         switch (floor) {
             case "LL1":
                 loadL1();
@@ -1548,7 +1548,7 @@ public class mapPage extends SceneController {
         Iterator<NodeSuper> mapIter = MapSuper.getMap().values().iterator();
         for (int i = 0; i < MapSuper.getMap().size(); i++) {
             NodeSuper n = mapIter.next();
-            System.out.println(n.getFloor() + ":" + selectedFloor);
+            //System.out.println(n.getFloor() + ":" + selectedFloor);
             if (n.getFloor().equals(selectedFloor)) {
                 Circle spot = new Circle(n.getXcoord() / xRatio, n.getYcoord() / yRatio, 3, Color.WHITE);
                 spot.setStrokeWidth(1);
@@ -1583,7 +1583,7 @@ public class mapPage extends SceneController {
 
                 nodeToAdd.startProperty().addListener((observable, oldValue, newValue) ->{
                     if(newValue){
-                        System.out.println(nodeToAdd.getNodeID()+" GREEN");
+                        //System.out.println(nodeToAdd.getNodeID()+" GREEN");
                         nodeToAdd.c.setFill(Color.GREEN);
                         nodeToAdd.c.setStyle("-fx-background-color: GREEN;");
                     }
@@ -1591,7 +1591,7 @@ public class mapPage extends SceneController {
 
                 nodeToAdd.endProperty().addListener((observable, oldValue, newValue) ->{
                     if(newValue){
-                        System.out.println(nodeToAdd.getNodeID()+" RED");
+                        //System.out.println(nodeToAdd.getNodeID()+" RED");
                         nodeToAdd.c.setFill(Color.RED);
                         nodeToAdd.c.setStyle("-fx-background-color: RED;");
                     }
@@ -1677,12 +1677,12 @@ public class mapPage extends SceneController {
 
     public void updateFields() {
         if (pitStops.size() > fields.size()) {
-            System.out.println("stops > fields");
+            //System.out.println("stops > fields");
             for (int i = 0; i < pitStops.size() - fields.size(); i++) {
                 addPitstopField();
             }
         } else if (pitStops.size() < fields.size()) {
-            System.out.println("stops < fields");
+            //System.out.println("stops < fields");
             for (int i = 0; i < fields.size() - pitStops.size(); i++) {
                 if (fields.size() > 2) {
                     removePitstopField();
