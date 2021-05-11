@@ -69,7 +69,7 @@ public class MedicineDelivery {
     public void submitForm(ActionEvent actionEvent) {
         StringBuilder feel = new StringBuilder();
         if(checkBox0.isSelected()){
-            feel.append("Muscle pain,");
+            feel.append("Coughing,");
         }
         if(checkBox1.isSelected()){
             feel.append("Nausea,");
@@ -78,13 +78,13 @@ public class MedicineDelivery {
             feel.append("Headache,");
         }
         if(checkBox3.isSelected()){
-            feel.append("Other pain,");
+            feel.append("Dizziness,");
         }
         if(checkBox4.isSelected()){
-            feel.append("Some pain,");
+            feel.append("Muscle Pain,");
         }
         if(checkBox5.isSelected()){
-            feel.append("More pain");
+            feel.append("Chest Pain,");
         }
         // changeSceneTo(e, "mainMenu");
         if (checkBoxesAreFilled() && !typeOfMedicineComboBx.getSelectionModel().isEmpty() && !patientRoom.getText().isEmpty()){
