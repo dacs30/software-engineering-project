@@ -179,7 +179,7 @@ public class LoginPage extends SceneController{
         }
 
         try {
-            Employee temp = DatabaseManager.getEmpManager().getElement(name);
+            Employee temp = DatabaseManager.getEmpManager().getElement(name.toLowerCase());
             //if emp exists and is logged in display an error
 
             if(temp.isLoggedIN()){
