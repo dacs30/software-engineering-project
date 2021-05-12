@@ -458,6 +458,7 @@ public class DatabaseManager{
 
     //sends update request through current client
     private static void sendUpdate(sel s){
+        refreshTable(s);
         Message msg = new Message(App.getCurrentUsername(),getStringFromManager(s),"NULL", Message.msgType.UPDATE);
         App.getClient().sendMsg(msg);
     }
