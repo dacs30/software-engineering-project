@@ -15,6 +15,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 
+import java.sql.SQLException;
+
 public class EmployeeEditorController extends  SceneController{
 
     @FXML
@@ -37,6 +39,9 @@ public class EmployeeEditorController extends  SceneController{
 
     @FXML
     private JFXButton userButton;
+
+    @FXML
+    private JFXButton delUser;
 
     @FXML
     private JFXComboBox typePicker;
@@ -172,7 +177,7 @@ public class EmployeeEditorController extends  SceneController{
         }
     }
 
-    public void addUser(ActionEvent e){
+    public void addUser(){
         title.setText("Add Employee");
         first.setText("");
         last.setText("");
@@ -184,5 +189,9 @@ public class EmployeeEditorController extends  SceneController{
         newPass.setPromptText("Confirm Password");
         typePicker.getSelectionModel().select(Employee.employeeType.DEFAULT);
         adminToggle.setSelected(false);
+    }
+    public void deleteUser() throws SQLException {
+       String userName = DatabaseManager.getEmpManager().getEmployeeUsername(first.getText() + last.getText());
+       DatabaseManager.getEmpManager().delElement(userName);
     }
 }
