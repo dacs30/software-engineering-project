@@ -118,8 +118,8 @@ public class App extends Application {
       //primaryStage.setWidth(1280);
       //primaryStage.setHeight(800);
       primaryStage.setScene(scene);
-      //primaryStage.setMinHeight(800);
-      //primaryStage.setMinWidth(1280);
+      primaryStage.setMinHeight(800);
+      primaryStage.setMinWidth(1280);
       primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
       primaryStage.getIcons().add(new Image("edu/wpi/MochaManticores/images/logo-small.png"));
       primaryStage.setTitle("Brigham and Women's Hospital Application");

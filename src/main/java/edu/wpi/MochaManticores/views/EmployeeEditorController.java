@@ -191,7 +191,9 @@ public class EmployeeEditorController extends  SceneController{
         adminToggle.setSelected(false);
     }
     public void deleteUser() throws SQLException {
-       String userName = DatabaseManager.getEmpManager().getEmployeeUsername(first.getText() + last.getText());
+       String userName = DatabaseManager.getEmpManager().getEmployeeUsername(first.getText() + " " + last.getText());
        DatabaseManager.getEmpManager().delElement(userName);
+       App.setCurrentUsername("");
+       super.changeSceneTo("LoginPage");
     }
 }
