@@ -753,7 +753,7 @@ public class Mdb extends Thread{
                 }
                 connection = null;
                 DatabaseManager.setConnection(null);
-                if(server != null){
+                if(server != null && Main.headless_run){
                     server.shutdown();
                 }
             }
