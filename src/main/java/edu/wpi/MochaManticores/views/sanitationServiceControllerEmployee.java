@@ -242,7 +242,7 @@ public class sanitationServiceControllerEmployee extends SceneController {
             edu.wpi.MochaManticores.Services.SanitationServices toAdd = new edu.wpi.MochaManticores.Services.SanitationServices(
 
                     "",
-                    employeeAssigned.getItems().toString(),
+                    employeeAssigned.getEditor().getText(),
                     false,
                     loc.getText(),
                     safetyHaz.getText(),
