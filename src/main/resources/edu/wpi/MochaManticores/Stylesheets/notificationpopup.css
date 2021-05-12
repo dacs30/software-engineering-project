@@ -1,69 +1,7 @@
-.button {
-    -fx-background-color: #0F4B91;
-    -fx-font-family: Roboto;
-    -fx-background-radius: 40;
-    -fx-font-size: 15;
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-}
-
-#availableServicesText {
-    -fx-font-family: Roboto;
-    -fx-font-weight: bold;
-}
-
-
-#servicesSideLabel {
-    -fx-text-fill: rgba(34, 34, 34, 0.8);
-    -fx-font-size: 14;
-    -fx-font-family: Roboto;
-}
-
-#menuSideBarLabel {
-    -fx-text-fill: rgba(34, 34, 34, 0.8);
-    -fx-font-size: 14;
-    -fx-font-family: Roboto;
-}
-#searchBar{
-    -jfx-unfocus-color : grey;
-    -fx-font-weight: bold;
-    -fx-font-size: 17;
-    -fx-font-family: Roboto;
-}
-
-#searchSideBarLabel {
-    -fx-text-fill: rgba(34, 34, 34, 0.8);
-    -fx-font-size: 14;
-    -fx-font-family: Roboto;
-}
-
-#mapSideLabel {
-    -fx-text-fill: rgba(34, 34, 34, 0.8);
-    -fx-font-size: 14;
-    -fx-font-family: Roboto;
-}
-
-#emergencyVBox {
-    -fx-background-color: #ff9494;
-    -fx-background-radius: 20;
-    -fx-font-family: Roboto;
-    -fx-font-size: 20;
-}
-
-#emergencyButton {
-    -fx-background-color: #ff9494;
-    -fx-background-radius: 20;
-    -fx-font-family: Roboto;
-    -fx-font-size: 20;
-}
-
-.scroll-pane {
-    -fx-background-color:  transparent;
-}
-
-.scroll-pane:horizontal {
-    visibility: false;
-}
+/*
+* TESTING CHAT
+*
+*/
 
 .notification-bar>.pane {
     -fx-background-color: red, yellow, blue;
@@ -73,7 +11,7 @@
 
 .notification-bar>.pane .title {
     -fx-font-size: 1.333em; /*16px;*/
-    -fx-text-fill: red;
+    -fx-text-fill: #000;
     -fx-font-weight: bold;
 }
 

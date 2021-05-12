@@ -157,8 +157,7 @@ public class messageClientPage extends SceneController {
 //                    n.setStyle("-fx-background-color: transparent");
 //                }
 //                container.setStyle("-fx-background-color: red");
-
-                loadConversation( t.getMessenger()/*((Target) ((HBox)e.getSource()).getChildren().get(0)).getMessenger()*/);
+                loadConversation(t.getMessenger());
             });
         }
     }
