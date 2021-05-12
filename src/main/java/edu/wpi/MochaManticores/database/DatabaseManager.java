@@ -156,32 +156,36 @@ public class DatabaseManager{
      */
     public static void modRequest(sel s, String ID, ServiceRequest request){
         try{
-            String prevEmployee = ((ServiceRequest) getManager(s).getElement(ID)).getEmployee();
-            String newEmployee = request.getEmployee();
-            StringBuilder content = new StringBuilder();
-            Message toOld = null;
-            Message toNew = null;
-            content.append("Hello, ");
-            if(!prevEmployee.equals("")){
-                content.append(prevEmployee).append(" you have been removed from ").append(ID);
-                toOld = new Message("SERVER",prevEmployee,content.toString(), Message.msgType.MSGPOST);
-                App.getClient().sendMsg(toOld);
-            }
-            System.out.println(content);
-            content = new StringBuilder();
-            content.append("Hello, ");
-            if(!newEmployee.equals("")){
-                content.append(newEmployee).append(" you have been assigned to ").append(request.getRequestID());
-                toNew = new Message("SERVER",newEmployee,content.toString(), Message.msgType.MSGPOST);
-                App.getClient().sendMsg(toNew);
-            }
-            System.out.println(content);
             getManager(s).modElement(ID,request);
-
             sendUpdate(s);
-        }catch(SQLException | InvalidElementException e) {
+        }catch(SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void modRequestEmployee(sel s, String ID, ServiceRequest request, String oldEmployee){
+        String prevEmployee = oldEmployee;
+        String newEmployee = request.getEmployee();
+        StringBuilder content = new StringBuilder();
+        Message toOld = null;
+        Message toNew = null;
+        content.append("Hello, ");
+        if(!prevEmployee.equals("")){
+            content.append(prevEmployee).append(" you have been removed from ").append(ID);
+            toOld = new Message("SERVER",prevEmployee,content.toString(), Message.msgType.MSGPOST);
+            App.getClient().sendMsg(toOld);
+        }
+        System.out.println(content);
+        content = new StringBuilder();
+        content.append("Hello, ");
+        if(!newEmployee.equals("")){
+            content.append(newEmployee).append(" you have been assigned to ").append(request.getRequestID());
+            toNew = new Message("SERVER",newEmployee,content.toString(), Message.msgType.MSGPOST);
+            App.getClient().sendMsg(toNew);
+        }
+        System.out.println(content);
+
+        modRequest(s, ID, request);
     }
 
     /*  function:  modNode()

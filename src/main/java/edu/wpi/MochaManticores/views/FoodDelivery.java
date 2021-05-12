@@ -118,10 +118,11 @@ public class FoodDelivery extends SceneController {
                 !foodMenu.getSelectionModel().isEmpty()) {
             sel s = sel.FoodDelivery;
             // changeSceneTo(e, "mainMenu");
-            DatabaseManager.addRequest(s,
-                    new edu.wpi.MochaManticores.Services.FoodDelivery(
-                            "", "", false, dietaryPreferences.getSelectionModel().getSelectedItem(),
-                            allergyText.getText(), foodMenu.getSelectionModel().getSelectedItem()));
+            edu.wpi.MochaManticores.Services.FoodDelivery toAdd =  new edu.wpi.MochaManticores.Services.FoodDelivery(
+                    "", "", false, dietaryPreferences.getSelectionModel().getSelectedItem(),
+                    allergyText.getText(), foodMenu.getSelectionModel().getSelectedItem());
+            DatabaseManager.addRequest(s, toAdd);
+            toAdd.send(toAdd.getRequestID());
             loadDialog();
         } else if (dietaryPreferences.getSelectionModel().isEmpty()){
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
