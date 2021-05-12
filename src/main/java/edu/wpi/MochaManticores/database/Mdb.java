@@ -508,12 +508,15 @@ public class Mdb extends Thread{
         // connect to oracle server
         try{
             //if the server is not started then just exit
-            server = new NetworkServerControl(InetAddress.getByName(connectionUtil.oracleHost), connectionUtil.dbPort);
+            if (Main.headless_run){
+                server = new NetworkServerControl(InetAddress.getByName(connectionUtil.oracleHost), connectionUtil.dbPort);
+            } else {
+                server = new NetworkServerControl(InetAddress.getByName(connectionUtil.remoteHost), connectionUtil.dbPort);
+            }
             if(isServerStarted(server)){
                 System.out.println("ORACLE SERVER PINGED");
             }else{
-                server.start(null);
-                //makeTables = false;
+                return false;
             }
         } catch (UnknownHostException e) {
             System.out.println("ORACLE SERVER NOT FOUND");
@@ -531,7 +534,9 @@ public class Mdb extends Thread{
             try {
                 if(Main.headless_run) {
                     connection = DriverManager.getConnection(connectionUtil.JDBC_ORACLE_SERVER);
+                    makeTables = false;
                 }else{
+                    System.out.println("Line 536 in MDB");
                     connection = DriverManager.getConnection(connectionUtil.JDBC_REMOTE_SERVER);
                 }
                 DatabaseManager.setConnection(connection);
@@ -568,10 +573,13 @@ public class Mdb extends Thread{
      */
     public void databaseStartup() throws InterruptedException, SQLException {
         //DATABASE SETUP CASCADE
+        boolean embedded = false;
         if(!remoteStartup()){
             if(!serverStartup()){
                 if(!embeddedStartup()){
                     return;
+                } else {
+                    embedded = true;
                 }
             }
         }
@@ -580,7 +588,7 @@ public class Mdb extends Thread{
         //create hashmaps here
         DatabaseManager.getServiceMap();
 
-        if(makeTables) {
+        if(Main.headless_run || embedded) {
             //create data tables
             Thread nodeThread = new Thread(() -> {
                 try {
@@ -745,7 +753,7 @@ public class Mdb extends Thread{
                 }
                 connection = null;
                 DatabaseManager.setConnection(null);
-                if(server != null){
+                if(server != null && Main.headless_run){
                     server.shutdown();
                 }
             }

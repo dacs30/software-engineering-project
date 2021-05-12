@@ -241,7 +241,7 @@ public class LoginPage extends SceneController{
         //System.out.println(employeeUsername.getText());
 
         try {
-            if(employeePassword.getText().equals("") || employeePassword.getText() == null){
+            if(employeePassword.getText() == null || employeePassword.getText().equals("")){
                 employeePassword.setText(null);
                 RequiredFieldValidator wrongCreditals = new RequiredFieldValidator();
                 employeePassword.getValidators().add(wrongCreditals);
@@ -251,7 +251,7 @@ public class LoginPage extends SceneController{
             }
 
 
-            Employee temp = DatabaseManager.checkEmployeeLogin(employeeUsername.getText(), employeePassword.getText());
+            Employee temp = DatabaseManager.checkEmployeeLogin(employeeUsername.getText().toLowerCase(), employeePassword.getText());
 
 
             if(temp.isLoggedIN()){

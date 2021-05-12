@@ -68,6 +68,10 @@ public class messageServer implements Runnable{
         }
     }
 
+    public void stopConnection(serverConnection connection){
+        connectionsList.remove(connection);
+    }
+
     public void datagrab(Message msg) {
         if(messageHistory.containsKey(msg.sender)) {
             for (Message m : messageHistory.get(msg.sender)) {

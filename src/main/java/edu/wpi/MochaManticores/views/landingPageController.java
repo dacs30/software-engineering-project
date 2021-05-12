@@ -635,6 +635,8 @@ public class landingPageController extends SceneController {
 
 
     public void logOut(ActionEvent actionEvent) {
+        App.getClient().closeGUI();
+
         //log out previous user
         try {
             Employee emp = DatabaseManager.getEmployee(App.getCurrentUsername());
