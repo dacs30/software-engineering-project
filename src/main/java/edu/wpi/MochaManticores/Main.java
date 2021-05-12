@@ -22,6 +22,7 @@ public class Main {
   }
 
   public static void headless(){
+    headless_run = true;
     messageClient client = new messageClient();
 
     DatabaseManager.startup();
