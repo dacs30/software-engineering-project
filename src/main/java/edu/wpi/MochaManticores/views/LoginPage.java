@@ -241,7 +241,7 @@ public class LoginPage extends SceneController{
         //System.out.println(employeeUsername.getText());
 
         try {
-            if(employeePassword.getText().equals("") || employeePassword.getText() == null){
+            if(employeePassword.getText() == null || employeePassword.getText().equals("")){
                 employeePassword.setText(null);
                 RequiredFieldValidator wrongCreditals = new RequiredFieldValidator();
                 employeePassword.getValidators().add(wrongCreditals);
