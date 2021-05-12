@@ -12,7 +12,6 @@ public class ReligiousRequest extends ServiceRequest{
         if(RequestID.equals("")){
             this.RequestID = generateRequestID(ServiceRequestType.ReligiousRequest);
         }
-        super.send(this.getRequestID());
         this.reasonVisit = reasonVisit;
         this.location = location;
         this.typeSacredPerson = typeSacredPerson;

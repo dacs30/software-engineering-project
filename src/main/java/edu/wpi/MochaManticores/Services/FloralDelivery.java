@@ -14,7 +14,6 @@ public class FloralDelivery extends ServiceRequest{
         if(RequestID.equals("")){
             this.RequestID = generateRequestID(ServiceRequestType.FloralDelivery);
         }
-        super.send(this.getRequestID());
         this.roomNumber = roomNumber;
         this.deliveryChoice = deliveryChoice;
         this.typeOfFlowers = typeOfFlowers;

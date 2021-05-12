@@ -12,7 +12,6 @@ public class InternalTransportation extends ServiceRequest {
         if(RequestID.equals("")){
             this.RequestID = generateRequestID(ServiceRequestType.InternalTransportation);
         }
-        super.send(this.getRequestID());
         this.patientID = patientID;
         this.numStaffNeeded = numStaffNeeded;
         this.destination = destination;

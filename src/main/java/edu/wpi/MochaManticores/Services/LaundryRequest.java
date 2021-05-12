@@ -15,7 +15,6 @@ public class LaundryRequest extends ServiceRequest {
         if(RequestID.equals("")){
             this.RequestID = generateRequestID(ServiceRequestType.Laundry);
         }
-        super.send(this.getRequestID());
         this.name = patientName;
         this.soilLevel = soilLevel;
         this.delicates = delicates;

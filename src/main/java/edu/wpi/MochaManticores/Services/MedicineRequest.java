@@ -12,7 +12,6 @@ public class MedicineRequest extends ServiceRequest{
         if(RequestID.equals("")){
             this.RequestID = generateRequestID(ServiceRequestType.Medicine);
         }
-        super.send(this.getRequestID());
         this.typeMedicine = typeMedicine;
         this.currentFeeling = currentFeeling;
         this.allergies = allergies;

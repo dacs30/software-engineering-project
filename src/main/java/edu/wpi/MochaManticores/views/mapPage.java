@@ -1249,7 +1249,7 @@ public class mapPage extends SceneController {
                 seePathButton.setOnMouseClicked(e->{
 
                     if(seePathButton.getText().equals("View Path")){
-                        seePathButton.setText("Close");
+                        //seePathButton.setText("Collapse");
                     }else{
                         seePathButton.setText("View Path");
                     }
@@ -1303,7 +1303,7 @@ public class mapPage extends SceneController {
                 } else if(count == 0){ // ignore that, only happens once
                     pathCurrentlyOpened[0] = pathsOnThisFloor;
                     firstFloor = floor.getFirst();
-                    seePathButton.setText("Close");
+                    //seePathButton.setText("Collapse");
                 }
                 count++;
 
