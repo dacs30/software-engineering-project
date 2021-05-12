@@ -263,7 +263,7 @@ public class serviceManagerController extends SceneController {
                 String newEmp = emps.getSelectionModel().getSelectedItem();
                 user.getRef().setEmployee(newEmp);
                 user.getRef().setCompleted(false);
-                DatabaseManager.modRequest(sel.Medicine, user.getRef().getRequestID(), user.getRef());
+                DatabaseManager.modRequestEmployee(sel.Medicine, user.getRef().getRequestID(), user.getRef(),old_val);
                 buildFloral("");
             });
 
@@ -425,7 +425,7 @@ floralCompletedColumn
                 String newEmp = emps.getSelectionModel().getSelectedItem();
                 user.getRef().setEmployee(newEmp);
                 user.getRef().setCompleted(false);
-                DatabaseManager.modRequest(sel.Medicine, user.getRef().getRequestID(), user.getRef());
+                DatabaseManager.modRequestEmployee(sel.Medicine, user.getRef().getRequestID(), user.getRef(),old_val);
                 buildLaundry("");
             });
 
@@ -583,7 +583,7 @@ laundryCompletedColumn
             emps.getSelectionModel().selectedItemProperty().addListener((ov, old_val, new_val) -> {
                 String newEmp = emps.getSelectionModel().getSelectedItem();
                 user.getRef().setEmployee(newEmp);
-                DatabaseManager.modRequest(sel.Emergency, user.getRef().getRequestID(), user.getRef());
+                DatabaseManager.modRequestEmployee(sel.Emergency, user.getRef().getRequestID(), user.getRef(),old_val);
                 buildEmergency("");
             });
 
@@ -734,7 +734,7 @@ EmergencyCompletedColumn
             emps.getSelectionModel().selectedItemProperty().addListener((ov, old_val, new_val) -> {
                 String newEmp = emps.getSelectionModel().getSelectedItem();
                 user.getRef().setEmployee(newEmp);
-                DatabaseManager.modRequest(sel.InternalTransportation, user.getRef().getRequestID(), user.getRef());
+                DatabaseManager.modRequestEmployee(sel.InternalTransportation, user.getRef().getRequestID(), user.getRef(),old_val);
                 buildInternal("");
             });
 
@@ -882,7 +882,7 @@ EmergencyCompletedColumn
                 String newEmp = emps.getSelectionModel().getSelectedItem();
                 user.getRef().setEmployee(newEmp);
                 user.getRef().setCompleted(false);
-                DatabaseManager.modRequest(sel.Medicine, user.getRef().getRequestID(), user.getRef());
+                DatabaseManager.modRequestEmployee(sel.Medicine, user.getRef().getRequestID(), user.getRef(),old_val);
                 buildMedicine("");
             });
 
@@ -1040,7 +1040,7 @@ EmergencyCompletedColumn
             emps.getSelectionModel().selectedItemProperty().addListener((ov, old_val, new_val) -> {
                 String newEmp = emps.getSelectionModel().getSelectedItem();
                 user.getRef().setEmployee(newEmp);
-                DatabaseManager.modRequest(sel.ExternalTransportation, user.getRef().getRequestID(), user.getRef());
+                DatabaseManager.modRequestEmployee(sel.ExternalTransportation, user.getRef().getRequestID(), user.getRef(),old_val);
                 buildExternal("");
             });
 
@@ -1175,7 +1175,7 @@ EmergencyCompletedColumn
             emps.getSelectionModel().selectedItemProperty().addListener((ov, old_val, new_val) -> {
                 String newEmp = emps.getSelectionModel().getSelectedItem();
                 user.getRef().setEmployee(newEmp);
-                DatabaseManager.modRequest(sel.FoodDelivery, user.getRef().getRequestID(), user.getRef());
+                DatabaseManager.modRequestEmployee(sel.FoodDelivery, user.getRef().getRequestID(), user.getRef(),old_val);
                 buildFood("");
             });
 
@@ -1337,7 +1337,7 @@ EmergencyCompletedColumn
             emps.getSelectionModel().selectedItemProperty().addListener((ov, old_val, new_val) -> {
                 String newEmp = emps.getSelectionModel().getSelectedItem();
                 user.getRef().setEmployee(newEmp);
-                DatabaseManager.modRequest(sel.ReligiousRequest, user.getRef().getRequestID(), user.getRef());
+                DatabaseManager.modRequestEmployee(sel.ReligiousRequest, user.getRef().getRequestID(), user.getRef(),old_val);
                 buildReligion("");
             });
 
@@ -1501,7 +1501,7 @@ EmergencyCompletedColumn
             emps.getSelectionModel().selectedItemProperty().addListener((ov, old_val, new_val) -> {
                 String newEmp = emps.getSelectionModel().getSelectedItem();
                 user.getRef().setEmployee(newEmp);
-                DatabaseManager.modRequest(sel.LanguageInterperter, user.getRef().getRequestID(), user.getRef());
+                DatabaseManager.modRequestEmployee(sel.LanguageInterperter, user.getRef().getRequestID(), user.getRef(),old_val);
                 buildTranslate("");
             });
 
@@ -1670,7 +1670,7 @@ EmergencyCompletedColumn
             emps.getSelectionModel().selectedItemProperty().addListener((ov, old_val, new_val) -> {
                 String newEmp = emps.getSelectionModel().getSelectedItem();
                 user.getRef().setEmployee(newEmp);
-                DatabaseManager.modRequest(sel.SanitationServices, user.getRef().getRequestID(), user.getRef());
+                DatabaseManager.modRequestEmployee(sel.SanitationServices, user.getRef().getRequestID(), user.getRef(),old_val);
                 buildSanitation("");
             });
 

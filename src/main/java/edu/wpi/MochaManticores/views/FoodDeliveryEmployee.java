@@ -123,10 +123,11 @@ public class FoodDeliveryEmployee extends SceneController{
                 !foodMenu.getSelectionModel().isEmpty() && !employeeAssigned.getSelectionModel().isEmpty()) {
             sel s = sel.FoodDelivery;
             // changeSceneTo(e, "mainMenu");
-            DatabaseManager.addRequest(s,
-                    new edu.wpi.MochaManticores.Services.FoodDelivery(
-                            "", employeeAssigned.getEditor().getText(), false, dietaryPreferences.getSelectionModel().getSelectedItem(),
-                            allergyText.getText(), foodMenu.getSelectionModel().getSelectedItem()));
+            edu.wpi.MochaManticores.Services.FoodDelivery toAdd =  new edu.wpi.MochaManticores.Services.FoodDelivery(
+                    "", employeeAssigned.getEditor().getText(), false, dietaryPreferences.getSelectionModel().getSelectedItem(),
+                    allergyText.getText(), foodMenu.getSelectionModel().getSelectedItem());
+            DatabaseManager.addRequest(s, toAdd);
+            toAdd.send(toAdd.getRequestID());
             dialogPane.setVisible(true);
             loadDialog();
         } else if (dietaryPreferences.getSelectionModel().isEmpty()){

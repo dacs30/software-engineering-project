@@ -1,5 +1,7 @@
 package edu.wpi.MochaManticores.Services;
 
+import edu.wpi.MochaManticores.database.DatabaseManager;
+
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.LinkedList;
