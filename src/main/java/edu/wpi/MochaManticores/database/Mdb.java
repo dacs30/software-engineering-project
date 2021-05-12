@@ -566,13 +566,14 @@ public class Mdb extends Thread{
      */
     public void databaseStartup() throws InterruptedException, SQLException {
         //DATABASE SETUP CASCADE
-        if(!remoteStartup()){
-            if(!serverStartup()){
-                if(!embeddedStartup()){
-                    return;
-                }
-            }
-        }
+//        if(!remoteStartup()){
+//            if(!serverStartup()){
+//                if(!embeddedStartup()){
+//                    return;
+//                }
+//            }
+//        }
+        embeddedStartup();
 
         //create hashmaps here
         DatabaseManager.getServiceMap();

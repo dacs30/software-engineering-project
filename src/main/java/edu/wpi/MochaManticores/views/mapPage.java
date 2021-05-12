@@ -9,6 +9,10 @@ import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.Employee;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -29,11 +33,10 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.*;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 
 import java.io.File;
@@ -233,6 +236,8 @@ public class mapPage extends SceneController {
     @FXML
     private AnchorPane paneContainingTabPane;
 
+    private Timeline timeline;
+
     Employee user;
 
     private PanAndZoomPane panAndZoomPane = new PanAndZoomPane();
@@ -325,6 +330,8 @@ public class mapPage extends SceneController {
 
 
     public void initialize() throws InvalidElementException {
+
+        this.timeline = new Timeline(60);
         double height = super.getHeight();
         double width = super.getWidth();
         contentPane.setPrefSize(width, height);
@@ -427,7 +434,7 @@ public class mapPage extends SceneController {
 
         //MouseDragEvent.
 
-        floorSelector.setValue("F1");
+
 
         loadF1();
 
@@ -441,10 +448,10 @@ public class mapPage extends SceneController {
         floorSelector.getItems().addAll("LL1",
                 "LL2",
                 "G",
-                "F1",
-                "F2",
-                "F3");
-
+                "1",
+                "2",
+                "3");
+        floorSelector.setValue("1");
         mapScrollPane.setPannable(true);
         mapScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         mapScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -1240,6 +1247,12 @@ public class mapPage extends SceneController {
                 JFXButton seePathButton = new JFXButton("View Path");
                 seePathButton.setStyle("-fx-font-size: 15");
                 seePathButton.setOnMouseClicked(e->{
+
+                    if(seePathButton.getText().equals("View Path")){
+                        seePathButton.setText("Close");
+                    }else{
+                        seePathButton.setText("View Path");
+                    }
                     if (floor.getFirst().contains("L1")){
                         loadL1();
                     } else if (floor.getFirst().contains("L2")){
@@ -1290,6 +1303,7 @@ public class mapPage extends SceneController {
                 } else if(count == 0){ // ignore that, only happens once
                     pathCurrentlyOpened[0] = pathsOnThisFloor;
                     firstFloor = floor.getFirst();
+                    seePathButton.setText("Close");
                 }
                 count++;
 
@@ -1458,12 +1472,13 @@ public class mapPage extends SceneController {
             } else if (firstFloor.contains("3")){
                 loadF3();
             }
+            floorSelector.setValue(selectedFloor);
 
             drawNodes();
             pitStops.getFirst().setStart(true);
             pitStops.getLast().setEnd(true);
 
-            drawNodes();
+            //drawNodes();
             //TODO:change start and end node colors
 
 //            pitStops.getFirst().c.setFill(Color.GREEN);
@@ -1519,13 +1534,13 @@ public class mapPage extends SceneController {
             case "G":
                 loadGround();
                 break;
-            case "F1":
+            case "1":
                 loadF1();
                 break;
-            case "F2":
+            case "2":
                 loadF2();
                 break;
-            case "F3":
+            case "3":
                 loadF3();
                 break;
             default:
@@ -1535,20 +1550,24 @@ public class mapPage extends SceneController {
     public void clearLines(ActionEvent e) {
         savedRoute.clear();
         pitStops.clear();
+        timeline.stop();
+        timeline.getKeyFrames().clear();
         drawNodes();
         updateFields();
+        selectFloor();
         dirVBOX.getChildren().clear();
         panAndZoomPane.resetZoom();
     }
 
     public void drawNodes() {
+        timeline.stop();
+        timeline.getKeyFrames().clear();
         nodePane.getChildren().clear();
         double xRatio = 5000 / mapWindow.getFitWidth();
         double yRatio = 3400 / mapWindow.getFitHeight();
         Iterator<NodeSuper> mapIter = MapSuper.getMap().values().iterator();
         for (int i = 0; i < MapSuper.getMap().size(); i++) {
             NodeSuper n = mapIter.next();
-            //System.out.println(n.getFloor() + ":" + selectedFloor);
             if (n.getFloor().equals(selectedFloor)) {
                 Circle spot = new Circle(n.getXcoord() / xRatio, n.getYcoord() / yRatio, 3, Color.WHITE);
                 spot.setStrokeWidth(1);
@@ -1597,6 +1616,20 @@ public class mapPage extends SceneController {
                     }
                 });
                 nodes.put(n.getID(),nodeToAdd);
+                if(!savedRoute.isEmpty()){
+                    if(savedRoute.getFirst().equals(nodeToAdd.getNodeID())){
+                        nodeToAdd.c.setFill(Color.GREEN);
+                        nodeToAdd.c.setRadius(6);
+                        spot.setOnMouseEntered(null);
+                        spot.setOnMouseExited(null);
+                    }else if(savedRoute.getLast().equals(nodeToAdd.getNodeID())){
+                        nodeToAdd.c.setFill(Color.RED);
+                        nodeToAdd.c.setRadius(6);
+                        spot.setOnMouseEntered(null);
+                        spot.setOnMouseExited(null);
+                    }
+                }
+
                 nodePane.getChildren().addAll(nodes.get(n.getID()).c);
             }
         }
@@ -1612,13 +1645,31 @@ public class mapPage extends SceneController {
             }
 
             Line edge = new Line(curNode.getXcoord() / xRatio, curNode.getYcoord() / yRatio, endNode.getXcoord() / xRatio, endNode.getYcoord() / yRatio);
-            //Rectangle edgeRectangle = new Rectangle(, );
             edge.setStrokeWidth(4);
+            edge.setStroke(Color.BLACK);
+            //Rectangle edgeRectangle = new Rectangle(, );
+
+            Circle arrow = new Circle(curNode.getXcoord() / xRatio, curNode.getYcoord() / yRatio,6);
+            Rectangle rec = new Rectangle((curNode.getXcoord() / xRatio)-4, (curNode.getYcoord() / yRatio)-4,8,8);
+            rec.setFill(Color.valueOf("#29BF12"));
+            Double length = Math.sqrt(
+                    Math.pow(endNode.getXcoord()-curNode.getXcoord(),2) + Math.pow(endNode.getYcoord()-curNode.getYcoord(),2));
+            arrow.setFill(Color.RED);
+            timeline.getKeyFrames().addAll(
+                    new KeyFrame(Duration.seconds(1), new KeyValue(rec.xProperty(),(endNode.getXcoord()/xRatio)-3)),
+                    new KeyFrame(Duration.seconds(1), new KeyValue(rec.yProperty(),(endNode.getYcoord()/yRatio)-3))
+            );
+            nodePane.getChildren().addAll(rec);
+
+
             if (curNode.getFloor().equals(selectedFloor)) {
                 //edgeRectangle.setFill(new ImagePattern(new Image("edu/wpi/MochaManticores/images/02_thesecondfloor.png")));
                 //edge.setFill(new ImagePattern(new Image("edu/wpi/MochaManticores/images/02_thesecondfloor.png")));
-                Image map = new Image("edu/wpi/MochaManticores/images/tenor.gif");
-                edge.setStroke(new ImagePattern(map));
+                //Image map = new Image("edu/wpi/MochaManticores/images/tenor.gif");
+
+                //edge.setStroke(new ImagePattern(map));
+
+
             } else {
                 edge.setStroke(Color.GREY);
                 edge.getStrokeDashArray().addAll(5d, 15d);
@@ -1634,6 +1685,8 @@ public class mapPage extends SceneController {
 
             lines.add(edge);
         }
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
 
         nodePane.getChildren().addAll(lines);
         for (Line l : lines) {
