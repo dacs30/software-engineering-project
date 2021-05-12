@@ -14,6 +14,7 @@ import java.security.MessageDigest;
 import java.sql.Connection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 public abstract class ServiceRequest {
     private String employee;
@@ -66,7 +67,16 @@ public abstract class ServiceRequest {
     }
 
     public String generateRequestID(ServiceRequestType type){
-        int num = DatabaseManager.getServiceMap().getSize(type);
+        boolean flag = true;
+        int num = 0;
+        while(flag) {
+            num = (int) (Math.random() * 1000000);
+            if(!DatabaseManager.getServiceMap().numMap.contains(num)){
+                flag=false;
+                DatabaseManager.getServiceMap().numMap.add(num);
+            }
+        }
+
         switch(type){
             case Emergency:
                 return "EMG"+num;

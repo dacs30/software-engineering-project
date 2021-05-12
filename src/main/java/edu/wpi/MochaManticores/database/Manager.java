@@ -1,6 +1,7 @@
 package edu.wpi.MochaManticores.database;
 
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
+import edu.wpi.MochaManticores.Services.InternalTransportation;
 
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
@@ -17,6 +18,8 @@ public abstract class Manager<Value> {
     adds an element of template value to database
      */
     abstract void addElement(Value v);
+
+    abstract void addElement(Value v, String ID);
 
     /*
     function: delElement(s)

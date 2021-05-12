@@ -2,6 +2,7 @@ package edu.wpi.MochaManticores.database;
 
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import edu.wpi.MochaManticores.Services.FloralDelivery;
+import edu.wpi.MochaManticores.Services.InternalTransportation;
 import edu.wpi.MochaManticores.Services.ServiceRequestType;
 
 import java.io.*;
@@ -46,6 +47,11 @@ public class FloralDeliveryManager extends Manager<FloralDelivery> {
         v.setRequestID(v.generateRequestID(type));
         addElement_db(v);
         addElement_map(v);
+    }
+    void addElement(FloralDelivery temp, String ID){
+        temp.setRequestID(ID);
+        addElement_db(temp);
+        addElement_map(temp);
     }
 
     void addElement_db(FloralDelivery temp) {
@@ -92,7 +98,7 @@ public class FloralDeliveryManager extends Manager<FloralDelivery> {
     @Override
     void modElement(String s, FloralDelivery v) throws SQLException {
         delElement(s);
-        addElement(v);
+        addElement(v , s);
 
     }
 

@@ -2,6 +2,7 @@ package edu.wpi.MochaManticores.database;
 
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import edu.wpi.MochaManticores.Services.ExternalTransportation;
+import edu.wpi.MochaManticores.Services.InternalTransportation;
 import edu.wpi.MochaManticores.Services.ServiceRequestType;
 
 import java.io.*;
@@ -44,6 +45,12 @@ public class ExtTransportManager extends Manager<ExternalTransportation> {
     @Override
     void addElement(ExternalTransportation temp) {
         temp.setRequestID(temp.generateRequestID(type));
+        addElement_db(temp);
+        addElement_map(temp);
+    }
+
+    void addElement(ExternalTransportation temp, String ID){
+        temp.setRequestID(ID);
         addElement_db(temp);
         addElement_map(temp);
     }

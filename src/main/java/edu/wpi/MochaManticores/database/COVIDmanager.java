@@ -3,6 +3,7 @@ package edu.wpi.MochaManticores.database;
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Services.COVIDsurvey;
+import edu.wpi.MochaManticores.Services.InternalTransportation;
 import edu.wpi.MochaManticores.Services.ServiceRequestType;
 
 import java.io.*;
@@ -46,6 +47,12 @@ public class COVIDmanager extends Manager<COVIDsurvey> {
     @Override
     void addElement(COVIDsurvey temp) {
         temp.setRequestID(temp.generateRequestID(type));
+        addElement_db(temp);
+        addElement_map(temp);
+    }
+
+    void addElement(COVIDsurvey temp, String ID){
+        temp.setRequestID(ID);
         addElement_db(temp);
         addElement_map(temp);
     }
@@ -97,7 +104,7 @@ public class COVIDmanager extends Manager<COVIDsurvey> {
     @Override
     void modElement(String ID, COVIDsurvey temp) throws SQLException {
         delElement(ID);
-        addElement(temp);
+        addElement(temp , ID);
     }
 
     @Override

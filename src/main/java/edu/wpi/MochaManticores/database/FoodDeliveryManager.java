@@ -2,6 +2,7 @@ package edu.wpi.MochaManticores.database;
 
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import edu.wpi.MochaManticores.Services.FoodDelivery;
+import edu.wpi.MochaManticores.Services.InternalTransportation;
 import edu.wpi.MochaManticores.Services.ServiceRequestType;
 
 import java.io.*;
@@ -48,6 +49,11 @@ public class FoodDeliveryManager extends Manager<FoodDelivery> {
         addElement_map(v);
     }
 
+    void addElement(FoodDelivery temp, String ID){
+        temp.setRequestID(ID);
+        addElement_db(temp);
+        addElement_map(temp);
+    }
     void addElement_db(FoodDelivery temp) {
 
         try {
@@ -94,7 +100,7 @@ public class FoodDeliveryManager extends Manager<FoodDelivery> {
         catch (SQLException e) {
             System.out.println(e);
         }
-        addElement(temp);
+        addElement(temp , ID);
     }
 
     @Override

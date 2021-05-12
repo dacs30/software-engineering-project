@@ -2,6 +2,7 @@ package edu.wpi.MochaManticores.database;
 
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
+import edu.wpi.MochaManticores.Services.InternalTransportation;
 import edu.wpi.MochaManticores.Services.ReligiousRequest;
 import edu.wpi.MochaManticores.Services.ServiceRequestType;
 
@@ -49,6 +50,12 @@ public class ReligiousManager extends Manager<ReligiousRequest> {
         addElement_map(v);
     }
 
+    void addElement(ReligiousRequest temp, String ID){
+        temp.setRequestID(ID);
+        addElement_db(temp);
+        addElement_map(temp);
+    }
+
     void addElement_db(ReligiousRequest temp) {
         try {
             String sql = "INSERT INTO RELREQ (RequestID, EmpID, completed, reasonVisit, location, typeSacredPerson) " +
@@ -89,7 +96,7 @@ public class ReligiousManager extends Manager<ReligiousRequest> {
     @Override
     void modElement(String ID, ReligiousRequest temp) throws SQLException {
         delElement(ID);
-        addElement(temp);
+        addElement(temp , ID);
     }
 
     @Override
