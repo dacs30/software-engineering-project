@@ -1,62 +1,40 @@
-#clearButton {
-    -fx-background-color: #FFFFFF;
-    -fx-font-family: Roboto;
-    -fx-font-size: 25;
-    -fx-font-weight: bold;
-}
-#csvButton {
-    -fx-background-color: #FFFFFF;
-    -fx-font-family: Roboto;
-    -fx-font-size: 25;
-    -fx-font-weight: bold;
-}
-#addButton {
-    -fx-background-color: #FFFFFF;
-    -fx-font-family: Roboto;
-    -fx-font-size: 25;
-    -fx-font-weight: bold;
-}
-#loadBtn {
-    -fx-background-color: #FFFFFF;
+.jfx-text-field {
     -fx-font-family: Roboto;
     -fx-font-size: 20;
+    -jfx-unfocus-color : #0F4B91;
+    -jfx-focus-color: #0F4B91;
+    -fx-prompt-text-fill: #0F4B91;
+    -fx-max-width: 400;
     -fx-font-weight: bold;
 }
 
-#editBtn {
+.jfx-text-area {
+    -fx-prompt-text-fill: rgba(193, 193, 193, 0.93);
+    -jfx-focus-color: #0F4B91;
+    -jfx-unfocus-color: grey;
+    -fx-text-fill: black;
+    -fx-font-size: 20;
+}
+
+.jfx-button{
     -fx-background-color: #0F4B91;
     -fx-font-family: Roboto;
-    -fx-font-size: 25;
     -fx-font-weight: bold;
-}
-#searchBtn1 {
-    -fx-background-color: #FFFFFF;
-    -fx-font-family: Roboto;
-    -fx-font-size: 25;
-    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-font-size: 20;
+    -fx-border-radius: 40;
+    -fx-background-radius: 40;
+    transition: background-color 2s ease;
 }
 
-#EdgesPageLabel {
-    -fx-font-weight: bold;
+.jfx-button:hover{
+    -fx-background-color: #c2c2c2;
+    -fx-effect: dropshadow( three-pass-box , rgba(2, 2, 2, 0.2), 20, 0.0 , 1 , 10);
     -fx-font-family: Roboto;
-    -fx-font-size: 50;
-}
-
-.jfx-text-field {
+    -fx-text-fill: grey;
     -fx-font-size: 20;
-    -fx-font-weight: bold;
-    -fx-text-fill : #000000;
-    -jfx-unfocus-color : #ffffff;
-    -fx-max-width: 500;
-    -fx-prompt-text-fill: white;
-}
-.jfx-text-area {
-    -fx-font-size: 20;
-    -fx-font-weight: bold;
-    -fx-text-fill : #ffffff;
-    -jfx-unfocus-color : #ffffff;
-    -fx-max-width: 500;
-    -fx-prompt-text-fill: white;
+    -fx-border-radius: 40;
+    -fx-background-radius: 40;
 }
 
 

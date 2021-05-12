@@ -66,3 +66,42 @@
     -fx-font-size: 25;
     -fx-font-weight: bold;
 }
+
+.jfx-button{
+    -fx-background-color: #0F4B91;
+    -fx-font-family: Roboto;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-font-size: 20;
+    -fx-border-radius: 40;
+    -fx-background-radius: 40;
+    transition: background-color 2s ease;
+}
+
+.jfx-button:hover{
+    -fx-background-color: #c2c2c2;
+    -fx-effect: dropshadow( three-pass-box , rgba(2, 2, 2, 0.2), 20, 0.0 , 1 , 10);
+    -fx-font-family: Roboto;
+    -fx-text-fill: grey;
+    -fx-font-size: 20;
+    -fx-border-radius: 40;
+    -fx-background-radius: 40;
+}
+
+.jfx-text-field {
+    -fx-font-family: Roboto;
+    -fx-font-size: 20;
+    -jfx-unfocus-color : #0F4B91;
+    -jfx-focus-color: #0F4B91;
+    -fx-prompt-text-fill: #0F4B91;
+    -fx-max-width: 400;
+    -fx-font-weight: bold;
+}
+
+.jfx-text-area {
+    -fx-prompt-text-fill: rgba(193, 193, 193, 0.93);
+    -jfx-focus-color: #0F4B91;
+    -jfx-unfocus-color: grey;
+    -fx-text-fill: black;
+    -fx-font-size: 20;
+}
