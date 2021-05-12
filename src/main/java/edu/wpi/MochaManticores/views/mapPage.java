@@ -435,7 +435,6 @@ public class mapPage extends SceneController {
         //MouseDragEvent.
 
 
-
         loadF1();
 
 
@@ -843,25 +842,25 @@ public class mapPage extends SceneController {
             // Button to open the path
             JFXButton seePathButton = new JFXButton("View Path");
             seePathButton.setStyle("-fx-font-size: 15");
-            seePathButton.setOnMouseClicked(e->{
-                if (floor.getFirst().contains("L1")){
+            seePathButton.setOnMouseClicked(e -> {
+                if (floor.getFirst().contains("L1")) {
                     loadL1();
-                } else if (floor.getFirst().contains("L2")){
+                } else if (floor.getFirst().contains("L2")) {
                     loadL2();
-                } else if (floor.getFirst().contains("G")){
+                } else if (floor.getFirst().contains("G")) {
                     loadGround();
-                } else if (floor.getFirst().contains("1")){
+                } else if (floor.getFirst().contains("1")) {
                     loadF1();
-                } else if (floor.getFirst().contains("2")){
+                } else if (floor.getFirst().contains("2")) {
                     loadF2();
-                } else if (floor.getFirst().contains("3")){
+                } else if (floor.getFirst().contains("3")) {
                     loadF3();
                 }
 
                 if (floorBlock.getChildren().get(1).isVisible()) {
                     floorBlock.getChildren().get(1).setVisible(false);
                     floorBlock.getChildren().get(1).setManaged(false);
-                } else{
+                } else {
                     pathCurrentlyOpened[0].setVisible(false);
                     pathCurrentlyOpened[0].setManaged(false);
                     floorBlock.getChildren().get(1).setVisible(true);
@@ -891,7 +890,7 @@ public class mapPage extends SceneController {
             if (count != 0) {
                 pathsOnThisFloor.setVisible(false);
                 pathsOnThisFloor.setManaged(false);
-            } else if(count == 0){ // ignore that, only happens once
+            } else if (count == 0) { // ignore that, only happens once
                 pathCurrentlyOpened[0] = pathsOnThisFloor;
             }
             count++;
@@ -900,24 +899,24 @@ public class mapPage extends SceneController {
             floorBlock.getChildren().get(0).setOnMouseClicked(e -> {
 
                 //System.out.println(floor.getFirst());
-                if (floor.getFirst().contains("L1")){
+                if (floor.getFirst().contains("L1")) {
                     loadL1();
-                } else if (floor.getFirst().contains("L2")){
+                } else if (floor.getFirst().contains("L2")) {
                     loadL2();
-                } else if (floor.getFirst().contains("G")){
+                } else if (floor.getFirst().contains("G")) {
                     loadGround();
-                } else if (floor.getFirst().contains("1")){
+                } else if (floor.getFirst().contains("1")) {
                     loadF1();
-                } else if (floor.getFirst().contains("2")){
+                } else if (floor.getFirst().contains("2")) {
                     loadF2();
-                } else if (floor.getFirst().contains("3")){
+                } else if (floor.getFirst().contains("3")) {
                     loadF3();
                 }
 
                 if (floorBlock.getChildren().get(1).isVisible()) {
                     floorBlock.getChildren().get(1).setVisible(false);
                     floorBlock.getChildren().get(1).setManaged(false);
-                } else{
+                } else {
                     pathCurrentlyOpened[0].setVisible(false);
                     pathCurrentlyOpened[0].setManaged(false);
                     floorBlock.getChildren().get(1).setVisible(true);
@@ -1045,17 +1044,17 @@ public class mapPage extends SceneController {
             updateFields();
         }
 
-        if (firstFloor.contains("L1")){
+        if (firstFloor.contains("L1")) {
             loadL1();
-        } else if (firstFloor.contains("L2")){
+        } else if (firstFloor.contains("L2")) {
             loadL2();
-        } else if (firstFloor.contains("G")){
+        } else if (firstFloor.contains("G")) {
             loadGround();
-        } else if (firstFloor.contains("1")){
+        } else if (firstFloor.contains("1")) {
             loadF1();
-        } else if (firstFloor.contains("2")){
+        } else if (firstFloor.contains("2")) {
             loadF2();
-        } else if (firstFloor.contains("3")){
+        } else if (firstFloor.contains("3")) {
             loadF3();
         }
 
@@ -1246,31 +1245,26 @@ public class mapPage extends SceneController {
                 // Button to open the path
                 JFXButton seePathButton = new JFXButton("View Path");
                 seePathButton.setStyle("-fx-font-size: 15");
-                seePathButton.setOnMouseClicked(e->{
+                seePathButton.setOnMouseClicked(e -> {
 
-                    if(seePathButton.getText().equals("View Path")){
-                        //seePathButton.setText("Collapse");
-                    }else{
-                        seePathButton.setText("View Path");
-                    }
-                    if (floor.getFirst().contains("L1")){
+                    if (floor.getFirst().contains("L1")) {
                         loadL1();
-                    } else if (floor.getFirst().contains("L2")){
+                    } else if (floor.getFirst().contains("L2")) {
                         loadL2();
-                    } else if (floor.getFirst().contains("G")){
+                    } else if (floor.getFirst().contains("G")) {
                         loadGround();
-                    } else if (floor.getFirst().contains("1")){
+                    } else if (floor.getFirst().contains("1")) {
                         loadF1();
-                    } else if (floor.getFirst().contains("2")){
+                    } else if (floor.getFirst().contains("2")) {
                         loadF2();
-                    } else if (floor.getFirst().contains("3")){
+                    } else if (floor.getFirst().contains("3")) {
                         loadF3();
                     }
 
                     if (floorBlock.getChildren().get(1).isVisible()) {
                         floorBlock.getChildren().get(1).setVisible(false);
                         floorBlock.getChildren().get(1).setManaged(false);
-                    } else{
+                    } else {
                         pathCurrentlyOpened[0].setVisible(false);
                         pathCurrentlyOpened[0].setManaged(false);
                         floorBlock.getChildren().get(1).setVisible(true);
@@ -1300,7 +1294,7 @@ public class mapPage extends SceneController {
                 if (count != 0) {
                     pathsOnThisFloor.setVisible(false);
                     pathsOnThisFloor.setManaged(false);
-                } else if(count == 0){ // ignore that, only happens once
+                } else if (count == 0) { // ignore that, only happens once
                     pathCurrentlyOpened[0] = pathsOnThisFloor;
                     firstFloor = floor.getFirst();
                     //seePathButton.setText("Collapse");
@@ -1311,24 +1305,24 @@ public class mapPage extends SceneController {
                 floorBlock.getChildren().get(0).setOnMouseClicked(e -> {
 
                     //System.out.println(floor.getFirst());
-                    if (floor.getFirst().contains("L1")){
+                    if (floor.getFirst().contains("L1")) {
                         loadL1();
-                    } else if (floor.getFirst().contains("L2")){
+                    } else if (floor.getFirst().contains("L2")) {
                         loadL2();
-                    } else if (floor.getFirst().contains("G")){
+                    } else if (floor.getFirst().contains("G")) {
                         loadGround();
-                    } else if (floor.getFirst().contains("1")){
+                    } else if (floor.getFirst().contains("1")) {
                         loadF1();
-                    } else if (floor.getFirst().contains("2")){
+                    } else if (floor.getFirst().contains("2")) {
                         loadF2();
-                    } else if (floor.getFirst().contains("3")){
+                    } else if (floor.getFirst().contains("3")) {
                         loadF3();
                     }
 
                     if (floorBlock.getChildren().get(1).isVisible()) {
                         floorBlock.getChildren().get(1).setVisible(false);
                         floorBlock.getChildren().get(1).setManaged(false);
-                    } else{
+                    } else {
                         pathCurrentlyOpened[0].setVisible(false);
                         pathCurrentlyOpened[0].setManaged(false);
                         floorBlock.getChildren().get(1).setVisible(true);
@@ -1459,17 +1453,17 @@ public class mapPage extends SceneController {
             //System.out.println(dirVBOX.getChildren().get(0));
 
 
-            if (firstFloor.contains("L1")){
+            if (firstFloor.contains("L1")) {
                 loadL1();
-            } else if (firstFloor.contains("L2")){
+            } else if (firstFloor.contains("L2")) {
                 loadL2();
-            } else if (firstFloor.contains("G")){
+            } else if (firstFloor.contains("G")) {
                 loadGround();
-            } else if (firstFloor.contains("1")){
+            } else if (firstFloor.contains("1")) {
                 loadF1();
-            } else if (firstFloor.contains("2")){
+            } else if (firstFloor.contains("2")) {
                 loadF2();
-            } else if (firstFloor.contains("3")){
+            } else if (firstFloor.contains("3")) {
                 loadF3();
             }
             floorSelector.setValue(selectedFloor);
@@ -1598,31 +1592,31 @@ public class mapPage extends SceneController {
                         Tooltip.install(spot, new Tooltip(n.getLongName()));
                     }
                 });
-                node nodeToAdd =  new node(spot, n.getID());
+                node nodeToAdd = new node(spot, n.getID());
 
-                nodeToAdd.startProperty().addListener((observable, oldValue, newValue) ->{
-                    if(newValue){
+                nodeToAdd.startProperty().addListener((observable, oldValue, newValue) -> {
+                    if (newValue) {
                         //System.out.println(nodeToAdd.getNodeID()+" GREEN");
                         nodeToAdd.c.setFill(Color.GREEN);
                         nodeToAdd.c.setStyle("-fx-background-color: GREEN;");
                     }
                 });
 
-                nodeToAdd.endProperty().addListener((observable, oldValue, newValue) ->{
-                    if(newValue){
+                nodeToAdd.endProperty().addListener((observable, oldValue, newValue) -> {
+                    if (newValue) {
                         //System.out.println(nodeToAdd.getNodeID()+" RED");
                         nodeToAdd.c.setFill(Color.RED);
                         nodeToAdd.c.setStyle("-fx-background-color: RED;");
                     }
                 });
-                nodes.put(n.getID(),nodeToAdd);
-                if(!savedRoute.isEmpty()){
-                    if(savedRoute.getFirst().equals(nodeToAdd.getNodeID())){
+                nodes.put(n.getID(), nodeToAdd);
+                if (!savedRoute.isEmpty()) {
+                    if (savedRoute.getFirst().equals(nodeToAdd.getNodeID())) {
                         nodeToAdd.c.setFill(Color.GREEN);
                         nodeToAdd.c.setRadius(6);
                         spot.setOnMouseEntered(null);
                         spot.setOnMouseExited(null);
-                    }else if(savedRoute.getLast().equals(nodeToAdd.getNodeID())){
+                    } else if (savedRoute.getLast().equals(nodeToAdd.getNodeID())) {
                         nodeToAdd.c.setFill(Color.RED);
                         nodeToAdd.c.setRadius(6);
                         spot.setOnMouseEntered(null);
@@ -1649,15 +1643,15 @@ public class mapPage extends SceneController {
             edge.setStroke(Color.BLACK);
             //Rectangle edgeRectangle = new Rectangle(, );
 
-            Circle arrow = new Circle(curNode.getXcoord() / xRatio, curNode.getYcoord() / yRatio,6);
-            Rectangle rec = new Rectangle((curNode.getXcoord() / xRatio)-4, (curNode.getYcoord() / yRatio)-4,8,8);
+            Circle arrow = new Circle(curNode.getXcoord() / xRatio, curNode.getYcoord() / yRatio, 6);
+            Rectangle rec = new Rectangle((curNode.getXcoord() / xRatio) - 4, (curNode.getYcoord() / yRatio) - 4, 8, 8);
             rec.setFill(Color.valueOf("#29BF12"));
             Double length = Math.sqrt(
-                    Math.pow(endNode.getXcoord()-curNode.getXcoord(),2) + Math.pow(endNode.getYcoord()-curNode.getYcoord(),2));
+                    Math.pow(endNode.getXcoord() - curNode.getXcoord(), 2) + Math.pow(endNode.getYcoord() - curNode.getYcoord(), 2));
             arrow.setFill(Color.RED);
             timeline.getKeyFrames().addAll(
-                    new KeyFrame(Duration.seconds(1), new KeyValue(rec.xProperty(),(endNode.getXcoord()/xRatio)-3)),
-                    new KeyFrame(Duration.seconds(1), new KeyValue(rec.yProperty(),(endNode.getYcoord()/yRatio)-3))
+                    new KeyFrame(Duration.seconds(1), new KeyValue(rec.xProperty(), (endNode.getXcoord() / xRatio) - 3)),
+                    new KeyFrame(Duration.seconds(1), new KeyValue(rec.yProperty(), (endNode.getYcoord() / yRatio) - 3))
             );
             nodePane.getChildren().addAll(rec);
 
