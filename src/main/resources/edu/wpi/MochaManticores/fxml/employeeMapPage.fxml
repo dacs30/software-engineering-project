@@ -454,29 +454,39 @@
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="174.333251953125" minWidth="10.0" prefWidth="120.6666259765625" />
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="244.3333740234375" minWidth="10.0" prefWidth="208.3333740234375" />
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="218.6666259765625" minWidth="10.0" prefWidth="181.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="246.0" minWidth="10.0" prefWidth="208.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="182.0" minWidth="10.0" prefWidth="182.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="246.0" minWidth="10.0" prefWidth="208.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="182.0" minWidth="10.0" prefWidth="182.0" />
                            </columnConstraints>
                            <rowConstraints>
-                              <RowConstraints vgrow="SOMETIMES" />
+                              <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <JFXButton id="getPathBtn" fx:id="routeExample" buttonType="RAISED" onAction="#changeToPathfind" prefHeight="50.0" prefWidth="175.0" stylesheets="@../Stylesheets/employeeMapPage.css" text="Pathfinding" translateY="-10.0" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                              <JFXButton id="getPathBtn" fx:id="routeExample" buttonType="RAISED" onAction="#changeToPathfind" stylesheets="@../Stylesheets/employeeMapPage.css" text="Pathfinding" translateY="-10.0" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </JFXButton>
-                              <JFXButton id="downloadCSVBtn" fx:id="downloadButton" buttonType="RAISED" onAction="#downloadCSVs" prefHeight="50.0" prefWidth="175.0" text="Download File" translateY="-10.0" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                              <JFXButton fx:id="downloadButton" buttonType="RAISED" onAction="#downloadCSVs" text="Download File" translateY="-10.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="36.0" />
                                  </font>
                               </JFXButton>
-                              <JFXButton id="backBtn" fx:id="backButton" buttonType="RAISED" onAction="#back" prefHeight="50.0" prefWidth="125.0" stylesheets="@../Stylesheets/employeeMapPage.css" text="Back" translateY="-10.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                              <JFXButton id="backBtn" fx:id="backButton" buttonType="RAISED" onAction="#back" stylesheets="@../Stylesheets/employeeMapPage.css" text="Back" translateY="-10.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                                  <GridPane.margin>
                                     <Insets />
+                                 </GridPane.margin>
+                              </JFXButton>
+                              <JFXButton buttonType="RAISED" onAction="#gotoEdge" text="Edit Edges" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" />
+                                 </GridPane.margin>
+                              </JFXButton>
+                              <JFXButton buttonType="RAISED" onAction="#gotoNode" text="Edit Nodes" GridPane.columnIndex="4">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" />
                                  </GridPane.margin>
                               </JFXButton>
                            </children>
