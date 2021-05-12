@@ -47,6 +47,7 @@ public class serverConnection implements Runnable {
                         break;
                     case SHUTDOWN:
                         sendMessage(msg);
+                        server.stopConnection(this);
                         System.out.println(" User: [" + user + "] SHUTDOWN REQUEST");
                         inputStream = null;
                         outputStream = null;

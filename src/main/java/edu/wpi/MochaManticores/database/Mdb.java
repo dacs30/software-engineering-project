@@ -512,7 +512,7 @@ public class Mdb extends Thread{
             if(isServerStarted(server)){
                 System.out.println("ORACLE SERVER PINGED");
             }else{
-                server.start(null);
+                //server.start(null);
                 //makeTables = false;
             }
         } catch (UnknownHostException e) {
@@ -531,6 +531,7 @@ public class Mdb extends Thread{
             try {
                 if(Main.headless_run) {
                     connection = DriverManager.getConnection(connectionUtil.JDBC_ORACLE_SERVER);
+                    makeTables = false;
                 }else{
                     connection = DriverManager.getConnection(connectionUtil.JDBC_REMOTE_SERVER);
                 }
