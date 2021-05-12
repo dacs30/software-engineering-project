@@ -5,8 +5,12 @@ import edu.wpi.MochaManticores.Nodes.EdgeMapSuper;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.database.DatabaseManager;
 import edu.wpi.MochaManticores.database.sel;
+import edu.wpi.MochaManticores.views.HomePage;
+import edu.wpi.MochaManticores.views.SceneController;
 import javafx.application.Platform;
+import javafx.event.Event;
 import javafx.geometry.Pos;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 import java.util.Iterator;
@@ -19,7 +23,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Objects;
 
-public class clientReader implements Runnable{
+public class clientReader extends SceneController implements Runnable{
     public HashMap<String,LinkedList<Message>> messageHistory = new HashMap<>();
     private Socket socket;
     private messageClient client = null;
@@ -107,10 +111,23 @@ public class clientReader implements Runnable{
             @Override
             public void run() {
                 Notifications notifications = Notifications.create()
+                        .owner(App.getPrimaryStage())
                         .title(msg.sender)
                         .text(msg.body +" "+ msg.target +" "+ msg.sender)
                         .hideAfter(Duration.seconds(5))
-                        .position(Pos.BOTTOM_RIGHT);
+                        .position(Pos.BOTTOM_RIGHT)
+                        .onAction(event -> {
+                            changeSceneTo("landingPage");
+                            final HomePage home = new HomePage();
+                            try {
+                                home.goToChatPage(null);
+                                final messageClientPage messagePage = new messageClientPage();
+                                clientPage.updateConvos();
+                                //clientPage.highlightConvo(msg.sender);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
 
                 notifications.show();
             }

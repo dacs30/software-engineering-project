@@ -17,6 +17,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -126,10 +127,6 @@ public class FloralSceneEmployeeController extends SceneController {
         }
     }
 
-    public void submitForm(ActionEvent actionEvent) {
-        submitEvent(actionEvent);
-        loadSubmitDialog();
-    }
 
     public void loadSubmitDialog() {
         //TODO Center the text of it.
@@ -273,7 +270,7 @@ public class FloralSceneEmployeeController extends SceneController {
 
 
     public void submitEvent(ActionEvent actionEvent) {
-        if (!roomNumber.getText().isEmpty() && !deliveryDate.equals("") &&
+        if (!roomNumber.getText().isEmpty() && deliveryDate.getValue()!= null &&
                 (tulip.isSelected() || rose.isSelected() || lilie.isSelected()) &&
                 (blueVase.isSelected() || orangeVase.isSelected() || yellowVase.isSelected()) &&
                 !employeeAssigned.getSelectionModel().isEmpty()) {
@@ -282,7 +279,7 @@ public class FloralSceneEmployeeController extends SceneController {
                     employeeAssigned.getEditor().getText(),
                     false,
                     roomNumber.getText(),
-                    deliveryDate.getValue().toString(),
+                    deliveryDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
                     flowerSelected.toString(),
                     vaseSelected.toString(),
                     personalNote.getText());
@@ -294,7 +291,7 @@ public class FloralSceneEmployeeController extends SceneController {
             roomNumber.getValidators().add(missingInput);
             missingInput.setMessage("Patient room is required");
             roomNumber.validate();
-        } else if (deliveryDate.equals("")) {
+        } else if (deliveryDate.getValue() == null) {
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
             deliveryDate.getValidators().add(missingInput);
             missingInput.setMessage("Delivery date is required");

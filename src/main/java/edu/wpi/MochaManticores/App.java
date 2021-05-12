@@ -11,6 +11,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 
@@ -120,6 +121,8 @@ public class App extends Application {
       //primaryStage.setMinHeight(800);
       //primaryStage.setMinWidth(1280);
       primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+      primaryStage.getIcons().add(new Image("edu/wpi/MochaManticores/images/logo-small.png"));
+      primaryStage.setTitle("Brigham and Women's Hospital Application");
       primaryStage.show();
       root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("fxml/loginPage.fxml")));
       App.getPrimaryStage().getScene().setRoot(root);
