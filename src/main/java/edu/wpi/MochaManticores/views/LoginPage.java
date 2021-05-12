@@ -251,7 +251,7 @@ public class LoginPage extends SceneController{
             }
 
 
-            Employee temp = DatabaseManager.checkEmployeeLogin(employeeUsername.getText(), employeePassword.getText());
+            Employee temp = DatabaseManager.checkEmployeeLogin(employeeUsername.getText().toLowerCase(), employeePassword.getText());
 
 
             if(temp.isLoggedIN()){
