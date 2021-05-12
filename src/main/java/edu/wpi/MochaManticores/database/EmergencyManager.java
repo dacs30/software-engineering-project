@@ -3,6 +3,7 @@ package edu.wpi.MochaManticores.database;
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import edu.wpi.MochaManticores.Nodes.EdgeMapSuper;
 import edu.wpi.MochaManticores.Services.EmergencyRequest;
+import edu.wpi.MochaManticores.Services.InternalTransportation;
 import edu.wpi.MochaManticores.Services.ServiceRequestType;
 
 import java.io.*;
@@ -45,6 +46,11 @@ public class EmergencyManager  extends Manager<EmergencyRequest> {
     @Override
     void addElement(EmergencyRequest temp) {
         temp.setRequestID(temp.generateRequestID(type));
+        addElement_db(temp);
+        addElement_map(temp);
+    }
+    void addElement(EmergencyRequest temp, String ID){
+        temp.setRequestID(ID);
         addElement_db(temp);
         addElement_map(temp);
     }

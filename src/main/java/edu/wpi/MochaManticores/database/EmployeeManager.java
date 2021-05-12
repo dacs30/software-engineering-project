@@ -4,6 +4,7 @@ package edu.wpi.MochaManticores.database;
 import edu.wpi.MochaManticores.Exceptions.InvalidLoginException;
 import edu.wpi.MochaManticores.Exceptions.InvalidPermissionsException;
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
+import edu.wpi.MochaManticores.Services.InternalTransportation;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -77,6 +78,10 @@ public class EmployeeManager extends Manager<Employee>{
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    void addElement(Employee temp, String ID){
+
     }
 
     //TODO safe deletes, better handing of execptions

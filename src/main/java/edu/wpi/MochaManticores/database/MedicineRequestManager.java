@@ -1,6 +1,7 @@
 package edu.wpi.MochaManticores.database;
 
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
+import edu.wpi.MochaManticores.Services.InternalTransportation;
 import edu.wpi.MochaManticores.Services.MedicineRequest;
 import edu.wpi.MochaManticores.Services.ServiceRequestType;
 
@@ -48,6 +49,11 @@ public class MedicineRequestManager extends Manager<MedicineRequest> {
         addElement_map(v);
     }
 
+    void addElement(MedicineRequest temp, String ID){
+        temp.setRequestID(ID);
+        addElement_db(temp);
+        addElement_map(temp);
+    }
     void addElement_db(MedicineRequest temp) {
         try {
             String sql = "INSERT INTO MEDREQ (RequestID, EmpID, completed, typeMedicine, currentFeeling, allergies, " +
@@ -90,7 +96,7 @@ public class MedicineRequestManager extends Manager<MedicineRequest> {
     @Override
     void modElement(String ID, MedicineRequest temp) throws SQLException {
         delElement(ID);
-        addElement(temp);
+        addElement(temp , ID);
     }
 
     @Override

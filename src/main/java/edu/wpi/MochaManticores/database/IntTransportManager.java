@@ -49,6 +49,12 @@ public class IntTransportManager extends Manager<InternalTransportation> {
         addElement_map(temp);
     }
 
+    void addElement(InternalTransportation temp, String ID){
+        temp.setRequestID(ID);
+        addElement_db(temp);
+        addElement_map(temp);
+    }
+
     void addElement_db(InternalTransportation temp) {
 
         try {
@@ -91,7 +97,7 @@ public class IntTransportManager extends Manager<InternalTransportation> {
     @Override
     void modElement(String ID, InternalTransportation temp) throws SQLException {
         delElement(ID);
-        addElement(temp);
+        addElement(temp , ID);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package edu.wpi.MochaManticores.database;
 
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
+import edu.wpi.MochaManticores.Services.InternalTransportation;
 import edu.wpi.MochaManticores.Services.SanitationServices;
 import edu.wpi.MochaManticores.Services.ServiceRequestType;
 
@@ -48,6 +49,11 @@ public class SanitationServiceManager extends Manager<SanitationServices> {
         addElement_map(v);
     }
 
+    void addElement(SanitationServices temp, String ID){
+        temp.setRequestID(ID);
+        addElement_db(temp);
+        addElement_map(temp);
+    }
     void addElement_db(SanitationServices temp) {
         try {
             String sql = "INSERT INTO SANITATIONSER (RequestID, EmpID, completed, location, SAFETYHAZARDS, " +
@@ -91,7 +97,7 @@ public class SanitationServiceManager extends Manager<SanitationServices> {
     @Override
     void modElement(String ID, SanitationServices temp) throws SQLException {
         delElement(ID);
-        addElement(temp);
+        addElement(temp , ID);
     }
 
     @Override

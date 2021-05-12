@@ -1,6 +1,7 @@
 package edu.wpi.MochaManticores.database;
 
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
+import edu.wpi.MochaManticores.Services.InternalTransportation;
 import edu.wpi.MochaManticores.Services.LanguageInterpreterRequest;
 import edu.wpi.MochaManticores.Services.ServiceRequestType;
 
@@ -49,6 +50,12 @@ public class LanguageInterpreterManager extends Manager<LanguageInterpreterReque
         addElement_map(v);
     }
 
+    void addElement(LanguageInterpreterRequest temp, String ID){
+        temp.setRequestID(ID);
+        addElement_db(temp);
+        addElement_map(temp);
+    }
+
     void addElement_db(LanguageInterpreterRequest temp) {
         try {
             String sql = "INSERT INTO LANGINTREQ (RequestID, EmpID, completed, room, languageOne, languageTwo) " +
@@ -89,7 +96,7 @@ public class LanguageInterpreterManager extends Manager<LanguageInterpreterReque
     @Override
     void modElement(String ID, LanguageInterpreterRequest temp) throws SQLException {
         delElement(ID);
-        addElement(temp);
+        addElement(temp , ID);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package edu.wpi.MochaManticores.database;
 
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
+import edu.wpi.MochaManticores.Services.InternalTransportation;
 import edu.wpi.MochaManticores.Services.LaundryRequest;
 import edu.wpi.MochaManticores.Services.ServiceRequestType;
 
@@ -48,6 +49,12 @@ public class LaundryManager extends Manager<LaundryRequest> {
         addElement_map(v);
     }
 
+    void addElement(LaundryRequest temp, String ID){
+        temp.setRequestID(ID);
+        addElement_db(temp);
+        addElement_map(temp);
+    }
+
     void addElement_db(LaundryRequest temp) {
         try {
             String sql = "INSERT INTO LAUNDRY (RequestID, EmpID, completed, patientName, soilLevel, delicates, " +
@@ -92,7 +99,7 @@ public class LaundryManager extends Manager<LaundryRequest> {
     @Override
     void modElement(String ID, LaundryRequest temp) throws SQLException {
         delElement(ID);
-        addElement(temp);
+        addElement(temp , ID);
     }
 
     @Override

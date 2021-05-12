@@ -6,6 +6,7 @@ import edu.wpi.MochaManticores.Nodes.EdgeMapSuper;
 import edu.wpi.MochaManticores.Nodes.EdgeSuper;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
+import edu.wpi.MochaManticores.Services.InternalTransportation;
 import edu.wpi.MochaManticores.Services.ServiceRequestType;
 
 import java.io.*;
@@ -54,6 +55,10 @@ public class EdgeManager extends Manager<EdgeSuper>{
     public void addElement(EdgeSuper edge){
         addElement_db(edge);
         addElement_map(edge);
+    }
+
+    void addElement(EdgeSuper temp, String ID){
+
     }
 
     /*
