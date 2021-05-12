@@ -105,7 +105,7 @@ public class DatabaseManager{
     public static void addRequest(sel s, ServiceRequest request){
 
 
-
+        refreshTable(s);
         getManager(s).addElement(request);
         sendUpdate(s);
     }
@@ -143,6 +143,7 @@ public class DatabaseManager{
      */
     public static void delElement(sel s, String ID) {
         try {
+            refreshTable(s);
             getManager(s).delElement(ID);
             sendUpdate(s);
         }catch(SQLException e){
@@ -156,6 +157,7 @@ public class DatabaseManager{
      */
     public static void modRequest(sel s, String ID, ServiceRequest request){
         try{
+            refreshTable(s);
             getManager(s).modElement(ID,request);
             sendUpdate(s);
         }catch(SQLException e) {
