@@ -2,6 +2,7 @@ package edu.wpi.MochaManticores.database;
 
 import edu.wpi.MochaManticores.Exceptions.InvalidElementException;
 import edu.wpi.MochaManticores.Nodes.*;
+import edu.wpi.MochaManticores.Services.InternalTransportation;
 import edu.wpi.MochaManticores.Services.ServiceRequestType;
 import javafx.util.Pair;
 
@@ -54,6 +55,11 @@ public class NodeManager extends Manager<NodeSuper>{
         addElement_db(node);
         addElement_map(node);
     }
+
+    void addElement(NodeSuper temp, String ID){
+
+    }
+
 
     /*
     function: addElement_db
