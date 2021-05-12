@@ -462,6 +462,7 @@ public class Mdb extends Thread{
             if(!isServerStarted()){
                 System.out.println("STARTING SERVER LOCALLY");
                 server.start(null);
+                makeTables = true;
             }else{
                 System.out.println("LOCALHOST SERVER PINGED");
                 makeTables = false;
@@ -566,14 +567,14 @@ public class Mdb extends Thread{
      */
     public void databaseStartup() throws InterruptedException, SQLException {
         //DATABASE SETUP CASCADE
-//        if(!remoteStartup()){
-//            if(!serverStartup()){
-//                if(!embeddedStartup()){
-//                    return;
-//                }
-//            }
-//        }
-        embeddedStartup();
+        if(!remoteStartup()){
+            if(!serverStartup()){
+                if(!embeddedStartup()){
+                    return;
+                }
+            }
+        }
+        //embeddedStartup();
 
         //create hashmaps here
         DatabaseManager.getServiceMap();

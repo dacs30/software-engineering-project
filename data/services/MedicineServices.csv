@@ -1,7 +1,3 @@
 REQUESTID,EMPID,COMPLETED,TYPEMEDICINE,CURRENTFEELING,ALLERGIES,PATIENTROOM,
-Med0,kushshah,false,Advil,Muscle pain,Headache,,321,321,
-Med1,admin,false,Advil,Muscle pain,Headache,Some pain,,456,654,
-Med2,kushshah,false,Advil,Muscle pain,Headache,Some pain,,123321,321123,
-Med3,kushshah,false,Tylenol,Headache,Other pain,Some pain,,65432,56345,
 Med0,kushshah,false,Advil,Muscle pain,,none,
-Med1,,false,Advil,Coughing,Headache,Muscle Pain,,fsa,fjijf,
+Med2,admin,false,Advil,Coughing,Headache,Muscle Pain,,fsa,fjijf,
