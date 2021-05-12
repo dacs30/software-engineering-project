@@ -489,7 +489,7 @@
       </GridPane>
       <VBox fx:id="contextBox" maxHeight="-Infinity" maxWidth="-Infinity" spacing="10.0" styleClass="contextBox" visible="false">
          <children>
-            <Group fx:id="addNode">
+            <Group fx:id="addNode" styleClass="contextGroup">
                <children>
                   <Label style="-fx-text-fill: black;" styleClass="cLabel" text="Add Node" />
                   <Separator layoutY="17.0" prefWidth="200.0" style="-fx-background-color: GREY;" />
@@ -498,7 +498,7 @@
                   <Insets />
                </VBox.margin>
             </Group>
-            <Group fx:id="addEdge">
+            <Group fx:id="addEdge" styleClass="contextGroup">
                <children>
                   <Label style="-fx-text-fill: black;" styleClass="cLabel" text="Add Edge" />
                   <Separator layoutY="17.0" prefWidth="200.0" style="-fx-background-color: GREY;" />
@@ -507,7 +507,7 @@
                   <Insets />
                </VBox.margin>
             </Group>
-            <Group fx:id="deleteNode">
+            <Group fx:id="deleteNode" styleClass="contextGroup">
                <children>
                   <Label style="-fx-text-fill: black;" styleClass="cLabel" text="Delete Node" />
                   <Separator layoutY="17.0" prefWidth="200.0" style="-fx-background-color: GREY;" />
@@ -516,7 +516,7 @@
                   <Insets />
                </VBox.margin>
             </Group>
-            <Group fx:id="deleteEdge">
+            <Group fx:id="deleteEdge" styleClass="contextGroup">
                <children>
                   <Label style="-fx-text-fill: black;" styleClass="cLabel" text="Delete Edge" />
                   <Separator layoutY="17.0" prefWidth="200.0" style="-fx-background-color: GREY;" />
@@ -525,13 +525,13 @@
                   <Insets />
                </VBox.margin>
             </Group>
-            <Group fx:id="horizAlign">
+            <Group fx:id="horizAlign" styleClass="contextGroup">
                <children>
                   <Label style="-fx-text-fill: black;" styleClass="cLabel" text="Align Horizontal" />
                   <Separator layoutY="17.0" prefWidth="200.0" style="-fx-background-color: GREY;" />
                </children>
             </Group>
-            <Group fx:id="vertAlign">
+            <Group fx:id="vertAlign" styleClass="contextGroup">
                <children>
                   <Label style="-fx-text-fill: black;" styleClass="cLabel" text="Align Vertical" />
                   <Separator layoutY="17.0" prefWidth="200.0" style="-fx-background-color: GREY;" />
