@@ -142,8 +142,8 @@ public class PathPlannerSuper {
         }
         int x;
         int y;
-        int lx = 0;
-        int ly = 0;
+        int lx = nodes.get(path.get(1)).getXcoord() - nodes.get(path.getFirst()).getXcoord();
+        int ly = nodes.get(path.get(1)).getYcoord() - nodes.get(path.getFirst()).getYcoord();
         boolean up;
         boolean stairs;
         while (path.size() > 1){
@@ -155,23 +155,128 @@ public class PathPlannerSuper {
                 x = nodes.get(path.get(1)).getXcoord() - nodes.get(path.getFirst()).getXcoord();
                 y = nodes.get(path.get(1)).getYcoord() - nodes.get(path.getFirst()).getYcoord();
 
-                x = Integer.compare(x, 0);
-                y = Integer.compare(y, 0);
 
-                if (lx == 0 && ly == 0){
-                    lx = x;
-                    ly = y;
-                }
 
-                if (x != lx || y != ly){
-                    pathAsText.getLast().add("Head straight until you reach " + nodes.get(path.getFirst()).getShortName());
-                    if (isLeft(nodes.get(path.getFirst()).getID(), nodes.get(path.get(1)).getID(), lx, ly)){
-                        pathAsText.getLast().add("Then turn left");
-                    }else if (isRight(nodes.get(path.getFirst()).getID(), nodes.get(path.get(1)).getID(), lx, ly)){
-                        pathAsText.getLast().add("Then turn right");
+                if (!(x == 0 && lx == 0 ) && !(y == 0 && ly == 0)){
+                    if (y == 0 && lx == 0){
+                        pathAsText.getLast().add("Head straight until you reach " + nodes.get(path.getFirst()).getShortName());
+                        if(ly < 0 && x < 0){
+                            pathAsText.getLast().add("Then turn left");
+                        } else if( ly > 0 && x > 0) {
+                            pathAsText.getLast().add("Then turn left");
+                        } else {
+                            pathAsText.getLast().add("Then turn right");
+                        }
+                    } else if(x == 0 && ly == 0){
+                        pathAsText.getLast().add("Head straight until you reach " + nodes.get(path.getFirst()).getShortName());
+                        if(lx > 0 && y > 0){
+                            pathAsText.getLast().add("Then turn left");
+                        } else if(lx < 0 && y < 0) {
+                            pathAsText.getLast().add("Then turn left");
+                        } else {
+                            pathAsText.getLast().add("Then turn right");
+                        }
+                    }else if( lx > 0 && ly > 0){ // +lx +ly
+                        pathAsText.getLast().add("Head straight until you reach " + nodes.get(path.getFirst()).getShortName());
+                        if (x > 0 && y == 0){
+                            pathAsText.getLast().add("Then turn left");
+                        } else if(y < 0 && x == 0){
+                            pathAsText.getLast().add("Then turn left");
+                        } else if( x > 0 && y > 0 && y/x < ly/lx){
+                            pathAsText.getLast().add("Then turn left");
+                        }else if( x > 0 && y < 0){
+                            pathAsText.getLast().add("Then turn left");
+                        } else if( x < 0 && y < 0 && y/x > ly/lx){
+                            pathAsText.getLast().add("Then turn left");
+                        } else {
+                            pathAsText.getLast().add("Then turn right");
+                        }
+                    } else if ( lx > 0 && ly == 0){ // +lx
+                        pathAsText.getLast().add("Head straight until you reach " + nodes.get(path.getFirst()).getShortName());
+                        if (y < 0){
+                            pathAsText.getLast().add("Then turn left");
+                        } else {
+                            pathAsText.getLast().add("Then turn right");
+                        }
+                    } else if ( lx > 0 && ly < 0){ // +lx -ly
+                        pathAsText.getLast().add("Head straight until you reach " + nodes.get(path.getFirst()).getShortName());
+                        if (x == 0 && y < 0){
+                            pathAsText.getLast().add("Then turn left");
+                        } else if(x < 0 && y == 0){
+                            pathAsText.getLast().add("Then turn left");
+                        } else if( x > 0 && y < 0 && y/x < ly/lx){
+                            pathAsText.getLast().add("Then turn left");
+                        }else if( x < 0 && y < 0){
+                            pathAsText.getLast().add("Then turn left");
+                        } else if( x < 0 && y > 0 && y/x > ly/lx){
+                            pathAsText.getLast().add("Then turn left");
+                        } else {
+                            pathAsText.getLast().add("Then turn right");
+                        }
+                    } else if ( lx == 0 && ly <0){ // -ly
+                        pathAsText.getLast().add("Head straight until you reach " + nodes.get(path.getFirst()).getShortName());
+                        if (x < 0){
+                            pathAsText.getLast().add("Then turn left");
+                        } else {
+                            pathAsText.getLast().add("Then turn right");
+                        }
+                    } else if ( lx < 0 && ly < 0){ // -lx -ly
+                        pathAsText.getLast().add("Head straight until you reach " + nodes.get(path.getFirst()).getShortName());
+
+                        if (x < 0 && y == 0){
+                            pathAsText.getLast().add("Then turn left");
+                        } else if(y > 0 && x == 0){
+                            pathAsText.getLast().add("Then turn left");
+                        } else if( x < 0 && y < 0 && y/x > ly/lx){
+                            pathAsText.getLast().add("Then turn left");
+                        }else if( x < 0 && y > 0){
+                            pathAsText.getLast().add("Then turn left");
+                        } else if( x > 0 && y > 0 && y/x > ly/lx){
+                            pathAsText.getLast().add("Then turn left");
+                        } else {
+                            pathAsText.getLast().add("Then turn right");
+                        }
+
+
+                    } else if ( lx < 0 && ly == 0){ // -lx
+                        pathAsText.getLast().add("Head straight until you reach " + nodes.get(path.getFirst()).getShortName());
+                        if (y > 0){
+                            pathAsText.getLast().add("Then turn left");
+                        } else {
+                            pathAsText.getLast().add("Then turn right");
+                        }
+                    } else if ( lx < 0 && ly > 0){ // -lx +ly
+                        pathAsText.getLast().add("Head straight until you reach " + nodes.get(path.getFirst()).getShortName());
+
+                        if (x == 0 && y > 0){
+                            pathAsText.getLast().add("Then turn left");
+                        } else if(y == 0 && x > 0){
+                            pathAsText.getLast().add("Then turn left");
+                        } else if( x < 0 && y > 0 && y/x < ly/lx){
+                            pathAsText.getLast().add("Then turn left");
+                        }else if( x > 0 && y > 0){
+                            pathAsText.getLast().add("Then turn left");
+                        } else if( x > 0 && y < 0 && y/x > ly/lx){
+                            pathAsText.getLast().add("Then turn left");
+                        } else {
+                            pathAsText.getLast().add("Then turn right");
+                        }
+
+
+                    } else if ( lx == 0 && ly > 0){ // +ly
+                        pathAsText.getLast().add("Head straight until you reach " + nodes.get(path.getFirst()).getShortName());
+                        if (x > 0){
+                            pathAsText.getLast().add("Then turn left");
+                        } else {
+                            pathAsText.getLast().add("Then turn right");
+                        }
                     }
+
                 }
+
                 path.removeFirst();
+                lx = x;
+                ly = y;
             }
 
             if(path.size() > 1) {
@@ -191,8 +296,6 @@ public class PathPlannerSuper {
                     }
                 }
                 path.removeFirst();
-                lx = 0;
-                ly = 0;
             }
         }
         if (!pathAsText.getLast().getLast().equals("Head straight until you reach " + nodes.get(path.getFirst()).getShortName())){
@@ -228,75 +331,4 @@ public class PathPlannerSuper {
         return ffirst < fsecond;
     }
 
-    /**
-     *  function: isLeft()
-     *  usage: determines if a node represents a left turn
-     *  inputs: curr the id of the current NodeSuper, n the id of the next NodeSuper, x either 1, 0, or -1 based on if
-     *          the current direction being traveled has an increasing, unchanging or decreasing xcoordinate, y either 1, 0, or
-     *          -1 based on if the current direction being traveled has an increasing, unchanging or decreasing ycoordinate
-     *  returns: true if turning towards the next node is a left turn
-     */
-    protected boolean isLeft(String curr, String n, int x, int y){
-
-        int xn = nodes.get(n).getXcoord() - nodes.get(curr).getXcoord();
-        int yn = nodes.get(n).getYcoord() - nodes.get(curr).getYcoord();
-
-        xn = Integer.compare(xn, 0);
-        yn = Integer.compare(yn, 0);
-
-        if (x == 1 && y == 0){
-            return yn == 1;
-        } else if (x == 1 && y == 1){
-            return (xn == 0 && yn == 1) || (xn == -1 && yn == 1) || (xn == -1 && yn == 0);
-        } else if (x == 0 && y == 1){
-            return xn == -1;
-        } else if (x == -1 && y == 1){
-            return (xn == 0 && yn == -1) || (xn == -1 && yn == -1) || (xn == -1 && yn == 0);
-        } else if (x == -1 && y == 0){
-            return yn == -1;
-        } else if (x == -1 && y == -1){
-            return (xn == 0 && yn == -1) || (xn == 1 && yn == -1) || (xn == 1 && yn == 0);
-        } else if (x == 0 && y == -1){
-            return xn == 1;
-        } else if (x == 1 && y == -1){
-            return (xn == 1 && yn == 0) || (xn == 1 && yn == 1) || (xn == 0 && yn == 1);
-        }
-        return false;
-    }
-
-    /**
-     *  function: is Right()
-     *  usage: determines if a node represents a right turn
-     *  inputs: curr the id of the current NodeSuper, n the id of the next NodeSuper, x either 1, 0, or -1 based on if
-     *          the current direction being traveled has an increasing, unchanging or decreasing xcoordinate, y either 1, 0, or
-     *          -1 based on if the current direction being traveled has an increasing, unchanging or decreasing ycoordinate
-     *  returns: true if turning towards the next node is a right turn
-     */
-    public boolean isRight(String curr, String n, int x, int y){
-
-        int xn = nodes.get(n).getXcoord() - nodes.get(curr).getXcoord();
-        int yn = nodes.get(n).getYcoord() - nodes.get(curr).getYcoord();
-
-        xn = Integer.compare(xn, 0);
-        yn = Integer.compare(yn, 0);
-
-        if (x == 1 && y == 0){
-            return yn == -1;
-        } else if (x == 1 && y == 1){
-            return (xn == 0 && yn == -1) || (xn == -1 && yn == -1) || (xn == 1 && yn == 0);
-        } else if (x == 0 && y == 1){
-            return xn == 1;
-        } else if (x == -1 && y == 1){
-            return (xn == 0 && yn == 1) || (xn == 1 && yn == 1) || (xn == 1 && yn == 0);
-        } else if (x == -1 && y == 0){
-            return yn == 1;
-        } else if (x == -1 && y == -1){
-            return (xn == 0 && yn == 1) || (xn == -1 && yn == 1) || (xn == -1 && yn == 0);
-        } else if (x == 0 && y == -1){
-            return xn == -1;
-        } else if (x == 1 && y == -1){
-            return (xn == -1 && yn == 0) || (xn == -1 && yn == -1) || (xn == 0 && yn == -1);
-        }
-        return false;
-    }
 }
