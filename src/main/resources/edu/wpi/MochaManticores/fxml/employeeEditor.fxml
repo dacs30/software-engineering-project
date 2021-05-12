@@ -52,9 +52,10 @@
                   <JFXTextField fx:id="oldPass" focusColor="#bababa" labelFloat="true" maxHeight="-Infinity" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="800.0" promptText="Old Password" stylesheets="@../Stylesheets/foodDelivery.css" GridPane.rowIndex="3" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="75.0" GridPane.halignment="CENTER" GridPane.rowIndex="6">
                      <children>
-                        <JFXButton id="submitBtn" onAction="#cancel" text="Cancel" />
-                        <JFXButton id="submitBtn" onAction="#submitForm" text="Submit" />
-                        <JFXButton id="submitBtn" fx:id="userButton" onAction="#addUser" prefHeight="54.0" prefWidth="152.0" text="Add User" />
+                        <JFXButton id="submitBtn" onAction="#cancel" prefWidth="170.0" text="Cancel" />
+                        <JFXButton id="submitBtn" onAction="#submitForm" prefWidth="170.0" text="Submit" />
+                        <JFXButton id="submitBtn" fx:id="userButton" onAction="#addUser" prefHeight="54.0" prefWidth="170.0" text="Add User" />
+                        <JFXButton id="submitBtn" fx:id="delUser" onAction="#deleteUser" prefHeight="54.0" prefWidth="170.0" text="Delete User" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.halignment="CENTER">
