@@ -145,7 +145,7 @@ public class App extends Application {
         emp.setLoggedIN(false);
         DatabaseManager.modEmployee(App.getCurrentUsername(), emp);
       }catch (InvalidElementException x){
-        x.printStackTrace();
+        //x.printStackTrace();
       }
     }
 
