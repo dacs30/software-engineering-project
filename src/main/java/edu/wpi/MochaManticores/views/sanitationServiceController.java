@@ -225,7 +225,7 @@ public class sanitationServiceController extends SceneController {
                 description.getValidators().add(missingInput);
                 missingInput.setMessage("Description is required.");
                 description.validate();
-            } else if (typeComboBox.getSelectionModel().getSelectedItem().isEmpty()){
+            } else if (typeComboBox.getSelectionModel().isEmpty()){
                 RequiredFieldValidator missingInput = new RequiredFieldValidator();
                 typeComboBox.getValidators().add(missingInput);
                 missingInput.setMessage("Sanitation Type is required.");

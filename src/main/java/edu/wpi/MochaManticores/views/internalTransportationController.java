@@ -88,7 +88,7 @@ public class internalTransportationController extends SceneController{
             } else if (numberOfStaff.getText().isEmpty()){
                 RequiredFieldValidator missingInput = new RequiredFieldValidator();
                 numberOfStaff.getValidators().add(missingInput);
-                missingInput.setMessage("The number of staff is required");
+                missingInput.setMessage("A number is required for this input");
                 numberOfStaff.validate();
             } else if (destination.getText().isEmpty()) {
                 RequiredFieldValidator missingInput = new RequiredFieldValidator();
