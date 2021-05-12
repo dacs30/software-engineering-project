@@ -9,6 +9,8 @@ public class EmergencyRequest extends ServiceRequest {
         super(employee, completed, RequestID);
         if(RequestID.equals("")){
             this.RequestID = generateRequestID(ServiceRequestType.Emergency);
+        }else{
+            this.RequestID = RequestID;
         }
         this.numPeopleNeeded = numPeopleNeeded;
         this.location = location;

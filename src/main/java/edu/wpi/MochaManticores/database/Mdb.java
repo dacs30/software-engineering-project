@@ -512,7 +512,8 @@ public class Mdb extends Thread{
             if(isServerStarted(server)){
                 System.out.println("ORACLE SERVER PINGED");
             }else{
-                makeTables = false;
+                server.start(null);
+                //makeTables = false;
             }
         } catch (UnknownHostException e) {
             System.out.println("ORACLE SERVER NOT FOUND");
@@ -537,11 +538,11 @@ public class Mdb extends Thread{
                 meta = connection.getMetaData();
 
             } catch (SQLException e) {
-                if(count == 5) {
+                if(count == 20) {
                     System.out.println("ORACLE CONNECTION FAILED");
                     return false;
                 }
-                sleep(1000);
+                sleep(100);
             }
         }
 

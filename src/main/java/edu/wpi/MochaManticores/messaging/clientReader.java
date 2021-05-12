@@ -45,7 +45,7 @@ public class clientReader extends SceneController implements Runnable{
     }
 
     public void stopGUI(){
-        this.client = null;
+        this.clientPage = null;
         this.GUIconnected = false;
     }
 
@@ -113,7 +113,7 @@ public class clientReader extends SceneController implements Runnable{
                 Notifications notifications = Notifications.create()
                         .owner(App.getPrimaryStage())
                         .title(msg.sender)
-                        .text(msg.body +" "+ msg.target +" "+ msg.sender)
+                        .text(msg.body)
                         .hideAfter(Duration.seconds(5))
                         .position(Pos.BOTTOM_RIGHT)
                         .onAction(event -> {
