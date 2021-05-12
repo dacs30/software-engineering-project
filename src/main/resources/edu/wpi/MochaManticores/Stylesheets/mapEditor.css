@@ -44,3 +44,8 @@
 .jfx-combo-box:hover{
     -fx-effect: dropshadow( three-pass-box , rgba(2, 2, 2, 0.2), 20, 0.0 , 1 , 10);
 }
+
+#contextBox {
+    -fx-background-color: red;
+    -fx-effect: dropshadow(three-pass-box, rgba(2, 2, 2, 0.2), 20, 0.0 , 1 , 10);
+}

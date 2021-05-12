@@ -443,7 +443,7 @@
             </GridPane>
          </children>
       </GridPane>
-      <VBox fx:id="contextBox" maxHeight="-Infinity" maxWidth="-Infinity" spacing="10.0" style="-fx-background-color: WHITE; -fx-border-color: BLACK; -fx-border-width: 3;" visible="false">
+      <VBox fx:id="contextBox" maxHeight="-Infinity" maxWidth="-Infinity" spacing="10.0" styleClass="contextBox" visible="false">
          <children>
             <Group fx:id="addNode">
                <children>
