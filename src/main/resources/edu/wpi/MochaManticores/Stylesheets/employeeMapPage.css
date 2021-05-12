@@ -70,3 +70,15 @@
 .label {
     -fx-text-fill: grey;
 }
+
+#contextBox {
+    -fx-border-color: transparent;
+    -fx-background-color: white;
+    -fx-border-color: rgba(0,0,0,.5);
+    -fx-border-width: 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(2, 2, 2, 0.2), 20, 0.5, 2 , 10);
+}
+
+#cLabel {
+    -fx-text-fill: black;
+}

@@ -1,9 +1,7 @@
 package edu.wpi.MochaManticores.views;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
+import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.MochaManticores.App;
 import edu.wpi.MochaManticores.Services.ReligiousRequest;
 import edu.wpi.MochaManticores.database.DatabaseManager;
@@ -12,7 +10,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -21,10 +18,10 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
 
-public class ReligiousRequestController extends SceneController{
-    ObservableList<String> TypeOfSacredPersons = FXCollections.observableArrayList("Rabbi", "Monk", "Priest",  "Purohit", "Spiritual Person");
+public class ReligiousRequestController extends SceneController {
+    ObservableList<String> TypeOfSacredPersons = FXCollections.observableArrayList("Rabbi", "Monk", "Priest", "Purohit", "Spiritual Person");
     @FXML
-    private ComboBox<String> TypeOfSacredPerson;
+    private JFXComboBox<String> typeOfSacredPerson;
     @FXML
     private GridPane backgroundGrid;
     @FXML
@@ -58,10 +55,10 @@ public class ReligiousRequestController extends SceneController{
         backgroundIMG.fitHeightProperty().bind(App.getPrimaryStage().heightProperty());
 
 
-        TypeOfSacredPerson.setItems(TypeOfSacredPersons);
+        typeOfSacredPerson.setItems(TypeOfSacredPersons);
     }
 
-    public void exitPage(){
+    public void exitPage() {
         super.back();
     }
 
@@ -69,16 +66,38 @@ public class ReligiousRequestController extends SceneController{
         exitPage();
     }
 
-    public void submitEvent(ActionEvent actionEvent) {
-        sel s = sel.ReligiousRequest;
-        ReligiousRequest toAdd =new ReligiousRequest("", "",false,reasonBox.getText(),roomIDBox.getText(),TypeOfSacredPerson.getSelectionModel().getSelectedItem());
-        DatabaseManager.addRequest(s, toAdd);
-        toAdd.send(toAdd.getRequestID());
-        loadSubmitDialogue();
-    }
 
-    public void openHelp(MouseEvent mouseEvent) {
-        loadHelpDialogue();
+
+    public void submitEvent() {
+        if(!reasonBox.getText().isEmpty() && !roomIDBox.getText().isEmpty() &&
+                !typeOfSacredPerson.getSelectionModel().isEmpty() ) {
+            sel s = sel.ReligiousRequest;
+            ReligiousRequest toAdd = new ReligiousRequest("",
+                    "",
+                    false,
+                    reasonBox.getText(),
+                    roomIDBox.getText(),
+                    typeOfSacredPerson.getSelectionModel().getSelectedItem());
+            DatabaseManager.addRequest(s, toAdd);
+            toAdd.send(toAdd.getRequestID());
+            loadSubmitDialogue();
+        }else if(roomIDBox.getText().isEmpty()){
+                RequiredFieldValidator missingInput = new RequiredFieldValidator();
+                roomIDBox.getValidators().add(missingInput);
+                missingInput.setMessage("Location is required");
+                roomIDBox.validate();
+            } else if(reasonBox.getText().isEmpty()){
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            reasonBox.getValidators().add(missingInput);
+            missingInput.setMessage("Reason for visit is required");
+            reasonBox.validate();
+        }
+        else if(typeOfSacredPerson.getSelectionModel().isEmpty()){
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            typeOfSacredPerson.getValidators().add(missingInput);
+            missingInput.setMessage("The type of religious figure is required");
+            typeOfSacredPerson.validate();
+        }
     }
 
     public void loadHelpDialogue(){
@@ -158,6 +177,9 @@ public class ReligiousRequestController extends SceneController{
         message.setActions(cont);
         dialog.show();
 
+    }
+
+    public void openHelp(MouseEvent mouseEvent) {
     }
 }
 

@@ -74,7 +74,7 @@ public class extTransportationController extends SceneController {
         } else if (externalRoom.getText().isEmpty()){
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
             externalRoom.getValidators().add(missingInput);
-            missingInput.setMessage("External room is required");
+            missingInput.setMessage("External location is required");
             externalRoom.validate();
         }
         else if (transportationMethods.getSelectionModel().isEmpty()) {

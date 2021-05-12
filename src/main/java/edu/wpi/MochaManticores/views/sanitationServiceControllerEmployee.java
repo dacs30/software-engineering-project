@@ -9,7 +9,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -237,15 +236,17 @@ public class sanitationServiceControllerEmployee extends SceneController {
             equipmentNeeded.append("mopNeeded,");
         }
         if(!loc.getText().isEmpty() && !safetyHaz.getText().isEmpty() &&
-                !typeComboBox.getSelectionModel().getSelectedItem().isEmpty() && (glovesNeeded.isSelected() || maskNeeded.isSelected() || mopNeeded.isSelected()) && !description.getText().isEmpty()){
+                !typeComboBox.getSelectionModel().isEmpty() && (glovesNeeded.isSelected() || maskNeeded.isSelected() || mopNeeded.isSelected()) &&
+                !description.getText().isEmpty() && employeeAssigned.getSelectionModel().isEmpty()){
             sel s = sel.SanitationServices;
             edu.wpi.MochaManticores.Services.SanitationServices toAdd = new edu.wpi.MochaManticores.Services.SanitationServices(
+
                     "",
                     employeeAssigned.getItems().toString(),
                     false,
                     loc.getText(),
                     safetyHaz.getText(),
-                    typeComboBox.getValue(),
+                    typeComboBox.getSelectionModel().getSelectedItem(),
                     equipmentNeeded.toString(),
                     description.getText()
             );
@@ -258,24 +259,27 @@ public class sanitationServiceControllerEmployee extends SceneController {
             loc.getValidators().add(missingInput);
             missingInput.setMessage("Location is required.");
             loc.validate();
-        } else if (safetyHaz.getText().isEmpty()){
-            RequiredFieldValidator missingInput = new RequiredFieldValidator();
-            safetyHaz.getValidators().add(missingInput);
-            missingInput.setMessage("Safety Hazards are required.");
-            safetyHaz.validate();
-        } else if (typeComboBox.getSelectionModel().getSelectedItem().isEmpty()){
-            RequiredFieldValidator missingInput = new RequiredFieldValidator();
-            typeComboBox.getValidators().add(missingInput);
-            missingInput.setMessage("Sanitation Type is required.");
-            typeComboBox.validate();
-        } else if (equipmentNeeded.toString().isEmpty()){
-            Alert a = new Alert(Alert.AlertType.WARNING);
-            a.show();
         } else if (description.getText().isEmpty()){
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
             description.getValidators().add(missingInput);
             missingInput.setMessage("Description is required.");
             description.validate();
+        } else if (typeComboBox.getSelectionModel().isEmpty()){
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            typeComboBox.getValidators().add(missingInput);
+            missingInput.setMessage("Sanitation Type is required.");
+            typeComboBox.validate();
+        } else if (safetyHaz.getText().isEmpty()){
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            safetyHaz.getValidators().add(missingInput);
+            missingInput.setMessage("Safety Hazards are required.");
+            safetyHaz.validate();
+        }else if(employeeAssigned.getSelectionModel().isEmpty()){
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            employeeAssigned.getValidators().add(missingInput);
+            missingInput.setMessage("Safety Hazards are required.");
+            employeeAssigned.validate();
+
         }
     }
 

@@ -121,7 +121,7 @@ public class extTransportationControllerEmployee extends SceneController {
 
 
     public void submitEvent() {
-        if (!externalRoom.getText().isEmpty() && !currentRoom.getText().isEmpty() && !patientRoom.getText().isEmpty()) {
+        if (!externalRoom.getText().isEmpty() && !currentRoom.getText().isEmpty() && !patientRoom.getText().isEmpty() && !employeeAssigned.getSelectionModel().isEmpty()) {
             sel s = sel.ExternalTransportation;
             ExternalTransportation toAdd = new edu.wpi.MochaManticores.Services.ExternalTransportation(
                     "",
@@ -150,11 +150,11 @@ public class extTransportationControllerEmployee extends SceneController {
             externalRoom.getValidators().add(missingInput);
             missingInput.setMessage("External room is required");
             externalRoom.validate();
-        } else if (employeeAssigned.getItems().isEmpty()) {
+        } else if (employeeAssigned.getSelectionModel().isEmpty()) {
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
             employeeAssigned.getValidators().add(missingInput);
             missingInput.setMessage("Please assign an employee");
-
+            employeeAssigned.validate();
         }
     }
 

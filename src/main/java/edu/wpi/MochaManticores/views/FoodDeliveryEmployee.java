@@ -120,38 +120,37 @@ public class FoodDeliveryEmployee extends SceneController{
 
     public void submitForm() {
         if(!dietaryPreferences.getSelectionModel().isEmpty() && !allergyText.getText().isEmpty() &&
-                !foodMenu.getSelectionModel().isEmpty() && !employeeAssigned.getItems().isEmpty()) {
+                !foodMenu.getSelectionModel().isEmpty() && !employeeAssigned.getSelectionModel().isEmpty()) {
             sel s = sel.FoodDelivery;
             // changeSceneTo(e, "mainMenu");
             DatabaseManager.addRequest(s,
                     new edu.wpi.MochaManticores.Services.FoodDelivery(
-                            "", "", false, dietaryPreferences.getSelectionModel().getSelectedItem(),
+                            "", employeeAssigned.getEditor().getText(), false, dietaryPreferences.getSelectionModel().getSelectedItem(),
                             allergyText.getText(), foodMenu.getSelectionModel().getSelectedItem()));
+            dialogPane.setVisible(true);
             loadDialog();
         } else if (dietaryPreferences.getSelectionModel().isEmpty()){
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
             dietaryPreferences.getValidators().add(missingInput);
             missingInput.setMessage("Dietary Preference requires an input");
             dietaryPreferences.validate();
-        } else if (allergyText.getText().isEmpty()){
-            RequiredFieldValidator missingInput = new RequiredFieldValidator();
-            allergyText.getValidators().add(missingInput);
-            missingInput.setMessage("Allergies field requires an input");
-            allergyText.validate();
         } else if (foodMenu.getSelectionModel().isEmpty()) {
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
             foodMenu.getValidators().add(missingInput);
             missingInput.setMessage("Food menu requires an input");
             foodMenu.validate();
-        }
-        else if(employeeAssigned.getItems().isEmpty()){
+        }else if (allergyText.getText().isEmpty()){
+            RequiredFieldValidator missingInput = new RequiredFieldValidator();
+            allergyText.getValidators().add(missingInput);
+            missingInput.setMessage("Allergies field requires an input");
+            allergyText.validate();
+        } else if(employeeAssigned.getSelectionModel().isEmpty()){
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
             employeeAssigned.getValidators().add(missingInput);
             missingInput.setMessage("Please assign an employee");
-
+            employeeAssigned.validate();
         }
-        dialogPane.setVisible(true);
-        loadDialog();
+
     }
 
     public void helpButton(MouseEvent mouseEvent) {

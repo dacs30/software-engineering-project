@@ -8,6 +8,7 @@ import edu.wpi.MochaManticores.Nodes.EdgeSuper;
 import edu.wpi.MochaManticores.Nodes.MapSuper;
 import edu.wpi.MochaManticores.Nodes.NodeSuper;
 import edu.wpi.MochaManticores.database.DatabaseManager;
+import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
@@ -789,9 +790,11 @@ public class mapEditor extends SceneController {
 
         //Initializing the dialog pane
         dialogPane.toBack();
+        Platform.runLater(() -> {
+            drawNodes();
+            drawEdges();
+        });
 
-        drawNodes();
-        drawEdges();
 //        floorSelector.getSelectionModel().select(3);
 //        loadF1();
 

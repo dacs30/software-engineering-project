@@ -100,13 +100,14 @@ public class MedicineDelivery extends SceneController{
             toAdd.send(toAdd.getRequestID());
             loadSubmitDialogue();
             System.out.println("send to database");
-        } else if (patientRoom.getText().isEmpty()){
+        }  else if (patientRoom.getText().isEmpty()){
             // if patient room is empty, generate error
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
             patientRoom.getValidators().add(missingInput);
             missingInput.setMessage("Room number must be filled");
             patientRoom.validate();
-        } else if (typeOfMedicineComboBx.getSelectionModel().isEmpty()){
+        }
+        else if (typeOfMedicineComboBx.getSelectionModel().isEmpty()){
             RequiredFieldValidator missingInput = new RequiredFieldValidator();
             typeOfMedicineComboBx.getValidators().add(missingInput);
             missingInput.setMessage("Type of medicine must be selected");

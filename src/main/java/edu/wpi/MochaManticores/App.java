@@ -11,6 +11,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 
@@ -93,10 +94,6 @@ public class App extends Application {
   @Override
   public void init() throws InterruptedException, FileNotFoundException, SQLException {
     System.out.println("Starting Up");
-    System.out.println("Starting Database");
-    DatabaseManager.startup();
-    client.startServer();
-    System.out.println(DatabaseManager.getEmpManager().getEmployeeNames());
   }
 
   @Override
@@ -110,6 +107,12 @@ public class App extends Application {
     try {
       Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("fxml/loadingPage.fxml")));
       Scene scene = new Scene(root);
+
+      System.out.println("Starting Database");
+      DatabaseManager.startup();
+      client.startServer();
+      System.out.println(DatabaseManager.getEmpManager().getEmployeeNames());
+
       //primaryStage.setMaximized(true);
       //primaryStage.setFullScreen(true);
       //primaryStage.setWidth(1280);
@@ -118,6 +121,8 @@ public class App extends Application {
       primaryStage.setMinHeight(800);
       primaryStage.setMinWidth(1280);
       primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+      primaryStage.getIcons().add(new Image("edu/wpi/MochaManticores/images/logo-small.png"));
+      primaryStage.setTitle("Brigham and Women's Hospital Application");
       primaryStage.show();
       root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("fxml/loginPage.fxml")));
       App.getPrimaryStage().getScene().setRoot(root);
@@ -143,7 +148,7 @@ public class App extends Application {
         emp.setLoggedIN(false);
         DatabaseManager.modEmployee(App.getCurrentUsername(), emp);
       }catch (InvalidElementException x){
-        x.printStackTrace();
+        //x.printStackTrace();
       }
     }
 

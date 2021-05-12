@@ -462,6 +462,7 @@ public class Mdb extends Thread{
             if(!isServerStarted()){
                 System.out.println("STARTING SERVER LOCALLY");
                 server.start(null);
+                makeTables = true;
             }else{
                 System.out.println("LOCALHOST SERVER PINGED");
                 makeTables = false;
@@ -573,6 +574,7 @@ public class Mdb extends Thread{
                 }
             }
         }
+        //embeddedStartup();
 
         //create hashmaps here
         DatabaseManager.getServiceMap();

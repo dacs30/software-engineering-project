@@ -80,10 +80,6 @@ public class FloralSceneController extends SceneController {
 
   }
 
-  public void submitForm(ActionEvent actionEvent) {
-    submitEvent(actionEvent);
-    loadSubmitDialog();
-  }
 
   public void loadSubmitDialog() {
     //TODO Center the text of it.
@@ -218,35 +214,30 @@ public class FloralSceneController extends SceneController {
   }
 
   public void submitEvent(ActionEvent actionEvent) {
-    if (!roomNumber.getText().isEmpty() && !deliveryDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).equals("") &&
-            (tulip.isSelected() || rose.isSelected() | lilie.isSelected()) &&
-            (blueVase.isSelected() || orangeVase.isSelected() || yellowVase.isSelected()) &&
-            App.getClearenceLevel() == 0) {
+    if (!roomNumber.getText().isEmpty() && deliveryDate.getValue()!= null &&
+            (tulip.isSelected() || rose.isSelected() || lilie.isSelected()) &&
+            (blueVase.isSelected() || orangeVase.isSelected() || yellowVase.isSelected())) {
       sel s = sel.FloralDelivery;
-      FloralDelivery toAdd =  new FloralDelivery(
+      FloralDelivery toAdd = new FloralDelivery(
               "", "", false, roomNumber.getText(),
-              deliveryDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")), flowerSelected.toString(),
+              deliveryDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+              flowerSelected.toString(),
               vaseSelected.toString(),
               personalNote.getText());
       DatabaseManager.addRequest(s, toAdd);
       toAdd.send(toAdd.getRequestID());
+      loadSubmitDialog();
 
     } else if (roomNumber.getText().isEmpty()) {
       RequiredFieldValidator missingInput = new RequiredFieldValidator();
       roomNumber.getValidators().add(missingInput);
       missingInput.setMessage("Patient room is required");
       roomNumber.validate();
-    } else if (deliveryDate.equals("")) {
+    } else if (deliveryDate.getValue() == null) {
       RequiredFieldValidator missingInput = new RequiredFieldValidator();
       deliveryDate.getValidators().add(missingInput);
       missingInput.setMessage("Delivery date is required");
       deliveryDate.validate();
-    } else if (empBox.getText().isEmpty()) {
-      RequiredFieldValidator missingInput = new RequiredFieldValidator();
-      empBox.getValidators().add(missingInput);
-      missingInput.setMessage("Employee must be assigned");
-      empBox.validate();
-      System.out.println("Adds to database");
     }
   }
 }
